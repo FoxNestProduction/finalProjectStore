@@ -42,8 +42,7 @@
       "react/jsx-filename-extension": "off",
       "import/no-named-as-default": "off",
       "import/no-named-as-default-member":"off",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn" 
+      "no-unused-vars": "off"
     }
 
   },

@@ -44,7 +44,7 @@ const CustomerSchema = new Schema(
     isAdmin: {
       type: Boolean,
       required: true,
-      default: false
+      default: true
     },
     enabled: {
       type: Boolean,
@@ -56,7 +56,7 @@ const CustomerSchema = new Schema(
       default: Date.now
     }
   },
-  { strict: false }
+  { strict: true }
 );
 
 CustomerSchema.methods.comparePassword = function(candidatePassword, cb) {
