@@ -100,6 +100,8 @@ exports.updateProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
+
+  // res.send('Here');
   const perPage = Number(req.query.perPage);
   const startPage = Number(req.query.startPage);
   const sort = req.query.sort;

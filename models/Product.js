@@ -5,37 +5,37 @@ const ProductSchema = new Schema(
   {
     itemNo: {
       type: String,
-      required: true
+      required: false
     },
     enabled: {
       type: Boolean,
-      required: true,
-      default: true
+      required: false,
+      default: false
     },
     name: {
       type: String,
-      required: true
+      required: false
     },
     currentPrice: {
       type: Number,
-      required: true
+      required: false
     },
     previousPrice: {
       type: Number
     },
     categories: {
       type: String,
-      required: true
+      required: false
     },
     imageUrls: [
       {
         type: String,
-        required: true
+        required: false
       }
     ],
     quantity: {
       type: Number,
-      required: true,
+      required: false,
       default: 0
     },
     color: {
