@@ -42,9 +42,9 @@
       "react/jsx-filename-extension": "off",
       "import/no-named-as-default": "off",
       "import/no-named-as-default-member":"off",
-      "no-unused-vars": "off"
+      "no-unused-vars": "off",
+      "linebreak-style": ["error", "windows"]
     }
-
   },
   "browserslist": {
     "production": [
