@@ -35,15 +35,16 @@
   },
   "eslintConfig": {
     "extends": [
-      "airbnb",
+      "airbnb", 
       "airbnb/hooks",
       "react-app/jest"
     ],
     "rules": {
       "react/jsx-filename-extension": "off",
       "import/no-named-as-default": "off",
-      "import/no-named-as-default-member": "off",
-      "no-unused-vars": "off"
+      "import/no-named-as-default-member":"off",
+      "no-unused-vars": "off",
+      "linebreak-style": ["error", "windows"]
     }
   },
   "browserslist": {
