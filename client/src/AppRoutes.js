@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
-import PublicLayout from './pages/Layout/Public Layout';
+import PublicLayout from './components/Layout/Public Layout';
 import BlogPage from './pages/Blog/Blog';
 import ContactPage from './pages/Contact/Contact';
 import HomePage from './pages/Home/Home';
