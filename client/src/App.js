@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import axios from 'axios';
+import Input from './components/Input/Input';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,10 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App" />
+    <div className="App">
+      <p>Lorem3</p>
+      <Input name="name" type="text" placeholder="name" />
+    </div>
   );
 };
 
