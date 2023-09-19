@@ -8,17 +8,17 @@ import MenuPage from './pages/Menu/Menu';
 import PricingPage from './pages/Pricing/Pricing';
 
 const AppRoutes = () => {
-    return(
-        <Routes>
-            <Route element={<PublicLayout />}>
-                <Route index element={ <HomePage/> }/>
-                <Route path='/Menu' element={ <MenuPage/>}/>
-                <Route path='/Blog' element={ <BlogPage/> }/>
-                <Route path='/Pricing' element={ <PricingPage/>}/>
-                <Route path='/Contact' element={ <ContactPage/>}/>
-            </Route>
-        </Routes>
-    )
-}
+  return (
+    <Routes>
+      <Route element={<PublicLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/Menu" element={<MenuPage />} />
+        <Route path="/Blog" element={<BlogPage />} />
+        <Route path="/Pricing" element={<PricingPage />} />
+        <Route path="/Contact" element={<ContactPage />} />
+      </Route>
+    </Routes>
+  );
+};
 
 export default AppRoutes;

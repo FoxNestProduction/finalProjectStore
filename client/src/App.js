@@ -3,7 +3,7 @@ import './App.scss';
 import axios from 'axios';
 import AppRoutes from './AppRoutes';
 
-function App() {
+const App = () => {
   const [products, setProducts] = useState([]);
   const getItems = async () => {
     try {
@@ -25,6 +25,6 @@ function App() {
       <AppRoutes />
     </>
   );
-}
+};
 
 export default App;
