@@ -6,7 +6,7 @@ const PublicLayout = () => {
 
     return(
         <>
-            <header>
+            <header style={{ margin: '20px' }}>
                 <nav>
                 <ul>
                     <li>
@@ -30,7 +30,7 @@ const PublicLayout = () => {
             <main>
                 <Outlet />
             </main>
-            <footer>Footer</footer>
+            <footer style={{ margin: '20px' }}>Footer</footer>
         </>
     )
 }
