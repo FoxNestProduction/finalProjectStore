@@ -45,6 +45,7 @@
       "import/no-named-as-default-member":"off",
       "no-unused-vars": "off",
       "linebreak-style": ["error", "windows"],
+      "no-console": "off",
       "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
       "arrow-body-style": "off"
     }
