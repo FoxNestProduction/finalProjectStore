@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Button({
+const Button = ({
   onClick,
   className,
   children,
-  type,
   disabled,
+  type,
   id,
   onKeyDown,
   ...props
-}) {
+}) => {
   return (
     <button
       onClick={onClick}
       className={className}
-      type={type}
+      type={type === 'button' ? 'button' : 'submit'}
       disabled={disabled}
       id={id}
       onKeyDown={onKeyDown}
@@ -24,13 +24,13 @@ function Button({
       {children}
     </button>
   );
-}
+};
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
-  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  type: PropTypes.oneOf(['button', 'submit']).isRequired,
   disabled: PropTypes.bool,
   id: PropTypes.string,
   onKeyDown: PropTypes.func,
@@ -38,7 +38,6 @@ Button.propTypes = {
 
 Button.defaultProps = {
   className: '',
-  type: 'button',
   disabled: false,
   id: '',
   onKeyDown: null,
