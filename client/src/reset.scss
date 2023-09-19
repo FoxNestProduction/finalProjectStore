@@ -1,0 +1,77 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+main {
+    display: block;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-size: 100%;
+    font-weight: normal;
+}
+
+ul,
+ol,
+dd {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+p {
+    margin: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+button {
+    background-color: transparent;
+    color: inherit;
+    border-width: 0;
+    padding: 0;
+    cursor: pointer;
+}
