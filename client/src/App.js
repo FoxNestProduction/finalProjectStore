@@ -5,6 +5,7 @@ import AppRoutes from './AppRoutes';
 
 const App = () => {
   const [products, setProducts] = useState([]);
+
   const getItems = async () => {
     try {
       const { data } = await axios.get('http://localhost:4000/api/products');
