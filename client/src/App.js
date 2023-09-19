@@ -1,30 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import './App.scss';
+import axios from 'axios';
+import AppRoutes from './AppRoutes';
 
-function App() {
+const App = () => {
+  const [products, setProducts] = useState([]);
+
+  const getItems = async () => {
+    try {
+      const { data } = await axios.get('http://localhost:4000/api/products');
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getItems();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit
-          {' '}
-          <code>src/App.js</code>
-          {' '}
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+
+      <div className="App" />
+
+      <AppRoutes />
+    </>
   );
-}
+};
 
 export default App;
