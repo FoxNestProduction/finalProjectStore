@@ -7,9 +7,9 @@ function App() {
   const getItems = async () => {
     try {
       const { data } = await axios.get('http://localhost:4000/api/products');
-      console.log(data);// eslint-disable-next-line
+      console.log(data);
     } catch (err) {
-      console.log(err);// eslint-disable-next-line
+      console.log(err);
     }
   };
   useEffect(() => {
