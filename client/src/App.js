@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.scss';
 import axios from 'axios';
 
-function App() {
+const App = () => {
   const [products, setProducts] = useState([]);
   const getItems = async () => {
     try {
@@ -19,6 +19,6 @@ function App() {
   return (
     <div className="App" />
   );
-}
+};
 
 export default App;
