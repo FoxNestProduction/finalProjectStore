@@ -21,12 +21,14 @@ const SignUpForm = () => {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-
-      {({ isValid }) => {
+      {({ isValid }) => (
         <Form className={classNames(styles.formContainer)}>
           <h1 className={classNames(styles.title)}>Sign Up To eatly</h1>
-          <button type="button">Gmail</button>
-          <button type="button">Apple</button>
+          <div className={classNames(styles.buttonWrapper)}>
+            <button type="button">Gmail</button>
+            <button type="button">Apple</button>
+          </div>
+          <p>OR</p>
           <Field type="text" name="fullName" placeholder="full name" />
           <Field type="email" name="fullName" placeholder="email" />
           <Field type="password" name="fullName" placeholder="password" />
@@ -35,8 +37,8 @@ const SignUpForm = () => {
             Already Have An Account?
             <Link to="/">Log in</Link>
           </p>
-        </Form>;
-      }}
+        </Form>
+      )}
     </Formik>
   );
 };

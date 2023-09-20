@@ -1,11 +1,24 @@
 @import "../../../styles/variables";
+@import "../../../styles/mixins";
 
 .formContainer {
-  position: absolute;
-  width: 500px;
-  height: 500px;
+  @include flex(center, center, column);
 }
 
 .title {
-  font-size: 28px;
+  @include subTitle;
+  margin-bottom: 38px;
+}
+
+.buttonWrapper {
+  @include flex;
+  gap: 17px;
+  margin-bottom: 27px;
+
+  button {
+    background-color: $signUpButtons-color;
+    height: $buttonSmall-height;
+    width: 148px;
+    border-radius: 9px;
+  }
 }
