@@ -22,7 +22,6 @@ const App = () => {
     <>
 
       <div className="App" />
-
       <AppRoutes />
     </>
   );
