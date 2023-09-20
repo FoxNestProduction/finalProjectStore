@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 
 const Footer = () => {
@@ -7,18 +8,18 @@ const Footer = () => {
       <div className="footer__wrapper">
         <Logo />
         <div className="footer__link-wrapper">
-          <a className="footer__link" href="###">
+          <Link to="/Blog" className="footer__link">
             Blog
-          </a>
-          <a className="footer__link" href="###">
+          </Link>
+          <Link to="/Pricing" className="footer__link">
             Pricing
-          </a>
-          <a className="footer__link" href="###">
+          </Link>
+          <Link to="/AboutUs" className="footer__link">
             About Us
-          </a>
-          <a className="footer__link" href="###">
+          </Link>
+          <Link to="/Contact" className="footer__link">
             Contact
-          </a>
+          </Link>
         </div>
       </div>
 
