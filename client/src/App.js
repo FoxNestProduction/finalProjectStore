@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import axios from 'axios';
+import AppRoutes from './AppRoutes';
+import Button from './components/Button';
 
-function App() {
+const App = () => {
   const [products, setProducts] = useState([]);
+
   const getItems = async () => {
     try {
       const { data } = await axios.get('http://localhost:4000/api/products');
@@ -17,8 +20,12 @@ function App() {
   }, []);
 
   return (
-    <div className="App" />
+    <>
+
+      <div className="App" />
+      <AppRoutes />
+    </>
   );
-}
+};
 
 export default App;
