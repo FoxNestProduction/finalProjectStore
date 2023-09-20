@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import RestaurantItem from '../RestaurantItem/RestaurantItem';
 
 const PublicLayout = () => {
   return (
@@ -27,6 +28,7 @@ const PublicLayout = () => {
       </header>
       <main>
         <Outlet />
+        <RestaurantItem />
       </main>
       <footer style={{ margin: '20px' }}>Footer</footer>
     </>
