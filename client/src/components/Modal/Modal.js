@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Dialog from '@mui/material/Dialog';
@@ -13,40 +13,42 @@ import {
   setDialogContentText,
   openModal,
   closeModal,
+  setTitle,
+  setContent,
+  setButtonAgree,
 } from '../../redux/slices/modalSlice';
 
-const Modal = ({ disagree, agree }) => {
+const Modal = ({ disagree }) => {
   const dispatch = useDispatch();
 
   const isOpen = useSelector((state) => state.modal.isOpen);
   const review = useSelector((state) => state.modal.isTextField);
   const warning = useSelector((state) => state.modal.isDialogContentText);
   const title = useSelector((state) => state.modal.title);
-
-  // const [open, setOpen] = useState(false);
+  const content = useSelector((state) => state.modal.content);
+  const agree = useSelector((state) => state.modal.buttonAgree);
 
   const handleOpenModalWarning = () => {
     dispatch(setDialogContentText());
     dispatch(openModal());
-    // setOpen(true);
+    dispatch(setTitle('Are you sure you want to remove the product?'));
+    dispatch(setContent('Do you confirm that the selected item will be removed from the order?'));
+    dispatch(setButtonAgree('delete'));
   };
 
   const handleOpenModalReview = () => {
-    dispatch(openModal());
     dispatch(setTextField());
-    console.log(review);
-    console.log(warning);
-    // setOpen(true);
+    dispatch(openModal());
+    dispatch(setTitle('Feedback about the service will help us work even better:'));
+    dispatch(setButtonAgree('send'));
   };
 
   const handleClose = () => {
     dispatch(closeModal());
-    // setOpen(false);
   };
 
   const handleRemoveItemCart = () => {
     dispatch(closeModal());
-    // setOpen(false);
   };
 
   return (
@@ -68,16 +70,17 @@ const Modal = ({ disagree, agree }) => {
             fontWeight: 'bold',
             textTransform: 'uppercase',
             fontSize: '16px',
+            color: review ? 'success' : 'error',
           }}
         >
-          Are you sure you want to remove the product?
+          {title}
         </DialogTitle>
         <DialogContent sx={{ textAlign: 'center', minHeight: '12vh' }}>
           {warning
           && (
           <DialogContentText>
-            Do you confirm that the selected item will be removed from the
-            order?
+            {content}
+            {console.log(content)}
           </DialogContentText>
           )}
           {review
@@ -112,7 +115,7 @@ const Modal = ({ disagree, agree }) => {
             onClick={handleRemoveItemCart}
             autoFocus
           >
-            { agree }
+            {agree}
           </Button>
         </DialogActions>
       </Dialog>
@@ -122,12 +125,10 @@ const Modal = ({ disagree, agree }) => {
 
 Modal.propTypes = {
   disagree: PropTypes.string,
-  agree: PropTypes.string,
 };
 
 Modal.defaultProps = {
   disagree: 'Close',
-  agree: 'Remove',
 };
 
 export default Modal;
