@@ -3,6 +3,7 @@ import './App.scss';
 import axios from 'axios';
 import AppRoutes from './AppRoutes';
 import Button from './components/Button/Button';
+import ProductCardItem from './components/ProductCardItem/ProductCardItem';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -24,6 +25,7 @@ const App = () => {
 
       <div className="App" />
       <AppRoutes />
+      <ProductCardItem />
     </>
   );
 };
