@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.14.9",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
@@ -19,7 +20,7 @@
     "react-redux": "^8.1.2",
     "react-router": "^6.16.0",
     "react-router-dom": "^6.16.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^2.1.3",
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "web-vitals": "^2.1.4",
@@ -35,18 +36,23 @@
   },
   "eslintConfig": {
     "extends": [
-      "airbnb", 
+      "airbnb",
       "airbnb/hooks",
       "react-app/jest"
     ],
     "rules": {
       "react/jsx-filename-extension": "off",
       "import/no-named-as-default": "off",
-      "import/no-named-as-default-member":"off",
+      "import/no-named-as-default-member": "off",
       "no-unused-vars": "off",
-      "linebreak-style": ["error", "windows"],
+      "linebreak-style": "off",
       "no-console": "off",
-      "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
+      "react/function-component-definition": [
+        2,
+        {
+          "namedComponents": "arrow-function"
+        }
+      ],
       "arrow-body-style": "off"
     }
   },
