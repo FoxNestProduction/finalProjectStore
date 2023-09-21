@@ -11,8 +11,12 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
+import { PropTypes } from 'prop-types';
+import styles from './RestaurantItem.module.scss';
 import BookmarkIcon from '../SvgComponents/BookmarkIcon';
 import StarIcon from '../SvgComponents/StarIcon';
+import RatingItem from './Rating';
+
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -29,50 +33,70 @@ import StarIcon from '../SvgComponents/StarIcon';
 //   }),
 // }));
 
-const RestaurantItem = () => {
-  const [expanded, setExpanded] = React.useState(false);
+// {/* sx={{ maxWidth: 395, display: 'flex', flexWrap: 'wrap' }}  */}
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
+const RestaurantItem = ({ restaurantRankingValue }) => {
   return (
-    <Box>
-      <Card sx={{ maxWidth: 395 }}>
+    <Card className={styles.wrapper}>
 
-        <CardMedia
-          component="img"
-          height="177"
-          image="./img/restaurants/Resturent01.jpg"
-          alt="The Chicken King"
-        />
-
+      <CardMedia
+        component="img"
+        height="177"
+        image="./img/restaurants/Resturent01.jpg"
+        alt="The Chicken King"
+      />
+      <Box
+        style={{
+          display: 'flex', flexWrap: 'wrap', alignItem: 'center', width: '100%',
+        }}
+      >
         <CardHeader
+          style={{ width: '100%' }}
           title="The Chicken King"
           // subheader="24min •"
         />
-
-        <CardContent style={{ display: 'flex' }}>
+      </Box>
+      <Box
+        style={{
+          display: 'flex', width: '100%',
+        }}
+      >
+        <CardContent
+          style={{
+            display: 'flex', width: '50%', padding: '0', paddingLeft: '16px',
+          }}
+        >
           <Typography variant="body2" color="text.secondary">
             24min •
           </Typography>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <StarIcon />
-            </IconButton>
-          </CardActions>
-          <Typography variant="body2" color="text.secondary">
+
+          <IconButton aria-label="add to favorites">
+            <StarIcon />
+          </IconButton>
+
+          {/* <Typography variant="body2" color="text.secondary">
             4.8
-          </Typography>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <BookmarkIcon />
-            </IconButton>
-          </CardActions>
+          </Typography> */}
+
+          <RatingItem defaultValue={restaurantRankingValue} />
+
         </CardContent>
-      </Card>
-    </Box>
+        <CardActions disableSpacing style={{ marginLeft: '170px' }}>
+          <IconButton aria-label="add to favorites">
+            <BookmarkIcon />
+          </IconButton>
+        </CardActions>
+      </Box>
+    </Card>
   );
+};
+
+RestaurantItem.propTypes = {
+  restaurantRankingValue: PropTypes.number,
+};
+
+RestaurantItem.defaultProps = {
+  restaurantRankingValue: null,
 };
 
 export default RestaurantItem;
