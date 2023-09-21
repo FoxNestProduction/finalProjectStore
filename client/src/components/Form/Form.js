@@ -24,7 +24,7 @@ const PurchaseForm = () => {
       validationSchema={validationSchema}
     >
       {({ isValid }) => (
-        <Form styles={{ fontSize: '24px' }}>
+        <Form>
           <h3>Оформлення замовлення</h3>
           <Field
             name="firstName"

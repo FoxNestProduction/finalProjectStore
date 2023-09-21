@@ -6,11 +6,12 @@ import CustomInput from '../Input/Input';
 
 const PublicLayout = () => {
   const theme = createTheme({
-    // typography: {
-    //   input: {
-    //     fontSize: '24px',
-    //   },
-    // },
+    palette: {
+      primary: {
+        main: '#6C5FBC',
+        hover: '#664FFF',
+      },
+    },
   });
 
   console.log(theme);
