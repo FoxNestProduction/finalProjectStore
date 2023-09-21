@@ -70,9 +70,9 @@ const RestaurantItem = ({ restaurantRankingValue }) => {
             24min •
           </Typography>
 
-          <IconButton aria-label="add to favorites">
+          {/* <IconButton aria-label="add to favorites">
             <StarIcon />
-          </IconButton>
+          </IconButton> */}
 
           {/* <Typography variant="body2" color="text.secondary">
             4.8

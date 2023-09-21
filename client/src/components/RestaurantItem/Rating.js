@@ -3,9 +3,10 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { PropTypes } from 'prop-types';
+import StarIcon from '../SvgComponents/StarIcon';
 
 const RatingItem = ({ ratingValue }) => {
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState(3);
 
   return (
     <Box
@@ -13,16 +14,17 @@ const RatingItem = ({ ratingValue }) => {
         '& > legend': { mt: -1 },
       }}
     >
-      <Typography component="legend">rating</Typography>
       <Rating
-        name="simple-controlled"
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        // precision={0.5}
+        size="large"
+        icon={<StarIcon fill="#6C5FBC" />}
+        emptyIcon={<StarIcon fill="#FFFFFF" />}
+        // readOnly
       />
-      <Typography component="legend">Read only</Typography>
-      <Rating name="read-only" value={value} readOnly />
     </Box>
   );
 };
