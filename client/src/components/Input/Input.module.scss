@@ -4,14 +4,29 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  
+
   input {
-    border: 2px solid $primaryDefault-color;
+    border: 1px solid $primaryDefault-color;
     border-radius: 16px;
+    font-size: 16px;
+    line-height: 1em;
+    padding: 16px;
+    background-color: #F9F9F9;
+    position: relative;
+
+    &:focus, &:hover {
+      outline: 2px solid $primaryDefault-color;;
+    }
+
+    @media (min-width: $bp-tablet) {
+      font-size: 22px;
+      padding: 18px;
+    }
   }
 }
 
 .error {
   color: #ff0000;
   font-size: 14px;
+  padding-left: 1em;
 }

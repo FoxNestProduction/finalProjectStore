@@ -1,22 +1,11 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PurchaseForm from '../Form/Form';
-import CustomInput from '../Input/Input';
+import MuiThemeProvider from '../../context/MuiThemeProvider';
 
 const PublicLayout = () => {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#6C5FBC',
-        hover: '#664FFF',
-      },
-    },
-  });
-
-  console.log(theme);
   return (
-    <ThemeProvider theme={theme}>
+    <MuiThemeProvider>
       <header style={{ margin: '20px' }}>
         <nav>
           <ul>
@@ -43,8 +32,7 @@ const PublicLayout = () => {
       </main>
       <footer style={{ margin: '20px' }}>Footer</footer>
       <PurchaseForm />
-    </ThemeProvider>
+    </MuiThemeProvider>
   );
 };
-
 export default PublicLayout;
