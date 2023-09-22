@@ -5,7 +5,7 @@ import MuiThemeProvider from '../../context/MuiThemeProvider';
 
 const PublicLayout = () => {
   return (
-    <MuiThemeProvider>
+    <>
       <header style={{ margin: '20px' }}>
         <nav>
           <ul>
@@ -31,7 +31,7 @@ const PublicLayout = () => {
         <Outlet />
       </main>
       <footer style={{ margin: '20px' }}>Footer</footer>
-    </MuiThemeProvider>
+    </>
   );
 };
 export default PublicLayout;
