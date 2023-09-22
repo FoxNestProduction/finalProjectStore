@@ -1,5 +1,41 @@
-.wrapper {
+.Card {
   max-width: 395px; 
   display: 'flex'; 
   flex-wrap: 'wrap';
+  
+  &__header {
+    font-family: 'Inter';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    color: #2B2B2B;
+  }
+
+  &__box {
+    display: flex; 
+    align-items: center;
+    width: 100%;
+  }
+  
+  &__content {
+    display: flex; 
+    width: 80%; 
+    gap: 10px;
+    padding: 0; 
+    padding-left: 16px;
+  }
+
+  &__text {
+    padding-top: 7px;
+  }
+
+  &__actions {
+    width: 20%; 
+  }
 }
+
+// .content {
+//   display: flex; 
+//   width: 100%;
+// }
