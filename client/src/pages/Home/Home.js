@@ -1,12 +1,11 @@
 import React from 'react';
-import SignUpForm from '../../components/forms/SignUpForm/SignUpForm.module';
+import LoginForm from '../../components/forms/LoginForm/LoginForm';
 
 const HomePage = () => {
-  console.log(SignUpForm);
   return (
     <>
       <h1>Home</h1>
-      <SignUpForm />
+      <LoginForm />
     </>
   );
 };

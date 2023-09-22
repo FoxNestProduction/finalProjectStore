@@ -2,10 +2,13 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import styles from './SignUpForm.module.scss';
+import styles from './LoginForm.module.scss';
 import validationSchema from './validationSchema';
+import Button from '../../Button/Button';
+import AppleSvgComponent from './AppleSvgComponent';
+import GoogleSvgComponent from './GoogleSvgComponent';
 
-const SignUpForm = () => {
+const LoginForm = () => {
   console.log('Hello');
   const initialValues = {
     fullName: '',
@@ -25,10 +28,22 @@ const SignUpForm = () => {
         <Form className={classNames(styles.formContainer)}>
           <h1 className={classNames(styles.title)}>Sign Up To eatly</h1>
           <div className={classNames(styles.buttonWrapper)}>
-            <button type="button">Gmail</button>
-            <button type="button">Apple</button>
+            <Button
+              type="button"
+              onClick={() => { }}
+              className={classNames(styles.button)}
+            >
+              <GoogleSvgComponent />
+            </Button>
+            <Button
+              type="button"
+              onClick={() => { }}
+              className={classNames(styles.button)}
+            >
+              <AppleSvgComponent />
+            </Button>
           </div>
-          <p>OR</p>
+          <p className={classNames(styles.legend)}>OR</p>
           <Field type="text" name="fullName" placeholder="full name" />
           <Field type="email" name="fullName" placeholder="email" />
           <Field type="password" name="fullName" placeholder="password" />
@@ -43,4 +58,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default LoginForm;
