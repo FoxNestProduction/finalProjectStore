@@ -31,7 +31,6 @@ const PublicLayout = () => {
         <Outlet />
       </main>
       <footer style={{ margin: '20px' }}>Footer</footer>
-      <PurchaseForm />
     </MuiThemeProvider>
   );
 };

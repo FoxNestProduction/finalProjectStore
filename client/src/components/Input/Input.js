@@ -10,6 +10,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
 import styles from './Input.module.scss';
+import PersonSvg from '../../assets/svgComponents/PersonSvg';
+import EmailSvg from '../../assets/svgComponents/EmailSvg';
+import LockSvg from '../../assets/svgComponents/LockSvg';
 
 // ------- Варіант зі стилізацією за допомогою scss -------
 // const Input = ({ type, ...props }) => {
@@ -24,6 +27,16 @@ import styles from './Input.module.scss';
 // };
 
 // ------- Варіант з використанням MUI -------
+
+// ------- Приклад використання -------
+// --- варіант з лейбл ----
+// <Input name="name" id="name" label="Name" placeholder="Enter your name..." icon={<PersonSvg />} />
+// --- варіант без лейбл ----
+// <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />} />
+// <Input name="password" id="password" type="password" placeholder="Password" icon={<LockSvg />} />
+// --- для textarea додаємо атрибут multiline ---
+// <Input name="comment" id="comment" placeholder="Enter the problem or query..." multiline />
+
 const Input = ({ type, label, icon, multiline, ...props }) => {
   const [field, meta] = useField(props.name);
 
