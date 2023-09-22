@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <header style={{ margin: '20px' }}>
+    <header>
       <nav>
         <ul>
           <li>
