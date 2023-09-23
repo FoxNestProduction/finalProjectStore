@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../Footer/Footer';
-import PurchaseForm from '../Form/Form';
+// import PurchaseForm from '../Form/Form';
 import MuiThemeProvider from '../../context/MuiThemeProvider';
 
 const PublicLayout = () => {

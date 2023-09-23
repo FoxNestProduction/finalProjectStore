@@ -30,9 +30,9 @@ import LockSvg from '../../assets/svgComponents/LockSvg';
 
 // ------- Приклад використання -------
 // --- варіант з лейбл ----
-// <Input name="name" id="name" label="Name" placeholder="Enter your name..." icon={<PersonSvg />} />
+// <Input name="name" id="name" label="Name" placeholder="Enter your name.." icon={<PersonSvg />} />
 // --- варіант без лейбл ----
-// <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />} />
+// <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />}/>
 // <Input name="password" id="password" type="password" placeholder="Password" icon={<LockSvg />} />
 // --- для textarea додаємо атрибут multiline ---
 // <Input name="comment" id="comment" placeholder="Enter the problem or query..." multiline />
