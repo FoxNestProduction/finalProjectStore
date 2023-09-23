@@ -1,0 +1,156 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.footer {
+  min-width: 320px;
+  position: relative;
+  @include flex(center, start, column);
+  padding: 55px 32px 36px 32px;
+  background-color: $bgFooter-color;
+  color: $textFooter-color;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: $font-inter;
+
+  @media (min-width: $bp-tablet) {
+    @include flex(center, start, column);
+    padding: 69px 64px 57px 73px;
+    font-size: 12px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    @include flex(center, start, column);
+    padding: 96px 90px 80px 96px;
+    font-size: 18px;
+  }
+}
+
+.logo {
+  @include flex(center, center, row);
+
+  p {
+    margin-left: 10px;
+    font-family: $font-poppins;
+    font-weight: 600;
+    font-size: 18px;
+    color: $primaryDefault-color;
+
+    @media (min-width: $bp-tablet) {
+      font-size: 20px;
+    }
+
+    @media (min-width: $bp-desktop) {
+      font-size: 29px;
+    }
+  }
+}
+
+.logoIcon {
+  width: 40px;
+  height: 37px;
+
+  @media (min-width: $bp-tablet) {
+    width: 44px;
+    height: 40px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    width: 62px;
+    height: 57px;
+  }
+}
+
+.wrapper {
+  @include flex(space-between, center, column);
+
+  @media (min-width: $bp-tablet) {
+    @include flex(space-between, center, row);
+    width: 100%;
+  }
+}
+
+.wrapperSocial {
+  position: absolute;
+  top: 66px;
+  right: 32px;
+  @include flex(center, center, row);
+  gap: 18px;
+
+  @media (min-width: $bp-tablet) {
+    top: 170px;
+    right: 71px;
+    gap: 5vw;
+  }
+
+  @media (min-width: $bp-desktop) {
+    top: 241px;
+    right: 96px;
+    gap: 51px;
+  }
+}
+
+.socialIcon {
+  height: 18px;
+  width: 18px;
+  fill: $primaryDefault-color;
+
+  @media (min-width: $bp-desktop) {
+    height: 21px;
+    width: 21px;
+    fill: #201f1f;
+  }
+}
+
+.linkWrapper {
+  @include flex(center, start, column);
+  margin-top: 53px;
+  gap: 35px;
+
+  @media (min-width: $bp-tablet) {
+    @include flex(space-between, center, row);
+    margin-top: 0;
+    gap: 5vw;
+  }
+
+  @media (min-width: $bp-desktop) {
+    gap: 70px;
+  }
+}
+
+.link {
+  text-transform: uppercase;
+
+  @media (min-width: $bp-tablet) {
+    text-transform: none;
+  }
+}
+
+.line {
+  margin-top: 33px;
+  height: 1px;
+  width: 100%;
+  background-color: $textFooter-color;
+
+  @media (min-width: $bp-tablet) {
+    margin-top: 20px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    margin-top: 29px;
+  }
+}
+
+.text {
+  margin-top: 26px;
+  align-self: center;
+
+  @media (min-width: $bp-tablet) {
+    margin-top: 41px;
+    align-self: start;
+  }
+
+  @media (min-width: $bp-desktop) {
+    margin-top: 57px;
+  }
+}
