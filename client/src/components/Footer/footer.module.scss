@@ -1,45 +1,5 @@
-@import "../../styles/mixins";
-@import "../../styles/variables";
-
-.logo__footer {
-  @include flex(center, center, row);
-  img {
-    width: 40px;
-    height: 37px;
-  }
-
-  @media (min-width: $bp-tablet) {
-    img {
-      width: 44px;
-      height: 40px;
-    }
-  }
-
-  @media (min-width: $bp-desktop) {
-    img {
-      width: 62px;
-      height: 57px;
-    }
-  }
-
-  p {
-    margin-left: 10px;
-    font-family: $font-poppins;
-    font-weight: 600;
-    font-size: 18px;
-    color: $primaryDefault-color;
-  
-    @media (min-width: $bp-tablet) {
-      font-size: 20px;
-    }
-  
-    @media (min-width: $bp-desktop) {
-      font-size: 29px;
-    }
-  }
-  
-}
-
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
 
 .footer {
   min-width: 320px;
@@ -66,7 +26,42 @@
   }
 }
 
-.footer__wrapper {
+.logo {
+  @include flex(center, center, row);
+
+  p {
+    margin-left: 10px;
+    font-family: $font-poppins;
+    font-weight: 600;
+    font-size: 18px;
+    color: $primaryDefault-color;
+
+    @media (min-width: $bp-tablet) {
+      font-size: 20px;
+    }
+
+    @media (min-width: $bp-desktop) {
+      font-size: 29px;
+    }
+  }
+}
+
+.logoIcon {
+  width: 40px;
+  height: 37px;
+
+  @media (min-width: $bp-tablet) {
+    width: 44px;
+    height: 40px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    width: 62px;
+    height: 57px;
+  }
+}
+
+.wrapper {
   @include flex(space-between, center, column);
 
   @media (min-width: $bp-tablet) {
@@ -75,7 +70,7 @@
   }
 }
 
-.footer__wrapper-social {
+.wrapperSocial {
   position: absolute;
   top: 66px;
   right: 32px;
@@ -92,14 +87,22 @@
     top: 241px;
     right: 96px;
     gap: 51px;
-
-    img {
-      height: 21px;
-    }
   }
 }
 
-.footer__link-wrapper {
+.socialIcon {
+  height: 18px;
+  width: 18px;
+  fill: $primaryDefault-color;
+
+  @media (min-width: $bp-desktop) {
+    height: 21px;
+    width: 21px;
+    fill: #201f1f;
+  }
+}
+
+.linkWrapper {
   @include flex(center, start, column);
   margin-top: 53px;
   gap: 35px;
@@ -115,7 +118,7 @@
   }
 }
 
-.footer__link {
+.link {
   text-transform: uppercase;
 
   @media (min-width: $bp-tablet) {
@@ -123,7 +126,7 @@
   }
 }
 
-.footer__line {
+.line {
   margin-top: 33px;
   height: 1px;
   width: 100%;
@@ -138,7 +141,7 @@
   }
 }
 
-.footer__text {
+.text {
   margin-top: 26px;
   align-self: center;
 

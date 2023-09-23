@@ -1,45 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './footer.module.scss';
 import Logo from '../Logo/Logo';
+import { ReactComponent as InstagramIcon } from '../../icons/instagram_logo.svg';
+import { ReactComponent as LinkedInIcon } from '../../icons/linkedIn_logo.svg';
+import { ReactComponent as FacebookIcon } from '../../icons/facebook_logo.svg';
+import { ReactComponent as TwitterIcon } from '../../icons/twitter_logo.svg';
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer__wrapper">
-        <Logo className="logo__footer" />
-        <div className="footer__link-wrapper">
-          <Link to="/Blog" className="footer__link">
+    <footer className={styles.footer}>
+      <div className={styles.wrapper}>
+        <Logo className={styles.logo} classNameIcon={styles.logoIcon} />
+        <div className={styles.linkWrapper}>
+          <Link to="/Blog" className={styles.link}>
             Blog
           </Link>
-          <Link to="/Pricing" className="footer__link">
+          <Link to="/Pricing" className={styles.link}>
             Pricing
           </Link>
-          <Link to="/AboutUs" className="footer__link">
+          <Link to="/AboutUs" className={styles.link}>
             About Us
           </Link>
-          <Link to="/Contact" className="footer__link">
+          <Link to="/Contact" className={styles.link}>
             Contact
           </Link>
         </div>
       </div>
 
-      <div className="footer__wrapper-social">
+      <div className={styles.wrapperSocial}>
         <a href="###">
-          <img src="./img/insta_logo.png" alt="insta_logo" />
+          <InstagramIcon className={styles.socialIcon} />
         </a>
         <a href="###">
-          <img src="./img/linkedIn_logo.png" alt="LinkedIn_logo_logo" />
+          <LinkedInIcon className={styles.socialIcon} />
         </a>
         <a href="###">
-          <img src="./img/facebook_logo.png" alt="facebook_logo" />
+          <FacebookIcon className={styles.socialIcon} />
         </a>
         <a href="###">
-          <img src="./img/twitter_logo.png" alt="twitter_logo" />
+          <TwitterIcon className={styles.socialIcon} />
         </a>
       </div>
 
-      <div className="footer__line"> </div>
-      <p className="footer__text">© 2023 EATLY All Rights Reserved.</p>
+      <div className={styles.line}> </div>
+      <p className={styles.text}>© 2023 EATLY All Rights Reserved.</p>
     </footer>
   );
 };
