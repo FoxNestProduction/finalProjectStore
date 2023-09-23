@@ -2,64 +2,58 @@ import * as React from 'react';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+// import makeStyles from '@mui/styles/makeStyles';
+import theme from '../../themeMui/theme';
 
-const theme = createTheme({
-  palette: {
-    healthy: {
-      background: '#F7EDD0',
-      text: '#DAA31A',
-    },
-    trending: {
-      background: '#F7C5BA',
-      text: '#FB471D',
-    },
-    supreme: {
-      background: '#00B67A',
-      text: '#309D5B',
-    },
-  },
-});
+// const useStyles = makeStyles(() => ({
+//   root: {
+//     backgroundColor: theme.palette.healthyColor.background,
+//   },
+// }));
 
 const ColorChips = () => {
+  // const classes = useStyles();
   return (
-  // <Stack spacing={1} alignItems="center">
-  //   <Stack direction="row" spacing={1}>
-  //     <Chip label="primary" color="primary" />
-  //     <Chip label="success" color="success" />
-  //   </Stack>
-  // </Stack>
-
     <ThemeProvider theme={theme}>
-      <Box sx={{ padding: '10px' }}>
+      <Box
+        sx={{
+          paddingTop: theme.components.chip.paddingTop,
+          paddingLeft: theme.components.chip.paddingLeft,
+        }}
+      >
         <Chip
           label="Healthy"
           sx={{
-            backgroundColor: (colors) => theme.palette.healthy.background,
-            color: (colors) => theme.palette.healthy.text,
-            width: '78px',
-            height: '24px',
-            borderRadius: '8px',
+            backgroundColor: theme.palette.healthyColor.background,
+            color: theme.palette.healthyColor.text,
+            width: theme.components.chip.width,
+            height: theme.components.chip.height,
+            borderRadius: theme.components.chip.borderRadius,
+            marginRight: theme.components.chip.marginRight,
           }}
+          // className={classes.root}
         />
         <Chip
           label="Trending"
           sx={{
-            backgroundColor: (colors) => theme.palette.trending.background,
-            color: (colors) => theme.palette.trending.text,
-            width: '78px',
-            height: '24px',
-            borderRadius: '8px',
+            backgroundColor: theme.palette.trendingColor.background,
+            color: theme.palette.trendingColor.text,
+            width: theme.components.chip.width,
+            height: theme.components.chip.height,
+            borderRadius: theme.components.chip.borderRadius,
+            marginRight: theme.components.chip.marginRight,
           }}
         />
         <Chip
           label="Supreme"
           sx={{
-            backgroundColor: (colors) => theme.palette.supreme.background,
-            color: (colrs) => theme.palette.supreme.text,
-            width: '78px',
-            height: '24px',
-            borderRadius: '8px',
+            backgroundColor: theme.palette.supremeColor.background,
+            color: theme.palette.supremeColor.text,
+            width: theme.components.chip.width,
+            height: theme.components.chip.height,
+            borderRadius: theme.components.chip.borderRadius,
+            marginRight: theme.components.chip.marginRight,
           }}
         />
       </Box>
