@@ -1,0 +1,13 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+.logo {
+  @include flex(center, center, row);
+}
+.logo__text {
+  margin-left: 10px;
+  font-family: $font-poppins;
+  font-weight: 600;
+  font-size: 18px;
+  color: $primaryDefault-color;
+}
