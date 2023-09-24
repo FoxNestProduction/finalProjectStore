@@ -9,9 +9,7 @@ import AppleSvgComponent from './AppleSvgComponent';
 import GoogleSvgComponent from './GoogleSvgComponent';
 
 const LoginForm = () => {
-  console.log('Hello');
   const initialValues = {
-    fullName: '',
     email: '',
     password: '',
   };
@@ -26,7 +24,8 @@ const LoginForm = () => {
     >
       {({ isValid }) => (
         <Form className={classNames(styles.formContainer)}>
-          <h1 className={classNames(styles.title)}>Sign Up To eatly</h1>
+
+          <h1 className={classNames(styles.title)}>Sign In To eatly</h1>
           <div className={classNames(styles.buttonWrapper)}>
             <Button
               type="button"
@@ -44,14 +43,25 @@ const LoginForm = () => {
             </Button>
           </div>
           <p className={classNames(styles.legend)}>OR</p>
-          <Field type="text" name="fullName" placeholder="full name" />
-          <Field type="email" name="fullName" placeholder="email" />
-          <Field type="password" name="fullName" placeholder="password" />
-          <button type="submit" disabled={!isValid}>SIGN UP</button>
-          <p>
-            Already Have An Account?
-            <Link to="/">Log in</Link>
-          </p>
+          <div className={styles.signInForm}>
+            <Field type="email" name="fullName" placeholder="email" className={classNames(styles.input)} />
+            <Field type="password" name="fullName" placeholder="password" className={classNames(styles.input)} />
+            <div className={classNames(styles.forgetPasswordWrapper)}>
+              <Link to="/forgetPassword" className={classNames(styles.forgetPassword)}>Forget Password ?</Link>
+            </div>
+            <Button
+              type="submit"
+              onClick={() => { }}
+              className={classNames(styles.button)}
+              disabled={!isValid}
+            >
+              SIGN IN
+            </Button>
+            <p>
+              Create A New Account?
+              <Link to="/">Sign Up</Link>
+            </p>
+          </div>
         </Form>
       )}
     </Formik>
