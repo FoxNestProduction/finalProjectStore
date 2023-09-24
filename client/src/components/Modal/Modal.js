@@ -27,7 +27,7 @@ const Modal = ({ disagree }) => {
   const title = useSelector((state) => state.modal.title);
   const content = useSelector((state) => state.modal.content);
   const agree = useSelector((state) => state.modal.buttonAgree);
-
+  console.log(content);
   const handleOpenModalWarning = () => {
     dispatch(setDialogContentText());
     dispatch(openModal());
