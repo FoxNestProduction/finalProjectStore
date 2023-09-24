@@ -1,0 +1,29 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.getStarted {
+  min-width: 320px;
+
+
+  @media (min-width: $bp-tablet) {
+
+
+    font-size: 12px;
+  }
+
+  @media (min-width: $bp-desktop) {
+
+  }
+  &__title {
+    @media (min-width: $bp-tablet) {
+
+
+      font-size: 12px;
+    }
+
+    @media (min-width: $bp-desktop) {
+
+    }
+  }
+}
+
