@@ -6,8 +6,8 @@ const GoogleSvgComponent = () => {
   const breakPoint = useBreakPoint();
   const breakPointMap = {
     mobile: {
-      width: 25,
-      height: 24,
+      width: 28,
+      height: 27,
     },
     tablet: {
       width: 30,
