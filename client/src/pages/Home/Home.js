@@ -1,8 +1,9 @@
 import React from 'react';
+import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 
 const HomePage = () => {
   return (
-    <h1>Home</h1>
+    <SectionGetStarted />
   );
 };
 

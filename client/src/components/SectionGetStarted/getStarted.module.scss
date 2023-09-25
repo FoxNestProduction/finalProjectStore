@@ -2,28 +2,145 @@
 @import "../../styles/variables.scss";
 
 .getStarted {
-  min-width: 320px;
-
-
+  text-align: center;
+  margin-bottom: 75px;
   @media (min-width: $bp-tablet) {
 
 
-    font-size: 12px;
   }
 
   @media (min-width: $bp-desktop) {
 
   }
+  &__usersLabel {
+    font-family: $font-poppins;
+    position: relative;
+    top: 50%;
+    left: 8%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    color: $textHeader-color;
+    font-weight: 700;
+    &:before {
+      content: " ";
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: -30%;
+      transform: translate(-50%, -50%);
+      height: 1px;
+      width: 33px;
+      background-color: $textHeader-color;
+    }
+  }
   &__title {
+    color: $title-color;
+    font-family: $font-poppins;
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: 16px;
     @media (min-width: $bp-tablet) {
-
-
-      font-size: 12px;
     }
 
     @media (min-width: $bp-desktop) {
 
     }
   }
+  &__description {
+    font-family: $font-inter;
+    color: $text-color;
+    font-size: 12px;
+    margin-bottom: 30px;
+
+    @media (min-width: $bp-tablet) {
+    }
+
+    @media (min-width: $bp-desktop) {
+
+    }
+  }
+  &__linksWrapper {
+    font-family: $font-inter;
+    display: flex;
+    justify-content: center;
+    column-gap: 15px;
+    margin-bottom: 26px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    &_getStartedLink {
+      line-height: 35px;
+      display: inline-block;
+      height: 35px;
+      width: 125px;
+      border-radius: 10px;
+      background-color: $secondDefault-color;
+      color: $white-color;
+      transition: .3s;
+      &:hover {
+        background-color: $secondHover-color;
+      }
+      &:active {
+        background-color: $white-color;
+        color: $primaryDefault-color;
+        border: 1px solid $primaryDefault-color;
+
+      }
+    }
+    &_goProLink {
+      line-height: 35px;
+      display: inline-block;
+      height: 35px;
+      width: 88px;
+      border-radius: 10px;
+      border: 1px solid $title-color;
+      background-color: $white-color;
+      color: $textHeader-color;
+      transition: .3s;
+      &:hover {
+        background-color: $primaryHover-color;
+        color: $white-color;
+      }
+      &:active {
+        background-color: $white-color;
+        color: $primaryDefault-color;
+        border: 1px solid $primaryDefault-color;
+
+      }
+    }
+
+
+  } &__rating {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 27px;
+      img {
+        position: relative;
+        top: -3px;
+        left: -2px;
+        width: 20px;
+        height: 20px;
+      }
+      &_trustpilot {
+        font-size: 16px;
+        color: $title-color;
+        font-weight: 600;
+
+      }
+      &_numberOfReviews {
+        font-family: $font-poppins;
+        color: $textFooter-color;
+        font-size: 12px;
+        font-weight: 400;
+
+      }
+    }
+  &__imgWrapper {
+    img {
+      width: 280px;
+      height: 256px;
+    }
+  }
+
 }
 
