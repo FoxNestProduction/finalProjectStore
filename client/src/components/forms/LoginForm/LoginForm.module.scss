@@ -1,0 +1,233 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.formContainer {
+  @include flex(center, center, column);
+}
+
+.title {
+  @include subTitle;
+  margin-bottom: 38px;
+
+  @media (min-width: $bp-tablet) {
+    margin-bottom: 34px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    margin-bottom: 27px;
+  }
+}
+
+.buttonWrapper {
+  @include flex;
+  gap: 17px;
+  margin-bottom: 27px;
+
+  @media (min-width: $bp-tablet) {
+    margin-bottom: 24px;
+    gap: 15px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    margin-bottom: 35px;
+    gap: 21px;
+  }
+}
+
+.button {
+  background-color: $googleAppleButtons-color;
+  height: $buttonSmall-height;
+  width: 148px;
+  border-radius: 9px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  
+  @media (min-width: $bp-tablet) {
+    width: 130px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    width: 183px;
+    height: $buttonMedium-height;
+  }
+
+  &:hover {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+  }
+}
+
+.legend {
+  color: #676767;
+  line-height: 150%;
+  font-size: 16px;
+  font-family: $font-inter;
+  margin-bottom: 31px;
+  font-weight: 500;
+
+  @media (min-width: $bp-tablet) {
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    font-size: 24px;
+    margin-bottom: 26px;
+  }
+}
+
+.signInForm {
+  width: 309px;
+  @include flex(center, center, column);
+
+  @media (min-width: $bp-tablet) {
+    width: 272px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    width: 493px;
+  }
+
+  .inputsContainer {
+    @include flex(center, center, column);
+    gap: 20px;
+    margin-bottom: 10px;
+
+    @media (min-width: $bp-tablet) {
+      gap: 17px;
+      margin-bottom: 9px;
+    }
+
+    @media (min-width: $bp-desktop) {
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .inputWrapper {
+
+      ::placeholder {
+        font-family: $font-inter;
+        color: $text-color;
+        line-height: 150%;
+        font-size: 13px; 
+
+        @media (min-width: $bp-tablet) {
+          font-size: 14px;
+        }
+
+        @media (min-width: $bp-desktop) {
+          font-size: 16px;
+        }
+      }
+
+      &:nth-child(2) {
+        width: 308px;
+
+        @media (min-width: $bp-tablet) {
+          width: 272px;
+        }
+
+        @media (min-width: $bp-tablet) {
+          width: 493px;
+        }
+
+        // button {
+        //   margin-right: 3px;
+        // }
+      }
+    } 
+  }
+
+  .signInBtn {
+    width: 100%;
+    margin-bottom: 19px;
+    border-radius: 12.556px;
+    background: $primaryDefault-color;
+    color: $white-color;
+    transition: 0.3s ease;
+
+    @media (min-width: $bp-tablet) {
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: $bp-desktop) {
+      margin-bottom: 24px;
+    }
+
+    &:hover {
+      background: $primaryHover-color;
+    }
+
+    &:active {
+      background-color: $white-color;
+      border: 1px solid $primaryDefault-color;
+      box-sizing: border-box;
+      color: #1C186C;
+    }
+  }
+
+  .signUpLinkWrapper {
+    color: $text-color;
+    font-size: 16px;
+    line-height: 150%;
+    font-family: $font-inter;
+
+    @media (min-width: $bp-tablet) {
+      font-size: 14px;
+    }
+
+    @media (min-width: $bp-tablet) {
+      font-size: 16px;
+    }
+
+    a {
+      color: $primaryDefault-color;
+      font-weight: 700;
+      transition: color 0.3s ease;
+      
+      &:hover {
+        color: $primaryHover-color;
+      }
+    }
+  }
+}
+
+.forgetPasswordWrapper {
+  width: 100%;
+  margin-bottom: 16px;
+  @include flex(flex-end);
+
+  @media (min-width: $bp-tablet) {
+    margin-bottom: 14px;
+  }
+
+  @media (min-width: $bp-desktop) {
+    margin-bottom: 24px;
+    justify-content: center;
+  }
+
+  a {
+    color: $primaryDefault-color;
+    font-family: $font-inter;
+    font-size: 12px;
+    opacity: 0.7;
+    line-height: 150%;
+    transition: color 0.3s ease;
+
+    @media (min-width: $bp-tablet) {
+      font-size: 11px;
+    }
+
+    @media (min-width: $bp-desktop) {
+      font-size: 16px;
+    }
+    
+    &:hover {
+      color: $primaryHover-color;
+    }
+  }
+}
+
