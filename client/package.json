@@ -52,10 +52,7 @@
       "no-console": "off",
       "react/function-component-definition": [2, {"namedComponents": "arrow-function"}],
       "arrow-body-style": "off",
-      "object-curly-newline": ["error", {"consistent": true}],
-      "globals": {
-        "window": true
-      }
+      "object-curly-newline": ["error", {"consistent": true}]
     }
   },
   "browserslist": {
