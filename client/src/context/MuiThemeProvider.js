@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 const MuiThemeProvider = ({ children }) => {
   const theme = createTheme({
     breakpoints: {
-      keys: {
-        0: zero,
-        1: mobile,
-        2: tablet,
-        3: desktop,
-        4: screen,
-      },
+      // keys: {
+      //   0: 'zero',
+      //   1: 'mobile',
+      //   2: 'tablet',
+      //   3: 'desktop',
+      //   4: 'screen',
+      // },
       values: {
         zero: 0,
         mobile: 320,
@@ -62,12 +62,6 @@ const MuiThemeProvider = ({ children }) => {
         fontFamily: 'Inter, sans-serif',
         fontWeight: 400,
       },
-      h1: {
-        color: '#201F1F',
-      },
-      h2: {
-        color: '#323142',
-      },
       button: {
         fontFamily: 'Inter, sans-serif',
         fontWeight: 500,
@@ -77,12 +71,12 @@ const MuiThemeProvider = ({ children }) => {
         fontWeight: 500,
       },
       h1: {
-        color: '#323142',
+        color: '#201F1F',
         fontFamily: 'Poppins, sans-serif',
         fontWeight: 500,
       },
       h2: {
-        color: '#2B2B2B',
+        color: '#323142',
         fontFamily: 'Poppins, sans-serif',
         fontWeight: 500,
       },
