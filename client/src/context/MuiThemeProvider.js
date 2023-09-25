@@ -53,7 +53,7 @@ const MuiThemeProvider = ({ children }) => {
     },
     typography: {
       fontInter: 'Inter, sans-serif',
-      fontPoppins: 'Poppins, sans-serif',
+      fontFamily: 'Poppins, sans-serif',
       fontWeightSemiBold: 600,
       fontWeightExtraBold: 800,
       fontSize: 14,
