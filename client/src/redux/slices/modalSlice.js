@@ -1,56 +1,45 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialValue = {
+const initialState = {
   isOpen: false,
   isTextField: false,
   isDialogContentText: false,
   title: '',
-  content: '',
-  buttonAgree: '',
+  textContent: '',
+  buttonAgree: {
+    text: '',
+    startIcon: false,
+    endIcon: false,
+    onClick: null,
+  },
 };
+
+/* eslint-disable no-param-reassign */
 
 const modalSlice = createSlice({
   name: 'modal',
-  initialState: initialValue,
+  initialState,
   reducers: {
     openModal(state) {
-      const newState = { ...state };
-      newState.isOpen = true;
-      return newState;
+      state.isOpen = true;
     },
     closeModal(state) {
-      const newState = { ...state };
-      newState.isOpen = false;
-      return newState;
+      state.isOpen = false;
     },
-
     setTitle(state, action) {
-      const newState = { ...state };
-      newState.title = action.payload;
-      return newState;
+      state.title = action.payload;
     },
-
-    setContent(state, action) {
-      const newState = { ...state };
-      newState.content = action.payload;
-      return newState;
+    setTextContent(state, action) {
+      state.textContent = action.payload;
     },
-
     setButtonAgree(state, action) {
-      const newState = { ...state };
-      newState.buttonAgree = action.payload;
-      return newState;
+      state.buttonAgree = action.payload;
     },
-
-    setTextField: (state) => {
-      const newState = { ...state };
-      newState.isTextField = true;
-      return newState;
+    setTextField(state) {
+      state.isTextField = true;
     },
-    setDialogContentText: (state) => {
-      const newState = { ...state };
-      newState.isTextField = false;
-      return newState;
+    setDialogContentText(state) {
+      state.isTextField = false;
     },
   },
 });
@@ -61,8 +50,10 @@ export const {
   setDialogContentText,
   setTextField,
   setTitle,
-  setContent,
+  setTextContent,
   setButtonAgree,
 } = modalSlice.actions;
+
+/* eslint-enable no-param-reassign */
 
 export default modalSlice.reducer;
