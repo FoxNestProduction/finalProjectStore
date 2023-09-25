@@ -1,72 +1,72 @@
-import * as React from 'react';
+import React from 'react';
 import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import { ThemeProvider } from '@mui/material/styles';
-// import makeStyles from '@mui/styles/makeStyles';
-import theme from '../../themeMui/theme';
+import { useTheme } from '@mui/material/styles';
+import { PropTypes } from 'prop-types';
 
-// const useStyles = makeStyles(() => ({
-//   root: {
-//     backgroundColor: theme.palette.healthyColor.background,
-//   },
-// }));
+const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
+  const theme = useTheme();
 
-const ColorChips = () => {
-  // const classes = useStyles();
   return (
-    <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          paddingTop: theme.components.chip.paddingTop,
-          paddingLeft: theme.components.chip.paddingLeft,
-        }}
-      >
+    <Box
+      sx={{
+        margin: '10px 32px',
+        width: '100%',
+      }}
+    >
+      { isHealthy && (
         <Chip
           label="Healthy"
           sx={{
             backgroundColor: theme.palette.healthyColor.background,
             color: theme.palette.healthyColor.text,
-            width: theme.components.chip.width,
-            height: theme.components.chip.height,
-            borderRadius: theme.components.chip.borderRadius,
-            marginRight: theme.components.chip.marginRight,
+            width: theme.components.MaiChip.root.width,
+            height: theme.components.MaiChip.root.height,
+            borderRadius: theme.components.MaiChip.root.borderRadius,
+            marginRight: theme.components.MaiChip.root.marginRight,
           }}
-          // className={classes.root}
         />
+      ) }
+      { isTrending && (
         <Chip
           label="Trending"
           sx={{
             backgroundColor: theme.palette.trendingColor.background,
             color: theme.palette.trendingColor.text,
-            width: theme.components.chip.width,
-            height: theme.components.chip.height,
-            borderRadius: theme.components.chip.borderRadius,
-            marginRight: theme.components.chip.marginRight,
+            width: theme.components.MaiChip.root.width,
+            height: theme.components.MaiChip.root.height,
+            borderRadius: theme.components.MaiChip.root.borderRadius,
+            marginRight: theme.components.MaiChip.root.marginRight,
           }}
         />
+      ) }
+      { isSupreme && (
         <Chip
           label="Supreme"
           sx={{
             backgroundColor: theme.palette.supremeColor.background,
             color: theme.palette.supremeColor.text,
-            width: theme.components.chip.width,
-            height: theme.components.chip.height,
-            borderRadius: theme.components.chip.borderRadius,
-            marginRight: theme.components.chip.marginRight,
+            width: theme.components.MaiChip.root.width,
+            height: theme.components.MaiChip.root.height,
+            borderRadius: theme.components.MaiChip.root.borderRadius,
+            marginRight: theme.components.MaiChip.root.marginRight,
           }}
         />
-      </Box>
-    </ThemeProvider>
+      ) }
+    </Box>
   );
 };
 
-// RatingItem.propTypes = {
-//   ratingValue: PropTypes.number,
-// };
+ColorChips.propTypes = {
+  isHealthy: PropTypes.bool,
+  isTrending: PropTypes.bool,
+  isSupreme: PropTypes.bool,
+};
 
-// RatingItem.defaultProps = {
-//   ratingValue: null,
-// };
+ColorChips.defaultProps = {
+  isHealthy: true,
+  isTrending: true,
+  isSupreme: true,
+};
 
 export default ColorChips;

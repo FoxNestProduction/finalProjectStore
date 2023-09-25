@@ -7,14 +7,15 @@ import StarIcon from '../SvgComponents/StarIcon';
 const RatingItem = ({ ratingValue }) => {
   const [value, setValue] = React.useState(3);
 
+  const changeRating = () => {
+    setValue(ratingValue);
+  };
+
   return (
-    <Box
-      sx={{
-        '& > legend': { mt: -1 },
-      }}
-    >
+    <Box>
       <Rating
         value={value}
+        // value={changeRating()}
         onChange={(event, newValue) => {
           setValue(newValue);
         }}

@@ -13,37 +13,76 @@ import BookmarkIcon from '../SvgComponents/BookmarkIcon';
 import RatingItem from './Rating';
 import ColorChips from './Chip';
 
-const RestaurantItem = ({ restaurantRankingValue }) => {
+const RestaurantItem = ({ rating, name, imageUrl }) => {
   return (
-    <Card className={styles.Card}>
+    <Card
+      sx={{
+        maxWidth: '395px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        boxShadow: '0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
+      }}
+    >
 
       <CardMedia
         component="img"
         height="177"
         image="./img/restaurants/Resturent01.jpg"
-        alt="The Chicken King"
+        alt={name}
       />
       <ColorChips />
       <CardHeader
-        title="The Chicken King"
+        title={name}
         className={styles.Card__header}
+        sx={{
+          padding: '0',
+          marginLeft: '32px',
+          marginBottom: '10px',
+        }}
       />
       <Box
-        className={styles.Card__box}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%',
+          marginLeft: '32px',
+          marginBottom: '20px',
+        }}
       >
         <CardContent
-          // style={{ padding: '0', height: '50px' }}
-          className={styles.Card__content}
+          sx={{
+            display: 'flex',
+            gap: '10px',
+            width: '100%',
+            padding: '0',
+          }}
         >
-          <Typography variant="body2" color="text.secondary" className={styles.Card__text}>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              paddingTop: '7px',
+            }}
+          >
             24min •
           </Typography>
 
-          <RatingItem defaultValue={restaurantRankingValue} />
+          <RatingItem defaultValue={rating} />
 
         </CardContent>
-        <CardActions className={styles.Card__actions} disableSpacing>
-          <IconButton aria-label="add to favorites">
+        <CardActions
+          disableSpacing
+          sx={{
+            padding: '0',
+            paddingRight: '18px',
+          }}
+        >
+          <IconButton
+            aria-label="add to favorites"
+            sx={{
+              padding: '0',
+            }}
+          >
             <BookmarkIcon />
           </IconButton>
         </CardActions>
@@ -53,11 +92,15 @@ const RestaurantItem = ({ restaurantRankingValue }) => {
 };
 
 RestaurantItem.propTypes = {
-  restaurantRankingValue: PropTypes.number,
+  rating: PropTypes.number,
+  name: PropTypes.string,
+  imageUrl: PropTypes.string,
 };
 
 RestaurantItem.defaultProps = {
-  restaurantRankingValue: null,
+  rating: 3,
+  name: 'The Chicken King',
+  imageUrl: '',
 };
 
 export default RestaurantItem;

@@ -8,6 +8,25 @@ const MuiThemeProvider = ({ children }) => {
       primary: {
         main: '#6C5FBC',
       },
+      healthyColor: {
+        background: '#F7EDD0',
+        text: '#DAA31A',
+      },
+      trendingColor: {
+        background: '#F7C5BA',
+        text: '#FB471D',
+      },
+      supremeColor: {
+        background: '#00B67A',
+        text: '#309D5B',
+      },
+    },
+    breakpoints: {
+      values: {
+        mobile: 320,
+        tablet: 481,
+        desktop: 993,
+      },
     },
     components: {
       MuiFormControl: {
@@ -38,6 +57,14 @@ const MuiThemeProvider = ({ children }) => {
               },
             },
           },
+        },
+      },
+      MaiChip: {
+        root: {
+          width: 78,
+          height: 24,
+          borderRadius: 8,
+          marginRight: '10px',
         },
       },
     },
