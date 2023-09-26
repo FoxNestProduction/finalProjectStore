@@ -9,6 +9,12 @@ const MuiThemeProvider = ({ children }) => {
         main: '#6C5FBC',
       },
     },
+    typography: {
+      body1: {
+        fontFamily: 'Poppins, san-serif',
+      },
+      // fontInter: 'Inter, sans-serif',
+    },
     components: {
       MuiFormControl: {
         styleOverrides: {

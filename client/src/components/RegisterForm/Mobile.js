@@ -3,7 +3,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Form, Formik } from 'formik';
-import { Button } from '@mui/material';
+import { Button, Link } from '@mui/material';
+import { useTheme } from '@emotion/react';
+import { NavLink } from 'react-router-dom';
 
 import { ReactComponent as Apple } from '../../assets/svg/apple.svg';
 import { ReactComponent as Google } from '../../assets/svg/google.svg';
@@ -24,6 +26,8 @@ const Mobile = () => {
   const submit = (values) => {
     console.log(values);
   };
+  const theme = useTheme();
+  console.log(theme);
   return (
     <Container className={styles.container} component="section" sx={{ maxWidth: '310px' }}>
       <Box
@@ -37,7 +41,7 @@ const Mobile = () => {
           component="h1"
           sx={{
             mb: '38px',
-            fontFamily: 'Poppins',
+            fontFamily: theme.typography.fontPoppins,
             fontSize: '28px',
             fontWeight: 600,
             color: '#323142',
@@ -45,38 +49,51 @@ const Mobile = () => {
         >
           Sign Up To eatly
         </Typography>
-        <Box sx={{
-          width: '100%',
-          display: 'flex  ',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          columnGap: '17px',
-        }}
+        <Box
+          className={styles.buttons}
+          sx={{
+            width: '100%',
+            display: 'flex  ',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            columnGap: '17px',
+          }}
         >
           <Button
+            disableRipple
             sx={{
               width: '100%',
               height: '51px',
-              backgroundColor: '#EEE',
-              transition: 'ease .5s',
+              backgroundColor: '#fbfacd',
+              boxShadow: '5px 5px 10px #ffd292',
+              border: 'none',
+              transition: 'ease-in .4s',
               '&:hover': {
-                backgroundColor: '#f4ff8d94',
+                backgroundColor: '#606060',
+                boxShadow: '-5px -5px 10px #405672',
+                border: '2px solid #ff7636',
               },
             }}
           >
             <Google />
           </Button>
-          <Button sx={{
-            width: '100%',
-            height: '51px',
-            backgroundColor: '#EEE',
-            transition: 'ease .5s',
-            '&:hover': {
-              backgroundColor: '#f4ff8d94',
-            },
-          }}
+          <Button
+            disableRipple
+            sx={{
+              width: '100%',
+              height: '51px',
+              backgroundColor: '#fbfacd',
+              boxShadow: '5px 5px 10px #ffd292',
+              border: 'none',
+              transition: 'ease-in .4s',
+              '&:hover': {
+                backgroundColor: '#606060',
+                boxShadow: '-5px -5px 10px #405672',
+                border: '2px solid #ff7636',
+              },
+            }}
           >
-            <Apple />
+            <Apple className={styles.svg} />
           </Button>
         </Box>
         <Typography
@@ -139,11 +156,7 @@ const Mobile = () => {
         </Formik>
         <Typography>
           Already Have An Account?
-          <Button
-            href="/"
-          >
-            Log In
-          </Button>
+          <Link component={NavLink} to="/Pricing">Log In</Link>
         </Typography>
       </Box>
     </Container>
