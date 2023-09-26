@@ -58,7 +58,12 @@
         }
       ],
       "arrow-body-style": "off",
-      "object-curly-newline": ["error", {"consistent": true}]
+      "object-curly-newline": [
+        "error",
+        {
+          "consistent": true
+        }
+      ]
     }
   },
   "browserslist": {
