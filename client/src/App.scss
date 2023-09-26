@@ -1,18 +1,7 @@
-@import "./styles/mixins.scss";
-@import "./styles/variables.scss";
+@import "./styles/variables";
 body {
   //usage example
   font-family: 'Inter', sans-serif;
   //font-family: 'Poppins', sans-serif;
-}
-.container {
-    margin: 0 20px;
-
-    @media (min-width: $bp-tablet) {
-      margin: 0 50px;
-    }
-
-    @media (min-width: $bp-desktop) {
-      margin: 0 70px;
-    }
+  background-color: $white-color;
 }
