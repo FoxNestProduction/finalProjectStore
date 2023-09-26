@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 
 const MuiThemeProvider = ({ children }) => {
-  const theme = createTheme({
+  const globalTheme = createTheme({
     breakpoints: {
       // keys: {
       //   0: 'zero',
@@ -111,6 +111,11 @@ const MuiThemeProvider = ({ children }) => {
       },
     },
     components: {
+      // MuiButton: {
+      //   defaultProps: {
+      //     disableRipple: true,
+      //   },
+      // },
       MuiFormControl: {
         styleOverrides: {
           root: {
@@ -142,9 +147,21 @@ const MuiThemeProvider = ({ children }) => {
       },
       MuiContainer: {
         styleOverrides: {
-          root: {
+          root: ({ theme }) => ({
+            [theme.breakpoints.up('zero')]: {
+              paddingRight: '30px',
+              paddingLeft: '30px',
+            },
+            [theme.breakpoints.up('tablet')]: {
+              paddingRight: '65px',
+              paddingLeft: '65px',
+            },
+            [theme.breakpoints.up('desktop')]: {
+              paddingRight: '90px',
+              paddingLeft: '90px',
+            },
             maxWidth: '1426px',
-          },
+          }),
         },
       },
       chip: {
@@ -158,10 +175,10 @@ const MuiThemeProvider = ({ children }) => {
     },
   });
 
-  console.log(theme);
+  console.log(globalTheme);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={globalTheme}>
       {children}
     </ThemeProvider>
   );
