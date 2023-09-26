@@ -28,17 +28,17 @@ const MuiThemeProvider = ({ children }) => {
         main: '#FF9140',
         hover: '#FF7C1C',
       },
-      common: {
-        white: '#F9F9F9',
-      },
       text: {
         primary: '#2B2B2B',
         secondary: '#676767',
+        primaryLight: '#F9F9F9',
+        secondaryLight: '#DBD9EE',
         header: '#606060',
       },
       background: {
-        paper: '#F9F9F9',
-        default: '#EFEFEF',
+        paper: '#FFF',
+        default: '#F9F9F9',
+        footer: '#EAEAEA',
       },
       healthy: '#DAA31A',
       trending: '#FB471D',
@@ -48,7 +48,7 @@ const MuiThemeProvider = ({ children }) => {
       bgSupreme: '#33AC64',
     },
     shape: {
-      borderRadius: 12,
+      borderRadius: 16,
     },
     typography: {
       fontFamily: 'Inter, sans-serif',
@@ -69,26 +69,21 @@ const MuiThemeProvider = ({ children }) => {
         fontWeight: 500,
       },
       h1: {
-        color: '#201F1F',
         fontFamily: 'Poppins, sans-serif',
         fontWeight: 500,
       },
       h2: {
-        color: '#323142',
         fontFamily: 'Poppins, sans-serif',
         fontWeight: 500,
       },
       h3: {
-        color: '#2B2B2B',
         fontFamily: 'Poppins, sans-serif',
         fontWeight: 500,
       },
       subtitle1: {
-        color: '#201F1F',
         fontFamily: 'Inter, sans-serif',
       },
       subtitle2: {
-        color: '#323142',
         fontFamily: 'Inter, sans-serif',
       },
       // fontInter: 'Inter, sans-serif',
@@ -143,6 +138,13 @@ const MuiThemeProvider = ({ children }) => {
                 opacity: '0.8',
               },
             },
+          },
+        },
+      },
+      MuiContainer: {
+        styleOverrides: {
+          root: {
+            maxWidth: '1426px',
           },
         },
       },
