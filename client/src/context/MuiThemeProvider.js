@@ -33,9 +33,8 @@ const MuiThemeProvider = ({ children }) => {
       },
       text: {
         primary: '#2B2B2B',
-        secondary: '#2B2B2B',
+        secondary: '#676767',
         header: '#606060',
-        footer: '#969696',
       },
       background: {
         paper: '#F9F9F9',
@@ -85,9 +84,11 @@ const MuiThemeProvider = ({ children }) => {
         fontWeight: 500,
       },
       subtitle1: {
+        color: '#201F1F',
         fontFamily: 'Inter, sans-serif',
       },
       subtitle2: {
+        color: '#323142',
         fontFamily: 'Inter, sans-serif',
       },
       // fontInter: 'Inter, sans-serif',
