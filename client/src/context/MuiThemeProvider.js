@@ -17,7 +17,6 @@ const MuiThemeProvider = ({ children }) => {
         mobile: 320,
         tablet: 481,
         desktop: 993,
-        screen: 1200,
       },
     },
     palette: {
