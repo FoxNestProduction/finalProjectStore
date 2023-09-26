@@ -1,0 +1,23 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+.header {
+  @include flex(center, center);
+}
+
+.headerLogo {
+  @include flex(center, center);
+  gap: 11px;
+  
+  img {
+    width: 46px;
+    height: 43px;
+  }
+
+  p {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.5em;
+    color: $primaryDefault-color;
+  }
+}

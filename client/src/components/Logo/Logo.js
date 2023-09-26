@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const Logo = ({ className }) => {
   return (
-    <div className={className}>
+    <Link to="/" className={className}>
       <img src="./img/logo.svg" alt="logo" />
       <p>eatly</p>
-    </div>
+    </Link>
   );
 };
 

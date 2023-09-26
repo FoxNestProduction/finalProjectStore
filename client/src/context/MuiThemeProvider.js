@@ -4,6 +4,14 @@ import PropTypes from 'prop-types';
 
 const MuiThemeProvider = ({ children }) => {
   const theme = createTheme({
+    breakpoints: {
+      values: {
+        zero: 0,
+        mobile: 320,
+        tablet: 481,
+        desktop: 993,
+      },
+    },
     palette: {
       primary: {
         main: '#6C5FBC',
@@ -37,6 +45,13 @@ const MuiThemeProvider = ({ children }) => {
                 opacity: '0.8',
               },
             },
+          },
+        },
+      },
+      MuiContainer: {
+        styleOverrides: {
+          root: {
+            maxWidth: '1426px',
           },
         },
       },
