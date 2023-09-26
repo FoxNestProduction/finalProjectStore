@@ -2,10 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isOpen: false,
-  isTextField: false,
-  isDialogContentText: false,
   title: '',
-  textContent: '',
+  content: '',
+  buttonBox: false,
   buttonAgree: {
     text: '',
     startIcon: false,
@@ -29,17 +28,14 @@ const modalSlice = createSlice({
     setTitle(state, action) {
       state.title = action.payload;
     },
-    setTextContent(state, action) {
-      state.textContent = action.payload;
+    setContent(state, action) {
+      state.content = action.payload;
     },
     setButtonAgree(state, action) {
       state.buttonAgree = action.payload;
     },
-    setTextField(state) {
-      state.isTextField = true;
-    },
-    setDialogContentText(state) {
-      state.isTextField = false;
+    addButtonBox(state) {
+      state.buttonBox = true;
     },
   },
 });
@@ -47,11 +43,10 @@ const modalSlice = createSlice({
 export const {
   openModal,
   closeModal,
-  setDialogContentText,
-  setTextField,
   setTitle,
-  setTextContent,
+  setContent,
   setButtonAgree,
+  addButtonBox,
 } = modalSlice.actions;
 
 /* eslint-enable no-param-reassign */
