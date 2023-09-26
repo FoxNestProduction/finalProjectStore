@@ -24,18 +24,18 @@ const globalTheme = createTheme({
       primaryLight: '#F9F9F9',
       secondaryLight: '#DBD9EE',
       header: '#606060',
+      healthy: '#DAA31A',
+      trending: '#FB471D',
+      supreme: '#309D5B',
     },
     background: {
       paper: '#FFF',
       default: '#F9F9F9',
       footer: '#EAEAEA',
+      healthy: '#F7EDD0',
+      trending: '#F7C5BA',
+      supreme: '#33AC64',
     },
-    healthy: '#DAA31A',
-    trending: '#FB471D',
-    supreme: '#309D5B',
-    bgHealthy: '#F7EDD0',
-    bgTrending: '#F7C5BA',
-    bgSupreme: '#33AC64',
   },
   shape: {
     borderRadius: 16,
@@ -43,48 +43,36 @@ const globalTheme = createTheme({
   typography: {
     fontFamily: 'Inter, sans-serif',
     body1: {
-      fontFamily: 'Inter, sans-serif',
       fontWeight: 400,
-    },
-    body2: {
-      fontFamily: 'Inter, sans-serif',
-      fontWeight: 400,
+      lineHeight: '1.5em',
     },
     button: {
-      fontFamily: 'Inter, sans-serif',
       fontWeight: 500,
-    },
-    caption: {
-      fontFamily: 'Poppins, sans-serif',
-      fontWeight: 500,
+      lineHeight: '1.5em',
     },
     h1: {
       fontFamily: 'Poppins, sans-serif',
       fontWeight: 500,
+      lineHeight: '1.5em',
     },
     h2: {
       fontFamily: 'Poppins, sans-serif',
       fontWeight: 500,
+      lineHeight: '1.5em',
     },
     h3: {
       fontFamily: 'Poppins, sans-serif',
-      fontWeight: 500,
+      fontWeight: 600,
+      lineHeight: '1.5em',
+    },
+    h4: {
+      fontWeight: 600,
+      lineHeight: '1.5em',
     },
     subtitle1: {
-      fontFamily: 'Inter, sans-serif',
+      fontWeight: 400,
+      lineHeight: '1.5em',
     },
-    subtitle2: {
-      fontFamily: 'Inter, sans-serif',
-    },
-    // fontInter: 'Inter, sans-serif',
-    // fontFamily: 'Poppins, sans-serif',
-    // fontWeightSemiBold: 600,
-    // fontWeightExtraBold: 800,
-    // fontSize: 14,
-    // fontWeightLight: 300,
-    // fontWeightRegular: 400,
-    // fontWeightMedium: 500,
-    // fontWeightBold: 700,
   },
   button: {
     large: {
@@ -157,6 +145,65 @@ const globalTheme = createTheme({
   },
 });
 
-console.log(globalTheme);
+globalTheme.typography.body1 = {
+  fontSize: '14px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '16px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '24px',
+  },
+};
+
+globalTheme.typography.h1 = {
+  fontSize: '46px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '54px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '60px',
+  },
+};
+
+globalTheme.typography.h2 = {
+  fontSize: '28px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '36px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '48px',
+  },
+};
+
+globalTheme.typography.h3 = {
+  fontSize: '14px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '16px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '24px',
+  },
+};
+
+globalTheme.typography.h4 = {
+  fontSize: '14px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '18px',
+  },
+};
+
+globalTheme.typography.subtitle1 = {
+  fontSize: '14px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '16px',
+  },
+};
+
+globalTheme.typography.button = {
+  fontSize: '16px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '24px',
+  },
+};
 
 export default globalTheme;
