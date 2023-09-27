@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { Container, Grid } from '@mui/material';
 import Mobile from './Mobile';
 
 const RegisterFormTemplate = () => {
   return (
-    <Mobile />
+    <Container>
+      <Grid>
+        <Mobile />
+
+      </Grid>
+    </Container>
   );
 };
 

@@ -22,14 +22,23 @@ export const initialValues = {
   password: '',
 };
 
-const Mobile = () => {
+const RegisterForm = () => {
   const submit = (values) => {
     console.log(values);
   };
-  const theme = useTheme();
-  console.log(theme);
   return (
-    <Container className={styles.container} component="section" sx={{ maxWidth: '310px' }}>
+    <Box
+      component="section"
+      className={styles.container}
+      sx={{
+        maxWidth: {
+          zero: '310px',
+          mobile: '310px',
+          tablet: '271px',
+          desktop: '493px',
+        },
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
@@ -41,7 +50,6 @@ const Mobile = () => {
           component="h1"
           sx={{
             mb: '38px',
-            fontFamily: theme.typography.fontPoppins,
             fontSize: '28px',
             fontWeight: 600,
             color: '#323142',
@@ -61,11 +69,12 @@ const Mobile = () => {
         >
           <Button
             disableRipple
+            variant="signWith"
             sx={{
               width: '100%',
               height: '51px',
-              backgroundColor: '#fbfacd',
-              boxShadow: '5px 5px 10px #ffd292',
+              backgroundColor: 'background.footer',
+              boxShadow: '3px 3px 10px background.healthy',
               border: 'none',
               transition: 'ease-in .4s',
               '&:hover': {
@@ -159,8 +168,8 @@ const Mobile = () => {
           <Link component={NavLink} to="/Pricing">Log In</Link>
         </Typography>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
-export default Mobile;
+export default RegisterForm;
