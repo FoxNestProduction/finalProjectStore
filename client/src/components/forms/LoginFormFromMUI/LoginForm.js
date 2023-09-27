@@ -2,10 +2,11 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { Typography, Container, Box } from '@mui/material';
+import { Typography, Container, Box, Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import styles from './LoginForm.module.scss';
 import validationSchema from './validationSchema';
-import Button from '../../Button/Button';
+import { flexcenter } from './styles';
 import AppleSvgComponent from './AppleSvgComponent';
 import GoogleSvgComponent from './GoogleSvgComponent';
 import Input from '../../Input/Input';
@@ -22,16 +23,43 @@ const LoginForm = () => {
     console.log(actions);
     actions.resetForm();
   };
+  const GoogleAppleBtn = styled(Button)({
+    backgroundColor: '#EAEAEA',
+    height: '46px',
+    width: '148px',
+    borderRadius: 'shape',
+    transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+    '@media (min-width: 481px)': {
+      width: '130px',
+    },
+    '@media (min-width: 993px)': {
+      width: '183px',
+      height: '60px',
+    },
+    '&:hover': {
+      boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
+      // backgroundColor: '#EAEAEA',
+    },
+    '&:active': {
+      boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2)',
+      transform: 'translateY(1px)',
+    },
+  });
   return (
     <Container
       component="section"
+      sx={{
+        ...flexcenter,
+        bgcolor: '#FFFFFF',
+      }}
     >
       <Box
         sx={{
+          ...flexcenter,
           width: {
             zero: 313,
             tablet: 276,
-            desctop: 493,
+            desktop: 493,
           },
         }}
       >
@@ -39,11 +67,62 @@ const LoginForm = () => {
           variant="h2"
           component="h1"
           sx={{
-            mb: 38,
+            mb: {
+              zero: '38px',
+              tablet: '34px',
+              desktop: '27px',
+            },
             color: 'text.primary',
+            textAlign: 'center',
           }}
         >
           Sign In To eatly
+        </Typography>
+        <Box
+          sx={{
+            ...flexcenter,
+            flexDirection: 'row',
+            gap: {
+              zero: '17px',
+              tablet: '15px',
+              desktop: '21px',
+            },
+            mb: {
+              zero: '27px',
+              tablet: '24px',
+              desktop: '35px',
+            },
+          }}
+        >
+          <GoogleAppleBtn
+            disableRipple
+          >
+            <GoogleSvgComponent />
+          </GoogleAppleBtn>
+          <GoogleAppleBtn
+            disableRipple
+          >
+            <AppleSvgComponent />
+          </GoogleAppleBtn>
+        </Box>
+        <Typography
+          variant="body1"
+          sx={{
+            color: 'text.secondary',
+            fontSize: {
+              zero: '16px',
+              tablet: '14px',
+              desktop: '24px',
+            },
+            mb: {
+              zero: '31px',
+              tablet: '28px',
+              desktop: '26px',
+            },
+            fontWeight: 500,
+          }}
+        >
+          OR
         </Typography>
         <Formik
           initialValues={initialValues}
@@ -52,27 +131,6 @@ const LoginForm = () => {
         >
           {({ isValid }) => (
             <Form className={classNames(styles.formContainer)}>
-
-              {/* <h1 className={classNames(styles.title)}>Sign In To eatly</h1>
-          <div className={classNames(styles.buttonWrapper)}>
-            <Button
-              type="button"
-              onClick={() => { }}
-              className={classNames(styles.button)}
-            >
-              <GoogleSvgComponent />
-            </Button>
-            <Button
-              type="button"
-              onClick={() => { }}
-              className={classNames(styles.button)}
-            >
-              <AppleSvgComponent />
-            </Button>
-          </div>
-          <p className={classNames(styles.legend)}>OR</p>
-          <div className={styles.signInForm}>
-            <div className={styles.inputsContainer}>
               <Input
                 type="email"
                 name="email"
@@ -89,23 +147,6 @@ const LoginForm = () => {
                 className={classNames(styles.inputWrapper)}
                 icon={<LockSvg />}
               />
-            </div>
-            <div className={classNames(styles.forgetPasswordWrapper)}>
-              <Link to="/forgetPassword">Forget Password ?</Link>
-            </div>
-            <Button
-              type="submit"
-              onClick={() => { }}
-              className={classNames(styles.button, styles.signInBtn)}
-              disabled={!isValid}
-            >
-              SIGN IN
-            </Button>
-            <p className={classNames(styles.signUpLinkWrapper)}>
-              Create A New Account?
-              <Link to="/"> Sign Up</Link>
-            </p>
-          </div> */}
             </Form>
           )}
         </Formik>
