@@ -5,6 +5,7 @@ import AppRoutes from './AppRoutes';
 import Button from './components/Button/Button';
 import Modal from './components/Modal/Modal';
 import ProductCard from './components/ProductCard/ProductCard';
+import LoginForm from './components/forms/LoginForm/LoginForm';
 
 const App = () => {
   const [products, setProducts] = useState([]);
