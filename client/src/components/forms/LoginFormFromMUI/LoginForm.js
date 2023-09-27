@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './LoginForm.module.scss';
 import validationSchema from './validationSchema';
+import { Typography } from '@mui/material';
 import Button from '../../Button/Button';
 import AppleSvgComponent from './AppleSvgComponent';
 import GoogleSvgComponent from './GoogleSvgComponent';
@@ -29,7 +30,7 @@ const LoginForm = () => {
     >
       {({ isValid }) => (
         <Form className={classNames(styles.formContainer)}>
-
+          <Typography />
           {/* <h1 className={classNames(styles.title)}>Sign In To eatly</h1>
           <div className={classNames(styles.buttonWrapper)}>
             <Button
