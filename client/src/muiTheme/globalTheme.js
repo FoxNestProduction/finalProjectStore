@@ -69,6 +69,10 @@ const globalTheme = createTheme({
       fontWeight: 600,
       lineHeight: '1.5em',
     },
+    h6: {
+      fontWeight: 600,
+      lineHeight: '1.5em',
+    },
     subtitle1: {
       fontWeight: 400,
       lineHeight: '1.5em',
@@ -192,6 +196,13 @@ globalTheme.typography.h4 = {
   },
 };
 
+globalTheme.typography.h6 = {
+  fontSize: '14px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '18px',
+  },
+};
+
 globalTheme.typography.subtitle1 = {
   fontSize: '14px',
   [globalTheme.breakpoints.up('tablet')]: {
@@ -200,7 +211,7 @@ globalTheme.typography.subtitle1 = {
 };
 
 globalTheme.typography.button = {
-  fontSize: '16px',
+  fontSize: '12px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '24px',
   },
