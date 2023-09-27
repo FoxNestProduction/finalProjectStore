@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './footer.module.scss';
 import Logo from '../Logo/Logo';
-import { ReactComponent as InstagramIcon } from '../../icons/instagram_logo.svg';
-import { ReactComponent as LinkedInIcon } from '../../icons/linkedIn_logo.svg';
-import { ReactComponent as FacebookIcon } from '../../icons/facebook_logo.svg';
-import { ReactComponent as TwitterIcon } from '../../icons/twitter_logo.svg';
+import { ReactComponent as InstagramIcon } from '../../assets/svg/instagram_logo.svg';
+import { ReactComponent as LinkedInIcon } from '../../assets/svg/linkedIn_logo.svg';
+import { ReactComponent as FacebookIcon } from '../../assets/svg/facebook_logo.svg';
+import { ReactComponent as TwitterIcon } from '../../assets/svg/twitter_logo.svg';
 
 const Footer = () => {
   return (
