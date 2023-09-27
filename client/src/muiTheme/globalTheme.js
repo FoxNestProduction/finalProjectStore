@@ -69,6 +69,10 @@ const globalTheme = createTheme({
       fontWeight: 600,
       lineHeight: '1.5em',
     },
+    h6: {
+      fontWeight: 600,
+      lineHeight: '1.5em',
+    },
     subtitle1: {
       fontWeight: 400,
       lineHeight: '1.5em',
@@ -185,6 +189,13 @@ globalTheme.typography.h3 = {
 };
 
 globalTheme.typography.h4 = {
+  fontSize: '14px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '18px',
+  },
+};
+
+globalTheme.typography.h6 = {
   fontSize: '14px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '18px',
