@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Container, Box, Rating, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import useResize from './resizeHook/useResize';
-import { stylesProBnt, stylesStartedBnt, stylesTextContainer, stylesLabel, stylesTitle, stylesSection, stylesDescription, stylesActions, stylesRating, stylesImage } from './styles';
+import { stylesReviewAmount, stylesStarts, stylesTrustpilot, stylesProBnt, stylesStartedBnt, stylesTextContainer, stylesLabel, stylesTitle, stylesSection, stylesDescription, stylesActions, stylesRating, stylesImage } from './styles';
 
 const SectionGetStarted = () => {
   const value = 4;
@@ -55,10 +55,18 @@ const SectionGetStarted = () => {
           </Button>
         </Box>
         <Box sx={stylesRating}>
-          <img src="/img/layout/trustpilotIcon.png" alt="" />
-          <Typography component="span">Trustpilot</Typography>
-          <Rating name="read-only" value={value} readOnly />
-          <Typography component="span">4900+</Typography>
+          <img
+            style={{
+              position: 'relative',
+              top: '-2px',
+              left: '-2px',
+            }}
+            src="/img/layout/trustpilotIcon.png"
+            alt=""
+          />
+          <Typography sx={stylesTrustpilot} component="span">Trustpilot</Typography>
+          <Rating sx={stylesStarts} name="read-only" value={value} readOnly />
+          <Typography sx={stylesReviewAmount} component="span">4900+</Typography>
         </Box>
       </Box>
       <Box sx={stylesImage}>

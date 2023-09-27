@@ -15,8 +15,8 @@ export const stylesSection = {
   gridTemplateColumns: {
     zero: '1fr',
     mobile: '1fr',
-    tablet: '0.95fr 1.05fr',
-    desktop: '0.95fr 1.05fr',
+    tablet: '0.9fr 1.1fr',
+    desktop: '1fr 1fr',
   },
 
 };
@@ -204,6 +204,26 @@ export const stylesRating = {
     mobile: '47px',
   },
   fontFamily: 'Poppins',
+  display: 'flex',
+  columnGap: '2px',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+};
+
+export const stylesTrustpilot = {
+  color: 'text.primary',
+  fontSize: '16px',
+  fontWeight: 600,
+};
+
+export const stylesStarts = {
+  fontSize: '16px',
+};
+
+export const stylesReviewAmount = {
+  color: 'text.secondary',
+  fontSize: '10px',
 };
 
 export const stylesImage = {
