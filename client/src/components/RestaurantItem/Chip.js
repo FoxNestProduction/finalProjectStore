@@ -1,62 +1,58 @@
 import React from 'react';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
-// import { useTheme } from '@mui/material/styles';
-
 import { PropTypes } from 'prop-types';
 
 const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
-  // const theme = useTheme();
+  const chipSize = {
+    width: '80px',
+    height: '24px',
+    borderRadius: '8px',
+    marginRight: '10px',
+    marginBottom: '5px',
+  };
 
   return (
     <Box
       sx={{
         margin: '10px 32px',
         width: '100%',
-        bgcolor: 'text.healthy',
+        marginBottom: {
+          mobile: 0,
+          desktop: 1,
+        },
       }}
     >
       { isHealthy && (
         <Chip
           label="Healthy"
-          // color="primary.main"
           sx={{
-            backgroundColor: 'primary.main',
-            color: 'healthy.main',
-            // width: theme.components.MaiChip.root.width,
-            // height: theme.components.MaiChip.root.height,
-            // borderRadius: theme.components.MaiChip.root.borderRadius,
-            // marginRight: theme.components.MaiChip.root.marginRight,
+            ...chipSize,
+            backgroundColor: 'background.healthy',
+            color: 'text.healthy',
           }}
         />
       ) }
-      {/* { isTrending && (
+      { isTrending && (
         <Chip
           label="Trending"
           sx={{
-            backgroundColor: theme.palette.trendingColor.background,
-            color: theme.palette.trendingColor.text,
-            width: theme.components.MaiChip.root.width,
-            height: theme.components.MaiChip.root.height,
-            borderRadius: theme.components.MaiChip.root.borderRadius,
-            marginRight: theme.components.MaiChip.root.marginRight,
+            ...chipSize,
+            backgroundColor: 'background.trending',
+            color: 'text.trending',
           }}
         />
       ) }
       { isSupreme && (
         <Chip
           label="Supreme"
-          color="text.secondary"
           sx={{
-            backgroundColor: theme.palette.supremeColor.background,
-            color: theme.palette.supremeColor.text,
-            width: theme.components.MaiChip.root.width,
-            height: theme.components.MaiChip.root.height,
-            borderRadius: theme.components.MaiChip.root.borderRadius,
-            marginRight: theme.components.MaiChip.root.marginRight,
+            ...chipSize,
+            backgroundColor: 'background.supreme',
+            color: 'text.supreme',
           }}
         />
-      ) } */}
+      ) }
     </Box>
   );
 };
@@ -70,7 +66,7 @@ ColorChips.propTypes = {
 ColorChips.defaultProps = {
   isHealthy: true,
   isTrending: true,
-  isSupreme: true,
+  isSupreme: false,
 };
 
 export default ColorChips;

@@ -8,102 +8,124 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { PropTypes } from 'prop-types';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import styles from './RestaurantItem.module.scss';
 import BookmarkIcon from '../SvgComponents/BookmarkIcon';
 import RatingItem from './Rating';
 import ColorChips from './Chip';
 
 const RestaurantItem = ({ rating, name, imageUrl }) => {
-  const localtheme = createTheme({
-    MaiChip: {
-      styleOverrides: {
-        root: {
-          width: 78,
-          height: 24,
-          borderRadius: 8,
-          marginRight: '10px',
-        },
-      },
-    },
-  });
+  const styles = {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+  };
 
   return (
-    <ThemeProvider localtheme={localtheme}>
-      <Card
+    <Card
+      sx={{
+        ...styles,
+        flexWrap: 'wrap',
+        maxWidth: {
+          mobile: 315,
+          tablet: 281,
+          desktop: 395,
+        },
+        boxShadow: '0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
+      }}
+    >
+
+      <CardMedia
+        component="img"
+        height={{
+          mobile: 140,
+          tablet: 125,
+          desktop: 177,
+        }}
+        image={imageUrl}
+        alt={name}
+      />
+      <ColorChips />
+      <CardHeader
+        title={(
+          <Typography
+            variant="body1"
+            color="text.primary"
+            sx={{
+              fontSize: {
+                mobile: '1.2rem',
+                tablet: '1.3rem',
+                desktop: '1.5rem',
+              },
+            }}
+          >
+            {name}
+          </Typography>
+        )}
         sx={{
-          maxWidth: '395px',
-          display: 'flex',
-          flexWrap: 'wrap',
-          boxShadow: '0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
+          padding: '0',
+          marginLeft: '32px',
+          marginBottom: {
+            desktop: '10px',
+          },
+        }}
+      />
+      <Box
+        sx={{
+          ...styles,
+          marginLeft: '32px',
+          marginBottom: '20px',
         }}
       >
-
-        <CardMedia
-          component="img"
-          height="177"
-          image="./img/restaurants/Resturent01.jpg"
-          alt={name}
-        />
-        <ColorChips />
-        <CardHeader
-          title={name}
-          // color="text.healthy"
+        <CardContent
           sx={{
+            ...styles,
+            gap: '10px',
             padding: '0',
-            marginLeft: '32px',
-            marginBottom: '10px',
-          }}
-        />
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-            marginLeft: '32px',
-            marginBottom: '20px',
+            flexWrap: 'wrap',
           }}
         >
-          <CardContent
+          <RatingItem defaultValue={rating} />
+
+          <Typography
+            variant="body1"
+            color="text.secondary"
             sx={{
-              display: 'flex',
-              gap: '10px',
-              width: '100%',
-              padding: '0',
+              width: {
+                // mobile: 140,
+                desktop: 67,
+                tablet: '100%',
+              },
             }}
           >
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{
-                paddingTop: '7px',
-              }}
-            >
-              24min •
-            </Typography>
+            24min •
+          </Typography>
 
-            <RatingItem defaultValue={rating} />
-
-          </CardContent>
-          <CardActions
-            disableSpacing
+        </CardContent>
+        <CardActions
+          disableSpacing
+          sx={{
+            padding: '0',
+            paddingRight: '18px',
+          }}
+        >
+          <IconButton
+            aria-label="add to favorites"
             sx={{
               padding: '0',
-              paddingRight: '18px',
+              width: {
+                mobile: 35,
+                tablet: 41,
+              },
+              height: {
+                mobile: 35,
+                tablet: 41,
+              },
             }}
           >
-            <IconButton
-              aria-label="add to favorites"
-              sx={{
-                padding: '0',
-              }}
-            >
-              <BookmarkIcon />
-            </IconButton>
-          </CardActions>
-        </Box>
-      </Card>
-    </ThemeProvider>
+            <BookmarkIcon />
+          </IconButton>
+        </CardActions>
+      </Box>
+    </Card>
   );
 };
 
@@ -116,7 +138,7 @@ RestaurantItem.propTypes = {
 RestaurantItem.defaultProps = {
   rating: 3,
   name: 'The Chicken King',
-  imageUrl: '',
+  imageUrl: './img/restaurants/Resturent01.jpg',
 };
 
 export default RestaurantItem;
