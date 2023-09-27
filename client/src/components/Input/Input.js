@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import { useField } from 'formik';
 import PropTypes from 'prop-types';
@@ -11,31 +10,15 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
 import styles from './Input.module.scss';
-import PersonSvg from '../../assets/svgComponents/PersonSvg';
-import EmailSvg from '../../assets/svgComponents/EmailSvg';
-import LockSvg from '../../assets/svgComponents/LockSvg';
-
-// ------- Варіант зі стилізацією за допомогою scss -------
-// const Input = ({ type, ...props }) => {
-//   const [field, meta] = useField(props.name);
-//
-//   return (
-//     <div className={styles.root}>
-//       <input type={type} {...field} {...props} />
-//       {meta.touched && meta.error && <span className={styles.error}>{meta.error}</span>}
-//     </div>
-//   );
-// };
-
-// ------- Варіант з використанням MUI -------
 
 // ------- Приклад використання -------
+
 // --- варіант з лейбл ----
-// <Input name="name" id="name" label="Name" placeholder="Enter your name..."
-// icon={<PersonSvg />} />
+// <Input name="name" id="name" label="Name" placeholder="Enter your name..." icon={<PersonSvg />} />
 // --- варіант без лейбл ----
 // <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />} />
 // <Input name="password" id="password" type="password" placeholder="Password" icon={<LockSvg />} />
+
 // --- для textarea додаємо атрибут multiline ---
 // <Input name="comment" id="comment" placeholder="Enter the problem or query..." multiline />
 
@@ -51,18 +34,20 @@ const Input = ({ type, label, icon, multiline, ...props }) => {
 
   return (
     <FormControl
+      fullWidth
       variant="outlined"
       error={Boolean(meta.touched && meta.error)}
     >
-      <InputLabel
-        htmlFor="input"
-        sx={{
-          color: 'primary.main',
-        }}
-      >
+      <InputLabel htmlFor="input">
         {label}
       </InputLabel>
       <OutlinedInput
+        sx={{
+          bgcolor: '#F9F9F9',
+          '&:hover:not(.Mui-error):not(.Mui-focused) > .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#664FFF',
+          },
+        }}
         id="input"
         aria-describedby="helper-text"
         label={label}
@@ -71,7 +56,12 @@ const Input = ({ type, label, icon, multiline, ...props }) => {
         /* eslint-disable-next-line no-nested-ternary */
         type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
         startAdornment={(
-          <InputAdornment position="start">
+          <InputAdornment
+            position="start"
+            sx={{
+              mr: '12px',
+            }}
+          >
             {icon}
           </InputAdornment>
         )}
@@ -82,6 +72,9 @@ const Input = ({ type, label, icon, multiline, ...props }) => {
               onClick={handleClickShowPassword}
               onMouseDown={handleMouseDownPassword}
               edge="end"
+              sx={{
+                mr: '1px',
+              }}
             >
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
@@ -90,7 +83,9 @@ const Input = ({ type, label, icon, multiline, ...props }) => {
         {...field}
         {...props}
       />
-      <FormHelperText id="helper-text">{Boolean(meta.touched) && meta.error}</FormHelperText>
+      <FormHelperText id="helper-text">
+        {Boolean(meta.touched) && meta.error}
+      </FormHelperText>
     </FormControl>
   );
 };
