@@ -52,7 +52,7 @@ const globalTheme = createTheme({
     },
     h1: {
       fontFamily: 'Poppins, sans-serif',
-      fontWeight: 500,
+      fontWeight: 700,
       lineHeight: '1.5em',
     },
     h2: {
