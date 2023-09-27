@@ -64,7 +64,7 @@ const SectionGetStarted = () => {
             src="/img/layout/trustpilotIcon.png"
             alt=""
           />
-          <Typography sx={stylesTrustpilot} component="span">Trustpilot</Typography>
+          <Typography sx={stylesTrustpilot} variant="h6" component="span">Trustpilot</Typography>
           <Rating sx={stylesStarts} name="read-only" value={value} readOnly />
           <Typography sx={stylesReviewAmount} component="span">4900+</Typography>
         </Box>

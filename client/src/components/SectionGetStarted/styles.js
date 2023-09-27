@@ -46,31 +46,6 @@ export const stylesLabel = {
     tablet: '12px',
     desktop: '27px',
   },
-  // position: 'relative',
-  // left: '50%',
-  // top: '50%',
-  // transform: 'translate(-5%, -50%)',
-  // '&:before': {
-  //   content: "''",
-  //   position: 'absolute',
-  //   left: {
-  //     zero: '-45px',
-  //     mobile: '-45px',
-  //     tablet: '-47px',
-  //     desktop: '-49px',
-  //   },
-  //   top: '50%',
-  //   transform: 'translate(0%, -50%)',
-  //   display: 'block',
-  //   height: '1px',
-  //   width: {
-  //     zero: '34px',
-  //     mobile: '34px',
-  //     tablet: '38px',
-  //     desktop: '54px',
-  //   },
-  //   backgroundColor: '#676767',
-  // },
 };
 
 export const stylesTitle = {
@@ -147,7 +122,7 @@ export const stylesActions = {
 };
 
 export const stylesStartedBnt = {
-  borderRadius: '9px',
+  borderRadius: '16px',
   backgroundColor: '#FF9140',
   height: {
     zero: '41px',
@@ -173,7 +148,7 @@ export const stylesStartedBnt = {
 };
 
 export const stylesProBnt = {
-  borderRadius: '9px',
+  borderRadius: '16px',
   height: {
     zero: '41px',
     mobile: '41px',
@@ -206,24 +181,29 @@ export const stylesRating = {
   fontFamily: 'Poppins',
   display: 'flex',
   columnGap: '2px',
-  justifyContent: 'center',
+  justifyContent: {
+    zero: 'center',
+    mobile: 'center',
+    tablet: 'left',
+    desktop: 'left',
+  },
   alignItems: 'center',
-
 };
 
 export const stylesTrustpilot = {
   color: 'text.primary',
-  fontSize: '16px',
   fontWeight: 600,
 };
 
 export const stylesStarts = {
-  fontSize: '16px',
+  fontSize: '20px',
 };
 
 export const stylesReviewAmount = {
   color: 'text.secondary',
   fontSize: '10px',
+  position: 'relative',
+  top: '1px',
 };
 
 export const stylesImage = {
