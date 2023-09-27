@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../Footer/Footer';
 import { Outlet } from 'react-router-dom';
 import Header from '../Header/Header';
 
@@ -9,7 +10,7 @@ const PublicLayout = () => {
       <main>
         <Outlet />
       </main>
-      <footer style={{ margin: '20px' }}>Footer</footer>
+      <Footer />
     </>
   );
 };
