@@ -211,7 +211,7 @@ globalTheme.typography.subtitle1 = {
 };
 
 globalTheme.typography.button = {
-  fontSize: '12px',
+  fontSize: '16px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '24px',
   },
