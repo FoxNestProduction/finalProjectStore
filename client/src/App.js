@@ -4,7 +4,6 @@ import axios from 'axios';
 import AppRoutes from './AppRoutes';
 import Button from './components/Button/Button';
 import Modal from './components/Modal/Modal';
-import LoginForm from './components/forms/LoginForm/LoginForm';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -26,7 +25,6 @@ const App = () => {
       <div className="App" />
       <Modal disagree="Close" />
       <AppRoutes />
-      <LoginForm />
     </>
   );
 };
