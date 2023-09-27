@@ -3,6 +3,7 @@
 
 .formContainer {
   @include flex(center, center, column);
+  background-color: #FFF;
 }
 
 .title {
@@ -112,7 +113,7 @@
         font-family: $font-inter;
         color: $text-color;
         line-height: 150%;
-        font-size: 13px; 
+        font-size: 13px;
 
         @media (min-width: $bp-tablet) {
           font-size: 14px;
@@ -138,7 +139,7 @@
         //   margin-right: 3px;
         // }
       }
-    } 
+    }
   }
 
   .signInBtn {
