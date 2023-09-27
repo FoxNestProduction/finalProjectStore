@@ -24,6 +24,13 @@ const modalSlice = createSlice({
     },
     closeModal(state) {
       state.isOpen = false;
+      state.title = '';
+      state.content = '';
+      state.buttonBox = false;
+      state.buttonAgree.text = '';
+      state.buttonAgree.startIcon = false;
+      state.buttonAgree.endIcon = false;
+      state.buttonAgree.onClick = null;
     },
     setTitle(state, action) {
       state.title = action.payload;
