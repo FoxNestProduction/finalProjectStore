@@ -1,8 +1,12 @@
 import React from 'react';
+import LoginForm from '../../components/forms/LoginFormFromMUI/LoginForm';
 
 const ContactPage = () => {
   return (
-    <h1>Contact</h1>
+    <>
+      <LoginForm />
+      <h1>Contact</h1>
+    </>
   );
 };
 

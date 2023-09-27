@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { Typography } from '@mui/material';
+import { Typography, Container, Box } from '@mui/material';
 import styles from './LoginForm.module.scss';
 import validationSchema from './validationSchema';
 import Button from '../../Button/Button';
@@ -23,15 +23,37 @@ const LoginForm = () => {
     actions.resetForm();
   };
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
+    <Container
+      component="section"
     >
-      {({ isValid }) => (
-        <Form className={classNames(styles.formContainer)}>
-          <Typography />
-          {/* <h1 className={classNames(styles.title)}>Sign In To eatly</h1>
+      <Box
+        sx={{
+          width: {
+            zero: 313,
+            tablet: 276,
+            desctop: 493,
+          },
+        }}
+      >
+        <Typography
+          variant="h2"
+          component="h1"
+          sx={{
+            mb: 38,
+            color: 'text.primary',
+          }}
+        >
+          Sign In To eatly
+        </Typography>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          {({ isValid }) => (
+            <Form className={classNames(styles.formContainer)}>
+
+              {/* <h1 className={classNames(styles.title)}>Sign In To eatly</h1>
           <div className={classNames(styles.buttonWrapper)}>
             <Button
               type="button"
@@ -84,9 +106,11 @@ const LoginForm = () => {
               <Link to="/"> Sign Up</Link>
             </p>
           </div> */}
-        </Form>
-      )}
-    </Formik>
+            </Form>
+          )}
+        </Formik>
+      </Box>
+    </Container>
   );
 };
 
