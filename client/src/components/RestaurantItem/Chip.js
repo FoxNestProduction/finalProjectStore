@@ -18,16 +18,16 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
         <Chip
           label="Healthy"
           sx={{
-            backgroundColor: theme.palette.healthyColor.background,
-            color: theme.palette.healthyColor.text,
-            width: theme.components.MaiChip.root.width,
-            height: theme.components.MaiChip.root.height,
-            borderRadius: theme.components.MaiChip.root.borderRadius,
-            marginRight: theme.components.MaiChip.root.marginRight,
+            backgroundColor: 'background.healthy',
+            color: 'primary.main',
+            // width: theme.components.MaiChip.root.width,
+            // height: theme.components.MaiChip.root.height,
+            // borderRadius: theme.components.MaiChip.root.borderRadius,
+            // marginRight: theme.components.MaiChip.root.marginRight,
           }}
         />
       ) }
-      { isTrending && (
+      {/* { isTrending && (
         <Chip
           label="Trending"
           sx={{
@@ -43,6 +43,7 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
       { isSupreme && (
         <Chip
           label="Supreme"
+          color="text.secondary"
           sx={{
             backgroundColor: theme.palette.supremeColor.background,
             color: theme.palette.supremeColor.text,
@@ -52,7 +53,7 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
             marginRight: theme.components.MaiChip.root.marginRight,
           }}
         />
-      ) }
+      ) } */}
     </Box>
   );
 };

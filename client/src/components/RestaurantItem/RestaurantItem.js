@@ -8,86 +8,101 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { PropTypes } from 'prop-types';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from './RestaurantItem.module.scss';
 import BookmarkIcon from '../SvgComponents/BookmarkIcon';
 import RatingItem from './Rating';
 import ColorChips from './Chip';
 
 const RestaurantItem = ({ rating, name, imageUrl }) => {
-  return (
-    <Card
-      sx={{
-        maxWidth: '395px',
-        display: 'flex',
-        flexWrap: 'wrap',
-        boxShadow: '0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
-      }}
-    >
+  const localtheme = createTheme({
+    MaiChip: {
+      styleOverrides: {
+        root: {
+          width: 78,
+          height: 24,
+          borderRadius: 8,
+          marginRight: '10px',
+        },
+      },
+    },
+  });
 
-      <CardMedia
-        component="img"
-        height="177"
-        image="./img/restaurants/Resturent01.jpg"
-        alt={name}
-      />
-      <ColorChips />
-      <CardHeader
-        title={name}
-        className={styles.Card__header}
+  return (
+    <ThemeProvider theme={localtheme}>
+      <Card
         sx={{
-          padding: '0',
-          marginLeft: '32px',
-          marginBottom: '10px',
-        }}
-      />
-      <Box
-        sx={{
+          maxWidth: '395px',
           display: 'flex',
-          alignItems: 'center',
-          width: '100%',
-          marginLeft: '32px',
-          marginBottom: '20px',
+          flexWrap: 'wrap',
+          boxShadow: '0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
         }}
       >
-        <CardContent
+
+        <CardMedia
+          component="img"
+          height="177"
+          image="./img/restaurants/Resturent01.jpg"
+          alt={name}
+        />
+        <ColorChips />
+        <CardHeader
+          title={name}
+          sx={{
+            padding: '0',
+            marginLeft: '32px',
+            marginBottom: '10px',
+          }}
+        />
+        <Box
           sx={{
             display: 'flex',
-            gap: '10px',
+            alignItems: 'center',
             width: '100%',
-            padding: '0',
+            marginLeft: '32px',
+            marginBottom: '20px',
           }}
         >
-          <Typography
-            variant="body2"
-            color="text.secondary"
+          <CardContent
             sx={{
-              paddingTop: '7px',
-            }}
-          >
-            24min •
-          </Typography>
-
-          <RatingItem defaultValue={rating} />
-
-        </CardContent>
-        <CardActions
-          disableSpacing
-          sx={{
-            padding: '0',
-            paddingRight: '18px',
-          }}
-        >
-          <IconButton
-            aria-label="add to favorites"
-            sx={{
+              display: 'flex',
+              gap: '10px',
+              width: '100%',
               padding: '0',
             }}
           >
-            <BookmarkIcon />
-          </IconButton>
-        </CardActions>
-      </Box>
-    </Card>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                paddingTop: '7px',
+              }}
+            >
+              24min •
+            </Typography>
+
+            <RatingItem defaultValue={rating} />
+
+          </CardContent>
+          <CardActions
+            disableSpacing
+            sx={{
+              padding: '0',
+              paddingRight: '18px',
+            }}
+          >
+            <IconButton
+              aria-label="add to favorites"
+              sx={{
+                padding: '0',
+              }}
+            >
+              <BookmarkIcon />
+            </IconButton>
+          </CardActions>
+        </Box>
+      </Card>
+    </ThemeProvider>
   );
 };
 
