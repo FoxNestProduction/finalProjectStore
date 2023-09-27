@@ -42,41 +42,6 @@ const globalTheme = createTheme({
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
-    body1: {
-      fontWeight: 400,
-      lineHeight: '1.5em',
-    },
-    button: {
-      fontWeight: 500,
-      lineHeight: '1.5em',
-    },
-    h1: {
-      fontFamily: 'Poppins, sans-serif',
-      fontWeight: 500,
-      lineHeight: '1.5em',
-    },
-    h2: {
-      fontFamily: 'Poppins, sans-serif',
-      fontWeight: 500,
-      lineHeight: '1.5em',
-    },
-    h3: {
-      fontFamily: 'Poppins, sans-serif',
-      fontWeight: 600,
-      lineHeight: '1.5em',
-    },
-    h4: {
-      fontWeight: 600,
-      lineHeight: '1.5em',
-    },
-    h6: {
-      fontWeight: 600,
-      lineHeight: '1.5em',
-    },
-    subtitle1: {
-      fontWeight: 400,
-      lineHeight: '1.5em',
-    },
   },
   button: {
     large: {
@@ -149,6 +114,8 @@ const globalTheme = createTheme({
 });
 
 globalTheme.typography.body1 = {
+  fontWeight: 400,
+  lineHeight: '1.5em',
   fontSize: '13px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '14px',
@@ -159,6 +126,9 @@ globalTheme.typography.body1 = {
 };
 
 globalTheme.typography.h1 = {
+  fontFamily: 'Poppins, sans-serif',
+  fontWeight: 500,
+  lineHeight: '1.5em',
   fontSize: '46px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '54px',
@@ -169,6 +139,9 @@ globalTheme.typography.h1 = {
 };
 
 globalTheme.typography.h2 = {
+  fontFamily: 'Poppins, sans-serif',
+  fontWeight: 500,
+  lineHeight: '1.5em',
   fontSize: '28px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '36px',
@@ -179,6 +152,9 @@ globalTheme.typography.h2 = {
 };
 
 globalTheme.typography.h3 = {
+  fontFamily: 'Poppins, sans-serif',
+  fontWeight: 600,
+  lineHeight: '1.5em',
   fontSize: '14px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '16px',
@@ -189,6 +165,8 @@ globalTheme.typography.h3 = {
 };
 
 globalTheme.typography.h4 = {
+  fontWeight: 600,
+  lineHeight: '1.5em',
   fontSize: '14px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '18px',
@@ -196,6 +174,8 @@ globalTheme.typography.h4 = {
 };
 
 globalTheme.typography.h6 = {
+  fontWeight: 600,
+  lineHeight: '1.5em',
   fontSize: '14px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '18px',
@@ -203,6 +183,8 @@ globalTheme.typography.h6 = {
 };
 
 globalTheme.typography.subtitle1 = {
+  fontWeight: 400,
+  lineHeight: '1.5em',
   fontSize: '14px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '16px',
@@ -210,6 +192,8 @@ globalTheme.typography.subtitle1 = {
 };
 
 globalTheme.typography.button = {
+  fontWeight: 500,
+  lineHeight: '1.5em',
   fontSize: '16px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '24px',
