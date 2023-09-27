@@ -25,7 +25,6 @@ const Header = () => {
   return (
     <>
       <AppBar
-        component="footer"
         position="static"
         sx={{
           bgcolor: 'transparent',
@@ -40,16 +39,7 @@ const Header = () => {
         }}
         elevation="0"
       >
-        <Container
-          // maxWidth="maxcontentPaddings"
-          sx={{
-            px: {
-              zero: '30px',
-              tablet: '65px',
-              desktop: '90px',
-            },
-          }}
-        >
+        <Container>
           <Toolbar
             component="nav"
             disableGutters
@@ -89,16 +79,7 @@ const Header = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Container
-        // maxWidth="maxcontentPaddings"
-        sx={{
-          px: {
-            zero: '30px',
-            tablet: '65px',
-            desktop: '90px',
-          },
-        }}
-      >
+      <Container>
         <Divider />
       </Container>
     </>
