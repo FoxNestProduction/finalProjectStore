@@ -94,10 +94,10 @@ const globalTheme = createTheme({
     //     disableRipple: true,
     //   },
     // },
-    MuiFormControl: {
+    MuiFormLabel: {
       styleOverrides: {
         root: {
-          borderRadius: '16px',
+          color: '#6C5FBC',
         },
       },
     },
@@ -106,17 +106,16 @@ const globalTheme = createTheme({
         root: {
           fieldset: {
             border: '1px solid #6C5FBC',
-            borderRadius: '16px',
           },
           input: {
             '&::placeholder': {
-              color: '#000',
+              color: '#2B2B2B',
               opacity: '0.8',
             },
           },
           textarea: {
             '&::placeholder': {
-              color: '#000',
+              color: '#2B2B2B',
               opacity: '0.8',
             },
           },
@@ -146,12 +145,12 @@ const globalTheme = createTheme({
 });
 
 globalTheme.typography.body1 = {
-  fontSize: '14px',
+  fontSize: '13px',
   [globalTheme.breakpoints.up('tablet')]: {
-    fontSize: '16px',
+    fontSize: '14px',
   },
   [globalTheme.breakpoints.up('desktop')]: {
-    fontSize: '24px',
+    fontSize: '16px',
   },
 };
 
