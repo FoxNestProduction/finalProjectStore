@@ -2,11 +2,6 @@ import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import Footer from '../Footer/Footer';
-<<<<<<< HEAD
-=======
-// import PurchaseForm from '../Form/Form';
-// import MuiThemeProvider from '../../context/MuiThemeProvider';
->>>>>>> dev
 
 const PublicLayout = () => {
   return (
