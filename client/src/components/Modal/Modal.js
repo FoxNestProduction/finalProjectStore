@@ -113,16 +113,19 @@ const Modal = () => {
         >
           <CloseIcon />
         </IconButton>
+        {title && (
         <DialogTitle
           sx={{
             textAlign: 'center',
             bgcolor: 'primary.main',
             color: 'text.primaryLight',
+            mb: 5,
           }}
         >
           {title}
         </DialogTitle>
-        <DialogContent sx={{ textAlign: 'center', minHeight: '12vh', mt: 5 }}>
+        )}
+        <DialogContent sx={{ textAlign: 'center', minHeight: '12vh' }}>
           {content}
         </DialogContent>
         {buttonBox && (
