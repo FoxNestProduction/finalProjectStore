@@ -1,25 +1,28 @@
 import React from 'react';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
+
 import { PropTypes } from 'prop-types';
 
 const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   return (
     <Box
       sx={{
         margin: '10px 32px',
         width: '100%',
+        bgcolor: 'text.healthy',
       }}
     >
       { isHealthy && (
         <Chip
           label="Healthy"
+          // color="primary.main"
           sx={{
-            backgroundColor: 'background.healthy',
-            color: 'primary.main',
+            backgroundColor: 'primary.main',
+            color: 'healthy.main',
             // width: theme.components.MaiChip.root.width,
             // height: theme.components.MaiChip.root.height,
             // borderRadius: theme.components.MaiChip.root.borderRadius,

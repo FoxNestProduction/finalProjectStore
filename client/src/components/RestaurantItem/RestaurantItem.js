@@ -29,7 +29,7 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
   });
 
   return (
-    <ThemeProvider theme={localtheme}>
+    <ThemeProvider localtheme={localtheme}>
       <Card
         sx={{
           maxWidth: '395px',
@@ -48,6 +48,7 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
         <ColorChips />
         <CardHeader
           title={name}
+          // color="text.healthy"
           sx={{
             padding: '0',
             marginLeft: '32px',
