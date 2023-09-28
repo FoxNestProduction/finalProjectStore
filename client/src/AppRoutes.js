@@ -7,6 +7,8 @@ import MenuPage from './pages/Menu/Menu';
 import PricingPage from './pages/Pricing/Pricing';
 import AboutUsPage from './pages/AboutUs/AboutUs';
 import ReviewsPage from './pages/Reviews/Reviews';
+import Cart from './components/Cart/Cart';
+import Favourites from './components/Favourites/Favourites';
 
 const AppRoutes = () => {
   return (
@@ -18,6 +20,8 @@ const AppRoutes = () => {
         <Route path="/Reviews" element={<ReviewsPage />} />
         <Route path="/Contact" element={<ContactPage />} />
         <Route path="/AboutUs" element={<AboutUsPage />} />
+        <Route path="/Cart" element={<Cart />} />
+        <Route path="/Favourites" element={<Favourites />} />
       </Route>
     </Routes>
   );
