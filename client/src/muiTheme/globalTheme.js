@@ -26,7 +26,7 @@ const globalTheme = createTheme({
       header: '#606060',
       healthy: '#DAA31A',
       trending: '#FB471D',
-      supreme: '#309D5B',
+      supreme: '#0b4c25',
     },
     background: {
       paper: '#FFF',
