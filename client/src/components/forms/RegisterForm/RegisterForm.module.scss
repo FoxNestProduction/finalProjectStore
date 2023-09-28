@@ -1,5 +1,5 @@
-@import "../../styles/variables";
-@import "../../styles/mixins";
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
 
 .container {
   max-width: 460px;
@@ -13,8 +13,16 @@
 .form {
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  width: 100%;
+  row-gap: 17px;
   margin-bottom: 20px;
+
+  @media screen and (min-width: 481px) {
+    row-gap: 20px;
+  }
+  @media screen and (min-width: 993px) {
+    row-gap: 24px;
+  }
 
   & input {
     color: #495175;

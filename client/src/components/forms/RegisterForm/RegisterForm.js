@@ -1,20 +1,18 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { Form, Formik } from 'formik';
 import { Button, Link } from '@mui/material';
-import { useTheme } from '@emotion/react';
 import { NavLink } from 'react-router-dom';
 
-import { ReactComponent as Apple } from '../../assets/svg/apple.svg';
-import { ReactComponent as Google } from '../../assets/svg/google.svg';
-import PersonSvg from '../../assets/svgComponents/PersonSvg';
-import EmailSvg from '../../assets/svgComponents/EmailSvg';
-import LockSvg from '../../assets/svgComponents/LockSvg';
+import { ReactComponent as Apple } from '../../../assets/svg/apple.svg';
+import { ReactComponent as Google } from '../../../assets/svg/google.svg';
+import PersonSvg from '../../../assets/svgComponents/PersonSvg';
+import EmailSvg from '../../../assets/svgComponents/EmailSvg';
+import LockSvg from '../../../assets/svgComponents/LockSvg';
 
 import styles from './RegisterForm.module.scss';
-import Input from '../Input/Input';
+import Input from '../../Input/Input';
 
 export const initialValues = {
   fullName: '',
@@ -32,27 +30,38 @@ const RegisterForm = () => {
       className={styles.container}
       sx={{
         maxWidth: {
-          zero: '310px',
-          mobile: '310px',
-          tablet: '271px',
-          desktop: '493px',
+          zero: '270px',
+          mobile: '270px',
+          tablet: '310px',
+          desktop: '350px',
         },
       }}
     >
       <Box
         sx={{
+          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
         <Typography
-          component="h1"
+          component="h2"
+          variant="h2"
           sx={{
-            mb: '38px',
-            fontSize: '28px',
-            fontWeight: 600,
+            mb: {
+              zero: '34px',
+              mobile: '34px',
+              tablet: '38px',
+              desktop: '44px',
+            },
             color: '#323142',
+            fontSize: {
+              zero: '25px',
+              mobile: '25px',
+              tablet: '28px',
+              desktop: '38px',
+            },
           }}
         >
           Sign Up To eatly
@@ -60,11 +69,22 @@ const RegisterForm = () => {
         <Box
           className={styles.buttons}
           sx={{
+            mb: {
+              zero: '23px',
+              mobile: '23px',
+              tablet: '26px',
+              desktop: '36px',
+            },
             width: '100%',
             display: 'flex  ',
             alignItems: 'center',
             justifyContent: 'space-between',
-            columnGap: '17px',
+            columnGap: {
+              zero: '15px',
+              mobile: '15px',
+              tablet: '17px',
+              desktop: '22px',
+            },
           }}
         >
           <Button
@@ -74,13 +94,12 @@ const RegisterForm = () => {
               width: '100%',
               height: '51px',
               backgroundColor: 'background.footer',
-              boxShadow: '3px 3px 10px background.healthy',
               border: 'none',
               transition: 'ease-in .4s',
               '&:hover': {
-                backgroundColor: '#606060',
-                boxShadow: '-5px -5px 10px #405672',
-                border: '2px solid #ff7636',
+                backgroundColor: 'background.healthy',
+                boxShadow: '7px 7px 10px #DBD9EE',
+                border: '2px solid #EAEAEA',
               },
             }}
           >
@@ -91,14 +110,16 @@ const RegisterForm = () => {
             sx={{
               width: '100%',
               height: '51px',
-              backgroundColor: '#fbfacd',
-              boxShadow: '5px 5px 10px #ffd292',
+              backgroundColor: 'background.footer',
               border: 'none',
-              transition: 'ease-in .4s',
+              transition: 'ease-in .2s',
               '&:hover': {
-                backgroundColor: '#606060',
-                boxShadow: '-5px -5px 10px #405672',
-                border: '2px solid #ff7636',
+                backgroundColor: 'background.healthy',
+                boxShadow: '7px 7px 10px #DBD9EE',
+                border: '2px solid #EAEAEA',
+              },
+              '&:active': {
+                backgroundColor: 'background.healthy',
               },
             }}
           >
@@ -107,9 +128,15 @@ const RegisterForm = () => {
         </Box>
         <Typography
           component="p"
+          variant="h3"
           sx={{
-            mt: '30px',
-            mb: '30px',
+            mb: {
+              zero: '23px',
+              mobile: '23px',
+              tablet: '26px',
+              desktop: '36px',
+            },
+            color: 'text.secondaryLight',
           }}
         >
           OR
@@ -165,7 +192,7 @@ const RegisterForm = () => {
         </Formik>
         <Typography>
           Already Have An Account?
-          <Link component={NavLink} to="/Pricing">Log In</Link>
+          <NavLink to="/Login"> Log In</NavLink>
         </Typography>
       </Box>
     </Box>
