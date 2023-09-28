@@ -5,11 +5,12 @@ import { PropTypes } from 'prop-types';
 
 const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
   const chipSize = {
-    width: '80px',
+    width: '66px',
     height: '24px',
     borderRadius: '8px',
     marginRight: '10px',
     marginBottom: '5px',
+    fontSize: '0.625rem',
   };
 
   return (

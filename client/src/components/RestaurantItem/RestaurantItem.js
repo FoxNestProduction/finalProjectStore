@@ -29,7 +29,7 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
           tablet: 281,
           desktop: 395,
         },
-        boxShadow: '0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
+        boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
       }}
     >
 
@@ -78,7 +78,11 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
         <CardContent
           sx={{
             ...styles,
-            gap: '10px',
+            gap: {
+              mobile: '10px',
+              tablet: 0,
+              desktop: '10px',
+            },
             padding: '0',
             flexWrap: 'wrap',
           }}
