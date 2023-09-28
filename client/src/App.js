@@ -3,7 +3,11 @@ import './App.scss';
 import axios from 'axios';
 import AppRoutes from './AppRoutes';
 import Button from './components/Button/Button';
+<<<<<<< HEAD
 import ProductCardItem from './components/ProductCardItem/ProductCardItem';
+=======
+import Modal from './components/Modal/Modal';
+>>>>>>> dev
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -23,6 +27,7 @@ const App = () => {
   return (
     <>
       <div className="App" />
+      <Modal disagree="Close" />
       <AppRoutes />
       <ProductCardItem />
     </>

@@ -50,9 +50,19 @@
       "no-unused-vars": "off",
       "linebreak-style": "off",
       "no-console": "off",
-      "react/function-component-definition": [2, {"namedComponents": "arrow-function"}],
+      "react/function-component-definition": [
+        2,
+        {
+          "namedComponents": "arrow-function"
+        }
+      ],
       "arrow-body-style": "off",
-      "object-curly-newline": ["error", {"consistent": true}]
+      "object-curly-newline": [
+        "error",
+        {
+          "consistent": true
+        }
+      ]
     }
   },
   "browserslist": {

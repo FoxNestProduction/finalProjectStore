@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import PurchaseForm from '../Form/Form';
-import MuiThemeProvider from '../../context/MuiThemeProvider';
+import Footer from '../Footer/Footer';
 
 const PublicLayout = () => {
   return (
@@ -30,7 +29,7 @@ const PublicLayout = () => {
       <main>
         <Outlet />
       </main>
-      <footer style={{ margin: '20px' }}>Footer</footer>
+      <Footer />
     </>
   );
 };
