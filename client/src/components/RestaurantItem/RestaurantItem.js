@@ -8,7 +8,7 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { PropTypes } from 'prop-types';
-import BookmarkIcon from '../SvgComponents/BookmarkIcon';
+import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
 import ColorChips from '../Chip/Chip';
 
