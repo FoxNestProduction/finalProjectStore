@@ -7,48 +7,77 @@ import CardActions from '@mui/material/CardActions';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
 const ProductCard = () => {
   return (
-    <Container>
-      <Card>
+    <Container
+      sx={{
+        bgcolor: 'background.default',
+      }}
+    >
+      <Card
+        sx={{ bgcolor: 'background.default', boxShadow: 'none' }}
+      >
         <CardHeader
           // variant="h5"
           title="Name Dish"
-          sx={{ pb: 3, pt: 5 }}
+          sx={{ pb: 3, pt: 5, textAlign: 'center' }}
         />
-        {/* /> */}
         <CardMedia
           component="img"
           //  height=""
-          image="./img/seaFood/lobster.png"
+          image="./img/seaFood/norwegian_lobster.png"
           alt="lobster"
         />
+        <Grid container spacing={2}>
+          <Grid item>
+            Healsy
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1">
+              24min •
+            </Typography>
+          </Grid>
+          <Grid item>
+            <StarRoundedIcon sx={{ color: 'primary.main' }} />
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1">
+              4.2
+            </Typography>
+          </Grid>
+        </Grid>
         <CardContent>
           <Typography
             variant="description"
+            sx={{ px: 0 }}
           >
             This impressive paella is a perfect party dish and a fun meal to cook
             together with your guests. Add 1 cup of frozen peas along with the mussels,
             if you like
           </Typography>
-          {/* <Grid>
-          </Grid> */}
         </CardContent>
-        <CardActions>
+        <CardActions
+          sx={{ spacing: 8, justifyContent: ' space-between' }}
+        >
           <Button
             variant="outlined"
-            endIcon={<FavoriteBorderOutlinedIcon />}
+            sx={{ px: 3, py: 2, borderRadius: '12px', color: 'text.primary', border: 1 }}
           >
             Favourite
+            <FavoriteBorderOutlinedIcon fontSize="medium" sx={{ ml: 1 }} />
           </Button>
           <Button
             variant="contained"
-            endIcon={<AddBoxOutlinedIcon />}
+            sx={{ px: 3, py: 2, borderRadius: '12px' }}
           >
             Add to card
+            <AddBoxOutlinedIcon fontSize="lmedium" sx={{ ml: 1 }} />
           </Button>
         </CardActions>
       </Card>
