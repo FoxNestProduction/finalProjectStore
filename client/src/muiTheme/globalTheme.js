@@ -41,7 +41,15 @@ const globalTheme = createTheme({
     borderRadius: 16,
   },
   typography: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: {
+      main: 'Inter, sans-serif',
+      secondary: 'Poppins, sans-serif',
+    },
+    fontWeight: {
+      normal: 400,
+      semiBold: 500,
+      bold: 600,
+    },
   },
   button: {
     large: {
@@ -155,12 +163,12 @@ globalTheme.typography.h3 = {
   fontFamily: 'Poppins, sans-serif',
   fontWeight: 600,
   lineHeight: '1.5em',
-  fontSize: '14px',
+  fontSize: '18px',
   [globalTheme.breakpoints.up('tablet')]: {
-    fontSize: '16px',
+    fontSize: '20px',
   },
   [globalTheme.breakpoints.up('desktop')]: {
-    fontSize: '24px',
+    fontSize: '29px',
   },
 };
 
