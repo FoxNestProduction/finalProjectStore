@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types';
 
 const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
   const chipSize = {
-    width: '66px',
+    width: '70px',
     height: '24px',
     borderRadius: '8px',
     marginRight: '10px',
@@ -67,7 +67,7 @@ ColorChips.propTypes = {
 ColorChips.defaultProps = {
   isHealthy: true,
   isTrending: true,
-  isSupreme: false,
+  isSupreme: true,
 };
 
 export default ColorChips;
