@@ -7,7 +7,6 @@ import CardActions from '@mui/material/CardActions';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
@@ -23,61 +22,137 @@ const ProductCard = () => {
       }}
     >
       <Card
-        sx={{ bgcolor: 'background.default', boxShadow: 'none' }}
+        component="section"
+        sx={{
+          bgcolor: 'background.default',
+          boxShadow: 'none',
+          borderRadius: 0,
+          mb: { mobile: '60px', tablet: '100px' },
+        }}
       >
         <CardHeader
-          // variant="h5"
+          variant="h5"
+          component="h3"
           title="Name Dish"
-          sx={{ pb: 3, pt: 5, textAlign: 'center' }}
+          sx={{
+            pb: 3,
+            pt: 5,
+            textAlign: 'center',
+            display: { desktop: 'none' },
+          }}
         />
-        <CardMedia
-          component="img"
-          //  height=""
-          image="./img/seaFood/norwegian_lobster.png"
-          alt="lobster"
-          sx={{ mb: 3 }}
-        />
-        <Stack direction="row" spacing={2} sx={{ justifyContent: 'flex-end' }}>
-          <Typography variant="subtitle1">
-            24min •
-          </Typography>
-          <Stack direction="row" spacing={1}>
-            <StarRoundedIcon sx={{ color: 'primary.main' }} />
-            <Typography variant="subtitle1">
-              4.2
-            </Typography>
+        <Stack
+          sx={{
+            display: 'flex',
+            flexDirection: { mobile: 'column', desktop: 'row' },
+            gap: { desktop: '3vw' },
+          }}
+        >
+          <CardMedia
+            component="img"
+            image="./img/seaFood/norwegian_lobster.png"
+            alt="lobster"
+            sx={{ mb: 3, width: { mobile: '100%', desktop: '52%' } }}
+          />
+          <Stack>
+            <CardHeader
+              variant="h5"
+              component="h3"
+              title="Name Dish"
+              sx={{
+                p: 0,
+                textAlign: 'start',
+                display: { mobile: 'none', desktop: 'block' },
+              }}
+            />
+            <Stack
+              direction="row"
+              sx={{
+                justifyContent: { tablet: 'flex-end', desktop: 'flex-start' },
+                gap: { mobile: 2, tablet: 16 },
+                mb: { desktop: 4 },
+              }}
+            >
+              <Typography variant="subtitle1">24min •</Typography>
+              <Stack direction="row" spacing={1}>
+                <StarRoundedIcon sx={{ color: 'primary.main' }} />
+                <Typography variant="subtitle1">4.2</Typography>
+              </Stack>
+            </Stack>
+            <CardContent sx={{ p: 0, my: 3 }}>
+              <Typography
+                variant="description"
+                component="p"
+                sx={{
+                  textAlign: 'justify',
+                }}
+              >
+                This impressive paella is a perfect party dish and a fun meal to
+                cook together with your guests. Add 1 cup of frozen peas along
+                with the mussels, if you like
+              </Typography>
+            </CardContent>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: { tablet: 'flex-end', desktop: 'flex-start' },
+              }}
+            >
+              <Typography
+                variant="h5"
+                sx={{ mb: 3 }}
+              >
+                $12.99
+              </Typography>
+            </Box>
+            <CardActions
+              sx={{
+                justifyContent: {
+                  mobile: 'space-between',
+                  tablet: 'flex-end',
+                  desktop: 'space-between',
+                },
+                gap: {
+                  mobile: 0,
+                  tablet: '20px',
+                  desktop: 0,
+                },
+                p: 0,
+              }}
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  p: 2,
+                  borderRadius: '14px',
+                  color: 'text.primary',
+                  border: 1,
+                  fontSize: { tablet: '18px', desktop: '22px' },
+                }}
+              >
+                Favourite
+                <FavoriteBorderOutlinedIcon
+                  fontSize="medium"
+                  sx={{ ml: 1 }}
+                />
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  p: 2,
+                  borderRadius: '14px',
+                  fontSize: { tablet: '18px', desktop: '22px' },
+                }}
+              >
+                Add to card
+                <AddBoxOutlinedIcon
+                  fontSize="medium"
+                  sx={{ ml: 1 }}
+                />
+              </Button>
+            </CardActions>
           </Stack>
         </Stack>
-        <CardContent sx={{ px: 0 }}>
-          <Typography variant="description">
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like
-          </Typography>
-        </CardContent>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Typography variant="h5">
-            $12.99
-          </Typography>
-        </Box>
-        <CardActions
-          sx={{ spacing: 8, justifyContent: ' space-between' }}
-        >
-          <Button
-            variant="outlined"
-            sx={{ px: 3, py: 2, borderRadius: '14px', color: 'text.primary', border: 1 }}
-          >
-            Favourite
-            <FavoriteBorderOutlinedIcon fontSize="medium" sx={{ ml: 1 }} />
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ px: 3, py: 2, borderRadius: '14px' }}
-          >
-            Add to card
-            <AddBoxOutlinedIcon fontSize="medium" sx={{ ml: 1 }} />
-          </Button>
-        </CardActions>
       </Card>
     </Container>
   );
