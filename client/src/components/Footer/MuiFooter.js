@@ -2,44 +2,83 @@ import React from 'react';
 import {
   AppBar,
   Box,
-  Button,
   Container,
   IconButton,
   Stack,
   Toolbar,
   Typography,
+  Link,
 } from '@mui/material';
-import { stylesLink, stylesWrap, stylesTopWrap, stylesLinkWrap, stylesText, stylesLine } from './styles';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import { NavLink } from 'react-router-dom';
+import { stylesLink, stylesWrap, stylesTopWrap, stylesLinkWrap, stylesText, stylesLine, stylesSocial, stylesSocialWrap, stylesTwitter, stylesSizeIcon } from './styles';
 import MuiLogo from '../Logo/MuiLogo';
-// import styles from './footer.module.scss';
 
 const MuiFooter = () => {
   return (
-    <Container direction="column">
+    <Container direction="column" sx={{ backgroundColor: 'background.footer' }}>
       <AppBar
+        elevation={0}
         component="footer"
-        position="static"
+        position="relativ"
         sx={{
           backgroundColor: 'background.footer',
-          minWidth: '320px',
+          minWidth: '260px',
         }}
       >
-        <Toolbar>
-          <Stack sx={stylesWrap}>
-            <Stack sx={stylesTopWrap}>
-              <MuiLogo />
-              <Stack sx={stylesLinkWrap}>
-                <Button sx={stylesLink}>Blog</Button>
-                <Button sx={stylesLink}>Pricing</Button>
-                <Button sx={stylesLink}>About Us</Button>
-                <Button sx={stylesLink}>Contact</Button>
+        <Toolbar sx={{ p: 0 }}>
+          <Stack direction="column" sx={stylesWrap}>
+            <Stack
+              sx={stylesTopWrap}
+              direction={{
+                zero: 'column',
+                mobile: 'column',
+                tablet: 'row',
+                desktop: 'row',
+              }}
+            >
+              <Link component={NavLink} to="/" sx={{ textDecoration: 'none' }}>
+                <MuiLogo />
+              </Link>
+              <Stack
+                direction={{
+                  zero: 'column',
+                  mobile: 'column',
+                  tablet: 'row',
+                  desktop: 'row',
+                }}
+                sx={stylesLinkWrap}
+              >
+                <Link component={NavLink} to="/Blog" sx={stylesLink}>Blog</Link>
+                <Link component={NavLink} to="/Pricing" sx={stylesLink}>Pricing</Link>
+                <Link component={NavLink} to="/AboutUs" sx={stylesLink}>About Us</Link>
+                <Link component={NavLink} to="/Contact" sx={stylesLink}>Contact</Link>
+                {/* <Button sx={stylesLink}>Pricing</Button> */}
+                {/* <Button sx={stylesLink}>About Us</Button> */}
+                {/* <Button sx={stylesLink}>Contact</Button> */}
               </Stack>
             </Stack>
             <Box sx={stylesLine} />
-            {/* <div className={styles.lineMui}> </div> */}
-            <Typography sx={stylesText} component="p">
+            <Typography component="p" sx={stylesText}>
               © 2023 EATLY All Rights Reserved.
             </Typography>
+            <Stack direction="row" sx={stylesSocialWrap}>
+              <IconButton href="https://www.instagram.com/" sx={stylesSocial}>
+                <InstagramIcon sx={stylesSizeIcon} />
+              </IconButton>
+              <IconButton href="https://www.linkedin.com/" sx={stylesSocial}>
+                <LinkedInIcon sx={stylesSizeIcon} />
+              </IconButton>
+              <IconButton href="https://uk-ua.facebook.com/" sx={stylesSocial}>
+                <FacebookIcon sx={stylesSizeIcon} />
+              </IconButton>
+              <IconButton href="https://twitter.com/" sx={{ ...stylesSocial, ...stylesTwitter }}>
+                <TwitterIcon sx={stylesSizeIcon} />
+              </IconButton>
+            </Stack>
           </Stack>
         </Toolbar>
       </AppBar>

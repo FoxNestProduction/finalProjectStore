@@ -2,7 +2,13 @@ export const stylesLink = {
   color: 'text.header',
   fontFamily: 'fontFamily.main',
   fontWeight: 'fontWeight.semiBold',
-  justifyContent: 'start',
+  alignSelf: {
+    zero: 'start',
+    mobile: 'start',
+    tablet: 'center',
+    desktop: 'center',
+  },
+  textDecoration: 'none',
   textWrap: 'nowrap',
   p: 0,
   pl: {
@@ -10,7 +16,6 @@ export const stylesLink = {
     mobile: '10px',
     tablet: 0,
   },
-
   minWidth: '0px',
   fontSize: {
     zero: 14,
@@ -27,8 +32,7 @@ export const stylesLink = {
 };
 
 export const stylesWrap = {
-  direction: 'column',
-  w: '100%',
+  width: '100%',
   pt: {
     zero: '55px',
     mobile: '55px',
@@ -44,25 +48,18 @@ export const stylesWrap = {
 };
 
 export const stylesTopWrap = {
-  direction: {
-    zero: 'column',
-    mobile: 'column',
-    tablet: 'row',
-    desktop: 'row',
-  },
   justifyContent: 'space-between',
   width: '100%',
 };
 
 export const stylesLinkWrap = {
-  direction: {
-    zero: 'column',
-    mobile: 'column',
-    tablet: 'row',
-    desktop: 'row',
+  gap: {
+    zero: '35px',
+    mobile: '35px',
+    tablet: '5vw',
+    desktop: '6vw',
   },
-  gap: '5vw',
-  alignItems: 'startr',
+  alignItems: 'start',
   mt: {
     zero: '53px',
     mobile: '53px',
@@ -104,4 +101,45 @@ export const stylesLine = {
   height: '1px',
   width: '100%',
   backgroundColor: 'text.header',
+};
+
+export const stylesSocialWrap = {
+  position: 'absolute',
+  top: {
+    zero: '65px',
+    mobile: '65px',
+    tablet: '170px',
+    desktop: '240px',
+  },
+  right: '10px',
+  gap: {
+    zero: '18px',
+    mobile: '18px',
+    tablet: '4vw',
+    desktop: '51px',
+  },
+};
+
+export const stylesSocial = {
+  color: '#201F1F',
+  p: '0',
+};
+
+export const stylesTwitter = {
+  color: {
+    zero: '#201F1F',
+    mobile: '#201F1F',
+    tablet: '#201F1F',
+    desktop: 'primary.main',
+  },
+  p: '0',
+};
+
+export const stylesSizeIcon = {
+  fontSize: {
+    zero: '18px',
+    mobile: '18px',
+    tablet: '18px',
+    desktop: '21px',
+  },
 };
