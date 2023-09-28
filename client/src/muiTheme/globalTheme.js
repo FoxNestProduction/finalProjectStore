@@ -58,11 +58,11 @@ const globalTheme = createTheme({
     },
   },
   components: {
-    // MuiButton: {
-    //   defaultProps: {
-    //     disableRipple: true,
-    //   },
-    // },
+    MuiButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiFormLabel: {
       styleOverrides: {
         root: {
@@ -107,6 +107,7 @@ const globalTheme = createTheme({
             paddingLeft: '90px',
           },
           maxWidth: '1426px',
+          minWidth: '320px',
         }),
       },
     },
