@@ -1,12 +1,12 @@
 import React from 'react';
 import { Typography, Container, Box, Rating, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import useResize from './resizeHook/useResize';
+import useBreakpoint from './resizeHook/useBreakpoint';
 import { stylesReviewAmount, stylesStarts, stylesTrustpilot, stylesProBnt, stylesStartedBnt, stylesTextContainer, stylesLabel, stylesTitle, stylesSection, stylesDescription, stylesActions, stylesRating, stylesImage } from './styles';
 
 const SectionGetStarted = () => {
   const value = 4;
-  const breakPoint = useResize();
+  const breakPoint = useBreakpoint();
   const breakPointsMap = {
     shortTitle:
   <>
@@ -58,7 +58,7 @@ const SectionGetStarted = () => {
           <img
             style={{
               position: 'relative',
-              top: '-2px',
+              top: '-4px',
               left: '-2px',
             }}
             src="/img/layout/trustpilotIcon.png"
@@ -70,7 +70,10 @@ const SectionGetStarted = () => {
         </Box>
       </Box>
       <Box sx={stylesImage}>
-        <img src="/img/layout/getStartedSectionImage.png" alt="" />
+        <img
+          src="/img/layout/getStartedSectionImage.png"
+          alt=""
+        />
       </Box>
     </Container>
   );
