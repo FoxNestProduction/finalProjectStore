@@ -5,6 +5,7 @@ const useBreakpoint = () => {
 
   useEffect(() => {
     const handleResize = () => {
+      // eslint-disable-next-line no-undef
       if (window.innerWidth <= 481) {
         setBreakPoint('shortTitle');
       } else {
@@ -14,8 +15,10 @@ const useBreakpoint = () => {
 
     handleResize();
 
+    // eslint-disable-next-line no-undef
     window.addEventListener('resize', handleResize);
     return () => {
+      // eslint-disable-next-line no-undef
       window.removeEventListener('resize', handleResize);
     };
   }, []);
