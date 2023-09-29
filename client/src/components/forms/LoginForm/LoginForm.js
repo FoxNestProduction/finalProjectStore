@@ -1,7 +1,6 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { NavLink } from 'react-router-dom';
-import classNames from 'classnames';
 import {
   Typography,
   Container,
@@ -9,7 +8,6 @@ import {
   Button,
   Link,
 } from '@mui/material';
-import styles from './LoginForm.module.scss';
 import validationSchema from './validationSchema';
 import {
   flexcenter,
@@ -35,6 +33,7 @@ const LoginForm = () => {
   };
   const handleSubmit = (values, actions) => {
     console.log(values);
+    console.log(actions);
     actions.resetForm();
   };
   return (
@@ -96,55 +95,61 @@ const LoginForm = () => {
         >
 
           {({ isValid }) => (
-            <Form className={classNames(styles.formContainer)}>
+            <Form>
               <Box
-                sx={{
-                  ...flexcenter,
-                  ...inputsWrapper,
-                }}
+                sx={flexcenter}
               >
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your e-mail"
-                  label="email"
-                  icon={<EmailSvg />}
-                />
-                <Input
-                  type="password"
-                  name="password"
-                  placeholder="Enter your password"
-                  label="password"
-                  icon={<LockSvg />}
-                />
+                <Box
+                  sx={{
+                    ...flexcenter,
+                    ...inputsWrapper,
+                  }}
+                >
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your e-mail"
+                    label="email"
+                    icon={<EmailSvg />}
+                  />
+                  <Input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    label="password"
+                    icon={<LockSvg />}
+                  />
+                </Box>
+                <Link
+                  component={NavLink}
+                  to="/forgetPassword"
+                  underline="none"
+                  sx={forgetPassword}
+                >
+                  Forget Password ?
+                </Link>
+                <Button
+                  onSubmit={handleSubmit}
+                  disableRipple
+                  variant="contained"
+                  sx={signInBtn}
+                  type="submit"
+                  disabled={!isValid}
+                >
+                  Sign in
+                </Button>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    textAlign: 'center',
+                    color: 'text.primary',
+                    width: '100%',
+                  }}
+                >
+                  Create A New Account?
+                  <Link component={NavLink} to="/signUp" underline="none" sx={signUpLink}> Sign Up</Link>
+                </Typography>
               </Box>
-
-              <Link
-                component={NavLink}
-                to="/forgetPassword"
-                underline="none"
-                sx={forgetPassword}
-              >
-                Forget Password ?
-              </Link>
-              <Button
-                disableRipple
-                variant="contained"
-                sx={signInBtn}
-              >
-                Sign in
-              </Button>
-              <Typography
-                variant="body1"
-                sx={{
-                  textAlign: 'center',
-                  color: 'text.primary',
-                  width: '100%',
-                }}
-              >
-                Create A New Account?
-                <Link component={NavLink} to="/signUp" underline="none" sx={signUpLink}> Sign Up</Link>
-              </Typography>
             </Form>
           )}
         </Formik>

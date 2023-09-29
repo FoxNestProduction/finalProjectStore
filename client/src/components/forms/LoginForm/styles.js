@@ -36,7 +36,6 @@ export const googleAppleBtn = {
   backgroundColor: '#EAEAEA',
   height: '51px',
   width: '148px',
-  // borderRadius: '10px',
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
   '@media (min-width: 481px)': {
     width: '130px',
@@ -103,6 +102,10 @@ export const forgetPassword = {
   lineHeight: '1.5em',
   transition: 'color 0.3s ease',
   opacity: '0.7',
+  alignSelf: {
+    mobile: 'flex-end',
+    desktop: 'center',
+  },
   mb: {
     mobile: '16px',
     tablet: '14px',
@@ -121,11 +124,6 @@ export const signInBtn = {
     tablet: '16px',
     desktop: '24px',
   },
-  // borderRadius: {
-  //   mobile: '12px',
-  //   tablet: '11px',
-  //   desktop: '16px',
-  // },
   height: {
     mobile: '60px',
     tablet: '53px',

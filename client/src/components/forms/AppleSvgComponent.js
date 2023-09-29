@@ -3,7 +3,6 @@ import useBreakpoint from '../../customHooks/useBreakpoint';
 
 const AppleSvgComponent = () => {
   const breakPoint = useBreakpoint();
-  console.log(breakPoint);
   const breakPointMap = {
     mobile: {
       width: 27,
