@@ -17,7 +17,7 @@ const ProductPage = () => {
       >
         Popular
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{ mb: 8 }}>
         {/* {data.map((item) => (
           <Grid key={1} item mobile={6} desktop={3}>
             {item}
