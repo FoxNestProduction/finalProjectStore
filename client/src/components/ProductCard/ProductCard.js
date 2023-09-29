@@ -14,6 +14,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import Chip from '../Chip/Chip';
+import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard } from './styles';
 
 const ProductCard = () => {
   return (
@@ -24,30 +25,16 @@ const ProductCard = () => {
     >
       <Card
         component="section"
-        sx={{
-          bgcolor: 'background.default',
-          boxShadow: 'none',
-          borderRadius: 0,
-          mb: { mobile: '60px', tablet: '100px' },
-        }}
+        sx={stylesSectionCard}
       >
         <CardHeader
           variant="h5"
           component="h3"
           title="Name Dish"
-          sx={{
-            pb: 3,
-            pt: 5,
-            textAlign: 'center',
-            display: { desktop: 'none' },
-          }}
+          sx={stylesHeaderTopCard}
         />
         <Stack
-          sx={{
-            display: 'flex',
-            flexDirection: { mobile: 'column', desktop: 'row' },
-            gap: { desktop: '3vw' },
-          }}
+          sx={stylesContentCard}
         >
           <CardMedia
             component="img"
@@ -60,27 +47,17 @@ const ProductCard = () => {
               variant="h5"
               component="h3"
               title="Name Dish"
-              sx={{
-                p: 0,
-                textAlign: 'start',
-                display: { mobile: 'none', desktop: 'block' },
-              }}
+              sx={stylesHeaderInCard}
             />
             <Stack
-              sx={{
-                flexDirection: { mobile: 'row', desktop: 'column' },
-                justifyContent: 'space-between',
-                gap: 2,
-              }}
+              sx={stylesLabelCard}
             >
-              <Chip />
+              <Box sx={{ position: 'relative', left: '-32px' }}>
+                <Chip />
+              </Box>
               <Stack
                 direction="row"
-                sx={{
-                  justifyContent: { tablet: 'flex-end', desktop: 'flex-start' },
-                  gap: { mobile: 2, tablet: 16 },
-                  mb: { desktop: 4 },
-                }}
+                sx={stylesRatingCard}
               >
                 <Typography variant="subtitle1">24min •</Typography>
                 <Stack direction="row" spacing={1}>
@@ -93,9 +70,7 @@ const ProductCard = () => {
               <Typography
                 variant="description"
                 component="p"
-                sx={{
-                  textAlign: 'justify',
-                }}
+                sx={{ textAlign: 'justify' }}
               >
                 This impressive paella is a perfect party dish and a fun meal to
                 cook together with your guests. Add 1 cup of frozen peas along
@@ -103,10 +78,7 @@ const ProductCard = () => {
               </Typography>
             </CardContent>
             <Box
-              sx={{
-                display: 'flex',
-                justifyContent: { mobile: 'flex-end', desktop: 'flex-start' },
-              }}
+              sx={stylesPriceCard}
             >
               <Typography
                 variant="h5"
@@ -116,29 +88,11 @@ const ProductCard = () => {
               </Typography>
             </Box>
             <CardActions
-              sx={{
-                justifyContent: {
-                  mobile: 'space-between',
-                  tablet: 'flex-end',
-                  desktop: 'space-between',
-                },
-                gap: {
-                  mobile: 0,
-                  tablet: '20px',
-                  desktop: 0,
-                },
-                p: 0,
-              }}
+              sx={stylesActionsCard}
             >
               <Button
                 variant="outlined"
-                sx={{
-                  p: 2,
-                  borderRadius: '14px',
-                  color: 'text.primary',
-                  border: 1,
-                  fontSize: { tablet: '18px', desktop: '22px' },
-                }}
+                sx={stylesButtonCardOutline}
               >
                 Favourite
                 <FavoriteBorderOutlinedIcon
@@ -148,11 +102,7 @@ const ProductCard = () => {
               </Button>
               <Button
                 variant="contained"
-                sx={{
-                  p: 2,
-                  borderRadius: '14px',
-                  fontSize: { tablet: '18px', desktop: '22px' },
-                }}
+                sx={stylesButtonCard}
               >
                 Add to card
                 <AddBoxOutlinedIcon
