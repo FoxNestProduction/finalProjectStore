@@ -29,7 +29,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
         <Box
           sx={drawerHeader}
         >
-          <Logo className={styles.headerLogo} />
+          <Logo type="header" />
           <IconButton
             aria-label="close drawer"
             edge="end"

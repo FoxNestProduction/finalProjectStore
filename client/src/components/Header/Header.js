@@ -55,7 +55,8 @@ const Header = () => {
               justifyContent: 'space-between',
             }}
           >
-            <Logo className={styles.headerLogo} />
+            {/* <Logo className={styles.headerLogo} /> */}
+            <Logo type="header" />
             {/* <Link component={NavLink} to="/">Home</Link> */}
             {/* <Link component={NavLink} to="/Menu">Menu</Link> */}
             {/* <Link component={NavLink} to="/Blog">Blog</Link> */}

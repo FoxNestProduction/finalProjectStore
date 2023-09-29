@@ -1,25 +1,39 @@
 import React from 'react';
+import { IconButton, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { ReactComponent as LogoIcon } from './logo.svg';
+import { ReactComponent as LogoIcon } from '../../assets/svg/logo.svg';
+import {
+  stylesIconFooter,
+  stylesIconHeader,
+  stylesTitleFooter,
+  stylesTitleHeader,
+} from './styles';
 
-const Logo = ({ className, classNameIcon }) => {
+const Logo = ({ type }) => {
   return (
-    <Link to="/" className={className}>
-      <LogoIcon className={classNameIcon} />
-      <p>eatly</p>
-    </Link>
+    <Stack direction="row" alignItems="center">
+      <IconButton
+        edge="center"
+        aria-label="logo"
+        sx={type === 'header' ? stylesIconHeader : stylesIconFooter}
+      >
+        <LogoIcon />
+      </IconButton>
+      <Typography
+        sx={type === 'header' ? stylesTitleHeader : stylesTitleFooter}
+      >
+        eatly
+      </Typography>
+    </Stack>
   );
 };
 
-export default Logo;
-
 Logo.propTypes = {
-  className: PropTypes.string,
-  classNameIcon: PropTypes.string,
+  type: PropTypes.oneOf(['header', 'footer']),
 };
 
 Logo.defaultProps = {
-  className: '',
-  classNameIcon: '',
+  type: 'header',
 };
+
+export default Logo;
