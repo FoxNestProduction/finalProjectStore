@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import Chip from '../Chip/Chip';
 
 const ProductCard = () => {
   return (
@@ -66,17 +67,26 @@ const ProductCard = () => {
               }}
             />
             <Stack
-              direction="row"
               sx={{
-                justifyContent: { tablet: 'flex-end', desktop: 'flex-start' },
-                gap: { mobile: 2, tablet: 16 },
-                mb: { desktop: 4 },
+                flexDirection: { mobile: 'row', desktop: 'column' },
+                justifyContent: 'space-between',
+                gap: 2,
               }}
             >
-              <Typography variant="subtitle1">24min •</Typography>
-              <Stack direction="row" spacing={1}>
-                <StarRoundedIcon sx={{ color: 'primary.main' }} />
-                <Typography variant="subtitle1">4.2</Typography>
+              <Chip />
+              <Stack
+                direction="row"
+                sx={{
+                  justifyContent: { tablet: 'flex-end', desktop: 'flex-start' },
+                  gap: { mobile: 2, tablet: 16 },
+                  mb: { desktop: 4 },
+                }}
+              >
+                <Typography variant="subtitle1">24min •</Typography>
+                <Stack direction="row" spacing={1}>
+                  <StarRoundedIcon sx={{ color: 'primary.main' }} />
+                  <Typography variant="subtitle1">4.2</Typography>
+                </Stack>
               </Stack>
             </Stack>
             <CardContent sx={{ p: 0, my: 3 }}>
