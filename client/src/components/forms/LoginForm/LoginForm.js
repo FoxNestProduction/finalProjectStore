@@ -108,7 +108,6 @@ const LoginForm = () => {
                   name="email"
                   placeholder="Enter your e-mail"
                   label="email"
-                  className={classNames(styles.inputWrapper)}
                   icon={<EmailSvg />}
                 />
                 <Input
@@ -116,7 +115,6 @@ const LoginForm = () => {
                   name="password"
                   placeholder="Enter your password"
                   label="password"
-                  className={classNames(styles.inputWrapper)}
                   icon={<LockSvg />}
                 />
               </Box>

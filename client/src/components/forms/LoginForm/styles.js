@@ -47,12 +47,11 @@ export const googleAppleBtn = {
     height: '62px',
   },
   '&:hover': {
-    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
-    // backgroundColor: '#EAEAEA',
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.3)',
     backgroundColor: 'common.white',
   },
   '&:active': {
-    boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2)',
+    boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.2)',
     transform: 'translateY(1px)',
   },
 };
@@ -138,7 +137,7 @@ export const signInBtn = {
     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
   },
   '&:active': {
-    boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2)',
+    boxShadow: '0px -1px 4px rgba(0, 0, 0, 0.5)',
     transform: 'translateY(1px)', // під питанням
     backgroundColor: 'common.white',
     color: '#1C186C',

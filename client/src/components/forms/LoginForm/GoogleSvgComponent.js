@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
-import useBreakPoint from './hooks/useBreakPoint';
+import useBreakpoint from '../../../customHooks/useBreakpoint';
 
 const GoogleSvgComponent = () => {
-  const breakPoint = useBreakPoint();
+  const breakPoint = useBreakpoint();
   const breakPointMap = {
     mobile: {
       width: 28,
