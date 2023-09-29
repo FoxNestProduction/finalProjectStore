@@ -37,11 +37,11 @@ const Header = () => {
         sx={{
           bgcolor: 'transparent',
           pt: {
-            zero: '25px',
+            mobile: '25px',
             tablet: '40px',
           },
           pb: {
-            zero: '25px',
+            mobile: '25px',
             tablet: '26px',
           },
         }}
@@ -86,7 +86,7 @@ const Header = () => {
             {/* <MenuList */}
             {/*  component="nav" */}
             {/*  sx={{ */}
-            {/*    display: { zero: 'none', tablet: 'block' }, */}
+            {/*    display: { mobile: 'none', tablet: 'block' }, */}
             {/*  }} */}
             {/* > */}
             {/*  <MenuItem component={NavLink} to="/">Home</MenuItem> */}

@@ -13,6 +13,7 @@ const Logo = ({ type }) => {
   return (
     <Stack direction="row" alignItems="center">
       <IconButton
+        component="div"
         edge="center"
         aria-label="logo"
         sx={type === 'header' ? stylesIconHeader : stylesIconFooter}

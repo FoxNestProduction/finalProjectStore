@@ -5,7 +5,7 @@ import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStar
 const HomePage = () => {
   return (
     <>
-    <SectionGetStarted />
+      <SectionGetStarted />
       <Typography variant="h1">Home</Typography>
       <p>
         Powered by Google Fonts, the type scale generator is a tool

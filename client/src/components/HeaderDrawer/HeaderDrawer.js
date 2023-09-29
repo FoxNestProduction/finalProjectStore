@@ -43,7 +43,16 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
         <List>
           {navItems.map((item) => (
             <ListItem key={item} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }} component={NavLink} to={`/${item}`}>
+              <ListItemButton
+                sx={{
+                  textAlign: 'center',
+                  // '&:hover': {
+                  //   bgcolor: 'primary.main',
+                  // },
+                }}
+                component={NavLink}
+                to={`/${item}`}
+              >
                 <ListItemText
                   primary={item}
                   sx={listItem}

@@ -95,7 +95,7 @@ const globalTheme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: ({ theme }) => ({
-          [theme.breakpoints.up('zero')]: {
+          [theme.breakpoints.up('mobile')]: {
             paddingRight: '30px',
             paddingLeft: '30px',
           },
