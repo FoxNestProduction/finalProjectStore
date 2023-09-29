@@ -1,7 +1,7 @@
 import React from 'react';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
   const chipSize = {

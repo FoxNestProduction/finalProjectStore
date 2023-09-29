@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import StarIcon from '../../assets/svgComponents/StarIcon';
 
 const RatingItem = ({ ratingValue }) => {
