@@ -3,8 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const globalTheme = createTheme({
   breakpoints: {
     values: {
-      zero: 0,
-      mobile: 320,
+      mobile: 0,
       tablet: 481,
       desktop: 993,
     },
@@ -26,7 +25,7 @@ const globalTheme = createTheme({
       header: '#606060',
       healthy: '#DAA31A',
       trending: '#FB471D',
-      supreme: '#309D5B',
+      supreme: '#0b4c25',
     },
     background: {
       paper: '#FFF',
@@ -42,6 +41,8 @@ const globalTheme = createTheme({
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
+    fontPoppins: 'Poppins, sans-serif',
+    fontWeightSemiBold: 600,
   },
   button: {
     large: {
@@ -107,6 +108,7 @@ const globalTheme = createTheme({
             paddingLeft: '90px',
           },
           maxWidth: '1426px',
+          minWidth: '320px',
         }),
       },
     },
