@@ -41,6 +41,8 @@ const globalTheme = createTheme({
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
+    fontPoppins: 'Poppins, sans-serif',
+    fontWeightSemiBold: 600,
   },
   button: {
     large: {
