@@ -132,12 +132,12 @@ globalTheme.typography.h1 = {
   fontFamily: 'Poppins, sans-serif',
   fontWeight: 500,
   lineHeight: '1.5em',
-  fontSize: '46px',
+  fontSize: '43px',
   [globalTheme.breakpoints.up('tablet')]: {
-    fontSize: '54px',
+    fontSize: '46px',
   },
   [globalTheme.breakpoints.up('desktop')]: {
-    fontSize: '60px',
+    fontSize: '52px',
   },
 };
 
