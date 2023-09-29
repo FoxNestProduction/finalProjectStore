@@ -38,6 +38,7 @@ export const stylesTextContainer = {
   width: {
     mobile: '100%',
     tablet: '45%',
+    desktop: '52%',
   },
 };
 
