@@ -80,7 +80,7 @@ const LoginForm = () => {
             </Button>
             <p className={classNames(styles.signUpLinkWrapper)}>
               Create A New Account?
-              <Link to="/"> Sign Up</Link>
+              <Link to="/Register"> Sign Up</Link>
             </p>
           </div>
         </Form>

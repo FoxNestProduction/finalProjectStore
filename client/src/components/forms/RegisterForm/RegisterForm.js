@@ -186,7 +186,9 @@ const RegisterForm = () => {
                 },
               }}
             >
-              SIGN UP
+              <Typography variant="h3" sx={{ fontFamily: 'Poppins' }}>
+                SIGN UP
+              </Typography>
             </Button>
           </Form>
         </Formik>
