@@ -22,8 +22,8 @@ import {
   signInBtn,
   signUpLink,
 } from './styles';
-import AppleSvgComponent from './AppleSvgComponent';
-import GoogleSvgComponent from './GoogleSvgComponent';
+import AppleSvgComponent from '../AppleSvgComponent';
+import GoogleSvgComponent from '../GoogleSvgComponent';
 import Input from '../../Input/Input';
 import EmailSvg from '../../../assets/svgComponents/EmailSvg';
 import LockSvg from '../../../assets/svgComponents/LockSvg';
@@ -143,15 +143,7 @@ const LoginForm = () => {
                 }}
               >
                 Create A New Account?
-                <Link
-                  component={NavLink}
-                  to="/signUp"
-                  underline="none"
-                  sx={signUpLink}
-                >
-                  {' '}
-                  Sign Up
-                </Link>
+                <Link component={NavLink} to="/signUp" underline="none" sx={signUpLink}> Sign Up</Link>
               </Typography>
             </Form>
           )}

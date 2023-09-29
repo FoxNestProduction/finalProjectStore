@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
-import useBreakpoint from '../../../customHooks/useBreakpoint';
+import useBreakpoint from '../../customHooks/useBreakpoint';
 
 const GoogleSvgComponent = () => {
   const breakPoint = useBreakpoint();
@@ -13,7 +13,7 @@ const GoogleSvgComponent = () => {
       width: 30,
       height: 29,
     },
-    desctop: {
+    desktop: {
       width: 37,
       height: 36,
     },

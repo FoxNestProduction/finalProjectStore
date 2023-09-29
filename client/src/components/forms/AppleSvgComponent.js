@@ -1,8 +1,9 @@
 import React from 'react';
-import useBreakpoint from '../../../customHooks/useBreakpoint';
+import useBreakpoint from '../../customHooks/useBreakpoint';
 
 const AppleSvgComponent = () => {
   const breakPoint = useBreakpoint();
+  console.log(breakPoint);
   const breakPointMap = {
     mobile: {
       width: 27,
@@ -12,7 +13,7 @@ const AppleSvgComponent = () => {
       width: 28,
       height: 31,
     },
-    desctop: {
+    desktop: {
       width: 32,
       height: 35,
     },
