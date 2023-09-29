@@ -15,6 +15,9 @@ const PublicLayout = () => {
               <Link to="/Menu">Menu</Link>
             </li>
             <li>
+              <Link to="/Product/_id">Product</Link>
+            </li>
+            <li>
               <Link to="/Blog">Blog</Link>
             </li>
             <li>

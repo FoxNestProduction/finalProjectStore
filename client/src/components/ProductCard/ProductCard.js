@@ -50,7 +50,7 @@ const ProductCard = () => {
         >
           <CardMedia
             component="img"
-            image="./img/seaFood/norwegian_lobster.png"
+            image="../img/seaFood/crab.png"
             alt="lobster"
             sx={{ mb: 3, width: { mobile: '100%', desktop: '52%' } }}
           />
@@ -95,7 +95,7 @@ const ProductCard = () => {
             <Box
               sx={{
                 display: 'flex',
-                justifyContent: { tablet: 'flex-end', desktop: 'flex-start' },
+                justifyContent: { mobile: 'flex-end', desktop: 'flex-start' },
               }}
             >
               <Typography
