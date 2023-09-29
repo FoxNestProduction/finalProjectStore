@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import MuiFooter from '../Footer/MuiFooter';
+import Footer from '../Footer/Footer';
 
 const PublicLayout = () => {
   return (
@@ -29,7 +29,7 @@ const PublicLayout = () => {
       <main>
         <Outlet />
       </main>
-      <MuiFooter />
+      <Footer />
     </>
   );
 };

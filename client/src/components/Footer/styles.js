@@ -1,7 +1,7 @@
 export const stylesLink = {
   color: 'text.header',
   fontFamily: 'fontFamily',
-  fontWeight: '500',
+  fontWeight: 'fontWeightMedium',
   alignSelf: {
     mobile: 'start',
     tablet: 'center',
@@ -98,7 +98,7 @@ export const stylesSocialWrap = {
   right: '10px',
   gap: {
     mobile: '18px',
-    tablet: '4vw',
+    tablet: '3vw',
     desktop: '51px',
   },
 };

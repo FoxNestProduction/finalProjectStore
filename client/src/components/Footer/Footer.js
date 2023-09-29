@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -17,9 +16,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { NavLink } from 'react-router-dom';
 import { stylesLink, stylesWrap, stylesTopWrap, stylesLinkWrap, stylesText, stylesLine, stylesSocial, stylesSocialWrap, stylesTwitter, stylesSizeIcon } from './styles';
-import MuiLogo from '../Logo/MuiLogo';
+import Logo from '../Logo/Logo';
 
-const MuiFooter = () => {
+const Footer = () => {
   return (
     <Container direction="column" sx={{ backgroundColor: 'background.footer' }}>
       <AppBar
@@ -43,7 +42,7 @@ const MuiFooter = () => {
               }}
             >
               <Link component={NavLink} to="/" sx={{ textDecoration: 'none' }}>
-                <MuiLogo />
+                <Logo type="footer" />
               </Link>
               <Stack
                 direction={{
@@ -54,13 +53,10 @@ const MuiFooter = () => {
                 }}
                 sx={stylesLinkWrap}
               >
-                {/* <Link component={NavLink} to="/Blog" sx={stylesLink}>Blog</Link>
+                <Link component={NavLink} to="/Blog" sx={stylesLink}>Blog</Link>
                 <Link component={NavLink} to="/Pricing" sx={stylesLink}>Pricing</Link>
                 <Link component={NavLink} to="/AboutUs" sx={stylesLink}>About Us</Link>
-                <Link component={NavLink} to="/Contact" sx={stylesLink}>Contact</Link> */}
-                <Button component={RouterLink} to="/Pricing" sx={stylesLink}>Pricing</Button>
-                <Button component={RouterLink} to="/AboutUs" sx={stylesLink}>About Us</Button>
-                <Button component={RouterLink} to="/Contact" sx={stylesLink}>Contact</Button>
+                <Link component={NavLink} to="/Contact" sx={stylesLink}>Contact</Link>
               </Stack>
             </Stack>
             <Box sx={stylesLine} />
@@ -88,4 +84,4 @@ const MuiFooter = () => {
   );
 };
 
-export default MuiFooter;
+export default Footer;

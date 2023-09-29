@@ -40,7 +40,9 @@ const globalTheme = createTheme({
     borderRadius: 16,
   },
   typography: {
-    fontFamily: 'Poppins, sans-serif',
+    fontFamily: 'Inter, sans-serif',
+    fontPoppins: 'Poppins, sans-serif',
+    fontWeightSemiBold: 600,
   },
   button: {
     large: {
@@ -93,7 +95,7 @@ const globalTheme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: ({ theme }) => ({
-          [theme.breakpoints.up('zero')]: {
+          [theme.breakpoints.up('mobile')]: {
             paddingRight: '30px',
             paddingLeft: '30px',
           },
