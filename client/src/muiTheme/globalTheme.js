@@ -3,8 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const globalTheme = createTheme({
   breakpoints: {
     values: {
-      zero: 0,
-      mobile: 320,
+      mobile: 0,
       tablet: 481,
       desktop: 993,
     },
@@ -107,6 +106,7 @@ const globalTheme = createTheme({
             paddingLeft: '90px',
           },
           maxWidth: '1426px',
+          minWidth: '320px',
         }),
       },
     },
