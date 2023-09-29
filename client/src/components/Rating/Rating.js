@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
+import StarIcon from '../../assets/svgComponents/StarIcon';
 
 const RatingItem = ({ ratingValue }) => {
-  const [value, setValue] = React.useState(2.5);
+  const [value, setValue] = useState(ratingValue);
 
   return (
-    <Box
-      sx={{
-        '& > legend': { mt: -1 },
-      }}
-    >
-      <Rating sx={{ size: 2 }} name="read-only" value={value} readOnly size="small" />
+    <Box>
+      <Rating
+        sx={{
+          width: {
+            mobile: 140,
+            desktop: 150,
+          },
+          marginLeft: '-4px',
+        }}
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        // precision={0.5}
+        size="small"
+        icon={<StarIcon fill="#6C5FBC" />}
+        emptyIcon={<StarIcon fill="#e7ddc5" />}
+        readOnly
+      />
     </Box>
   );
 };
@@ -23,7 +36,7 @@ RatingItem.propTypes = {
 };
 
 RatingItem.defaultProps = {
-  ratingValue: null,
+  ratingValue: 3,
 };
 
 export default RatingItem;
