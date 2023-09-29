@@ -3,8 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const globalTheme = createTheme({
   breakpoints: {
     values: {
-      zero: 0,
-      mobile: 320,
+      mobile: 0,
       tablet: 481,
       desktop: 993,
     },
@@ -26,7 +25,7 @@ const globalTheme = createTheme({
       header: '#606060',
       healthy: '#DAA31A',
       trending: '#FB471D',
-      supreme: '#309D5B',
+      supreme: '#0b4c25',
     },
     background: {
       paper: '#FFF',
@@ -42,6 +41,8 @@ const globalTheme = createTheme({
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
+    fontPoppins: 'Poppins, sans-serif',
+    fontWeightSemiBold: 600,
   },
   button: {
     large: {
@@ -115,6 +116,7 @@ const globalTheme = createTheme({
 });
 
 globalTheme.typography.body1 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   lineHeight: '1.5em',
   fontSize: '13px',
@@ -130,12 +132,12 @@ globalTheme.typography.h1 = {
   fontFamily: 'Poppins, sans-serif',
   fontWeight: 500,
   lineHeight: '1.5em',
-  fontSize: '46px',
+  fontSize: '43px',
   [globalTheme.breakpoints.up('tablet')]: {
-    fontSize: '54px',
+    fontSize: '46px',
   },
   [globalTheme.breakpoints.up('desktop')]: {
-    fontSize: '60px',
+    fontSize: '52px',
   },
 };
 
@@ -166,6 +168,7 @@ globalTheme.typography.h3 = {
 };
 
 globalTheme.typography.h4 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   lineHeight: '1.5em',
   fontSize: '14px',
@@ -175,6 +178,7 @@ globalTheme.typography.h4 = {
 };
 
 globalTheme.typography.h6 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   lineHeight: '1.5em',
   fontSize: '14px',
@@ -184,6 +188,7 @@ globalTheme.typography.h6 = {
 };
 
 globalTheme.typography.subtitle1 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   lineHeight: '1.5em',
   fontSize: '14px',
@@ -193,6 +198,7 @@ globalTheme.typography.subtitle1 = {
 };
 
 globalTheme.typography.button = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 500,
   lineHeight: '1.5em',
   fontSize: '16px',
