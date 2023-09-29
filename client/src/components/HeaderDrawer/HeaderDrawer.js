@@ -103,7 +103,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
 HeaderDrawer.propTypes = {
   isMobileMenuOpen: PropTypes.bool,
   handleCloseDrawer: PropTypes.func,
-  navItems: PropTypes.array,
+  navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   isUserAuthorized: PropTypes.bool,
 };
 
