@@ -13,7 +13,6 @@ const RatingItem = ({ ratingValue }) => {
         sx={{
           width: {
             mobile: 140,
-            tablet: 140,
             desktop: 150,
           },
           marginLeft: '-4px',

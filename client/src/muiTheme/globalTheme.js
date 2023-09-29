@@ -14,9 +14,6 @@ const globalTheme = createTheme({
       main: '#6C5FBC',
       hover: '#664FFF',
     },
-    healthy: {
-      main: '#000000',
-    },
     secondary: {
       main: '#FF9140',
       hover: '#FF7C1C',
