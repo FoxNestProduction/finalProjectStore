@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   AppBar,
   Box,
   Container,
+  Button,
   IconButton,
   Stack,
   Toolbar,
@@ -52,13 +54,13 @@ const MuiFooter = () => {
                 }}
                 sx={stylesLinkWrap}
               >
-                <Link component={NavLink} to="/Blog" sx={stylesLink}>Blog</Link>
+                {/* <Link component={NavLink} to="/Blog" sx={stylesLink}>Blog</Link>
                 <Link component={NavLink} to="/Pricing" sx={stylesLink}>Pricing</Link>
                 <Link component={NavLink} to="/AboutUs" sx={stylesLink}>About Us</Link>
-                <Link component={NavLink} to="/Contact" sx={stylesLink}>Contact</Link>
-                {/* <Button sx={stylesLink}>Pricing</Button> */}
-                {/* <Button sx={stylesLink}>About Us</Button> */}
-                {/* <Button sx={stylesLink}>Contact</Button> */}
+                <Link component={NavLink} to="/Contact" sx={stylesLink}>Contact</Link> */}
+                <Button component={RouterLink} to="/Pricing" sx={stylesLink}>Pricing</Button>
+                <Button component={RouterLink} to="/AboutUs" sx={stylesLink}>About Us</Button>
+                <Button component={RouterLink} to="/Contact" sx={stylesLink}>Contact</Button>
               </Stack>
             </Stack>
             <Box sx={stylesLine} />
