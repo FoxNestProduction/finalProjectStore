@@ -40,15 +40,7 @@ const globalTheme = createTheme({
     borderRadius: 16,
   },
   typography: {
-    fontFamily: {
-      main: 'Inter, sans-serif',
-      secondary: 'Poppins, sans-serif',
-    },
-    fontWeight: {
-      normal: 400,
-      semiBold: 500,
-      bold: 600,
-    },
+    fontFamily: 'Poppins, sans-serif',
   },
   button: {
     large: {

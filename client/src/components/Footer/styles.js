@@ -1,7 +1,7 @@
 export const stylesLink = {
   color: 'text.header',
-  fontFamily: 'fontFamily.main',
-  fontWeight: 'fontWeight.semiBold',
+  fontFamily: 'fontFamily',
+  fontWeight: '500',
   alignSelf: {
     mobile: 'start',
     tablet: 'center',

@@ -16,7 +16,7 @@ export const stylesIcon = {
 export const stylesTitle = {
   color: 'primary.main',
   fontFamily: 'fontFamily.secondary',
-  fontWeight: 'fontWeight.bold',
+  fontWeight: '600',
   fontSize: {
     mobile: 18,
     tablet: 20,
