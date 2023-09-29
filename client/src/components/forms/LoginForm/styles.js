@@ -14,7 +14,7 @@ export const mainTitle = {
   textAlign: 'center',
   fontWeight: {
     mobile: 'fontWeightSemiBold',
-    desktop: 500,
+    desktop: 'fontWeightMedium',
   },
 };
 
