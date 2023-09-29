@@ -17,7 +17,9 @@ const buttonSize = {
 };
 
 export const stylesSection = {
-  display: 'grid',
+  display: 'flex',
+  flexDirection: { mobile: 'column', tablet: 'row' },
+  gap: 1,
   textAlign: {
     mobile: 'center',
     tablet: 'left',
@@ -27,24 +29,19 @@ export const stylesSection = {
     tablet: '60px',
     desktop: '66px',
   },
-  gridTemplateColumns: {
-    mobile: '1fr',
-    tablet: '45% 55%',
-    desktop: '45% 55%',
-  },
   transition: '.5s',
 };
 
 export const stylesTextContainer = {
   display: 'flex',
   flexDirection: 'column',
+  width: {
+    mobile: '100%',
+    tablet: '45%',
+  },
 };
 
 export const stylesLabel = {
-  gridArea: {
-    tablet: '1 / 1 / 2 / 2',
-    desktop: '1 / 1 / 2 / 2',
-  },
   color: 'text.secondary',
   fontWeight: 600,
   fontFamily: 'Poppins',
@@ -62,12 +59,12 @@ export const stylesLabel = {
 };
 
 export const stylesTitle = {
-  gridArea: {
-    tablet: '2 / 1 / 3 / 2',
-    desktop: '2 / 1 / 3 / 2',
+  minWidth: {
+    mobile: '100%',
+    tablet: '350px',
   },
   color: 'text.primary',
-  fontWeight: 600,
+  fontWeight: 500,
   fontFamily: 'Poppins',
   marginBottom: {
     mobile: '16px',
@@ -77,10 +74,6 @@ export const stylesTitle = {
 };
 
 export const stylesDescription = {
-  gridArea: {
-    tablet: '3 / 1 / 4 / 2',
-    desktop: '3 / 1 / 4 / 2',
-  },
   color: 'text.primary',
   fontWeight: 400,
   lineHeight: {
@@ -109,12 +102,7 @@ export const stylesDescription = {
 };
 
 export const stylesActions = {
-  gridArea: {
-    tablet: '4 / 1 / 5 / 2',
-    desktop: '4 / 1 / 5 / 2',
-  },
   minWidth: '240px',
-
   marginBottom: {
     mobile: '26px',
     tablet: '23px',
@@ -145,7 +133,7 @@ export const stylesStartedBnt = {
 export const stylesProBnt = {
   color: 'text.header',
   borderRadius: 'shape.borderRadius',
-  backgroundColor: 'secondary.primaryLight',
+  backgroundColor: 'background.default',
   border: '2px solid #000000',
   fontWeight: 500,
   ...buttonSize,
@@ -156,10 +144,6 @@ export const stylesProBnt = {
 };
 
 export const stylesRating = {
-  gridArea: {
-    tablet: '5 / 1 / 6 / 2',
-    desktop: '5 / 1 / 6 / 2',
-  },
   minWidth: '240px',
   marginBottom: {
     mobile: '47px',
@@ -194,10 +178,6 @@ export const stylesReviewAmount = {
 };
 
 export const stylesImage = {
-  gridArea: {
-    tablet: '1 / 2 / 6 / 3',
-    desktop: '1 / 2 / 6 / 3',
-  },
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
