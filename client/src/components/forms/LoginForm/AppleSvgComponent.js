@@ -9,8 +9,8 @@ const AppleSvgComponent = () => {
       height: 30,
     },
     tablet: {
-      width: 29,
-      height: 32,
+      width: 28,
+      height: 31,
     },
     desctop: {
       width: 32,
