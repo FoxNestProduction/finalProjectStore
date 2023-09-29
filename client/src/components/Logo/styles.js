@@ -7,12 +7,12 @@ export const stylesIconHeader = {
   ...stylesIcon,
   width: {
     mobile: 45,
-    tablet: 32,
+    lgTablet: 32,
     desktop: 45,
   },
   height: {
     mobile: 42,
-    tablet: 30,
+    lgTablet: 30,
     desktop: 42,
   },
 };
@@ -41,7 +41,7 @@ export const stylesTitleHeader = {
   ...stylesTitle,
   fontSize: {
     mobile: 21,
-    tablet: 15,
+    lgTablet: 15,
     desktop: 21,
   },
 };

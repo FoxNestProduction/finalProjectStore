@@ -1,5 +1,5 @@
 export const drawer = {
-  display: { zero: 'block', tablet: 'none' },
+  display: { zero: 'block', lgTablet: 'none' },
   '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '290px' },
 };
 

@@ -5,6 +5,7 @@ const globalTheme = createTheme({
     values: {
       mobile: 0,
       tablet: 481,
+      lgTablet: 620,
       desktop: 993,
     },
   },

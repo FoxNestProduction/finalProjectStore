@@ -8,6 +8,13 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import IconButton from '@mui/material/IconButton';
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
@@ -18,7 +25,7 @@ import MenuSvg from '../../assets/svgComponents/MenuSvg';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isUserAuthorized, setIsUserAuthorized] = useState(false);
+  const [isUserAuthorized, setIsUserAuthorized] = useState(true);
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);
@@ -33,16 +40,16 @@ const Header = () => {
   return (
     <>
       <AppBar
-        position="static"
+        position="relative"
         sx={{
           bgcolor: 'transparent',
           pt: {
             mobile: '25px',
-            tablet: '40px',
+            lgTablet: '40px',
           },
           pb: {
             mobile: '25px',
-            tablet: '26px',
+            lgTablet: '26px',
           },
         }}
         elevation="0"
@@ -53,22 +60,47 @@ const Header = () => {
             disableGutters
             sx={{
               justifyContent: 'space-between',
+              gap: '4vw',
             }}
           >
             <Link component={NavLink} to="/" underline="none">
               <Logo />
             </Link>
-            <List>
+            <List sx={{
+              display: {
+                mobile: 'none',
+                lgTablet: 'flex',
+              },
+              gap: '3vw',
+              // position: 'absolute',
+              // '@media (min-width: 481px)': {
+              //   top: '55px',
+              //   left: '50%',
+              //   transform: 'translateX(-50%)',
+              // },
+            }}
+            >
               {navItems.map((page) => (
                 <ListItem key={page} disablePadding>
-                  <Link component={NavLink} to={`/${page}`}>{page}</Link>
+                  <Link
+                    component={NavLink}
+                    to={`/${page}`}
+                    underline="none"
+                    color="text.header"
+                    sx={{
+                      fontSize: {
+                        lgTablet: '13px',
+                        desktop: '24px',
+                      },
+                      fontWeight: 'fontWeightMedium',
+                    }}
+                  >
+                    {page}
+                  </Link>
                 </ListItem>
               ))}
             </List>
-            {/* <Link component={NavLink} to="/">Home</Link> */}
-            {/* <Link component={NavLink} to="/Menu">Menu</Link> */}
-            {/* <Link component={NavLink} to="/Blog">Blog</Link> */}
-            {/* <Link component={NavLink} to="/Pricing">Pricing</Link> */}
+
             <IconButton
               aria-label="open drawer"
               edge="end"
@@ -76,7 +108,7 @@ const Header = () => {
               onClick={handleOpenDrawer}
               sx={{
                 display: {
-                  tablet: 'none',
+                  lgTablet: 'none',
                 },
                 width: '50px',
                 height: '50px',
@@ -85,17 +117,95 @@ const Header = () => {
             >
               <MenuSvg />
             </IconButton>
-            {/* <MenuList */}
-            {/*  component="nav" */}
-            {/*  sx={{ */}
-            {/*    display: { mobile: 'none', tablet: 'block' }, */}
-            {/*  }} */}
-            {/* > */}
-            {/*  <MenuItem component={NavLink} to="/">Home</MenuItem> */}
-            {/*  <MenuItem component={NavLink} to="/Menu">Menu</MenuItem> */}
-            {/*  <MenuItem component={NavLink} to="/Blog">Blog</MenuItem> */}
-            {/*  <MenuItem component={NavLink} to="/Pricing">Pricing</MenuItem> */}
-            {/* </MenuList> */}
+            <Box sx={{
+              display: {
+                mobile: 'none',
+                lgTablet: 'flex',
+              },
+              gap: '1.5vw',
+              // flexGrow: 1,
+              justifyContent: 'flex-end',
+            }}
+            >
+
+              {isUserAuthorized && (
+              <IconButton
+                aria-label="favourites"
+                edge="end"
+                size="small"
+                onClick={handleOpenDrawer}
+              >
+                {/* <FavoriteIcon */}
+                <FavoriteBorderOutlinedIcon
+                  sx={{
+                    // color: 'primary.main',
+                    fontSize: {
+                      desktop: 30,
+                    },
+                  }}
+                />
+              </IconButton>
+              )}
+
+              <IconButton
+                aria-label="cart"
+                edge="end"
+                size="small"
+                onClick={handleOpenDrawer}
+              >
+                {/* <LocalGroceryStoreIcon */}
+                <ShoppingCartOutlinedIcon
+                  sx={{
+                    // color: 'primary.main',
+                    width: {
+                      lgTablet: '27px',
+                      desktop: '34px',
+                    },
+                    fontSize: {
+                      desktop: 30,
+                    },
+                  }}
+                />
+              </IconButton>
+
+              {(isUserAuthorized) ? (
+                <IconButton
+                  aria-label="cart"
+                  edge="end"
+                  size="small"
+                  onClick={handleOpenDrawer}
+                >
+                  <ExitToAppIcon sx={{
+                    // color: 'primary.main',
+                    width: {
+                      lgTablet: '27px',
+                      desktop: '34px',
+                    },
+                    fontSize: {
+                      desktop: 30,
+                    },
+                  }}
+                  />
+                </IconButton>
+              ) : (
+                <IconButton
+                  aria-label="login"
+                  edge="end"
+                  size="small"
+                  onClick={handleOpenDrawer}
+                >
+                  <PersonOutlineOutlinedIcon sx={{
+                    fontSize: {
+                      lgTablet: 27,
+                      desktop: 34,
+                    },
+                  }}
+                  />
+                </IconButton>
+              )}
+
+            </Box>
+
           </Toolbar>
         </Container>
       </AppBar>
