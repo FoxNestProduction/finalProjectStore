@@ -1,26 +1,31 @@
 import React from 'react';
 import { Typography, Container, Box, Rating, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import useBreakpoint from './resizeHook/useBreakpoint';
+import useBreakpoint from '../../customHooks/useBreakpoint';
 import { stylesReviewAmount, stylesStarts, stylesTrustpilot, stylesProBnt, stylesStartedBnt, stylesTextContainer, stylesLabel, stylesTitle, stylesSection, stylesDescription, stylesActions, stylesRating, stylesImage } from './styles';
 
 const SectionGetStarted = () => {
-  const value = 4;
+  const starsValue = 4;
   const breakPoint = useBreakpoint();
-  const breakPointsMap = {
-    shortTitle:
+  const titleSizeMap = {
+    mobile:
   <>
     Enjoy Foods
     <br />
     Over World
   </>,
-    fullTitle:
+    tablet:
   <>
     Enjoy Foods All
     <br />
     Over The World
   </>,
-
+    desktop:
+  <>
+    Enjoy Foods All
+    <br />
+    Over The World
+  </>,
   };
 
   return (
@@ -40,7 +45,7 @@ const SectionGetStarted = () => {
           component="h1"
           sx={stylesTitle}
         >
-          {breakPointsMap[breakPoint]}
+          {titleSizeMap[breakPoint]}
         </Typography>
         <Typography component="p" sx={stylesDescription}>
           {/* eslint-disable-next-line max-len */}
@@ -65,7 +70,7 @@ const SectionGetStarted = () => {
             alt=""
           />
           <Typography sx={stylesTrustpilot} variant="h6" component="span">Trustpilot</Typography>
-          <Rating sx={stylesStarts} name="read-only" value={value} readOnly />
+          <Rating sx={stylesStarts} name="read-only" value={starsValue} readOnly />
           <Typography sx={stylesReviewAmount} component="span">4900+</Typography>
         </Box>
       </Box>

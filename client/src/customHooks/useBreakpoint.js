@@ -6,10 +6,13 @@ const useBreakpoint = () => {
   useEffect(() => {
     const handleResize = () => {
       // eslint-disable-next-line no-undef
-      if (window.innerWidth <= 481) {
-        setBreakPoint('shortTitle');
+      if (window.innerWidth < 481) {
+        setBreakPoint('mobile');
+        // eslint-disable-next-line no-undef
+      } else if (window.innerWidth < 993) {
+        setBreakPoint('tablet');
       } else {
-        setBreakPoint('fullTitle');
+        setBreakPoint('desktop');
       }
     };
 

@@ -1,18 +1,15 @@
 const buttonSize = {
   height: {
-    zero: '41px',
     mobile: '41px',
     tablet: '47px',
     desktop: '60px',
   },
   width: {
-    zero: '110px',
     mobile: '110px',
     tablet: '110px',
     desktop: '188px',
   },
   fontSize: {
-    zero: '14px',
     mobile: '14px',
     tablet: '14px',
     desktop: '24px',
@@ -22,19 +19,15 @@ const buttonSize = {
 export const stylesSection = {
   display: 'grid',
   textAlign: {
-    zero: 'center',
     mobile: 'center',
     tablet: 'left',
-    desktop: 'left',
   },
   marginBottom: {
-    zero: '75px',
     mobile: '75px',
     tablet: '60px',
     desktop: '66px',
   },
   gridTemplateColumns: {
-    zero: '1fr',
     mobile: '1fr',
     tablet: '45% 55%',
     desktop: '45% 55%',
@@ -56,13 +49,11 @@ export const stylesLabel = {
   fontWeight: 600,
   fontFamily: 'Poppins',
   fontSize: {
-    zero: '9px',
     mobile: '9px',
     tablet: '12px',
     desktop: '14px',
   },
   marginBottom: {
-    zero: '5px',
     mobile: '5px',
     tablet: '12px',
     desktop: '27px',
@@ -78,14 +69,7 @@ export const stylesTitle = {
   color: 'text.primary',
   fontWeight: 600,
   fontFamily: 'Poppins',
-  // fontSize: {
-  //   zero: 'h1.fontSize',
-  //   mobile: 'h1.fontSize',
-  //   tablet: 'h1.fontSize',
-  //   desktop: 'h1.fontSize',
-  // },
   marginBottom: {
-    zero: '16px',
     mobile: '16px',
     tablet: '11px',
     desktop: '32px',
@@ -100,31 +84,24 @@ export const stylesDescription = {
   color: 'text.primary',
   fontWeight: 400,
   lineHeight: {
-    zero: '17px',
     mobile: '17px',
     tablet: '19px',
     desktop: '36px',
   },
   marginBottom: {
-    zero: '41px',
     mobile: '41px',
     tablet: '37px',
     desktop: '32px',
   },
   marginLeft: {
-    zero: '10px',
     mobile: '10px',
     tablet: '0',
-    desktop: '0',
   },
   marginRight: {
-    zero: '10px',
     mobile: '10px',
     tablet: '0',
-    desktop: '0',
   },
   fontSize: {
-    zero: '12px',
     mobile: '12px',
     tablet: '13px',
     desktop: '24px',
@@ -139,20 +116,16 @@ export const stylesActions = {
   minWidth: '240px',
 
   marginBottom: {
-    zero: '26px',
     mobile: '26px',
     tablet: '23px',
     desktop: '32px',
   },
   display: 'flex',
   justifyContent: {
-    zero: 'center',
     mobile: 'center',
     tablet: 'left',
-    desktop: 'left',
   },
   columnGap: {
-    zero: '26px',
     mobile: '14px',
     tablet: '12px',
     desktop: '24px',
@@ -162,6 +135,7 @@ export const stylesActions = {
 export const stylesStartedBnt = {
   borderRadius: 'shape.borderRadius',
   backgroundColor: 'secondary.main',
+  fontWeight: 500,
   ...buttonSize,
   '&:hover': {
     backgroundColor: 'secondary.hover',
@@ -169,10 +143,16 @@ export const stylesStartedBnt = {
 };
 
 export const stylesProBnt = {
-  color: 'text.primary',
+  color: 'text.header',
   borderRadius: 'shape.borderRadius',
   backgroundColor: 'secondary.primaryLight',
+  border: '2px solid #000000',
+  fontWeight: 500,
   ...buttonSize,
+  '&:hover': {
+    color: 'text.primaryLight',
+    backgroundColor: 'primary.hover',
+  },
 };
 
 export const stylesRating = {
@@ -182,17 +162,14 @@ export const stylesRating = {
   },
   minWidth: '240px',
   marginBottom: {
-    zero: '47px',
     mobile: '47px',
   },
   fontFamily: 'Poppins',
   display: 'flex',
   columnGap: '2px',
   justifyContent: {
-    zero: 'center',
     mobile: 'center',
     tablet: 'left',
-    desktop: 'left',
   },
   alignItems: 'center',
 };
