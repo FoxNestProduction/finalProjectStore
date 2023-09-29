@@ -116,6 +116,7 @@ const globalTheme = createTheme({
 });
 
 globalTheme.typography.body1 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   lineHeight: '1.5em',
   fontSize: '13px',
@@ -167,6 +168,7 @@ globalTheme.typography.h3 = {
 };
 
 globalTheme.typography.h4 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   lineHeight: '1.5em',
   fontSize: '14px',
@@ -176,6 +178,7 @@ globalTheme.typography.h4 = {
 };
 
 globalTheme.typography.h6 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   lineHeight: '1.5em',
   fontSize: '14px',
@@ -185,6 +188,7 @@ globalTheme.typography.h6 = {
 };
 
 globalTheme.typography.subtitle1 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   lineHeight: '1.5em',
   fontSize: '14px',
@@ -194,6 +198,7 @@ globalTheme.typography.subtitle1 = {
 };
 
 globalTheme.typography.button = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 500,
   lineHeight: '1.5em',
   fontSize: '16px',
