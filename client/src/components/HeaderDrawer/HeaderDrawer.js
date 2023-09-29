@@ -41,8 +41,8 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
         <Divider />
 
         <List>
-          {navItems.map((item) => (
-            <ListItem key={item} disablePadding>
+          {navItems.map((page) => (
+            <ListItem key={page} disablePadding>
               <ListItemButton
                 sx={{
                   textAlign: 'center',
@@ -51,10 +51,10 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
                   // },
                 }}
                 component={NavLink}
-                to={`/${item}`}
+                to={`/${page}`}
               >
                 <ListItemText
-                  primary={item}
+                  primary={page}
                   sx={listItem}
                 />
               </ListItemButton>

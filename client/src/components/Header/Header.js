@@ -55,8 +55,16 @@ const Header = () => {
               justifyContent: 'space-between',
             }}
           >
-            {/* <Logo className={styles.headerLogo} /> */}
-            <Logo type="header" />
+            <Link component={NavLink} to="/" underline="none">
+              <Logo />
+            </Link>
+            <List>
+              {navItems.map((page) => (
+                <ListItem key={page} disablePadding>
+                  <Link component={NavLink} to={`/${page}`}>{page}</Link>
+                </ListItem>
+              ))}
+            </List>
             {/* <Link component={NavLink} to="/">Home</Link> */}
             {/* <Link component={NavLink} to="/Menu">Menu</Link> */}
             {/* <Link component={NavLink} to="/Blog">Blog</Link> */}
@@ -76,12 +84,6 @@ const Header = () => {
               }}
             >
               <MenuSvg />
-              {/* <MenuIcon */}
-              {/*  sx={{ */}
-              {/*    width: '40px', */}
-              {/*    height: '40px', */}
-              {/*  }} */}
-              {/* /> */}
             </IconButton>
             {/* <MenuList */}
             {/*  component="nav" */}

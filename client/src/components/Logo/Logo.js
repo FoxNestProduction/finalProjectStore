@@ -1,13 +1,8 @@
 import React from 'react';
-import { IconButton, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+import { IconButton, Stack, Typography } from '@mui/material';
 import { ReactComponent as LogoIcon } from '../../assets/svg/logo.svg';
-import {
-  stylesIconFooter,
-  stylesIconHeader,
-  stylesTitleFooter,
-  stylesTitleHeader,
-} from './styles';
+import { stylesIconFooter, stylesTitleFooter, stylesIconHeader, stylesTitleHeader } from './styles';
 
 const Logo = ({ type }) => {
   return (
@@ -16,13 +11,11 @@ const Logo = ({ type }) => {
         component="div"
         edge="center"
         aria-label="logo"
-        sx={type === 'header' ? stylesIconHeader : stylesIconFooter}
+        sx={type === 'footer' ? stylesIconFooter : stylesIconHeader}
       >
         <LogoIcon />
       </IconButton>
-      <Typography
-        sx={type === 'header' ? stylesTitleHeader : stylesTitleFooter}
-      >
+      <Typography sx={type === 'footer' ? stylesTitleFooter : stylesTitleHeader}>
         eatly
       </Typography>
     </Stack>
@@ -30,11 +23,11 @@ const Logo = ({ type }) => {
 };
 
 Logo.propTypes = {
-  type: PropTypes.oneOf(['header', 'footer']),
+  type: PropTypes.string,
 };
 
 Logo.defaultProps = {
-  type: 'header',
+  type: '',
 };
 
 export default Logo;
