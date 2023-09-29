@@ -158,12 +158,12 @@ globalTheme.typography.h3 = {
   fontFamily: 'Poppins, sans-serif',
   fontWeight: 600,
   lineHeight: '1.5em',
-  fontSize: '18px',
+  fontSize: '14px',
   [globalTheme.breakpoints.up('tablet')]: {
-    fontSize: '20px',
+    fontSize: '16px',
   },
   [globalTheme.breakpoints.up('desktop')]: {
-    fontSize: '29px',
+    fontSize: '24px',
   },
 };
 
