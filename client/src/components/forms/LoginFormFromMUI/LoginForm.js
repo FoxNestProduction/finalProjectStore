@@ -1,9 +1,15 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
-import { Typography, Container, Box, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import {
+  Typography,
+  Container,
+  Box,
+  Button,
+  Link,
+} from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
 import styles from './LoginForm.module.scss';
 import validationSchema from './validationSchema';
 import { flexcenter } from './styles';
@@ -23,11 +29,13 @@ const LoginForm = () => {
     console.log(actions);
     actions.resetForm();
   };
+  const theme = useTheme();
+  console.log(theme);
   const GoogleAppleBtn = styled(Button)({
     backgroundColor: '#EAEAEA',
     height: '46px',
     width: '148px',
-    borderRadius: 'shape',
+    borderRadius: '10px',
     transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
     '@media (min-width: 481px)': {
       width: '130px',
@@ -50,14 +58,14 @@ const LoginForm = () => {
       component="section"
       sx={{
         ...flexcenter,
-        bgcolor: '#FFFFFF',
+        bgcolor: 'common.white',
       }}
     >
       <Box
         sx={{
           ...flexcenter,
           width: {
-            zero: 313,
+            mobile: 313,
             tablet: 276,
             desktop: 493,
           },
@@ -68,12 +76,16 @@ const LoginForm = () => {
           component="h1"
           sx={{
             mb: {
-              zero: '38px',
+              mobile: '38px',
               tablet: '34px',
               desktop: '27px',
             },
             color: 'text.primary',
             textAlign: 'center',
+            fontWeight: {
+              mobile: 'fontWeightSemiBold',
+              desktop: 500,
+            },
           }}
         >
           Sign In To eatly
@@ -83,12 +95,12 @@ const LoginForm = () => {
             ...flexcenter,
             flexDirection: 'row',
             gap: {
-              zero: '17px',
+              mobile: '17px',
               tablet: '15px',
               desktop: '21px',
             },
             mb: {
-              zero: '27px',
+              mobile: '27px',
               tablet: '24px',
               desktop: '35px',
             },
@@ -110,16 +122,19 @@ const LoginForm = () => {
           sx={{
             color: 'text.secondary',
             fontSize: {
-              zero: '16px',
+              mobile: '16px',
               tablet: '14px',
               desktop: '24px',
             },
             mb: {
-              zero: '31px',
+              mobile: '31px',
               tablet: '28px',
               desktop: '26px',
             },
-            fontWeight: 500,
+            fontWeight: {
+              mobile: 500,
+              desktop: 400,
+            },
           }}
         >
           OR
@@ -129,24 +144,136 @@ const LoginForm = () => {
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
+
           {({ isValid }) => (
             <Form className={classNames(styles.formContainer)}>
-              <Input
-                type="email"
-                name="email"
-                placeholder="Enter your e-mail"
-                label="email"
-                className={classNames(styles.inputWrapper)}
-                icon={<EmailSvg />}
-              />
-              <Input
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                label="password"
-                className={classNames(styles.inputWrapper)}
-                icon={<LockSvg />}
-              />
+              <Box
+                sx={{
+                  ...flexcenter,
+                  gap: {
+                    mobile: '20px;',
+                    tablet: '17px',
+                    desktop: '24px',
+                  },
+                  mb: {
+                    mobile: '10px;',
+                    tablet: '9px',
+                    desktop: '24px',
+                  },
+                  width: {
+                    mobile: '308px;',
+                    tablet: '272px',
+                    desktop: '493px',
+                  },
+                }}
+              >
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your e-mail"
+                  label="email"
+                  className={classNames(styles.inputWrapper)}
+                  icon={<EmailSvg />}
+                />
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  label="password"
+                  className={classNames(styles.inputWrapper)}
+                  icon={<LockSvg />}
+                />
+              </Box>
+
+              <Link
+                component={NavLink}
+                to="/forgetPassword"
+                underline="none"
+                sx={{
+                  fontFamily: 'fontFamily',
+                  fontSize: {
+                    mobile: '12px',
+                    tablet: '11px',
+                    desktop: '16px',
+                  },
+                  lineHeight: '1.5em',
+                  transition: 'color 0.3s ease',
+                  opacity: '0.7',
+                  mb: {
+                    mobile: '16px',
+                    tablet: '14px',
+                    desktop: '24px',
+                  },
+                  ':hover': {
+                    color: 'primary.hover',
+                  },
+                }}
+              >
+                Forget Password ?
+              </Link>
+              <Button
+                disableRipple
+                variant="contained"
+                sx={{
+                  width: '100%',
+                  mb: {
+                    mobile: '19px',
+                    tablet: '16px',
+                    desktop: '24px',
+                  },
+                  borderRadius: {
+                    mobile: '12px',
+                    tablet: '11px',
+                    desktop: '16px',
+                  },
+                  height: {
+                    mobile: '60px',
+                    tablet: '53px',
+                    desktop: '60px',
+                  },
+                  transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
+                  ':hover': {
+                    backgroundColor: 'primary.hover',
+                    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
+                  },
+                  '&:active': {
+                    boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2)',
+                    transform: 'translateY(1px)', // під питанням
+                    backgroundColor: 'common.white',
+                    color: '#1C186C',
+                    boxSizing: 'border-box',
+                    border: '1px solid',
+                    borderColor: 'primary.main',
+                  },
+                  fontSize: {
+                    mobile: '14px',
+                    desktop: '24px',
+                  },
+                  fontWeight: {
+                    mobile: 600,
+                    tablet: 600,
+                    desktop: 400,
+                  },
+                  textTransform: {
+                    mobile: 'uppercase',
+                    tablet: 'uppercase',
+                    desktop: 'capitalize;',
+                  },
+                }}
+              >
+                Sign in
+              </Button>
+              <Typography>
+                Create A New Account?
+                <Link
+                  component={NavLink}
+                  to="/signUp"
+                  underline="none"
+                >
+                  {' '}
+                  Sign Up
+                </Link>
+              </Typography>
             </Form>
           )}
         </Formik>
