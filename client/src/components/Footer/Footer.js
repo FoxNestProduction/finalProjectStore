@@ -34,10 +34,8 @@ const Footer = () => {
             <Stack
               sx={stylesTopWrap}
               direction={{
-                zero: 'column',
                 mobile: 'column',
                 tablet: 'row',
-                desktop: 'row',
               }}
             >
               <Link component={NavLink} to="/" sx={{ textDecoration: 'none' }}>
@@ -45,10 +43,8 @@ const Footer = () => {
               </Link>
               <Stack
                 direction={{
-                  zero: 'column',
                   mobile: 'column',
                   tablet: 'row',
-                  desktop: 'row',
                 }}
                 sx={stylesLinkWrap}
               >
