@@ -19,7 +19,8 @@ import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
 
-const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAuthorized }) => {
+const HeaderDrawer = ({ isMobileMenuOpen, navItems,
+  isUserAuthorized, handleCloseDrawer, handleOpenModalLogin }) => {
   return (
     <Drawer
       variant="temporary"
@@ -96,7 +97,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
               <MenuItemWithIcon
                 page="Login"
                 icon={<LoginOutlinedIcon sx={{ ...stylesIcon, ml: '-2px' }} />}
-                onClick={() => { console.log('Login'); }}
+                onClick={handleOpenModalLogin}
               />
               <MenuItemWithIcon
                 page="Sign up"
@@ -115,6 +116,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
 HeaderDrawer.propTypes = {
   isMobileMenuOpen: PropTypes.bool,
   handleCloseDrawer: PropTypes.func,
+  handleOpenModalLogin: PropTypes.func,
   navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   isUserAuthorized: PropTypes.bool,
 };
@@ -122,6 +124,7 @@ HeaderDrawer.propTypes = {
 HeaderDrawer.defaultProps = {
   isMobileMenuOpen: false,
   handleCloseDrawer: () => {},
+  handleOpenModalLogin: () => {},
   navItems: [],
   isUserAuthorized: false,
 };

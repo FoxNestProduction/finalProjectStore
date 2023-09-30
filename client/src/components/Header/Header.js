@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
@@ -15,8 +16,8 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 
+import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
 import MenuSvg from '../../assets/svgComponents/MenuSvg';
 import {
@@ -28,12 +29,16 @@ import {
   stylesNavMenu,
   stylesNavMenuItem, stylesPersonIcon,
 } from './styles';
+import { openModal, setContent } from '../../redux/slices/modalSlice';
+import LoginForm from '../forms/LoginForm/LoginForm';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // змінити на true для відмалювання інтерфейсу залогіненого юзера
   const [isUserAuthorized, setIsUserAuthorized] = useState(false);
+
+  const dispatch = useDispatch();
 
   // при зміні на 0 - бейдж пропадає
   const cartAmount = 7;
@@ -45,6 +50,11 @@ const Header = () => {
 
   const handleCloseDrawer = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const handleOpenModalLogin = () => {
+    dispatch(openModal());
+    dispatch(setContent(<LoginForm />));
   };
 
   const navItems = ['Menu', 'Pricing', 'Reviews', 'Contact'];
@@ -106,11 +116,10 @@ const Header = () => {
                   <ExitToAppIcon sx={stylesIcon} />
                 </IconButton>
               ) : (
-                <IconButton aria-label="login" edge="end" size="small" onClick={() => { console.log('login'); }}>
+                <IconButton aria-label="login" edge="end" size="small" onClick={handleOpenModalLogin}>
                   <PersonOutlineOutlinedIcon sx={stylesPersonIcon} />
                 </IconButton>
               )}
-
             </Box>
 
           </Toolbar>
@@ -123,6 +132,7 @@ const Header = () => {
         <HeaderDrawer
           isMobileMenuOpen={isMobileMenuOpen}
           handleCloseDrawer={handleCloseDrawer}
+          handleOpenModalLogin={handleOpenModalLogin}
           navItems={navItems}
           isUserAuthorized={isUserAuthorized}
         />
