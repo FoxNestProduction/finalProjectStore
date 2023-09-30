@@ -68,8 +68,8 @@ export const legend = {
     desktop: '26px',
   },
   fontWeight: {
-    mobile: 500,
-    desktop: 400,
+    mobile: 'fontWeightMedium',
+    desktop: 'fontWeightRegular',
   },
   lineHeight: '1.5em',
 };
@@ -148,8 +148,8 @@ export const signInBtn = {
     desktop: '24px',
   },
   fontWeight: {
-    mobile: 600,
-    desktop: 400,
+    mobile: 'fontWeightSemiBold',
+    desktop: 'fontWeightRegular',
   },
   textTransform: {
     mobile: 'uppercase',
@@ -160,8 +160,8 @@ export const signInBtn = {
 
 export const signUpLink = {
   fontWeight: {
-    mobile: 700,
-    desktop: 400,
+    mobile: 'fontWeightBold',
+    desktop: 'fontWeightRegular',
   },
   transition: 'color 0.3s ease',
   '&:hover': {
