@@ -17,6 +17,23 @@ import Chip from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard } from './styles';
 
 const ProductCard = () => {
+  const dish = {
+    _id: '6507a306baee59670a047307',
+    restaurant_name: 'Welcome Pizzeria',
+    name: 'Margherita Pizza',
+    description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil l…',
+    currentPrice: 12.99,
+    isFavourite: false,
+    isTranding: true,
+    isSupreme: false,
+    isHealthy: false,
+    rating: 2.8,
+    filterCategories: 'pizza',
+    imageUrl: '../img/pizza/pizza_texas.png',
+    enabled: true,
+  };
+  const { name, description, currentPrice, isTranding, rating, imageUrl } = dish;
+
   return (
     <Container
       sx={{
@@ -30,7 +47,7 @@ const ProductCard = () => {
         <CardHeader
           variant="h5"
           component="h3"
-          title="Name Dish"
+          title={name}
           sx={stylesHeaderTopCard}
         />
         <Stack
@@ -38,7 +55,7 @@ const ProductCard = () => {
         >
           <CardMedia
             component="img"
-            image="../img/seaFood/crab.png"
+            image={imageUrl}
             alt="lobster"
             sx={{ mb: 3, width: { mobile: '100%', desktop: '52%' } }}
           />
@@ -46,14 +63,14 @@ const ProductCard = () => {
             <CardHeader
               variant="h5"
               component="h3"
-              title="Name Dish"
+              title={name}
               sx={stylesHeaderInCard}
             />
             <Stack
               sx={stylesLabelCard}
             >
               <Box sx={{ position: 'relative', left: '-32px' }}>
-                <Chip />
+                <Chip isTrending={isTranding} />
               </Box>
               <Stack
                 direction="row"
@@ -62,7 +79,7 @@ const ProductCard = () => {
                 <Typography variant="subtitle1">24min •</Typography>
                 <Stack direction="row" spacing={1}>
                   <StarRoundedIcon sx={{ color: 'primary.main' }} />
-                  <Typography variant="subtitle1">4.2</Typography>
+                  <Typography variant="subtitle1">{rating}</Typography>
                 </Stack>
               </Stack>
             </Stack>
@@ -72,9 +89,7 @@ const ProductCard = () => {
                 component="p"
                 sx={{ textAlign: 'justify' }}
               >
-                This impressive paella is a perfect party dish and a fun meal to
-                cook together with your guests. Add 1 cup of frozen peas along
-                with the mussels, if you like
+                {description}
               </Typography>
             </CardContent>
             <Box
@@ -84,7 +99,7 @@ const ProductCard = () => {
                 variant="h5"
                 sx={{ mb: 3 }}
               >
-                $12.99
+                {currentPrice}
               </Typography>
             </Box>
             <CardActions

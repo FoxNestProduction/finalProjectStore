@@ -2,12 +2,13 @@ import React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Divider from '@mui/material/Divider';
 
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 
 const ListItems = () => {
   return (
-    <Container sx={{ mb: 30 }}>
+    <Container sx={{ mb: 18 }}>
       <Typography
         variant="h2"
         component="h2"
