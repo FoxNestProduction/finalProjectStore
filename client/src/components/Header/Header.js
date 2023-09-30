@@ -13,13 +13,13 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
-import MenuSvg from '../../assets/svgComponents/MenuSvg';
 import {
   stylesBadge,
   stylesBurgerButton,
@@ -101,7 +101,7 @@ const Header = () => {
               onClick={handleOpenDrawer}
               sx={stylesBurgerButton}
             >
-              <MenuSvg />
+              <MenuIcon sx={{ fontSize: 35 }} />
             </IconButton>
 
             <Box sx={stylesIconsWrapper}>
