@@ -3,7 +3,6 @@ import {
   AppBar,
   Box,
   Container,
-  Button,
   IconButton,
   Stack,
   Toolbar,
@@ -20,16 +19,16 @@ import Logo from '../Logo/Logo';
 
 const Footer = () => {
   return (
-    <Container direction="column" sx={{ backgroundColor: 'background.footer' }}>
-      <AppBar
-        elevation={0}
-        component="footer"
-        position="relativ"
-        sx={{
-          backgroundColor: 'background.footer',
-          minWidth: '260px',
-        }}
-      >
+    <AppBar
+      elevation={0}
+      component="footer"
+      position="relativ"
+      sx={{
+        backgroundColor: 'background.footer',
+        minWidth: '260px',
+      }}
+    >
+      <Container direction="column">
         <Toolbar sx={{ p: 0 }}>
           <Stack direction="column" sx={stylesWrap}>
             <Stack
@@ -79,8 +78,8 @@ const Footer = () => {
             </Stack>
           </Stack>
         </Toolbar>
-      </AppBar>
-    </Container>
+      </Container>
+    </AppBar>
   );
 };
 
