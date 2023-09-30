@@ -17,7 +17,7 @@ import styles from './Input.module.scss';
 // <Input name="name" id="name" label="Name" placeholder="Enter your name..."
 // icon={<PersonSvg />} />
 // --- варіант без лейбл ----
-// <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />} />
+// <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />}/>
 // <Input name="password" id="password" type="password" placeholder="Password" icon={<LockSvg />} />
 
 // --- для textarea додаємо атрибут multiline ---
