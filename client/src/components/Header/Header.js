@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -31,6 +31,7 @@ import {
 } from './styles';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
+import useBreakpoint from '../../customHooks/useBreakpoint';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -39,6 +40,13 @@ const Header = () => {
   const [isUserAuthorized, setIsUserAuthorized] = useState(false);
 
   const dispatch = useDispatch();
+  const breakpoint = useBreakpoint();
+
+  useEffect(() => {
+    if (breakpoint === 'lgTablet' || breakpoint === 'desktop') {
+      setIsMobileMenuOpen(false);
+    }
+  }, [breakpoint]);
 
   // при зміні на 0 - бейдж пропадає
   const cartAmount = 7;

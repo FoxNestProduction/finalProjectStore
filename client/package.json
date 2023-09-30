@@ -40,6 +40,9 @@
       "airbnb/hooks",
       "react-app/jest"
     ],
+    "globals": {
+      "window": true
+    },
     "rules": {
       "import/no-unresolved": "off",
       "import/extensions": "off",
