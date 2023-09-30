@@ -22,7 +22,6 @@ const App = () => {
 
   return (
     <>
-      <div className="App" />
       <Modal disagree="Close" />
       <AppRoutes />
     </>
