@@ -71,7 +71,9 @@ const Header = () => {
                 mobile: 'none',
                 lgTablet: 'flex',
               },
+              flexGrow: 0.5,
               gap: '3vw',
+              justifyContent: 'flex-end',
               // position: 'absolute',
               // '@media (min-width: 481px)': {
               //   top: '55px',
@@ -81,7 +83,7 @@ const Header = () => {
             }}
             >
               {navItems.map((page) => (
-                <ListItem key={page} disablePadding>
+                <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                   <Link
                     component={NavLink}
                     to={`/${page}`}
@@ -123,7 +125,7 @@ const Header = () => {
                 lgTablet: 'flex',
               },
               gap: '1.5vw',
-              // flexGrow: 1,
+              flexGrow: 2,
               justifyContent: 'flex-end',
             }}
             >

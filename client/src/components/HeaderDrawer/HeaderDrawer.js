@@ -46,9 +46,9 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
               <ListItemButton
                 sx={{
                   textAlign: 'center',
-                  // '&:hover': {
-                  //   bgcolor: 'primary.main',
-                  // },
+                  '&:hover': {
+                    bgcolor: 'primary.main',
+                  },
                 }}
                 component={NavLink}
                 to={`/${page}`}
