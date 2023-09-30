@@ -30,7 +30,7 @@ const ListItems = () => {
           <RestaurantItem />
         </Grid>
         {/* {data.map((item) => (
-          <Grid key={1} item mobile={6} desktop={3}>
+          <Grid key={item.id} item mobile={6} desktop={3}>
             {item}
           </Grid>
         ))} */}
