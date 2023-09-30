@@ -35,70 +35,70 @@ const Modal = () => {
     dispatch(closeModal());
   };
 
-  // const handleRemoveItemCart = () => {
-  //   dispatch(closeModal());
-  // };
+  const handleRemoveItemCart = () => {
+    dispatch(closeModal());
+  };
 
-  // const handleSendFeedback = () => {
-  //   dispatch(closeModal());
-  // };
+  const handleSendFeedback = () => {
+    dispatch(closeModal());
+  };
 
-  // const handleOpenModalWarning = () => {
-  //   dispatch(openModal());
-  //   dispatch(setTitle('Are you sure you want to remove the product?'));
-  //   dispatch(addButtonBox(true));
-  //   dispatch(setContent(
-  //     <DialogContentText>
-  //       Do you confirm that the selected item will be removed from the order?
-  //     </DialogContentText>,
-  //   ));
-  //   dispatch(setButtonAgree({
-  //     text: 'Delete',
-  //     startIcon: true,
-  //     onClick: handleRemoveItemCart,
-  //   }));
-  // };
+  const handleOpenModalWarning = () => {
+    dispatch(openModal());
+    dispatch(setTitle('Are you sure you want to remove the product?'));
+    dispatch(addButtonBox(true));
+    dispatch(setContent(
+      <DialogContentText>
+        Do you confirm that the selected item will be removed from the order?
+      </DialogContentText>,
+    ));
+    dispatch(setButtonAgree({
+      text: 'Delete',
+      startIcon: true,
+      onClick: handleRemoveItemCart,
+    }));
+  };
 
-  // const handleOpenModalReview = () => {
-  //   dispatch(openModal());
-  //   dispatch(setTitle('Feedback about the service will help us work even better:'));
-  //   dispatch(setContent(
-  //     <TextField
-  //       autoFocus
-  //       multiline
-  //       rows={4}
-  //       margin="dense"
-  //       id="review"
-  //       label="leave your feedback about the service"
-  //       type="text"
-  //       fullWidth
-  //       variant="outlined"
-  //     />,
-  //   ));
-  //   dispatch(setButtonAgree({
-  //     text: 'Send',
-  //     endIcon: true,
-  //     onClick: handleSendFeedback,
-  //   }));
-  //   dispatch(addButtonBox(true));
-  // };
+  const handleOpenModalReview = () => {
+    dispatch(openModal());
+    dispatch(setTitle('Feedback about the service will help us work even better:'));
+    dispatch(setContent(
+      <TextField
+        autoFocus
+        multiline
+        rows={4}
+        margin="dense"
+        id="review"
+        label="leave your feedback about the service"
+        type="text"
+        fullWidth
+        variant="outlined"
+      />,
+    ));
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      onClick: handleSendFeedback,
+    }));
+    dispatch(addButtonBox(true));
+  };
 
-  // const handleOpenModalLogin = () => {
-  //   dispatch(openModal());
-  //   dispatch(setContent(<LoginForm />));
-  // };
+  const handleOpenModalLogin = () => {
+    dispatch(openModal());
+    dispatch(setContent(<LoginForm />));
+  };
 
   return (
     <>
-      {/* <Button variant="outlined" onClick={handleOpenModalWarning}>
+      <Button variant="outlined" onClick={handleOpenModalWarning}>
         Open modal with warning text
-      </Button> */}
-      {/* <Button variant="standard" onClick={handleOpenModalReview}>
+      </Button>
+      <Button variant="standard" onClick={handleOpenModalReview}>
         Open modal with review
-      </Button> */}
-      {/* <Button variant="outlined" onClick={handleOpenModalLogin}>
+      </Button>
+      <Button variant="outlined" onClick={handleOpenModalLogin}>
         Open modal with LogIn
-      </Button> */}
+      </Button>
 
       <Dialog
         open={isOpen}
