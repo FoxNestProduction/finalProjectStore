@@ -1,20 +1,23 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Divider from '@mui/material/Divider';
-import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PropTypes from 'prop-types';
-import styles from '../Header/Header.module.scss';
 import Logo from '../Logo/Logo';
 import ListItemWithIcon from './ListItemWithIcon';
-import { drawer, drawerHeader, icon, listItem } from './styles';
+import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
 
 const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAuthorized }) => {
   return (
@@ -23,11 +26,11 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
       open={isMobileMenuOpen}
       onClose={handleCloseDrawer}
       ModalProps={{ keepMounted: true }}
-      sx={drawer}
+      sx={stylesDrawer}
     >
       <Box onClick={handleCloseDrawer} sx={{ textAlign: 'center' }}>
         <Box
-          sx={drawerHeader}
+          sx={stylesDrawerHeader}
         >
           <Logo type="header" />
           <IconButton
@@ -46,16 +49,16 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
               <ListItemButton
                 sx={{
                   textAlign: 'center',
-                  '&:hover': {
-                    bgcolor: 'primary.main',
-                  },
+                  // '&:hover': {
+                  //   bgcolor: 'primary.main',
+                  // },
                 }}
                 component={NavLink}
                 to={`/${page}`}
               >
                 <ListItemText
                   primary={page}
-                  sx={listItem}
+                  sx={stylesListItem}
                 />
               </ListItemButton>
             </ListItem>
@@ -68,13 +71,13 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
           <ListItemWithIcon
             navLink
             page="Cart"
-            icon={<ShoppingCartOutlinedIcon sx={icon} />}
+            icon={<ShoppingCartOutlinedIcon sx={stylesIcon} />}
           />
           {isUserAuthorized && (
           <ListItemWithIcon
             navLink
             page="Favourites"
-            icon={<FavoriteBorderOutlinedIcon sx={icon} />}
+            icon={<FavoriteBorderOutlinedIcon sx={stylesIcon} />}
           />
           )}
         </List>
@@ -85,19 +88,19 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
           {isUserAuthorized ? (
             <ListItemWithIcon
               page="Logout"
-              icon={<LogoutOutlinedIcon sx={icon} />}
+              icon={<ExitToAppIcon sx={stylesIcon} />}
               onClick={() => { console.log('Logout'); }}
             />
           ) : (
             <>
               <ListItemWithIcon
                 page="Login"
-                icon={<LoginOutlinedIcon sx={{ ...icon, ml: '-2px' }} />}
+                icon={<LoginOutlinedIcon sx={{ ...stylesIcon, ml: '-2px' }} />}
                 onClick={() => { console.log('Login'); }}
               />
               <ListItemWithIcon
                 page="Sign up"
-                icon={<PersonAddAlt1OutlinedIcon sx={icon} />}
+                icon={<PersonAddAlt1OutlinedIcon sx={stylesIcon} />}
                 onClick={() => { console.log('Sign up'); }}
               />
             </>

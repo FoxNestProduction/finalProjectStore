@@ -6,26 +6,38 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
-import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import Button from '@mui/material/Button';
+import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import IconButton from '@mui/material/IconButton';
-import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 
 import Logo from '../Logo/Logo';
-import styles from './Header.module.scss';
 import MenuSvg from '../../assets/svgComponents/MenuSvg';
+import {
+  stylesBadge,
+  stylesBurgerButton,
+  stylesHeader, stylesIcon,
+  stylesIconsWrapper,
+  stylesNav,
+  stylesNavMenu,
+  stylesNavMenuItem, stylesPersonIcon,
+} from './styles';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isUserAuthorized, setIsUserAuthorized] = useState(true);
+
+  // змінити на true для відмалювання інтерфейсу залогіненого юзера
+  const [isUserAuthorized, setIsUserAuthorized] = useState(false);
+
+  // при зміні на 0 - бейдж пропадає
+  const cartAmount = 7;
+  const favouritesAmount = 10;
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);
@@ -41,64 +53,25 @@ const Header = () => {
     <>
       <AppBar
         position="relative"
-        sx={{
-          bgcolor: 'transparent',
-          pt: {
-            mobile: '25px',
-            lgTablet: '40px',
-          },
-          pb: {
-            mobile: '25px',
-            lgTablet: '26px',
-          },
-        }}
+        sx={stylesHeader}
         elevation="0"
       >
         <Container>
-          <Toolbar
-            component="nav"
-            disableGutters
-            sx={{
-              justifyContent: 'space-between',
-              gap: '4vw',
-            }}
-          >
+          <Toolbar component="nav" disableGutters sx={stylesNav}>
             <Link component={NavLink} to="/" underline="none">
               <Logo />
             </Link>
-            <List sx={{
-              display: {
-                mobile: 'none',
-                lgTablet: 'flex',
-              },
-              flexGrow: 0.5,
-              gap: '3vw',
-              justifyContent: 'flex-end',
-              // position: 'absolute',
-              // '@media (min-width: 481px)': {
-              //   top: '55px',
-              //   left: '50%',
-              //   transform: 'translateX(-50%)',
-              // },
-            }}
-            >
+
+            <List sx={stylesNavMenu}>
               {navItems.map((page) => (
                 <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
-                  <Link
+                  <Button
                     component={NavLink}
                     to={`/${page}`}
-                    underline="none"
-                    color="text.header"
-                    sx={{
-                      fontSize: {
-                        lgTablet: '13px',
-                        desktop: '24px',
-                      },
-                      fontWeight: 'fontWeightMedium',
-                    }}
+                    sx={stylesNavMenuItem}
                   >
                     {page}
-                  </Link>
+                  </Button>
                 </ListItem>
               ))}
             </List>
@@ -108,101 +81,33 @@ const Header = () => {
               edge="end"
               size="small"
               onClick={handleOpenDrawer}
-              sx={{
-                display: {
-                  lgTablet: 'none',
-                },
-                width: '50px',
-                height: '50px',
-                mr: '-10px',
-              }}
+              sx={stylesBurgerButton}
             >
               <MenuSvg />
             </IconButton>
-            <Box sx={{
-              display: {
-                mobile: 'none',
-                lgTablet: 'flex',
-              },
-              gap: '1.5vw',
-              flexGrow: 2,
-              justifyContent: 'flex-end',
-            }}
-            >
 
+            <Box sx={stylesIconsWrapper}>
               {isUserAuthorized && (
-              <IconButton
-                aria-label="favourites"
-                edge="end"
-                size="small"
-                onClick={handleOpenDrawer}
-              >
-                {/* <FavoriteIcon */}
-                <FavoriteBorderOutlinedIcon
-                  sx={{
-                    // color: 'primary.main',
-                    fontSize: {
-                      desktop: 30,
-                    },
-                  }}
-                />
+              <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/Favourites">
+                <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                  <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                </Badge>
               </IconButton>
               )}
 
-              <IconButton
-                aria-label="cart"
-                edge="end"
-                size="small"
-                onClick={handleOpenDrawer}
-              >
-                {/* <LocalGroceryStoreIcon */}
-                <ShoppingCartOutlinedIcon
-                  sx={{
-                    // color: 'primary.main',
-                    width: {
-                      lgTablet: '27px',
-                      desktop: '34px',
-                    },
-                    fontSize: {
-                      desktop: 30,
-                    },
-                  }}
-                />
+              <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/Cart">
+                <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
+                  <ShoppingCartOutlinedIcon sx={stylesIcon} />
+                </Badge>
               </IconButton>
 
               {(isUserAuthorized) ? (
-                <IconButton
-                  aria-label="cart"
-                  edge="end"
-                  size="small"
-                  onClick={handleOpenDrawer}
-                >
-                  <ExitToAppIcon sx={{
-                    // color: 'primary.main',
-                    width: {
-                      lgTablet: '27px',
-                      desktop: '34px',
-                    },
-                    fontSize: {
-                      desktop: 30,
-                    },
-                  }}
-                  />
+                <IconButton aria-label="logout" edge="end" size="small" onClick={() => { console.log('logout'); }}>
+                  <ExitToAppIcon sx={stylesIcon} />
                 </IconButton>
               ) : (
-                <IconButton
-                  aria-label="login"
-                  edge="end"
-                  size="small"
-                  onClick={handleOpenDrawer}
-                >
-                  <PersonOutlineOutlinedIcon sx={{
-                    fontSize: {
-                      lgTablet: 27,
-                      desktop: 34,
-                    },
-                  }}
-                  />
+                <IconButton aria-label="login" edge="end" size="small" onClick={() => { console.log('login'); }}>
+                  <PersonOutlineOutlinedIcon sx={stylesPersonIcon} />
                 </IconButton>
               )}
 
