@@ -3,7 +3,7 @@ import { ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/mater
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ListItemWithIcon = ({ navLink, page, icon, onClick }) => {
+const MenuItemWithIcon = ({ navLink, page, icon, onClick }) => {
   if (navLink) {
     return (
       <ListItem disablePadding>
@@ -54,16 +54,16 @@ const ListItemWithIcon = ({ navLink, page, icon, onClick }) => {
   );
 };
 
-ListItemWithIcon.propTypes = {
+MenuItemWithIcon.propTypes = {
   navLink: PropTypes.bool,
   page: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
   onClick: PropTypes.func,
 };
 
-ListItemWithIcon.defaultProps = {
+MenuItemWithIcon.defaultProps = {
   navLink: false,
   onClick: () => {},
 };
 
-export default ListItemWithIcon;
+export default MenuItemWithIcon;

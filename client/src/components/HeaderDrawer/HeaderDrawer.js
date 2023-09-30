@@ -16,7 +16,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PropTypes from 'prop-types';
 import Logo from '../Logo/Logo';
-import ListItemWithIcon from './ListItemWithIcon';
+import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
 
 const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAuthorized }) => {
@@ -68,13 +68,13 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
         <Divider />
 
         <List>
-          <ListItemWithIcon
+          <MenuItemWithIcon
             navLink
             page="Cart"
             icon={<ShoppingCartOutlinedIcon sx={stylesIcon} />}
           />
           {isUserAuthorized && (
-          <ListItemWithIcon
+          <MenuItemWithIcon
             navLink
             page="Favourites"
             icon={<FavoriteBorderOutlinedIcon sx={stylesIcon} />}
@@ -86,19 +86,19 @@ const HeaderDrawer = ({ isMobileMenuOpen, handleCloseDrawer, navItems, isUserAut
 
         <List>
           {isUserAuthorized ? (
-            <ListItemWithIcon
+            <MenuItemWithIcon
               page="Logout"
               icon={<ExitToAppIcon sx={stylesIcon} />}
               onClick={() => { console.log('Logout'); }}
             />
           ) : (
             <>
-              <ListItemWithIcon
+              <MenuItemWithIcon
                 page="Login"
                 icon={<LoginOutlinedIcon sx={{ ...stylesIcon, ml: '-2px' }} />}
                 onClick={() => { console.log('Login'); }}
               />
-              <ListItemWithIcon
+              <MenuItemWithIcon
                 page="Sign up"
                 icon={<PersonAddAlt1OutlinedIcon sx={stylesIcon} />}
                 onClick={() => { console.log('Sign up'); }}
