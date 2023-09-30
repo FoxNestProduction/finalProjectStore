@@ -3,7 +3,6 @@ import './App.scss';
 import axios from 'axios';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
-import ProductCard from './components/ProductCard/ProductCard';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -24,7 +23,6 @@ const App = () => {
     <>
       <Modal disagree="Close" />
       <AppRoutes />
-      {/* <ProductCard /> */}
     </>
   );
 };
