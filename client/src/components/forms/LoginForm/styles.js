@@ -34,17 +34,17 @@ export const googleAppleBtnWrapper = {
 
 export const googleAppleBtn = {
   backgroundColor: '#EAEAEA',
-  height: '51px',
-  width: '148px',
+  height: {
+    mobile: '51px',
+    tablet: '45px',
+    desktop: '62px',
+  },
+  width: {
+    mobile: '148px',
+    tablet: '130px',
+    desktop: '183px',
+  },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
-  '@media (min-width: 481px)': {
-    width: '130px',
-    height: '45px',
-  },
-  '@media (min-width: 993px)': {
-    width: '183px',
-    height: '62px',
-  },
   '&:hover': {
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.3)',
     backgroundColor: 'common.white',
