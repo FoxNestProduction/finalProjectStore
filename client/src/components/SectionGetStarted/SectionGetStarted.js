@@ -7,20 +7,14 @@ import { stylesReviewAmount, stylesStarts, stylesTrustpilot, stylesProBnt, style
 const SectionGetStarted = () => {
   const starsValue = 4;
   const breakPoint = useBreakpoint();
-  const titleSizeMap = {
-    mobile:
+  const title = {
+    short:
   <>
     Enjoy Foods
     <br />
     Over World
   </>,
-    tablet:
-  <>
-    Enjoy Foods All
-    <br />
-    Over The World
-  </>,
-    desktop:
+    long:
   <>
     Enjoy Foods All
     <br />
@@ -45,7 +39,7 @@ const SectionGetStarted = () => {
           component="h1"
           sx={stylesTitle}
         >
-          {titleSizeMap[breakPoint]}
+          {breakPoint === 'mobile' ? title.short : title.long}
         </Typography>
         <Typography component="p" sx={stylesDescription}>
           {/* eslint-disable-next-line max-len */}

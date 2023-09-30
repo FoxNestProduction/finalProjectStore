@@ -15,7 +15,7 @@ export const stylesSectionCard = {
 
 export const stylesHeaderTopCard = {
   pb: 3,
-  pt: 5,
+  pt: 0,
   textAlign: 'center',
   display: { desktop: 'none' },
 };

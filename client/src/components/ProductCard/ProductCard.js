@@ -21,7 +21,7 @@ const ProductCard = () => {
     _id: '6507a306baee59670a047307',
     restaurant_name: 'Welcome Pizzeria',
     name: 'Margherita Pizza',
-    description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil l…',
+    description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves. A delightful combination of flavors that will satisfy your cravings.',
     currentPrice: 12.99,
     isFavourite: false,
     isTranding: true,
@@ -38,6 +38,7 @@ const ProductCard = () => {
     <Container
       sx={{
         bgcolor: 'background.default',
+        mt: { mobile: 5, tablet: 8 },
       }}
     >
       <Card
