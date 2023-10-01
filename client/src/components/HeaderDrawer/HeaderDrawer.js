@@ -15,6 +15,7 @@ import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PropTypes from 'prop-types';
+import Link from '@mui/material/Link';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
@@ -33,7 +34,9 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
         <Box
           sx={stylesDrawerHeader}
         >
-          <Logo type="header" />
+          <Link component={NavLink} to="/" underline="none">
+            <Logo />
+          </Link>
           <IconButton
             aria-label="close drawer"
             edge="end"

@@ -131,11 +131,9 @@ const Header = () => {
             </Box>
 
           </Toolbar>
+          <Divider />
         </Container>
       </AppBar>
-      <Container>
-        <Divider />
-      </Container>
       <nav>
         <HeaderDrawer
           isMobileMenuOpen={isMobileMenuOpen}

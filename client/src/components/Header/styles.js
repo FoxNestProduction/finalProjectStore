@@ -1,5 +1,10 @@
 export const stylesHeader = {
   bgcolor: 'background.default',
+};
+
+export const stylesNav = {
+  justifyContent: 'space-between',
+  gap: '4vw',
   pt: {
     mobile: '25px',
     lgTablet: '40px',
@@ -8,11 +13,6 @@ export const stylesHeader = {
     mobile: '25px',
     lgTablet: '26px',
   },
-};
-
-export const stylesNav = {
-  justifyContent: 'space-between',
-  gap: '4vw',
 };
 
 export const stylesNavMenu = {
