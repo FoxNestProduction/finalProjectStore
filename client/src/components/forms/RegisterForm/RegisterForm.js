@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
 import { Button, Link } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { object, string } from 'yup';
 
 import AppleIcon from '@mui/icons-material/Apple';
 import EmailIcon from '@mui/icons-material/Email';
@@ -11,8 +12,11 @@ import LockIcon from '@mui/icons-material/Lock';
 import PersonSvg from '@mui/icons-material/Person';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 
+// eslint-disable-next-line import/no-cycle
+import LoginForm from '../LoginForm/LoginForm';
 import { flexcenter, container, mainTitle, googleAppleBtnWrapper, googleAppleBtn, appleIcon, legend, inputsWrapper, signUpBtn, signUpLink } from './styles';
 import Input from '../../Input/Input';
+import { setContent } from '../../../redux/slices/modalSlice';
 
 export const initialValues = {
   fullName: '',
@@ -20,10 +24,29 @@ export const initialValues = {
   password: '',
 };
 
+const validationSchema = object({
+  fullName: string()
+    .required("Це поле обов'язкове для заповнення")
+    .matches('^[A-Z][a-z]+ [A-Z][a-z]+$', "Введіть прізвище та ім'я"),
+  email: string()
+    .required("Це поле обов'язкове для заповнення")
+    .email('Невірний формат e-mail'),
+  password: string()
+    .required("Це поле обов'язкове для заповнення")
+    .min(8, 'Пароль має містити не менше восьми символів'),
+});
+
 const RegisterForm = () => {
+  const dispatch = useDispatch();
+
   const submit = (values) => {
     console.log(values);
   };
+
+  const logInContent = () => {
+    dispatch(setContent(<LoginForm />));
+  };
+
   return (
     <Box
       component="section"
@@ -69,6 +92,7 @@ const RegisterForm = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={submit}
+        validationSchema={validationSchema}
       >
         <Form>
           <Box
@@ -110,7 +134,7 @@ const RegisterForm = () => {
             </Button>
             <Typography>
               Already Have An Account?
-              <Link component={NavLink} to="/signIn" underline="none" sx={signUpLink}> Log In</Link>
+              <Button onClick={logInContent}> Log In</Button>
             </Typography>
           </Box>
         </Form>

@@ -146,7 +146,6 @@ const Header = () => {
           isUserAuthorized={isUserAuthorized}
         />
       </nav>
-      <RegisterForm />
     </>
   );
 };
