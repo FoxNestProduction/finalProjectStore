@@ -6,19 +6,8 @@ export const stylesNav = {
   justifyContent: 'space-between',
   gap: '4vw',
   py: {
-    mobile: '20px',
-    desktop: '25px',
-  },
-};
-
-export const stylesHeaderPaddings = {
-  pt: {
-    mobile: '25px',
-    lgTablet: '40px',
-  },
-  pb: {
-    mobile: '25px',
-    lgTablet: '26px',
+    mobile: '18px',
+    desktop: '22px',
   },
 };
 
