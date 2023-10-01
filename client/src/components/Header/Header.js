@@ -18,8 +18,6 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
-import { useScrollTrigger } from '@mui/material';
-import PropTypes from 'prop-types';
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
 import {
@@ -34,6 +32,7 @@ import {
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
+import ElevationScroll from '../ElevationScroll/ElevationScroll';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -67,24 +66,6 @@ const Header = () => {
     dispatch(setContent(<LoginForm />));
   };
 
-  const ElevationScroll = ({ children }) => {
-    const trigger = useScrollTrigger({
-      disableHysteresis: true,
-      threshold: 0,
-    });
-
-    return React.cloneElement(children, {
-      elevation: trigger ? 4 : 0,
-      sx: {
-        bgcolor: 'rgba(249,249,249,0.9)',
-      },
-    });
-  };
-
-  ElevationScroll.propTypes = {
-    children: PropTypes.element.isRequired,
-  };
-
   const navItems = ['Menu', 'Pricing', 'Reviews', 'Contact'];
 
   return (
@@ -93,7 +74,6 @@ const Header = () => {
         <AppBar
           position="sticky"
           sx={stylesHeader}
-          // elevation="0"
         >
           <Container>
             <Toolbar component="nav" disableGutters sx={stylesNav}>
