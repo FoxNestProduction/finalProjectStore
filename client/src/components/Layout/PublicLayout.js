@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import Search from '../Search/Search';
 
 const PublicLayout = () => {
   return (
@@ -12,6 +13,7 @@ const PublicLayout = () => {
         <Outlet />
         <RestaurantItem />
       </main>
+      <Search />
       <Footer />
     </>
   );
