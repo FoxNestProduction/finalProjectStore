@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './App.scss';
 import axios from 'axios';
 import AppRoutes from './AppRoutes';
-import Button from './components/Button/Button';
 import Modal from './components/Modal/Modal';
 
 const App = () => {
