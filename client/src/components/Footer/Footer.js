@@ -14,7 +14,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { NavLink } from 'react-router-dom';
-import { stylesLink, stylesWrap, stylesTopWrap, stylesLinkWrap, stylesText, stylesLine, stylesSocial, stylesSocialWrap, stylesTwitter, stylesSizeIcon } from './styles';
+import { stylesLink, stylesWrap, stylesTopWrap, stylesLinkWrap, stylesText, stylesLine, stylesSocial, stylesSocialWrap, stylesSizeIcon } from './styles';
 import Logo from '../Logo/Logo';
 
 const Footer = () => {
@@ -68,7 +68,7 @@ const Footer = () => {
               <IconButton href="https://uk-ua.facebook.com/" sx={stylesSocial}>
                 <FacebookIcon sx={stylesSizeIcon} />
               </IconButton>
-              <IconButton href="https://twitter.com/" sx={{ ...stylesSocial, ...stylesTwitter }}>
+              <IconButton href="https://twitter.com/" sx={stylesSocial}>
                 <TwitterIcon sx={stylesSizeIcon} />
               </IconButton>
             </Stack>
