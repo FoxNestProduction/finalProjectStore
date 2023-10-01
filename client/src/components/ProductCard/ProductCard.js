@@ -15,6 +15,7 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import Chip from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard } from './styles';
+import RatingItem from '../Rating/Rating';
 
 const ProductCard = () => {
   const dish = {
@@ -32,7 +33,16 @@ const ProductCard = () => {
     imageUrl: '../img/pizza/pizza_texas.png',
     enabled: true,
   };
-  const { name, description, currentPrice, isTranding, rating, imageUrl } = dish;
+  const {
+    name,
+    description,
+    currentPrice,
+    isTranding,
+    rating,
+    imageUrl,
+    isSupreme,
+    isHealthy,
+  } = dish;
 
   return (
     <Container
@@ -41,6 +51,7 @@ const ProductCard = () => {
         mt: { mobile: 5, tablet: 8 },
       }}
     >
+      <RatingItem />
       <Card
         component="section"
         sx={stylesSectionCard}
@@ -71,7 +82,7 @@ const ProductCard = () => {
               sx={stylesLabelCard}
             >
               <Box sx={{ position: 'relative', left: '-32px' }}>
-                <Chip isTrending={isTranding} />
+                <Chip isTrending={isTranding} isSupreme={isSupreme} isHealthy={isHealthy} />
               </Box>
               <Stack
                 direction="row"
