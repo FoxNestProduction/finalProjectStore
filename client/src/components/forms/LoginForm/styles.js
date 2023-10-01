@@ -5,6 +5,11 @@ export const flexcenter = {
 };
 
 export const mainTitle = {
+  fontSize: {
+    mobile: '26px',
+    tablet: '28px',
+    desktop: '36px',
+  },
   mb: {
     mobile: '38px',
     tablet: '34px',
@@ -19,6 +24,9 @@ export const mainTitle = {
 };
 
 export const googleAppleBtnWrapper = {
+  width: {
+    mobile: '100%',
+  },
   flexDirection: 'row',
   gap: {
     mobile: '17px',
@@ -26,22 +34,22 @@ export const googleAppleBtnWrapper = {
     desktop: '21px',
   },
   mb: {
-    mobile: '27px',
-    tablet: '24px',
+    mobile: '24px',
     desktop: '35px',
   },
+  justifyContent: 'center',
 };
 
 export const googleAppleBtn = {
   backgroundColor: '#EAEAEA',
   height: {
     mobile: '51px',
-    tablet: '45px',
+    tablet: '56px',
     desktop: '62px',
   },
   width: {
-    mobile: '148px',
-    tablet: '130px',
+    mobile: '50%',
+    tablet: '160px',
     desktop: '183px',
   },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
@@ -55,21 +63,29 @@ export const googleAppleBtn = {
   },
 };
 
+export const appleIcon = {
+  color: '#323142',
+  fontSize: {
+    mobile: '35px',
+    tablet: '38px',
+    desktop: '45px',
+  },
+};
+
 export const legend = {
   color: 'text.secondary',
   fontSize: {
-    mobile: '16px',
+    mobile: '12px',
     tablet: '14px',
-    desktop: '24px',
+    desktop: '14px',
   },
   mb: {
-    mobile: '31.6px',
+    mobile: '24px',
     tablet: '28px',
     desktop: '26px',
   },
   fontWeight: {
     mobile: 'fontWeightMedium',
-    desktop: 'fontWeightRegular',
   },
   lineHeight: '1.5em',
 };
@@ -86,8 +102,8 @@ export const inputsWrapper = {
     desktop: '24px',
   },
   width: {
-    mobile: '308px;',
-    tablet: '272px',
+    mobile: '100%;',
+    tablet: '350px',
     desktop: '493px',
   },
 };
@@ -136,7 +152,7 @@ export const signInBtn = {
   },
   '&:active': {
     boxShadow: '0px -1px 4px rgba(0, 0, 0, 0.5)',
-    transform: 'translateY(1px)', // під питанням
+    transform: 'translateY(1px)',
     backgroundColor: 'common.white',
     color: '#1C186C',
     boxSizing: 'border-box',

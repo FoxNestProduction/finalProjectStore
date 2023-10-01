@@ -7,6 +7,9 @@ import {
   Button,
   Link,
 } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import LockIcon from '@mui/icons-material/Lock';
+import AppleIcon from '@mui/icons-material/Apple';
 import validationSchema from './validationSchema';
 import {
   flexcenter,
@@ -18,12 +21,10 @@ import {
   forgetPassword,
   signInBtn,
   signUpLink,
+  appleIcon,
 } from './styles';
-import AppleSvgComponent from '../../../assets/svgComponents/AppleSvgComponent';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../Input/Input';
-import EmailSvg from '../../../assets/svgComponents/EmailSvg';
-import LockSvg from '../../../assets/svgComponents/LockSvg';
 
 const LoginForm = () => {
   const initialValues = {
@@ -41,11 +42,14 @@ const LoginForm = () => {
       sx={{
         ...flexcenter,
         width: {
-          mobile: 313,
-          tablet: 276,
-          desktop: 493,
+          mobile: '100%',
+          tablet: 350,
+          desktop: 526,
         },
         bgcolor: 'common.white',
+        p: {
+          desktop: 2,
+        },
       }}
     >
       <Typography
@@ -73,7 +77,7 @@ const LoginForm = () => {
           variant="contained"
           sx={googleAppleBtn}
         >
-          <AppleSvgComponent />
+          <AppleIcon sx={appleIcon} />
         </Button>
       </Box>
       <Typography
@@ -104,14 +108,14 @@ const LoginForm = () => {
                   name="email"
                   placeholder="Enter your e-mail"
                   label="email"
-                  icon={<EmailSvg />}
+                  icon={<EmailIcon />}
                 />
                 <Input
                   type="password"
                   name="password"
                   placeholder="Enter your password"
                   label="password"
-                  icon={<LockSvg />}
+                  icon={<LockIcon />}
                 />
               </Box>
               <Link
