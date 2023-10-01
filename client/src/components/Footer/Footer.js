@@ -22,7 +22,7 @@ const Footer = () => {
     <AppBar
       elevation={0}
       component="footer"
-      position="relativ"
+      position="relative"
       sx={{
         backgroundColor: 'background.footer',
         minWidth: '260px',
