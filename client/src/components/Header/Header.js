@@ -32,6 +32,7 @@ import {
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
+import ElevationScroll from '../ElevationScroll/ElevationScroll';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -69,73 +70,72 @@ const Header = () => {
 
   return (
     <>
-      <AppBar
-        position="relative"
-        sx={stylesHeader}
-        elevation="0"
-      >
-        <Container>
-          <Toolbar component="nav" disableGutters sx={stylesNav}>
-            <Link component={NavLink} to="/" underline="none">
-              <Logo />
-            </Link>
+      <ElevationScroll>
+        <AppBar
+          position="sticky"
+          sx={stylesHeader}
+        >
+          <Container>
+            <Toolbar component="nav" disableGutters sx={stylesNav}>
+              <Link component={NavLink} to="/" underline="none">
+                <Logo />
+              </Link>
 
-            <List sx={stylesNavMenu}>
-              {navItems.map((page) => (
-                <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
-                  <Button
-                    component={NavLink}
-                    to={`/${page}`}
-                    sx={stylesNavMenuItem}
-                  >
-                    {page}
-                  </Button>
-                </ListItem>
-              ))}
-            </List>
+              <List sx={stylesNavMenu}>
+                {navItems.map((page) => (
+                  <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
+                    <Button
+                      component={NavLink}
+                      to={`/${page}`}
+                      sx={stylesNavMenuItem}
+                    >
+                      {page}
+                    </Button>
+                  </ListItem>
+                ))}
+              </List>
 
-            <IconButton
-              aria-label="open drawer"
-              edge="end"
-              size="small"
-              onClick={handleOpenDrawer}
-              sx={stylesBurgerButton}
-            >
-              <MenuIcon sx={{ fontSize: 35 }} />
-            </IconButton>
-
-            <Box sx={stylesIconsWrapper}>
-              {isUserAuthorized && (
-              <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/Favourites">
-                <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
-                  <FavoriteBorderOutlinedIcon sx={stylesIcon} />
-                </Badge>
-              </IconButton>
-              )}
-
-              <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/Cart">
-                <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
-                  <ShoppingCartOutlinedIcon sx={stylesIcon} />
-                </Badge>
+              <IconButton
+                aria-label="open drawer"
+                edge="end"
+                size="small"
+                onClick={handleOpenDrawer}
+                sx={stylesBurgerButton}
+              >
+                <MenuIcon sx={{ fontSize: 35 }} />
               </IconButton>
 
-              {(isUserAuthorized) ? (
-                <IconButton aria-label="logout" edge="end" size="small" onClick={() => { console.log('logout'); }}>
-                  <ExitToAppIcon sx={stylesIcon} />
+              <Box sx={stylesIconsWrapper}>
+                {isUserAuthorized && (
+                <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/Favourites">
+                  <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                    <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                  </Badge>
                 </IconButton>
-              ) : (
-                <IconButton aria-label="login" edge="end" size="small" onClick={handleOpenModalLogin}>
-                  <PersonOutlineOutlinedIcon sx={stylesPersonIcon} />
-                </IconButton>
-              )}
-            </Box>
+                )}
 
-          </Toolbar>
-        </Container>
-      </AppBar>
-      <Container>
-        <Divider />
-      </Container>
+                <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/Cart">
+                  <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
+                    <ShoppingCartOutlinedIcon sx={stylesIcon} />
+                  </Badge>
+                </IconButton>
+
+                {(isUserAuthorized) ? (
+                  <IconButton aria-label="logout" edge="end" size="small" onClick={() => { console.log('logout'); }}>
+                    <ExitToAppIcon sx={stylesIcon} />
+                  </IconButton>
+                ) : (
+                  <IconButton aria-label="login" edge="end" size="small" onClick={handleOpenModalLogin}>
+                    <PersonOutlineOutlinedIcon sx={stylesPersonIcon} />
+                  </IconButton>
+                )}
+              </Box>
+
+            </Toolbar>
+            <Divider />
+          </Container>
+        </AppBar>
+      </ElevationScroll>
       <nav>
         <HeaderDrawer
           isMobileMenuOpen={isMobileMenuOpen}

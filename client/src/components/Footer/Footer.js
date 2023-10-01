@@ -22,7 +22,7 @@ const Footer = () => {
     <AppBar
       elevation={0}
       component="footer"
-      position="relativ"
+      position="relative"
       sx={{
         backgroundColor: 'background.footer',
         minWidth: '260px',
@@ -48,7 +48,7 @@ const Footer = () => {
                 }}
                 sx={stylesLinkWrap}
               >
-                <Link component={NavLink} to="/Blog" sx={stylesLink}>Blog</Link>
+                <Link component={NavLink} to="/Reviews" sx={stylesLink}>Reviews</Link>
                 <Link component={NavLink} to="/Pricing" sx={stylesLink}>Pricing</Link>
                 <Link component={NavLink} to="/AboutUs" sx={stylesLink}>About Us</Link>
                 <Link component={NavLink} to="/Contact" sx={stylesLink}>Contact</Link>
