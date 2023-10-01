@@ -1,59 +1,81 @@
 import React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
-import { Box } from '@mui/material';
+import { Box, Stack, useMediaQuery } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import CardContent from '@mui/material/CardContent';
 import { PropTypes } from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import RatingItem from '../Rating/Rating';
-import { sylesContainer, imageSection } from './styles.js';
+import ColorChips from '../Chip/Chip';
+import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRaitingBox, priceCardBox } from './styles.js';
 
-const ProductCardItem = ({ restaurantRankingValue }) => {
-  const cardStyle = {
-    borderRadius: '22px',
-  };
-
+const ProductCardItem = ({ price, imageUrl, name, rating }) => {
+  const isMobile = useMediaQuery('(max-width: 480px)');
+  const isTablet = useMediaQuery('(min-width: 481px) and (max-width: 992px)');
+  const isDesktop = useMediaQuery('(min-width: 993px)');
   return (
     <Card sx={sylesContainer}>
-      <Box>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+      <Box sx={mediaBox}>
+        <CardActions disableSpacing sx={favoriteIcon}>
+          <IconButton aria-label="add to favorites" sx={{ color: '#323142' }}>
             <FavoriteIcon />
           </IconButton>
         </CardActions>
         <CardMedia
-          sx={{ height: 131 }}
-          image="./img/salads/3.png"
+          component="img"
+          sx={cardMedia}
+          image={imageUrl}
           title="green iguana"
         />
       </Box>
+      {/* <ColorChips /> */}
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Chicken Hell
+        <Typography variant="h3" color="text.primary">
+          {name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          24min •
-          <RatingItem defaultValue={restaurantRankingValue} />
-        </Typography>
+        <Box sx={timeRaitingBox}>
+          <Typography variant="body1" color="text.secondary">
+            24min •
+          </Typography>
+          <StarRateRoundedIcon color="primary" />
+          <Typography variant="body1" color="text.secondary">
+            {rating}
+          </Typography>
+        </Box>
+        <Box sx={priceCardBox}>
+          <Typography variant="body2" color="text.primary">
+            $
+            {price.toFixed(0)}
+            <Typography component="span" variant="body1" color="text.secondary">
+              .
+              {price.toFixed(2).split('.')[1]}
+            </Typography>
+          </Typography>
+          <IconButton aria-label="add to cart" sx={{ color: '#323142', fontSize: isMobile ? '24px' : isTablet ? '36px' : '48px' }}>
+            <AddBoxIcon sx={{ fontSize: isMobile ? '20px' : isTablet ? '25px' : '30px' }} />
+          </IconButton>
+        </Box>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 };
 
 ProductCardItem.propTypes = {
-  restaurantRankingValue: PropTypes.number,
+  price: PropTypes.number,
+  imageUrl: PropTypes.string,
+  name: PropTypes.string,
+  rating: PropTypes.number,
 };
 
 ProductCardItem.defaultProps = {
-  restaurantRankingValue: null,
+  price: 12.99,
+  imageUrl: './img/salads/3.png',
+  name: 'Chicken Hell',
+  rating: 3,
 };
 
 export default ProductCardItem;
