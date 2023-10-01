@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { NavLink } from 'react-router-dom';
 import {
@@ -10,6 +12,9 @@ import {
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import AppleIcon from '@mui/icons-material/Apple';
+import {
+  closeModal,
+} from '../../../redux/slices/modalSlice';
 import validationSchema from './validationSchema';
 import {
   flexcenter,
@@ -25,15 +30,31 @@ import {
 } from './styles';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../Input/Input';
+import { setAuthorization } from '../../../redux/slices/authorizationSlice';
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const initialValues = {
     email: '',
     password: '',
   };
-  const handleSubmit = (values, actions) => {
-    console.log(values);
-    console.log(actions);
+  const handleSubmit = async (values, actions) => {
+    try {
+      const response = await axios.post('http://localhost:4000/api/customers/login', values);
+      // Отримання токену і збереження його у локальному сховищі браузера
+      const { token } = response.data;
+      if (token) {
+      // eslint-disable-next-line no-undef
+        localStorage.setItem('token', token);
+        dispatch(setAuthorization(true));
+        dispatch(closeModal());
+      }
+      // Перенаправлення користувача на іншу сторінку чи
+      // відображення повідомлення про успішну авторизацію
+    } catch (error) {
+      // Обробка помилки, наприклад, відображення повідомлення про невірний логін чи пароль
+      console.error('Помилка авторизації:', error);
+    }
     actions.resetForm();
   };
   return (

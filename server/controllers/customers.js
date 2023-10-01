@@ -85,21 +85,25 @@ exports.loginCustomer = async (req, res, next) => {
 
   // Check Validation
   if (!isValid) {
-    return res.status(400).json(errors);
+      // console.log(isValid);
+      return res.status(400).json(errors);
   }
 
-  const loginOrEmail = req.body.loginOrEmail;
+  const loginOrEmail = req.body.email;
   const password = req.body.password;
   const configs = await getConfigs();
 
-  // Find customer by email
+    // Find customer by email
   Customer.findOne({
     $or: [{ email: loginOrEmail }, { login: loginOrEmail }]
   })
     .then(customer => {
-      // Check for customer
+
+        // Check for customer
       if (!customer) {
-        errors.loginOrEmail = "Customer not found";
+          console.log(customer);
+
+          errors.loginOrEmail = "Customer not found";
         return res.status(404).json(errors);
       }
 
@@ -120,6 +124,7 @@ exports.loginCustomer = async (req, res, next) => {
             keys.secretOrKey,
             { expiresIn: 36000 },
             (err, token) => {
+                //todo: шото придумать з токеном
               res.json({
                 success: true,
                 token: "Bearer " + token

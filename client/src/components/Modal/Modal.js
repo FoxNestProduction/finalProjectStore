@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
+import { Snackbar, Alert } from '@mui/material';
 
 import {
   openModal,
@@ -91,12 +92,12 @@ const Modal = () => {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleOpenModalWarning}>
-        Open modal with warning text
-      </Button>
-      <Button variant="standard" onClick={handleOpenModalReview}>
-        Open modal with review
-      </Button>
+      {/* <Button variant="outlined" onClick={handleOpenModalWarning}> */}
+      {/*  Open modal with warning text */}
+      {/* </Button> */}
+      {/* <Button variant="standard" onClick={handleOpenModalReview}> */}
+      {/*  Open modal with review */}
+      {/* </Button> */}
       {/* <Button variant="outlined" onClick={handleOpenModalLogin}>
         Open modal with LogIn
       </Button> */}
@@ -148,6 +149,12 @@ const Modal = () => {
           >
             {buttonAgree.text}
           </Button>
+          {/* eslint-disable-next-line no-restricted-globals,no-undef */}
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+              This is a success message!
+            </Alert>
+          </Snackbar>
         </DialogActions>
         )}
       </Dialog>
