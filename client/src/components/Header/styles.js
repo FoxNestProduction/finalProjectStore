@@ -1,18 +1,14 @@
 export const stylesHeader = {
   bgcolor: 'background.default',
-  pt: {
-    mobile: '25px',
-    lgTablet: '40px',
-  },
-  pb: {
-    mobile: '25px',
-    lgTablet: '26px',
-  },
 };
 
 export const stylesNav = {
   justifyContent: 'space-between',
   gap: '4vw',
+  py: {
+    mobile: '18px',
+    desktop: '22px',
+  },
 };
 
 export const stylesNavMenu = {
