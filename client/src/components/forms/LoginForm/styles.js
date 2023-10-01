@@ -161,7 +161,7 @@ export const signInBtn = {
   },
   fontSize: {
     mobile: '14px',
-    desktop: '24px',
+    desktop: '20px',
   },
   fontWeight: {
     mobile: 'fontWeightSemiBold',
@@ -169,8 +169,6 @@ export const signInBtn = {
   },
   textTransform: {
     mobile: 'uppercase',
-    tablet: 'uppercase',
-    desktop: 'capitalize;',
   },
 };
 
