@@ -51,7 +51,6 @@ const ProductCard = () => {
         mt: { mobile: 5, tablet: 8 },
       }}
     >
-      <RatingItem />
       <Card
         component="section"
         sx={stylesSectionCard}
@@ -84,6 +83,7 @@ const ProductCard = () => {
               <Box sx={{ position: 'relative', left: '-32px' }}>
                 <Chip isTrending={isTranding} isSupreme={isSupreme} isHealthy={isHealthy} />
               </Box>
+              {/* <RatingItem /> */}
               <Stack
                 direction="row"
                 sx={stylesRatingCard}
