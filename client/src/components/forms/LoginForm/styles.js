@@ -168,7 +168,7 @@ export const signInBtn = {
     desktop: 'fontWeightRegular',
   },
   textTransform: {
-    mobile: 'uppercase',
+    mobile: 'capitalize',
   },
 };
 

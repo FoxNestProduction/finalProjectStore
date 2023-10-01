@@ -10,8 +10,12 @@ const GoogleSvgComponent = () => {
       height: 27,
     },
     tablet: {
-      width: 30,
-      height: 29,
+      width: 31,
+      height: 30,
+    },
+    lgTablet: {
+      width: 33,
+      height: 32,
     },
     desktop: {
       width: 37,
