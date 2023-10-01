@@ -8,13 +8,16 @@ const Logo = ({ type }) => {
   return (
     <Stack direction="row" alignItems="center">
       <IconButton
+        component="div"
         edge="center"
         aria-label="logo"
         sx={type === 'footer' ? stylesIconFooter : stylesIconHeader}
       >
         <LogoIcon />
       </IconButton>
-      <Typography sx={type === 'footer' ? stylesTitleFooter : stylesTitleHeader}>eatly</Typography>
+      <Typography sx={type === 'footer' ? stylesTitleFooter : stylesTitleHeader}>
+        eatly
+      </Typography>
     </Stack>
   );
 };
@@ -24,7 +27,7 @@ Logo.propTypes = {
 };
 
 Logo.defaultProps = {
-  type: ' ',
+  type: '',
 };
 
 export default Logo;

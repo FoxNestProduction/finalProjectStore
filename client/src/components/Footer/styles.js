@@ -48,7 +48,7 @@ export const stylesLinkWrap = {
   gap: {
     mobile: '35px',
     tablet: '5vw',
-    desktop: '6vw',
+    desktop: '50px',
   },
   alignItems: 'start',
   mt: {

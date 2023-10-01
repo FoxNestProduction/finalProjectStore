@@ -1,21 +1,24 @@
-export const stylesIconHeader = {
+export const stylesIcon = {
   p: 0,
   mr: '10px',
+};
+
+export const stylesIconHeader = {
+  ...stylesIcon,
   width: {
-    mobile: 46,
-    tablet: 33,
-    desktop: 46,
+    mobile: 45,
+    lgTablet: 32,
+    desktop: 45,
   },
   height: {
     mobile: 42,
-    tablet: 30,
+    lgTablet: 30,
     desktop: 42,
   },
 };
 
 export const stylesIconFooter = {
-  p: 0,
-  mr: '10px',
+  ...stylesIcon,
   width: {
     mobile: 40,
     tablet: 44,
@@ -28,21 +31,23 @@ export const stylesIconFooter = {
   },
 };
 
-export const stylesTitleHeader = {
+export const stylesTitle = {
   color: 'primary.main',
   fontFamily: 'fontPoppins',
   fontWeight: 'fontWeightSemiBold',
+};
+
+export const stylesTitleHeader = {
+  ...stylesTitle,
   fontSize: {
     mobile: 21,
-    tablet: 15,
+    lgTablet: 15,
     desktop: 21,
   },
 };
 
 export const stylesTitleFooter = {
-  color: 'primary.main',
-  fontFamily: 'fontPoppins',
-  fontWeight: 'fontWeightSemiBold',
+  ...stylesTitle,
   fontSize: {
     mobile: 18,
     tablet: 20,
