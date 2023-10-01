@@ -1,9 +1,10 @@
 import React from 'react';
-import RegisterForm from '../../components/forms/RegisterForm/RegisterForm';
+import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
+import LoginForm from '../../components/forms/LoginForm/LoginForm';
 
 const HomePage = () => {
   return (
-    <h1>Home</h1>
+    <LoginForm />
   );
 };
 
