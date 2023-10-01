@@ -66,8 +66,8 @@ ColorChips.propTypes = {
 
 ColorChips.defaultProps = {
   isHealthy: true,
-  isTrending: true,
-  isSupreme: true,
+  isTrending: false,
+  isSupreme: false,
 };
 
 export default ColorChips;

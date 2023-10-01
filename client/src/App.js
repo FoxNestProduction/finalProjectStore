@@ -26,7 +26,6 @@ const App = () => {
       <div className="App" />
       <Modal disagree="Close" />
       <AppRoutes />
-      <ProductCardItem />
     </>
   );
 };
