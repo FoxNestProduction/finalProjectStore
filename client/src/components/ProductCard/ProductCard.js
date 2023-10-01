@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -18,6 +19,18 @@ import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHea
 import RatingItem from '../Rating/Rating';
 
 const ProductCard = () => {
+  const getDish = async () => {
+    try {
+      const { data } = await axios.get('http://localhost:4000/api/products/_6507a306baee59670a047307');
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getDish();
+  }, []);
+
   const dish = {
     _id: '6507a306baee59670a047307',
     restaurant_name: 'Welcome Pizzeria',
