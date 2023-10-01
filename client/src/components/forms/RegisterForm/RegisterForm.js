@@ -132,11 +132,13 @@ const RegisterForm = () => {
             >
               SIGN UP
             </Button>
-            <Typography>
-              Already Have An Account?
-              <Button onClick={logInContent}> Log In</Button>
-            </Typography>
           </Box>
+          <Typography
+            sx={flexcenter}
+          >
+            Already Have An Account?
+            <Button onClick={logInContent} sx={signUpLink}> Log In</Button>
+          </Typography>
         </Form>
       </Formik>
     </Box>
