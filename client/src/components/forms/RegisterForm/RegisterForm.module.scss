@@ -1,15 +1,6 @@
 @import "../../../styles/variables";
 @import "../../../styles/mixins";
 
-.container {
-  max-width: 460px;
-  margin: 100px auto 100px auto;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-family: $font-poppins;
-  @include flex($flex-direction: column)
-}
-
 .form {
   display: flex;
   flex-direction: column;

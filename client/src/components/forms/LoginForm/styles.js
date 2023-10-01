@@ -5,6 +5,11 @@ export const flexcenter = {
 };
 
 export const mainTitle = {
+  fontSize: {
+    mobile: '26px',
+    tablet: '28px',
+    desktop: '36px',
+  },
   mb: {
     mobile: '38px',
     tablet: '34px',
@@ -14,11 +19,14 @@ export const mainTitle = {
   textAlign: 'center',
   fontWeight: {
     mobile: 'fontWeightSemiBold',
-    desktop: 500,
+    desktop: 'fontWeightMedium',
   },
 };
 
 export const googleAppleBtnWrapper = {
+  width: {
+    mobile: '100%',
+  },
   flexDirection: 'row',
   gap: {
     mobile: '17px',
@@ -26,26 +34,25 @@ export const googleAppleBtnWrapper = {
     desktop: '21px',
   },
   mb: {
-    mobile: '27px',
-    tablet: '24px',
+    mobile: '24px',
     desktop: '35px',
   },
+  justifyContent: 'center',
 };
 
 export const googleAppleBtn = {
   backgroundColor: '#EAEAEA',
-  height: '51px',
-  width: '148px',
-  borderRadius: '10px',
+  height: {
+    mobile: '51px',
+    tablet: '56px',
+    desktop: '62px',
+  },
+  width: {
+    mobile: '50%',
+    tablet: '160px',
+    desktop: '183px',
+  },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
-  '@media (min-width: 481px)': {
-    width: '130px',
-    height: '45px',
-  },
-  '@media (min-width: 993px)': {
-    width: '183px',
-    height: '62px',
-  },
   '&:hover': {
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.3)',
     backgroundColor: 'common.white',
@@ -56,21 +63,29 @@ export const googleAppleBtn = {
   },
 };
 
+export const appleIcon = {
+  color: '#323142',
+  fontSize: {
+    mobile: '35px',
+    tablet: '38px',
+    desktop: '45px',
+  },
+};
+
 export const legend = {
   color: 'text.secondary',
   fontSize: {
-    mobile: '16px',
+    mobile: '12px',
     tablet: '14px',
-    desktop: '24px',
+    desktop: '14px',
   },
   mb: {
-    mobile: '31.6px',
+    mobile: '24px',
     tablet: '28px',
     desktop: '26px',
   },
   fontWeight: {
-    mobile: 500,
-    desktop: 400,
+    mobile: 'fontWeightMedium',
   },
   lineHeight: '1.5em',
 };
@@ -87,8 +102,8 @@ export const inputsWrapper = {
     desktop: '24px',
   },
   width: {
-    mobile: '308px;',
-    tablet: '272px',
+    mobile: '100%;',
+    tablet: '350px',
     desktop: '493px',
   },
 };
@@ -103,6 +118,10 @@ export const forgetPassword = {
   lineHeight: '1.5em',
   transition: 'color 0.3s ease',
   opacity: '0.7',
+  alignSelf: {
+    mobile: 'flex-end',
+    desktop: 'center',
+  },
   mb: {
     mobile: '16px',
     tablet: '14px',
@@ -121,11 +140,6 @@ export const signInBtn = {
     tablet: '16px',
     desktop: '24px',
   },
-  borderRadius: {
-    mobile: '12px',
-    tablet: '11px',
-    desktop: '16px',
-  },
   height: {
     mobile: '60px',
     tablet: '53px',
@@ -138,7 +152,7 @@ export const signInBtn = {
   },
   '&:active': {
     boxShadow: '0px -1px 4px rgba(0, 0, 0, 0.5)',
-    transform: 'translateY(1px)', // під питанням
+    transform: 'translateY(1px)',
     backgroundColor: 'common.white',
     color: '#1C186C',
     boxSizing: 'border-box',
@@ -147,23 +161,21 @@ export const signInBtn = {
   },
   fontSize: {
     mobile: '14px',
-    desktop: '24px',
+    desktop: '20px',
   },
   fontWeight: {
-    mobile: 600,
-    desktop: 400,
+    mobile: 'fontWeightSemiBold',
+    desktop: 'fontWeightRegular',
   },
   textTransform: {
-    mobile: 'uppercase',
-    tablet: 'uppercase',
-    desktop: 'capitalize;',
+    mobile: 'capitalize',
   },
 };
 
 export const signUpLink = {
   fontWeight: {
-    mobile: 700,
-    desktop: 400,
+    mobile: 'fontWeightBold',
+    desktop: 'fontWeightRegular',
   },
   transition: 'color 0.3s ease',
   '&:hover': {

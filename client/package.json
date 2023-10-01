@@ -40,6 +40,9 @@
       "airbnb/hooks",
       "react-app/jest"
     ],
+    "globals": {
+      "window": true
+    },
     "rules": {
       "import/no-unresolved": "off",
       "import/extensions": "off",
@@ -50,19 +53,10 @@
       "no-unused-vars": "off",
       "linebreak-style": "off",
       "no-console": "off",
-      "react/function-component-definition": [
-        2,
-        {
-          "namedComponents": "arrow-function"
-        }
-      ],
+      "react/function-component-definition": [2, {"namedComponents": "arrow-function"}],
       "arrow-body-style": "off",
-      "object-curly-newline": [
-        "error",
-        {
-          "consistent": true
-        }
-      ]
+      "react/forbid-prop-types": "off",
+      "object-curly-newline": ["error", {"consistent": true}]
     }
   },
   "browserslist": {
