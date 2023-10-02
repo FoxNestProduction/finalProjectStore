@@ -5,10 +5,10 @@ const bcrypt = require("bcryptjs");
 
 const CustomerSchema = new Schema(
   {
-    customerNo: {
-      type: String,
-      required: true
-    },
+    // customerNo: {
+    //   type: String,
+    //   required: true
+    // },
     firstName: {
       type: String,
       required: true
@@ -32,11 +32,14 @@ const CustomerSchema = new Schema(
     telephone: {
       type: String
     },
-    birthdate: {
+    address: {
       type: String
     },
-    gender: {
-      type: String
+    cart: {
+      type: [String]
+    },
+    favourite: {
+        type: [String]
     },
     avatarUrl: {
       type: String
