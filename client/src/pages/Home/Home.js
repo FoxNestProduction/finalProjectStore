@@ -4,10 +4,7 @@ import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStar
 
 const HomePage = () => {
   return (
-    <>
-      <SectionGetStarted />
-      <Typography variant="h1">Home</Typography>
-    </>
+    <SectionGetStarted />
   );
 };
 
