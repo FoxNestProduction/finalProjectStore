@@ -27,15 +27,15 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const getItems = async () => {
+    const getProducts = async () => {
       try {
         const { data } = await axios.get('http://localhost:4000/api/products');
         dispatch(setProducts(data));
       } catch (err) {
-        console.log(err);
+        console.log('Error loading products:', err);
       }
     };
-    getItems();
+    getProducts();
   }, [dispatch]);
 
   return (
