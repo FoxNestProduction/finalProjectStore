@@ -17,7 +17,7 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarIcon from '@mui/icons-material/Star';
-import Chip from '../Chip/Chip';
+import ColorChips from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard } from './styles';
 
 const ProductCard = () => {
@@ -96,7 +96,7 @@ const ProductCard = () => {
               sx={stylesLabelCard}
             >
               <Box sx={{ position: 'relative', mx: 0, left: '-32px', top: '-10px' }}>
-                <Chip
+                <ColorChips
                   isTrending={isTranding}
                   isSupreme={isSupreme}
                   isHealthy={isHealthy}
