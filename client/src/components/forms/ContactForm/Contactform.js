@@ -14,7 +14,7 @@ import {
 } from './styles';
 import Input from '../../Input/Input';
 
-const ContactForm = () => {
+const Contactform = () => {
   const initialValues = {
     name: '',
     email: '',
@@ -102,4 +102,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default Contactform;

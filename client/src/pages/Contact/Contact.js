@@ -1,11 +1,11 @@
 import React from 'react';
 import Container from '@mui/material/Container';
-import ContactForm from '../../components/forms/ContactForm/ContactForm';
+import Contactform from '../../components/forms/ContactForm/Contactform';
 
 const ContactPage = () => {
   return (
     <Container component="section">
-      <ContactForm />
+      <Contactform />
     </Container>
   );
 };
