@@ -5,14 +5,10 @@ import ListItems from '../../components/ListItems/ListItem';
 
 const HomePage = () => {
   return (
-<<<<<<< HEAD
     <>
       <SectionGetStarted />
       <ListItems title="Our Top Restaurants" />
     </>
-=======
-    <SectionGetStarted />
->>>>>>> dev
   );
 };
 
