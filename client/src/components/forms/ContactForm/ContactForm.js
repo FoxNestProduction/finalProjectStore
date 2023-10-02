@@ -3,8 +3,9 @@ import { Formik, Form } from 'formik';
 import {
   Typography,
   Box,
-  Button,
+  Button, TextareaAutosize,
 } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import validationSchema from './validationSchema';
 import {
   flexcenter,
@@ -13,6 +14,7 @@ import {
   signInBtn,
 } from './styles';
 import Input from '../../Input/Input';
+import Textarea from '../../Textarea/Textarea';
 
 const ContactForm = () => {
   const initialValues = {
@@ -61,6 +63,7 @@ const ContactForm = () => {
                 sx={{
                   ...flexcenter,
                   ...inputsWrapper,
+                  alignItems: 'stretch',
                 }}
               >
                 <Input
@@ -75,12 +78,9 @@ const ContactForm = () => {
                   placeholder="Enter your e-mail"
                   label="email"
                 />
-                <Input
-                  type="text"
+                <Textarea
                   name="message"
                   placeholder="Enter the problem or query..."
-                  label="message"
-                  multiline
                 />
               </Box>
               <Button
@@ -89,7 +89,6 @@ const ContactForm = () => {
                 variant="contained"
                 sx={signInBtn}
                 type="submit"
-                disabled={!isValid}
               >
                 Send Now
               </Button>

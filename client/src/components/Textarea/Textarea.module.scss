@@ -1,0 +1,47 @@
+.root {
+  font-family: Inter, sans-serif;
+}
+
+.textarea {
+  font-size: 13px;
+  line-height: 150%;
+  width: 100%;
+  resize: none;
+  border: 1px solid #6C5FBC;
+  border-radius: 16px;
+  background-color: #F9F9F9;
+  outline: none;
+  padding: 16px 15px 16px 25px;
+
+  &::placeholder {
+    color: #2B2B2B;
+    opacity: 0.8;
+  }
+
+  &:hover:not(.active):not(:focus):not(.error) {
+    border-color: #664FFF;
+  }
+
+  &:focus {
+    border-width: 2px;
+  }
+
+  &.error {
+    border-color: #D32F2F;
+  }
+
+  @media (min-width: 481px) {
+    font-size: 14px;
+  }
+
+  @media (min-width: 993px) {
+    font-size: 16px;
+  }
+}
+
+.errorMessage {
+  font-size: 12px;
+  line-height: 150%;
+  color: #D32F2F;
+  margin: 3px 14px 0;
+}

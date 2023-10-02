@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useField } from 'formik';
 import PropTypes from 'prop-types';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -15,9 +15,8 @@ import FormHelperText from '@mui/material/FormHelperText';
 // --- варіант з лейбл ----
 // <Input name="name" id="name" label="Name" placeholder="Enter your name..."
 // icon={<PersonSvg />} />
-// --- варіант без лейбл ----
-// <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />}/>
-// <Input name="password" id="password" type="password" placeholder="Password" icon={<LockSvg />} />
+// --- варіант без лейбл ---
+// просто не передавати label
 
 // --- для textarea додаємо атрибут multiline ---
 // <Input name="comment" id="comment" placeholder="Enter the problem or query..." multiline />
@@ -25,7 +24,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 const Input = ({ type, label, icon, multiline, ...props }) => {
   const [field, meta] = useField(props.name);
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
