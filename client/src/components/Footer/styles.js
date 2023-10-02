@@ -2,17 +2,25 @@ export const stylesLink = {
   color: 'text.header',
   fontFamily: 'fontFamily',
   fontWeight: 'fontWeightMedium',
+  '&:hover': {
+    bgcolor: 'rgba(0,0,0,0.04)',
+    borderRadius: {
+      mobile: '15px',
+      tablet: '10px',
+      desktop: '15px',
+    },
+  },
   alignSelf: {
     mobile: 'start',
     tablet: 'center',
   },
+  p: {
+    mobile: '15px',
+    tablet: '6px',
+    desktop: '15px',
+  },
   textDecoration: 'none',
   textWrap: 'nowrap',
-  p: 0,
-  pl: {
-    mobile: '10px',
-    tablet: 0,
-  },
   minWidth: '0px',
   fontSize: {
     mobile: 14,
@@ -46,9 +54,9 @@ export const stylesTopWrap = {
 
 export const stylesLinkWrap = {
   gap: {
-    mobile: '35px',
-    tablet: '5vw',
-    desktop: '50px',
+    mobile: '15px',
+    tablet: '5px',
+    desktop: '20px',
   },
   alignItems: 'start',
   mt: {
@@ -105,14 +113,6 @@ export const stylesSocialWrap = {
 
 export const stylesSocial = {
   color: '#201F1F',
-  p: '0',
-};
-
-export const stylesTwitter = {
-  color: {
-    mobile: '#201F1F',
-    desktop: 'primary.main',
-  },
   p: '0',
 };
 
