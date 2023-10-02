@@ -10,13 +10,15 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
 
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import StarHalfIcon from '@mui/icons-material/StarHalf';
+import StarIcon from '@mui/icons-material/Star';
 import Chip from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard } from './styles';
-import RatingItem from '../Rating/Rating';
 
 const ProductCard = () => {
   const getDish = async () => {
@@ -41,7 +43,7 @@ const ProductCard = () => {
     isTranding: true,
     isSupreme: false,
     isHealthy: false,
-    rating: 2.8,
+    rating: 2.3,
     filterCategories: 'pizza',
     imageUrl: '../img/pizza/pizza_texas.png',
     enabled: true,
@@ -96,15 +98,24 @@ const ProductCard = () => {
               <Box sx={{ position: 'relative', left: '-32px' }}>
                 <Chip isTrending={isTranding} isSupreme={isSupreme} isHealthy={isHealthy} />
               </Box>
-              {/* <RatingItem /> */}
               <Stack
                 direction="row"
                 sx={stylesRatingCard}
               >
                 <Typography variant="subtitle1">24min •</Typography>
                 <Stack direction="row" spacing={1}>
-                  <StarRoundedIcon sx={{ color: 'primary.main' }} />
-                  <Typography variant="subtitle1">{rating}</Typography>
+                  {/* <RatingItem /> */}
+                  <Rating
+                    name="half-rating"
+                    value={rating}
+                    // precision={0.5}
+                    // emptyIcon={<StarIcon size="inherit" />}
+                    // icon={<StarIcon size="inherit" />}
+                    // halfIcon={<StarHalfIcon size="inherit" />}
+                    readOnly
+                    sx={{ color: 'primary.main' }}
+                  />
+                  <Typography component="legend">{rating}</Typography>
                 </Stack>
               </Stack>
             </Stack>
@@ -124,6 +135,7 @@ const ProductCard = () => {
                 variant="h5"
                 sx={{ mb: 3 }}
               >
+                $
                 {currentPrice}
               </Typography>
             </Box>
