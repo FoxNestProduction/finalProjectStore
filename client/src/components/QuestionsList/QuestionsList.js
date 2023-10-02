@@ -42,28 +42,32 @@ const QuestionsList = () => {
   ];
 
   return (
-    <Container sx={{ mb: { mobile: 8, tablet: 12, desktop: 18 } }}>
+    <Container
+      component="section"
+      sx={{ mb: { mobile: 8, tablet: 12, desktop: 18 } }}
+    >
       <Divider sx={{ mb: 12 }} />
-      <Typography variant="h5" componet="h5" sx={{ textAlign: 'center', mb: { mobile: '67px', desktop: '78px' } }}>
-        <h5>Frequently Asked</h5>
-        <h5 style={{ color: theme.palette.primary.main }}>Questions</h5>
+      <Typography variant="h5" component="h3" sx={{ textAlign: 'center', mb: { mobile: '67px', desktop: '78px' } }}>
+        Frequently Asked
+        <br />
+        Questions
       </Typography>
       <List>
         {questions.map((item) => (
-          <div key={item.question}>
-            <ListItem disablePadding sx={{ pb: 5 }}>
-              <ListItemText primary={<Typography variant="h3">{item.question}</Typography>} />
+          <ol key={item.question}>
+            <ListItem disablePadding sx={{ pb: 3 }}>
+              <ListItemText primary={<Typography variant="h3" component="h5">{item.question}</Typography>} />
               <IconButton onClick={() => getAnswer(item.question)}>
                 {!isOpen[item.question] ? <AddCircleIcon edge="end" sx={{ color: 'primary.main' }} /> : <RemoveCircleIcon edge="end" sx={{ color: 'primary.main' }} />}
               </IconButton>
             </ListItem>
             {isOpen[item.question] && (
               <ListItem disablePadding sx={{ pb: 5 }}>
-                <ListItemText primary={<Typography variant="h3" fontWeight={400}>{item.answer}</Typography>} />
+                <ListItemText primary={<Typography variant="description" fontWeight={400}>{item.answer}</Typography>} />
               </ListItem>
             )}
             <Divider sx={{ my: 1 }} />
-          </div>
+          </ol>
         ))}
       </List>
     </Container>

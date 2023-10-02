@@ -8,7 +8,7 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
     width: '70px',
     height: '24px',
     borderRadius: '8px',
-    marginRight: '10px',
+    // marginRight: '10px',
     marginBottom: '5px',
     fontSize: '0.625rem',
   };
@@ -16,7 +16,9 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
   return (
     <Box
       sx={{
-        margin: '10px 32px',
+        // margin: '10px 32px',
+        ml: '32px',
+        my: '10px',
         width: '100%',
         marginBottom: {
           mobile: 0,

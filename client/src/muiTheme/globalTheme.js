@@ -199,7 +199,7 @@ globalTheme.typography.h5 = {
     fontSize: '40px',
   },
   [globalTheme.breakpoints.up('desktop')]: {
-    fontSize: '48px',
+    fontSize: '44px',
   },
 };
 

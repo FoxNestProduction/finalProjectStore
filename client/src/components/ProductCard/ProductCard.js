@@ -61,18 +61,18 @@ const ProductCard = () => {
 
   return (
     <Container
+      component="section"
       sx={{
         bgcolor: 'background.default',
         mt: { mobile: 5, tablet: 8 },
       }}
     >
       <Card
-        component="section"
         sx={stylesSectionCard}
       >
         <CardHeader
           variant="h5"
-          component="h3"
+          component="h1"
           title={name}
           sx={stylesHeaderTopCard}
         />
@@ -83,7 +83,7 @@ const ProductCard = () => {
             component="img"
             image={imageUrl}
             alt="lobster"
-            sx={{ mb: 3, width: { mobile: '100%', desktop: '52%' } }}
+            sx={{ mb: 3, width: { mobile: '100%', desktop: '50%' }, maxWidth: { tablet: '75%' }, height: 'auto', objectFit: 'cover' }}
           />
           <Stack>
             <CardHeader
@@ -95,19 +95,24 @@ const ProductCard = () => {
             <Stack
               sx={stylesLabelCard}
             >
-              <Box sx={{ position: 'relative', left: '-32px' }}>
-                <Chip isTrending={isTranding} isSupreme={isSupreme} isHealthy={isHealthy} />
+              <Box sx={{ position: 'relative', mx: 0, left: '-32px', top: '-10px' }}>
+                <Chip
+                  isTrending={isTranding}
+                  isSupreme={isSupreme}
+                  isHealthy={isHealthy}
+                />
               </Box>
               <Stack
                 direction="row"
                 sx={stylesRatingCard}
               >
-                <Typography variant="subtitle1">24min •</Typography>
+                <Typography variant="body1" sx={{ whiteSpace: 'nowrap' }}>24min •</Typography>
                 <Stack direction="row" spacing={1}>
                   {/* <RatingItem /> */}
                   <Rating
                     name="half-rating"
                     value={rating}
+                    size="small"
                     // precision={0.5}
                     // emptyIcon={<StarIcon size="inherit" />}
                     // icon={<StarIcon size="inherit" />}
@@ -115,7 +120,7 @@ const ProductCard = () => {
                     readOnly
                     sx={{ color: 'primary.main' }}
                   />
-                  <Typography component="legend">{rating}</Typography>
+                  <Typography component="legend" variant="body1">{rating}</Typography>
                 </Stack>
               </Stack>
             </Stack>

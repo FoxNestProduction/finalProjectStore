@@ -1,9 +1,15 @@
 export const stylesButtonCardOutline = {
-  p: 2,
+  p: '10px',
   borderRadius: '14px',
   color: 'text.primary',
   border: 1,
-  fontSize: { tablet: '18px', desktop: '22px' },
+  fontSize: { mobile: '14px', tablet: '18px', desktop: '22px' },
+  transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
+  ':hover': {
+    backgroundColor: 'primary.hover',
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
+    color: 'text.primaryLight',
+  },
 };
 
 export const stylesSectionCard = {
@@ -35,6 +41,8 @@ export const stylesContentCard = {
     mobile: 'column',
     desktop: 'row',
   },
+  justifyContent: 'center',
+  alignItems: 'center',
   gap: { desktop: '3vw' },
 };
 
@@ -44,8 +52,8 @@ export const stylesRatingCard = {
     desktop: 'flex-start',
   },
   gap: {
-    mobile: 2,
-    tablet: 8,
+    mobile: 1,
+    tablet: 7,
     desktop: 16,
   },
   mb: { desktop: 4 },
@@ -54,7 +62,7 @@ export const stylesRatingCard = {
 export const stylesLabelCard = {
   flexDirection: { mobile: 'row', desktop: 'column' },
   justifyContent: 'space-between',
-  gap: 2,
+  gap: '2px',
 };
 
 export const stylesPriceCard = {
@@ -66,9 +74,15 @@ export const stylesPriceCard = {
 };
 
 export const stylesButtonCard = {
-  p: 2,
+  p: '10px',
   borderRadius: '14px',
-  fontSize: { tablet: '18px', desktop: '22px' },
+  border: 1,
+  fontSize: { mobile: '14px', tablet: '18px', desktop: '22px' },
+  transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
+  ':hover': {
+    backgroundColor: 'primary.hover',
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
+  },
 };
 
 export const stylesActionsCard = {
