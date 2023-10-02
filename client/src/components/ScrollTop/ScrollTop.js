@@ -8,7 +8,7 @@ import Fab from '@mui/material/Fab';
 const ScrollTop = () => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 300,
+    threshold: 200,
   });
 
   const handleClick = () => {
