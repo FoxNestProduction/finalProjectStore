@@ -2,11 +2,6 @@ export const stylesLink = {
   color: 'text.header',
   fontFamily: 'fontFamily',
   fontWeight: 'fontWeightMedium',
-  p: {
-    mobile: '5px',
-    tablet: '4px',
-    desktop: '10px',
-  },
   '&:hover': {
     bgcolor: 'rgba(0,0,0,0.04)',
     borderRadius: {
@@ -19,13 +14,13 @@ export const stylesLink = {
     mobile: 'start',
     tablet: 'center',
   },
+  p: {
+    mobile: '15px',
+    tablet: '6px',
+    desktop: '15px',
+  },
   textDecoration: 'none',
   textWrap: 'nowrap',
-  // p: 0,
-  pl: {
-    mobile: '10px',
-    tablet: '8px',
-  },
   minWidth: '0px',
   fontSize: {
     mobile: 14,
@@ -59,9 +54,9 @@ export const stylesTopWrap = {
 
 export const stylesLinkWrap = {
   gap: {
-    mobile: '35px',
-    tablet: 0,
-    desktop: '50px',
+    mobile: '15px',
+    tablet: '5px',
+    desktop: '20px',
   },
   alignItems: 'start',
   mt: {
