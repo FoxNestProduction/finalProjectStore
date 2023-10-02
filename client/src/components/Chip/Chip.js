@@ -47,7 +47,7 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme, customStyles }) => {
             color: 'text.supreme',
           }}
         />
-      ) }
+      )}
     </Box>
   );
 };
