@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.scss';
 import axios from 'axios';
 import AppRoutes from './AppRoutes';
+import ProductCardItem from './components/ProductCardItem/ProductCardItem';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { setAuthorization } from './redux/slices/authorizationSlice';
