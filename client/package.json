@@ -1,0 +1,84 @@
+{
+  "name": "final-store",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.9",
+    "@mui/material": "^5.14.9",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.5.0",
+    "classnames": "^2.3.2",
+    "formik": "^2.4.4",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.2",
+    "react-router": "^6.16.0",
+    "react-router-dom": "^6.16.0",
+    "react-scripts": "5.0.1",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "e-lint": "npx eslint ./src/**/*.js --fix",
+    "prepare": "cd .. && husky install client/.husky"
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb",
+      "airbnb/hooks",
+      "react-app/jest"
+    ],
+    "globals": {
+      "window": true
+    },
+    "rules": {
+      "import/no-unresolved": "off",
+      "import/extensions": "off",
+      "react/jsx-props-no-spreading": "off",
+      "react/jsx-filename-extension": "off",
+      "import/no-named-as-default": "off",
+      "import/no-named-as-default-member": "off",
+      "no-unused-vars": "off",
+      "linebreak-style": "off",
+      "no-console": "off",
+      "react/function-component-definition": [2, {"namedComponents": "arrow-function"}],
+      "arrow-body-style": "off",
+      "react/forbid-prop-types": "off",
+      "object-curly-newline": ["error", {"consistent": true}]
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^8.49.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "sass": "^1.67.0"
+  }
+}
