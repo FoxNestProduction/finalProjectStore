@@ -113,6 +113,23 @@ const globalTheme = createTheme({
         }),
       },
     },
+    MuiCardContent: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '&:last-child': {
+            [theme.breakpoints.up('mobile')]: {
+              padding: '0 15px',
+            },
+            [theme.breakpoints.up('tablet')]: {
+              padding: '0 17px',
+            },
+            [theme.breakpoints.up('desktop')]: {
+              padding: '0 23px',
+            },
+          },
+        }),
+      },
+    },
   },
 });
 
@@ -126,6 +143,36 @@ globalTheme.typography.body1 = {
   },
   [globalTheme.breakpoints.up('desktop')]: {
     fontSize: '16px',
+  },
+};
+
+globalTheme.typography.body2 = {
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 700,
+  lineHeight: '26px',
+  fontSize: '16px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '18px',
+    lineHeight: '28px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '20px',
+    lineHeight: '32px',
+  },
+};
+
+globalTheme.typography.body3 = {
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 700,
+  lineHeight: '26px',
+  fontSize: '16px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '18px',
+    lineHeight: '28px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '20px',
+    lineHeight: '32px',
   },
 };
 

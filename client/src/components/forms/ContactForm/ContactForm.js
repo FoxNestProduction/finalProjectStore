@@ -14,7 +14,7 @@ import {
 } from './styles';
 import Input from '../../Input/Input';
 
-const Contactform = () => {
+const ContactForm = () => {
   const initialValues = {
     name: '',
     email: '',
@@ -22,7 +22,6 @@ const Contactform = () => {
   };
   const handleSubmit = (values, actions) => {
     console.log(values);
-    console.log(actions);
     actions.resetForm();
   };
   return (
@@ -92,7 +91,7 @@ const Contactform = () => {
                 type="submit"
                 disabled={!isValid}
               >
-                Send now
+                Send Now
               </Button>
             </Box>
           </Form>
@@ -102,4 +101,4 @@ const Contactform = () => {
   );
 };
 
-export default Contactform;
+export default ContactForm;
