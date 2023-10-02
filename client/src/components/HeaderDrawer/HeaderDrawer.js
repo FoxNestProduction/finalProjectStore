@@ -31,6 +31,8 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
 
     // eslint-disable-next-line no-undef
     localStorage.removeItem('token');
+    // eslint-disable-next-line no-undef
+    localStorage.removeItem('user');
     dispatch(setAuthorization(false));
   };
 
