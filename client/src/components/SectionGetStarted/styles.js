@@ -29,7 +29,7 @@ export const stylesSection = {
     tablet: '60px',
     desktop: '66px',
   },
-  pt: '50px',
+  pt: '40px',
   transition: '.5s',
 };
 
