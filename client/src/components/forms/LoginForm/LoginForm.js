@@ -42,6 +42,7 @@ const LoginForm = () => {
     try {
       const response = await axios.post('http://localhost:4000/api/customers/login', values);
       // Отримання токену і збереження його у локальному сховищі браузера
+      const { user } = response.user;
       const { token } = response.data;
       if (token) {
       // eslint-disable-next-line no-undef
