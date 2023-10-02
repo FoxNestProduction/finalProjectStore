@@ -3,7 +3,7 @@ export const stylesButtonCardOutline = {
   borderRadius: '14px',
   color: 'text.primary',
   border: 1,
-  fontSize: { mobile: '14px', tablet: '18px', desktop: '22px' },
+  fontSize: { mobile: '14px', tablet: '18px' },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
   ':hover': {
     backgroundColor: 'primary.hover',
@@ -33,6 +33,19 @@ export const stylesHeaderInCard = {
     mobile: 'none',
     desktop: 'block',
   },
+};
+
+export const stylesMediaCard = {
+  mb: 3,
+  width: {
+    mobile: '70%',
+    desktop: '40%',
+  },
+  maxWidth: {
+    tablet: '370px',
+  },
+  height: 'auto',
+  objectFit: 'cover',
 };
 
 export const stylesContentCard = {
@@ -77,7 +90,7 @@ export const stylesButtonCard = {
   p: '10px',
   borderRadius: '14px',
   border: 1,
-  fontSize: { mobile: '14px', tablet: '18px', desktop: '22px' },
+  fontSize: { mobile: '14px', tablet: '18px' },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
   ':hover': {
     backgroundColor: 'primary.hover',

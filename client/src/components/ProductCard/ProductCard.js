@@ -91,7 +91,7 @@ const ProductCard = () => {
             <Stack
               sx={stylesLabelCard}
             >
-              <Box sx={{ position: 'relative', mx: 0, left: '-32px', top: '-10px' }}>
+              <Box sx={{ my: 2 }}>
                 <ColorChips
                   isTrending={isTranding}
                   isSupreme={isSupreme}
@@ -108,7 +108,7 @@ const ProductCard = () => {
                   <Rating
                     name="half-rating"
                     value={rating}
-                    size="small"
+                    size="madium"
                     // precision={0.5}
                     // emptyIcon={<StarIcon size="inherit" />}
                     // icon={<StarIcon size="inherit" />}
@@ -133,7 +133,7 @@ const ProductCard = () => {
               sx={stylesPriceCard}
             >
               <Typography
-                variant="h5"
+                variant="h3"
                 sx={{ mb: 3 }}
               >
                 $

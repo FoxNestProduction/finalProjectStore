@@ -7,9 +7,10 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme, customStyles }) => {
   return (
     <Box
       sx={{
-        // margin: '10px 32px',
-        ml: '32px',
-        my: '10px',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        gap: '3%',
+        flexWrap: 'wrap',
         width: '100%',
         marginBottom: {
           mobile: 0,
@@ -46,7 +47,7 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme, customStyles }) => {
             color: 'text.supreme',
           }}
         />
-      ) }
+      )}
     </Box>
   );
 };
@@ -60,7 +61,7 @@ ColorChips.propTypes = {
 
 ColorChips.defaultProps = {
   isHealthy: true,
-  isTrending: true,
+  isTrending: false,
   isSupreme: true,
   customStyles: {},
 };
