@@ -5,17 +5,22 @@ import axios from 'axios';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import { setAuthorization } from './redux/slices/authorizationSlice';
+import { setUser } from './redux/slices/userSlice';
 
 const App = () => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // todo: LS eslint
+
     // eslint-disable-next-line no-undef
     const token = localStorage.getItem('token');
-
+    // eslint-disable-next-line no-undef
+    const user = JSON.parse(localStorage.getItem('user'));
     if (token) {
       dispatch(setAuthorization(true));
+      dispatch(setUser(user));
     }
   }, [dispatch]);
 

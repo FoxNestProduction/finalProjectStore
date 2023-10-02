@@ -27,6 +27,8 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
+    // todo: LS eslint
+
     // eslint-disable-next-line no-undef
     localStorage.removeItem('token');
     dispatch(setAuthorization(false));

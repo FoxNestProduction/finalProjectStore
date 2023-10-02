@@ -31,6 +31,7 @@ import {
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../Input/Input';
 import { setAuthorization } from '../../../redux/slices/authorizationSlice';
+import { setUser } from '../../../redux/slices/userSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -42,12 +43,16 @@ const LoginForm = () => {
     try {
       const response = await axios.post('http://localhost:4000/api/customers/login', values);
       // Отримання токену і збереження його у локальному сховищі браузера
-      console.log(response.data.user);
-      // const { user } = response.user;
       const { token } = response.data;
+      const { user } = response.data;
       if (token) {
-      // eslint-disable-next-line no-undef
+        // todo: LS eslint
+
+        // eslint-disable-next-line no-undef
         localStorage.setItem('token', token);
+        // eslint-disable-next-line no-undef
+        localStorage.setItem('user', JSON.stringify(user));
+        dispatch(setUser(user));
         dispatch(setAuthorization(true));
         dispatch(closeModal());
       }

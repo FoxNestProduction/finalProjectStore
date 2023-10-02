@@ -41,6 +41,8 @@ const Header = () => {
   // змінити на true для відмалювання інтерфейсу залогіненого юзера
   // const [isUserAuthorized, setIsUserAuthorized] = useState(false);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const user = useSelector((state) => state.user.user);
+  const { cart, favourite } = user;
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -52,8 +54,12 @@ const Header = () => {
   }, [breakpoint]);
 
   // при зміні на 0 - бейдж пропадає
-  const cartAmount = 7;
-  const favouritesAmount = 10;
+  let cartAmount = null;
+  let favouritesAmount = null;
+  if (isUserAuthorized) {
+    cartAmount = cart.length;
+    favouritesAmount = favourite.length;
+  }
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);
@@ -68,8 +74,12 @@ const Header = () => {
     dispatch(setContent(<LoginForm />));
   };
   const handleLogOut = () => {
+    // todo: додати правило eslint для LS
+
     // eslint-disable-next-line no-undef
     localStorage.removeItem('token');
+    // eslint-disable-next-line no-undef
+    localStorage.removeItem('user');
     dispatch(setAuthorization(false));
   };
 

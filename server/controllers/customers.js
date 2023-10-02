@@ -88,7 +88,7 @@ exports.loginCustomer = async (req, res, next) => {
       // console.log(isValid);
       return res.status(400).json(errors);
   }
-
+    // todo:  need to refactor loginOrEmail
   const loginOrEmail = req.body.email;
   const password = req.body.password;
   const configs = await getConfigs();
