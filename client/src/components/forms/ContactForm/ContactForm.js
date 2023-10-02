@@ -3,15 +3,14 @@ import { Formik, Form } from 'formik';
 import {
   Typography,
   Box,
-  Button, TextareaAutosize,
+  Button,
 } from '@mui/material';
-import TextField from '@mui/material/TextField';
 import validationSchema from './validationSchema';
 import {
   flexcenter,
   mainTitle,
   inputsWrapper,
-  signInBtn,
+  sendBtn,
 } from './styles';
 import Input from '../../Input/Input';
 import Textarea from '../../Textarea/Textarea';
@@ -87,7 +86,7 @@ const ContactForm = () => {
                 onSubmit={handleSubmit}
                 disableRipple
                 variant="contained"
-                sx={signInBtn}
+                sx={sendBtn}
                 type="submit"
               >
                 Send Now

@@ -41,9 +41,10 @@ export const inputsWrapper = {
   },
 };
 
-export const signInBtn = {
+export const sendBtn = {
   width: '100%',
   color: 'text.primaryLight',
+  mt: '5px',
   mb: {
     mobile: '19px',
     tablet: '16px',
@@ -75,8 +76,5 @@ export const signInBtn = {
   fontWeight: {
     mobile: 'fontWeightSemiBold',
     desktop: 'fontWeightRegular',
-  },
-  textTransform: {
-    mobile: 'capitalize',
   },
 };
