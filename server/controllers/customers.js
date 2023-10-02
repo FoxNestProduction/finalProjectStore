@@ -117,6 +117,9 @@ exports.loginCustomer = async (req, res, next) => {
             lastName: customer.lastName,
             isAdmin: customer.isAdmin
           }; // Create JWT Payload
+            // видалення поля пароля
+            const userWithoutPassword = JSON.parse(JSON.stringify(customer));
+            delete userWithoutPassword.password;
 
           // Sign Token
           jwt.sign(
@@ -127,7 +130,8 @@ exports.loginCustomer = async (req, res, next) => {
                 //todo: шото придумать з токеном
               res.json({
                 success: true,
-                token: "Bearer " + token
+                token: "Bearer " + token,
+                user: userWithoutPassword,
               });
             }
           );
