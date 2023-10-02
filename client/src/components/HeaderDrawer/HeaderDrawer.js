@@ -16,12 +16,26 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
+import { useDispatch } from 'react-redux';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
+import { setAuthorization } from '../../redux/slices/authorizationSlice';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   isUserAuthorized, handleCloseDrawer, handleOpenModalLogin }) => {
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    // todo: LS eslint
+
+    // eslint-disable-next-line no-undef
+    localStorage.removeItem('token');
+    // eslint-disable-next-line no-undef
+    localStorage.removeItem('user');
+    dispatch(setAuthorization(false));
+  };
+
   return (
     <Drawer
       variant="temporary"
@@ -93,7 +107,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
             <MenuItemWithIcon
               page="Logout"
               icon={<ExitToAppIcon sx={stylesIcon} />}
-              onClick={() => { console.log('Logout'); }}
+              onClick={handleLogOut}
             />
           ) : (
             <>
