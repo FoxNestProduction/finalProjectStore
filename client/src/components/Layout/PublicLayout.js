@@ -10,7 +10,6 @@ const PublicLayout = () => {
       <Header />
       <main>
         <Outlet />
-        <RestaurantItem />
       </main>
       <Footer />
     </>
