@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './App.scss';
 import axios from 'axios';
 import AppRoutes from './AppRoutes';
-import Button from './components/Button/Button';
 import ProductCardItem from './components/ProductCardItem/ProductCardItem';
 import Modal from './components/Modal/Modal';
+import ScrollTop from './components/ScrollTop/ScrollTop';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -23,9 +23,9 @@ const App = () => {
 
   return (
     <>
-      <div className="App" />
       <Modal disagree="Close" />
       <AppRoutes />
+      <ScrollTop />
     </>
   );
 };

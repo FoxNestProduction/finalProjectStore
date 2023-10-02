@@ -1,19 +1,23 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
-import useBreakPoint from './hooks/useBreakPoint';
+import useBreakpoint from '../../customHooks/useBreakpoint';
 
 const GoogleSvgComponent = () => {
-  const breakPoint = useBreakPoint();
+  const breakPoint = useBreakpoint();
   const breakPointMap = {
     mobile: {
       width: 28,
       height: 27,
     },
     tablet: {
-      width: 30,
-      height: 29,
+      width: 31,
+      height: 30,
     },
-    desctop: {
+    lgTablet: {
+      width: 33,
+      height: 32,
+    },
+    desktop: {
       width: 37,
       height: 36,
     },

@@ -29,6 +29,7 @@ export const stylesSection = {
     tablet: '60px',
     desktop: '66px',
   },
+  pt: '40px',
   transition: '.5s',
 };
 
@@ -132,10 +133,10 @@ export const stylesStartedBnt = {
 };
 
 export const stylesProBnt = {
-  color: 'text.header',
+  color: 'text.primary',
   borderRadius: 'shape.borderRadius',
   backgroundColor: 'background.default',
-  border: '2px solid #000000',
+  border: '2px solid #6C5FBC',
   fontWeight: 500,
   ...buttonSize,
   '&:hover': {

@@ -5,6 +5,7 @@ const globalTheme = createTheme({
     values: {
       mobile: 0,
       tablet: 481,
+      lgTablet: 690,
       desktop: 993,
     },
   },
@@ -59,11 +60,11 @@ const globalTheme = createTheme({
     },
   },
   components: {
-    // MuiButton: {
-    //   defaultProps: {
-    //     disableRipple: true,
-    //   },
-    // },
+    MuiButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiFormLabel: {
       styleOverrides: {
         root: {
@@ -95,7 +96,7 @@ const globalTheme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: ({ theme }) => ({
-          [theme.breakpoints.up('zero')]: {
+          [theme.breakpoints.up('mobile')]: {
             paddingRight: '30px',
             paddingLeft: '30px',
           },
