@@ -7,7 +7,10 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme, customStyles }) => {
   return (
     <Box
       sx={{
-        margin: '10px 32px',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        gap: '3%',
+        flexWrap: 'wrap',
         width: '100%',
         marginBottom: {
           mobile: 0,

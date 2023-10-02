@@ -58,7 +58,7 @@ const ProductCardItem = ({ price, imageUrl, name, rating }) => {
               {price.toFixed(2).split('.')[1]}
             </Typography>
           </Typography>
-          <IconButton aria-label="add to cart" sx={{ color: '#323142', fontSize: isMobile ? '24px' : isTablet ? '36px' : '48px' }}>
+          <IconButton aria-label="add to cart" sx={{ color: '#323142' }}>
             <AddBoxIcon sx={{ fontSize: isMobile ? '20px' : isTablet ? '25px' : '30px' }} />
           </IconButton>
         </Box>
