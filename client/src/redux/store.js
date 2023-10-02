@@ -1,6 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import testreducer from './slices/testSlice';
-import modalreduser from './slices/modalSlice';
+import modalreducer from './slices/modalSlice';
+import productsreducer from './slices/productsSlice';
 
 const middleware = getDefaultMiddleware({
   serializableCheck: false,
@@ -9,7 +10,8 @@ const middleware = getDefaultMiddleware({
 const store = configureStore({
   reducer: {
     test: testreducer,
-    modal: modalreduser,
+    modal: modalreducer,
+    products: productsreducer,
   },
   middleware,
 });

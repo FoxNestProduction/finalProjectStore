@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -21,17 +22,11 @@ import ColorChips from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard } from './styles';
 
 const ProductCard = () => {
-  const getDish = async () => {
-    try {
-      const { data } = await axios.get('http://localhost:4000/api/products/_6507a306baee59670a047307');
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    getDish();
-  }, []);
+  const id = 'Margherita Pizza'; // не здійснюється пошук за id, для перевірки поки що використала name.
+  const listDish = useSelector((state) => state.products.products);
+  const dish1 = listDish.find((elem) => elem.name === id);
+  // console.log(listDish);
+  // console.log(dish1);
 
   const dish = {
     _id: '6507a306baee59670a047307',
@@ -41,13 +36,14 @@ const ProductCard = () => {
     currentPrice: 12.99,
     isFavourite: false,
     isTranding: true,
-    isSupreme: false,
-    isHealthy: false,
+    isSupreme: true,
+    isHealthy: true,
     rating: 2.3,
     filterCategories: 'pizza',
     imageUrl: '../img/pizza/pizza_texas.png',
     enabled: true,
   };
+
   const {
     name,
     description,
@@ -174,5 +170,13 @@ const ProductCard = () => {
     </Container>
   );
 };
+
+// ProductCard.propTypes = {
+//   id: PropTypes.string,
+// };
+
+// ProductCard.defaultProps = {
+//   id: '6507a306baee59670a047307',
+// };
 
 export default ProductCard;
