@@ -1,9 +1,5 @@
 export const sylesContainer = {
-  height: {
-    mobile: '225px',
-    tablet: '277px',
-    desktop: '390px',
-  },
+  height: '100%',
   maxWidth: {
     mobile: '146px',
     tablet: '159px',
@@ -34,7 +30,7 @@ export const favoriteIcon = {
   zIndex: 1050,
 };
 
-export const timeRaitingBox = {
+export const timeRatingBox = {
   display: 'flex',
   alignItems: 'center',
   gap: {
@@ -42,15 +38,20 @@ export const timeRaitingBox = {
     tablet: '5px',
     desktop: '8px',
   },
-  py: {
-    mobile: '2px',
-    tablet: '7px',
-    desktop: '15px',
-  },
 };
 
 export const priceCardBox = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
+};
+
+export const bgRatingBox = {
+  display: 'flex',
+  gap: '2px',
+  pl: '3px',
+  pr: '7px',
+  alignItems: 'center',
+  borderRadius: '6px',
+  background: 'rgb(219, 217, 238)',
 };

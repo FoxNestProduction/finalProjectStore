@@ -11,7 +11,8 @@ import { PropTypes } from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import ColorChips from '../Chip/Chip';
-import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRaitingBox, priceCardBox } from './styles.js';
+import { chipSizeDishes } from '../Chip/styles';
+import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox } from './styles.js';
 
 const ProductCardItem = ({ price, imageUrl, name, rating }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
@@ -32,19 +33,21 @@ const ProductCardItem = ({ price, imageUrl, name, rating }) => {
           title="green iguana"
         />
       </Box>
-      {/* <ColorChips /> */}
+      <ColorChips customStyles={chipSizeDishes} />
       <CardContent>
         <Typography variant="h3" color="text.primary">
           {name}
         </Typography>
-        <Box sx={timeRaitingBox}>
+        <Box sx={timeRatingBox}>
           <Typography variant="body1" color="text.secondary">
             24min •
           </Typography>
-          <StarRateRoundedIcon color="primary" />
-          <Typography variant="body1" color="text.secondary">
-            {rating}
-          </Typography>
+          <Box sx={bgRatingBox}>
+            <StarRateRoundedIcon color="primary" />
+            <Typography variant="body1" color="text.secondary">
+              {rating}
+            </Typography>
+          </Box>
         </Box>
         <Box sx={priceCardBox}>
           <Typography variant="body2" color="text.primary">

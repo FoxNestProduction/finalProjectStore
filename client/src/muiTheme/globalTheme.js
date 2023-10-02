@@ -118,13 +118,13 @@ const globalTheme = createTheme({
         root: ({ theme }) => ({
           '&:last-child': {
             [theme.breakpoints.up('mobile')]: {
-              padding: '10px 15px 5px 15px',
+              padding: '0 15px',
             },
             [theme.breakpoints.up('tablet')]: {
-              padding: '12px 17px 6px 17px',
+              padding: '0 17px',
             },
             [theme.breakpoints.up('desktop')]: {
-              padding: '14px 23px 7px 23px',
+              padding: '0 23px',
             },
           },
         }),
