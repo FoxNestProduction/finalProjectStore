@@ -36,6 +36,9 @@ export const stylesNavMenuItem = {
   '&:hover': {
     bgcolor: 'rgba(0,0,0,0.04)',
   },
+  '&:focus': {
+    bgcolor: 'rgba(0,0,0,0.04)',
+  },
   '&.active': {
     color: 'primary.main',
     bgcolor: 'transparent',
