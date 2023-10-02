@@ -14,6 +14,7 @@ import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent
 
 // eslint-disable-next-line import/no-cycle
 import LoginForm from '../LoginForm/LoginForm';
+import validationSchema from './ValidationSchema';
 import { flexcenter, container, mainTitle, googleAppleBtnWrapper, googleAppleBtn, appleIcon, legend, inputsWrapper, signUpBtn, signUpLink } from './styles';
 import Input from '../../Input/Input';
 import { setContent } from '../../../redux/slices/modalSlice';
@@ -23,18 +24,6 @@ export const initialValues = {
   email: '',
   password: '',
 };
-
-const validationSchema = object({
-  fullName: string()
-    .required("Це поле обов'язкове для заповнення")
-    .matches('^[A-Z][a-z]+ [A-Z][a-z]+$', "Введіть прізвище та ім'я"),
-  email: string()
-    .required("Це поле обов'язкове для заповнення")
-    .email('Невірний формат e-mail'),
-  password: string()
-    .required("Це поле обов'язкове для заповнення")
-    .min(8, 'Пароль має містити не менше восьми символів'),
-});
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -94,52 +83,56 @@ const RegisterForm = () => {
         onSubmit={submit}
         validationSchema={validationSchema}
       >
-        <Form>
-          <Box
-            sx={{
-              ...flexcenter,
-              flexDirection: 'column',
-              ...inputsWrapper,
-            }}
-          >
-            <Input
-              type="text"
-              name="fullName"
-              label="Full name"
-              placeholder="Enter your full name"
-              icon={<PersonSvg />}
-            />
-            <Input
-              type="text"
-              name="email"
-              label="E-mail"
-              placeholder="Enter your e-mail"
-              icon={<EmailIcon />}
-            />
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              label="Password"
-              placeholder="Сome up with a password"
-              icon={<LockIcon />}
-            />
-            <Button
-              onSubmit={submit}
-              disableRipple
-              variant="contained"
-              sx={signUpBtn}
+        {({ isValid }) => (
+          <Form>
+            <Box
+              sx={{
+                ...flexcenter,
+                flexDirection: 'column',
+                ...inputsWrapper,
+              }}
             >
-              SIGN UP
-            </Button>
-          </Box>
-          <Typography
-            sx={flexcenter}
-          >
-            Already Have An Account?
-            <Button onClick={logInContent} sx={signUpLink}> Log In</Button>
-          </Typography>
-        </Form>
+              <Input
+                type="text"
+                name="fullName"
+                label="Full name"
+                placeholder="Enter your full name"
+                icon={<PersonSvg />}
+              />
+              <Input
+                type="text"
+                name="email"
+                label="E-mail"
+                placeholder="Enter your e-mail"
+                icon={<EmailIcon />}
+              />
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                label="Password"
+                placeholder="Сome up with a password"
+                icon={<LockIcon />}
+              />
+              <Button
+                onSubmit={submit}
+                disableRipple
+                variant="contained"
+                sx={signUpBtn}
+                type="submit"
+                disabled={!isValid}
+              >
+                SIGN UP
+              </Button>
+            </Box>
+            <Typography
+              sx={flexcenter}
+            >
+              Already Have An Account?
+              <Button onClick={logInContent} sx={signUpLink}> Log In</Button>
+            </Typography>
+          </Form>
+        )}
       </Formik>
     </Box>
   );

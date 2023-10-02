@@ -92,7 +92,6 @@ const LoginForm = () => {
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
-
         {({ isValid }) => (
           <Form>
             <Box

@@ -7,7 +7,6 @@ export const flexcenter = {
 export const container = {
   m: '0 auto',
   maxWidth: {
-    zero: '100%',
     mobile: '100%',
     tablet: 350,
     desktop: 526,
@@ -123,11 +122,6 @@ export const inputsWrapper = {
 export const signUpBtn = {
   width: '100%',
   color: 'text.primaryLight',
-  // mb: {
-  //   mobile: '19px',
-  //   tablet: '16px',
-  //   desktop: '24px',
-  // },
   height: {
     mobile: '60px',
     tablet: '53px',
