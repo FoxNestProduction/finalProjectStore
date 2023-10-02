@@ -4,6 +4,7 @@ import './App.scss';
 import axios from 'axios';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
+import ScrollTop from './components/ScrollTop/ScrollTop';
 import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
 
@@ -40,6 +41,7 @@ const App = () => {
     <>
       <Modal disagree="Close" />
       <AppRoutes />
+      <ScrollTop />
     </>
   );
 };
