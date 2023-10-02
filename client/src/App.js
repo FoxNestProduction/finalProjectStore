@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import axios from 'axios';
+import Fab from '@mui/material/Fab';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import AppRoutes from './AppRoutes';
-import Button from './components/Button/Button';
 import Modal from './components/Modal/Modal';
+import ScrollTop from './components/ScrollTop/ScrollTop';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -24,6 +26,7 @@ const App = () => {
     <>
       <Modal disagree="Close" />
       <AppRoutes />
+      <ScrollTop />
     </>
   );
 };

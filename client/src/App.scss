@@ -4,4 +4,9 @@ body {
   font-family: 'Inter', sans-serif;
   //font-family: 'Poppins', sans-serif;
   background-color: $white-color;
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth;
 }
