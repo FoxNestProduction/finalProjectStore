@@ -55,3 +55,11 @@ export const bgRatingBox = {
   borderRadius: '6px',
   background: 'rgb(219, 217, 238)',
 };
+
+export const chipBox = {
+  margin: {
+    mobile: '2px',
+    tablet: '4px',
+    desktop: '8px',
+  },
+};

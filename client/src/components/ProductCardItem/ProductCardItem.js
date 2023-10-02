@@ -12,7 +12,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import ColorChips from '../Chip/Chip';
 import { chipSizeDishes } from '../Chip/styles';
-import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox } from './styles.js';
+import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
 
 const ProductCardItem = ({ price, imageUrl, name, rating }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
@@ -33,7 +33,9 @@ const ProductCardItem = ({ price, imageUrl, name, rating }) => {
           title="green iguana"
         />
       </Box>
-      <ColorChips customStyles={chipSizeDishes} />
+      <Box sx={chipBox}>
+        <ColorChips customStyles={chipSizeDishes} />
+      </Box>
       <CardContent>
         <Typography variant="h3" color="text.primary">
           {name}

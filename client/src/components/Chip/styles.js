@@ -7,7 +7,7 @@ export const chipSizeRestaurant = {
   fontSize: '0.625rem',
 };
 export const chipSizeDishes = {
-  width: '60px',
+  width: '70px',
   height: '24px',
   borderRadius: '6px',
   // marginRight: '5px',
