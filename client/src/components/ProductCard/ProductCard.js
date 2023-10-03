@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -22,25 +22,27 @@ import ColorChips from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 
 const ProductCard = ({ _id }) => {
-  const products = useSelector((state) => state.products.products);
+  const prod = useSelector((state) => state.products.products);
   /* eslint-disable-next-line no-underscore-dangle */
-  const dish = products.find((item) => item._id === _id);
+  // const dish1 = prod.find((item) => item._id === _id);
+  console.log(prod);
+  // console.log(dish1);
 
-  // const dish = {
-  //   _id: '6507a306baee59670a047307',
-  //   restaurant_name: 'Welcome Pizzeria',
-  //   name: 'Margherita Pizza',
-  //   description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves. A delightful combination of flavors that will satisfy your cravings.',
-  //   currentPrice: 12.99,
-  //   isFavourite: false,
-  //   isTranding: true,
-  //   isSupreme: true,
-  //   isHealthy: true,
-  //   rating: 2.3,
-  //   filterCategories: 'pizza',
-  //   imageUrl: '../img/pizza/pizza_texas.png',
-  //   enabled: true,
-  // };
+  const dish = {
+    _id: '6507a306baee59670a047307',
+    restaurant_name: 'Welcome Pizzeria',
+    name: 'Margherita Pizza',
+    description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves.',
+    currentPrice: 12.99,
+    isFavourite: false,
+    isTranding: true,
+    isSupreme: true,
+    isHealthy: true,
+    rating: 2.3,
+    filterCategories: 'pizza',
+    imageUrl: '../img/pizza/pizza_texas.png',
+    enabled: true,
+  };
 
   const {
     name,
