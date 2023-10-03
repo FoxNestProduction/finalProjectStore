@@ -122,6 +122,11 @@ export const inputsWrapper = {
 export const signUpBtn = {
   width: '100%',
   color: 'text.primaryLight',
+  mb: {
+    mobile: '19px',
+    tablet: '16px',
+    desktop: '24px',
+  },
   height: {
     mobile: '60px',
     tablet: '53px',
@@ -158,6 +163,11 @@ export const signUpLink = {
   fontWeight: {
     mobile: 'fontWeightBold',
     desktop: 'fontWeightRegular',
+  },
+  fontSize: {
+    mobile: '13px',
+    tablet: '14px',
+    desktop: '16px',
   },
   transition: 'color 0.3s ease',
   '&:hover': {

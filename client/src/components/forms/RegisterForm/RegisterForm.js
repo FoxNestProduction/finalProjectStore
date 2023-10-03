@@ -58,6 +58,7 @@ const RegisterForm = () => {
       >
         <Button
           disableRipple
+          disabled
           variant="contained"
           sx={googleAppleBtn}
         >
@@ -65,6 +66,7 @@ const RegisterForm = () => {
         </Button>
         <Button
           disableRipple
+          disabled
           variant="contained"
           sx={googleAppleBtn}
         >
@@ -121,7 +123,7 @@ const RegisterForm = () => {
                 type="submit"
                 disabled={!isValid}
               >
-                SIGN UP
+                Sign up
               </Button>
             </Box>
             <Typography
