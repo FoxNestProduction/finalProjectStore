@@ -14,7 +14,18 @@ import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent
 // eslint-disable-next-line import/no-cycle
 import LoginForm from '../LoginForm/LoginForm';
 import validationSchema from './ValidationSchema';
-import { flexcenter, container, mainTitle, googleAppleBtnWrapper, googleAppleBtn, appleIcon, legend, inputsWrapper, signUpBtn, signUpLink } from './styles';
+import {
+  flexcenter,
+  container,
+  mainTitle,
+  googleAppleBtnWrapper,
+  googleAppleBtn,
+  appleIcon,
+  legend,
+  inputsWrapper,
+  signUpBtn,
+  signUpLink,
+} from './styles';
 import Input from '../../Input/Input';
 import { setContent } from '../../../redux/slices/modalSlice';
 
