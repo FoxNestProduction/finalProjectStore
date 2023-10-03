@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -20,13 +20,18 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarIcon from '@mui/icons-material/Star';
 import ColorChips from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard } from './styles';
+import { setOneDish } from '../../redux/slices/productsSlice';
 
 const ProductCard = () => {
+  const dispatch = useDispatch();
+
   const id = 'Margherita Pizza'; // не здійснюється пошук за id, для перевірки поки що використала name.
-  const listDish = useSelector((state) => state.products.products);
-  const dish1 = listDish.find((elem) => elem.name === id);
-  // console.log(listDish);
-  // console.log(dish1);
+
+  useEffect(() => {
+    dispatch(setOneDish(id));
+  }, [dispatch]);
+
+  // const dish = useSelector((state) => state.products.dish);
 
   const dish = {
     _id: '6507a306baee59670a047307',
@@ -108,7 +113,7 @@ const ProductCard = () => {
                   <Rating
                     name="half-rating"
                     value={rating}
-                    size="madium"
+                    size="medium"
                     // precision={0.5}
                     // emptyIcon={<StarIcon size="inherit" />}
                     // icon={<StarIcon size="inherit" />}
