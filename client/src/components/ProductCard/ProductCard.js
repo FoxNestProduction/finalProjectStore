@@ -24,25 +24,23 @@ import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHea
 const ProductCard = ({ _id }) => {
   const products = useSelector((state) => state.products.products);
   /* eslint-disable-next-line no-underscore-dangle */
-  const dish1 = products.find((item) => item._id === _id);
-  // console.log(products);
-  // console.log(dish1);
+  const dish = products.find((item) => item._id === _id);
 
-  const dish = {
-    _id: '6507a306baee59670a047307',
-    restaurant_name: 'Welcome Pizzeria',
-    name: 'Margherita Pizza',
-    description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves. A delightful combination of flavors that will satisfy your cravings.',
-    currentPrice: 12.99,
-    isFavourite: false,
-    isTranding: true,
-    isSupreme: true,
-    isHealthy: true,
-    rating: 2.3,
-    filterCategories: 'pizza',
-    imageUrl: '../img/pizza/pizza_texas.png',
-    enabled: true,
-  };
+  // const dish = {
+  //   _id: '6507a306baee59670a047307',
+  //   restaurant_name: 'Welcome Pizzeria',
+  //   name: 'Margherita Pizza',
+  //   description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves. A delightful combination of flavors that will satisfy your cravings.',
+  //   currentPrice: 12.99,
+  //   isFavourite: false,
+  //   isTranding: true,
+  //   isSupreme: true,
+  //   isHealthy: true,
+  //   rating: 2.3,
+  //   filterCategories: 'pizza',
+  //   imageUrl: '../img/pizza/pizza_texas.png',
+  //   enabled: true,
+  // };
 
   const {
     name,
