@@ -8,12 +8,14 @@ import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
+import { fetchRestaurant } from './redux/slices/restaurantSlice';
 
 const App = () => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchRestaurant());
     // todo: LS eslint
 
     // eslint-disable-next-line no-undef

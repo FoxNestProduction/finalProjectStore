@@ -27,8 +27,7 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
         flexWrap: 'wrap',
         maxWidth: {
           mobile: 315,
-          tablet: 281,
-          desktop: 395,
+          lgTablet: 395,
         },
         boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
       }}

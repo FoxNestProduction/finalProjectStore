@@ -1,15 +1,16 @@
 import React from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import { gridStylesRestaurant } from './styles';
-
+import { Link } from '@mui/material';
+import { gridStylesRestaurant, actionsStyle } from './styles';
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import ArrowIcon from '../../assets/svgComponents/ArrowIcon';
 
-const ListItems = ({ title, actions }) => {
+const ListItems = ({ title, actions, items }) => {
   return (
     <Container sx={{ mb: 13 }}>
       <Typography
@@ -20,25 +21,39 @@ const ListItems = ({ title, actions }) => {
         {title}
       </Typography>
       <Grid container spacing={3}>
-        <Grid item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
+
+        { items && items.map(({ name, price, url, id }) => (
+
+          <Grid item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
+            <RestaurantItem key={id} name={name} price={price} url={url} id={id} />
+          </Grid>
+        ))}
+        {/* <Grid item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
           <RestaurantItem />
         </Grid>
         <Grid item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
           <RestaurantItem />
         </Grid>
         <Grid item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
-          <RestaurantItem />
-        </Grid>
-        {/* <Grid item mobile={6} desktop={3} sx={{ p: 0 }}>
           <RestaurantItem />
         </Grid> */}
-        {/* {data.map((item) => (
-          <Grid key={item.id} item mobile={6} desktop={3}>
-            {item}
-          </Grid>
-        ))} */}
       </Grid>
-      {actions}
+      <Link
+        underline="none"
+        href="/Menu"
+        color="text.secondaryGray"
+        sx={actionsStyle}
+      >
+        <Typography
+          variant="body4"
+          component="p"
+        >
+          View All
+        </Typography>
+        <ArrowIcon />
+      </Link>
+      {/* {actions} */}
+      <Divider sx={{ paddingTop: '67px' }} />
     </Container>
   );
 };
@@ -46,11 +61,13 @@ const ListItems = ({ title, actions }) => {
 ListItems.propTypes = {
   title: PropTypes.string,
   actions: PropTypes.node,
+  items: PropTypes.array,
 };
 
 ListItems.defaultProps = {
   title: '',
   actions: null,
+  items: [],
 };
 
 export default ListItems;
