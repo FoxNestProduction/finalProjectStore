@@ -34,7 +34,6 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
 import { setAuthorization } from '../../redux/slices/authorizationSlice';
-import RegisterForm from '../forms/RegisterForm/RegisterForm';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -72,7 +71,7 @@ const Header = () => {
 
   const handleOpenModalLogin = () => {
     dispatch(openModal());
-    dispatch(setContent(<RegisterForm />));
+    dispatch(setContent(<LoginForm />));
   };
   const handleLogOut = () => {
     // todo: додати правило eslint для LS
