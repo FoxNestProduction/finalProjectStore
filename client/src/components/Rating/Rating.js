@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
+import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import PropTypes from 'prop-types';
-import StarIcon from '../../assets/svgComponents/StarIcon';
 
 const RatingItem = ({ ratingValue }) => {
   const [value, setValue] = useState(ratingValue);
@@ -23,8 +23,8 @@ const RatingItem = ({ ratingValue }) => {
         }}
         // precision={0.5}
         size="small"
-        icon={<StarIcon fill="#6C5FBC" />}
-        emptyIcon={<StarIcon fill="#e7ddc5" />}
+        icon={<StarRateRoundedIcon color="primary" />}
+        emptyIcon={<StarRateRoundedIcon />}
         readOnly
       />
     </Box>
