@@ -3,20 +3,14 @@ import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 
-const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
-  const chipSize = {
-    width: '70px',
-    height: '24px',
-    borderRadius: '8px',
-    marginRight: '10px',
-    marginBottom: '5px',
-    fontSize: '0.625rem',
-  };
-
+const ColorChips = ({ isHealthy, isTrending, isSupreme, customStyles }) => {
   return (
     <Box
       sx={{
-        margin: '10px 32px',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        gap: '3%',
+        flexWrap: 'wrap',
         width: '100%',
         marginBottom: {
           mobile: 0,
@@ -28,7 +22,7 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
         <Chip
           label="Healthy"
           sx={{
-            ...chipSize,
+            ...customStyles,
             backgroundColor: 'background.healthy',
             color: 'text.healthy',
           }}
@@ -38,7 +32,7 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
         <Chip
           label="Trending"
           sx={{
-            ...chipSize,
+            ...customStyles,
             backgroundColor: 'background.trending',
             color: 'text.trending',
           }}
@@ -48,12 +42,12 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme }) => {
         <Chip
           label="Supreme"
           sx={{
-            ...chipSize,
+            ...customStyles,
             backgroundColor: 'background.supreme',
             color: 'text.supreme',
           }}
         />
-      ) }
+      )}
     </Box>
   );
 };
@@ -62,12 +56,14 @@ ColorChips.propTypes = {
   isHealthy: PropTypes.bool,
   isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
+  customStyles: PropTypes.object,
 };
 
 ColorChips.defaultProps = {
   isHealthy: true,
-  isTrending: true,
+  isTrending: false,
   isSupreme: true,
+  customStyles: {},
 };
 
 export default ColorChips;
