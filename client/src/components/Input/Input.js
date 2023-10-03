@@ -9,21 +9,14 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
-import styles from './Input.module.scss';
 
 // ------- Приклад використання -------
 
 // --- варіант з лейбл ----
-// <Input
-//   name="name"
-//   id="name"
-//   label="Name"
-//   placeholder="Enter your name..."
-//   icon={<PersonSvg />}
-// />
-
+// <Input name="name" id="name" label="Name" placeholder="Enter your name..."
+// icon={<PersonSvg />} />
 // --- варіант без лейбл ----
-// <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />} />
+// <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />}/>
 // <Input name="password" id="password" type="password" placeholder="Password" icon={<LockSvg />} />
 
 // --- для textarea додаємо атрибут multiline ---

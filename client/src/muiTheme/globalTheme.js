@@ -3,9 +3,9 @@ import { createTheme } from '@mui/material/styles';
 const globalTheme = createTheme({
   breakpoints: {
     values: {
-      zero: 0,
-      mobile: 320,
+      mobile: 0,
       tablet: 481,
+      lgTablet: 690,
       desktop: 993,
     },
   },
@@ -42,6 +42,8 @@ const globalTheme = createTheme({
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
+    fontPoppins: 'Poppins, sans-serif',
+    fontWeightSemiBold: 600,
   },
   button: {
     large: {
@@ -58,11 +60,11 @@ const globalTheme = createTheme({
     },
   },
   components: {
-    // MuiButton: {
-    //   defaultProps: {
-    //     disableRipple: true,
-    //   },
-    // },
+    MuiButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiFormLabel: {
       styleOverrides: {
         root: {
@@ -94,7 +96,7 @@ const globalTheme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: ({ theme }) => ({
-          [theme.breakpoints.up('zero')]: {
+          [theme.breakpoints.up('mobile')]: {
             paddingRight: '30px',
             paddingLeft: '30px',
           },
@@ -107,6 +109,24 @@ const globalTheme = createTheme({
             paddingLeft: '90px',
           },
           maxWidth: '1426px',
+          minWidth: '320px',
+        }),
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '&:last-child': {
+            [theme.breakpoints.up('mobile')]: {
+              padding: '0 15px',
+            },
+            [theme.breakpoints.up('tablet')]: {
+              padding: '0 17px',
+            },
+            [theme.breakpoints.up('desktop')]: {
+              padding: '0 23px',
+            },
+          },
         }),
       },
     },
@@ -114,6 +134,7 @@ const globalTheme = createTheme({
 });
 
 globalTheme.typography.body1 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   lineHeight: '1.5em',
   fontSize: '13px',
@@ -125,16 +146,46 @@ globalTheme.typography.body1 = {
   },
 };
 
+globalTheme.typography.body2 = {
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 700,
+  lineHeight: '26px',
+  fontSize: '16px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '18px',
+    lineHeight: '28px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '20px',
+    lineHeight: '32px',
+  },
+};
+
+globalTheme.typography.body3 = {
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 700,
+  lineHeight: '26px',
+  fontSize: '16px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '18px',
+    lineHeight: '28px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '20px',
+    lineHeight: '32px',
+  },
+};
+
 globalTheme.typography.h1 = {
   fontFamily: 'Poppins, sans-serif',
   fontWeight: 500,
   lineHeight: '1.5em',
-  fontSize: '46px',
+  fontSize: '43px',
   [globalTheme.breakpoints.up('tablet')]: {
-    fontSize: '54px',
+    fontSize: '46px',
   },
   [globalTheme.breakpoints.up('desktop')]: {
-    fontSize: '60px',
+    fontSize: '52px',
   },
 };
 
@@ -165,6 +216,7 @@ globalTheme.typography.h3 = {
 };
 
 globalTheme.typography.h4 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   lineHeight: '1.5em',
   fontSize: '14px',
@@ -174,6 +226,7 @@ globalTheme.typography.h4 = {
 };
 
 globalTheme.typography.h6 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   lineHeight: '1.5em',
   fontSize: '14px',
@@ -183,6 +236,7 @@ globalTheme.typography.h6 = {
 };
 
 globalTheme.typography.subtitle1 = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   lineHeight: '1.5em',
   fontSize: '14px',
@@ -192,6 +246,7 @@ globalTheme.typography.subtitle1 = {
 };
 
 globalTheme.typography.button = {
+  fontFamily: 'Inter, sans-serif',
   fontWeight: 500,
   lineHeight: '1.5em',
   fontSize: '16px',

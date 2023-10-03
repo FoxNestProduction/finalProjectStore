@@ -1,8 +1,9 @@
 import React from 'react';
+import Container from '@mui/material/Container';
 
 const ContactPage = () => {
   return (
-    <h1>Contact</h1>
+    <Container component="section" />
   );
 };
 

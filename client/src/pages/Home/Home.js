@@ -1,12 +1,10 @@
 import React from 'react';
-import RegisterFormTemplate from '../../components/RegisterForm/RegisterFormTemplate';
+import { Typography } from '@mui/material';
+import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 
 const HomePage = () => {
   return (
-    <>
-      <h1>Home</h1>
-      <RegisterFormTemplate />
-    </>
+    <SectionGetStarted />
   );
 };
 

@@ -1,8 +1,10 @@
-@import "./styles/variables";
-
 body {
   //usage example
   font-family: 'Inter', sans-serif;
   //font-family: 'Poppins', sans-serif;
-  background-color: $white-color;
+  background-color: #F9F9F9;
+}
+
+html, body {
+  scroll-behavior: smooth;
 }
