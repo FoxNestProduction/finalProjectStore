@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -10,8 +9,9 @@ import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
+/* eslint-disable max-len */
+
 const QuestionsList = () => {
-  const theme = useTheme();
   const [isOpen, setIsOpen] = useState({});
 
   const getAnswer = (elem) => {
@@ -52,24 +52,58 @@ const QuestionsList = () => {
         <br />
         Questions
       </Typography>
+      {/* <List> */}
+      {/*  {questions.map((item) => ( */}
+      {/*    <ol key={item.question}> */}
+      {/*      <ListItem disablePadding sx={{ pb: 3 }}> */}
+      {/*        <ListItemText */}
+      {/*          primary={(<Typography variant="h3" component="h5">{item.question}</Typography>)} */}
+      {/*        /> */}
+      {/*        <IconButton onClick={() => getAnswer(item.question)}> */}
+      {/*          {!isOpen[item.question] */}
+      {/*            ? <AddCircleIcon edge="end" sx={{ color: 'primary.main' }} /> */}
+      {/*            : <RemoveCircleIcon edge="end" sx={{ color: 'primary.main' }} />} */}
+      {/*        </IconButton> */}
+      {/*      </ListItem> */}
+      {/*      {isOpen[item.question] && ( */}
+      {/*      <ListItem disablePadding sx={{ pb: 5 }}> */}
+      {/*        <ListItemText */}
+      {/*          primary={(<Typography variant="description" fontWeight={400}>{item.answer}</Typography>)} */}
+      {/*        /> */}
+      {/*      </ListItem> */}
+      {/*      )} */}
+      {/*      <Divider sx={{ my: 1 }} /> */}
+      {/*    </ol> */}
+      {/*  ))} */}
+      {/* </List> */}
+
       <List>
         {questions.map((item) => (
-          <ol key={item.question}>
-            <ListItem disablePadding sx={{ pb: 3 }}>
-              <ListItemText primary={<Typography variant="h3" component="h5">{item.question}</Typography>} />
-              <IconButton onClick={() => getAnswer(item.question)}>
-                {!isOpen[item.question] ? <AddCircleIcon edge="end" sx={{ color: 'primary.main' }} /> : <RemoveCircleIcon edge="end" sx={{ color: 'primary.main' }} />}
-              </IconButton>
-            </ListItem>
-            {isOpen[item.question] && (
-              <ListItem disablePadding sx={{ pb: 5 }}>
-                <ListItemText primary={<Typography variant="description" fontWeight={400}>{item.answer}</Typography>} />
+          <ListItem disablePadding key={item.question} sx={{ display: 'block' }}>
+            <List disablePadding>
+              <ListItem disablePadding sx={{ pb: 3 }}>
+                <ListItemText
+                  primary={<Typography variant="h3" component="h5">{item.question}</Typography>}
+                />
+                <IconButton onClick={() => getAnswer(item.question)}>
+                  {!isOpen[item.question]
+                    ? <AddCircleIcon edge="end" sx={{ color: 'primary.main' }} />
+                    : <RemoveCircleIcon edge="end" sx={{ color: 'primary.main' }} />}
+                </IconButton>
               </ListItem>
-            )}
+              {isOpen[item.question] && (
+              <ListItem disablePadding sx={{ pb: 5 }}>
+                <ListItemText
+                  primary={<Typography variant="description" fontWeight={400}>{item.answer}</Typography>}
+                />
+              </ListItem>
+              )}
+            </List>
             <Divider sx={{ my: 1 }} />
-          </ol>
+          </ListItem>
         ))}
       </List>
+
     </Container>
   );
 };
