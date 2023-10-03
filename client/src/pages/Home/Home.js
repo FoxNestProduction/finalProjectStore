@@ -8,7 +8,6 @@ const HomePage = () => {
     <>
       <SectionGetStarted />
       <ReviewItem />
-      <Typography variant="h1">Home</Typography>
     </>
   );
 };

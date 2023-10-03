@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
@@ -33,12 +33,16 @@ import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
+import { setAuthorization } from '../../redux/slices/authorizationSlice';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // змінити на true для відмалювання інтерфейсу залогіненого юзера
-  const [isUserAuthorized, setIsUserAuthorized] = useState(false);
+  // const [isUserAuthorized, setIsUserAuthorized] = useState(false);
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const user = useSelector((state) => state.user.user);
+  const { cart, favourite } = user;
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -50,8 +54,12 @@ const Header = () => {
   }, [breakpoint]);
 
   // при зміні на 0 - бейдж пропадає
-  const cartAmount = 7;
-  const favouritesAmount = 10;
+  let cartAmount = null;
+  let favouritesAmount = null;
+  if (isUserAuthorized) {
+    cartAmount = cart.length;
+    favouritesAmount = favourite.length;
+  }
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);
@@ -64,6 +72,15 @@ const Header = () => {
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
+  };
+  const handleLogOut = () => {
+    // todo: додати правило eslint для LS
+
+    // eslint-disable-next-line no-undef
+    localStorage.removeItem('token');
+    // eslint-disable-next-line no-undef
+    localStorage.removeItem('user');
+    dispatch(setAuthorization(false));
   };
 
   const navItems = ['Menu', 'Pricing', 'Reviews', 'Contact'];
@@ -121,7 +138,7 @@ const Header = () => {
                 </IconButton>
 
                 {(isUserAuthorized) ? (
-                  <IconButton aria-label="logout" edge="end" size="small" onClick={() => { console.log('logout'); }}>
+                  <IconButton aria-label="logout" edge="end" size="small" onClick={handleLogOut}>
                     <ExitToAppIcon sx={stylesIcon} />
                   </IconButton>
                 ) : (
@@ -130,7 +147,6 @@ const Header = () => {
                   </IconButton>
                 )}
               </Box>
-
             </Toolbar>
             <Divider />
           </Container>
