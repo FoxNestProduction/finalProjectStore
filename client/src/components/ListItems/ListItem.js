@@ -17,7 +17,7 @@ const ListItems = () => {
         Popular
       </Typography>
       <Grid container spacing={4} sx={{ mb: 8, m: 0, justifyContent: 'space-between' }}>
-        <Grid item xs mobile={6} desktop={3} sx={{ p: 0 }}>
+        <Grid item mobile={6} desktop={3} sx={{ p: 0 }}>
           <ProductCardItem />
         </Grid>
         <Grid item mobile={6} desktop={3} sx={{ p: 0 }}>

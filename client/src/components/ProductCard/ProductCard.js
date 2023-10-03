@@ -22,10 +22,10 @@ import ColorChips from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 
 const ProductCard = ({ _id }) => {
-  const prod = useSelector((state) => state.products.products);
+  const products = useSelector((state) => state.products.products);
   /* eslint-disable-next-line no-underscore-dangle */
-  // const dish1 = prod.find((item) => item._id === _id);
-  console.log(prod);
+  // const dish = products.find((item) => item._id === _id);
+  // console.log(products);
   // console.log(dish1);
 
   const dish = {
