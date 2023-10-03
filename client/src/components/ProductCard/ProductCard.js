@@ -19,19 +19,14 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarIcon from '@mui/icons-material/Star';
 import ColorChips from '../Chip/Chip';
-import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard } from './styles';
-import { setOneDish } from '../../redux/slices/productsSlice';
+import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 
-const ProductCard = () => {
-  const dispatch = useDispatch();
-
-  const id = 'Margherita Pizza'; // не здійснюється пошук за id, для перевірки поки що використала name.
-
-  useEffect(() => {
-    dispatch(setOneDish(id));
-  }, [dispatch]);
-
-  // const dish = useSelector((state) => state.products.dish);
+const ProductCard = ({ _id }) => {
+  const products = useSelector((state) => state.products.products);
+  /* eslint-disable-next-line no-underscore-dangle */
+  const dish1 = products.find((item) => item._id === _id);
+  // console.log(products);
+  // console.log(dish1);
 
   const dish = {
     _id: '6507a306baee59670a047307',
@@ -84,9 +79,9 @@ const ProductCard = () => {
             component="img"
             image={imageUrl}
             alt="lobster"
-            sx={{ mb: 3, width: { mobile: '100%', desktop: '50%' }, maxWidth: { tablet: '75%' }, height: 'auto', objectFit: 'cover' }}
+            sx={stylesMediaCard}
           />
-          <Stack>
+          <Stack direction="column" sx={{ alignSelf: 'flex-start' }}>
             <CardHeader
               variant="h5"
               component="h3"
@@ -139,7 +134,7 @@ const ProductCard = () => {
             >
               <Typography
                 variant="h3"
-                sx={{ mb: 3 }}
+                sx={{ mb: 3, fontSize: { tablet: '22px', esktop: '30px' } }}
               >
                 $
                 {currentPrice}
@@ -176,12 +171,12 @@ const ProductCard = () => {
   );
 };
 
-// ProductCard.propTypes = {
-//   id: PropTypes.string,
-// };
+ProductCard.propTypes = {
+  _id: PropTypes.string,
+};
 
-// ProductCard.defaultProps = {
-//   id: '6507a306baee59670a047307',
-// };
+ProductCard.defaultProps = {
+  _id: '6507a306baee59670a047307',
+};
 
 export default ProductCard;

@@ -37,12 +37,13 @@ export const stylesHeaderInCard = {
 
 export const stylesMediaCard = {
   mb: 3,
+  borderRadius: '16px',
   width: {
-    mobile: '70%',
-    desktop: '40%',
+    mobile: '100%',
+    desktop: '50%',
   },
   maxWidth: {
-    tablet: '370px',
+    tablet: '75%',
   },
   height: 'auto',
   objectFit: 'cover',
@@ -61,21 +62,20 @@ export const stylesContentCard = {
 
 export const stylesRatingCard = {
   justifyContent: {
-    tablet: 'flex-end',
-    desktop: 'flex-start',
+    tablet: 'flex-start',
+    desktop: 'space-between',
   },
   gap: {
-    mobile: 1,
-    tablet: 7,
-    desktop: 16,
+    mobile: 4,
+    tablet: 8,
+    desktop: 7,
   },
   mb: { desktop: 4 },
 };
 
 export const stylesLabelCard = {
-  flexDirection: { mobile: 'row', desktop: 'column' },
+  flexDirection: 'column',
   justifyContent: 'space-between',
-  gap: '2px',
 };
 
 export const stylesPriceCard = {
@@ -84,6 +84,7 @@ export const stylesPriceCard = {
     mobile: 'flex-end',
     desktop: 'flex-start',
   },
+  mb: 3,
 };
 
 export const stylesButtonCard = {
@@ -102,12 +103,12 @@ export const stylesActionsCard = {
   justifyContent: {
     mobile: 'space-between',
     tablet: 'flex-end',
-    desktop: 'space-between',
+    desktop: 'flex-start',
   },
   gap: {
     mobile: 0,
     tablet: '20px',
-    desktop: 0,
+    desktop: '10%',
   },
   p: 0,
 };

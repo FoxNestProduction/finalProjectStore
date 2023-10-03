@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.scss';
-import axios from 'axios';
+// import axios from 'axios';
 import AppRoutes from './AppRoutes';
 import ProductCardItem from './components/ProductCardItem/ProductCardItem';
 import Modal from './components/Modal/Modal';
@@ -24,18 +24,6 @@ const App = () => {
       dispatch(setAuthorization(true));
       dispatch(setUser(user));
     }
-  }, [dispatch]);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const { data } = await axios.get('http://localhost:4000/api/products');
-        dispatch(setProducts(data));
-      } catch (err) {
-        console.log('Error loading products:', err);
-      }
-    };
-    getProducts();
   }, [dispatch]);
 
   return (
