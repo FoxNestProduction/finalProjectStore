@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
 import ColorChips from '../Chip/Chip';
-import { chipSizeRestaurant } from '../Chip/styles';
+import { chipSizeRestaurant, chipBoxchipSizeRestaurant } from '../Chip/styles';
 
 const RestaurantItem = ({ rating, name, imageUrl }) => {
   const styles = {
@@ -44,11 +44,22 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
         image={imageUrl}
         alt={name}
       />
-      <ColorChips customStyles={chipSizeRestaurant} />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          gap: '3%',
+          flexWrap: 'wrap',
+          width: '100%',
+          ...chipBoxchipSizeRestaurant,
+        }}
+      >
+        <ColorChips customStyles={chipSizeRestaurant} />
+      </Box>
       <CardHeader
         title={(
           <Typography
-            variant="body1"
+            variant="h3"
             color="text.primary"
             sx={{
               fontSize: {
