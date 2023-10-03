@@ -10,12 +10,12 @@ const PublicLayout = () => {
   return (
     <>
       <Header />
+      <Search />
       <main>
         <Outlet />
         <RestaurantItem />
         <ProductCardItem />
       </main>
-      <Search />
       <Footer />
     </>
   );

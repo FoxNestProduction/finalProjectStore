@@ -8,9 +8,11 @@ import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
+import { getProducts } from './redux/slices/productsSlice';
+import { getPartners } from './redux/slices/partnersSlice';
 
 const App = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,17 +28,19 @@ const App = () => {
     }
   }, [dispatch]);
 
-  const getItems = async () => {
-    try {
-      const { data } = await axios.get('http://localhost:4000/api/products');
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getItems = async () => {
+  //   try {
+  //     const { data } = await axios.get('http://localhost:4000/api/products');
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   useEffect(() => {
-    getItems();
-  }, []);
+    dispatch(getProducts());
+    dispatch(getPartners());
+  }, []); // eslint-disable-line
 
   return (
     <>
