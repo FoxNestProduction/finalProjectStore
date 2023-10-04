@@ -81,7 +81,7 @@ const ProductCard = ({ _id }) => {
             alt="lobster"
             sx={stylesMediaCard}
           />
-          <Stack direction="column" sx={{ alignSelf: 'flex-start' }}>
+          <Stack direction="column" sx={{ alignSelf: 'flex-start', width: '100%' }}>
             <CardHeader
               variant="h5"
               component="h3"
@@ -91,7 +91,7 @@ const ProductCard = ({ _id }) => {
             <Stack
               sx={stylesLabelCard}
             >
-              <Box sx={{ my: 2 }}>
+              <Box sx={{ my: 2, width: { lgTablet: '350px' } }}>
                 <ColorChips
                   isTrending={isTranding}
                   isSupreme={isSupreme}
@@ -134,7 +134,7 @@ const ProductCard = ({ _id }) => {
             >
               <Typography
                 variant="h3"
-                sx={{ mb: 3, fontSize: { tablet: '22px', esktop: '30px' } }}
+                sx={{ mb: 3, fontSize: { tablet: '22px', desktop: '30px' } }}
               >
                 $
                 {currentPrice}

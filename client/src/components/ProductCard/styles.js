@@ -65,6 +65,7 @@ export const stylesRatingCard = {
     tablet: 'flex-start',
     desktop: 'space-between',
   },
+  alignItems: 'center',
   gap: {
     mobile: 4,
     tablet: 8,
@@ -74,7 +75,11 @@ export const stylesRatingCard = {
 };
 
 export const stylesLabelCard = {
-  flexDirection: 'column',
+  flexDirection: {
+    mobile: 'column',
+    lgTablet: 'row',
+    desktop: 'column',
+  },
   justifyContent: 'space-between',
 };
 
@@ -84,7 +89,7 @@ export const stylesPriceCard = {
     mobile: 'flex-end',
     desktop: 'flex-start',
   },
-  mb: 3,
+  my: 3,
 };
 
 export const stylesButtonCard = {
