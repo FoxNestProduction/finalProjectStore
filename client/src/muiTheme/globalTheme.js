@@ -35,6 +35,7 @@ const globalTheme = createTheme({
       healthy: '#F7EDD0',
       trending: '#F7C5BA',
       supreme: '#33AC64',
+      quote: '#DADADA',
     },
   },
   shape: {

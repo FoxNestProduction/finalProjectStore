@@ -8,9 +8,10 @@ import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
+import { getReviews } from './redux/slices/reviewsSlice';
 
 const App = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,8 +36,8 @@ const App = () => {
     }
   };
   useEffect(() => {
-    getItems();
-  }, []);
+    dispatch(getReviews());
+  }, [dispatch]);
 
   return (
     <>

@@ -1,22 +1,34 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-// import CardContentText from '@mui/material/CardContentText';
 import CardActions from '@mui/material/CardActions';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
 import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import { Container } from '@mui/material';
 
-const ReviewItem = () => {
+import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent } from './styles';
+
+const ReviewItem = ({ _id }) => {
+  const [isShow, setIsShow] = useState(false);
   const [value, setValue] = useState();
+  const reviews = useSelector((state) => state.reviews.reviews);
+  /* eslint-disable-next-line no-underscore-dangle */
+  const reviewItem = reviews.find((item) => item._id === _id);
+  console.log(reviews);
+  console.log(reviewItem);
+
   const reveiw = {
     _id: '650872a97c6b8f8dc9ab38d3',
     user_id: '650762989d951058716e2f85',
-    rating: 5,
-    comment: 'I am very satisfied with this product. Everything works excellently.',
+    rating: 4,
+    comment: 'I am very satisfied with this product. Everything works excellentlyI am very satisfied with this product.',
   };
+
   const user = {
     _id: '650762989d951058716e2f85',
     firstName: 'Ihor',
@@ -24,39 +36,47 @@ const ReviewItem = () => {
     avatarUrl: '',
   };
   const { id, firstName, lastName, avatarUrl } = user;
-  const { raiting, comment } = reveiw;
+  const { rating, comment } = reveiw;
 
   return (
-    <Card sx={{ width: '19vw', minHeight: '17vh', px: '9px', pt: '10px', pb: '6px', spacing: '22px' }}>
-      <CardHeader
-        avatar={(
-          <Avatar>
-            R
-          </Avatar>
-        )}
-        title={
-          `${lastName} ${firstName}`
-        }
-        action={
-          <FormatQuoteRoundedIcon size="large" sx={{ transform: 'rotate(180deg)', color: 'background.footer' }} />
-        }
-      />
-      <CardContent>
-        {/* <CardContentText> */}
-        {comment}
-        {/* </CardContentText> */}
-      </CardContent>
-      <CardActions sx={{ p: 2 }}>
-        <Rating
-          name="simple-controlled"
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
+    <Container>
+      <Card sx={stylesCardReview}>
+        {!isShow && (
+        <CardHeader
+          avatar={(
+            <Avatar>
+              { avatarUrl || <PersonOutlineOutlinedIcon /> }
+            </Avatar>
+          )}
+          title={
+            `${lastName} ${firstName}`
+          }
+          action={
+            <FormatQuoteRoundedIcon sx={stylesQuoteIcon} />
+          }
         />
-      </CardActions>
-    </Card>
+        )}
+        <CardContent sx={stylesContent}>
+          {comment}
+        </CardContent>
+        <CardActions sx={stylesActionCard}>
+          <Rating
+            name="simple-controlled"
+            value={rating}
+            readOnly
+          />
+        </CardActions>
+      </Card>
+    </Container>
   );
+};
+
+ReviewItem.propTypes = {
+  _id: PropTypes.string,
+};
+
+ReviewItem.defaultProps = {
+  _id: '650872a97c6b8f8dc9ab38d3',
 };
 
 export default ReviewItem;
