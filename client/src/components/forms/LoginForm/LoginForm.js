@@ -68,6 +68,7 @@ const LoginForm = () => {
     <Box
       component="section"
       sx={{
+        pt: 0,
         ...flexcenter,
         width: {
           mobile: '100%',
@@ -119,7 +120,6 @@ const LoginForm = () => {
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
-
         {({ isValid }) => (
           <Form>
             <Box

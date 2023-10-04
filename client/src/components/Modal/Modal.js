@@ -28,8 +28,7 @@ const Modal = () => {
 
   const isOpen = useSelector((state) => state.modal.isOpen);
   const title = useSelector((state) => state.modal.title);
-  // const content = useSelector((state) => state.modal.content);
-  const content = <LoginForm />;
+  const content = useSelector((state) => state.modal.content);
   const buttonAgree = useSelector((state) => state.modal.buttonAgree);
   const buttonBox = useSelector((state) => state.modal.buttonBox);
 
