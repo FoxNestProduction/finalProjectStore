@@ -22,7 +22,7 @@ export const {
 /* eslint-enable no-param-reassign */
 
 export const fetchRestaurant = () => async (dispatch) => {
-  const res = await fetch('http://localhost:4000/api/products');
+  const res = await fetch('http://localhost:4000/api/partners');
   const data = await res.json();
   dispatch(setRestaurant(data));
 };

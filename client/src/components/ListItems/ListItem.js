@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
@@ -22,21 +21,20 @@ const ListItems = ({ title, actions, items }) => {
       </Typography>
       <Grid container spacing={3}>
 
-        { items && items.map(({ name, price, url, id }) => (
+        { items && items.map(({ name, rating, url, _id, isHealthy, isTranding, isSupreme }) => (
 
-          <Grid item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
-            <RestaurantItem key={id} name={name} price={price} url={url} id={id} />
+          <Grid key={_id} item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
+            <RestaurantItem
+              name={name}
+              rating={rating}
+              isHealthy={isHealthy}
+              isTranding={isTranding}
+              isSupreme={isSupreme}
+              url={url}
+              id={_id}
+            />
           </Grid>
         ))}
-        {/* <Grid item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
-          <RestaurantItem />
-        </Grid>
-        <Grid item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
-          <RestaurantItem />
-        </Grid>
-        <Grid item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
-          <RestaurantItem />
-        </Grid> */}
       </Grid>
       <Link
         underline="none"
