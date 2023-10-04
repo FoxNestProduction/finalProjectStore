@@ -4,9 +4,7 @@ import ContactForm from '../../components/forms/ContactForm/ContactForm';
 
 const ContactPage = () => {
   return (
-    <Container component="section">
-      <ContactForm />
-    </Container>
+    <ContactForm />
   );
 };
 

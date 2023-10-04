@@ -12,7 +12,7 @@ const Textarea = (props) => {
     <div className={styles.root}>
       <textarea
         className={classNames(styles.textarea, { [styles.error]: meta.touched && meta.error })}
-        rows={4}
+        rows={6}
         {...field}
         {...props}
       />
