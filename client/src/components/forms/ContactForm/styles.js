@@ -1,45 +1,8 @@
-export const mainContainer = {
-  display: {
-    lgTablet: 'flex',
-    alignItems: 'stretch',
-    gap: '23%',
-  },
-  pt: {
-    mobile: '50px',
-    lgTablet: '100px',
-    desktop: '150px',
-  },
-  pb: {
-    mobile: '70px',
-    lgTablet: '150px',
-    desktop: '200px',
-  },
-};
-
-export const rectWrapper = {
-  position: 'relative',
-  display: 'flex',
-  width: '100%',
-};
-
-export const rect = {
-  width: '100%',
-  height: {
-    mobile: '150px',
-    lgTablet: '100%',
-  },
-  p: '10px',
-  bgcolor: 'primary.main',
-};
-
-export const rectTitleWrapper = {
-  position: 'relative',
-};
-
 export const formWrapper = {
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
+  flexGrow: 1,
   m: { mobile: '40px auto 0', lgTablet: '0' },
   width: {
     mobile: '100%',
@@ -54,7 +17,6 @@ export const formWrapper = {
     lgTablet: '260px',
   },
   bgcolor: 'transparent',
-  flexGrow: 1,
 };
 
 export const mainTitle = {
@@ -62,19 +24,19 @@ export const mainTitle = {
     mobile: 'none',
     lgTablet: 'block',
   },
+  mb: {
+    lgTablet: '34px',
+    desktop: '27px',
+  },
+  textAlign: 'center',
+  fontWeight: 'fontWeightMedium',
   fontSize: {
     mobile: '26px',
     tablet: '28px',
     lgTablet: '36px',
     desktop: '42px',
   },
-  mb: {
-    lgTablet: '34px',
-    desktop: '27px',
-  },
   color: 'text.primary',
-  textAlign: 'center',
-  fontWeight: 'fontWeightMedium',
 };
 
 export const inputsWrapper = {
@@ -96,20 +58,15 @@ export const inputsWrapper = {
 
 export const sendBtn = {
   width: '100%',
-  color: 'text.primaryLight',
   mt: '12px',
-  mb: {
-    mobile: '19px',
-    tablet: '16px',
-    lgTablet: '0',
-  },
   height: {
     mobile: '60px',
     tablet: '53px',
     desktop: '60px',
   },
+  color: 'text.primaryLight',
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
-  ':hover': {
+  '&:hover': {
     backgroundColor: 'primary.hover',
     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
   },
@@ -118,8 +75,7 @@ export const sendBtn = {
     transform: 'translateY(1px)',
     backgroundColor: 'common.white',
     color: '#1C186C',
-    boxSizing: 'border-box',
-    border: '1px solid',
+    border: '1px solid primary.main',
     borderColor: 'primary.main',
   },
   fontSize: {
@@ -130,4 +86,15 @@ export const sendBtn = {
     mobile: 'fontWeightSemiBold',
     desktop: 'fontWeightRegular',
   },
+};
+
+export const purpleArrow = {
+  display: {
+    mobile: 'none',
+    lgTablet: 'block',
+  },
+  position: 'absolute',
+  bottom: '-20%',
+  left: '-22%',
+  transform: 'rotate(-78deg)',
 };
