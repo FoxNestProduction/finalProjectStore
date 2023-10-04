@@ -1,9 +1,13 @@
 import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
+// todo: правила для redux-persist
+// eslint-disable-next-line import/no-extraneous-dependencies
 import storage from 'redux-persist/lib/storage';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { persistReducer } from 'redux-persist';
 import modalSlice from './slices/modalSlice';
 import authorizationSlice from './slices/authorizationSlice';
 import userSlice from './slices/userSlice';
+import errorSlice from './slices/errorSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -24,6 +28,7 @@ const userPersistConfig = {
       Якщо що пишіть @Ihor_Kacher
 */
 const reducer = combineReducers({
+  error: errorSlice,
   modal: modalSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),

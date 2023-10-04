@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { NavLink } from 'react-router-dom';
 import {
@@ -34,6 +34,7 @@ import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent
 import Input from '../../Input/Input';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
+import { setError } from '../../../redux/slices/errorSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const LoginForm = () => {
         dispatch(closeModal());
       }
     } catch (error) {
+      dispatch(setError(error.response.data));
       console.error('Помилка авторизації:', error);
     }
     actions.resetForm();
