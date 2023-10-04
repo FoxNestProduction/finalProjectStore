@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import AppRoutes from './AppRoutes';
 import ProductCardItem from './components/ProductCardItem/ProductCardItem';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
-<<<<<<< HEAD
 import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
 import { fetchRestaurant } from './redux/slices/restaurantSlice';
@@ -27,11 +27,6 @@ const App = () => {
       dispatch(setUser(user));
     }
   }, [dispatch]);
-=======
-
-const App = () => {
-  const [products, setProducts] = useState([]);
->>>>>>> dev
 
   const getItems = async () => {
     try {

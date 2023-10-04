@@ -26,6 +26,7 @@ const userPersistConfig = {
 */
 const reducer = combineReducers({
   modal: modalSlice,
+  restaurant: restaurantSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
 });
@@ -35,17 +36,7 @@ const middleware = getDefaultMiddleware({
 });
 
 const store = configureStore({
-<<<<<<< HEAD
-  reducer: {
-    test: testreducer,
-    modal: modalslice,
-    authorization: authorizationSlice,
-    user: userSlice,
-    restaurant: restaurantSlice,
-  },
-=======
   reducer,
->>>>>>> dev
   middleware,
 });
 
