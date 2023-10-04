@@ -13,7 +13,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import AppleIcon from '@mui/icons-material/Apple';
 import {
-  closeModal,
+  closeModal, setContent,
 } from '../../../redux/slices/modalSlice';
 import validationSchema from './validationSchema';
 import {
@@ -28,6 +28,8 @@ import {
   signUpLink,
   appleIcon,
 } from './styles';
+// eslint-disable-next-line import/no-cycle
+import RegisterForm from '../RegisterForm/RegisterForm';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../Input/Input';
 import { setAuthorization } from '../../../redux/slices/authorizationSlice';
@@ -38,6 +40,9 @@ const LoginForm = () => {
   const initialValues = {
     email: '',
     password: '',
+  };
+  const logUpContent = () => {
+    dispatch(setContent(<RegisterForm />));
   };
   const handleSubmit = async (values, actions) => {
     try {
@@ -134,6 +139,7 @@ const LoginForm = () => {
                 <Input
                   type="email"
                   name="email"
+                  id="loginEmail"
                   placeholder="Enter your e-mail"
                   label="email"
                   icon={<EmailIcon />}
@@ -141,6 +147,7 @@ const LoginForm = () => {
                 <Input
                   type="password"
                   name="password"
+                  id="loginPassword"
                   placeholder="Enter your password"
                   label="password"
                   icon={<LockIcon />}
@@ -173,7 +180,7 @@ const LoginForm = () => {
                 }}
               >
                 Create A New Account?
-                <Link component={NavLink} to="/signUp" underline="none" sx={signUpLink}> Sign Up</Link>
+                <Button onClick={logUpContent} sx={signUpLink}> Log In</Button>
               </Typography>
             </Box>
           </Form>
