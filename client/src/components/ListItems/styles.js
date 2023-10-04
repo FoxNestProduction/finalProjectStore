@@ -14,3 +14,15 @@ export const gridStylesRestaurant = {
   justifyContent: 'center',
   gap: '10px',
 };
+
+export const gridWidthRestaurant = {
+  mobile: 12,
+  lgTablet: 6,
+  desktop: 4,
+};
+
+export const gridWidthDishes = {
+  mobile: 12,
+  lgTablet: 2,
+  desktop: 2,
+};

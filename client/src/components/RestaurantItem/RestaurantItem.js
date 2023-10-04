@@ -40,7 +40,7 @@ const RestaurantItem = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
           tablet: 125,
           desktop: 177,
         }}
-        image={imageUrl}
+        image="./img/restaurants/Resturent01.jpg"
         alt={name}
       />
       <Box

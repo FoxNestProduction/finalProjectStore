@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import { Link } from '@mui/material';
-import { gridStylesRestaurant, actionsStyle } from './styles';
-import RestaurantItem from '../RestaurantItem/RestaurantItem';
-import ArrowIcon from '../../assets/svgComponents/ArrowIcon';
+import { gridStylesRestaurant } from './styles';
+import getRandomItems from '../../utils/getRandomItems';
 
-const ListItems = ({ title, actions, items }) => {
+const ListItems = ({ title, items, itemComponent, actions, count, gridProps }) => {
+  const arrItem = [...items];
+  const randomItemsArr = getRandomItems(arrItem, count);
+
   return (
     <Container sx={{ mb: 13 }}>
       <Typography
@@ -21,51 +21,35 @@ const ListItems = ({ title, actions, items }) => {
       </Typography>
       <Grid container spacing={3}>
 
-        { items && items.map(({ name, rating, url, _id, isHealthy, isTranding, isSupreme }) => (
+        { randomItemsArr && randomItemsArr.map((item) => (
+          // eslint-disable-next-line dot-notation
+          <Grid key={item['_id']} item sx={gridStylesRestaurant} {...gridProps}>
 
-          <Grid key={_id} item mobile={12} lgTablet={6} desktop={4} sx={gridStylesRestaurant}>
-            <RestaurantItem
-              name={name}
-              rating={rating}
-              isHealthy={isHealthy}
-              isTranding={isTranding}
-              isSupreme={isSupreme}
-              url={url}
-              id={_id}
-            />
+            {createElement(itemComponent, { ...item })}
           </Grid>
         ))}
       </Grid>
-      <Link
-        underline="none"
-        href="/Menu"
-        color="text.secondaryGray"
-        sx={actionsStyle}
-      >
-        <Typography
-          variant="body4"
-          component="p"
-        >
-          View All
-        </Typography>
-        <ArrowIcon />
-      </Link>
-      {/* {actions} */}
-      <Divider sx={{ paddingTop: '67px' }} />
+      {actions}
     </Container>
   );
 };
 
 ListItems.propTypes = {
   title: PropTypes.string,
-  actions: PropTypes.node,
+  actions: PropTypes.object,
   items: PropTypes.array,
+  itemComponent: PropTypes.func,
+  count: PropTypes.number,
+  gridProps: PropTypes.object,
 };
 
 ListItems.defaultProps = {
   title: '',
-  actions: null,
+  actions: {},
   items: [],
+  itemComponent: () => {},
+  count: 3,
+  gridProps: {},
 };
 
 export default ListItems;
