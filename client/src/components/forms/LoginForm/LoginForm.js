@@ -32,7 +32,7 @@ import {
 import RegisterForm from '../RegisterForm/RegisterForm';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../Input/Input';
-import { setAuthorization } from '../../../redux/slices/authorizationSlice';
+import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
 
 const LoginForm = () => {
@@ -47,24 +47,15 @@ const LoginForm = () => {
   const handleSubmit = async (values, actions) => {
     try {
       const response = await axios.post('http://localhost:4000/api/customers/login', values);
-      // Отримання токену і збереження його у локальному сховищі браузера
       const { token } = response.data;
       const { user } = response.data;
       if (token) {
-        // todo: LS eslint
-
-        // eslint-disable-next-line no-undef
-        localStorage.setItem('token', token);
-        // eslint-disable-next-line no-undef
-        localStorage.setItem('user', JSON.stringify(user));
-        dispatch(setUser(user));
+        dispatch(setToken(token));
         dispatch(setAuthorization(true));
+        dispatch(setUser(user));
         dispatch(closeModal());
       }
-      // Перенаправлення користувача на іншу сторінку чи
-      // відображення повідомлення про успішну авторизацію
     } catch (error) {
-      // Обробка помилки, наприклад, відображення повідомлення про невірний логін чи пароль
       console.error('Помилка авторизації:', error);
     }
     actions.resetForm();
