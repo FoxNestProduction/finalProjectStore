@@ -5,7 +5,7 @@ import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
-import { stylesSearch, stylesBtn, stylesWrap } from './style';
+import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
 
 const Search = () => {
   const [nameFromSearch, setNameFromSearch] = useState('');
@@ -20,41 +20,29 @@ const Search = () => {
   };
   const handleChangeNameFromSearch = (event, newValue) => {
     // console.log(newValue.length);
-    if (newValue === null) {
-      setNameFromSearch('');
-    }
+    // if (newValue === null) {
+    //   setNameFromSearch('');
+    // }
+    event.target.value = ' '; // eslint-disable-line
     setNameFromSearch(newValue);
   };
 
   console.log(nameFromSearch);
   const labelForTextField = `Search  ${alignment}`;
+  // console.log(products);
+  // const {_id}=products
   return (
     <Stack sx={stylesWrap}>
       <Stack spacing={2} sx={{ stylesSearch }}>
         <Autocomplete
-          sx={{
-            '.MuiOutlinedInput-root': {
-              '&:hover, &:focus': {
-                borderRadius: 50,
-                borderColor: 'red',
-              },
-            },
-          }}
           onChange={handleChangeNameFromSearch}
           freeSolo
           id="search"
           disableClearable
-          options={alignment === 'food' ? products.map((option) => option.name) : partners.map((option) => option.name)}
+          options={alignment === 'food' ? products.map((option) => option.name) : partners.map((option) => option.name)} // eslint-disable-line
           renderInput={(params) => (
             <TextField
-              // sx={{
-              //   '.MuiOutlinedInput-root': {
-              //     '&:hover, &:focus': {
-              //       borderRadius: 50,
-              //       borderColor: 'red',
-              //     },
-              //   },
-              // }}
+              sx={stylesBorder}
               {...params}
               label={labelForTextField}
               InputProps={{
@@ -77,7 +65,7 @@ const Search = () => {
         aria-label="Platform"
       >
         <ToggleButton value="food" sx={stylesBtn}>Food</ToggleButton>
-        <ToggleButton value="resturent" sx={stylesBtn}>Resturent</ToggleButton>
+        <ToggleButton value="restaurant" sx={stylesBtn}>Restaurant</ToggleButton>
       </ToggleButtonGroup>
     </Stack>
   );
