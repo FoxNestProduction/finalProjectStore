@@ -22,7 +22,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 // --- для textarea додаємо атрибут multiline ---
 // <Input name="comment" id="comment" placeholder="Enter the problem or query..." multiline />
 
-const Input = ({ type, label, icon, multiline, ...props }) => {
+const Input = ({ type, label, icon, multiline, id, ...props }) => {
   const [field, meta] = useField(props.name);
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -38,7 +38,7 @@ const Input = ({ type, label, icon, multiline, ...props }) => {
       variant="outlined"
       error={Boolean(meta.touched && meta.error)}
     >
-      <InputLabel htmlFor="input">
+      <InputLabel htmlFor={id}>
         {label}
       </InputLabel>
       <OutlinedInput
@@ -48,7 +48,7 @@ const Input = ({ type, label, icon, multiline, ...props }) => {
             borderColor: '#664FFF',
           },
         }}
-        id="input"
+        id={id}
         aria-describedby="helper-text"
         label={label}
         multiline={multiline}
@@ -96,6 +96,7 @@ Input.propTypes = {
   icon: PropTypes.element,
   label: PropTypes.string,
   multiline: PropTypes.bool,
+  id: PropTypes.string.isRequired,
 };
 
 Input.defaultProps = {
