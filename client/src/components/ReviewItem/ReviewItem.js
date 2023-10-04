@@ -15,19 +15,11 @@ import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent } fr
 
 const ReviewItem = ({ _id }) => {
   const [isShow, setIsShow] = useState(false);
-  const [value, setValue] = useState();
   const reviews = useSelector((state) => state.reviews.reviews);
   /* eslint-disable-next-line no-underscore-dangle */
   const reviewItem = reviews.find((item) => item._id === _id);
-  console.log(reviews);
-  console.log(reviewItem);
-
-  const reveiw = {
-    _id: '650872a97c6b8f8dc9ab38d3',
-    user_id: '650762989d951058716e2f85',
-    rating: 4,
-    comment: 'I am very satisfied with this product. Everything works excellentlyI am very satisfied with this product.',
-  };
+  // console.log(reviews);
+  // console.log(reviewItem);
 
   const user = {
     _id: '650762989d951058716e2f85',
@@ -36,7 +28,8 @@ const ReviewItem = ({ _id }) => {
     avatarUrl: '',
   };
   const { id, firstName, lastName, avatarUrl } = user;
-  const { rating, comment } = reveiw;
+  const { rating, comment } = reviewItem;
+  const ratingNumber = Number(rating);
 
   return (
     <Container>
@@ -62,7 +55,7 @@ const ReviewItem = ({ _id }) => {
         <CardActions sx={stylesActionCard}>
           <Rating
             name="simple-controlled"
-            value={rating}
+            value={ratingNumber}
             readOnly
           />
         </CardActions>
@@ -72,11 +65,11 @@ const ReviewItem = ({ _id }) => {
 };
 
 ReviewItem.propTypes = {
-  _id: PropTypes.string,
+  _id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 ReviewItem.defaultProps = {
-  _id: '650872a97c6b8f8dc9ab38d3',
+  _id: '651dce27e5fb5c72c69f0abc',
 };
 
 export default ReviewItem;

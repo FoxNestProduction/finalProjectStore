@@ -1,8 +1,13 @@
 import React from 'react';
+import { Typography } from '@mui/material';
+import ReviewItem from '../../components/ReviewItem/ReviewItem';
 
 const ReviewsPage = () => {
   return (
-    <h1>Reviews</h1>
+    <>
+      <Typography>Hello</Typography>
+      <ReviewItem />
+    </>
   );
 };
 
