@@ -15,12 +15,22 @@ import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PropTypes from 'prop-types';
+import Link from '@mui/material/Link';
+import { useDispatch } from 'react-redux';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
+import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   isUserAuthorized, handleCloseDrawer, handleOpenModalLogin }) => {
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(setToken(null));
+    dispatch(setAuthorization(false));
+  };
+
   return (
     <Drawer
       variant="temporary"
@@ -33,7 +43,9 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
         <Box
           sx={stylesDrawerHeader}
         >
-          <Logo type="header" />
+          <Link component={NavLink} to="/" underline="none">
+            <Logo />
+          </Link>
           <IconButton
             aria-label="close drawer"
             edge="end"
@@ -90,7 +102,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
             <MenuItemWithIcon
               page="Logout"
               icon={<ExitToAppIcon sx={stylesIcon} />}
-              onClick={() => { console.log('Logout'); }}
+              onClick={handleLogOut}
             />
           ) : (
             <>
