@@ -1,8 +1,11 @@
 import React from 'react';
+import ProductPage from '../Product/Product';
 
 const PricingPage = () => {
   return (
-    <h1>Pricing</h1>
+    <h1>
+      <ProductPage />
+    </h1>
   );
 };
 

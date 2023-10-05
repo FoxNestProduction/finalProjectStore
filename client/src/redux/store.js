@@ -2,6 +2,7 @@ import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import modalSlice from './slices/modalSlice';
+import productsSlice from './slices/productsSlice';
 import authorizationSlice from './slices/authorizationSlice';
 import userSlice from './slices/userSlice';
 
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   modal: modalSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
+  products: productsSlice,
 });
 
 const middleware = getDefaultMiddleware({
