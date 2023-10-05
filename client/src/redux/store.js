@@ -4,6 +4,7 @@ import { persistReducer } from 'redux-persist';
 import modalSlice from './slices/modalSlice';
 import authorizationSlice from './slices/authorizationSlice';
 import userSlice from './slices/userSlice';
+import cartSlice from './slices/cartSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   modal: modalSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
+  cart: cartSlice,
 });
 
 const middleware = getDefaultMiddleware({
