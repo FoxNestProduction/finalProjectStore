@@ -12,7 +12,7 @@ const initialState = {
     onClick: null,
   },
 };
-
+  // todo: Прописати правило для state!
 /* eslint-disable no-param-reassign */
 
 const modalSlice = createSlice({

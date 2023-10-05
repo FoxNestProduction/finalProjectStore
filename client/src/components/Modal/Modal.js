@@ -8,10 +8,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContentText from '@mui/material/DialogContentText';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert, Rating, Stack } from '@mui/material';
 
 import {
   openModal,
@@ -22,14 +23,14 @@ import {
   addButtonBox,
 } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
+import NewReview from '../NewReview/NewReview';
 
 const Modal = () => {
   const dispatch = useDispatch();
 
   const isOpen = useSelector((state) => state.modal.isOpen);
   const title = useSelector((state) => state.modal.title);
-  // const content = useSelector((state) => state.modal.content);
-  const content = <LoginForm />;
+  const content = useSelector((state) => state.modal.content);
   const buttonAgree = useSelector((state) => state.modal.buttonAgree);
   const buttonBox = useSelector((state) => state.modal.buttonBox);
 
@@ -65,17 +66,18 @@ const Modal = () => {
     dispatch(openModal());
     dispatch(setTitle('Feedback about the service will help us work even better:'));
     dispatch(setContent(
-      <TextField
-        autoFocus
-        multiline
-        rows={4}
-        margin="dense"
-        id="review"
-        label="leave your feedback about the service"
-        type="text"
-        fullWidth
-        variant="outlined"
-      />,
+      <NewReview />,
+      // <TextField
+      //   autoFocus
+      //   multiline
+      //   rows={4}
+      //   margin="dense"
+      //   id="review"
+      //   label="leave your feedback about the service"
+      //   type="text"
+      //   fullWidth
+      //   variant="outlined"
+      // />,
     ));
     dispatch(setButtonAgree({
       text: 'Send',
@@ -95,9 +97,9 @@ const Modal = () => {
       {/* <Button variant="outlined" onClick={handleOpenModalWarning}> */}
       {/*  Open modal with warning text */}
       {/* </Button> */}
-      {/* <Button variant="standard" onClick={handleOpenModalReview}> */}
-      {/*  Open modal with review */}
-      {/* </Button> */}
+      <Button variant="standard" onClick={handleOpenModalReview}>
+        Open modal with review
+      </Button>
       {/* <Button variant="outlined" onClick={handleOpenModalLogin}>
         Open modal with LogIn
       </Button> */}
@@ -150,11 +152,11 @@ const Modal = () => {
             {buttonAgree.text}
           </Button>
           {/* eslint-disable-next-line no-restricted-globals,no-undef */}
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
               This is a success message!
             </Alert>
-          </Snackbar>
+          </Snackbar> */}
         </DialogActions>
         )}
       </Dialog>

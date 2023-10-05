@@ -177,6 +177,11 @@ export const signUpLink = {
     mobile: 'fontWeightBold',
     desktop: 'fontWeightRegular',
   },
+  fontSize: {
+    mobile: '13px',
+    tablet: '14px',
+    desktop: '16px',
+  },
   transition: 'color 0.3s ease',
   '&:hover': {
     color: 'primary.hover',
