@@ -12,6 +12,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
   return (
     <>
       <Modal disagree="Close" />
