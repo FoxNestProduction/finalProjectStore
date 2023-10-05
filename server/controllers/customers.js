@@ -103,7 +103,7 @@ exports.loginCustomer = async (req, res, next) => {
       if (!customer) {
           console.log(customer);
 
-          errors.loginOrEmail = "Customer not found";
+          errors.email = "Customer not found";
         return res.status(404).json(errors);
       }
 
