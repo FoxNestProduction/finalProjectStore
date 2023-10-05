@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.scss';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import AppRoutes from './AppRoutes';
-import ProductCardItem from './components/ProductCardItem/ProductCardItem';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
+import { getProducts } from './redux/slices/productsSlice';
 import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
 import { fetchRestaurant } from './redux/slices/restaurantSlice';
@@ -28,18 +28,9 @@ const App = () => {
     }
   }, [dispatch]);
 
-  const getItems = async () => {
-    try {
-      const { data } = await axios.get('http://localhost:4000/api/products');
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   useEffect(() => {
-    getItems();
-  }, []);
-
+    dispatch(getProducts());
+  }, [dispatch]);
   return (
     <>
       <Modal disagree="Close" />

@@ -241,6 +241,19 @@ globalTheme.typography.h4 = {
   },
 };
 
+globalTheme.typography.h5 = {
+  fontFamily: 'Poppins, sans-serif',
+  fontWeight: 600,
+  lineHeight: '1.5em',
+  fontSize: '28px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '40px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '44px',
+  },
+};
+
 globalTheme.typography.h6 = {
   fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
