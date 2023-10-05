@@ -107,6 +107,7 @@ const RegisterForm = () => {
               <Input
                 type="text"
                 name="fullName"
+                id="registerFullName"
                 label="Full name"
                 placeholder="Enter your full name"
                 icon={<PersonSvg />}
@@ -114,6 +115,7 @@ const RegisterForm = () => {
               <Input
                 type="text"
                 name="email"
+                id="registerEmail"
                 label="E-mail"
                 placeholder="Enter your e-mail"
                 icon={<EmailIcon />}
@@ -121,7 +123,7 @@ const RegisterForm = () => {
               <Input
                 type="password"
                 name="password"
-                id="password"
+                id="registerPassword"
                 label="Password"
                 placeholder="Сome up with a password"
                 icon={<LockIcon />}

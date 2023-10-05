@@ -23,6 +23,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },
@@ -54,10 +55,20 @@
       "linebreak-style": "off",
       "no-nested-ternary": "off",
       "no-console": "off",
-      "react/function-component-definition": [2, {"namedComponents": "arrow-function"}],
+      "react/function-component-definition": [
+        2,
+        {
+          "namedComponents": "arrow-function"
+        }
+      ],
       "arrow-body-style": "off",
       "react/forbid-prop-types": "off",
-      "object-curly-newline": ["error", {"consistent": true}]
+      "object-curly-newline": [
+        "error",
+        {
+          "consistent": true
+        }
+      ]
     }
   },
   "browserslist": {
