@@ -17,6 +17,12 @@ const userPersistConfig = {
   version: 1,
   storage,
 };
+
+const cartPersistConfig = {
+  key: 'cart',
+  version: 1,
+  storage,
+};
 /*
     todo: - ЗВЕРНІТЬ УВАГУ!
       якщо вам потрібно щоб ваш стейт не зникав після перезавантаження
@@ -28,7 +34,7 @@ const reducer = combineReducers({
   modal: modalSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
-  cart: cartSlice,
+  cart: persistReducer(cartPersistConfig, cartSlice),
 });
 
 const middleware = getDefaultMiddleware({
