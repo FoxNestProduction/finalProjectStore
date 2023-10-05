@@ -11,7 +11,6 @@ export const stylesSearch = {
 
 export const stylesBorder = {
   '&:hover .MuiOutlinedInput-notchedOutline': {
-    // borderRadius: 20,
     borderColor: 'primary.hover',
   },
 };

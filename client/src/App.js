@@ -8,8 +8,6 @@ import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
-import { getProducts } from './redux/slices/productsSlice';
-import { getPartners } from './redux/slices/partnersSlice';
 
 const App = () => {
   // const [products, setProducts] = useState([]);
@@ -36,11 +34,6 @@ const App = () => {
   //     console.log(err);
   //   }
   // };
-
-  useEffect(() => {
-    dispatch(getProducts());
-    dispatch(getPartners());
-  }, []); // eslint-disable-line
 
   return (
     <>

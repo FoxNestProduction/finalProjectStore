@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -8,38 +7,39 @@ import SearchIcon from '@mui/icons-material/Search';
 import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
 
 const Search = () => {
-  const [nameFromSearch, setNameFromSearch] = useState('');
-
-  const products = useSelector((state) => state.products.products);
-  const partners = useSelector((state) => state.partners.partners);
-  const [alignment, setAlignment] = React.useState('food');
+  const [alignment, setAlignment] = useState('food');
 
   const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-    setNameFromSearch(' ');
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
   };
-  const handleChangeNameFromSearch = (event, newValue) => {
-    // console.log(newValue.length);
-    // if (newValue === null) {
-    //   setNameFromSearch('');
-    // }
-    event.target.value = ' '; // eslint-disable-line
-    setNameFromSearch(newValue);
-  };
-
-  console.log(nameFromSearch);
   const labelForTextField = `Search  ${alignment}`;
-  // console.log(products);
-  // const {_id}=products
+
+  const top100Films = [
+    { label: 'The Shawshank Redemption', year: 1994 },
+    { label: 'The Godfather', year: 1972 },
+    { label: 'The Godfather: Part II', year: 1974 },
+    { label: 'The Dark Knight', year: 2008 },
+    { label: '12 Angry Men', year: 1957 },
+    { label: "Schindler's List", year: 1993 },
+    { label: 'Pulp Fiction', year: 1994 },
+    {
+      label: 'The Lord of the Rings: The Return of the King',
+      year: 2003,
+    },
+    { label: 'The Good, the Bad and the Ugly', year: 1966 },
+    { label: 'Fight Club', year: 1999 },
+  ];
+
   return (
     <Stack sx={stylesWrap}>
       <Stack spacing={2} sx={{ stylesSearch }}>
         <Autocomplete
-          onChange={handleChangeNameFromSearch}
           freeSolo
           id="search"
           disableClearable
-          options={alignment === 'food' ? products.map((option) => option.name) : partners.map((option) => option.name)} // eslint-disable-line
+          options={top100Films}
           renderInput={(params) => (
             <TextField
               sx={stylesBorder}
@@ -58,14 +58,13 @@ const Search = () => {
           )}
         />
       </Stack>
-      <ToggleButtonGroup
-        value={alignment}
-        exclusive
-        onChange={handleChange}
-        aria-label="Platform"
-      >
-        <ToggleButton value="food" sx={stylesBtn}>Food</ToggleButton>
-        <ToggleButton value="restaurant" sx={stylesBtn}>Restaurant</ToggleButton>
+      <ToggleButtonGroup value={alignment} exclusive onChange={handleChange} aria-label="Platform">
+        <ToggleButton value="food" sx={stylesBtn}>
+          Food
+        </ToggleButton>
+        <ToggleButton value="restaurant" sx={stylesBtn}>
+          Restaurant
+        </ToggleButton>
       </ToggleButtonGroup>
     </Stack>
   );
