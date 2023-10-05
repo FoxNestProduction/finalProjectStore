@@ -6,13 +6,14 @@ export const formWrapper = {
   m: { mobile: '40px auto 0', lgTablet: '0' },
   width: {
     mobile: '100%',
-    tablet: '90%',
+    // tablet: '90%',
+    tablet: '100%',
     lgTablet: '100%',
   },
-  maxWidth: {
-    tablet: '380px',
-    lgTablet: '100%',
-  },
+  // maxWidth: {
+  //   tablet: '380px',
+  //   lgTablet: '100%',
+  // },
   minWidth: {
     lgTablet: '260px',
   },
@@ -58,6 +59,10 @@ export const inputsWrapper = {
 
 export const sendBtn = {
   width: '100%',
+  maxWidth: {
+    tablet: '340px',
+    lgTablet: '100%',
+  },
   mt: '12px',
   height: {
     mobile: '60px',

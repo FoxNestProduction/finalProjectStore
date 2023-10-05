@@ -2,7 +2,7 @@ export const mainContainer = {
   display: {
     lgTablet: 'flex',
     alignItems: 'stretch',
-    gap: '23%',
+    gap: '15%',
   },
   pt: {
     mobile: '50px',
@@ -24,6 +24,10 @@ export const rectWrapper = {
 
 export const rect = {
   width: '100%',
+  ml: {
+    lgTablet: '-65px',
+    desktop: '-90px',
+  },
   height: {
     mobile: '150px',
     lgTablet: '100%',
@@ -74,7 +78,7 @@ export const imgMobile = {
     desktop: '170px',
   },
   right: '0',
-  transform: 'translateX(58%)',
+  transform: 'translateX(25%)',
   width: {
     lgTablet: '220px',
     desktop: '270px',

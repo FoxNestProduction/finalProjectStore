@@ -54,15 +54,17 @@ const ContactForm = () => {
               />
               <Textarea name="message" placeholder="Enter the problem or query..." />
             </Box>
-            <Button
-              onSubmit={handleSubmit}
-              disableRipple
-              variant="contained"
-              sx={sendBtn}
-              type="submit"
-            >
-              Send Now
-            </Button>
+            <Box sx={{ textAlign: 'center' }}>
+              <Button
+                onSubmit={handleSubmit}
+                disableRipple
+                variant="contained"
+                sx={sendBtn}
+                type="submit"
+              >
+                Send Now
+              </Button>
+            </Box>
           </Form>
         )}
       </Formik>
