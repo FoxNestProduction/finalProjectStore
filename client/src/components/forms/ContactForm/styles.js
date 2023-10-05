@@ -4,16 +4,7 @@ export const formWrapper = {
   flexDirection: 'column',
   flexGrow: 1,
   m: { mobile: '40px auto 0', lgTablet: '0' },
-  width: {
-    mobile: '100%',
-    // tablet: '90%',
-    tablet: '100%',
-    lgTablet: '100%',
-  },
-  // maxWidth: {
-  //   tablet: '380px',
-  //   lgTablet: '100%',
-  // },
+  width: '100%',
   minWidth: {
     lgTablet: '260px',
   },

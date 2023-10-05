@@ -21,7 +21,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 // --- для textarea додаємо атрибут multiline ---
 // <Input name="comment" id="comment" placeholder="Enter the problem or query..." multiline />
 
-const Input = ({ type, label, icon, multiline, id, ...props }) => {
+const Input = ({ type, label, icon, multiline, id, bgColor, ...props }) => {
   const [field, meta] = useField(props.name);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +42,7 @@ const Input = ({ type, label, icon, multiline, id, ...props }) => {
       </InputLabel>
       <OutlinedInput
         sx={{
-          bgcolor: '#F9F9F9',
+          bgcolor: `${bgColor}`,
           '&:hover:not(.Mui-error):not(.Mui-focused) > .MuiOutlinedInput-notchedOutline': {
             borderColor: '#664FFF',
           },
@@ -96,6 +96,7 @@ Input.propTypes = {
   label: PropTypes.string,
   multiline: PropTypes.bool,
   id: PropTypes.string.isRequired,
+  bgColor: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -103,6 +104,7 @@ Input.defaultProps = {
   icon: null,
   label: '',
   multiline: false,
+  bgColor: '#F9F9F9',
 };
 
 export default Input;

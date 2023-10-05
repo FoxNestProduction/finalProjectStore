@@ -45,14 +45,16 @@ const ContactForm = () => {
                 name="name"
                 placeholder="Enter your name"
                 label="name"
+                bgColor="#FFF"
               />
               <Input
                 type="email"
                 name="email"
                 placeholder="Enter your e-mail"
                 label="email"
+                bgColor="#FFF"
               />
-              <Textarea name="message" placeholder="Enter the problem or query..." />
+              <Textarea name="message" placeholder="Enter the problem or query..." bgColor="#FFF" />
             </Box>
             <Box sx={{ textAlign: 'center' }}>
               <Button
