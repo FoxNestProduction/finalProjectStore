@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { NavLink } from 'react-router-dom';
 import {
@@ -38,6 +38,7 @@ import { setError } from '../../../redux/slices/errorSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const authError = useSelector((state) => state.error.error);
   const initialValues = {
     email: '',
     password: '',
@@ -60,7 +61,6 @@ const LoginForm = () => {
       dispatch(setError(error.response.data));
       console.error('Помилка авторизації:', error);
     }
-    actions.resetForm();
   };
   return (
     <Box
@@ -93,6 +93,7 @@ const LoginForm = () => {
         }}
       >
         <Button
+          disabled
           disableRipple
           variant="contained"
           sx={googleAppleBtn}
@@ -100,6 +101,7 @@ const LoginForm = () => {
           <GoogleSvgComponent />
         </Button>
         <Button
+          disabled
           disableRipple
           variant="contained"
           sx={googleAppleBtn}
@@ -130,6 +132,7 @@ const LoginForm = () => {
                 }}
               >
                 <Input
+                  error={authError.email}
                   type="email"
                   name="email"
                   id="loginEmail"
@@ -138,6 +141,7 @@ const LoginForm = () => {
                   icon={<EmailIcon />}
                 />
                 <Input
+                  error={authError.password}
                   type="password"
                   name="password"
                   id="loginPassword"

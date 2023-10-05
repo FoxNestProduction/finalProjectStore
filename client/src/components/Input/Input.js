@@ -9,8 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
-import { useSelector } from 'react-redux';
-
 // ------- Приклад використання -------
 
 // --- варіант з лейбл ----
@@ -23,21 +21,19 @@ import { useSelector } from 'react-redux';
 // --- для textarea додаємо атрибут multiline ---
 // <Input name="comment" id="comment" placeholder="Enter the problem or query..." multiline />
 
-const Input = ({ type, label, icon, multiline, id, ...props }) => {
+const Input = ({ type, label, icon, multiline, id, error, ...props }) => {
   const [field, meta] = useField(props.name);
-
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
   return (
     <FormControl
       fullWidth
       variant="outlined"
-      error={Boolean(meta.touched && meta.error)}
+      error={Boolean(error || (meta.touched && meta.error))}
     >
       <InputLabel htmlFor={id}>
         {label}
@@ -85,13 +81,14 @@ const Input = ({ type, label, icon, multiline, id, ...props }) => {
         {...props}
       />
       <FormHelperText id="helper-text">
-        {Boolean(meta.touched) && meta.error}
+        {error || (Boolean(meta.touched) && meta.error)}
       </FormHelperText>
     </FormControl>
   );
 };
 
 Input.propTypes = {
+  error: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   icon: PropTypes.element,
@@ -101,6 +98,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  error: null,
   type: 'text',
   icon: null,
   label: '',
