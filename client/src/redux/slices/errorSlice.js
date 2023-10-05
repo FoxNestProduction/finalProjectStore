@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  error: '',
+  authorization: '',
+  registration: '',
 };
 
 /* eslint-disable no-param-reassign */
@@ -10,15 +11,15 @@ const errorSlice = createSlice({
   name: 'error',
   initialState,
   reducers: {
-    setError: (state, action) => {
-      state.error = action.payload;
+    setAuthorizationError: (state, action) => {
+      state.authorization = action.payload;
     },
   },
 
 });
 
 export const {
-  setError,
+  setAuthorizationError,
 } = errorSlice.actions;
 
 /* eslint-enable no-param-reassign */

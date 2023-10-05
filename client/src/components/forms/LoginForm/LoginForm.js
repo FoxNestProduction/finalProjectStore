@@ -34,11 +34,11 @@ import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent
 import Input from '../../Input/Input';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
-import { setError } from '../../../redux/slices/errorSlice';
+import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const authError = useSelector((state) => state.error.error);
+  const authError = useSelector((state) => state.error.authorization);
   const initialValues = {
     email: '',
     password: '',
@@ -58,7 +58,7 @@ const LoginForm = () => {
         dispatch(closeModal());
       }
     } catch (error) {
-      dispatch(setError(error.response.data));
+      dispatch(setAuthorizationError(error.response.data));
       console.error('Помилка авторизації:', error);
     }
   };
