@@ -177,6 +177,18 @@ globalTheme.typography.body3 = {
   },
 };
 
+globalTheme.typography.description = {
+  fontWeight: 400,
+  lineHeight: '1.5em',
+  fontSize: '13px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '16px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '18px',
+  },
+};
+
 globalTheme.typography.h1 = {
   fontFamily: 'Poppins, sans-serif',
   fontWeight: 500,
@@ -223,6 +235,19 @@ globalTheme.typography.h4 = {
   fontSize: '14px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '18px',
+  },
+};
+
+globalTheme.typography.h5 = {
+  fontFamily: 'Poppins, sans-serif',
+  fontWeight: 600,
+  lineHeight: '1.5em',
+  fontSize: '28px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '40px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '44px',
   },
 };
 

@@ -11,8 +11,6 @@ const PublicLayout = () => {
       <Header />
       <main>
         <Outlet />
-        <RestaurantItem />
-        <ProductCardItem />
       </main>
       <Footer />
     </>

@@ -4,12 +4,14 @@ import './App.scss';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
+import { getProducts } from './redux/slices/productsSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getProducts());
     dispatch(getReviews());
   }, [dispatch]);
 
