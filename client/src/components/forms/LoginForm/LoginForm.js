@@ -56,6 +56,7 @@ const LoginForm = () => {
         dispatch(setAuthorization(true));
         dispatch(setUser(user));
         dispatch(closeModal());
+        dispatch(setAuthorizationError(''));
       }
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));
