@@ -43,6 +43,7 @@ const ContactForm = () => {
               <Input
                 type="text"
                 name="name"
+                id="contactName"
                 placeholder="Enter your name"
                 label="name"
                 bgColor="#FFF"
@@ -50,6 +51,7 @@ const ContactForm = () => {
               <Input
                 type="email"
                 name="email"
+                id="contactEmail"
                 placeholder="Enter your e-mail"
                 label="email"
                 bgColor="#FFF"
