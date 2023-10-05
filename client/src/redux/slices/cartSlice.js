@@ -18,18 +18,12 @@ const cartSlice = createSlice({
       // 1-ий варіант - коли нам в action.payload надходить повний об'єкт item
       if (state.cartItems.length === 0) {
         state.cartItems.push(action.payload);
-        // якщо користувач не авторизований, то відповідно
-        // ми записуємо це значення до localStorage
       } else {
         const index = state.cartItems.findIndex((item) => item.id === action.payload.id);
         if (index === -1) {
           state.cartItems.push(action.payload);
-          // якщо користувач не авторизований, то відповідно
-          // ми записуємо це значення до localStorage
         } else {
           state.cartItems[index].quantity += 1;
-          // якщо користувач не авторизований, то відповідно
-          // ми записуємо це значення до localStorage
         }
       }
       // 2-ий варіант, коли нам приходить суто id товара
