@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   restaurant: [],
@@ -19,12 +20,13 @@ export const {
   setRestaurant,
 } = restaurantSlice.actions;
 
-/* eslint-enable no-param-reassign */
-
 export const fetchRestaurant = () => async (dispatch) => {
-  const res = await fetch('http://localhost:4000/api/partners');
-  const data = await res.json();
-  dispatch(setRestaurant(data));
+  try {
+    const { data } = await axios.get('http://localhost:4000/api/partners');
+    dispatch(setRestaurant(data));
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default restaurantSlice.reducer;
