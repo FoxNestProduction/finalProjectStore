@@ -21,10 +21,10 @@ import StarIcon from '@mui/icons-material/Star';
 import ColorChips from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 
-const ProductCard = ({ _id }) => {
+const ProductCard = ({ productId }) => {
   const products = useSelector((state) => state.products.products);
   /* eslint-disable-next-line no-underscore-dangle */
-  // const dish = products.find((item) => item._id === _id);
+  // const dish = products.find((item) => item._id === productId);
   // console.log(products);
   // console.log(dish1);
 
@@ -172,11 +172,11 @@ const ProductCard = ({ _id }) => {
 };
 
 ProductCard.propTypes = {
-  _id: PropTypes.string,
+  productId: PropTypes.string,
 };
 
 ProductCard.defaultProps = {
-  _id: '6507a306baee59670a047307',
+  productId: '6507a306baee59670a047307',
 };
 
 export default ProductCard;
