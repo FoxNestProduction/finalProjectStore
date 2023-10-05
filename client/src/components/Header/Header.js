@@ -33,7 +33,7 @@ import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
-import { setAuthorization } from '../../redux/slices/authorizationSlice';
+import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -74,12 +74,7 @@ const Header = () => {
     dispatch(setContent(<LoginForm />));
   };
   const handleLogOut = () => {
-    // todo: додати правило eslint для LS
-
-    // eslint-disable-next-line no-undef
-    localStorage.removeItem('token');
-    // eslint-disable-next-line no-undef
-    localStorage.removeItem('user');
+    dispatch(setToken(null));
     dispatch(setAuthorization(false));
   };
 
