@@ -24,6 +24,7 @@ import {
 } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import NewReview from '../NewReview/NewReview';
+import { addNewReview } from '../../redux/slices/reviewsSlice';
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,8 @@ const Modal = () => {
 
   const handleSendFeedback = () => {
     dispatch(closeModal());
+    dispatch(addNewReview());
+    console.log();
   };
 
   const handleOpenModalWarning = () => {
@@ -67,17 +70,6 @@ const Modal = () => {
     dispatch(setTitle('Feedback about the service will help us work even better:'));
     dispatch(setContent(
       <NewReview />,
-      // <TextField
-      //   autoFocus
-      //   multiline
-      //   rows={4}
-      //   margin="dense"
-      //   id="review"
-      //   label="leave your feedback about the service"
-      //   type="text"
-      //   fullWidth
-      //   variant="outlined"
-      // />,
     ));
     dispatch(setButtonAgree({
       text: 'Send',

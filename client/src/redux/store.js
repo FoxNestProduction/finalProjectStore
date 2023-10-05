@@ -28,7 +28,7 @@ const reducer = combineReducers({
   modal: modalSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
-  reviews: reviewsSlice,
+  reviews: persistReducer(userPersistConfig, reviewsSlice),
 });
 
 const middleware = getDefaultMiddleware({
