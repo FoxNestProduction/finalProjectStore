@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useField } from 'formik';
 import PropTypes from 'prop-types';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -9,21 +9,21 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
+
 // ------- Приклад використання -------
 
 // --- варіант з лейбл ----
 // <Input name="name" id="name" label="Name" placeholder="Enter your name..."
 // icon={<PersonSvg />} />
-// --- варіант без лейбл ----
-// <Input name="email" id="email" placeholder="Email" icon={<EmailSvg />}/>
-// <Input name="password" id="password" type="password" placeholder="Password" icon={<LockSvg />} />
+// --- варіант без лейбл ---
+// просто не передавати label
 
 // --- для textarea додаємо атрибут multiline ---
 // <Input name="comment" id="comment" placeholder="Enter the problem or query..." multiline />
 
-const Input = ({ type, label, icon, multiline, id, error, ...props }) => {
+const Input = ({ type, label, icon, multiline, id, error, bgColor, ...props }) => {
   const [field, meta] = useField(props.name);
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -40,7 +40,7 @@ const Input = ({ type, label, icon, multiline, id, error, ...props }) => {
       </InputLabel>
       <OutlinedInput
         sx={{
-          bgcolor: '#F9F9F9',
+          bgcolor: `${bgColor}`,
           '&:hover:not(.Mui-error):not(.Mui-focused) > .MuiOutlinedInput-notchedOutline': {
             borderColor: '#664FFF',
           },
@@ -95,6 +95,7 @@ Input.propTypes = {
   label: PropTypes.string,
   multiline: PropTypes.bool,
   id: PropTypes.string.isRequired,
+  bgColor: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -103,6 +104,7 @@ Input.defaultProps = {
   icon: null,
   label: '',
   multiline: false,
+  bgColor: '#F9F9F9',
 };
 
 export default Input;
