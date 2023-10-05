@@ -34,9 +34,11 @@ import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent
 import Input from '../../Input/Input';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
+import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const authError = useSelector((state) => state.error.authorization);
   const initialValues = {
     email: '',
     password: '',
@@ -54,11 +56,12 @@ const LoginForm = () => {
         dispatch(setAuthorization(true));
         dispatch(setUser(user));
         dispatch(closeModal());
+        dispatch(setAuthorizationError(''));
       }
     } catch (error) {
+      dispatch(setAuthorizationError(error.response.data));
       console.error('Помилка авторизації:', error);
     }
-    actions.resetForm();
   };
   return (
     <Box
@@ -91,6 +94,7 @@ const LoginForm = () => {
         }}
       >
         <Button
+          disabled
           disableRipple
           variant="contained"
           sx={googleAppleBtn}
@@ -98,6 +102,7 @@ const LoginForm = () => {
           <GoogleSvgComponent />
         </Button>
         <Button
+          disabled
           disableRipple
           variant="contained"
           sx={googleAppleBtn}
@@ -128,6 +133,7 @@ const LoginForm = () => {
                 }}
               >
                 <Input
+                  error={authError.email}
                   type="email"
                   name="email"
                   id="loginEmail"
@@ -136,6 +142,7 @@ const LoginForm = () => {
                   icon={<EmailIcon />}
                 />
                 <Input
+                  error={authError.password}
                   type="password"
                   name="password"
                   id="loginPassword"

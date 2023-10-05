@@ -23,6 +23,7 @@ import {
   addButtonBox,
 } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
+import { setAuthorizationError } from '../../redux/slices/errorSlice';
 import NewReview from '../NewReview/NewReview';
 import { addNewReview } from '../../redux/slices/reviewsSlice';
 
@@ -37,6 +38,7 @@ const Modal = () => {
 
   const handleClose = () => {
     dispatch(closeModal());
+    dispatch(setAuthorizationError(''));
   };
   //
   const handleRemoveItemCart = () => {
