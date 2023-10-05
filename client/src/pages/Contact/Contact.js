@@ -14,7 +14,7 @@ import {
   title, imgMobile,
 } from './styles';
 import DoubleLoopArrowSvg from '../../assets/svgComponents/DoubleLoopArrowSvg';
-import ArrowSvg from '../../assets/svgComponents/ArrowSvg';
+import OneLoopArrowSvg from '../../assets/svgComponents/OneLoopArrowSvg';
 
 const ContactPage = () => {
   const isXsMobile = useMediaQuery('(max-width: 380px)');
@@ -51,7 +51,7 @@ const ContactPage = () => {
             tablet: `${isXsTablet ? '0' : '30px'}`,
           } }}
         >
-          <ArrowSvg />
+          <OneLoopArrowSvg />
         </Box>
 
         <Box

@@ -13,7 +13,7 @@ import {
 } from './styles';
 import Input from '../../Input/Input';
 import Textarea from '../../Textarea/Textarea';
-import ArrowSvg from '../../../assets/svgComponents/ArrowSvg';
+import OneLoopArrowSvg from '../../../assets/svgComponents/OneLoopArrowSvg';
 
 const ContactForm = () => {
   const initialValues = {
@@ -67,7 +67,7 @@ const ContactForm = () => {
         )}
       </Formik>
       <Box sx={purpleArrow}>
-        <ArrowSvg color="#6C5FBC" />
+        <OneLoopArrowSvg color="#6C5FBC" />
       </Box>
     </Box>
   );
