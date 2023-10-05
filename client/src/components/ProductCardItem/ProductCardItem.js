@@ -14,10 +14,36 @@ import ColorChips from '../Chip/Chip';
 import { chipSizeDishes } from '../Chip/styles';
 import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
 
-const ProductCardItem = ({ price, imageUrl, name, rating }) => {
+const ProductCardItem = ({ price, imageUrl, name, rating, setCartItems, isFavourite }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
   const isTablet = useMediaQuery('(min-width: 481px) and (max-width: 992px)');
-  const isDesktop = useMediaQuery('(min-width: 993px)');
+
+  const handleAddToCart = () => {
+    setCartItems((prev) => {
+      console.log(prev);
+      const newCartState = [...prev];
+
+      // const item = newCartState.find((item) => item.id === id);
+      // if (item) {
+      //     item.count++;
+      //     return newCartState;
+      // } else {
+      //     return [{name, price, id, count: 1}, ...prev]
+      //  }
+
+      // const index = newCartState.findIndex((item) => item.id === id);
+      // if (index !== -1) {
+      //   newCartState[index].count++;
+
+      //   saveStateToLocalStorage(CART_LS_KEY, newCartState);
+      //   return newCartState;
+      // }
+      // const newState = [{ name, price, id, count: 1 }, ...prev];
+      // saveStateToLocalStorage(CART_LS_KEY, newState);
+      // return newState;
+    });
+  };
+
   return (
     <Card sx={sylesContainer}>
       <Box sx={mediaBox}>
@@ -74,6 +100,9 @@ ProductCardItem.propTypes = {
   imageUrl: PropTypes.string,
   name: PropTypes.string,
   rating: PropTypes.number,
+  setCartItems: PropTypes.func,
+  isFavourite: PropTypes.bool,
+
 };
 
 ProductCardItem.defaultProps = {
@@ -81,6 +110,9 @@ ProductCardItem.defaultProps = {
   imageUrl: './img/salads/3.png',
   name: 'Chicken Hell',
   rating: 3,
+  setCartItems: () => { },
+  isFavourite: false,
+
 };
 
 export default ProductCardItem;
