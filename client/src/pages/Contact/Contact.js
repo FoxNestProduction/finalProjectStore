@@ -17,7 +17,7 @@ import DoubleLoopArrowSvg from '../../assets/svgComponents/DoubleLoopArrowSvg';
 import OneLoopArrowSvg from '../../assets/svgComponents/OneLoopArrowSvg';
 
 const ContactPage = () => {
-  const isXsMobile = useMediaQuery('(max-width: 380px)');
+  const isXsMobile = useMediaQuery('(max-width: 390px)');
   const isXsTablet = useMediaQuery('(min-width: 481px) and (max-width: 600px)');
   const isLgTablet = useMediaQuery('(min-width: 690px)');
 
@@ -47,8 +47,8 @@ const ContactPage = () => {
           position: 'absolute',
           top: '17px',
           left: {
-            mobile: `${isXsMobile ? '-30px' : '0'}`,
-            tablet: `${isXsTablet ? '0' : '30px'}`,
+            mobile: `${isXsMobile ? '-30px' : '-5px'}`,
+            tablet: `${isXsTablet ? '-5px' : '30px'}`,
           } }}
         >
           <OneLoopArrowSvg />
