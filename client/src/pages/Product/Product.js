@@ -9,7 +9,7 @@ const ProductPage = () => {
   return (
     <Box>
       <ProductCard />
-      <ListItems />
+      {/* <ListItems /> */}
       <QuestionsList />
     </Box>
   );
