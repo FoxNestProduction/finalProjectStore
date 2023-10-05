@@ -54,7 +54,7 @@ const ContactForm = () => {
                 label="email"
                 bgColor="#FFF"
               />
-              <Textarea name="message" placeholder="Enter the problem or query..." bgColor="#FFF" />
+              <Textarea name="message" placeholder="Enter the problem or query..." />
             </Box>
             <Box sx={{ textAlign: 'center' }}>
               <Button

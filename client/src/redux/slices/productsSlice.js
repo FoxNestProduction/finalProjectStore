@@ -24,7 +24,7 @@ export const getProducts = () => async (dispatch) => {
     console.log('hello');
     dispatch(setProducts(data));// eslint-disable-line no-use-before-define
   } catch (error) {
-    console.log('%cError loading products:', 'color: red; font-weight: bold;', error);
+    console.log('Error loading products:', error);
   }
 };
 
