@@ -23,7 +23,7 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
   const isDesktop = useMediaQuery('(min-width: 993px)');
 
   return (
-    <Link to={`/Menu/${fixedEncodeURIComponent(name)}`}>
+    <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
       <Card sx={sylesContainer}>
         <Box sx={mediaBox}>
           <CardActions disableSpacing sx={favoriteIcon}>

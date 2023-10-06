@@ -27,7 +27,7 @@ const ProductCard = ({ productName }) => {
 
   const nameOfProduct = fixedDecodeURIComponent(productName);
   // eslint-disable-next-line no-underscore-dangle
-  const dish = products.find((item) => item.name === nameOfProduct);
+  const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
   // const dish = products.find((item) => item._id === productId);
 
   // const dish = {
