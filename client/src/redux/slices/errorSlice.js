@@ -5,8 +5,6 @@ const initialState = {
   registration: '',
 };
 
-/* eslint-disable no-param-reassign */
-
 const errorSlice = createSlice({
   name: 'error',
   initialState,
@@ -21,7 +19,5 @@ const errorSlice = createSlice({
 export const {
   setAuthorizationError,
 } = errorSlice.actions;
-
-/* eslint-enable no-param-reassign */
 
 export default errorSlice.reducer;

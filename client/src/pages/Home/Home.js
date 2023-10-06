@@ -9,8 +9,8 @@ import { gridWidthRestaurant, gridWidthDishes } from '../../components/ListItems
 
 const HomePage = () => {
   const itemsRestaurant = useSelector((state) => state.restaurant.restaurant, shallowEqual);
-  const itemsDishes = useSelector((state) => state.products.items, shallowEqual);
-  console.log(itemsRestaurant);
+  const itemsDishes = useSelector((state) => state.products.products, shallowEqual);
+
   return (
     <>
       <SectionGetStarted />

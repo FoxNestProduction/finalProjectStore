@@ -9,6 +9,7 @@ import AppleIcon from '@mui/icons-material/Apple';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonSvg from '@mui/icons-material/Person';
+import axios from 'axios';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 
 // eslint-disable-next-line import/no-cycle
@@ -24,10 +25,13 @@ import {
   legend,
   inputsWrapper,
   signUpBtn,
-  signUpLink,
+  signInLink,
 } from './styles';
 import Input from '../../Input/Input';
-import { setContent } from '../../../redux/slices/modalSlice';
+import { closeModal, setContent } from '../../../redux/slices/modalSlice';
+import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
+import { setUser } from '../../../redux/slices/userSlice';
+import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 
 export const initialValues = {
   fullName: '',
@@ -38,11 +42,39 @@ export const initialValues = {
 const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  const submit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values, actions) => {
+    const { fullName, email, password } = values;
+    const firstName = fullName.split(' ').splice(0, 1).join('');
+    const lastName = fullName.split(' ').splice(1).join('');
+    const login = fullName.toLowerCase().split(' ').join('_');
+
+    const newCustomer = {
+      firstName,
+      lastName,
+      email,
+      password,
+      login,
+      isAdmin: false,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:4000/api/customers', newCustomer);
+      console.log(response);
+      // const { user } = response.data;
+      // if (token) {
+      // dispatch(setToken(token));
+      // dispatch(setAuthorization(true));
+      // dispatch(setUser(user));
+      // dispatch(closeModal());
+      // dispatch(setAuthorizationError(''));
+      // }
+    } catch (error) {
+      // dispatch(setAuthorizationError(error.response.data));
+      console.error('Помилка реєстрації:', error);
+    }
   };
 
-  const logInContent = () => {
+  const handleOpenLogInForm = () => {
     dispatch(setContent(<LoginForm />));
   };
 
@@ -92,7 +124,7 @@ const RegisterForm = () => {
       </Typography>
       <Formik
         initialValues={initialValues}
-        onSubmit={submit}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         {({ isValid }) => (
@@ -129,7 +161,6 @@ const RegisterForm = () => {
                 icon={<LockIcon />}
               />
               <Button
-                onSubmit={submit}
                 disableRipple
                 variant="contained"
                 sx={signUpBtn}
@@ -143,7 +174,7 @@ const RegisterForm = () => {
               sx={flexcenter}
             >
               Already Have An Account?
-              <Button onClick={logInContent} sx={signUpLink}> Log In</Button>
+              <Button onClick={handleOpenLogInForm} sx={signInLink}> Log In</Button>
             </Typography>
           </Form>
         )}

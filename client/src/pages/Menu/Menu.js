@@ -5,7 +5,7 @@ import Search from '../../components/Search/Search';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 
 const MenuPage = () => {
-  const products = useSelector((state) => state.products.items, shallowEqual);
+  const products = useSelector((state) => state.products.products, shallowEqual);
 
   return (
     <>

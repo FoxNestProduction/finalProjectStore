@@ -37,7 +37,7 @@ const Modal = () => {
     dispatch(closeModal());
     dispatch(setAuthorizationError(''));
   };
-  //
+
   const handleRemoveItemCart = () => {
     dispatch(closeModal());
   };
