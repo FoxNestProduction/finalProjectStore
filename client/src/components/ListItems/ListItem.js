@@ -5,10 +5,20 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import { gridStylesRestaurant } from './styles';
 import getRandomItems from '../../utils/getRandomItems';
+import useBreakpoint from '../../customHooks/useBreakpoint';
 
 const ListItems = ({ title, items, itemComponent, actions, count, gridProps }) => {
   const arrItem = [...items];
-  const randomItemsArr = getRandomItems(arrItem, count);
+  const breakpoint = useBreakpoint();
+  const counter = {
+    mobile: 3,
+    tablet: 2,
+    lgTablet: 2,
+    desktop: 3,
+  };
+
+  console.log(breakpoint);
+  const randomItemsArr = getRandomItems(arrItem, counter[breakpoint]);
 
   return (
     <Container sx={{ mb: 13 }}>
