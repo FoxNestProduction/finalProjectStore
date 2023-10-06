@@ -20,12 +20,12 @@ export const {
   setPartners,
 } = partnersSlice.actions;
 
-export const fetchRestaurant = () => async (dispatch) => {
+export const getPartners = () => async (dispatch) => {
   try {
     const { data } = await axios.get('http://localhost:4000/api/partners');
     dispatch(setPartners(data));
   } catch (err) {
-    console.log(err);
+    console.log('%cError loading products:', 'color: red; font-weight: bold;', err);
   }
 };
 

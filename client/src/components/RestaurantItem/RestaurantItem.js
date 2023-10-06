@@ -36,12 +36,8 @@ const RestaurantItem = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
 
       <CardMedia
         component="img"
-        height={{
-          mobile: 140,
-          tablet: 125,
-          desktop: 177,
-        }}
-        image="./img/restaurants/Resturent01.jpg"
+        height="160px"
+        image={imageUrl}
         alt={name}
       />
       <Box

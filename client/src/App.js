@@ -8,14 +8,13 @@ import ScrollTop from './components/ScrollTop/ScrollTop';
 import { getProducts } from './redux/slices/productsSlice';
 import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
-import { fetchRestaurant } from './redux/slices/partnersSlice';
+import { getPartners } from './redux/slices/partnersSlice';
 
 const App = () => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchRestaurant());
     // todo: LS eslint
 
     // eslint-disable-next-line no-undef
@@ -29,6 +28,7 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    dispatch(getPartners());
     dispatch(getProducts());
   }, [dispatch]);
   return (
