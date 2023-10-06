@@ -10,6 +10,7 @@ import authorizationSlice from './slices/authorizationSlice';
 import userSlice from './slices/userSlice';
 import errorSlice from './slices/errorSlice';
 import restaurantSlice from './slices/restaurantSlice';
+import favouriteSlice from './slices/favouriteSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -36,6 +37,7 @@ const reducer = combineReducers({
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
+  favourites: favouriteSlice,
 });
 
 const middleware = getDefaultMiddleware({

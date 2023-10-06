@@ -20,6 +20,12 @@ export const chipBoxchipSizeRestaurant = {
 
 export const chipForFavourite = {
   m: 0,
-  height: '100%',
-  width: 'auto',
+  fontSize: {
+    lgTablet: '8px',
+    desktop: '10px',
+  },
+  height: {
+    lgTablet: '20px',
+    desktop: '24px',
+  },
 };
