@@ -10,16 +10,16 @@ const MenuPage = () => {
     <>
       <RestaurantItem />
       {/* для перевірки переходу на сторінку блюда при кліку на картку блюда */}
-      {products.slice(0, 6).map(({ price, imageUrl, name, rating, _id: id }) => (
-        <ProductCardItem
-          key={id}
-          price={price}
-          imageUrl={imageUrl}
-          name={name}
-          rating={rating}
-          id={id}
-        />
-      ))}
+      {/* {products.slice(0, 6).map(({ price, imageUrl, name, rating, _id: id }) => ( */}
+      {/*  <ProductCardItem */}
+      {/*    key={id} */}
+      {/*    price={price} */}
+      {/*    imageUrl={imageUrl} */}
+      {/*    name={name} */}
+      {/*    rating={rating} */}
+      {/*    id={id} */}
+      {/*  /> */}
+      {/* ))} */}
     </>
   );
 };
