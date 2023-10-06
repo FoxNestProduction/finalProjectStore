@@ -10,7 +10,6 @@ const restaurantSlice = createSlice({
   initialState,
   reducers: {
     setRestaurant(state, action) {
-      // eslint-disable-next-line no-param-reassign
       state.restaurant = action.payload;
     },
   },
