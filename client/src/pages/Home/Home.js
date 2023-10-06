@@ -13,7 +13,7 @@ const HomePage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = partners.slice()
     .sort((a, b) => b.rating - a.rating).slice(0, partnersCardWidth[breakpoint]);
-  const products = useSelector((state) => state.products.items);
+  const products = useSelector((state) => state.products.products);
   console.log(products);
   const sortedProducts = products.slice()
     .sort((a, b) => b.rating - a.rating).slice(0, productsCardWidth[breakpoint]);
