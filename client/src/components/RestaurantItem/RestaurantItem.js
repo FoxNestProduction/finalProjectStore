@@ -13,7 +13,7 @@ import RatingItem from '../Rating/Rating';
 import ColorChips from '../Chip/Chip';
 import { chipSizeRestaurant, chipBoxchipSizeRestaurant } from '../Chip/styles';
 
-const RestaurantItem = ({ rating, name, imageUrl }) => {
+const RestaurantItem = ({ rating, name, imageUrl, isHealthy, isTranding, isSupreme }) => {
   const styles = {
     display: 'flex',
     alignItems: 'center',
@@ -27,8 +27,7 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
         flexWrap: 'wrap',
         maxWidth: {
           mobile: 315,
-          tablet: 281,
-          desktop: 395,
+          lgTablet: 395,
         },
         boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
       }}
@@ -41,7 +40,7 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
           tablet: 125,
           desktop: 177,
         }}
-        image={imageUrl}
+        image="./img/restaurants/Resturent01.jpg"
         alt={name}
       />
       <Box
@@ -54,7 +53,12 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
           ...chipBoxchipSizeRestaurant,
         }}
       >
-        <ColorChips customStyles={chipSizeRestaurant} />
+        <ColorChips
+          customStyles={chipSizeRestaurant}
+          isHealthy={isHealthy}
+          isTranding={isTranding}
+          isSupreme={isSupreme}
+        />
       </Box>
       <CardHeader
         title={(
@@ -99,7 +103,7 @@ const RestaurantItem = ({ rating, name, imageUrl }) => {
             flexWrap: 'wrap',
           }}
         >
-          <RatingItem defaultValue={rating} />
+          <RatingItem ratingValue={rating} />
 
           <Typography
             variant="body1"
@@ -149,9 +153,15 @@ RestaurantItem.propTypes = {
   rating: PropTypes.number,
   name: PropTypes.string,
   imageUrl: PropTypes.string,
+  isHealthy: PropTypes.bool,
+  isTranding: PropTypes.bool,
+  isSupreme: PropTypes.bool,
 };
 
 RestaurantItem.defaultProps = {
+  isHealthy: false,
+  isTranding: false,
+  isSupreme: false,
   rating: 3,
   name: 'The Chicken King',
   imageUrl: './img/restaurants/Resturent01.jpg',

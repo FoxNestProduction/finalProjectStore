@@ -27,6 +27,7 @@ const globalTheme = createTheme({
       healthy: '#DAA31A',
       trending: '#FB471D',
       supreme: '#0b4c25',
+      secondaryGray: '#ACADB9',
     },
     background: {
       paper: '#FFF',
@@ -176,15 +177,18 @@ globalTheme.typography.body3 = {
   },
 };
 
-globalTheme.typography.description = {
-  fontWeight: 400,
-  lineHeight: '1.5em',
-  fontSize: '13px',
+globalTheme.typography.body4 = {
+  fontFamily: 'Poppins, sans-serif',
+  fontWeight: 500,
+  lineHeight: '2.8em',
+  fontSize: '20px',
   [globalTheme.breakpoints.up('tablet')]: {
-    fontSize: '16px',
+    lineHeight: '2em',
+    fontSize: '14px',
   },
   [globalTheme.breakpoints.up('desktop')]: {
-    fontSize: '18px',
+    lineHeight: '1.5em',
+    fontSize: '16px',
   },
 };
 
