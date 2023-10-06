@@ -10,7 +10,7 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     setProducts(state, action) {
-      state.items = action.payload;
+      state.products = action.payload;
     },
   },
 });
