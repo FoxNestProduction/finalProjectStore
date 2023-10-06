@@ -3,37 +3,24 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
-import { gridStylesRestaurant } from './styles';
-import getRandomItems from '../../utils/getRandomItems';
-import useBreakpoint from '../../customHooks/useBreakpoint';
+import { gridStylesItem, gridStylesContainer } from './styles';
 
-const ListItems = ({ title, items, itemComponent, actions, count, gridProps }) => {
-  const arrItem = [...items];
-  const breakpoint = useBreakpoint();
-  const counter = {
-    mobile: 3,
-    tablet: 2,
-    lgTablet: 2,
-    desktop: 3,
-  };
-
-  console.log(breakpoint);
-  const randomItemsArr = getRandomItems(arrItem, counter[breakpoint]);
-
+const ListItems = ({ title, items, itemComponent, actions }) => {
   return (
     <Container sx={{ mb: 13 }}>
       <Typography
         variant="h2"
         component="h2"
+        color="text.primary"
         sx={{ textAlign: 'center', mb: 3 }}
       >
         {title}
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={0} sx={gridStylesContainer}>
 
-        { randomItemsArr && randomItemsArr.map((item) => (
+        { items && items.map((item) => (
           // eslint-disable-next-line dot-notation
-          <Grid key={item['_id']} item sx={gridStylesRestaurant} {...gridProps}>
+          <Grid key={item['_id']} item sx={gridStylesItem}>
 
             {createElement(itemComponent, { ...item })}
           </Grid>
@@ -49,8 +36,6 @@ ListItems.propTypes = {
   actions: PropTypes.object,
   items: PropTypes.array,
   itemComponent: PropTypes.func,
-  count: PropTypes.number,
-  gridProps: PropTypes.object,
 };
 
 ListItems.defaultProps = {
@@ -58,8 +43,6 @@ ListItems.defaultProps = {
   actions: {},
   items: [],
   itemComponent: () => {},
-  count: 3,
-  gridProps: {},
 };
 
 export default ListItems;

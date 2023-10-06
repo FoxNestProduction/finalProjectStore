@@ -2,31 +2,31 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  restaurant: [],
+  partners: [],
 };
 
-const restaurantSlice = createSlice({
-  name: 'restaurant',
+const partnersSlice = createSlice({
+  name: 'partners',
   initialState,
   reducers: {
-    setRestaurant(state, action) {
+    setPartners(state, action) {
       // eslint-disable-next-line no-param-reassign
-      state.restaurant = action.payload;
+      state.partners = action.payload;
     },
   },
 });
 
 export const {
-  setRestaurant,
-} = restaurantSlice.actions;
+  setPartners,
+} = partnersSlice.actions;
 
 export const fetchRestaurant = () => async (dispatch) => {
   try {
     const { data } = await axios.get('http://localhost:4000/api/partners');
-    dispatch(setRestaurant(data));
+    dispatch(setPartners(data));
   } catch (err) {
     console.log(err);
   }
 };
 
-export default restaurantSlice.reducer;
+export default partnersSlice.reducer;

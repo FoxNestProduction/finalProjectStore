@@ -8,7 +8,7 @@ import ScrollTop from './components/ScrollTop/ScrollTop';
 import { getProducts } from './redux/slices/productsSlice';
 import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
-import { fetchRestaurant } from './redux/slices/restaurantSlice';
+import { fetchRestaurant } from './redux/slices/partnersSlice';
 
 const App = () => {
   const [products, setProducts] = useState([]);
