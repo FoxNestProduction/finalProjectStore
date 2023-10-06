@@ -48,6 +48,6 @@ export const partnersCardWidth = {
 export const productsCardWidth = {
   mobile: 2,
   tablet: 4,
-  lgTablet: 3,
+  lgTablet: 4,
   desktop: 4,
 };
