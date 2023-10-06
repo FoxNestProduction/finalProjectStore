@@ -20,29 +20,31 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarIcon from '@mui/icons-material/Star';
 import ColorChips from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
+import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const ProductCard = ({ productId }) => {
-  const products = useSelector((state) => state.products.products);
-  /* eslint-disable-next-line no-underscore-dangle */
+const ProductCard = ({ productName }) => {
+  const products = useSelector((state) => state.products.items);
+
+  const nameOfProduct = fixedDecodeURIComponent(productName);
+  // eslint-disable-next-line no-underscore-dangle
+  const dish = products.find((item) => item.name === nameOfProduct);
   // const dish = products.find((item) => item._id === productId);
-  // console.log(products);
-  // console.log(dish1);
 
-  const dish = {
-    _id: '6507a306baee59670a047307',
-    restaurant_name: 'Welcome Pizzeria',
-    name: 'Margherita Pizza',
-    description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves.',
-    currentPrice: 12.99,
-    isFavourite: false,
-    isTranding: true,
-    isSupreme: true,
-    isHealthy: true,
-    rating: 2.3,
-    filterCategories: 'pizza',
-    imageUrl: '../img/pizza/pizza_texas.png',
-    enabled: true,
-  };
+  // const dish = {
+  //   _id: '6507a306baee59670a047307',
+  //   restaurant_name: 'Welcome Pizzeria',
+  //   name: 'Margherita Pizza',
+  //   description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves.',
+  //   currentPrice: 12.99,
+  //   isFavourite: false,
+  //   isTranding: true,
+  //   isSupreme: true,
+  //   isHealthy: true,
+  //   rating: 2.3,
+  //   filterCategories: 'pizza',
+  //   imageUrl: '../img/pizza/pizza_texas.png',
+  //   enabled: true,
+  // };
 
   const {
     name,
@@ -172,11 +174,7 @@ const ProductCard = ({ productId }) => {
 };
 
 ProductCard.propTypes = {
-  productId: PropTypes.string,
-};
-
-ProductCard.defaultProps = {
-  productId: '6507a306baee59670a047307',
+  productName: PropTypes.string.isRequired,
 };
 
 export default ProductCard;

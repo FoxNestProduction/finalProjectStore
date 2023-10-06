@@ -7,11 +7,11 @@ import ListItems from '../../components/ListItems/ListItem';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
 
 const ProductPage = () => {
-  const { productId } = useParams();
+  const { productName } = useParams();
 
   return (
     <Box>
-      <ProductCard productId={productId} />
+      <ProductCard productName={productName} />
       <ListItems />
       <QuestionsList />
     </Box>

@@ -2,18 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
-import { Box, Stack, useMediaQuery } from '@mui/material';
+import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import CardContent from '@mui/material/CardContent';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import ColorChips from '../Chip/Chip';
 import { chipSizeDishes } from '../Chip/styles';
 import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
+import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
 const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
@@ -21,7 +23,7 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
   const isDesktop = useMediaQuery('(min-width: 993px)');
 
   return (
-    <Link to={`Products/${id}`}>
+    <Link to={`/Menu/${fixedEncodeURIComponent(name)}`}>
       <Card sx={sylesContainer}>
         <Box sx={mediaBox}>
           <CardActions disableSpacing sx={favoriteIcon}>
@@ -78,7 +80,6 @@ ProductCardItem.propTypes = {
   imageUrl: PropTypes.string,
   name: PropTypes.string,
   rating: PropTypes.number,
-  // id: PropTypes.string.isRequired, // to-do: замінити на цей рядок, коли дані будуть передаватись зі стора
   id: PropTypes.string,
 };
 
