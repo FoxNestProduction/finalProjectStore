@@ -17,3 +17,9 @@ export const chipBoxchipSizeRestaurant = {
   marginLeft: '32px',
   marginTop: '10px',
 };
+
+export const chipForFavourite = {
+  m: 0,
+  height: '100%',
+  width: 'auto',
+};

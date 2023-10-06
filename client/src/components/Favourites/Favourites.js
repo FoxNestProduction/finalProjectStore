@@ -1,8 +1,13 @@
 import React from 'react';
+import FavouriteItem from '../FevouriteItem/FavouriteItem';
 
 const Favourites = () => {
   return (
-    <div>Favourites</div>
+    <>
+      <h1>Favourutes</h1>
+      <FavouriteItem />
+    </>
+
   );
 };
 

@@ -3,9 +3,10 @@ import ProductPage from '../Product/Product';
 
 const PricingPage = () => {
   return (
-    <h1>
+    <>
+      <h1>Card Product</h1>
       <ProductPage />
-    </h1>
+    </>
   );
 };
 
