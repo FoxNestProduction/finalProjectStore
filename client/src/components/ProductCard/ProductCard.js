@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -23,12 +23,15 @@ import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHea
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 
 const ProductCard = ({ productName }) => {
-  const products = useSelector((state) => state.products.items);
+  const products = useSelector((state) => state.products.items, shallowEqual);
 
   const nameOfProduct = fixedDecodeURIComponent(productName);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
   // const dish = products.find((item) => item._id === productId);
+  console.log('products', products);
+  console.log('nameOfProduct', nameOfProduct);
+  console.log('dish', dish);
 
   // const dish = {
   //   _id: '6507a306baee59670a047307',
