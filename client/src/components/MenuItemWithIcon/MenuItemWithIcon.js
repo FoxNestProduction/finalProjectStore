@@ -10,13 +10,13 @@ const MenuItemWithIcon = ({ navLink, page, icon, onClick }) => {
         <ListItemButton
           sx={{ pl: 3 }}
           component={NavLink}
-          to={`/${page}`}
+          to={`/${page.toLowerCase()}`}
         >
           <ListItemIcon sx={{ minWidth: '50px' }}>
             {icon}
           </ListItemIcon>
           <ListItemText
-            primary={page}
+            primary={page.toLowerCase()}
             sx={{
               '& .MuiTypography-root': {
                 fontSize: '18px',

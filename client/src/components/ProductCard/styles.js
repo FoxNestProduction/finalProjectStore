@@ -95,7 +95,7 @@ export const stylesPriceCard = {
 export const stylesButtonCard = {
   p: '10px',
   borderRadius: '14px',
-  border: 1,
+  border: '1px solid primary.main',
   fontSize: { mobile: '14px', tablet: '18px' },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
   ':hover': {
@@ -116,4 +116,5 @@ export const stylesActionsCard = {
     desktop: '10%',
   },
   p: 0,
+  pb: 1,
 };

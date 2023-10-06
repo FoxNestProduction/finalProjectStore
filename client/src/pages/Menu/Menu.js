@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import Search from '../../components/Search/Search';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
@@ -7,11 +7,23 @@ import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 const MenuPage = () => {
   const itemsFromSearch = useSelector((state) => state.search.search);
   console.log(itemsFromSearch);
+  const products = useSelector((state) => state.products.items, shallowEqual);
+
   return (
     <>
       <Search />
       <RestaurantItem />
-      <ProductCardItem />
+      {/* для перевірки переходу на сторінку блюда при кліку на картку блюда */}
+      {/* {products.slice(0, 6).map(({ price, imageUrl, name, rating, _id: id }) => ( */}
+      {/*  <ProductCardItem */}
+      {/*    key={id} */}
+      {/*    price={price} */}
+      {/*    imageUrl={imageUrl} */}
+      {/*    name={name} */}
+      {/*    rating={rating} */}
+      {/*    id={id} */}
+      {/*  /> */}
+      {/* ))} */}
     </>
   );
 };

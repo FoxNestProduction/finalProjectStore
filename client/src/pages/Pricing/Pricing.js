@@ -1,10 +1,9 @@
 import React from 'react';
-import ProductPage from '../Product/Product';
 
 const PricingPage = () => {
   return (
     <h1>
-      <ProductPage />
+      Pricing
     </h1>
   );
 };

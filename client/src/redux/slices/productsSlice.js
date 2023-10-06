@@ -2,34 +2,28 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  products: [],
+  items: [],
 };
-
-/* eslint-disable no-param-reassign */
 
 const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setProducts(state, action) { // eslint-disable-line no-shadow
-      state.products = action.payload;
+    setProducts(state, action) {
+      state.items = action.payload;
     },
   },
 });
 
+export const { setProducts } = productsSlice.actions;
+
 export const getProducts = () => async (dispatch) => {
   try {
     const { data } = await axios.get('http://localhost:4000/api/products');
-    // console.log(data);
-    // console.log('hello');
-    dispatch(setProducts(data));// eslint-disable-line no-use-before-define
+    dispatch(setProducts(data));
   } catch (error) {
-    console.log('%cError loading products:', 'color: red; font-weight: bold;', error);
+    console.log('Error loading products:', error);
   }
 };
-
-export const { setProducts } = productsSlice.actions;
-
-/* eslint-enable no-param-reassign */
 
 export default productsSlice.reducer;
