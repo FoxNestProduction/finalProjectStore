@@ -5,6 +5,8 @@ import modalSlice from './slices/modalSlice';
 import productsSlice from './slices/productsSlice';
 import authorizationSlice from './slices/authorizationSlice';
 import userSlice from './slices/userSlice';
+import partnersSlice from './slices/partnersSlice';
+import searchSlice from './slices/searchSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -17,6 +19,13 @@ const userPersistConfig = {
   version: 1,
   storage,
 };
+
+const searchPersistConfig = {
+  key: 'search',
+  version: 1,
+  storage,
+};
+
 /*
     todo: - ЗВЕРНІТЬ УВАГУ!
       якщо вам потрібно щоб ваш стейт не зникав після перезавантаження
@@ -29,6 +38,8 @@ const reducer = combineReducers({
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
+  partners: partnersSlice,
+  search: persistReducer(searchPersistConfig, searchSlice),
 });
 
 const middleware = getDefaultMiddleware({

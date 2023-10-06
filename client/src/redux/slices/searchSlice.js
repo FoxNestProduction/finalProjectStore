@@ -1,0 +1,23 @@
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  search: [],
+};
+
+/* eslint-disable no-param-reassign */
+
+const searchSlice = createSlice({
+  name: 'search',
+  initialState,
+  reducers: {
+    setSearch(state, action) { // eslint-disable-line no-shadow
+      state.search = action.payload;
+    },
+  },
+});
+
+export const { setSearch } = searchSlice.actions;
+
+/* eslint-enable no-param-reassign */
+
+export default searchSlice.reducer;

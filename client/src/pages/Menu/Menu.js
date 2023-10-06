@@ -5,6 +5,8 @@ import Search from '../../components/Search/Search';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 
 const MenuPage = () => {
+  const itemsFromSearch = useSelector((state) => state.search.search);
+  console.log(itemsFromSearch);
   return (
     <>
       <Search />
