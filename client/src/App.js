@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './App.scss';
+import { useLocation } from 'react-router';
 import axios from 'axios';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
@@ -12,25 +13,19 @@ import { fetchRestaurant } from './redux/slices/restaurantSlice';
 
 const App = () => {
   const [products, setProducts] = useState([]);
+
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    dispatch(fetchRestaurant());
-    // todo: LS eslint
-
-    // eslint-disable-next-line no-undef
-    const token = localStorage.getItem('token');
-    // eslint-disable-next-line no-undef
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (token) {
-      dispatch(setAuthorization(true));
-      dispatch(setUser(user));
-    }
-  }, [dispatch]);
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(fetchRestaurant());
   }, [dispatch]);
+
   return (
     <>
       <Modal disagree="Close" />
