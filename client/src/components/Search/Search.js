@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -13,75 +13,39 @@ const Search = () => {
   const products = useSelector((state) => state.products.products);
   const partners = useSelector((state) => state.partners.partners);
   const [alignment, setAlignment] = useState('food');
-  // const [nameFromSearch, setNameFromSearch] = useState('');
-  const [value, setValue] = React.useState(products[0]);
   const [inputValue, setInputValue] = React.useState('');
-
-  // useEffect(() => {
-  //   dispatch(setSearch([]));
-  // });
+  const labelForTextField = `Search  ${alignment}`;
 
   const handleChange = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
       setInputValue('');
-      // setNameFromSearch('');
     }
   };
-  const labelForTextField = `Search  ${alignment}`;
 
   const filteredProductsOrRestaurants = (name) => {
-    return (
-    // nameFromSearch.length !== 0 && (alignment === 'food' ? products : partners).filter((el) => {
-      inputValue.length !== 0 && (alignment === 'food' ? products : partners).filter((el) => {
-        return el.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
-      })
-    );
+    return (alignment === 'food' ? products : partners).filter((el) => {
+      return el.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
+    });
   };
-
-  // const handleChangeNameFromSearch = (event, newValue) => {
-  //   if (newValue !== null) {
-  //     setNameFromSearch(newValue);
-  //     // dispatch(setSearch(filteredProductsOrRestaurants(nameFromSearch)));
-  //     dispatch(setSearch(filteredProductsOrRestaurants(inputValue)));
-  //   } else {
-  //     dispatch(setSearch(filteredProductsOrRestaurants([])));
-  //   }
-  // };
 
   const handleInputChange = (event, newInputValue) => {
     setInputValue(newInputValue);
-    console.log(newInputValue);
     if (newInputValue.length === 0) {
-      setValue('');
+      dispatch(setSearch([]));
     }
     if (newInputValue.length !== 0) {
       dispatch(setSearch(filteredProductsOrRestaurants(newInputValue)));
     }
   };
 
-  // console.log(nameFromSearch);
-  // console.log(filteredProductsOrRestaurants(nameFromSearch));
-  // console.log(filteredProductsOrRestaurants(inputValue));
-
-  // dispatch(setSearch(filteredProductsOrRestaurants(nameFromSearch)));
-
   return (
     <Stack sx={stylesWrap}>
       <Stack spacing={2} sx={{ stylesSearch }}>
-        {/* <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div> */}
         <div>{`inputValue: '${inputValue}'`}</div>
         <Autocomplete
-          // value=""
-          blurOnSelect="true"
-          // value={value}
-          // clearOnBlur="true"
-          // onChange={(event, newValue) => {
-          //   setValue(newValue);
-          // }}
           inputValue={inputValue}
           onInputChange={handleInputChange}
-          // onChange={handleChangeNameFromSearch}
           freeSolo
           id="search"
           disableClearable

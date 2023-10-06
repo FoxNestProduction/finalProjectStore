@@ -88,14 +88,14 @@ exports.loginCustomer = async (req, res, next) => {
       // console.log(isValid);
       return res.status(400).json(errors);
   }
-    // todo:  need to refactor loginOrEmail
-  const loginOrEmail = req.body.email;
+    // todo:  need to refactor email
+  const email = req.body.email;
   const password = req.body.password;
   const configs = await getConfigs();
 
     // Find customer by email
   Customer.findOne({
-    $or: [{ email: loginOrEmail }, { login: loginOrEmail }]
+    $or: [{ email: email }, { login: email }]
   })
     .then(customer => {
 
@@ -103,7 +103,7 @@ exports.loginCustomer = async (req, res, next) => {
       if (!customer) {
           console.log(customer);
 
-          errors.loginOrEmail = "Customer not found";
+          errors.email = "Customer not found";
         return res.status(404).json(errors);
       }
 

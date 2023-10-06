@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   search: [],
+  key: '',
 };
 
 /* eslint-disable no-param-reassign */
@@ -12,6 +13,7 @@ const searchSlice = createSlice({
   reducers: {
     setSearch(state, action) { // eslint-disable-line no-shadow
       state.search = action.payload;
+      state.key = action.payload;
     },
   },
 });
