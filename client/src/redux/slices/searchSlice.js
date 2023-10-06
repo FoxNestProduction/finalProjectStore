@@ -13,12 +13,15 @@ const searchSlice = createSlice({
   reducers: {
     setSearch(state, action) { // eslint-disable-line no-shadow
       state.search = action.payload;
+    },
+    setKey(state, action) { // eslint-disable-line no-shadow
       state.key = action.payload;
+      console.log(action.payload);
     },
   },
 });
 
-export const { setSearch } = searchSlice.actions;
+export const { setSearch, setKey } = searchSlice.actions;
 
 /* eslint-enable no-param-reassign */
 

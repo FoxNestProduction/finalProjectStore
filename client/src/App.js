@@ -25,7 +25,6 @@ const App = () => {
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getPartners());
-    dispatch(fetchRestaurant());
   }, [dispatch]);
 
   return (

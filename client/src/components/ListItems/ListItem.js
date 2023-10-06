@@ -1,7 +1,7 @@
 import React, { createElement } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import PropTypes from 'prop-types';
+import PropTypes, { bool, string } from 'prop-types';
 import Grid from '@mui/material/Grid';
 import { gridStylesRestaurant } from './styles';
 import getRandomItems from '../../utils/getRandomItems';
@@ -35,7 +35,7 @@ const ListItems = ({ title, items, itemComponent, actions, count, gridProps }) =
 };
 
 ListItems.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.oneOfType(string, bool),
   actions: PropTypes.object,
   items: PropTypes.array,
   itemComponent: PropTypes.func,

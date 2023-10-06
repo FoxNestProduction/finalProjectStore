@@ -6,11 +6,11 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
 import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
-import { setSearch } from '../../redux/slices/searchSlice';
+import { setSearch, setKey } from '../../redux/slices/searchSlice';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.products);
+  const products = useSelector((state) => state.products.items);
   const partners = useSelector((state) => state.partners.partners);
   const [alignment, setAlignment] = useState('food');
   const [inputValue, setInputValue] = React.useState('');
@@ -20,6 +20,7 @@ const Search = () => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
       setInputValue('');
+      dispatch(setSearch([]));
     }
   };
 
@@ -36,6 +37,7 @@ const Search = () => {
     }
     if (newInputValue.length !== 0) {
       dispatch(setSearch(filteredProductsOrRestaurants(newInputValue)));
+      dispatch(setKey(alignment));
     }
   };
 
