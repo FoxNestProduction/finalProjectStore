@@ -37,7 +37,7 @@ const reducer = combineReducers({
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
-  favourites: favouriteSlice,
+  favourites: persistReducer(authPersistConfig, favouriteSlice),
 });
 
 const middleware = getDefaultMiddleware({

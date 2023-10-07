@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
+import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { CardActions, CardContent, CardMedia, Rating, Button, Box, Card } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -8,22 +10,11 @@ import ColorChips from '../Chip/Chip';
 import { chipForFavourite } from '../Chip/styles';
 import { stylesButton, styleCardFavourite, styleMediaFavourite, styleContentFavourite } from './styles';
 
-const FavouriteItem = () => {
-  const dish = {
-    _id: '6507a306baee59670a047307',
-    restaurant_name: 'Welcome Pizzeria',
-    name: 'Margherita Pizza',
-    description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves.',
-    currentPrice: 12.99,
-    isFavourite: false,
-    isTranding: true,
-    isSupreme: true,
-    isHealthy: true,
-    rating: 4.3,
-    filterCategories: 'pizza',
-    imageUrl: '../img/seaFood/crab.png',
-    enabled: true,
-  };
+const FavouriteItem = ({ favourite }) => {
+  const products = useSelector((state) => state.products.products, shallowEqual);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const dish = products.find((item) => (item._id) === favourite);
 
   const {
     name,
@@ -54,7 +45,7 @@ const FavouriteItem = () => {
               isHealthy={isHealthy}
               customStyles={chipForFavourite}
             />
-            <Rating name="half-rating" value={rating} size="small" readOnly sx={{ color: 'primary.main' }} />
+            <Rating name="half-rating" size="small" value={rating} readOnly sx={{ color: 'primary.main' }} />
           </Box>
           <Box>
             <Typography
@@ -86,6 +77,10 @@ const FavouriteItem = () => {
       </CardActions>
     </Card>
   );
+};
+
+FavouriteItem.propTypes = {
+  favourite: PropTypes.string.isRequired,
 };
 
 export default FavouriteItem;

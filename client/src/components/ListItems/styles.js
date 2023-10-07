@@ -28,12 +28,7 @@ export const gridStylesItemPartners = {
 };
 
 export const gridStylesItemProducts = {
-  gridTemplate: {
-    mobile: 'repeat(2, 1fr)',
-    tablet: 'repeat(2, 1fr)',
-    lgTablet: 'repeat(4, 1fr)',
-  },
-  display: 'flex',
+  display: 'grid',
   justifyContent: 'center',
   alignItems: 'center',
   maxWidth: { mobile: '50%', tablet: '50%', lgTablet: '25%', desktop: '25%' },
