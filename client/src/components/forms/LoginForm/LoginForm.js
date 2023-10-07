@@ -153,7 +153,7 @@ const LoginForm = () => {
               </Box>
               <Link
                 component={NavLink}
-                to="/forgetPassword"
+                to="/forget-password"
                 underline="none"
                 sx={forgetPassword}
               >

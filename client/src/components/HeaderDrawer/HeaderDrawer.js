@@ -67,7 +67,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
                   // },
                 }}
                 component={NavLink}
-                to={`/${page}`}
+                to={`/${page.toLowerCase()}`}
               >
                 <ListItemText
                   primary={page}
