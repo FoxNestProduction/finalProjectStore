@@ -11,6 +11,7 @@ import userSlice from './slices/userSlice';
 import errorSlice from './slices/errorSlice';
 import restaurantSlice from './slices/restaurantSlice';
 import reviewsSlice from './slices/reviewsSlice';
+import customersSlice from './slices/customersSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -38,6 +39,7 @@ const reducer = combineReducers({
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
   reviews: persistReducer(userPersistConfig, reviewsSlice),
+  customers: customersSlice,
 });
 
 const middleware = getDefaultMiddleware({

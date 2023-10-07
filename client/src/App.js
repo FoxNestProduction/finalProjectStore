@@ -11,6 +11,7 @@ import { setAuthorization } from './redux/slices/authorizationSlice';
 import { setUser } from './redux/slices/userSlice';
 import { fetchRestaurant } from './redux/slices/restaurantSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
+import { getCustomers } from './redux/slices/customersSlice';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -26,6 +27,7 @@ const App = () => {
     dispatch(getProducts());
     dispatch(fetchRestaurant());
     dispatch(getReviews());
+    dispatch(getCustomers());
   }, [dispatch]);
 
   return (

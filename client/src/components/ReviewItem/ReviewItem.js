@@ -13,13 +13,18 @@ import { Container } from '@mui/material';
 
 import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent } from './styles';
 
-const ReviewItem = ({ _id }) => {
+const ReviewItem = (review) => {
   const [isShow, setIsShow] = useState(false);
+  const { _id: id, user_id: idUser, rating, comment } = review;
   const reviews = useSelector((state) => state.reviews.reviews);
+  const customers = useSelector((state) => state.customers.customers);
   /* eslint-disable-next-line no-underscore-dangle */
-  const reviewItem = reviews.find((item) => item._id === _id);
-  // console.log(reviews);
-  // console.log(reviewItem);
+  // const reviewItem = reviews.find((item) => item._id === id);
+  /* eslint-disable-next-line no-underscore-dangle */
+  // const user = customers.find((item) => item._id === idUser);
+  // const { firstName, lastName, avatarUrl } = user;
+  console.log(reviews);
+  console.log(customers);
 
   const user = {
     _id: '650762989d951058716e2f85',
@@ -27,8 +32,7 @@ const ReviewItem = ({ _id }) => {
     lastName: 'Kacher',
     avatarUrl: '',
   };
-  const { id, firstName, lastName, avatarUrl } = user;
-  const { rating, comment } = reviewItem;
+  const { firstName, lastName, avatarUrl } = user;
   const ratingNumber = Number(rating);
 
   return (
@@ -64,12 +68,8 @@ const ReviewItem = ({ _id }) => {
   );
 };
 
-ReviewItem.propTypes = {
-  _id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
-
-ReviewItem.defaultProps = {
-  _id: '651dce27e5fb5c72c69f0abc',
-};
+// ReviewItem.propTypes = {
+//   review: PropTypes.object,
+// };
 
 export default ReviewItem;
