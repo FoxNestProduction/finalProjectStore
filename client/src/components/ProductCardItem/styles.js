@@ -1,10 +1,24 @@
 export const sylesContainer = {
-  height: '100%',
-  maxWidth: {
-    mobile: '146px',
-    tablet: '159px',
-    desktop: '225px',
+  minHeight: {
+    mobile: '246px',
+    tablet: '259px',
+    desktop: '397px',
   },
+  // maxHeight: {
+  //   mobile: '246px',
+  //   tablet: '259px',
+  //   desktop: '397px',
+  // },
+  width: {
+    mobile: '132px',
+    tablet: '169px',
+    desktop: '195px',
+  },
+  // maxWidth: {
+  //   mobile: '146px',
+  //   tablet: '179px',
+  //   desktop: '225px',
+  // },
   display: 'flex',
   flexDirection: 'column',
   boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
