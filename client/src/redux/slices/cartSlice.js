@@ -35,10 +35,28 @@ const cartSlice = createSlice({
        */
     },
     setCart(state, action) {
-      state.cartItems = action.payload;
-
-      // в розробці логіка злиття тієї інформації яка вже є
-      //  в localStorage, та яка приходить з сервера
+      if (state.cartItems.length === 0) {
+        state.cartItems = action.payload;
+      } else {
+        const uniqueFilteredProducts = action.payload.products.filter((product) => {
+          const matchedProduct = state.cartItems
+            .find((cartItem) => cartItem.item.id !== product.id);
+          const mark = matchedProduct !== undefined;
+          return mark;
+        });
+        const notUniqueFilteredProducts = action.payload.products.filter((product) => {
+          const matchedProduct = state.cartItems
+            .find((cartItem) => cartItem.item.id === product.id);
+          const mark = matchedProduct !== undefined;
+          return mark;
+        }).map((product) => {
+          const matchedProduct = state.cartItems
+            .find((cartItem) => cartItem.item.id === product.id);
+          product.quantity += matchedProduct.quantity;
+          return product;
+        });
+        state.cartItems = { ...uniqueFilteredProducts, ...notUniqueFilteredProducts };
+      }
     },
     setIsLoading(state, action) {
       state.isLoading = action.payload;
@@ -75,17 +93,31 @@ export const getCartItemsFromServer = () => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
     const userId = useSelector((state) => state.user.user.id);
-    const { data } = await axios.get('http://localhost:4000/cart'); // якщо data undefined, то нічого не передаємо в кошик
+    const { data } = await axios.get('http://localhost:4000/cart');
+
+    if (data !== null && data !== undefined) {
+      const cartContainer = data.find((cartObj) => cartObj.customerId.id === userId);
+
+      if (cartContainer !== null && data !== undefined) {
+        dispatch(setIsCart(true));
+        dispatch(setCart(cartContainer));
+      } else {
+        dispatch(setIsCart(false));
+      }
+    } else {
+      dispatch(setIsCart(false));
+    }
+    // якщо data undefined, то нічого не передаємо в кошик
     // а isCart(true or false). Код далі не виконується і дані на сторінці відмальовуються
     // тільки зі стора
-    const cartContainer = data.find((cartObj) => cartObj.customerId.id === userId);
 
-    dispatch(setCart(cartContainer)); // якщо ми тут оновимо state то оновиться і localStorage
+    // dispatch(setCart(cartContainer)); // якщо ми тут оновимо state то оновиться і localStorage
     //  тому тут потрібно написати логіку злиття даних з localStorage з даними з сервера.
     dispatch(setIsLoading(false));
   } catch (error) {
     console.warn('Error loading cart:', error);
     dispatch(setIsLoading(false));
+    dispatch(setIsCart(false));
   }
 };
 
