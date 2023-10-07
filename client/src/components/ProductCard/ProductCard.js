@@ -33,22 +33,6 @@ const ProductCard = ({ productName }) => {
   console.log('nameOfProduct', nameOfProduct);
   console.log('dish', dish);
 
-  // const dish = {
-  //   _id: '6507a306baee59670a047307',
-  //   restaurant_name: 'Welcome Pizzeria',
-  //   name: 'Margherita Pizza',
-  //   description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves.',
-  //   currentPrice: 12.99,
-  //   isFavourite: false,
-  //   isTranding: true,
-  //   isSupreme: true,
-  //   isHealthy: true,
-  //   rating: 2.3,
-  //   filterCategories: 'pizza',
-  //   imageUrl: '../img/pizza/pizza_texas.png',
-  //   enabled: true,
-  // };
-
   const {
     name,
     description,
@@ -114,10 +98,6 @@ const ProductCard = ({ productName }) => {
                     name="half-rating"
                     value={rating}
                     size="medium"
-                    // precision={0.5}
-                    // emptyIcon={<StarIcon size="inherit" />}
-                    // icon={<StarIcon size="inherit" />}
-                    // halfIcon={<StarHalfIcon size="inherit" />}
                     readOnly
                     sx={{ color: 'primary.main' }}
                   />
