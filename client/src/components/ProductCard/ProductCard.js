@@ -23,7 +23,7 @@ import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHea
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 
 const ProductCard = ({ productName }) => {
-  const products = useSelector((state) => state.products.items, shallowEqual);
+  const products = useSelector((state) => state.products.products, shallowEqual);
 
   const nameOfProduct = fixedDecodeURIComponent(productName);
   // eslint-disable-next-line no-underscore-dangle
