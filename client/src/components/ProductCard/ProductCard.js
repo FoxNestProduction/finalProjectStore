@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -20,29 +20,34 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarIcon from '@mui/icons-material/Star';
 import ColorChips from '../Chip/Chip';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
+import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const ProductCard = ({ _id }) => {
-  const products = useSelector((state) => state.products.products);
-  /* eslint-disable-next-line no-underscore-dangle */
-  // const dish = products.find((item) => item._id === _id);
-  // console.log(products);
-  // console.log(dish1);
+const ProductCard = ({ productName }) => {
+  const products = useSelector((state) => state.products.products, shallowEqual);
 
-  const dish = {
-    _id: '6507a306baee59670a047307',
-    restaurant_name: 'Welcome Pizzeria',
-    name: 'Margherita Pizza',
-    description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves.',
-    currentPrice: 12.99,
-    isFavourite: false,
-    isTranding: true,
-    isSupreme: true,
-    isHealthy: true,
-    rating: 2.3,
-    filterCategories: 'pizza',
-    imageUrl: '../img/pizza/pizza_texas.png',
-    enabled: true,
-  };
+  const nameOfProduct = fixedDecodeURIComponent(productName);
+  // eslint-disable-next-line no-underscore-dangle
+  const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
+  // const dish = products.find((item) => item._id === productId);
+  console.log('products', products);
+  console.log('nameOfProduct', nameOfProduct);
+  console.log('dish', dish);
+
+  // const dish = {
+  //   _id: '6507a306baee59670a047307',
+  //   restaurant_name: 'Welcome Pizzeria',
+  //   name: 'Margherita Pizza',
+  //   description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves.',
+  //   currentPrice: 12.99,
+  //   isFavourite: false,
+  //   isTranding: true,
+  //   isSupreme: true,
+  //   isHealthy: true,
+  //   rating: 2.3,
+  //   filterCategories: 'pizza',
+  //   imageUrl: '../img/pizza/pizza_texas.png',
+  //   enabled: true,
+  // };
 
   const {
     name,
@@ -172,11 +177,7 @@ const ProductCard = ({ _id }) => {
 };
 
 ProductCard.propTypes = {
-  _id: PropTypes.string,
-};
-
-ProductCard.defaultProps = {
-  _id: '6507a306baee59670a047307',
+  productName: PropTypes.string.isRequired,
 };
 
 export default ProductCard;

@@ -98,7 +98,7 @@ const Header = () => {
                   <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                     <Button
                       component={NavLink}
-                      to={`/${page}`}
+                      to={`/${page.toLowerCase()}`}
                       sx={stylesNavMenuItem}
                     >
                       {page}
@@ -119,14 +119,14 @@ const Header = () => {
 
               <Box sx={stylesIconsWrapper}>
                 {isUserAuthorized && (
-                <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/Favourites">
+                <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
                   <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
                     <FavoriteBorderOutlinedIcon sx={stylesIcon} />
                   </Badge>
                 </IconButton>
                 )}
 
-                <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/Cart">
+                <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/cart">
                   <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
                     <ShoppingCartOutlinedIcon sx={stylesIcon} />
                   </Badge>
