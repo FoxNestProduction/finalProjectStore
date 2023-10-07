@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { Container, Stack } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import Search from '../../components/Search/Search';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
@@ -28,7 +27,7 @@ const MenuPage = () => {
         items={itemsFromSearch}
         itemComponent={key === 'food' ? ProductCardItem : RestaurantItem}
         actions={null}
-        // count={3}
+        count={3}
         gridProps={gridWidthRestaurant}
       />
       {/* <RestaurantItem /> */}

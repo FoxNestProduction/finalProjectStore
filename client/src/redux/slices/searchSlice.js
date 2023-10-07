@@ -16,7 +16,6 @@ const searchSlice = createSlice({
     },
     setKey(state, action) { // eslint-disable-line no-shadow
       state.key = action.payload;
-      console.log(action.payload);
     },
   },
 });

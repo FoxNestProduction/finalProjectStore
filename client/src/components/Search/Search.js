@@ -44,7 +44,6 @@ const Search = () => {
   return (
     <Stack sx={stylesWrap}>
       <Stack spacing={2} sx={{ stylesSearch }}>
-        <div>{`inputValue: '${inputValue}'`}</div>
         <Autocomplete
           inputValue={inputValue}
           onInputChange={handleInputChange}
