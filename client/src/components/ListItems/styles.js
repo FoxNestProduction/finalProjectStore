@@ -31,7 +31,7 @@ export const gridStylesItemProducts = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  maxWidth: { lgTablet: '50%', desktop: '50%' },
+  maxWidth: { mobile: '48%', tablet: '48%', lgTablet: '50%', desktop: '50%' },
   transition: 'transform 0.3s',
   '&:hover': {
     transform: 'scale(1.05)',
@@ -46,7 +46,7 @@ export const partnersCardWidth = {
 };
 
 export const productsCardWidth = {
-  mobile: 2,
+  mobile: 4,
   tablet: 4,
   lgTablet: 4,
   desktop: 4,
