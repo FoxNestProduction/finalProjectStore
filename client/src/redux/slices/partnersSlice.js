@@ -5,30 +5,26 @@ const initialState = {
   partners: [],
 };
 
-/* eslint-disable no-param-reassign */
-
 const partnersSlice = createSlice({
   name: 'partners',
   initialState,
   reducers: {
-    setPartners(state, action) { // eslint-disable-line no-shadow
+    setPartners(state, action) {
+      // eslint-disable-next-line no-param-reassign
       state.partners = action.payload;
     },
   },
 });
 
+export const { setPartners } = partnersSlice.actions;
+
 export const getPartners = () => async (dispatch) => {
   try {
     const { data } = await axios.get('http://localhost:4000/api/partners');
-    // console.log(data);
-    dispatch(setPartners(data));// eslint-disable-line no-use-before-define
-  } catch (error) {
-    console.log('%cError loading products:', 'color: red; font-weight: bold;', error);
+    dispatch(setPartners(data));
+  } catch (err) {
+    console.log('%cError loading products:', 'color: red; font-weight: bold;', err);
   }
 };
-
-export const { setPartners } = partnersSlice.actions;
-
-/* eslint-enable no-param-reassign */
 
 export default partnersSlice.reducer;

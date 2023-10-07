@@ -4,16 +4,19 @@ import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import Search from '../../components/Search/Search';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
-import { gridWidthRestaurant } from '../../components/ListItems/styles';
 import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
+import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
+import useSortedItems from '../../customHooks/useSortedItems';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
   const itemsFromSearch = useSelector((state) => state.search.search);
-  const key = useSelector((state) => state.search.key);
-  console.log(itemsFromSearch);
-  // const products = useSelector((state) => state.products.items, shallowEqual);
+  const keyFromSearch = useSelector((state) => state.search.key);
+  const partners = useSelector((state) => state.partners.partners, shallowEqual);
+  const sortedPartners = useSortedItems(partners, partnersCardWidth);
+  const products = useSelector((state) => state.products.products);
+  const sortedProducts = useSortedItems(products, productsCardWidth);
 
   useEffect(() => {
     dispatch(setSearch([]));
@@ -23,14 +26,21 @@ const MenuPage = () => {
     <>
       <Search />
       <ListItems
-        title={itemsFromSearch.length !== 0 && (key === 'food' ? 'Our Dishes' : 'Our Restaurants')}
+        title={itemsFromSearch.length !== 0 && (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}
         items={itemsFromSearch}
-        itemComponent={key === 'food' ? ProductCardItem : RestaurantItem}
+        itemComponent={keyFromSearch === 'food' ? ProductCardItem : RestaurantItem}
         actions={null}
-        count={3}
-        gridProps={gridWidthRestaurant}
+        type={keyFromSearch === 'food' ? '' : 'partners'}
       />
       {/* <RestaurantItem /> */}
+      <ListItems
+        title="Our Top Restaurants"
+        items={sortedPartners}
+        itemComponent={RestaurantItem}
+        actions={<ListItemAction />}
+        type="partners"
+      />
+      <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
       {/* для перевірки переходу на сторінку блюда при кліку на картку блюда */}
       {/* {products.slice(0, 6).map(({ price, imageUrl, name, rating, _id: id }) => ( */}
       {/*  <ProductCardItem */}

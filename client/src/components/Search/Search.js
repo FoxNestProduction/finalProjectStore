@@ -10,7 +10,7 @@ import { setSearch, setKey } from '../../redux/slices/searchSlice';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.items);
+  const products = useSelector((state) => state.products.products);
   const partners = useSelector((state) => state.partners.partners);
   const [alignment, setAlignment] = useState('food');
   const [inputValue, setInputValue] = React.useState('');
@@ -50,7 +50,7 @@ const Search = () => {
           freeSolo
           id="search"
           disableClearable
-          options={alignment === 'food' ? products.map((option) => option.name) : partners.map((option) => option.name)} // eslint-disable-line
+          options={alignment === 'food' ? products.map((option) => option.name) : partners.map((option) => option.name)}
           renderInput={(params) => (
             <TextField
               sx={stylesBorder}

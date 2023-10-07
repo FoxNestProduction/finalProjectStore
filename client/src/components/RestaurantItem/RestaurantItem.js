@@ -27,7 +27,8 @@ const RestaurantItem = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
         flexWrap: 'wrap',
         maxWidth: {
           mobile: 315,
-          lgTablet: 395,
+          lgTablet: 281,
+          desktop: 385,
         },
         boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
       }}
@@ -35,12 +36,8 @@ const RestaurantItem = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
 
       <CardMedia
         component="img"
-        height={{
-          mobile: 140,
-          tablet: 125,
-          desktop: 177,
-        }}
-        image="./img/restaurants/Resturent01.jpg"
+        height="160px"
+        image={imageUrl}
         alt={name}
       />
       <Box

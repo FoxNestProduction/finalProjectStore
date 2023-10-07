@@ -5,20 +5,20 @@ import ListItems from '../../components/ListItems/ListItem';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
-import { gridWidthRestaurant, gridWidthDishes } from '../../components/ListItems/styles';
+import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
+import useSortedItems from '../../customHooks/useSortedItems';
 
 const HomePage = () => {
-  const itemsRestaurant = useSelector((state) => state.restaurant.restaurant, shallowEqual);
-  const itemsDishes = useSelector((state) => state.products.items, shallowEqual);
-  console.log(itemsRestaurant);
+  const partners = useSelector((state) => state.partners.partners, shallowEqual);
+  const sortedPartners = useSortedItems(partners, partnersCardWidth);
+  const products = useSelector((state) => state.products.products);
+  const sortedProducts = useSortedItems(products, productsCardWidth);
+  console.log(products);
   return (
     <>
       <SectionGetStarted />
-      <ListItems title="Our Top Restaurants" items={itemsRestaurant} itemComponent={RestaurantItem} actions={<ListItemAction />} count={3} gridProps={gridWidthRestaurant} />
-      {/* <ListItems title="Our Top Dishes" items={itemsRestaurant} */}
-      {/*           itemComponent={ProductCardItem} actions={<ListItemAction />} count={5} */}
-      {/*           gridProps={gridWidthDishes} /> */}
-      <ListItems title="Our Top Dishes" items={itemsDishes} itemComponent={ProductCardItem} actions={<ListItemAction />} count={5} gridProps={gridWidthDishes} />
+      <ListItems title="Our Top Restaurants" items={sortedPartners} itemComponent={RestaurantItem} actions={<ListItemAction />} type="partners" />
+      <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
     </>
   );
 };

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  items: [],
+  products: [],
 };
 
 const productsSlice = createSlice({
@@ -10,7 +10,7 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     setProducts(state, action) {
-      state.items = action.payload;
+      state.products = action.payload;
     },
   },
 });

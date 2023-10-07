@@ -11,7 +11,6 @@ import userSlice from './slices/userSlice';
 import partnersSlice from './slices/partnersSlice';
 import searchSlice from './slices/searchSlice';
 import errorSlice from './slices/errorSlice';
-import restaurantSlice from './slices/restaurantSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -41,11 +40,10 @@ const searchPersistConfig = {
 const reducer = combineReducers({
   error: errorSlice,
   modal: modalSlice,
-  restaurant: restaurantSlice,
+  partners: partnersSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
-  partners: partnersSlice,
   search: persistReducer(searchPersistConfig, searchSlice),
 });
 
