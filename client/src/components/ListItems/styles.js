@@ -22,7 +22,7 @@ export const gridWidthRestaurant = {
 };
 
 export const gridWidthDishes = {
-  mobile: 12,
-  lgTablet: 2,
-  desktop: 2,
+  mobile: 6,
+  lgTablet: 4,
+  desktop: 4,
 };

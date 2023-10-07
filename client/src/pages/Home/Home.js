@@ -9,12 +9,13 @@ import { gridWidthRestaurant, gridWidthDishes } from '../../components/ListItems
 
 const HomePage = () => {
   const itemsRestaurant = useSelector((state) => state.restaurant.restaurant, shallowEqual);
-  console.log(itemsRestaurant);
+  const itemDishes = useSelector((state) => state.products.products, shallowEqual);
+  console.log(itemDishes);
   return (
     <>
       <SectionGetStarted />
       <ListItems title="Our Top Restaurants" items={itemsRestaurant} itemComponent={RestaurantItem} actions={<ListItemAction />} count={3} gridProps={gridWidthRestaurant} />
-      <ListItems title="Our Top Dishes" items={itemsRestaurant} itemComponent={ProductCardItem} actions={<ListItemAction />} count={5} gridProps={gridWidthDishes} />
+      <ListItems title="Our Top Dishes" items={itemDishes} itemComponent={ProductCardItem} actions={<ListItemAction />} count={4} gridProps={gridWidthDishes} />
     </>
   );
 };

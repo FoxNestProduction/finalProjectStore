@@ -21,7 +21,6 @@ export const getProducts = () => async (dispatch) => {
   try {
     const { data } = await axios.get('http://localhost:4000/api/products');
     console.log(data);
-    console.log('hello');
     dispatch(setProducts(data));// eslint-disable-line no-use-before-define
   } catch (error) {
     console.log('%cError loading products:', 'color: red; font-weight: bold;', error);

@@ -55,7 +55,7 @@ const ProductCardItem = ({ price, imageUrl, name, rating, setCartItems, isFavour
         <CardMedia
           component="img"
           sx={cardMedia}
-          image={imageUrl}
+          image="./img/salads/3.png"
           title="green iguana"
         />
       </Box>

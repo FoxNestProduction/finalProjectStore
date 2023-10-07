@@ -15,6 +15,7 @@ const ListItems = ({ title, items, itemComponent, actions, count, gridProps }) =
       <Typography
         variant="h2"
         component="h2"
+        color="text.primary"
         sx={{ textAlign: 'center', mb: 3 }}
       >
         {title}
