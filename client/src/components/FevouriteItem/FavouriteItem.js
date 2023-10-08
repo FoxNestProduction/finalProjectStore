@@ -1,18 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, shallowEqual } from 'react-redux';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { CardActions, CardContent, CardMedia, Rating, Button, Box, Card } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import IconButton from '@mui/material/IconButton';
 import ColorChips from '../Chip/Chip';
 import { chipForFavourite } from '../Chip/styles';
 import { stylesButton, styleCardFavourite, styleMediaFavourite, styleContentFavourite } from './styles';
+import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
+import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
 const FavouriteItem = ({ favourite }) => {
   const products = useSelector((state) => state.products.products, shallowEqual);
-
+  // const favourite = useSelector((state) => state.favourites.favourites);
+  // const dish = useSelector((state) => state.favourites.favourites, shallowEqual);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => (item._id) === favourite);
 
@@ -24,10 +26,12 @@ const FavouriteItem = ({ favourite }) => {
     imageUrl,
     isSupreme,
     isHealthy,
+    _id,
   } = dish;
 
   return (
     <Card sx={styleCardFavourite}>
+      {/* <Link to={`/menu/${fixedEncodeURIComponent(name)}`}> */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <CardMedia
           component="img"
@@ -57,6 +61,7 @@ const FavouriteItem = ({ favourite }) => {
           </Box>
         </CardContent>
       </Box>
+      {/* </Link> */}
       <CardActions sx={{ alignItems: 'flex-end', p: 0 }}>
         <Button
           variant="outline"
@@ -71,9 +76,7 @@ const FavouriteItem = ({ favourite }) => {
         </Button>
       </CardActions>
       <CardActions sx={{ position: 'absolute', top: '0', right: '0' }}>
-        <IconButton>
-          <FavoriteIcon fontSize="large" />
-        </IconButton>
+        <FavouriteIcon id={_id} />
       </CardActions>
     </Card>
   );

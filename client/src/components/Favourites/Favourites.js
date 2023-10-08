@@ -13,7 +13,7 @@ const Favourites = () => {
   const isMobile = useMediaQuery('(max-width: 689px)');
   const isLgTablet = useMediaQuery('(min-width: 690px)');
   const products = useSelector((state) => state.products.products);
-  const { favourite } = useSelector((state) => state.user.user);
+  const favourite = useSelector((state) => state.favourites.favourites);
   // eslint-disable-next-line no-underscore-dangle
   const favouritesList = favourite.map((item) => products.find((product) => product._id === item));
 

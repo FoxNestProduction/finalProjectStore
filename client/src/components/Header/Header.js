@@ -34,6 +34,7 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
+import { setFavourite } from '../../redux/slices/favouriteSlice';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -59,6 +60,7 @@ const Header = () => {
   if (isUserAuthorized) {
     cartAmount = cart.length;
     favouritesAmount = favourite.length;
+    dispatch(setFavourite(favourite));
   }
 
   const handleOpenDrawer = () => {
