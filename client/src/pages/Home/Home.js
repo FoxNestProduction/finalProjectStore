@@ -6,18 +6,14 @@ import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
 import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
-import useBreakpoint from '../../customHooks/useBreakpoint';
+import useSortedItems from '../../customHooks/useSortedItems';
 
 const HomePage = () => {
-  const breakpoint = useBreakpoint();
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
-  const sortedPartners = partners.slice()
-    .sort((a, b) => b.rating - a.rating).slice(0, partnersCardWidth[breakpoint]);
+  const sortedPartners = useSortedItems(partners, partnersCardWidth);
   const products = useSelector((state) => state.products.products);
+  const sortedProducts = useSortedItems(products, productsCardWidth);
   console.log(products);
-  const sortedProducts = products.slice()
-    .sort((a, b) => b.rating - a.rating).slice(0, productsCardWidth[breakpoint]);
-
   return (
     <>
       <SectionGetStarted />

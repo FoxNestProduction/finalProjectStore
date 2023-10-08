@@ -28,7 +28,7 @@ export const gridStylesItemPartners = {
 };
 
 export const gridStylesItemProducts = {
-  display: 'flex',
+  display: 'grid',
   justifyContent: 'center',
   alignItems: 'center',
   maxWidth: { mobile: '48%', tablet: '48%', lgTablet: '50%', desktop: '50%' },
