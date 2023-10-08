@@ -9,6 +9,7 @@ export const actionsStyle = {
 
 export const linkStyles = {
   display: 'flex',
+  alignItems: 'center',
   borderRadius: '16px',
   backgroundColor: 'rgba(0,0,0,0.03)',
   padding: '10px',
