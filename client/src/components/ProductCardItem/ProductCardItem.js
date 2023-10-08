@@ -23,10 +23,7 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
   const isDesktop = useMediaQuery('(min-width: 993px)');
 
   return (
-    <Link
-      to={`/menu/${fixedEncodeURIComponent(name)}`}
-
-    >
+    <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
       <Card sx={sylesContainer}>
         <Box sx={mediaBox}>
           <CardActions disableSpacing sx={favoriteIcon}>
@@ -37,7 +34,6 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
           <CardMedia
             component="img"
             image={imageUrl}
-            // title="green iguana"
             sx={cardMedia}
           />
         </Box>
