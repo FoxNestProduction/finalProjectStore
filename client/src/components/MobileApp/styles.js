@@ -22,12 +22,16 @@ export const section = {
 };
 
 export const descriptionBox = {
-  ...flexCenter,
+  display: 'flex',
+  alignItems: {
+    mobile: 'center',
+    tablet: 'flex-start',
+  },
+  justifyContent: 'center',
   flexDirection: 'column',
   rowGap: {
     mobile: '35px',
-    tablet: '45px',
-    desktop: '140px',
+    desktop: '45px',
   },
 };
 
@@ -40,6 +44,13 @@ export const titleAccent = {
 export const list = {
   listStyle: 'disc',
   color: 'text.primary',
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: {
+    mobile: '16px',
+    teblet: '20px',
+    desktop: '32px',
+  },
 };
 
 export const listText = {
@@ -52,7 +63,8 @@ export const listText = {
 
 export const googleAppleBox = {
   position: 'relative',
-  ...flexCenter,
+  width: '100%',
+  display: 'flex',
   flexDirection: {
     mobile: 'column',
     tablet: 'row',
@@ -62,6 +74,30 @@ export const googleAppleBox = {
 export const googleAppleBtn = {
   width: '120px',
   height: '40px',
+};
+
+export const arrow = {
+  position: 'absolute',
+  transform: {
+    mobile: 'rotate(90deg)',
+    tablet: 'rotate(0deg)',
+  },
+  width: {
+    mobile: '100px',
+    tablet: '110px',
+    desktop: '165px',
+  },
+  bottom: {
+    mobile: '-140px',
+    tablet: '-30px',
+    desktop: '-30px',
+  },
+  right: {
+    mobile: '60%',
+    tablet: '-10%',
+    lgtablet: '10%',
+    desktop: '15%',
+  },
 };
 
 export const mobileImg = {
