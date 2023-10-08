@@ -7,6 +7,7 @@ import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
 import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
+import SwiperItem from '../../components/Swiper/swiperItem';
 
 const HomePage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
@@ -19,6 +20,7 @@ const HomePage = () => {
       <SectionGetStarted />
       <ListItems title="Our Top Restaurants" items={sortedPartners} itemComponent={RestaurantItem} actions={<ListItemAction />} type="partners" />
       <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
+      <SwiperItem />
     </>
   );
 };
