@@ -3,11 +3,11 @@ import React, { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-// import 'swiper/css';
-// import 'swiper/css/effect-cube';
-// import 'swiper/css/pagination';
+import 'swiper/css';
+import 'swiper/css/effect-cube';
+import 'swiper/css/pagination';
 
-import './styles.css';
+// import './styles.css';
 
 // import required modules
 import { EffectCube, Pagination } from 'swiper/modules';
@@ -15,6 +15,7 @@ import { EffectCube, Pagination } from 'swiper/modules';
 const SwiperItem = () => {
   return (
     <Swiper
+      style={{ width: '300px' }}
       effect="cube"
       grabCursor
       cubeEffect={{
