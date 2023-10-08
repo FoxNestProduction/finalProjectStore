@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Box, Container, Stack } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import Search from '../../components/Search/Search';
@@ -8,6 +9,7 @@ import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
 import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
+import Sorter from '../../components/Sorter/Sorter';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -24,7 +26,45 @@ const MenuPage = () => {
 
   return (
     <>
-      <Search />
+      <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' }, height: '100%' }}>
+        <Stack
+          direction={{ mobile: 'column', tablet: 'row' }}
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{ width: '100%' }}
+        >
+          <Stack direction="column" gap={4} alignItems="start" justifyContent="flex-end" sx={{ width: '65%', height: '100%' }}>
+            <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} />
+            <Search />
+          </Stack>
+          <Sorter />
+        </Stack>
+      </Container>
+
+      {/* <Container sx={{ mt: { mobile: '62px', tablet: '85px',
+       desktop: '50px' }, height: '100%' }}>
+        <Box
+          sx={{
+            mt: { mobile: '62px', tablet: '85px', desktop: '50px' },
+            height: '100%',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: 1,
+            gridTemplateRows: 'auto',
+            gridTemplateAreas: `"discounts discounts sorter"
+    "discounts discounts sorter"
+    "search search sorter"`,
+          }}
+        >
+          <Box sx={{ gridArea: 'discounts', height: '350px',
+          width: '100%', bgcolor: 'primary.main' }} />
+
+          <Search sx={{ gridArea: 'search' }} />
+
+          <Sorter sx={{ gridArea: 'sorter' }} />
+        </Box>
+      </Container> */}
+
       <ListItems
         title={itemsFromSearch.length !== 0 && (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}
         items={itemsFromSearch}
@@ -32,6 +72,7 @@ const MenuPage = () => {
         actions={null}
         type={keyFromSearch === 'food' ? '' : 'partners'}
       />
+
       {/* <RestaurantItem /> */}
       <ListItems
         title="Our Top Restaurants"
