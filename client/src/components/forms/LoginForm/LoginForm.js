@@ -13,7 +13,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import AppleIcon from '@mui/icons-material/Apple';
 import {
-  closeModal,
+  closeModal, setContent,
 } from '../../../redux/slices/modalSlice';
 import validationSchema from './validationSchema';
 import {
@@ -28,41 +28,40 @@ import {
   signUpLink,
   appleIcon,
 } from './styles';
+// eslint-disable-next-line import/no-cycle
+import RegisterForm from '../RegisterForm/RegisterForm';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../Input/Input';
-import { setAuthorization } from '../../../redux/slices/authorizationSlice';
+import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
+import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const authError = useSelector((state) => state.error.authorization);
   const initialValues = {
     email: '',
     password: '',
   };
+  const logUpContent = () => {
+    dispatch(setContent(<RegisterForm />));
+  };
   const handleSubmit = async (values, actions) => {
     try {
       const response = await axios.post('http://localhost:4000/api/customers/login', values);
-      // Отримання токену і збереження його у локальному сховищі браузера
       const { token } = response.data;
       const { user } = response.data;
       if (token) {
-        // todo: LS eslint
-
-        // eslint-disable-next-line no-undef
-        localStorage.setItem('token', token);
-        // eslint-disable-next-line no-undef
-        localStorage.setItem('user', JSON.stringify(user));
-        dispatch(setUser(user));
+        dispatch(setToken(token));
         dispatch(setAuthorization(true));
+        dispatch(setUser(user));
         dispatch(closeModal());
+        dispatch(setAuthorizationError(''));
       }
-      // Перенаправлення користувача на іншу сторінку чи
-      // відображення повідомлення про успішну авторизацію
     } catch (error) {
-      // Обробка помилки, наприклад, відображення повідомлення про невірний логін чи пароль
+      dispatch(setAuthorizationError(error.response.data));
       console.error('Помилка авторизації:', error);
     }
-    actions.resetForm();
   };
   return (
     <Box
@@ -95,6 +94,7 @@ const LoginForm = () => {
         }}
       >
         <Button
+          disabled
           disableRipple
           variant="contained"
           sx={googleAppleBtn}
@@ -102,6 +102,7 @@ const LoginForm = () => {
           <GoogleSvgComponent />
         </Button>
         <Button
+          disabled
           disableRipple
           variant="contained"
           sx={googleAppleBtn}
@@ -132,15 +133,19 @@ const LoginForm = () => {
                 }}
               >
                 <Input
+                  error={authError.email}
                   type="email"
                   name="email"
+                  id="loginEmail"
                   placeholder="Enter your e-mail"
                   label="email"
                   icon={<EmailIcon />}
                 />
                 <Input
+                  error={authError.password}
                   type="password"
                   name="password"
+                  id="loginPassword"
                   placeholder="Enter your password"
                   label="password"
                   icon={<LockIcon />}
@@ -148,7 +153,7 @@ const LoginForm = () => {
               </Box>
               <Link
                 component={NavLink}
-                to="/forgetPassword"
+                to="/forget-password"
                 underline="none"
                 sx={forgetPassword}
               >
@@ -173,7 +178,7 @@ const LoginForm = () => {
                 }}
               >
                 Create A New Account?
-                <Link component={NavLink} to="/signUp" underline="none" sx={signUpLink}> Sign Up</Link>
+                <Button onClick={logUpContent} sx={signUpLink}> Log In</Button>
               </Typography>
             </Box>
           </Form>

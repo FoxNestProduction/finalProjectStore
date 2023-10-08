@@ -27,6 +27,7 @@ const globalTheme = createTheme({
       healthy: '#DAA31A',
       trending: '#FB471D',
       supreme: '#0b4c25',
+      secondaryGray: '#ACADB9',
     },
     background: {
       paper: '#FFF',
@@ -176,6 +177,21 @@ globalTheme.typography.body3 = {
   },
 };
 
+globalTheme.typography.body4 = {
+  fontFamily: 'Poppins, sans-serif',
+  fontWeight: 500,
+  lineHeight: '2.8em',
+  fontSize: '20px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    lineHeight: '2em',
+    fontSize: '14px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    lineHeight: '1.5em',
+    fontSize: '16px',
+  },
+};
+
 globalTheme.typography.h1 = {
   fontFamily: 'Poppins, sans-serif',
   fontWeight: 500,
@@ -222,6 +238,19 @@ globalTheme.typography.h4 = {
   fontSize: '14px',
   [globalTheme.breakpoints.up('tablet')]: {
     fontSize: '18px',
+  },
+};
+
+globalTheme.typography.h5 = {
+  fontFamily: 'Poppins, sans-serif',
+  fontWeight: 600,
+  lineHeight: '1.5em',
+  fontSize: '28px',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '40px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '44px',
   },
 };
 

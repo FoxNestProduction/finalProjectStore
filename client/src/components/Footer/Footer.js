@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  AppBar,
-  Box,
-  Container,
-  IconButton,
-  Stack,
-  Toolbar,
-  Typography,
-  Link,
-} from '@mui/material';
+import { AppBar, Box, Container, IconButton, Stack, Toolbar, Typography, Link } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -48,10 +39,10 @@ const Footer = () => {
                 }}
                 sx={stylesLinkWrap}
               >
-                <Link component={NavLink} to="/Reviews" sx={stylesLink}>Reviews</Link>
-                <Link component={NavLink} to="/Pricing" sx={stylesLink}>Pricing</Link>
-                <Link component={NavLink} to="/AboutUs" sx={stylesLink}>About Us</Link>
-                <Link component={NavLink} to="/Contact" sx={stylesLink}>Contact</Link>
+                <Link component={NavLink} to="/reviews" sx={stylesLink}>Reviews</Link>
+                <Link component={NavLink} to="/pricing" sx={stylesLink}>Pricing</Link>
+                <Link component={NavLink} to="/about-us" sx={stylesLink}>About Us</Link>
+                <Link component={NavLink} to="/contact" sx={stylesLink}>Contact</Link>
               </Stack>
             </Stack>
             <Box sx={stylesLine} />

@@ -20,19 +20,14 @@ import { useDispatch } from 'react-redux';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
-import { setAuthorization } from '../../redux/slices/authorizationSlice';
+import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   isUserAuthorized, handleCloseDrawer, handleOpenModalLogin }) => {
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
-    // todo: LS eslint
-
-    // eslint-disable-next-line no-undef
-    localStorage.removeItem('token');
-    // eslint-disable-next-line no-undef
-    localStorage.removeItem('user');
+    dispatch(setToken(null));
     dispatch(setAuthorization(false));
   };
 
@@ -72,7 +67,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
                   // },
                 }}
                 component={NavLink}
-                to={`/${page}`}
+                to={`/${page.toLowerCase()}`}
               >
                 <ListItemText
                   primary={page}

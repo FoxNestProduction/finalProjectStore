@@ -49,7 +49,7 @@ const SectionGetStarted = () => {
           <Button sx={stylesStartedBnt} component={RouterLink} to="/menu" variant="contained">
             Get Started
           </Button>
-          <Button sx={stylesProBnt} component={RouterLink} to="/Pricing" variant="outlined">
+          <Button sx={stylesProBnt} component={RouterLink} to="/pricing" variant="outlined">
             Go Pro
           </Button>
         </Box>

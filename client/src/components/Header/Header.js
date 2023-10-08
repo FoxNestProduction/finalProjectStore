@@ -33,7 +33,7 @@ import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
-import { setAuthorization } from '../../redux/slices/authorizationSlice';
+import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -74,12 +74,7 @@ const Header = () => {
     dispatch(setContent(<LoginForm />));
   };
   const handleLogOut = () => {
-    // todo: додати правило eslint для LS
-
-    // eslint-disable-next-line no-undef
-    localStorage.removeItem('token');
-    // eslint-disable-next-line no-undef
-    localStorage.removeItem('user');
+    dispatch(setToken(null));
     dispatch(setAuthorization(false));
   };
 
@@ -103,7 +98,7 @@ const Header = () => {
                   <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                     <Button
                       component={NavLink}
-                      to={`/${page}`}
+                      to={`/${page.toLowerCase()}`}
                       sx={stylesNavMenuItem}
                     >
                       {page}
@@ -124,14 +119,14 @@ const Header = () => {
 
               <Box sx={stylesIconsWrapper}>
                 {isUserAuthorized && (
-                <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/Favourites">
+                <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
                   <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
                     <FavoriteBorderOutlinedIcon sx={stylesIcon} />
                   </Badge>
                 </IconButton>
                 )}
 
-                <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/Cart">
+                <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/cart">
                   <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
                     <ShoppingCartOutlinedIcon sx={stylesIcon} />
                   </Badge>
