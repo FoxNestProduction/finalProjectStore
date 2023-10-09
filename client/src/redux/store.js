@@ -9,7 +9,7 @@ import productsSlice from './slices/productsSlice';
 import authorizationSlice from './slices/authorizationSlice';
 import userSlice from './slices/userSlice';
 import errorSlice from './slices/errorSlice';
-import restaurantSlice from './slices/restaurantSlice';
+import partnersSlice from './slices/partnersSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -32,7 +32,7 @@ const userPersistConfig = {
 const reducer = combineReducers({
   error: errorSlice,
   modal: modalSlice,
-  restaurant: restaurantSlice,
+  partners: partnersSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
