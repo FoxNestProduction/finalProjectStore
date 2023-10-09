@@ -4,6 +4,7 @@ export const stylesLink = {
   fontWeight: 'fontWeightMedium',
   '&:hover': {
     bgcolor: 'rgba(0,0,0,0.04)',
+    transition: '0.3s',
     borderRadius: {
       mobile: '15px',
       tablet: '10px',

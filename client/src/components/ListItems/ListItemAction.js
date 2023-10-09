@@ -2,27 +2,42 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import { Link } from '@mui/material';
-import { actionsStyle } from './styles';
+import Box from '@mui/material/Box';
+import { actionsStyle, linkStyles } from './styles';
 import ArrowIcon from '../../assets/svgComponents/ArrowIcon';
 
 const ListItemAction = () => {
   return (
     <>
-      <Link
-        underline="none"
-        href="/Menu"
-        color="text.secondaryGray"
+      <Box
         sx={actionsStyle}
       >
-        <Typography
-          variant="body4"
-          component="p"
+        <Link
+          underline="none"
+          href="/Menu"
+          color="text.secondaryGray"
+          sx={linkStyles}
         >
-          View All
-        </Typography>
-        <ArrowIcon />
-      </Link>
-      <Divider sx={{ paddingTop: '67px' }} />
+          <Typography
+            variant="body4"
+            component="p"
+            sx={{
+              lineHeight: {
+                mobile: '20px',
+                desktop: '24px',
+              },
+              fontSize: {
+                mobile: '14px',
+                desktop: '20px',
+              },
+            }}
+          >
+            View All
+          </Typography>
+          <ArrowIcon fill="text.secondaryGray" />
+        </Link>
+      </Box>
+      <Divider sx={{ marginTop: '67px' }} />
     </>
   );
 };

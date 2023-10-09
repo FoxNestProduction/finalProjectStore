@@ -1,11 +1,28 @@
 export const actionsStyle = {
   display: 'flex',
   justifyContent: 'flex-end',
-  alignItems: 'center',
-  gap: '10px',
-  paddingTop: {
+  marginTop: {
     mobile: '61px',
     tablet: '43px',
+  },
+};
+
+export const linkStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  borderRadius: '16px',
+  backgroundColor: '#F9F9F9',
+  padding: '10px',
+  color: 'secondary.main',
+  gap: '10px',
+  border: '1px solid #FF7C1C',
+  '&:hover': {
+    backgroundColor: 'secondary.hover',
+    border: '1px solid #FF7C1C',
+    color: 'text.primaryLight',
+    '& svg': {
+      fill: '#F9F9F9',
+    },
   },
 };
 
@@ -13,7 +30,6 @@ export const gridStylesContainer = {
   display: 'flex',
   justifyContent: 'center',
   gap: '10px',
-  cursor: 'pointer',
 };
 
 export const gridStylesItemPartners = {
@@ -21,21 +37,15 @@ export const gridStylesItemPartners = {
   justifyContent: 'center',
   alignItems: 'center',
   maxWidth: { lgTablet: '49%', desktop: '32%' },
-  transition: 'transform 0.3s',
-  '&:hover': {
-    transform: 'scale(1.05)',
-  },
+  cursor: 'pointer',
 };
 
 export const gridStylesItemProducts = {
-  display: 'flex',
+  display: 'grid',
   justifyContent: 'center',
   alignItems: 'center',
   maxWidth: { mobile: '48%', tablet: '48%', lgTablet: '50%', desktop: '50%' },
-  transition: 'transform 0.3s',
-  '&:hover': {
-    transform: 'scale(1.05)',
-  },
+  cursor: 'pointer',
 };
 
 export const partnersCardWidth = {

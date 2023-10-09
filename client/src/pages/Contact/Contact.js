@@ -56,7 +56,7 @@ const ContactPage = () => {
 
         <Box
           component="img"
-          src="./img/mobile.png"
+          src="./img/layout/mobile.png"
           alt="mobile phone"
           sx={imgMobile}
         />
