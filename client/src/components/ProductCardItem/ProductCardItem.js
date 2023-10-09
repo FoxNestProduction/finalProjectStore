@@ -33,9 +33,8 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
           </CardActions>
           <CardMedia
             component="img"
-            sx={cardMedia}
             image={imageUrl}
-            title="green iguana"
+            sx={cardMedia}
           />
         </Box>
         <Box sx={chipBox}>
