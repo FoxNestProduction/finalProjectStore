@@ -9,6 +9,7 @@ import { partnersCardWidth, productsCardWidth } from '../../components/ListItems
 import useSortedItems from '../../customHooks/useSortedItems';
 import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
+import SwiperItem from '../../components/Swiper/swiperItem';
 
 const HomePage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
