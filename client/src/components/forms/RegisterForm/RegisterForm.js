@@ -14,7 +14,7 @@ import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent
 
 // eslint-disable-next-line import/no-cycle
 import LoginForm from '../LoginForm/LoginForm';
-import validationSchema from './ValidationSchema';
+import validationSchema from './validationSchema';
 import {
   flexcenter,
   container,
@@ -46,7 +46,7 @@ const RegisterForm = () => {
     const { fullName, email, password } = values;
     const firstName = fullName.split(' ').splice(0, 1).join('');
     const lastName = fullName.split(' ').splice(1).join('');
-    const login = fullName.toLowerCase().split(' ').join('_');
+    const login = fullName.toLowerCase().split(' ').join('-');
 
     const newCustomer = {
       firstName,

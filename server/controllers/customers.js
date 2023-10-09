@@ -29,25 +29,30 @@ exports.createCustomer = (req, res, next) => {
     return res.status(400).json(errors);
   }
 
-  Customer.findOne({
-    $or: [{ email: req.body.email }, { login: req.body.login }]
-  })
+  // Customer.findOne({
+  //   $or: [{ email: req.body.email }, { login: req.body.login }]
+  // })
+  //   .then(customer => {
+  //     if (customer) {
+  //       if (customer.email === req.body.email) {
+  //         return res
+  //           .status(400)
+  //           .json({ message: `Email ${customer.email} already exists"` });
+  //       }
+  //
+  //       if (customer.login === req.body.login) {
+  //         return res
+  //           .status(400)
+  //           .json({ message: `Login ${customer.login} already exists` });
+  //       }
+  //     }
+  Customer.findOne({ email: req.body.email })
     .then(customer => {
       if (customer) {
-        if (customer.email === req.body.email) {
-          return res
-            .status(400)
-            .json({ message: `Email ${customer.email} already exists"` });
-        }
-
-        if (customer.login === req.body.login) {
-          return res
-            .status(400)
-            .json({ message: `Login ${customer.login} already exists` });
-        }
+        return res.status(400).json({ message: `Email ${customer.email} already exists` });
       }
 
-      // Create query object for qustomer for saving him to DB
+      // Create query object for customer for saving him to DB
       const newCustomer = new Customer(queryCreator(initialQuery));
 
       bcrypt.genSalt(10, (err, salt) => {
