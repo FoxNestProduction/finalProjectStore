@@ -22,6 +22,7 @@ export const linkStyles = {
     border: '1px solid #FF7C1C',
     color: 'text.primaryLight',
     '& svg': {
+
       fill: '#F9F9F9',
     },
   },
@@ -40,10 +41,6 @@ export const gridStylesItemPartners = {
   maxWidth: { lgTablet: '49%', desktop: '32%' },
   transition: 'transform 0.3s',
   cursor: 'pointer',
-
-  // '&:hover': {
-  //   transform: 'scale(1.05)',
-  // },
 };
 
 export const gridStylesItemProducts = {
@@ -53,10 +50,6 @@ export const gridStylesItemProducts = {
   maxWidth: { mobile: '48%', tablet: '48%', lgTablet: '50%', desktop: '50%' },
   transition: 'transform 0.3s',
   cursor: 'pointer',
-
-  // '&:hover': {
-  //   transform: 'scale(1.05)',
-  // },
 };
 
 export const partnersCardWidth = {
