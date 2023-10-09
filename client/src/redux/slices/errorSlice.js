@@ -12,12 +12,16 @@ const errorSlice = createSlice({
     setAuthorizationError: (state, action) => {
       state.authorization = action.payload;
     },
+    setRegistrationError: (state, action) => {
+      state.registration = action.payload;
+    },
   },
 
 });
 
 export const {
   setAuthorizationError,
+  setRegistrationError,
 } = errorSlice.actions;
 
 export default errorSlice.reducer;
