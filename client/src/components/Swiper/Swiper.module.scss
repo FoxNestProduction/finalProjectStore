@@ -1,0 +1,33 @@
+.wrap {
+  width: 300px;
+}
+
+.customPagination {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  margin-top: 70px; /* Додайте відступи або інші стилі за потребою */
+
+
+
+.customPaginationItem {
+  width: 30px; /* Задайте ширину або інші стилі за потребою */
+  height: 30px; /* Задайте висоту або інші стилі за потребою */
+  background-color: #007bff; /* Колір фону для активного індикатора */
+  color: #fff; /* Колір тексту для активного індикатора */
+  border-radius: 50%; /* Закруглені кути для створення круглого вигляду */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; /* Змініть курсор на покажчик, щоб вказати на можливість кліку */
+
+  &.swiper-pagination-bullet-active {
+    /* Стилі для активного індикатора */
+    background-color: #ff4500; /* Змініть колір фону для активного індикатора */
+  }
+
+  &:not(:last-child) {
+    margin-right: 10px; /* Відступ між індикаторами (крім останнього) */
+  }
+}
+}
