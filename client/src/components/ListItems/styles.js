@@ -11,18 +11,18 @@ export const linkStyles = {
   display: 'flex',
   alignItems: 'center',
   borderRadius: '16px',
-  backgroundColor: 'rgba(0,0,0,0.03)',
+  backgroundColor: '#F9F9F9',
   padding: '10px',
   color: 'secondary.main',
   gap: '10px',
   border: '1px solid #FF7C1C',
   transition: '.3s',
   '&:hover': {
-    backgroundColor: 'rgba(0,0,0,0.04)',
+    backgroundColor: 'secondary.hover',
     border: '1px solid #FF7C1C',
-    color: 'secondary.hover',
+    color: 'text.primaryLight',
     '& svg': {
-      fill: '#FF7C1C',
+      fill: '#F9F9F9',
     },
   },
 };
