@@ -22,7 +22,7 @@ import {
   addButtonBox,
 } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
-import { setAuthorizationError } from '../../redux/slices/errorSlice';
+import { setAuthorizationError, setRegistrationError } from '../../redux/slices/errorSlice';
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -36,8 +36,9 @@ const Modal = () => {
   const handleClose = () => {
     dispatch(closeModal());
     dispatch(setAuthorizationError(''));
+    dispatch(setRegistrationError(''));
   };
-  //
+
   const handleRemoveItemCart = () => {
     dispatch(closeModal());
   };
