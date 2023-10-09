@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -13,26 +13,20 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
-import StarHalfIcon from '@mui/icons-material/StarHalf';
-import StarIcon from '@mui/icons-material/Star';
 import ColorChips from '../Chip/Chip';
+import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
+import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
 
 const ProductCard = ({ productName }) => {
   const products = useSelector((state) => state.products.products, shallowEqual);
-
+  const dispatch = useDispatch();
+  const [ishovered, setIshovered] = useState(false);
   const nameOfProduct = fixedDecodeURIComponent(productName);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
-  // const dish = products.find((item) => item._id === productId);
-  console.log('products', products);
-  console.log('nameOfProduct', nameOfProduct);
-  console.log('dish', dish);
-
   const {
     name,
     description,
@@ -42,7 +36,18 @@ const ProductCard = ({ productName }) => {
     imageUrl,
     isSupreme,
     isHealthy,
+    // eslint-disable-next-line no-underscore-dangle
+    _id: id,
   } = dish;
+
+  const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
+  const toggleFavourite = () => {
+    if (isFavourite) {
+      dispatch(removeFavourite({ id }));
+    } else {
+      dispatch(addFavourite({ id }));
+    }
+  };
 
   return (
     <Container
@@ -132,12 +137,12 @@ const ProductCard = ({ productName }) => {
               <Button
                 variant="outlined"
                 sx={stylesButtonCardOutline}
+                onMouseEnter={() => setIshovered(true)}
+                onMouseLeave={() => setIshovered(false)}
+                onClick={toggleFavourite}
               >
                 Favourite
-                <FavoriteBorderOutlinedIcon
-                  fontSize="medium"
-                  sx={{ ml: 1 }}
-                />
+                <FavouriteIcon id={id} sx={{ ml: 1 }} ishovered={ishovered} />
               </Button>
               <Button
                 variant="contained"
@@ -159,6 +164,9 @@ const ProductCard = ({ productName }) => {
 
 ProductCard.propTypes = {
   productName: PropTypes.string.isRequired,
+};
+
+ProductCard.defaultProps = {
 };
 
 export default ProductCard;
