@@ -33,9 +33,9 @@ const ProductCardItem = ({ currentPrice, imageUrl, name, rating, id }) => {
           </CardActions>
           <CardMedia
             component="img"
-            sx={cardMedia}
             image={imageUrl}
             title={name}
+            sx={cardMedia}
           />
         </Box>
         <Box sx={chipBox}>

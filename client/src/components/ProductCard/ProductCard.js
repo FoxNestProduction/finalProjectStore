@@ -50,6 +50,7 @@ const ProductCard = ({ productName }) => {
       sx={{
         bgcolor: 'background.default',
         mt: { mobile: 5, tablet: 8 },
+
       }}
     >
       <Card

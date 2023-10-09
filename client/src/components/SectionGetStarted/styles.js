@@ -123,7 +123,6 @@ export const stylesActions = {
 };
 
 export const stylesStartedBnt = {
-  borderRadius: 'shape.borderRadius',
   backgroundColor: 'secondary.main',
   fontWeight: 500,
   ...buttonSize,
