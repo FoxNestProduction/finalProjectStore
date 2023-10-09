@@ -16,8 +16,9 @@ export const section = {
     lgTablet: 'row-reverse',
   },
   mb: {
-    mobile: '150px',
-    desktop: '240px',
+    mobile: '66px',
+    tablet: '85px',
+    desktop: '70px',
   },
 };
 
@@ -35,13 +36,8 @@ export const descriptionBox = {
   },
 };
 
-export const titleAccent = {
-  textTransform: 'capitalize',
-  fontWeight: 700,
-  color: 'primary.main',
-};
-
 export const list = {
+  pl: '23px',
   listStyle: 'disc',
   color: 'text.primary',
   display: 'flex',
@@ -69,6 +65,7 @@ export const googleAppleBox = {
     mobile: 'column',
     tablet: 'row',
   },
+  mb: '25px',
 };
 
 export const googleAppleBtn = {
@@ -79,8 +76,8 @@ export const googleAppleBtn = {
 export const arrow = {
   position: 'absolute',
   transform: {
-    mobile: 'rotate(90deg)',
-    tablet: 'rotate(0deg)',
+    mobile: 'rotate(97deg)',
+    tablet: 'rotate(-20deg)',
   },
   width: {
     mobile: '100px',
