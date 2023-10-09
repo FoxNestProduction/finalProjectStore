@@ -33,16 +33,16 @@ import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
-import { setAuthorization } from '../../redux/slices/authorizationSlice';
+import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // змінити на true для відмалювання інтерфейсу залогіненого юзера
-  // const [isUserAuthorized, setIsUserAuthorized] = useState(false);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user);
   const { cart, favourite } = user;
+
+  console.log(cart);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -53,13 +53,8 @@ const Header = () => {
     }
   }, [breakpoint]);
 
-  // при зміні на 0 - бейдж пропадає
-  let cartAmount = null;
-  let favouritesAmount = null;
-  if (isUserAuthorized) {
-    cartAmount = cart.length;
-    favouritesAmount = favourite.length;
-  }
+  const cartAmount = isUserAuthorized ? cart.length : null;
+  const favouritesAmount = isUserAuthorized ? favourite.length : null;
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);
@@ -73,13 +68,9 @@ const Header = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
   };
-  const handleLogOut = () => {
-    // todo: додати правило eslint для LS
 
-    // eslint-disable-next-line no-undef
-    localStorage.removeItem('token');
-    // eslint-disable-next-line no-undef
-    localStorage.removeItem('user');
+  const handleLogOut = () => {
+    dispatch(setToken(null));
     dispatch(setAuthorization(false));
   };
 
@@ -103,7 +94,7 @@ const Header = () => {
                   <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                     <Button
                       component={NavLink}
-                      to={`/${page}`}
+                      to={`/${page.toLowerCase()}`}
                       sx={stylesNavMenuItem}
                     >
                       {page}
@@ -124,14 +115,14 @@ const Header = () => {
 
               <Box sx={stylesIconsWrapper}>
                 {isUserAuthorized && (
-                <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/Favourites">
+                <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
                   <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
                     <FavoriteBorderOutlinedIcon sx={stylesIcon} />
                   </Badge>
                 </IconButton>
                 )}
 
-                <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/Cart">
+                <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/cart">
                   <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
                     <ShoppingCartOutlinedIcon sx={stylesIcon} />
                   </Badge>

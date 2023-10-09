@@ -22,21 +22,23 @@ import {
   addButtonBox,
 } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
+import { setAuthorizationError, setRegistrationError } from '../../redux/slices/errorSlice';
 
 const Modal = () => {
   const dispatch = useDispatch();
 
   const isOpen = useSelector((state) => state.modal.isOpen);
   const title = useSelector((state) => state.modal.title);
-  // const content = useSelector((state) => state.modal.content);
-  const content = <LoginForm />;
+  const content = useSelector((state) => state.modal.content);
   const buttonAgree = useSelector((state) => state.modal.buttonAgree);
   const buttonBox = useSelector((state) => state.modal.buttonBox);
 
   const handleClose = () => {
     dispatch(closeModal());
+    dispatch(setAuthorizationError(''));
+    dispatch(setRegistrationError(''));
   };
-  //
+
   const handleRemoveItemCart = () => {
     dispatch(closeModal());
   };

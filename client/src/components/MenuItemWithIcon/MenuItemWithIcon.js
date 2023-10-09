@@ -10,7 +10,7 @@ const MenuItemWithIcon = ({ navLink, page, icon, onClick }) => {
         <ListItemButton
           sx={{ pl: 3 }}
           component={NavLink}
-          to={`/${page}`}
+          to={`/${page.toLowerCase()}`}
         >
           <ListItemIcon sx={{ minWidth: '50px' }}>
             {icon}

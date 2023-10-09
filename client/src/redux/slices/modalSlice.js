@@ -13,8 +13,6 @@ const initialState = {
   },
 };
 
-/* eslint-disable no-param-reassign */
-
 const modalSlice = createSlice({
   name: 'modal',
   initialState,
@@ -55,7 +53,5 @@ export const {
   setButtonAgree,
   addButtonBox,
 } = modalSlice.actions;
-
-/* eslint-enable no-param-reassign */
 
 export default modalSlice.reducer;

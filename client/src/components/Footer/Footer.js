@@ -1,20 +1,21 @@
 import React from 'react';
-import {
-  AppBar,
-  Box,
-  Container,
-  IconButton,
-  Stack,
-  Toolbar,
-  Typography,
-  Link,
-} from '@mui/material';
+import { AppBar, Box, Container, IconButton, Stack, Toolbar, Typography, Link } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { NavLink } from 'react-router-dom';
-import { stylesLink, stylesWrap, stylesTopWrap, stylesLinkWrap, stylesText, stylesLine, stylesSocial, stylesSocialWrap, stylesSizeIcon } from './styles';
+import {
+  stylesLink,
+  stylesWrap,
+  stylesTopWrap,
+  stylesLinkWrap,
+  stylesText,
+  stylesLine,
+  stylesSocial,
+  stylesSocialWrap,
+  stylesSizeIcon,
+} from './styles';
 import Logo from '../Logo/Logo';
 
 const Footer = () => {
@@ -48,10 +49,10 @@ const Footer = () => {
                 }}
                 sx={stylesLinkWrap}
               >
-                <Link component={NavLink} to="/Reviews" sx={stylesLink}>Reviews</Link>
-                <Link component={NavLink} to="/Pricing" sx={stylesLink}>Pricing</Link>
-                <Link component={NavLink} to="/AboutUs" sx={stylesLink}>About Us</Link>
-                <Link component={NavLink} to="/Contact" sx={stylesLink}>Contact</Link>
+                <Link component={NavLink} to="/reviews" sx={stylesLink}>Reviews</Link>
+                <Link component={NavLink} to="/pricing" sx={stylesLink}>Pricing</Link>
+                <Link component={NavLink} to="/about-us" sx={stylesLink}>About Us</Link>
+                <Link component={NavLink} to="/contact" sx={stylesLink}>Contact</Link>
               </Stack>
             </Stack>
             <Box sx={stylesLine} />
@@ -59,16 +60,16 @@ const Footer = () => {
               © 2023 EATLY All Rights Reserved.
             </Typography>
             <Stack direction="row" sx={stylesSocialWrap}>
-              <IconButton href="https://www.instagram.com/" sx={stylesSocial}>
+              <IconButton href="https://www.instagram.com/" sx={stylesSocial} target="blanc">
                 <InstagramIcon sx={stylesSizeIcon} />
               </IconButton>
-              <IconButton href="https://www.linkedin.com/" sx={stylesSocial}>
+              <IconButton href="https://www.linkedin.com/" sx={stylesSocial} target="blanc">
                 <LinkedInIcon sx={stylesSizeIcon} />
               </IconButton>
-              <IconButton href="https://uk-ua.facebook.com/" sx={stylesSocial}>
+              <IconButton href="https://uk-ua.facebook.com/" sx={stylesSocial} target="blanc">
                 <FacebookIcon sx={stylesSizeIcon} />
               </IconButton>
-              <IconButton href="https://twitter.com/" sx={stylesSocial}>
+              <IconButton href="https://twitter.com/" sx={stylesSocial} target="blanc">
                 <TwitterIcon sx={stylesSizeIcon} />
               </IconButton>
             </Stack>

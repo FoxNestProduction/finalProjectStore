@@ -1,41 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.scss';
-import axios from 'axios';
+import { useLocation } from 'react-router';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
-import { setAuthorization } from './redux/slices/authorizationSlice';
-import { setUser } from './redux/slices/userSlice';
+import { getProducts } from './redux/slices/productsSlice';
+import { getPartners } from './redux/slices/partnersSlice';
 
 const App = () => {
   const [products, setProducts] = useState([]);
+
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    // todo: LS eslint
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-    // eslint-disable-next-line no-undef
-    const token = localStorage.getItem('token');
-    // eslint-disable-next-line no-undef
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (token) {
-      dispatch(setAuthorization(true));
-      dispatch(setUser(user));
-    }
+  useEffect(() => {
+    dispatch(getPartners());
+    dispatch(getProducts());
   }, [dispatch]);
-
-  const getItems = async () => {
-    try {
-      const { data } = await axios.get('http://localhost:4000/api/products');
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    getItems();
-  }, []);
 
   return (
     <>
