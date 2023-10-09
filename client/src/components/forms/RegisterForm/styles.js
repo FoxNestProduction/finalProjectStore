@@ -159,7 +159,7 @@ export const signUpBtn = {
   },
 };
 
-export const signUpLink = {
+export const signInLink = {
   fontWeight: {
     mobile: 'fontWeightBold',
     desktop: 'fontWeightRegular',

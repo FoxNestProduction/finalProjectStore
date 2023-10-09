@@ -39,11 +39,11 @@ import { setFavourite } from '../../redux/slices/favouriteSlice';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // змінити на true для відмалювання інтерфейсу залогіненого юзера
-  // const [isUserAuthorized, setIsUserAuthorized] = useState(false);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user);
   const { cart, favourite } = user;
+
+  console.log(cart);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -54,14 +54,9 @@ const Header = () => {
     }
   }, [breakpoint]);
 
-  // при зміні на 0 - бейдж пропадає
-  let cartAmount = null;
-  let favouritesAmount = null;
-  if (isUserAuthorized) {
-    cartAmount = cart.length;
-    favouritesAmount = favourite.length;
-    dispatch(setFavourite(favourite));
-  }
+  const cartAmount = isUserAuthorized ? cart.length : null;
+  const favouritesAmount = isUserAuthorized ? favourite.length : null;
+  dispatch(setFavourite(favourite));
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);
@@ -75,6 +70,7 @@ const Header = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
   };
+
   const handleLogOut = () => {
     dispatch(setToken(null));
     dispatch(setAuthorization(false));
