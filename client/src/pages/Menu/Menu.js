@@ -26,20 +26,22 @@ const MenuPage = () => {
 
   return (
     <>
-      <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' }, height: '100%' }}>
+      {/* <Container sx={{ mt: { mobile: '62px', tablet: '85px',
+       desktop: '50px' }, height: '100%' }}>
         <Stack
           direction={{ mobile: 'column', tablet: 'row' }}
           alignItems="center"
           justifyContent="space-between"
           sx={{ width: '100%' }}
         >
-          <Stack direction="column" gap={4} alignItems="start" justifyContent="flex-end" sx={{ width: '65%', height: '100%' }}>
-            <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} />
-            <Search />
-          </Stack>
-          <Sorter />
-        </Stack>
-      </Container>
+          <Stack direction="column" gap={4} alignItems="start" justifyContent="flex-end"
+          sx={{ width: '65%', height: '100%' }}>
+            <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} /> */}
+      <Search />
+      {/* </Stack> */}
+      <Sorter />
+      {/* </Stack> */}
+      {/* </Container> */}
 
       {/* <Container sx={{ mt: { mobile: '62px', tablet: '85px',
        desktop: '50px' }, height: '100%' }}>
