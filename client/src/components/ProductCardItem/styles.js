@@ -22,6 +22,7 @@ export const sylesContainer = {
   display: 'flex',
   flexDirection: 'column',
   boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
+
   '&:hover .MuiCardMedia-img': {
     transform: 'scale(1.05)',
   },
@@ -30,6 +31,7 @@ export const sylesContainer = {
 export const mediaBox = {
   position: 'relative',
   overflow: 'hidden',
+
 };
 
 export const cardMedia = {
@@ -38,11 +40,8 @@ export const cardMedia = {
     tablet: '138px',
     desktop: '197px',
   },
-  width: '100%',
   transition: '.3s',
-  '&:hover': {
-    transform: 'scale(1.05)',
-  },
+  width: '100%',
 };
 
 export const favoriteIcon = {

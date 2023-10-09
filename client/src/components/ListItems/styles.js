@@ -16,13 +16,11 @@ export const linkStyles = {
   color: 'secondary.main',
   gap: '10px',
   border: '1px solid #FF7C1C',
-  transition: '.3s',
   '&:hover': {
     backgroundColor: 'secondary.hover',
     border: '1px solid #FF7C1C',
     color: 'text.primaryLight',
     '& svg': {
-
       fill: '#F9F9F9',
     },
   },
@@ -39,7 +37,6 @@ export const gridStylesItemPartners = {
   justifyContent: 'center',
   alignItems: 'center',
   maxWidth: { lgTablet: '49%', desktop: '32%' },
-  transition: 'transform 0.3s',
   cursor: 'pointer',
 };
 
@@ -48,7 +45,6 @@ export const gridStylesItemProducts = {
   justifyContent: 'center',
   alignItems: 'center',
   maxWidth: { mobile: '48%', tablet: '48%', lgTablet: '50%', desktop: '50%' },
-  transition: 'transform 0.3s',
   cursor: 'pointer',
 };
 
