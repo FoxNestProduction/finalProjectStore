@@ -5,7 +5,6 @@ const initialState = {
   cardStates: {},
 };
 
-/* eslint-disable no-param-reassign */
 const favouriteSlice = createSlice({
   name: 'favourites',
   initialState,
@@ -42,7 +41,5 @@ export const {
   setFavourite,
   isFavourite,
 } = favouriteSlice.actions;
-
-/* eslint-enable no-param-reassign */
 
 export default favouriteSlice.reducer;
