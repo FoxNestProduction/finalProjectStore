@@ -37,17 +37,13 @@ const Sorter = () => {
       <Stack>
         <Typography sx={stylesTitle}>Category</Typography>
         <Stack>
-          <div>Sorter</div>
+          <div>Sorter : піца, бургер, салати, десерти, sea food,</div>
+          <div> мясо-гриль, веганська їжа, паста, напої</div>
         </Stack>
       </Stack>
       <Stack sx={{ mt: { mobile: '25px', tablet: '30px' } }}>
         <Typography sx={stylesTitle}>Sort By</Typography>
-        <Stack
-          direction="column"
-          spacing={1}
-          alignItems="flex-start"
-          sx={{ width: '100%' }}
-        >
+        <Stack direction="column" spacing={1} alignItems="flex-start" sx={{ width: '100%' }}>
           <Stack direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
             <ToggleButton
               sx={stylesSortBtn}
