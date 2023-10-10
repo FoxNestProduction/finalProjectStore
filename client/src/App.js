@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import './App.scss';
 import { useLocation } from 'react-router';
 import AppRoutes from './AppRoutes';

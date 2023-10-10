@@ -41,9 +41,10 @@ const Header = () => {
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user);
-  const { cart, favourite } = user;
-
+  const { cart } = user;
+  const favourite = useSelector((state) => state.favourites.favourites);
   console.log(cart);
+  console.log(favourite);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -56,7 +57,7 @@ const Header = () => {
 
   const cartAmount = isUserAuthorized ? cart.length : null;
   const favouritesAmount = isUserAuthorized ? favourite.length : null;
-  dispatch(setFavourite(favourite));
+  // dispatch(setFavourite(favourite));
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);

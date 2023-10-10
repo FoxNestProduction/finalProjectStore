@@ -32,7 +32,7 @@ const FavouriteItem = ({ favourite }) => {
   return (
     <Card sx={styleCardFavourite}>
       {/* <Link to={`/menu/${fixedEncodeURIComponent(name)}`}> */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', maxWidth: '1008px' }}>
         <CardMedia
           component="img"
           width="auto"
