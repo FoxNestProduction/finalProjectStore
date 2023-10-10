@@ -30,6 +30,11 @@ const searchPersistConfig = {
   version: 1,
   storage,
 };
+const favouritePersistConfig = {
+  key: 'favorites',
+  version: 1,
+  storage,
+};
 
 /*
     todo: - ЗВЕРНІТЬ УВАГУ!
@@ -46,7 +51,7 @@ const reducer = combineReducers({
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
   search: persistReducer(searchPersistConfig, searchSlice),
-  favourites: favouriteSlice,
+  favourites: persistReducer(favouritePersistConfig, favouriteSlice),
 });
 
 const middleware = getDefaultMiddleware({

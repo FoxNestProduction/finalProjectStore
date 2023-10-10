@@ -4,17 +4,18 @@ import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
+import { addFavourite, removeFavourite, updateUserData } from '../../redux/slices/favouriteSlice';
 
 const FavouriteIcon = ({ id, ishovered }) => {
   const dispatch = useDispatch();
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
-  // const favor = useSelector((state) => state.favourites.favourites);
   const toggleFavourite = () => {
     if (isFavourite) {
       dispatch(removeFavourite({ id }));
+      dispatch(updateUserData());
     } else {
       dispatch(addFavourite({ id }));
+      dispatch(updateUserData());
     }
   };
 

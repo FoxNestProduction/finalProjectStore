@@ -57,7 +57,7 @@ const Header = () => {
 
   const cartAmount = isUserAuthorized ? cart.length : null;
   const favouritesAmount = isUserAuthorized ? favourite.length : null;
-  // dispatch(setFavourite(favourite));
+  // const favouritesAmount = 4;
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);
