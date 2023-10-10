@@ -5,8 +5,6 @@ const initialState = {
   token: null,
 };
 
-/* eslint-disable no-param-reassign */
-
 const authorizationSlice = createSlice({
   name: 'authorization',
   initialState,
@@ -25,7 +23,5 @@ export const {
   setAuthorization,
   setToken,
 } = authorizationSlice.actions;
-
-/* eslint-enable no-param-reassign */
 
 export default authorizationSlice.reducer;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import { useScrollTrigger } from '@mui/material';
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,7 @@ const ElevationScroll = ({ children }) => {
     threshold: 0,
   });
 
-  return React.cloneElement(children, {
+  return cloneElement(children, {
     elevation: trigger ? 4 : 0,
     sx: {
       bgcolor: 'rgba(249,249,249,0.9)',

@@ -4,8 +4,6 @@ const initialState = {
   user: {},
 };
 
-/* eslint-disable no-param-reassign */
-
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -19,7 +17,5 @@ const userSlice = createSlice({
 export const {
   setUser,
 } = userSlice.actions;
-
-/* eslint-enable no-param-reassign */
 
 export default userSlice.reducer;

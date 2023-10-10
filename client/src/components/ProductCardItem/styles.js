@@ -22,10 +22,16 @@ export const sylesContainer = {
   display: 'flex',
   flexDirection: 'column',
   boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
+
+  '&:hover .MuiCardMedia-img': {
+    transform: 'scale(1.05)',
+  },
 };
 
 export const mediaBox = {
   position: 'relative',
+  overflow: 'hidden',
+
 };
 
 export const cardMedia = {
@@ -34,6 +40,7 @@ export const cardMedia = {
     tablet: '138px',
     desktop: '197px',
   },
+  transition: '.3s',
   width: '100%',
 };
 
