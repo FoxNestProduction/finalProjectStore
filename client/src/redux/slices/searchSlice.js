@@ -5,8 +5,6 @@ const initialState = {
   key: '',
 };
 
-/* eslint-disable no-param-reassign */
-
 const searchSlice = createSlice({
   name: 'search',
   initialState,
@@ -21,7 +19,5 @@ const searchSlice = createSlice({
 });
 
 export const { setSearch, setKey } = searchSlice.actions;
-
-/* eslint-enable no-param-reassign */
 
 export default searchSlice.reducer;
