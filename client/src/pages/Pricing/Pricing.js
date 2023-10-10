@@ -1,10 +1,12 @@
 import React from 'react';
+import { Container } from '@mui/material';
+import CheckoutForm from '../../components/forms/CheckoutForm/CheckoutForm';
 
 const PricingPage = () => {
   return (
-    <h1>
-      Pricing
-    </h1>
+    <Container sx={{ pt: '41px' }}>
+      <CheckoutForm />
+    </Container>
   );
 };
 
