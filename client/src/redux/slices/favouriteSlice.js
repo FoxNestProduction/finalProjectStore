@@ -72,6 +72,4 @@ export const updateUserData = () => async (dispatch, getState) => {
   }
 };
 
-/* eslint-enable no-param-reassign */
-
 export default favouriteSlice.reducer;
