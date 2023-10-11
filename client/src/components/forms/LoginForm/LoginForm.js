@@ -39,13 +39,16 @@ import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 const LoginForm = () => {
   const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
+
   const initialValues = {
     email: '',
     password: '',
   };
-  const logUpContent = () => {
+
+  const handleOpenSignUpForm = () => {
     dispatch(setContent(<RegisterForm />));
   };
+
   const handleSubmit = async (values, actions) => {
     try {
       const response = await axios.post('http://localhost:4000/api/customers/login', values);
@@ -63,6 +66,7 @@ const LoginForm = () => {
       console.error('Помилка авторизації:', error);
     }
   };
+
   return (
     <Box
       component="section"
@@ -138,7 +142,7 @@ const LoginForm = () => {
                   name="email"
                   id="loginEmail"
                   placeholder="Enter your e-mail"
-                  label="email"
+                  label="E-mail"
                   icon={<EmailIcon />}
                 />
                 <Input
@@ -147,7 +151,7 @@ const LoginForm = () => {
                   name="password"
                   id="loginPassword"
                   placeholder="Enter your password"
-                  label="password"
+                  label="Password"
                   icon={<LockIcon />}
                 />
               </Box>
@@ -160,7 +164,6 @@ const LoginForm = () => {
                 Forget Password ?
               </Link>
               <Button
-                onSubmit={handleSubmit}
                 disableRipple
                 variant="contained"
                 sx={signInBtn}
@@ -178,7 +181,7 @@ const LoginForm = () => {
                 }}
               >
                 Create A New Account?
-                <Button onClick={logUpContent} sx={signUpLink}> Log In</Button>
+                <Button onClick={handleOpenSignUpForm} sx={signUpLink}>Sing Up</Button>
               </Typography>
             </Box>
           </Form>

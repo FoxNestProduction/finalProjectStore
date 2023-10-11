@@ -23,7 +23,7 @@ import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHea
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 
 const ProductCard = ({ productName }) => {
-  const products = useSelector((state) => state.products.items, shallowEqual);
+  const products = useSelector((state) => state.products.products, shallowEqual);
 
   const nameOfProduct = fixedDecodeURIComponent(productName);
   // eslint-disable-next-line no-underscore-dangle
@@ -32,22 +32,6 @@ const ProductCard = ({ productName }) => {
   console.log('products', products);
   console.log('nameOfProduct', nameOfProduct);
   console.log('dish', dish);
-
-  // const dish = {
-  //   _id: '6507a306baee59670a047307',
-  //   restaurant_name: 'Welcome Pizzeria',
-  //   name: 'Margherita Pizza',
-  //   description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves.',
-  //   currentPrice: 12.99,
-  //   isFavourite: false,
-  //   isTranding: true,
-  //   isSupreme: true,
-  //   isHealthy: true,
-  //   rating: 2.3,
-  //   filterCategories: 'pizza',
-  //   imageUrl: '../img/pizza/pizza_texas.png',
-  //   enabled: true,
-  // };
 
   const {
     name,
@@ -66,6 +50,7 @@ const ProductCard = ({ productName }) => {
       sx={{
         bgcolor: 'background.default',
         mt: { mobile: 5, tablet: 8 },
+
       }}
     >
       <Card
@@ -114,10 +99,6 @@ const ProductCard = ({ productName }) => {
                     name="half-rating"
                     value={rating}
                     size="medium"
-                    // precision={0.5}
-                    // emptyIcon={<StarIcon size="inherit" />}
-                    // icon={<StarIcon size="inherit" />}
-                    // halfIcon={<StarHalfIcon size="inherit" />}
                     readOnly
                     sx={{ color: 'primary.main' }}
                   />

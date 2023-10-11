@@ -16,7 +16,7 @@ const MenuItemWithIcon = ({ navLink, page, icon, onClick }) => {
             {icon}
           </ListItemIcon>
           <ListItemText
-            primary={page.toLowerCase()}
+            primary={page}
             sx={{
               '& .MuiTypography-root': {
                 fontSize: '18px',

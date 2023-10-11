@@ -120,13 +120,13 @@ const globalTheme = createTheme({
         root: ({ theme }) => ({
           '&:last-child': {
             [theme.breakpoints.up('mobile')]: {
-              padding: '0 15px',
+              padding: '0 12px',
             },
             [theme.breakpoints.up('tablet')]: {
-              padding: '0 17px',
+              padding: '0 15px',
             },
             [theme.breakpoints.up('desktop')]: {
-              padding: '0 23px',
+              padding: '0 19px',
             },
           },
         }),
@@ -228,7 +228,7 @@ globalTheme.typography.h3 = {
     fontSize: '16px',
   },
   [globalTheme.breakpoints.up('desktop')]: {
-    fontSize: '24px',
+    fontSize: '20px',
   },
 };
 

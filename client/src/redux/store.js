@@ -8,10 +8,11 @@ import modalSlice from './slices/modalSlice';
 import productsSlice from './slices/productsSlice';
 import authorizationSlice from './slices/authorizationSlice';
 import userSlice from './slices/userSlice';
+import partnersSlice from './slices/partnersSlice';
+import searchSlice from './slices/searchSlice';
 import errorSlice from './slices/errorSlice';
 import restaurantSlice from './slices/restaurantSlice';
 import reviewsSlice from './slices/reviewsSlice';
-import customersSlice from './slices/customersSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -24,6 +25,13 @@ const userPersistConfig = {
   version: 1,
   storage,
 };
+
+const searchPersistConfig = {
+  key: 'search',
+  version: 1,
+  storage,
+};
+
 /*
     todo: - ЗВЕРНІТЬ УВАГУ!
       якщо вам потрібно щоб ваш стейт не зникав після перезавантаження
@@ -34,12 +42,11 @@ const userPersistConfig = {
 const reducer = combineReducers({
   error: errorSlice,
   modal: modalSlice,
-  restaurant: restaurantSlice,
+  partners: partnersSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
   reviews: reviewsSlice,
-  customers: customersSlice,
 });
 
 const middleware = getDefaultMiddleware({
