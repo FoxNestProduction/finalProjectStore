@@ -13,26 +13,9 @@ import { Container } from '@mui/material';
 
 import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent } from './styles';
 
-const ReviewItem = (review) => {
+const ReviewItem = ({ review }) => {
   const [isShow, setIsShow] = useState(false);
-  const { _id: id, user_id: idUser, rating, comment } = review;
-  const reviews = useSelector((state) => state.reviews.reviews);
-  const customers = useSelector((state) => state.customers.customers);
-  /* eslint-disable-next-line no-underscore-dangle */
-  // const reviewItem = reviews.find((item) => item._id === id);
-  /* eslint-disable-next-line no-underscore-dangle */
-  // const user = customers.find((item) => item._id === idUser);
-  // const { firstName, lastName, avatarUrl } = user;
-  console.log(reviews);
-  console.log(customers);
-
-  const user = {
-    _id: '650762989d951058716e2f85',
-    firstName: 'Ihor',
-    lastName: 'Kacher',
-    avatarUrl: '',
-  };
-  const { firstName, lastName, avatarUrl } = user;
+  const { rating, comment, firstName, lastName, avatarUrl } = review;
   const ratingNumber = Number(rating);
 
   return (
@@ -68,8 +51,11 @@ const ReviewItem = (review) => {
   );
 };
 
-// ReviewItem.propTypes = {
-//   review: PropTypes.object,
-// };
+ReviewItem.propTypes = {
+  review: PropTypes.object,
+};
+ReviewItem.defaultProps = {
+  review: {},
+};
 
 export default ReviewItem;

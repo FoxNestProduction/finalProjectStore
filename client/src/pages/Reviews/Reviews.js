@@ -6,17 +6,14 @@ import Modal from '../../components/Modal/Modal';
 
 const ReviewsPage = () => {
   const reviews = useSelector((state) => state.reviews.reviews);
-  /* eslint-disable-next-line no-underscore-dangle */
-  // const reviewItem = reviews.find((item) => item._id === _id);
-  // console.log(reviews);
-  // console.log(reviewItem);
+  console.log(reviews);
+
   return (
     <>
       <Typography variant="h2">Customer Say</Typography>
       <Stack>
         {reviews.map((item) => <ReviewItem key={item.comment} review={item} />)}
       </Stack>
-      <ReviewItem />
       <Modal />
     </>
   );
