@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
@@ -14,15 +14,15 @@ const HomePage = () => {
   const sortedPartners = partners.slice()
     .sort((a, b) => b.rating - a.rating).slice(0, partnersCardWidth[breakpoint]);
   const products = useSelector((state) => state.products.products);
-  console.log(products);
   const sortedProducts = products.slice()
     .sort((a, b) => b.rating - a.rating).slice(0, productsCardWidth[breakpoint]);
+  const [cartItems, setCartItems] = useState([]);
 
   return (
     <>
       <SectionGetStarted />
       <ListItems title="Our Top Restaurants" items={sortedPartners} itemComponent={RestaurantItem} actions={<ListItemAction />} type="partners" />
-      <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
+      <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} setCartItems={setCartItems} />
     </>
   );
 };

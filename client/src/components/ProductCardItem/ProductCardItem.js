@@ -17,10 +17,29 @@ import { chipSizeDishes } from '../Chip/styles';
 import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
+const ProductCardItem = ({ price, imageUrl, name, rating, id, setCartItems }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
   const isTablet = useMediaQuery('(min-width: 481px) and (max-width: 992px)');
   const isDesktop = useMediaQuery('(min-width: 993px)');
+  const handleAddToCart = (event) => {
+    event.preventDefault();
+    setCartItems((prev) => {
+      // console.log(prev);
+      const newCartState = [...prev];
+      // console.log(newCartState);
+      const index = newCartState.findIndex((item) => item.id === id);
+      console.log(index);
+      if (index !== -1) {
+        newCartState[index].count++;
+
+        // saveStateToLocalStorage(CART_LS_KEY, newCartState);
+        return newCartState;
+      }
+      const newState = [{ name, price, id, count: 1 }, ...prev];
+      // saveStateToLocalStorage(CART_LS_KEY, newState);
+      return newCartState;
+    });
+  };
 
   return (
     <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
@@ -65,7 +84,7 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
                 {price.toFixed(2).split('.')[1]}
               </Typography>
             </Typography>
-            <IconButton aria-label="add to cart" sx={{ color: '#323142' }}>
+            <IconButton aria-label="add to cart" sx={{ color: '#323142' }} onClick={handleAddToCart}>
               <AddBoxIcon sx={{ fontSize: isMobile ? '20px' : isTablet ? '25px' : '30px' }} />
             </IconButton>
           </Box>
@@ -81,6 +100,7 @@ ProductCardItem.propTypes = {
   name: PropTypes.string,
   rating: PropTypes.number,
   id: PropTypes.string,
+  setCartItems: PropTypes.func,
 };
 
 ProductCardItem.defaultProps = {
@@ -89,6 +109,7 @@ ProductCardItem.defaultProps = {
   name: 'Chicken Hell',
   rating: 3,
   id: '6507a306baee59670a047307',
+  setCartItems: () => { },
 };
 
 export default ProductCardItem;
