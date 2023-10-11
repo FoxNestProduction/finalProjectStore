@@ -3,14 +3,29 @@
   height: 350px;
 }
 
+.swiperSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiperSlideItem {
+  border-radius: 20px;
+  overflow: hidden;
+   & img {
+    width: 813px;
+    height: 350px;
+   }
+}
+
 .customPagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; /* Додайте відступи або інші стилі за потребою */
+  margin-top: 20px; 
   margin-bottom: 20px;
 
-
+}
 
 .customPaginationItem {
   width: 30px; 
@@ -20,20 +35,11 @@
   cursor: pointer; 
 
   &:not(:last-child) {
-    margin-right: 10px; /* Відступ між індикаторами (крім останнього) */
+    margin-right: 10px; 
   }
   
   &.active {
     background-color: #6C5FBC;
     width: 61px; 
   }
-  }
-
-
 }
-
-
-// .active {
-//   background-color: #6C5FBC;
-//   width: 61px; 
-// }

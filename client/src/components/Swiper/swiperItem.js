@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCube, Pagination } from 'swiper/modules';
+import classNames from 'classnames';
 
 import 'swiper/scss';
 import 'swiper/css/effect-cube';
@@ -41,17 +42,16 @@ const SwiperItem = () => {
     { index: 0 },
     { index: 1 },
     { index: 2 },
-    // { index: 3 },
   ];
 
   return (
-    <div className={styles.swiperContainer}>
+    <>
       <Swiper
         className={styles.wrap}
         effect="cube"
         grabCursor
         cubeEffect={{
-          shadow: true,
+          shadow: false,
           slideShadows: true,
           shadowOffset: 20,
           shadowScale: 0.94,
@@ -63,27 +63,33 @@ const SwiperItem = () => {
           setActiveSlideIndex(swiper.activeIndex);
         }}
       >
-        <SwiperSlide>
-          <img src="./img/Banner.jpg" alt="Slide 1" />
+        <SwiperSlide className={styles.swiperSlide}>
+          <div className={styles.swiperSlideItem}>
+            <img src="./img/Banner.jpg" alt="Slide 1" />
+          </div>
         </SwiperSlide>
-        <SwiperSlide>
-          <img src="./img/Banner2.jpg" alt="Slide 2" />
+        <SwiperSlide className={styles.swiperSlide}>
+          <div className={styles.swiperSlideItem}>
+            <img src="./img/Banner2.jpg" alt="Slide 2" />
+          </div>
         </SwiperSlide>
-        <SwiperSlide>
-          <img src="./img/Banner3.jpg" alt="Slide 3" />
+        <SwiperSlide className={styles.swiperSlide}>
+          <div className={styles.swiperSlideItem}>
+            <img src="./img/Banner3.jpg" alt="Slide 3" />
+          </div>
         </SwiperSlide>
-        {/* <SwiperSlide>
-          <img src="./img/Banner.jpg" alt="Slide 4" />
-        </SwiperSlide> */}
       </Swiper>
       <div className={styles.customPagination}>
         {paginationData.map((item) => (
           // eslint-disable-next-line jsx-a11y/control-has-associated-label
           <div
             key={item.index}
-            className={`${styles.customPaginationItem} ${
-              item.index === activeSlideIndex ? styles.active : ''
-            }`}
+            className={
+              classNames(
+                styles.customPaginationItem,
+                { [styles.active]: item.index === activeSlideIndex },
+              )
+            }
             onClick={() => handleBulletClick(item.index)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
@@ -95,22 +101,8 @@ const SwiperItem = () => {
           />
         ))}
       </div>
-
-    </div>
+    </>
   );
 };
 
 export default SwiperItem;
-
-// <SwiperSlide>
-// <img src="https://swiperjs.com/demos/images/nature-1.jpg" alt="Slide 1" />
-// </SwiperSlide>
-// <SwiperSlide>
-// <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="Slide 2" />
-// </SwiperSlide>
-// <SwiperSlide>
-// <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="Slide 3" />
-// </SwiperSlide>
-// <SwiperSlide>
-// <img src="https://swiperjs.com/demos/images/nature-4.jpg" alt="Slide 4" />
-// </SwiperSlide>
