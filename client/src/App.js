@@ -27,7 +27,6 @@ const App = () => {
     dispatch(getProducts());
     dispatch(fetchRestaurant());
     dispatch(getReviews());
-    dispatch(getCustomers());
   }, [dispatch]);
 
   return (

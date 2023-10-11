@@ -15,7 +15,7 @@ import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent } fr
 
 const ReviewItem = ({ review }) => {
   const [isShow, setIsShow] = useState(false);
-  const { rating, comment, firstName, lastName, avatarUrl } = review;
+  const { rating, content, avatarUrl, userReview } = review;
   const ratingNumber = Number(rating);
 
   return (
@@ -29,7 +29,8 @@ const ReviewItem = ({ review }) => {
             </Avatar>
           )}
           title={
-            `${lastName} ${firstName}`
+            userReview
+            // `${lastName} ${firstName}`
           }
           action={
             <FormatQuoteRoundedIcon sx={stylesQuoteIcon} />
@@ -37,7 +38,7 @@ const ReviewItem = ({ review }) => {
         />
         )}
         <CardContent sx={stylesContent}>
-          {comment}
+          {content}
         </CardContent>
         <CardActions sx={stylesActionCard}>
           <Rating

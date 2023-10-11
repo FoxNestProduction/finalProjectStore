@@ -1,34 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+// import { createSlice } from '@reduxjs/toolkit';
+// import axios from 'axios';
 
-const initialState = {
-  customers: [],
-};
+// const initialState = {
+//   customers: [],
+// };
 
-/* eslint-disable no-param-reassign */
+// /* eslint-disable no-param-reassign */
 
-const customersSlice = createSlice({
-  name: 'customers',
-  initialState,
-  reducers: {
-    setCustomers(state, action) { // eslint-disable-line no-shadow
-      state.customers = action.payload;
-    },
-  },
-});
+// const customersSlice = createSlice({
+//   name: 'customers',
+//   initialState,
+//   reducers: {
+//     setCustomers(state, action) { // eslint-disable-line no-shadow
+//       state.customers = action.payload;
+//     },
+//   },
+// });
 
-export const getCustomers = () => async (dispatch) => {
-  try {
-    const { data } = await axios.get('http://localhost:4000/api/customers');
-    console.log(data);
-    dispatch(setCustomers(data));// eslint-disable-line no-use-before-define
-  } catch (error) {
-    console.log('%cError loading customers:', 'color: red; font-weight: bold;', error);
-  }
-};
+// export const getCustomers = () => async (dispatch) => {
+//   try {
+//     const { data } = await axios.get('http://localhost:4000/api/customers');
+//     console.log(data);
+//     dispatch(setCustomers(data));// eslint-disable-line no-use-before-define
+//   } catch (error) {
+//     console.log('%cError loading customers:', 'color: red; font-weight: bold;', error);
+//   }
+// };
 
-export const { setCustomers } = customersSlice.actions;
+// export const { setCustomers } = customersSlice.actions;
 
-/* eslint-enable no-param-reassign */
+// /* eslint-enable no-param-reassign */
 
-export default customersSlice.reducer;
+// export default customersSlice.reducer;

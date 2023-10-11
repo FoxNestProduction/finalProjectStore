@@ -38,7 +38,7 @@ const reducer = combineReducers({
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
-  reviews: persistReducer(userPersistConfig, reviewsSlice),
+  reviews: reviewsSlice,
   customers: customersSlice,
 });
 

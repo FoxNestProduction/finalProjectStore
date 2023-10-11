@@ -4,15 +4,18 @@ import Stack from '@mui/material/Stack';
 import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNewRating, setNewReviewText } from '../../redux/slices/reviewsSlice';
+import { setNewRating, setNewReview } from '../../redux/slices/reviewsSlice';
 
 const NewReview = () => {
+  // const [rating, setRating] = useState();
   const dispatch = useDispatch();
-  const textReview = useSelector((state) => state.reviews.newReview);
-  const rating = useSelector((state) => state.reviews.newRating);
+  const { lastName, firstName } = useSelector((state) => state.user.user);
+  const rating = useSelector((state) => state.reviews.newReview.rating);
+
   const handleReviewTextChange = (event) => {
-    dispatch(setNewReviewText(event.target.value));
-    console.log(textReview);
+    const newReviewText = event.target.value;
+    dispatch(setNewReview({ field: 'content', value: `${newReviewText}` }));
+    dispatch(setNewReview({ field: 'userReview', value: `${lastName} ${firstName}` }));
   };
 
   return (
@@ -36,7 +39,7 @@ const NewReview = () => {
           label="You can rate the service"
           value={rating}
           onChange={(event, newValue) => {
-            dispatch(setNewRating(newValue));
+            dispatch(setNewReview({ field: 'rating', value: newValue }));
           }}
         />
       </Stack>
