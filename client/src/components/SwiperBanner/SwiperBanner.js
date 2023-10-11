@@ -7,9 +7,9 @@ import 'swiper/scss';
 import 'swiper/css/effect-cube';
 import 'swiper/css/pagination';
 
-import styles from './Swiper.module.scss';
+import styles from './SwiperBanner.module.scss';
 
-const SwiperItem = () => {
+const SwiperBanner = () => {
   const [swiperInstance, setSwiperInstance] = useState(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   console.log(swiperInstance);
@@ -105,4 +105,4 @@ const SwiperItem = () => {
   );
 };
 
-export default SwiperItem;
+export default SwiperBanner;
