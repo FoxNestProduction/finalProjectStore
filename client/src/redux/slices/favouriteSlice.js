@@ -9,7 +9,6 @@ const initialState = {
   cardStates: {},
 };
 
-/* eslint-disable no-param-reassign */
 const favouriteSlice = createSlice({
   name: 'favourites',
   initialState,
