@@ -52,15 +52,14 @@ export const {
 
 export const updateUserData = () => async (dispatch, getState) => {
   try {
-    const { authorization, favourites } = getState();
-    const { token } = authorization;
+    const { favourites } = getState();
     const { updatedFavourites } = favourites;
-    const response = await axios.put('http://localhost:4000/api/customers', { favourites: updatedFavourites }, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-    });
+    const { token } = JSON.parse(localStorage.getItem('persist:authorization'));
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    const response = await axios.put('http://localhost:4000/api/customers', { favourites: updatedFavourites }, { headers });
     console.log(response);
     if (response) {
       dispatch(updateFavourites(updatedFavourites));
