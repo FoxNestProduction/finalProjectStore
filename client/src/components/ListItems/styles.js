@@ -16,6 +16,7 @@ export const linkStyles = {
   color: 'secondary.main',
   gap: '10px',
   border: '1px solid #FF7C1C',
+  transition: '.3s',
   '&:hover': {
     backgroundColor: 'secondary.hover',
     border: '1px solid #FF7C1C',
