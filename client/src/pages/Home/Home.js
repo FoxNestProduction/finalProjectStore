@@ -6,21 +6,21 @@ import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
 import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
-import useBreakpoint from '../../customHooks/useBreakpoint';
+import useSortedItems from '../../customHooks/useSortedItems';
+import Features from '../../components/Features/Features';
+import MobileApp from '../../components/MobileApp/MobileApp';
 
 const HomePage = () => {
-  const breakpoint = useBreakpoint();
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
-  const sortedPartners = partners.slice()
-    .sort((a, b) => b.rating - a.rating).slice(0, partnersCardWidth[breakpoint]);
+  const sortedPartners = useSortedItems(partners, partnersCardWidth);
   const products = useSelector((state) => state.products.products);
-  const sortedProducts = products.slice()
-    .sort((a, b) => b.rating - a.rating).slice(0, productsCardWidth[breakpoint]);
-  const [cartItems, setCartItems] = useState([]);
-
+  const sortedProducts = useSortedItems(products, productsCardWidth);
+  console.log(products);
   return (
     <>
       <SectionGetStarted />
+      <Features />
+      <MobileApp />
       <ListItems title="Our Top Restaurants" items={sortedPartners} itemComponent={RestaurantItem} actions={<ListItemAction />} type="partners" />
       <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} setCartItems={setCartItems} />
     </>

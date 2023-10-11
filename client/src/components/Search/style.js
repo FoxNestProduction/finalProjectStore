@@ -10,8 +10,10 @@ export const stylesSearch = {
 };
 
 export const stylesBorder = {
-  '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'primary.hover',
+  '& .MuiOutlinedInput-root:hover': {
+    '& > fieldset': {
+      borderColor: 'primary.hover',
+    },
   },
 };
 

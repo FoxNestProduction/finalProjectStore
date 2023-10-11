@@ -68,13 +68,13 @@ const formValidationRules = [
     args: [/^[a-zA-Z0-9]+$/],
     message: "Allowed characters for login is a-z, A-Z, 0-9."
   },
-  {
-    field: "login",
-    method: "isLength",
-    validWhen: true,
-    args: [{ min: 3, max: 10 }],
-    message: "Login must be between 3 and 10 characters"
-  },
+  // {
+  //   field: "login",
+  //   method: "isLength",
+  //   validWhen: true,
+  //   args: [{ min: 3, max: 15 }],
+  //   message: "Login must be between 3 and 15 characters"
+  // },
   {
     field: "loginOrEmail",
     method: FormValidator.isEmpty,

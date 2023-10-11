@@ -4,7 +4,11 @@ import axios from 'axios';
 import { allProducts } from './productsSlice';
 
 const initialState = {
-  cartItems: [],
+  cart: {
+    id: '',
+    products: [],
+    customerId: {},
+  },
   isLoading: false,
   isCart: false,
 };
@@ -17,14 +21,16 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action) {
       // 1-ий варіант - коли нам в action.payload надходить повний об'єкт item
-      if (state.cartItems.length === 0 && action.payload !== null) {
-        state.cartItems.push(action.payload);
+      if (state.cart.cart.products.length === 0 && action.payload !== null) {
+        action.payload.cartQuantity = 1;
+        state.cart.cart.products.push(action.payload);
       } else {
-        const index = state.cartItems.findIndex((item) => item.id === action.payload.id);
+        const index = state.cart.cart.products
+          .findIndex((product) => product.id === action.payload.id);
         if (index === -1) {
-          state.cartItems.push(action.payload);
+          state.cart.cart.products.push(action.payload);
         } else {
-          state.cartItems[index].quantity += 1;
+          state.cart.cart.products[index].cartQuantity += 1;
         }
       }
       /** 2-ий варіант, коли нам приходить суто id товара потрібно звернутись
@@ -35,27 +41,27 @@ const cartSlice = createSlice({
        */
     },
     setCart(state, action) {
-      if (state.cartItems.length === 0) {
-        state.cartItems = action.payload;
+      if (state.cart.cart.products.length === 0) {
+        state.cart = action.payload;
       } else {
         const uniqueFilteredProducts = action.payload.products.filter((product) => {
-          const matchedProduct = state.cartItems
-            .find((cartItem) => cartItem.item.id !== product.id);
+          const matchedProduct = state.cart.cart.products
+            .find((cartProduct) => cartProduct.id !== product.id);
           const mark = matchedProduct !== undefined;
           return mark;
         });
         const notUniqueFilteredProducts = action.payload.products.filter((product) => {
-          const matchedProduct = state.cartItems
-            .find((cartItem) => cartItem.item.id === product.id);
+          const matchedProduct = state.cart.cart.products
+            .find((cartProduct) => cartProduct.id === product.id);
           const mark = matchedProduct !== undefined;
           return mark;
         }).map((product) => {
-          const matchedProduct = state.cartItems
-            .find((cartItem) => cartItem.item.id === product.id);
-          product.quantity += matchedProduct.quantity;
+          const matchedProduct = state.cart.cart.products
+            .find((cartProduct) => cartProduct.id === product.id);
+          product.cartQuantity += matchedProduct.cartQuantity;
           return product;
         });
-        state.cartItems = { ...uniqueFilteredProducts, ...notUniqueFilteredProducts };
+        state.cart.cart.products = { ...uniqueFilteredProducts, ...notUniqueFilteredProducts };
       }
     },
     setIsLoading(state, action) {
@@ -66,15 +72,16 @@ const cartSlice = createSlice({
     },
     deleteFromCart(state, action) {
       // 1 - ий варіант - коли нам в action.payload надходить повний об'єкт item
-      if (state.cartItems.length) {
-        const index = state.cartItems.findIndex((item) => item.id === action.payload.id);
+      if (state.cart.cart.products.length) {
+        const index = state.cart.cart.products
+          .findIndex((product) => product.id === action.payload.id);
 
         if (index !== -1) {
-          state.cartItems[index] = (
-            state.cartItems[index] === 1
-              ? state.cartItems.splice(index, 1)
-              : state.cartItems[index].quantity -= 1
-          );
+          if (state.cart.cart.products[index].cartQuantity === 1) {
+            state.cart.cart.products.splice(index, 1);
+          } else {
+            state.cart.cart.products[index].cartQuantity -= 1;
+          }
         }
       }
       /** 2-ий варіант, коли нам приходить суто id товара потрібно звернутись

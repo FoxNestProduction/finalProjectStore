@@ -16,9 +16,7 @@ const partnersSlice = createSlice({
   },
 });
 
-export const {
-  setPartners,
-} = partnersSlice.actions;
+export const { setPartners } = partnersSlice.actions;
 
 export const getPartners = () => async (dispatch) => {
   try {

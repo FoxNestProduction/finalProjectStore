@@ -45,7 +45,7 @@ const ContactForm = () => {
                 name="name"
                 id="contactName"
                 placeholder="Enter your name"
-                label="name"
+                label="Name"
                 bgColor="#FFF"
               />
               <Input
@@ -53,18 +53,18 @@ const ContactForm = () => {
                 name="email"
                 id="contactEmail"
                 placeholder="Enter your e-mail"
-                label="email"
+                label="E-mail"
                 bgColor="#FFF"
               />
               <Textarea name="message" placeholder="Enter the problem or query..." />
             </Box>
             <Box sx={{ textAlign: 'center' }}>
               <Button
-                onSubmit={handleSubmit}
                 disableRipple
                 variant="contained"
                 sx={sendBtn}
                 type="submit"
+                disabled={!isValid}
               >
                 Send Now
               </Button>

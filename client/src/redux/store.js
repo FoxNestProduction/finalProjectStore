@@ -8,8 +8,9 @@ import modalSlice from './slices/modalSlice';
 import productsSlice from './slices/productsSlice';
 import authorizationSlice from './slices/authorizationSlice';
 import userSlice from './slices/userSlice';
-import errorSlice from './slices/errorSlice';
 import partnersSlice from './slices/partnersSlice';
+import searchSlice from './slices/searchSlice';
+import errorSlice from './slices/errorSlice';
 import cartSlice from './slices/cartSlice';
 
 const authPersistConfig = {
@@ -23,6 +24,13 @@ const userPersistConfig = {
   version: 1,
   storage,
 };
+
+const searchPersistConfig = {
+  key: 'search',
+  version: 1,
+  storage,
+};
+
 
 const cartPersistConfig = {
   key: 'cart',
@@ -43,6 +51,7 @@ const reducer = combineReducers({
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
+  search: persistReducer(searchPersistConfig, searchSlice),
   cart: persistReducer(cartPersistConfig, cartSlice),
 });
 

@@ -3,17 +3,18 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
 import { Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AppleIcon from '@mui/icons-material/Apple';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonSvg from '@mui/icons-material/Person';
+import axios from 'axios';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 
 // eslint-disable-next-line import/no-cycle
 import LoginForm from '../LoginForm/LoginForm';
-import validationSchema from './ValidationSchema';
+import validationSchema from './validationSchema';
 import {
   flexcenter,
   container,
@@ -24,25 +25,48 @@ import {
   legend,
   inputsWrapper,
   signUpBtn,
-  signUpLink,
+  signInLink,
 } from './styles';
 import Input from '../../Input/Input';
-import { setContent } from '../../../redux/slices/modalSlice';
+import { closeModal, setContent } from '../../../redux/slices/modalSlice';
+import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
+import { setUser } from '../../../redux/slices/userSlice';
+import { setRegistrationError } from '../../../redux/slices/errorSlice';
 
 export const initialValues = {
-  fullName: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
 };
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+  const registerError = useSelector((state) => state.error.registration);
 
-  const submit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values, actions) => {
+    const newCustomer = {
+      ...values,
+      login: values.firstName + values.lastName,
+      isAdmin: false,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:4000/api/customers', newCustomer);
+      const { user, token } = response.data;
+
+      dispatch(setToken(token));
+      dispatch(setAuthorization(true));
+      dispatch(setUser(user));
+      dispatch(closeModal());
+      dispatch(setRegistrationError(''));
+    } catch (error) {
+      dispatch(setRegistrationError(error.response.data.message));
+      console.error('Помилка реєстрації:', error);
+    }
   };
 
-  const logInContent = () => {
+  const handleOpenLogInForm = () => {
     dispatch(setContent(<LoginForm />));
   };
 
@@ -92,7 +116,7 @@ const RegisterForm = () => {
       </Typography>
       <Formik
         initialValues={initialValues}
-        onSubmit={submit}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         {({ isValid }) => (
@@ -104,15 +128,32 @@ const RegisterForm = () => {
                 ...inputsWrapper,
               }}
             >
+              {/* <Input */}
+              {/*  type="text" */}
+              {/*  name="fullName" */}
+              {/*  id="registerFullName" */}
+              {/*  label="Full name" */}
+              {/*  placeholder="Enter your full name" */}
+              {/*  icon={<PersonSvg />} */}
+              {/* /> */}
               <Input
                 type="text"
-                name="fullName"
-                id="registerFullName"
-                label="Full name"
-                placeholder="Enter your full name"
+                name="firstName"
+                id="registerFirstName"
+                label="First name"
+                placeholder="Enter your first name"
                 icon={<PersonSvg />}
               />
               <Input
+                type="text"
+                name="lastName"
+                id="registerLastName"
+                label="Last name"
+                placeholder="Enter your last name"
+                icon={<PersonSvg />}
+              />
+              <Input
+                error={registerError}
                 type="text"
                 name="email"
                 id="registerEmail"
@@ -129,7 +170,6 @@ const RegisterForm = () => {
                 icon={<LockIcon />}
               />
               <Button
-                onSubmit={submit}
                 disableRipple
                 variant="contained"
                 sx={signUpBtn}
@@ -143,7 +183,7 @@ const RegisterForm = () => {
               sx={flexcenter}
             >
               Already Have An Account?
-              <Button onClick={logInContent} sx={signUpLink}> Log In</Button>
+              <Button onClick={handleOpenLogInForm} sx={signInLink}> Log In</Button>
             </Typography>
           </Form>
         )}

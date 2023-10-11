@@ -1,7 +1,7 @@
 import React, { createElement } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import PropTypes from 'prop-types';
+import PropTypes, { bool, string } from 'prop-types';
 import Grid from '@mui/material/Grid';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer } from './styles';
 
@@ -32,7 +32,7 @@ const ListItems = ({ title, items, itemComponent, actions, type, setCartItems })
 };
 
 ListItems.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.oneOfType(string, bool),
   actions: PropTypes.object,
   items: PropTypes.array,
   itemComponent: PropTypes.func,
