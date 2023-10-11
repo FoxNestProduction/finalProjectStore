@@ -31,7 +31,7 @@ import {
 // eslint-disable-next-line import/no-cycle
 import RegisterForm from '../RegisterForm/RegisterForm';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
-import Input from '../../Input/Input';
+import Input from '../../inputs/Input/Input';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';

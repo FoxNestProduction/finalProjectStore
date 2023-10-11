@@ -27,7 +27,7 @@ import {
   signUpBtn,
   signInLink,
 } from './styles';
-import Input from '../../Input/Input';
+import Input from '../../inputs/Input/Input';
 import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';

@@ -1,6 +1,6 @@
 export const stylesButtonCardOutline = {
   p: '10px',
-  borderRadius: '14px',
+  borderRadius: '16px',
   color: 'text.primary',
   border: 1,
   fontSize: { mobile: '14px', tablet: '18px' },
@@ -94,7 +94,7 @@ export const stylesPriceCard = {
 
 export const stylesButtonCard = {
   p: '10px',
-  borderRadius: '14px',
+  borderRadius: '16px',
   border: '1px solid primary.main',
   fontSize: { mobile: '14px', tablet: '18px' },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
