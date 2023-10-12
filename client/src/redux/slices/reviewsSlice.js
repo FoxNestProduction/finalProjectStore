@@ -4,10 +4,12 @@ import axios from 'axios';
 const initialState = {
   reviews: [],
   newReview: {
+    user_id: '',
     content: '',
     rating: null,
+    avatarUrl: '',
     userReview: '',
-    // product: '6507a306baee59670a047307',
+    product: '6507a306baee59670a047307',
   },
 };
 
@@ -44,22 +46,21 @@ export const getReviews = () => async (dispatch) => {
   }
 };
 
-// export const addNewReview = (review) => async (dispatch, getState) => {
-//   try {
-//     const state = getState();
-//     const newFeedback = {
-//       user_id: '',
-//       comment: state.reviews.newReview,
-//       rating: state.reviews.newRating,
-//       user: state.reviews.userReview,
-//     };
-//     const { data } = await axios.post('http://localhost:4000/api/comments', newFeedback);
-//     console.log(data);
-//     dispatch(addReview(newFeedback));// eslint-disable-line no-use-before-define
-//   } catch (error) {
-//     console.log('%cError push review:', 'color: red; font-weight: bold;', error);
-//   }
-// };
+export const addNewReview = (review) => async (dispatch, getState) => {
+  try {
+    const state = getState();
+    console.log(state.reviews.newReview);
+    const { data } = await axios.post('http://localhost:4000/api/comments', state.reviews.newReview, {
+      headers: {
+        Authorization: state.authorization.token,
+      },
+    });
+    console.log(data);
+    dispatch(addReview(state.newReview));// eslint-disable-line no-use-before-define
+  } catch (error) {
+    console.log('%cError push review:', 'color: red; font-weight: bold;', error);
+  }
+};
 
 export const removeReviewId = (_id) => async (dispatch) => {
   try {

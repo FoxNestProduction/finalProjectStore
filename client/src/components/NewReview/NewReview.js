@@ -11,11 +11,13 @@ const NewReview = () => {
   const dispatch = useDispatch();
   const { lastName, firstName } = useSelector((state) => state.user.user);
   const rating = useSelector((state) => state.reviews.newReview.rating);
+  const avatar = useSelector((state) => state.reviews.newReview.avatarUrl);
 
   const handleReviewTextChange = (event) => {
     const newReviewText = event.target.value;
     dispatch(setNewReview({ field: 'content', value: `${newReviewText}` }));
     dispatch(setNewReview({ field: 'userReview', value: `${lastName} ${firstName}` }));
+    dispatch(setNewReview({ field: 'avatarUrl', value: `${avatar}` }));
   };
 
   return (

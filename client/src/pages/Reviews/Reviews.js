@@ -11,25 +11,6 @@ import { addReview, setNewReview } from '../../redux/slices/reviewsSlice';
 const ReviewsPage = () => {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
-  const newReview = useSelector((state) => state.reviews.newReviews);
-  const token = useSelector((state) => state.authorization.token);
-
-  useEffect(() => {
-    const addNewReview = async () => {
-      try {
-        const { data } = await axios.post('http://localhost:4000/api/comments', newReview, {
-          headers: {
-            Authorization: token,
-          },
-        });
-        console.log(data);
-        console.log(token);
-      } catch (error) {
-        console.log('%cError push review:', 'color: red; font-weight: bold;', error);
-      }
-    };
-    addNewReview();
-  }, [newReview, token]);
 
   const handleSendFeedback = () => {
     dispatch(addReview());
