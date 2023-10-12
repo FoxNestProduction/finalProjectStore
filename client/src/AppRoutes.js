@@ -7,6 +7,7 @@ import MenuPage from './pages/Menu/Menu';
 import PricingPage from './pages/Pricing/Pricing';
 import AboutUsPage from './pages/AboutUs/AboutUs';
 import ProductPage from './pages/Product/Product';
+import PartnersPage from './pages/Partners/Partners';
 import ReviewsPage from './pages/Reviews/Reviews';
 import Cart from './components/Cart/Cart';
 import Favourites from './components/Favourites/Favourites';
@@ -24,6 +25,7 @@ const AppRoutes = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/menu/:productName" element={<ProductPage />} />
+        <Route path="/menu/:partnersName" element={<PartnersPage />} />
       </Route>
     </Routes>
   );
