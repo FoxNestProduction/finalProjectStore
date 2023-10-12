@@ -16,8 +16,6 @@ const FavouriteItem = ({ product }) => {
   const products = useSelector((state) => state.products.products, shallowEqual);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => (item._id) === product);
-  console.log(dish);
-  console.log(product);
   const { name, currentPrice, isTranding, rating, imageUrl, isSupreme, isHealthy, _id } = dish;
 
   return (
