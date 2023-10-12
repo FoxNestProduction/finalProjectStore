@@ -3,11 +3,12 @@ import { Field, Form, Formik } from 'formik';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { MenuItem, Select, Typography } from '@mui/material';
+import { MenuItem, Select, TextField, Typography } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import InputMask from 'react-input-mask';
 import Input from '../../inputs/Input/Input';
 import validationSchema from './validationSchema';
 import SelectForFormik from '../../inputs/Select/Select';
@@ -102,7 +103,16 @@ const CheckoutForm = () => {
               label="Last Name*" bgColor="#FFF" placeholder="Enter your last name" /> */}
               <Input name="name" id="checkout-name" label="Name*" bgColor="#FFF" />
               <Input name="email" id="checkout-email" label="Email Address*" bgColor="#FFF" />
-              <Input type="tel" name="tel" id="checkout-tel" label="Mobile Number*" bgColor="#FFF" />
+              {/* <Input type="tel" name="tel"
+              id="checkout-tel" label="Mobile Number*" bgColor="#FFF" /> */}
+
+              <Field name="tel">
+                {({ field }) => (
+                  <InputMask mask="+38 (099) 999-99-99" {...field}>
+                    <Input type="tel" id="checkout-tel" bgColor="#FFF" label="Mobile Number*" />
+                  </InputMask>
+                )}
+              </Field>
 
               <FormControl fullWidth>
                 <InputLabel id="checkout-city-label">City*</InputLabel>
@@ -131,9 +141,9 @@ const CheckoutForm = () => {
               </FormControl>
             </Stack>
             <Box sx={{
-              m: {
-                mobile: '45px auto 0',
-                lgTablet: '50px auto 0',
+              mt: {
+                mobile: '45px',
+                lgTablet: '50px',
               },
               display: 'flex',
               justifyContent: 'space-between',

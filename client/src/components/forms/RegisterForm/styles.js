@@ -88,7 +88,7 @@ export const legend = {
   fontSize: {
     mobile: '12px',
     tablet: '14px',
-    desktop: '14px',
+    desktop: '16px',
   },
   mb: {
     mobile: '24px',
