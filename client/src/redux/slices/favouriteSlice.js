@@ -15,7 +15,6 @@ const favouriteSlice = createSlice({
   reducers: {
     setFavourite(state, action) {
       state.favourites = action.payload;
-      // localStorage.setItem('favourites', JSON.stringify(state.favourites));
       action.payload.forEach((id) => {
         state.cardStates[id] = true;
       });
@@ -23,7 +22,6 @@ const favouriteSlice = createSlice({
     addFavourite(state, action) {
       const { id } = action.payload;
       state.favourites.push(action.payload.id);
-      // localStorage.setItem('favourites', JSON.stringify(state.favourites));
       state.cardStates[id] = true;
     },
     removeFavourite(state, action) {
@@ -31,7 +29,6 @@ const favouriteSlice = createSlice({
       const { id } = action.payload;
       const newStateFavourites = state.favourites.filter((item) => item !== action.payload.id);
       state.favourites = newStateFavourites;
-      // localStorage.setItem('favourites', JSON.stringify(newStateFavourites));
       state.cardStates[id] = false;
     },
     updateFavourites(state, action) {

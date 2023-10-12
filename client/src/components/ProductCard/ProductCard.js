@@ -24,7 +24,7 @@ const ProductCard = ({ productName }) => {
   const products = useSelector((state) => state.products.products, shallowEqual);
   const dispatch = useDispatch();
   const [ishovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [isactive, setIsActive] = useState(false);
   const nameOfProduct = fixedDecodeURIComponent(productName);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
@@ -145,7 +145,7 @@ const ProductCard = ({ productName }) => {
                 onClick={toggleFavourite}
               >
                 Favourite
-                <FavouriteIcon id={id} sx={{ ml: 1 }} ishovered={ishovered} isActive={isActive} />
+                <FavouriteIcon id={id} sx={{ ml: 1 }} ishovered={ishovered} isactive={isactive} />
               </Button>
               <Button
                 variant="contained"

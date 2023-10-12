@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -12,7 +12,7 @@ import ProductCardItem from '../ProductCardItem/ProductCardItem';
 const Favourites = () => {
   const isMobile = useMediaQuery('(max-width: 690px)');
   const isLgTablet = useMediaQuery('(min-width: 690px)');
-  const products = useSelector((state) => state.products.products);
+  const products = useSelector((state) => state.products.products, shallowEqual);
   const favourite = useSelector((state) => state.favourites.favourites);
   // eslint-disable-next-line no-underscore-dangle
   const favouritesList = favourite.map((item) => products.find((product) => product._id === item));
@@ -24,7 +24,7 @@ const Favourites = () => {
           <Container sx={{ backgroundColor: 'background.default' }}>
             <Typography variant="h2" component="h3" sx={{ textAlign: 'center', mb: { lgTablet: '34px', desktop: '28px' } }}>Favourite</Typography>
             <Stack direction="column" spacing={3}>
-              { favourite.map((item) => <FavouriteItem key={item} favourite={item} />)}
+              { favourite.map((item) => <FavouriteItem key={item} product={item} />)}
             </Stack>
           </Container>
         )}

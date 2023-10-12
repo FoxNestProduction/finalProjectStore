@@ -11,26 +11,19 @@ import { stylesButton, styleCardFavourite, styleMediaFavourite, styleContentFavo
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const FavouriteItem = ({ favourite }) => {
+const FavouriteItem = ({ product }) => {
+  // eslint-disable-next-line no-underscore-dangle
   const products = useSelector((state) => state.products.products, shallowEqual);
   // eslint-disable-next-line no-underscore-dangle
-  const dish = products.find((item) => (item._id) === favourite);
-
-  const {
-    name,
-    currentPrice,
-    isTranding,
-    rating,
-    imageUrl,
-    isSupreme,
-    isHealthy,
-    _id,
-  } = dish;
+  const dish = products.find((item) => (item._id) === product);
+  console.log(dish);
+  console.log(product);
+  const { name, currentPrice, isTranding, rating, imageUrl, isSupreme, isHealthy, _id } = dish;
 
   return (
     <Card sx={styleCardFavourite}>
       <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', maxWidth: '1008px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', maxWidth: '900px' }}>
           <CardMedia
             component="img"
             width="fit content"
@@ -60,7 +53,7 @@ const FavouriteItem = ({ favourite }) => {
           </CardContent>
         </Box>
       </Link>
-      <CardActions sx={{ alignItems: 'flex-end', p: 0 }}>
+      <CardActions sx={{ alignItems: 'flex-end', p: 0, minWidth: '130px' }}>
         <Button
           variant="outline"
           fontSize="medium"
@@ -81,7 +74,10 @@ const FavouriteItem = ({ favourite }) => {
 };
 
 FavouriteItem.propTypes = {
-  favourite: PropTypes.string.isRequired,
+  product: PropTypes.string,
+};
+FavouriteItem.defaultProps = {
+  product: '',
 };
 
 export default FavouriteItem;

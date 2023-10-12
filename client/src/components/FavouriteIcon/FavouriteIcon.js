@@ -7,7 +7,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import { useSelector, useDispatch } from 'react-redux';
 import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
 
-const FavouriteIcon = ({ id, ishovered, isActive }) => {
+const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const dispatch = useDispatch();
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const favourites = useSelector((state) => state.favourites.favorites);
@@ -42,10 +42,10 @@ const FavouriteIcon = ({ id, ishovered, isActive }) => {
       { !isFavourite
         ? (
           <FavoriteBorderOutlinedIcon
-            ishovered={ishovered}
-            isActive={isActive}
+            ishovered={ishovered.toString()}
+            isactive={isactive.toString()}
             sx={{
-              color: isActive ? 'primary.main' : (ishovered ? 'text.primaryLight' : 'text.header'),
+              color: isactive ? 'primary.main' : (ishovered ? 'text.primaryLight' : 'text.header'),
               width: '24px',
               height: '24px',
               '&:hover': { color: 'text.primaryLight' },
@@ -61,13 +61,13 @@ const FavouriteIcon = ({ id, ishovered, isActive }) => {
 FavouriteIcon.propTypes = {
   id: PropTypes.string,
   ishovered: PropTypes.bool,
-  isActive: PropTypes.bool,
+  isactive: PropTypes.bool,
 };
 
 FavouriteIcon.defaultProps = {
   id: '',
   ishovered: false,
-  isActive: false,
+  isactive: false,
 };
 
 export default FavouriteIcon;
