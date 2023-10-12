@@ -66,6 +66,12 @@ const SwiperBanner = () => {
     { index: 2 },
   ];
 
+  const urlData = [
+    { url: './img/Banner.jpg' },
+    { url: './img/Banner2.jpg' },
+    { url: './img/Banner3.jpg' },
+  ];
+
   return (
     <>
       <Swiper
@@ -85,9 +91,7 @@ const SwiperBanner = () => {
           setActiveSlideIndex(swiper.activeIndex);
         }}
         speed={700}
-        rewind
-        loop
-        loopAdditionalSlides={2}
+        // loop
         // onReachEnd={(swiper) => {
         //   setActiveSlideIndex(swiper.activeIndex);
         //   if (swiper.activeIndex === swiper.slides.length - 1) {
@@ -95,7 +99,15 @@ const SwiperBanner = () => {
         //   }
         // }}
       >
-        <SwiperSlide className={styles.swiperSlide}>
+        {urlData.map((item) => (
+          <SwiperSlide className={styles.swiperSlide}>
+            <div className={styles.swiperSlideItem}>
+              <img src={item.url} alt="Slide" />
+            </div>
+          </SwiperSlide>
+        ))}
+
+        {/* <SwiperSlide className={styles.swiperSlide}>
           <div className={styles.swiperSlideItem}>
             <img src="./img/Banner.jpg" alt="Slide 1" />
           </div>
@@ -109,7 +121,7 @@ const SwiperBanner = () => {
           <div className={styles.swiperSlideItem}>
             <img src="./img/Banner3.jpg" alt="Slide 3" />
           </div>
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
       <div className={styles.customPagination}>
         {paginationData.map((item) => (
