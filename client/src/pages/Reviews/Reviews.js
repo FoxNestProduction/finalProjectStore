@@ -6,7 +6,7 @@ import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import Modal from '../../components/Modal/Modal';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
-import { addReview, setNewReview } from '../../redux/slices/reviewsSlice';
+import { addNewReview, addReview, setNewReview } from '../../redux/slices/reviewsSlice';
 
 const ReviewsPage = () => {
   const dispatch = useDispatch();
@@ -15,26 +15,26 @@ const ReviewsPage = () => {
   const token = useSelector((state) => state.authorization.token);
   console.log(token);
 
-  useEffect(() => {
-    const addNewReview = async () => {
-      try {
-        const { data } = await axios.post('http://localhost:4000/api/comments', newReview, {
-          headers: {
-            Authorization: token,
-          },
-        });
-        console.log(data);
-        console.log(data.data);
-        console.log(token);
-      } catch (error) {
-        console.log('%cError push review:', 'color: red; font-weight: bold;', error);
-      }
-    };
-    addNewReview();
-  }, [newReview, token]);
+  // useEffect(() => {
+  //   const addNewReview = async () => {
+  //     try {
+  //       const { data } = await axios.post('http://localhost:4000/api/comments', newReview, {
+  //         headers: {
+  //           Authorization: token,
+  //         },
+  //       });
+  //       console.log(data);
+  //       console.log(data.data);
+  //       console.log(token);
+  //     } catch (error) {
+  //       console.log('%cError push review:', 'color: red; font-weight: bold;', error);
+  //     }
+  //   };
+  //   addNewReview();
+  // }, [newReview, token]);
 
   const handleSendFeedback = () => {
-    dispatch(addReview());
+    dispatch(addNewReview());
     dispatch(closeModal());
     dispatch(setNewReview({ field: 'rating', value: null }));
   };
