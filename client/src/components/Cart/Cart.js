@@ -6,7 +6,7 @@ import {
   Button,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   mainBox,
   title,
@@ -23,11 +23,30 @@ import {
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartProduct = useSelector((state) => state.cart.product);
+  const navigate = useNavigate();
+  const cartProducts = useSelector((state) => state.cart.cart.products);
+  const userIsHasCart = useSelector((state) => state.cart.isCart);
+  const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
+
+  console.log(cartProducts);
+  console.log(userIsHasCart);
+  console.log(isUserAuthorization);
+
   const totalSum = 24.55;
+
   const continueFn = () => {
+    if (isUserAuthorization) {
+      if (userIsHasCart) {
+        console.log('We didn\'t create cart');
+      } else {
+        console.log('We must create cart');
+      }
+    } else {
+      navigate('/personalInformation');
+    }
     console.log('Continue');
   };
+
   return (
     <Container>
       <Box

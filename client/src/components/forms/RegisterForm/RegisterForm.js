@@ -32,6 +32,7 @@ import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
 import { setRegistrationError } from '../../../redux/slices/errorSlice';
+import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
 
 export const initialValues = {
   firstName: '',
@@ -60,6 +61,8 @@ const RegisterForm = () => {
       dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setRegistrationError(''));
+      // eslint-disable-next-line no-underscore-dangle
+      dispatch(getCartItemsFromServer(user._id));
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));
       console.error('Помилка реєстрації:', error);

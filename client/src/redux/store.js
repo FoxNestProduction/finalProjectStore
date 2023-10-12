@@ -31,7 +31,6 @@ const searchPersistConfig = {
   storage,
 };
 
-
 const cartPersistConfig = {
   key: 'cart',
   version: 1,
