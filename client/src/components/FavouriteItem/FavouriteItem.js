@@ -13,8 +13,6 @@ import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
 const FavouriteItem = ({ favourite }) => {
   const products = useSelector((state) => state.products.products, shallowEqual);
-  // const favourite = useSelector((state) => state.favourites.favourites);
-  // const dish = useSelector((state) => state.favourites.favourites, shallowEqual);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => (item._id) === favourite);
 
@@ -31,37 +29,37 @@ const FavouriteItem = ({ favourite }) => {
 
   return (
     <Card sx={styleCardFavourite}>
-      {/* <Link to={`/menu/${fixedEncodeURIComponent(name)}`}> */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', maxWidth: '1008px' }}>
-        <CardMedia
-          component="img"
-          width="auto"
-          height="100%"
-          image={imageUrl}
-          sx={styleMediaFavourite}
-        />
-        <CardContent sx={styleContentFavourite}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            <Typography variant="h3" sx={{ p: 0, mb: 1 }}>{name}</Typography>
-            <ColorChips
-              isTranding={isTranding}
-              isSupreme={isSupreme}
-              isHealthy={isHealthy}
-              customStyles={chipForFavourite}
-            />
-            <Rating name="half-rating" size="small" value={rating} readOnly sx={{ color: 'primary.main' }} />
-          </Box>
-          <Box>
-            <Typography
-              variant="h3"
-            >
-              $
-              {currentPrice}
-            </Typography>
-          </Box>
-        </CardContent>
-      </Box>
-      {/* </Link> */}
+      <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', maxWidth: '1008px' }}>
+          <CardMedia
+            component="img"
+            width="fit content"
+            height="100%"
+            image={imageUrl}
+            sx={styleMediaFavourite}
+          />
+          <CardContent sx={styleContentFavourite}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+              <Typography variant="h3" sx={{ p: 0, mb: 1 }}>{name}</Typography>
+              <ColorChips
+                isTranding={isTranding}
+                isSupreme={isSupreme}
+                isHealthy={isHealthy}
+                customStyles={chipForFavourite}
+              />
+              <Rating name="half-rating" size="small" value={rating} readOnly sx={{ color: 'primary.main' }} />
+            </Box>
+            <Box>
+              <Typography
+                variant="h3"
+              >
+                $
+                {currentPrice}
+              </Typography>
+            </Box>
+          </CardContent>
+        </Box>
+      </Link>
       <CardActions sx={{ alignItems: 'flex-end', p: 0 }}>
         <Button
           variant="outline"

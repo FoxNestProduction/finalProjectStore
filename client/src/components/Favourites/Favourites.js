@@ -5,12 +5,12 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import FavouriteItem from '../FevouriteItem/FavouriteItem';
+import FavouriteItem from '../FavouriteItem/FavouriteItem';
 import ListItems from '../ListItems/ListItem';
 import ProductCardItem from '../ProductCardItem/ProductCardItem';
 
 const Favourites = () => {
-  const isMobile = useMediaQuery('(max-width: 689px)');
+  const isMobile = useMediaQuery('(max-width: 690px)');
   const isLgTablet = useMediaQuery('(min-width: 690px)');
   const products = useSelector((state) => state.products.products);
   const favourite = useSelector((state) => state.favourites.favourites);

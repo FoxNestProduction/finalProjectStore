@@ -7,18 +7,22 @@ export const stylesButton = {
     lgTablet: '10px',
     desktop: '15px',
   },
-  color: 'primary.main',
   borderRadius: '14px',
-  borderColor: 'primary.main',
   border: '1px solid',
   fontSize: { lgTablet: '14px', desktop: '22px' },
   alineItem: 'flex-end',
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
-  ':hover': {
+  '&:hover': {
     backgroundColor: 'primary.hover',
     borderColor: 'primary.hover',
     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
     color: 'text.primaryLight',
+  },
+  '&:active': {
+    color: 'primary.main',
+    backgroundColor: 'common.white',
+    borderColor: 'primary.main',
+    border: '1px solid',
   },
 };
 
@@ -38,8 +42,11 @@ export const styleCardFavourite = {
 };
 
 export const styleMediaFavourite = {
-  width: 'fit-content',
-  height: 'auto',
+  width: 'auto',
+  height: {
+    lgTablet: '130px',
+    desktop: '150px',
+  },
   objectFit: 'cover',
   borderRadius: '10px',
   boxShadow: '0 4px 2px #000000A1',

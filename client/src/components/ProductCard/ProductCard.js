@@ -23,7 +23,8 @@ import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice
 const ProductCard = ({ productName }) => {
   const products = useSelector((state) => state.products.products, shallowEqual);
   const dispatch = useDispatch();
-  const [ishovered, setIshovered] = useState(false);
+  const [ishovered, setIsHovered] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const nameOfProduct = fixedDecodeURIComponent(productName);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
@@ -137,12 +138,14 @@ const ProductCard = ({ productName }) => {
               <Button
                 variant="outlined"
                 sx={stylesButtonCardOutline}
-                onMouseEnter={() => setIshovered(true)}
-                onMouseLeave={() => setIshovered(false)}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onMouseDown={() => setIsActive(true)}
+                onMouseUp={() => setIsActive(false)}
                 onClick={toggleFavourite}
               >
                 Favourite
-                <FavouriteIcon id={id} sx={{ ml: 1 }} ishovered={ishovered} />
+                <FavouriteIcon id={id} sx={{ ml: 1 }} ishovered={ishovered} isActive={isActive} />
               </Button>
               <Button
                 variant="contained"
