@@ -1,10 +1,28 @@
-import { Button, Container, Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Button, CardMedia, Container, Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { stylesWrap, stylesIconsWrap, stylesTitle, stylesSlider, stylesBtn, stylesSortBtn } from './styles';
+import {
+  stylesWrap,
+  stylesTitle,
+  stylesSlider,
+  stylesBtn,
+  stylesSortBtn,
+  stylesCategoryIconsWrap,
+  stylesCategoryItem,
+  stylesToggleButton,
+} from './styles';
 
 const Sorter = () => {
+  const [pizza, setPizza] = React.useState(false);
+  const [burger, setBurger] = React.useState(false);
+  const [sushi, setSushi] = React.useState(false);
+  const [salad, setSalad] = React.useState(false);
+  const [pasta, setPasta] = React.useState(false);
+  const [sandwich, setSandwich] = React.useState(false);
+  const [bbqMeat, setBbqMeat] = React.useState(false);
+  const [drink, setDrink] = React.useState(false);
+  const [vegan, setVegan] = React.useState(false);
   const [recomended, setRecomended] = React.useState(false);
   const [mostPopular, setMostPopular] = React.useState(false);
   const [fastDelivery, setFastDelivery] = React.useState(false);
@@ -36,9 +54,141 @@ const Sorter = () => {
     <Stack sx={stylesWrap}>
       <Stack>
         <Typography sx={stylesTitle}>Category</Typography>
-        <Stack>
-          <div>Sorter : піца, бургер, салати, десерти, sea food,</div>
-          <div> мясо-гриль, веганська їжа, паста, напої</div>
+        <Stack sx={stylesCategoryIconsWrap}>
+          <Stack
+            direction="row"
+            spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
+            justifyContent="space-between"
+            sx={{ width: '100%' }}
+          >
+            <ToggleButton
+              sx={stylesToggleButton}
+              value="pizza"
+              selected={pizza}
+              onChange={() => {
+                setPizza(!pizza);
+              }}
+            >
+              <Stack sx={stylesCategoryItem}>
+                <CardMedia component="img" image="./img/pizza.png" alt="pizza" />
+                <Typography>Pizza</Typography>
+              </Stack>
+            </ToggleButton>
+            <ToggleButton
+              sx={stylesToggleButton}
+              value="burger"
+              selected={burger}
+              onChange={() => {
+                setBurger(!burger);
+              }}
+            >
+              <Stack sx={stylesCategoryItem}>
+                <CardMedia component="img" image="./img/burger.png" alt="burger" />
+                <Typography>Burger</Typography>
+              </Stack>
+            </ToggleButton>
+            <ToggleButton
+              sx={stylesToggleButton}
+              value="sushi"
+              selected={sushi}
+              onChange={() => {
+                setSushi(!sushi);
+              }}
+            >
+              <Stack sx={stylesCategoryItem}>
+                <CardMedia component="img" image="./img/sushi.png" alt="sushi" />
+                <Typography>Sushi</Typography>
+              </Stack>
+            </ToggleButton>
+            <ToggleButton
+              sx={stylesToggleButton}
+              value="salad"
+              selected={salad}
+              onChange={() => {
+                setSalad(!salad);
+              }}
+            >
+              <Stack sx={stylesCategoryItem}>
+                <CardMedia component="img" image="./img/salad_2.png" alt="salad" />
+                <Typography>Salad</Typography>
+              </Stack>
+            </ToggleButton>
+          </Stack>
+          <Stack
+            direction="row"
+            spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
+            justifyContent="space-between"
+            sx={{ width: '100%' }}
+          >
+            <ToggleButton
+              sx={stylesToggleButton}
+              value="pasta"
+              selected={pasta}
+              onChange={() => {
+                setPasta(!pasta);
+              }}
+            >
+              <Stack sx={stylesCategoryItem}>
+                <CardMedia component="img" image="./img/pasta.png" alt="pasta" />
+                <Typography>Pasta</Typography>
+              </Stack>
+            </ToggleButton>
+            <ToggleButton
+              sx={stylesToggleButton}
+              value="sandwich"
+              selected={sandwich}
+              onChange={() => {
+                setSandwich(!sandwich);
+              }}
+            >
+              <Stack sx={stylesCategoryItem}>
+                <CardMedia component="img" image="./img/sandwich.png" alt="sandwich" />
+                <Typography>Sand wich</Typography>
+              </Stack>
+            </ToggleButton>
+            <ToggleButton
+              sx={stylesToggleButton}
+              value="bbqMeat"
+              selected={bbqMeat}
+              onChange={() => {
+                setBbqMeat(!bbqMeat);
+              }}
+            >
+              <Stack sx={stylesCategoryItem}>
+                <CardMedia component="img" image="./img/bbqMeat.png" alt="bbq meat" />
+                <Typography>BBQ</Typography>
+              </Stack>
+            </ToggleButton>
+            <ToggleButton
+              sx={stylesToggleButton}
+              value="drink"
+              selected={drink}
+              onChange={() => {
+                setDrink(!drink);
+              }}
+            >
+              <Stack sx={stylesCategoryItem}>
+                <CardMedia component="img" image="./img/drink_2.png" alt="drink" />
+                <Typography>Drink</Typography>
+              </Stack>
+            </ToggleButton>
+          </Stack>
+
+          {/* <ToggleButton
+            sx={stylesToggleButton}
+            value="vegan"
+            selected={vegan}
+            onChange={() => {
+              setVegan(!vegan);
+            }}
+          >
+            <Stack sx={stylesCategoryItem}>
+              <CardMedia component="img" image="./img/vegan.png" alt="vegan" />
+              <Typography>Vegan</Typography>
+            </Stack>
+          </ToggleButton> */}
+          {/* <div>Sorter : піца, бургер, салати, десерти, sea food,</div> */}
+          {/* <div> мясо-гриль, веганська їжа, паста, напої</div> */}
         </Stack>
       </Stack>
       <Stack sx={{ mt: { mobile: '25px', tablet: '30px' } }}>

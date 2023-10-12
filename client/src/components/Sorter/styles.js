@@ -10,8 +10,6 @@ export const stylesWrap = {
   borderRadius: '17px',
   bgcolor: '#ffffff',
   color: 'text.secondary',
-  // maxWidth: '500px',
-  // border: '1px solid black',
   p: {
     mobile: '27px',
     tablet: '23px',
@@ -50,10 +48,78 @@ export const stylesSortBtn = {
   },
 };
 
-export const stylesIconsWrap = {
+export const stylesCategoryIconsWrap = {
   display: 'flex',
-  justyfyContent: 'row',
+  justyfyContent: 'column',
+  gap: {
+    mobile: '10px',
+    tablet: '9px',
+    desktop: '13px',
+  },
   borderRadius: '15px',
+  bgcolor: '#ffffff',
+  mt: '20px',
+};
+
+export const stylesToggleButton = {
+  p: '0',
+  width: {
+    mobile: '55px',
+    tablet: '47px',
+    desktop: '66px',
+  },
+  height: {
+    mobile: '80px',
+    tablet: '68px',
+    desktop: '96px',
+  },
+  borderRadius: '15px',
+  bgcolor: '#FFDE8A',
+  '&:hover': {
+    bgcolor: '#ffffff',
+    border: '4px solid rgba(251, 71, 29, 0.50)',
+  },
+  '&.Mui-selected': {
+    color: '#FB471D',
+    bgcolor: '#F7C5BA',
+    border: '4px solid rgba(251, 71, 29, 0.50)',
+    '&:hover': {
+      bgcolor: '#ffffff',
+      // border: '4px solid rgba(251, 71, 29, 0.50)',
+    },
+  },
+};
+
+export const stylesCategoryItem = {
+  display: 'flex',
+  justyfyContent: 'space-around',
+  alignItems: 'center',
+  gap: {
+    mobile: '8px',
+    tablet: '7px',
+    desktop: '10px',
+  },
+  '& .MuiCardMedia-root': {
+    width: {
+      mobile: '29px',
+      tablet: '25px',
+      desktop: '35px',
+    },
+    height: {
+      mobile: '29px',
+      tablet: '25px',
+      desktop: '35px',
+    },
+  },
+  '& .MuiTypography-root': {
+    fontFamily: 'fontPoppins',
+    fontWeight: '500',
+    fontSize: {
+      mobile: '11px',
+      tablet: '9px',
+      desktop: '12px',
+    },
+  },
 };
 
 export const stylesSlider = {
@@ -77,7 +143,6 @@ export const stylesSlider = {
     lineHeight: '12px',
     p: '0.25rem 0.5rem',
   },
-  // color: 'background.footer',
 };
 
 export const stylesBtn = {

@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { Box, Container, Stack } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import PropTypes, { bool, string } from 'prop-types';
+import classNames from 'classnames';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import Search from '../../components/Search/Search';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
@@ -10,6 +13,7 @@ import { setSearch } from '../../redux/slices/searchSlice';
 import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
 import Sorter from '../../components/Sorter/Sorter';
+import styles from './styles.module.scss';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -26,8 +30,8 @@ const MenuPage = () => {
 
   return (
     <>
-      {/* <Container sx={{ mt: { mobile: '62px', tablet: '85px',
-       desktop: '50px' }, height: '100%' }}>
+      {/* <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' },
+      height: '100%' }}>
         <Stack
           direction={{ mobile: 'column', tablet: 'row' }}
           alignItems="center"
@@ -36,36 +40,52 @@ const MenuPage = () => {
         >
           <Stack direction="column" gap={4} alignItems="start" justifyContent="flex-end"
           sx={{ width: '65%', height: '100%' }}>
-            <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} /> */}
-      <Search />
-      {/* </Stack> */}
-      <Sorter />
-      {/* </Stack> */}
-      {/* </Container> */}
-
-      {/* <Container sx={{ mt: { mobile: '62px', tablet: '85px',
-       desktop: '50px' }, height: '100%' }}>
-        <Box
-          sx={{
-            mt: { mobile: '62px', tablet: '85px', desktop: '50px' },
-            height: '100%',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 1,
-            gridTemplateRows: 'auto',
-            gridTemplateAreas: `"discounts discounts sorter"
-    "discounts discounts sorter"
-    "search search sorter"`,
-          }}
-        >
-          <Box sx={{ gridArea: 'discounts', height: '350px',
-          width: '100%', bgcolor: 'primary.main' }} />
-
-          <Search sx={{ gridArea: 'search' }} />
-
-          <Sorter sx={{ gridArea: 'sorter' }} />
-        </Box>
+            <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} />
+            <Search />
+          </Stack>
+          <Sorter />
+        </Stack>
       </Container> */}
+
+      <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' }, height: '100%' }}>
+        <div
+          className={styles.gridConteiner}
+
+          // style={{
+          //   // mt: { mobile: '62px', tablet: '85px', desktop: '50px' },
+          //   height: '100%',
+          //   display: 'grid',
+          //   gridTemplateAreas: `"a a b"
+          //   "a a b"
+          //   "c c b"`,
+          //   gridTemplateColumns: 'repeat(3, 1fr)',
+          //   gap: 1,
+          //   gridTemplateRows: 'repeat(3, 1fr)',
+          //   // gridTemplateAreas: `"search search sorter"
+          //   // "discounts discounts sorter"
+          //   // "discounts discounts sorter"`,
+          // }}
+        >
+          <Box sx={{ gridArea: 'a', height: '485px', width: '100%', bgcolor: 'primary.main' }} />
+          <Sorter sx={{ gridArea: 'b', height: '720px' }} />
+          <Search sx={{ gridArea: 'c' }} />
+        </div>
+      </Container>
+
+      {/* <Box
+        sx={{
+          display: 'grid',
+          gridAutoFlow: 'row',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateRows: 'repeat(3, 1fr)',
+          gap: 1,
+        }}
+      >
+        <Box sx={{ gridColumn: '1 / 2', gridRow: '1 / 2', height: '485px',
+        width: '100%', bgcolor: 'primary.main' }} />
+        <Sorter sx={{ gridColumn: '3 / 3', gridRow: '1 / 3' }} />
+        <Search sx={{ gridColumn: '1 / 2', gridRow: '3 / 3' }} />
+      </Box> */}
 
       <ListItems
         title={itemsFromSearch.length !== 0 && (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}
@@ -97,6 +117,14 @@ const MenuPage = () => {
       {/* ))} */}
     </>
   );
+};
+
+// MenuPage.propTypes = {
+//   style: PropTypes.string, // eslint-disable-next-line
+// };
+
+MenuPage.defaultProps = {
+  style: '',
 };
 
 export default MenuPage;
