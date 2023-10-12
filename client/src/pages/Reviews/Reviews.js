@@ -13,7 +13,6 @@ const ReviewsPage = () => {
   const reviews = useSelector((state) => state.reviews.reviews);
   const newReview = useSelector((state) => state.reviews.newReviews);
   const token = useSelector((state) => state.authorization.token);
-  console.log(token);
 
   useEffect(() => {
     const addNewReview = async () => {
@@ -24,7 +23,6 @@ const ReviewsPage = () => {
           },
         });
         console.log(data);
-        console.log(data.data);
         console.log(token);
       } catch (error) {
         console.log('%cError push review:', 'color: red; font-weight: bold;', error);
