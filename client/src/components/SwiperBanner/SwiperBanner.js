@@ -22,6 +22,15 @@ const SwiperBanner = () => {
         const nextIndex = (currentIndex + 1) % slidesLength;
         setActiveSlideIndex(nextIndex);
         swiperInstance.slideToLoop(nextIndex);
+        // const newIndex = (currentIndex + 1);
+        // if (newIndex === slidesLength) {
+        //   setActiveSlideIndex(0);
+        //   swiperInstance.slideToLoop(0);
+        // } else {
+        //   const nextIndex = (currentIndex + 1);
+        //   setActiveSlideIndex(nextIndex);
+        //   swiperInstance.slideToLoop(nextIndex);
+        // }
       }
     };
 
@@ -31,6 +40,19 @@ const SwiperBanner = () => {
       clearInterval(interval);
     };
   }, [swiperInstance]);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (swiperInstance) {
+  //       setActiveSlideIndex(0);
+  //       swiperInstance.slideTo(0);
+  //     }
+  //   }, 3000);
+
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [swiperInstance]);
 
   const handleBulletClick = (index) => {
     console.log(index);
@@ -63,7 +85,15 @@ const SwiperBanner = () => {
           setActiveSlideIndex(swiper.activeIndex);
         }}
         speed={700}
+        rewind
         loop
+        loopAdditionalSlides={2}
+        // onReachEnd={(swiper) => {
+        //   setActiveSlideIndex(swiper.activeIndex);
+        //   if (swiper.activeIndex === swiper.slides.length - 1) {
+        //     swiper.slideTo(0);
+        //   }
+        // }}
       >
         <SwiperSlide className={styles.swiperSlide}>
           <div className={styles.swiperSlideItem}>
