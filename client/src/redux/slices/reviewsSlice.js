@@ -5,9 +5,9 @@ const initialState = {
   reviews: [],
   newReview: {
     user_id: '',
-    content: '',
     rating: null,
     avatarUrl: '',
+    content: '',
     userReview: '',
     product: '6507a306baee59670a047307',
   },
@@ -49,14 +49,12 @@ export const getReviews = () => async (dispatch) => {
 export const addNewReview = (review) => async (dispatch, getState) => {
   try {
     const state = getState();
-    console.log(state.reviews.newReview);
+    dispatch(addReview(state.newReview));// eslint-disable-line no-use-before-define
     const { data } = await axios.post('http://localhost:4000/api/comments', state.reviews.newReview, {
       headers: {
         Authorization: state.authorization.token,
       },
     });
-    console.log(data);
-    dispatch(addReview(state.newReview));// eslint-disable-line no-use-before-define
   } catch (error) {
     console.log('%cError push review:', 'color: red; font-weight: bold;', error);
   }
