@@ -62,6 +62,8 @@ const SwiperBanner = () => {
         onSlideChange={(swiper) => {
           setActiveSlideIndex(swiper.activeIndex);
         }}
+        speed={700}
+        loop
       >
         <SwiperSlide className={styles.swiperSlide}>
           <div className={styles.swiperSlideItem}>
