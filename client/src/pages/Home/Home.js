@@ -15,14 +15,13 @@ const HomePage = () => {
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
   const products = useSelector((state) => state.products.products);
   const sortedProducts = useSortedItems(products, productsCardWidth);
-  console.log(products);
   return (
     <>
       <SectionGetStarted />
       <Features />
       <MobileApp />
       <ListItems title="Our Top Restaurants" items={sortedPartners} itemComponent={RestaurantItem} actions={<ListItemAction />} type="partners" />
-      <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} setCartItems={setCartItems} />
+      <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
     </>
   );
 };

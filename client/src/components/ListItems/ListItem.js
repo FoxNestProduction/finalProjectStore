@@ -5,7 +5,7 @@ import PropTypes, { bool, string } from 'prop-types';
 import Grid from '@mui/material/Grid';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer } from './styles';
 
-const ListItems = ({ title, items, itemComponent, actions, type, setCartItems }) => {
+const ListItems = ({ title, items, itemComponent, actions, type }) => {
   return (
     <Container sx={{ mb: 13 }}>
       <Typography
@@ -22,7 +22,7 @@ const ListItems = ({ title, items, itemComponent, actions, type, setCartItems })
           // eslint-disable-next-line dot-notation
           <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
 
-            {createElement(itemComponent, { ...item, setCartItems })}
+            {createElement(itemComponent, { ...item })}
           </Grid>
         ))}
       </Grid>
@@ -37,7 +37,6 @@ ListItems.propTypes = {
   items: PropTypes.array,
   itemComponent: PropTypes.func,
   type: PropTypes.string,
-  setCartItems: PropTypes.func,
 };
 
 ListItems.defaultProps = {
@@ -46,7 +45,6 @@ ListItems.defaultProps = {
   items: [],
   itemComponent: () => {},
   type: '',
-  setCartItems: () => { },
 };
 
 export default ListItems;

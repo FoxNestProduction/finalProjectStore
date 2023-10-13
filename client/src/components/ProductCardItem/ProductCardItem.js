@@ -12,33 +12,20 @@ import CardContent from '@mui/material/CardContent';
 import PropTypes from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { useSelector } from 'react-redux';
 import ColorChips from '../Chip/Chip';
 import { chipSizeDishes } from '../Chip/styles';
 import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const ProductCardItem = ({ price, imageUrl, name, rating, id, setCartItems }) => {
+const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
   const isTablet = useMediaQuery('(min-width: 481px) and (max-width: 992px)');
   const isDesktop = useMediaQuery('(min-width: 993px)');
+  const products = useSelector((state) => state.cart.cart);
   const handleAddToCart = (event) => {
     event.preventDefault();
-    setCartItems((prev) => {
-      // console.log(prev);
-      const newCartState = [...prev];
-      // console.log(newCartState);
-      const index = newCartState.findIndex((item) => item.id === id);
-      console.log(index);
-      if (index !== -1) {
-        newCartState[index].count++;
-
-        // saveStateToLocalStorage(CART_LS_KEY, newCartState);
-        return newCartState;
-      }
-      const newState = [{ name, price, id, count: 1 }, ...prev];
-      // saveStateToLocalStorage(CART_LS_KEY, newState);
-      return newCartState;
-    });
+    console.log(id);
   };
 
   return (
@@ -99,7 +86,6 @@ ProductCardItem.propTypes = {
   name: PropTypes.string,
   rating: PropTypes.number,
   id: PropTypes.string,
-  setCartItems: PropTypes.func,
 };
 
 ProductCardItem.defaultProps = {
@@ -108,7 +94,6 @@ ProductCardItem.defaultProps = {
   name: 'Chicken Hell',
   rating: 3,
   id: '6507a306baee59670a047307',
-  setCartItems: () => { },
 };
 
 export default ProductCardItem;

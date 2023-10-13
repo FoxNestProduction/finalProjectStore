@@ -6,7 +6,25 @@ import { allProducts } from './productsSlice';
 const initialState = {
   cart: {
     id: '',
-    products: [],
+    products: [
+      {
+        enabled: true,
+        imageUrls: [],
+        quantity: 0,
+        _id: '6507a306baee59670a047307',
+        name: 'Margherita Pizza',
+        description: 'Classic pizza with rich tomato sauce, melted cheese, and fresh basil leaves. A delightful combination of flavors that will satisfy your cravings.',
+        currentPrice: 12.99,
+        isFavourite: false,
+        isTranding: true,
+        isSupreme: false,
+        isHealthy: true,
+        rating: 4,
+        filterCategories: 'pizza',
+        imageUrl: 'https://res.cloudinary.com/dvtjgmpnr/image/upload/v1696699047/EatlyProject/products/Welcome%20Pizzeria/pizza_margharita_ulqtff.png',
+        date: '2023-10-11T22:39:52.242Z',
+      },
+    ],
     customerId: {},
   },
   isLoading: false,
