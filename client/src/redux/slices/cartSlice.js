@@ -5,9 +5,7 @@ import { allProducts } from './productsSlice';
 
 const initialState = {
   cart: {
-    id: '',
     products: [],
-    customerId: {},
   },
   isLoading: false,
   isCart: false,
@@ -91,9 +89,6 @@ const cartSlice = createSlice({
          * Потрібно буде протестувати, який варіант зручніше, той і використовувати
          */
     },
-    setCustomerId(state, action) {
-      state.cart.customerId = action.payload;
-    },
   },
 });
 
@@ -103,30 +98,20 @@ export const {
   setIsLoading,
   deleteFromCart,
   setIsCart,
-  setCustomerId,
 } = cartSlice.actions;
 
-export const getCartItemsFromServer = (userId) => async (dispatch) => {
+export const getCartItemsFromServer = (user, token) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
-    // const userId = useSelector((state) => state.user.user.id);
-    // const userId = 'efwefwefwefwefewefwe';
-    if (userId !== null && userId !== undefined) {
-      console.log(userId);
-      setCustomerId(userId);
-      const { data } = await axios.get(`http://localhost:4000/api/cart/${userId}`);
+    if (user !== null && user !== undefined) {
+      const { data } = await axios.get('http://localhost:4000/api/cart', {
+        headers: {
+          Authorization: token,
+        },
+      });
       if (data !== null && data !== undefined) {
-        // const cartContainer = data.find((cartObj) => cartObj.customerId.id === userId);
-
-        // if (cartContainer !== null && data !== undefined) {
         dispatch(setIsCart(true));
-        // dispatch(setCart(cartContainer));
-        dispatch(setCart(data));
-        // } else {
-        // dispatch(setIsCart(false));
-        // }
-        // } else {
-        // dispatch(setIsCart(false));
+        dispatch(setCart(data.product));
       }
       // якщо data undefined, то нічого не передаємо в кошик
       // а isCart(true or false). Код далі не виконується і дані на сторінці відмальовуються
