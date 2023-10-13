@@ -1,50 +1,32 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavourite, removeFavourite, setFavourite, updateFavourites } from '../../redux/slices/favouriteSlice';
+import { addFavourite, removeFavourite, updateFavourites } from '../../redux/slices/favouriteSlice';
 
 const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const dispatch = useDispatch();
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const wishlist = useSelector((state) => state.favourites.favourites);
-  console.log(wishlist);
+  const token = useSelector((state) => state.authorization.token);
+
   const toggleFavourite = () => {
-    if (isFavourite) {
-      dispatch(removeFavourite({ id }));
+    if (token) {
+      if (isFavourite) {
+        dispatch(removeFavourite({ id }));
+      } else {
+        dispatch(addFavourite({ id }));
+      }
     } else {
-      dispatch(addFavourite({ id }));
+      console.log('The user is not authorized');
     }
   };
-
-  // const token = useSelector((state) => state.authorization.token);
 
   useEffect(() => {
     dispatch(updateFavourites(wishlist));
   }, [dispatch, wishlist]);
-
-  // useEffect(() => {
-  //   const updateUser = async () => {
-  //     try {
-  //       const headers = {
-  //         'Content-Type': 'application/json',
-  //         Authorization: token,
-  //       };
-  //       const response = await axios.put('http://localhost:4000/api/customers', favourites, { headers });
-  //       console.log(response.data);
-  //       console.log(favourites);
-  //     } catch (error) {
-  //       console.error('Помилка при оновленні даних користувача:', error);
-  //     }
-  //   };
-  //   // Оновлювати користувача на сервері тільки при зміні списку улюблених елементів
-  //   // if (favourites.length > 0) {
-  //   updateUser();
-  //   // }
-  // }, [token, favourites, dispatch]);
 
   return (
     <IconButton onClick={() => toggleFavourite()} sx={{ m: 0, p: 0 }}>

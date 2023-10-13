@@ -41,15 +41,20 @@ export const {
 export const updateFavourites = (favourites) => async (dispatch, getState) => {
   try {
     const state = getState();
-    console.log(state.favourites.favourites);
-    const { data } = await axios.put('http://localhost:4000/api/customers', { favourite: state.favourites.favourites }, {
-      headers: {
-        Authorization: state.authorization.token,
-      },
-    });
-    const { favourite } = data;
-    setFavourite(data.favourite);// eslint-disable-line no-use-before-define
-    console.log(favourite);
+    const { authorization } = state;
+    // console.log(state.favourites.favourites);
+    if (authorization && authorization.token) {
+      const { data } = await axios.put('http://localhost:4000/api/customers', { favourite: state.favourites.favourites }, {
+        headers: {
+          Authorization: state.authorization.token,
+        },
+      });
+      const { favourite } = data;
+      setFavourite(data.favourite);// eslint-disable-line no-use-before-define
+      console.log(favourite);
+    } else {
+      console.log('The user is not authorized');
+    }
   } catch (error) {
     console.log('%cError push review:', 'color: red; font-weight: bold;', error);
   }
