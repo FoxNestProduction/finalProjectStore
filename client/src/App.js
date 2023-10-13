@@ -7,6 +7,7 @@ import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { getProducts } from './redux/slices/productsSlice';
 import { getPartners } from './redux/slices/partnersSlice';
+import { getReviews } from './redux/slices/reviewsSlice';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getPartners());
     dispatch(getProducts());
+    dispatch(getReviews());
   }, [dispatch]);
 
   return (
