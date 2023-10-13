@@ -25,7 +25,7 @@ const AppRoutes = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/menu/:productName" element={<ProductPage />} />
-        <Route path="/menu/:partnersName" element={<PartnersPage />} />
+        <Route path="/restaurants/:partnersName" element={<PartnersPage />} />
       </Route>
     </Routes>
   );
