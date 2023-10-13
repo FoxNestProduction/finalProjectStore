@@ -22,7 +22,7 @@ const Filter = () => {
   const [sandwich, setSandwich] = React.useState(false);
   const [bbqMeat, setBbqMeat] = React.useState(false);
   const [drink, setDrink] = React.useState(false);
-  const [vegan, setVegan] = React.useState(false);
+  // const [vegan, setVegan] = React.useState(false);
   const [recomended, setRecomended] = React.useState(false);
   const [mostPopular, setMostPopular] = React.useState(false);
   const [fastDelivery, setFastDelivery] = React.useState(false);
@@ -51,11 +51,14 @@ const Filter = () => {
   };
 
   return (
-    <Stack sx={stylesWrap}>
-      <Stack>
-        <Typography sx={stylesTitle}>Category</Typography>
-        <Stack sx={stylesCategoryIconsWrap}>
+    <Stack component="section" sx={stylesWrap}>
+      <Stack component="div">
+        <Typography component="h3" sx={stylesTitle}>
+          Category
+        </Typography>
+        <Stack component="div" sx={stylesCategoryIconsWrap}>
           <Stack
+            component="div"
             direction="row"
             spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
             justifyContent="space-between"
@@ -69,9 +72,9 @@ const Filter = () => {
                 setPizza(!pizza);
               }}
             >
-              <Stack sx={stylesCategoryItem}>
+              <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/pizza.png" alt="pizza" />
-                <Typography>Pizza</Typography>
+                <Typography component="p">Pizza</Typography>
               </Stack>
             </ToggleButton>
             <ToggleButton
@@ -82,9 +85,9 @@ const Filter = () => {
                 setBurger(!burger);
               }}
             >
-              <Stack sx={stylesCategoryItem}>
+              <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/burger.png" alt="burger" />
-                <Typography>Burger</Typography>
+                <Typography component="p">Burger</Typography>
               </Stack>
             </ToggleButton>
             <ToggleButton
@@ -95,9 +98,9 @@ const Filter = () => {
                 setSushi(!sushi);
               }}
             >
-              <Stack sx={stylesCategoryItem}>
+              <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/sushi.png" alt="sushi" />
-                <Typography>Sushi</Typography>
+                <Typography component="p">Sushi</Typography>
               </Stack>
             </ToggleButton>
             <ToggleButton
@@ -108,13 +111,14 @@ const Filter = () => {
                 setSalad(!salad);
               }}
             >
-              <Stack sx={stylesCategoryItem}>
+              <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/salad_2.png" alt="salad" />
-                <Typography>Salad</Typography>
+                <Typography component="p">Salad</Typography>
               </Stack>
             </ToggleButton>
           </Stack>
           <Stack
+            component="div"
             direction="row"
             spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
             justifyContent="space-between"
@@ -128,9 +132,9 @@ const Filter = () => {
                 setPasta(!pasta);
               }}
             >
-              <Stack sx={stylesCategoryItem}>
+              <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/pasta.png" alt="pasta" />
-                <Typography>Pasta</Typography>
+                <Typography component="p">Pasta</Typography>
               </Stack>
             </ToggleButton>
             <ToggleButton
@@ -141,9 +145,9 @@ const Filter = () => {
                 setSandwich(!sandwich);
               }}
             >
-              <Stack sx={stylesCategoryItem}>
+              <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/sandwich.png" alt="sandwich" />
-                <Typography>Sandwich</Typography>
+                <Typography component="p">Sandwich</Typography>
               </Stack>
             </ToggleButton>
             <ToggleButton
@@ -154,9 +158,9 @@ const Filter = () => {
                 setBbqMeat(!bbqMeat);
               }}
             >
-              <Stack sx={stylesCategoryItem}>
+              <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/bbqMeat.png" alt="bbq meat" />
-                <Typography>BBQ</Typography>
+                <Typography component="p">BBQ</Typography>
               </Stack>
             </ToggleButton>
             <ToggleButton
@@ -167,9 +171,9 @@ const Filter = () => {
                 setDrink(!drink);
               }}
             >
-              <Stack sx={stylesCategoryItem}>
+              <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/drink_2.png" alt="drink" />
-                <Typography>Drink</Typography>
+                <Typography component="p">Drink</Typography>
               </Stack>
             </ToggleButton>
           </Stack>
@@ -191,10 +195,12 @@ const Filter = () => {
           {/* <div> мясо-гриль, веганська їжа, паста, напої</div> */}
         </Stack>
       </Stack>
-      <Stack sx={{ mt: { mobile: '25px', tablet: '30px' } }}>
-        <Typography sx={stylesTitle}>Sort By</Typography>
-        <Stack direction="column" spacing={1} alignItems="flex-start" sx={{ width: '100%' }}>
-          <Stack direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
+      <Stack component="div" sx={{ mt: { mobile: '25px', tablet: '30px' } }}>
+        <Typography component="h3" sx={stylesTitle}>
+          Sort By
+        </Typography>
+        <Stack component="div" direction="column" spacing={1} alignItems="flex-start" sx={{ width: '100%' }}>
+          <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
             <ToggleButton
               sx={stylesSortBtn}
               value="recomended"
@@ -230,9 +236,11 @@ const Filter = () => {
         </Stack>
       </Stack>
 
-      <Stack sx={{ mt: { mobile: '25px', tablet: '20px', desktop: '30px' } }}>
-        <Typography sx={stylesTitle}>Price</Typography>
-        <Box sx={{ width: '100%', mt: { mobile: '25px', tablet: '20px', desktop: '30px' } }}>
+      <Stack component="div" sx={{ mt: { mobile: '25px', tablet: '20px', desktop: '30px' } }}>
+        <Typography component="h3" sx={stylesTitle}>
+          Price
+        </Typography>
+        <Box component="div" sx={{ width: '100%', mt: { mobile: '25px', tablet: '20px', desktop: '30px' } }}>
           <Slider
             sx={stylesSlider}
             max={30}
