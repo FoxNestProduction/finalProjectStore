@@ -48,6 +48,27 @@ export const subtitle = {
   },
 };
 
+export const paymentWrapper = {
+  '&.MuiFormControl-root': {
+    mt: '18px',
+  },
+};
+
+export const paymentRadioBtn = {
+  '& .MuiTypography-root': {
+    fontSize: {
+      mobile: 14,
+      tablet: 16,
+      desktop: 18,
+    },
+  },
+  '& .MuiSvgIcon-root': {
+    fontSize: {
+      tablet: 25,
+    },
+  },
+};
+
 export const buttonsWrapper = {
   mt: {
     mobile: '55px',
