@@ -42,7 +42,7 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   const { cart, favourite } = user;
 
-  console.log(cart);
+  // console.log(cart);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();

@@ -143,7 +143,7 @@ const Filter = () => {
             >
               <Stack sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/sandwich.png" alt="sandwich" />
-                <Typography>Sand wich</Typography>
+                <Typography>Sandwich</Typography>
               </Stack>
             </ToggleButton>
             <ToggleButton
