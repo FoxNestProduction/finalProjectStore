@@ -12,9 +12,9 @@ import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
 import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
-import Sorter from '../../components/Sorter/Sorter';
 import styles from './styles.module.scss';
 import useBreakpoint from '../../customHooks/useBreakpoint';
+import Filter from '../../components/Sorter/Filter';
 
 const MenuPage = () => {
   const breakpoint = useBreakpoint();
@@ -36,7 +36,7 @@ const MenuPage = () => {
         <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' }, height: '100%' }}>
           <Stack direction="column" gap={4} alignItems="center" justifyContent="space-between" sx={{ width: '100%' }}>
             <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} />
-            <Sorter />
+            <Filter />
             <Search />
           </Stack>
         </Container>
@@ -47,7 +47,7 @@ const MenuPage = () => {
               <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} />
               <Search />
             </Stack>
-            <Sorter />
+            <Filter />
           </Stack>
         </Container>
       )}
@@ -64,7 +64,7 @@ const MenuPage = () => {
             <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} />
             <Search />
           </Stack>
-          <Sorter />
+          <Filter />
         </Stack>
       </Container> */}
 
@@ -89,7 +89,7 @@ const MenuPage = () => {
           // }}
         >
           <Box sx={{ gridArea: 'a', height: '485px', width: '100%', bgcolor: 'primary.main' }} />
-          <Sorter sx={{ gridArea: 'b', height: '720px' }} />
+          <Filter sx={{ gridArea: 'b', height: '720px' }} />
           <Search sx={{ gridArea: 'c' }} />
         </div>
       </Container> */}
@@ -105,7 +105,7 @@ const MenuPage = () => {
       >
         <Box sx={{ gridColumn: '1 / 2', gridRow: '1 / 2', height: '485px',
         width: '100%', bgcolor: 'primary.main' }} />
-        <Sorter sx={{ gridColumn: '3 / 3', gridRow: '1 / 3' }} />
+        <Filter sx={{ gridColumn: '3 / 3', gridRow: '1 / 3' }} />
         <Search sx={{ gridColumn: '1 / 2', gridRow: '3 / 3' }} />
       </Box> */}
 

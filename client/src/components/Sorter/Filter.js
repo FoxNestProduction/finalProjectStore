@@ -13,7 +13,7 @@ import {
   stylesToggleButton,
 } from './styles';
 
-const Sorter = () => {
+const Filter = () => {
   const [pizza, setPizza] = React.useState(false);
   const [burger, setBurger] = React.useState(false);
   const [sushi, setSushi] = React.useState(false);
@@ -250,4 +250,4 @@ const Sorter = () => {
   );
 };
 
-export default Sorter;
+export default Filter;
