@@ -99,10 +99,6 @@ const ProductCard = ({ productName }) => {
                     name="half-rating"
                     value={rating}
                     size="medium"
-                    // precision={0.5}
-                    // emptyIcon={<StarIcon size="inherit" />}
-                    // icon={<StarIcon size="inherit" />}
-                    // halfIcon={<StarHalfIcon size="inherit" />}
                     readOnly
                     sx={{ color: 'primary.main' }}
                   />
