@@ -1,9 +1,20 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { Divider, MenuItem, Select, TextField, Typography } from '@mui/material';
+import {
+  Divider,
+  FormControlLabel,
+  FormLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -54,28 +65,28 @@ const CheckoutForm = () => {
   }, [isUserAuthorized, user]);
 
   const handleContinue = async (values, actions) => {
-    // console.log(values);
+    console.log(values);
 
-    if (isUserAuthorized && token) {
-      const updatedCustomer = {
-        telephone: values.tel,
-        city: values.city,
-        street: values.street,
-        house: values.house,
-        apartment: values.apartment,
-      };
-
-      try {
-        const response = await axios.put('http://localhost:4000/api/customers', updatedCustomer, {
-          headers: {
-            'Authorization': token,
-          },
-        });
-        console.log(response);
-      } catch (err) {
-        console.log('Error updating user: ', err);
-      }
-    }
+    // if (isUserAuthorized && token) {
+    //   const updatedCustomer = {
+    //     telephone: values.tel,
+    //     city: values.city,
+    //     street: values.street,
+    //     house: values.house,
+    //     apartment: values.apartment,
+    //   };
+    //
+    //   try {
+    //     const response = await axios.put('http://localhost:4000/api/customers', updatedCustomer, {
+    //       headers: {
+    //         'Authorization': token,
+    //       },
+    //     });
+    //     console.log(response);
+    //   } catch (err) {
+    //     console.log('Error updating user: ', err);
+    //   }
+    // }
   };
 
   return (
@@ -143,13 +154,68 @@ const CheckoutForm = () => {
                 Payment method
               </Typography>
 
-              <FormControl fullWidth>
-                <InputLabel id="checkout-payment-label">Select payment method*</InputLabel>
-                <Field name="payment" label="Select payment method*" component={SelectForFormik} labelId="checkout-payment-label" id="checkout-payment" bgColor="#FFF">
-                  <MenuItem value="Card">Card</MenuItem>
-                  <MenuItem value="Cash">Cash</MenuItem>
-                </Field>
-              </FormControl>
+              {/* <FormControl fullWidth> */}
+              {/*  <InputLabel id="checkout-payment-label">Select payment method*</InputLabel> */}
+              {/*  <Field name="payment" label="Select payment method*" component={SelectForFormik} labelId="checkout-payment-label" id="checkout-payment" bgColor="#FFF"> */}
+              {/*    <MenuItem value="Card">Card</MenuItem> */}
+              {/*    <MenuItem value="Cash">Cash</MenuItem> */}
+              {/*  </Field> */}
+              {/* </FormControl> */}
+
+              <Field name="payment">
+                {({ field }) => (
+                  <FormControl
+                    sx={{
+                      '&.MuiFormControl-root': {
+                        mt: '18px',
+                      },
+                    }}
+                  >
+                    {/* <FormLabel id="demo-radio-buttons-group-label">Select payment method</FormLabel> */}
+                    <RadioGroup
+                      {...field}
+                    >
+                      <FormControlLabel
+                        value="Card"
+                        control={<Radio />}
+                        label="Card"
+                        sx={{
+                          '& .MuiTypography-root': {
+                            fontSize: {
+                              mobile: 14,
+                              tablet: 16,
+                            },
+                          },
+                          // '& .MuiSvgIcon-root': {
+                          //   fontSize: {
+                          //     tablet: 25,
+                          //   },
+                          // },
+                        }}
+                      />
+                      <FormControlLabel
+                        value="Cash"
+                        control={<Radio />}
+                        label="Cash"
+                        sx={{
+                          '& .MuiTypography-root': {
+                            fontSize: {
+                              mobile: 14,
+                              tablet: 16,
+                            },
+                          },
+                          '& .MuiSvgIcon-root': {
+                            fontSize: {
+                              tablet: 25,
+                            },
+                          },
+                        }}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                )}
+              </Field>
+
             </Stack>
             <Box sx={buttonsWrapper}>
               <Button type="button" variant="outlined" sx={{ ...btn, ...backBtn }} onClick={handleGoBack}>
