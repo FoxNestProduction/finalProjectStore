@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { useSelector, useDispatch } from 'react-redux';
+import LoginForm from '../forms/LoginForm/LoginForm';
+import { openModal, setContent } from '../../redux/slices/modalSlice';
 import { addFavourite, removeFavourite, updateFavourites } from '../../redux/slices/favouriteSlice';
 
 const FavouriteIcon = ({ id, ishovered, isactive }) => {
@@ -11,6 +13,11 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const wishlist = useSelector((state) => state.favourites.favourites);
   const token = useSelector((state) => state.authorization.token);
+
+  // const handleOpenModalLogin = () => {
+  //   dispatch(openModal());
+  //   dispatch(setContent(<LoginForm />));
+  // };
 
   const toggleFavourite = () => {
     if (token) {
@@ -21,6 +28,7 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
       }
     } else {
       console.log('The user is not authorized');
+      // handleOpenModalLogin();
     }
   };
 
