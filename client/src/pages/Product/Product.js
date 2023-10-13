@@ -17,7 +17,7 @@ const ProductPage = () => {
   return (
     <Box>
       <ProductCard productName={productName} />
-      <ListItems items={sortedProducts} itemComponent={ProductCardItem} actions={null} />
+      <ListItems title="Popular" items={sortedProducts} itemComponent={ProductCardItem} actions={null} />
       <QuestionsList />
     </Box>
   );

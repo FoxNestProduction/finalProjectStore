@@ -17,10 +17,10 @@ const CommentSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "catalogs"
     },
-    content: {
-      type: String,
+    rating: {
+      type: Number,
       required: true
-    }
+    },
   },
   { strict: false }
 );
