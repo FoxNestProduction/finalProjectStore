@@ -5,12 +5,13 @@ import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
+import { addFavourite, removeFavourite, setFavourite, updateFavourites } from '../../redux/slices/favouriteSlice';
 
 const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const dispatch = useDispatch();
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
-  const favourites = useSelector((state) => state.favourites.favorites);
+  const wishlist = useSelector((state) => state.favourites.favourites);
+  console.log(wishlist);
   const toggleFavourite = () => {
     if (isFavourite) {
       dispatch(removeFavourite({ id }));
@@ -19,23 +20,31 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
     }
   };
 
-  const token = useSelector((state) => state.authorization.token);
+  // const token = useSelector((state) => state.authorization.token);
+
   useEffect(() => {
-    const updateUser = () => async () => {
-      try {
-        const headers = {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        };
-        const response = await axios.put('http://localhost:4000/api/customers', favourites, { headers });
-        // console.log(response.data);
-        // console.log(token);
-      } catch (error) {
-        console.error('Помилка при оновленні даних користувача:', error);
-      }
-    };
-    updateUser();
-  }, [token, favourites, dispatch]);
+    dispatch(updateFavourites(wishlist));
+  }, [dispatch, wishlist]);
+
+  // useEffect(() => {
+  //   const updateUser = async () => {
+  //     try {
+  //       const headers = {
+  //         'Content-Type': 'application/json',
+  //         Authorization: token,
+  //       };
+  //       const response = await axios.put('http://localhost:4000/api/customers', favourites, { headers });
+  //       console.log(response.data);
+  //       console.log(favourites);
+  //     } catch (error) {
+  //       console.error('Помилка при оновленні даних користувача:', error);
+  //     }
+  //   };
+  //   // Оновлювати користувача на сервері тільки при зміні списку улюблених елементів
+  //   // if (favourites.length > 0) {
+  //   updateUser();
+  //   // }
+  // }, [token, favourites, dispatch]);
 
   return (
     <IconButton onClick={() => toggleFavourite()} sx={{ m: 0, p: 0 }}>

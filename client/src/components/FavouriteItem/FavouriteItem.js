@@ -20,7 +20,6 @@ const FavouriteItem = ({ product }) => {
     return null;
   }
   const { name, currentPrice, isTranding, rating, imageUrl, isSupreme, isHealthy, _id } = dish;
-  console.log(dish);
 
   return (
     <Card sx={styleCardFavourite}>

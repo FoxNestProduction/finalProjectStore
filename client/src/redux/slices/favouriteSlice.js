@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { setAuthorizationError } from './errorSlice';
 
 const initialState = {
   favourites: [],
@@ -30,9 +28,6 @@ const favouriteSlice = createSlice({
       state.favourites = newStateFavourites;
       state.cardStates[id] = false;
     },
-    updateFavourites(state, action) {
-      state.favourites = action.payload;
-    },
   },
 });
 
@@ -41,7 +36,23 @@ export const {
   removeFavourite,
   setFavourite,
   isFavourite,
-  updateFavourites,
 } = favouriteSlice.actions;
+
+export const updateFavourites = (favourites) => async (dispatch, getState) => {
+  try {
+    const state = getState();
+    console.log(state.favourites.favourites);
+    const { data } = await axios.put('http://localhost:4000/api/customers', { favourite: state.favourites.favourites }, {
+      headers: {
+        Authorization: state.authorization.token,
+      },
+    });
+    const { favourite } = data;
+    setFavourite(data.favourite);// eslint-disable-line no-use-before-define
+    console.log(favourite);
+  } catch (error) {
+    console.log('%cError push review:', 'color: red; font-weight: bold;', error);
+  }
+};
 
 export default favouriteSlice.reducer;
