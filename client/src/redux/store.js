@@ -11,6 +11,7 @@ import userSlice from './slices/userSlice';
 import partnersSlice from './slices/partnersSlice';
 import searchSlice from './slices/searchSlice';
 import errorSlice from './slices/errorSlice';
+import reviewsSlice from './slices/reviewsSlice';
 import cartSlice from './slices/cartSlice';
 
 const authPersistConfig = {
@@ -30,7 +31,6 @@ const searchPersistConfig = {
   version: 1,
   storage,
 };
-
 
 const cartPersistConfig = {
   key: 'cart',
@@ -52,6 +52,7 @@ const reducer = combineReducers({
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
   search: persistReducer(searchPersistConfig, searchSlice),
+  reviews: reviewsSlice,
   cart: persistReducer(cartPersistConfig, cartSlice),
 });
 

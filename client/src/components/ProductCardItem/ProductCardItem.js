@@ -17,7 +17,7 @@ import { chipSizeDishes } from '../Chip/styles';
 import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const ProductCardItem = ({ price, imageUrl, name, rating, id, setCartItems }) => {
+const ProductCardItem = ({ currentPrice, imageUrl, name, rating, id, setCartItems }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
   const isTablet = useMediaQuery('(min-width: 481px) and (max-width: 992px)');
   const isDesktop = useMediaQuery('(min-width: 993px)');
@@ -35,7 +35,7 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id, setCartItems }) =>
         // saveStateToLocalStorage(CART_LS_KEY, newCartState);
         return newCartState;
       }
-      const newState = [{ name, price, id, count: 1 }, ...prev];
+      const newState = [{ name, currentPrice, id, count: 1 }, ...prev];
       // saveStateToLocalStorage(CART_LS_KEY, newState);
       return newCartState;
     });
@@ -53,6 +53,7 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id, setCartItems }) =>
           <CardMedia
             component="img"
             image={imageUrl}
+            title={name}
             sx={cardMedia}
           />
         </Box>
@@ -77,10 +78,10 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id, setCartItems }) =>
           <Box sx={priceCardBox}>
             <Typography variant="body2" color="text.primary">
               $
-              {price.toFixed(0)}
+              {currentPrice.toFixed(0)}
               <Typography component="span" variant="body1" color="text.secondary">
                 .
-                {price.toFixed(2).split('.')[1]}
+                {currentPrice.toFixed(2).split('.')[1]}
               </Typography>
             </Typography>
             <IconButton aria-label="add to cart" sx={{ color: '#323142' }} onClick={handleAddToCart}>
@@ -94,7 +95,7 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id, setCartItems }) =>
 };
 
 ProductCardItem.propTypes = {
-  price: PropTypes.number,
+  currentPrice: PropTypes.number,
   imageUrl: PropTypes.string,
   name: PropTypes.string,
   rating: PropTypes.number,
@@ -103,7 +104,7 @@ ProductCardItem.propTypes = {
 };
 
 ProductCardItem.defaultProps = {
-  price: 12.99,
+  currentPrice: 12.99,
   imageUrl: './img/salads/3.png',
   name: 'Chicken Hell',
   rating: 3,

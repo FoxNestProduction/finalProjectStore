@@ -5,9 +5,7 @@ import { allProducts } from './productsSlice';
 
 const initialState = {
   cart: {
-    id: '',
     products: [],
-    customerId: {},
   },
   isLoading: false,
   isCart: false,
@@ -21,16 +19,16 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action) {
       // 1-ий варіант - коли нам в action.payload надходить повний об'єкт item
-      if (state.cart.cart.products.length === 0 && action.payload !== null) {
+      if (state.cart.products.length === 0 && action.payload !== null) {
         action.payload.cartQuantity = 1;
-        state.cart.cart.products.push(action.payload);
+        state.cart.products.push(action.payload);
       } else {
-        const index = state.cart.cart.products
+        const index = state.cart.products
           .findIndex((product) => product.id === action.payload.id);
         if (index === -1) {
-          state.cart.cart.products.push(action.payload);
+          state.cart.products.push(action.payload);
         } else {
-          state.cart.cart.products[index].cartQuantity += 1;
+          state.cart.products[index].cartQuantity += 1;
         }
       }
       /** 2-ий варіант, коли нам приходить суто id товара потрібно звернутись
@@ -41,27 +39,27 @@ const cartSlice = createSlice({
        */
     },
     setCart(state, action) {
-      if (state.cart.cart.products.length === 0) {
+      if (state.cart.products.length === 0) {
         state.cart = action.payload;
       } else {
         const uniqueFilteredProducts = action.payload.products.filter((product) => {
-          const matchedProduct = state.cart.cart.products
+          const matchedProduct = state.cart.products
             .find((cartProduct) => cartProduct.id !== product.id);
           const mark = matchedProduct !== undefined;
           return mark;
         });
         const notUniqueFilteredProducts = action.payload.products.filter((product) => {
-          const matchedProduct = state.cart.cart.products
+          const matchedProduct = state.cart.products
             .find((cartProduct) => cartProduct.id === product.id);
           const mark = matchedProduct !== undefined;
           return mark;
         }).map((product) => {
-          const matchedProduct = state.cart.cart.products
+          const matchedProduct = state.cart.products
             .find((cartProduct) => cartProduct.id === product.id);
           product.cartQuantity += matchedProduct.cartQuantity;
           return product;
         });
-        state.cart.cart.products = { ...uniqueFilteredProducts, ...notUniqueFilteredProducts };
+        state.cart.products = { ...uniqueFilteredProducts, ...notUniqueFilteredProducts };
       }
     },
     setIsLoading(state, action) {
@@ -72,15 +70,15 @@ const cartSlice = createSlice({
     },
     deleteFromCart(state, action) {
       // 1 - ий варіант - коли нам в action.payload надходить повний об'єкт item
-      if (state.cart.cart.products.length) {
-        const index = state.cart.cart.products
+      if (state.cart.products.length) {
+        const index = state.cart.products
           .findIndex((product) => product.id === action.payload.id);
 
         if (index !== -1) {
-          if (state.cart.cart.products[index].cartQuantity === 1) {
-            state.cart.cart.products.splice(index, 1);
+          if (state.cart.products[index].cartQuantity === 1) {
+            state.cart.products.splice(index, 1);
           } else {
-            state.cart.cart.products[index].cartQuantity -= 1;
+            state.cart.products[index].cartQuantity -= 1;
           }
         }
       }
@@ -94,33 +92,35 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, setCart, setIsLoading, deleteFromCart, setIsCart } = cartSlice.actions;
+export const {
+  addToCart,
+  setCart,
+  setIsLoading,
+  deleteFromCart,
+  setIsCart,
+} = cartSlice.actions;
 
-export const getCartItemsFromServer = () => async (dispatch) => {
+export const getCartItemsFromServer = (user, token) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
-    const userId = useSelector((state) => state.user.user.id);
-    const { data } = await axios.get('http://localhost:4000/cart');
-
-    if (data !== null && data !== undefined) {
-      const cartContainer = data.find((cartObj) => cartObj.customerId.id === userId);
-
-      if (cartContainer !== null && data !== undefined) {
+    if (user !== null && user !== undefined) {
+      const { data } = await axios.get('http://localhost:4000/api/cart', {
+        headers: {
+          Authorization: token,
+        },
+      });
+      if (data !== null && data !== undefined) {
         dispatch(setIsCart(true));
-        dispatch(setCart(cartContainer));
-      } else {
-        dispatch(setIsCart(false));
+        dispatch(setCart(data.product));
       }
-    } else {
-      dispatch(setIsCart(false));
-    }
-    // якщо data undefined, то нічого не передаємо в кошик
-    // а isCart(true or false). Код далі не виконується і дані на сторінці відмальовуються
-    // тільки зі стора
+      // якщо data undefined, то нічого не передаємо в кошик
+      // а isCart(true or false). Код далі не виконується і дані на сторінці відмальовуються
+      // тільки зі стора
 
-    // dispatch(setCart(cartContainer)); // якщо ми тут оновимо state то оновиться і localStorage
-    //  тому тут потрібно написати логіку злиття даних з localStorage з даними з сервера.
-    dispatch(setIsLoading(false));
+      // dispatch(setCart(cartContainer)); // якщо ми тут оновимо state то оновиться і localStorage
+      //  тому тут потрібно написати логіку злиття даних з localStorage з даними з сервера.
+      dispatch(setIsLoading(false));
+    }
   } catch (error) {
     console.warn('Error loading cart:', error);
     dispatch(setIsLoading(false));
