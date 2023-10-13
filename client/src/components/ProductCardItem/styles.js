@@ -1,4 +1,5 @@
 export const sylesContainer = {
+  position: 'relative',
   minHeight: {
     mobile: '246px',
     tablet: '259px',

@@ -16,7 +16,6 @@ const authorizationSlice = createSlice({
       state.token = action.payload;
     },
   },
-
 });
 
 export const {
