@@ -51,7 +51,7 @@ export const stylesBtn = {
 };
 
 export const stylesWrap = {
-  p: '10px',
+  // p: '10px',
   gap: 2,
   width: {
     mobile: '100%',

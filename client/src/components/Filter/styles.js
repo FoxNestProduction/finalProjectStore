@@ -2,7 +2,7 @@ export const stylesWrap = {
   display: 'flex',
   justyfyContent: 'column',
   fontFamily: 'fontPoppins',
-  width: {
+  maxWidth: {
     mobile: '316px',
     tablet: '268px',
     desktop: '377px',
