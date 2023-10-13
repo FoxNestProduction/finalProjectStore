@@ -9,14 +9,21 @@ import InputLabel from '@mui/material/InputLabel';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import InputMask from 'react-input-mask';
+import { useNavigate } from 'react-router';
 import Input from '../../inputs/Input/Input';
 import validationSchema from './validationSchema';
 import SelectForFormik from '../../inputs/Select/Select';
 import { stylesButtonCard, stylesButtonCardOutline } from '../../ProductCard/styles';
-import { backBtn, btn, continueBtn } from './styles';
+import { title, starsWrapper, backBtn, btn, continueBtn, buttonsWrapper, inputsWrapper } from './styles';
 import GroupOfStarsSvg from '../../../assets/svgComponents/GroupOfStarsSvg';
 
 const CheckoutForm = () => {
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   const initialValues = {
     // firstName: '',
     // lastName: '',
@@ -26,7 +33,7 @@ const CheckoutForm = () => {
     city: 'Kyiv',
     street: '',
     house: '',
-    appartment: '',
+    apartment: '',
     payment: 'Card',
   };
 
@@ -35,45 +42,19 @@ const CheckoutForm = () => {
   };
 
   return (
-    <Box sx={{
-      position: 'relative',
-    }}
-    >
+    <Box sx={{ position: 'relative' }}>
       <Typography
         variant="h2"
         component="h1"
         align="center"
         mb="30px"
-        sx={{
-          fontSize: {
-            tablet: '36px',
-            lgTablet: '32px',
-            desktop: '46px',
-          },
-          maxWidth: {
-            lgTablet: '500px',
-            desktop: '570px',
-          },
-          mr: {
-            lgTablet: '210px',
-            desktop: '270px',
-          },
-        }}
+        sx={title}
       >
         Personal Information
         {/* Order Information */}
         {/* Checkout */}
       </Typography>
-      <Box sx={{
-        display: {
-          mobile: 'none',
-          lgTablet: 'block',
-        },
-        position: 'absolute',
-        top: '0',
-        right: '0',
-      }}
-      >
+      <Box sx={starsWrapper}>
         <GroupOfStarsSvg />
       </Box>
       <Formik
@@ -85,17 +66,7 @@ const CheckoutForm = () => {
           <Form>
             <Stack
               spacing={4}
-              sx={{
-                maxWidth: {
-                  lgTablet: '500px',
-                  desktop: '570px',
-                },
-                m: {
-                  tablet: '0 auto',
-                  lgTablet: '0 210px 0 0',
-                  desktop: '0 270px 0 0',
-                },
-              }}
+              sx={inputsWrapper}
             >
               {/* <Input name="firstName" id="checkout-firstName"
               label="First Name*" bgColor="#FFF" placeholder="Enter your first name" /> */}
@@ -103,13 +74,11 @@ const CheckoutForm = () => {
               label="Last Name*" bgColor="#FFF" placeholder="Enter your last name" /> */}
               <Input name="name" id="checkout-name" label="Name*" bgColor="#FFF" />
               <Input name="email" id="checkout-email" label="Email Address*" bgColor="#FFF" />
-              {/* <Input type="tel" name="tel"
-              id="checkout-tel" label="Mobile Number*" bgColor="#FFF" /> */}
 
               <Field name="tel">
                 {({ field }) => (
                   <InputMask mask="+38 (099) 999-99-99" {...field}>
-                    <Input type="tel" id="checkout-tel" bgColor="#FFF" label="Mobile Number*" />
+                    <Input type="tel" name="tel" id="checkout-tel" bgColor="#FFF" label="Mobile Number*" />
                   </InputMask>
                 )}
               </Field>
@@ -123,33 +92,21 @@ const CheckoutForm = () => {
               </FormControl>
 
               <Input name="street" id="checkout-street" label="Street*" bgColor="#FFF" />
-              <Box sx={{
-                display: 'flex',
-                gap: '20px',
-              }}
-              >
+              <Box sx={{ display: 'flex', gap: '20px' }}>
                 <Input name="house" id="checkout-house" label="House*" bgColor="#FFF" />
-                <Input name="appartment" id="checkout-appartment" label="Appartment" bgColor="#FFF" />
+                <Input name="apartment" id="checkout-apartment" label="Apartment" bgColor="#FFF" />
               </Box>
 
               <FormControl fullWidth>
-                <InputLabel id="checkout-payment-label">Select payment method</InputLabel>
-                <Field name="payment" label="Select payment method" component={SelectForFormik} labelId="checkout-payment-label" id="checkout-payment" bgColor="#FFF">
+                <InputLabel id="checkout-payment-label">Select payment method*</InputLabel>
+                <Field name="payment" label="Select payment method*" component={SelectForFormik} labelId="checkout-payment-label" id="checkout-payment" bgColor="#FFF">
                   <MenuItem value="Card">Card</MenuItem>
                   <MenuItem value="Cash">Cash</MenuItem>
                 </Field>
               </FormControl>
             </Stack>
-            <Box sx={{
-              mt: {
-                mobile: '45px',
-                lgTablet: '50px',
-              },
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-            >
-              <Button type="button" variant="outlined" sx={{ ...btn, ...backBtn }}>
+            <Box sx={buttonsWrapper}>
+              <Button type="button" variant="outlined" sx={{ ...btn, ...backBtn }} onClick={handleGoBack}>
                 Back
               </Button>
               <Button type="submit" variant="contained" sx={{ ...btn, ...continueBtn }}>
