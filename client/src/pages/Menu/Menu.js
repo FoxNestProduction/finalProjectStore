@@ -14,8 +14,10 @@ import { partnersCardWidth, productsCardWidth } from '../../components/ListItems
 import useSortedItems from '../../customHooks/useSortedItems';
 import Sorter from '../../components/Sorter/Sorter';
 import styles from './styles.module.scss';
+import useBreakpoint from '../../customHooks/useBreakpoint';
 
 const MenuPage = () => {
+  const breakpoint = useBreakpoint();
   const dispatch = useDispatch();
   const itemsFromSearch = useSelector((state) => state.search.search);
   const keyFromSearch = useSelector((state) => state.search.key);
@@ -30,8 +32,27 @@ const MenuPage = () => {
 
   return (
     <>
-      {/* <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' },
-      height: '100%' }}>
+      {breakpoint === 'mobile' ? (
+        <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' }, height: '100%' }}>
+          <Stack direction="column" gap={4} alignItems="center" justifyContent="space-between" sx={{ width: '100%' }}>
+            <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} />
+            <Sorter />
+            <Search />
+          </Stack>
+        </Container>
+      ) : (
+        <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' }, height: '100%' }}>
+          <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ width: '100%' }}>
+            <Stack direction="column" gap={4} alignItems="start" justifyContent="flex-end" sx={{ width: '65%', height: '100%' }}>
+              <Box sx={{ height: '350px', width: '100%', bgcolor: 'primary.main' }} />
+              <Search />
+            </Stack>
+            <Sorter />
+          </Stack>
+        </Container>
+      )}
+      {/* <Container sx={{ mt: { mobile: '62px', tablet: '85px',
+      desktop: '50px' }, height: '100%' }}>
         <Stack
           direction={{ mobile: 'column', tablet: 'row' }}
           alignItems="center"
@@ -47,7 +68,8 @@ const MenuPage = () => {
         </Stack>
       </Container> */}
 
-      <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' }, height: '100%' }}>
+      {/* <Container sx={{ mt: { mobile: '62px', tablet:
+      '85px', desktop: '50px' }, height: '100%' }}>
         <div
           className={styles.gridConteiner}
 
@@ -70,7 +92,7 @@ const MenuPage = () => {
           <Sorter sx={{ gridArea: 'b', height: '720px' }} />
           <Search sx={{ gridArea: 'c' }} />
         </div>
-      </Container>
+      </Container> */}
 
       {/* <Box
         sx={{

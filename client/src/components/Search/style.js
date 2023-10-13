@@ -2,7 +2,7 @@ export const stylesSearch = {
   color: 'primary.main',
   bgcolor: 'background.default',
   width: '100%',
-  minWidth: '260px',
+  // minWidth: '200px',
   height: {
     mobile: '51px',
     tablet: '53px',
@@ -57,5 +57,5 @@ export const stylesWrap = {
     mobile: '100%',
     tablet: '100%',
   },
-  minWidth: '260px',
+  // minWidth: '260px',
 };
