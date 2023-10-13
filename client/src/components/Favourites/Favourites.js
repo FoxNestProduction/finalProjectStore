@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -8,12 +8,18 @@ import Box from '@mui/material/Box';
 import FavouriteItem from '../FavouriteItem/FavouriteItem';
 import ListItems from '../ListItems/ListItem';
 import ProductCardItem from '../ProductCardItem/ProductCardItem';
+import { getProducts } from '../../redux/slices/productsSlice';
 
 const Favourites = () => {
+  const dispatch = useDispatch();
   const isMobile = useMediaQuery('(max-width: 690px)');
   const isLgTablet = useMediaQuery('(min-width: 690px)');
   const products = useSelector((state) => state.products.products, shallowEqual);
   const favourite = useSelector((state) => state.favourites.favourites);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
   // eslint-disable-next-line no-underscore-dangle
   const favouritesList = favourite.map((item) => products.find((product) => product._id === item));
 

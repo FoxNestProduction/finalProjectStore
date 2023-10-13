@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { setUser } from './userSlice';
 import { setAuthorizationError } from './errorSlice';
 
 const initialState = {
@@ -38,7 +37,6 @@ const favouriteSlice = createSlice({
 });
 
 export const {
-  setIsFavourite,
   addFavourite,
   removeFavourite,
   setFavourite,

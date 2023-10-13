@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './App.scss';
 import { useLocation } from 'react-router';
 import AppRoutes from './AppRoutes';
