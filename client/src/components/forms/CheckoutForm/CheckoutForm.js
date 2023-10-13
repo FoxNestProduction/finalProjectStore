@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,6 +10,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import InputMask from 'react-input-mask';
 import { useNavigate } from 'react-router';
+import { shallowEqual, useSelector } from 'react-redux';
 import Input from '../../inputs/Input/Input';
 import validationSchema from './validationSchema';
 import SelectForFormik from '../../inputs/Select/Select';
@@ -19,14 +20,11 @@ import GroupOfStarsSvg from '../../../assets/svgComponents/GroupOfStarsSvg';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
-
   const handleGoBack = () => {
     navigate(-1);
   };
 
-  const initialValues = {
-    // firstName: '',
-    // lastName: '',
+  const [initialValues, setInitialValues] = useState({
     name: '',
     email: '',
     tel: '',
@@ -35,7 +33,37 @@ const CheckoutForm = () => {
     house: '',
     apartment: '',
     payment: 'Card',
-  };
+  });
+
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const user = useSelector((state) => state.user.user, shallowEqual);
+  // const { firstName, email, tel, address } = user;
+
+  useEffect(() => {
+    setInitialValues({
+      name: user?.firstName || '',
+      email: user?.email || '',
+      tel: user?.tel || '',
+      city: user?.address?.city || 'Kyiv',
+      street: user?.address?.street || '',
+      house: user?.address?.house || '',
+      apartment: user?.address?.apartment || '',
+      payment: 'Card',
+    });
+  }, [isUserAuthorized, user]);
+
+  // const initialValues = {
+  //   // firstName: '',
+  //   // lastName: '',
+  //   name: firstName || '',
+  //   email: email || '',
+  //   tel: tel || '',
+  //   city: 'Kyiv',
+  //   street: address?.street || '',
+  //   house: address?.house || '',
+  //   apartment: address?.apartment || '',
+  //   payment: 'Card',
+  // };
 
   const handleContinue = (values, actions) => {
     console.log(values);
@@ -61,6 +89,7 @@ const CheckoutForm = () => {
         initialValues={initialValues}
         onSubmit={handleContinue}
         validationSchema={validationSchema}
+        enableReinitialize
       >
         {({ isValid }) => (
           <Form>
