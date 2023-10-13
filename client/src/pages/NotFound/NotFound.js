@@ -4,14 +4,14 @@ import { Link as RouterLink } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { stylesWrapper, stylesStatus, stylesDescription, stylesLink, stylesLeftArrow, stylesRightArrow, stylesStatusWrapper } from './styles';
-import { ReactComponent as Arrow } from './Arrow.svg';
+import OneLoopArrowSvg from '../../assets/svgComponents/OneLoopArrowSvg';
 
 const NotFound = () => (
   <Container component="div" sx={stylesWrapper}>
     <Box sx={stylesStatusWrapper}>
-      <Box sx={stylesLeftArrow}><Arrow /></Box>
+      <Box sx={stylesLeftArrow}><OneLoopArrowSvg /></Box>
       <Typography sx={stylesStatus} variant="h4">404</Typography>
-      <Box sx={stylesRightArrow}><Arrow /></Box>
+      <Box sx={stylesRightArrow}><OneLoopArrowSvg /></Box>
     </Box>
     <Typography sx={stylesDescription} variant="body1">
       Oops, something went wrong!

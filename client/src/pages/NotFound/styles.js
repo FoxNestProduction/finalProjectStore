@@ -59,6 +59,11 @@ export const stylesLink = {
   '&:hover': {
     backgroundColor: 'primary.hover',
   },
+  '&:active': {
+    backgroundColor: 'background.default',
+    border: '1px solid #6C5FBC',
+    color: 'primary.main',
+  },
   height: '60px',
   padding: {
     mobile: '17px 55px',
@@ -88,10 +93,12 @@ export const stylesRightArrow = {
     mobile: 'none',
     tablet: 'block',
   },
+  transform: 'scaleX(-1)',
+  rotate: '60deg',
 };
 
 export const stylesLeftArrow = {
   ...stylesRightArrow,
-  transform: 'scaleX(-1)',
-
+  transform: 'scale(-1, -1)',
+  rotate: '120deg',
 };
