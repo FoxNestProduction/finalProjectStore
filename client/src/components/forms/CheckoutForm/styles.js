@@ -1,8 +1,9 @@
 export const title = {
+  color: 'text.primary',
   fontSize: {
-    tablet: '36px',
-    lgTablet: '32px',
-    desktop: '46px',
+    mobile: '32px',
+    tablet: '40px',
+    desktop: '48px',
   },
   maxWidth: {
     lgTablet: '500px',
@@ -36,10 +37,21 @@ export const inputsWrapper = {
   },
 };
 
+export const subtitle = {
+  mb: '30px',
+  color: 'text.primary',
+  fontWeight: 'fontWeightMedium',
+  fontSize: {
+    mobile: '20px',
+    tablet: '24px',
+    desktop: '26px',
+  },
+};
+
 export const buttonsWrapper = {
   mt: {
-    mobile: '45px',
-    lgTablet: '50px',
+    mobile: '55px',
+    lgTablet: '65px',
   },
   display: 'flex',
   justifyContent: 'space-between',

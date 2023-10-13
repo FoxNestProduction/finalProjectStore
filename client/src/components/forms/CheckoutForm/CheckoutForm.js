@@ -3,7 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Divider, MenuItem, Select, TextField, Typography } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -11,11 +11,12 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import InputMask from 'react-input-mask';
 import { useNavigate } from 'react-router';
 import { shallowEqual, useSelector } from 'react-redux';
+import axios from 'axios';
 import Input from '../../inputs/Input/Input';
 import validationSchema from './validationSchema';
 import SelectForFormik from '../../inputs/Select/Select';
 import { stylesButtonCard, stylesButtonCardOutline } from '../../ProductCard/styles';
-import { title, starsWrapper, backBtn, btn, continueBtn, buttonsWrapper, inputsWrapper } from './styles';
+import { title, starsWrapper, backBtn, btn, continueBtn, buttonsWrapper, inputsWrapper, subtitle } from './styles';
 import GroupOfStarsSvg from '../../../assets/svgComponents/GroupOfStarsSvg';
 
 const CheckoutForm = () => {
@@ -37,7 +38,7 @@ const CheckoutForm = () => {
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user, shallowEqual);
-  // const { firstName, email, tel, address } = user;
+  const token = useSelector((state) => state.authorization.token);
 
   useEffect(() => {
     setInitialValues({
@@ -52,21 +53,29 @@ const CheckoutForm = () => {
     });
   }, [isUserAuthorized, user]);
 
-  // const initialValues = {
-  //   // firstName: '',
-  //   // lastName: '',
-  //   name: firstName || '',
-  //   email: email || '',
-  //   tel: tel || '',
-  //   city: 'Kyiv',
-  //   street: address?.street || '',
-  //   house: address?.house || '',
-  //   apartment: address?.apartment || '',
-  //   payment: 'Card',
-  // };
+  const handleContinue = async (values, actions) => {
+    // console.log(values);
 
-  const handleContinue = (values, actions) => {
-    console.log(values);
+    if (isUserAuthorized && token) {
+      const updatedCustomer = {
+        telephone: values.tel,
+        city: values.city,
+        street: values.street,
+        house: values.house,
+        apartment: values.apartment,
+      };
+
+      try {
+        const response = await axios.put('http://localhost:4000/api/customers', updatedCustomer, {
+          headers: {
+            'Authorization': token,
+          },
+        });
+        console.log(response);
+      } catch (err) {
+        console.log('Error updating user: ', err);
+      }
+    }
   };
 
   return (
@@ -78,9 +87,8 @@ const CheckoutForm = () => {
         mb="30px"
         sx={title}
       >
-        Personal Information
         {/* Order Information */}
-        {/* Checkout */}
+        Checkout
       </Typography>
       <Box sx={starsWrapper}>
         <GroupOfStarsSvg />
@@ -97,21 +105,25 @@ const CheckoutForm = () => {
               spacing={4}
               sx={inputsWrapper}
             >
-              {/* <Input name="firstName" id="checkout-firstName"
-              label="First Name*" bgColor="#FFF" placeholder="Enter your first name" /> */}
-              {/* <Input name="lastName" id="checkout-lastName"
-              label="Last Name*" bgColor="#FFF" placeholder="Enter your last name" /> */}
+              <Divider />
+              <Typography variant="h3" component="h2" align="left" sx={subtitle}>
+                Personal Information
+              </Typography>
+
               <Input name="name" id="checkout-name" label="Name*" bgColor="#FFF" />
               <Input name="email" id="checkout-email" label="Email Address*" bgColor="#FFF" />
 
               <Field name="tel">
                 {({ field }) => (
                   <InputMask mask="+38 (099) 999-99-99" {...field}>
-                    <Input type="tel" name="tel" id="checkout-tel" bgColor="#FFF" label="Mobile Number*" />
+                    <Input type="tel" name="tel" id="checkout-tel" bgColor="#FFF" label="Phone Number*" />
                   </InputMask>
                 )}
               </Field>
-
+              <Divider />
+              <Typography variant="h3" component="h2" align="left" sx={subtitle}>
+                Delivery Information
+              </Typography>
               <FormControl fullWidth>
                 <InputLabel id="checkout-city-label">City*</InputLabel>
                 <Field name="city" label="City*" component={SelectForFormik} labelId="checkout-city-label" id="checkout-city" bgColor="#FFF">
@@ -125,6 +137,11 @@ const CheckoutForm = () => {
                 <Input name="house" id="checkout-house" label="House*" bgColor="#FFF" />
                 <Input name="apartment" id="checkout-apartment" label="Apartment" bgColor="#FFF" />
               </Box>
+
+              <Divider />
+              <Typography variant="h3" component="h2" align="left" sx={subtitle}>
+                Payment method
+              </Typography>
 
               <FormControl fullWidth>
                 <InputLabel id="checkout-payment-label">Select payment method*</InputLabel>
