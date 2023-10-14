@@ -62,10 +62,8 @@ const LoginForm = () => {
         dispatch(setUser(user));
         dispatch(closeModal());
         dispatch(setAuthorizationError(''));
-        // eslint-disable-next-line no-underscore-dangle
         dispatch(setFavourite(user.favourite));
-        // eslint-disable-next-line no-underscore-dangle
-        dispatch(getCartItemsFromServer(user, token));
+        dispatch(getCartItemsFromServer());
       }
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));

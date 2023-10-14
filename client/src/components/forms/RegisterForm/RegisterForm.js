@@ -61,8 +61,7 @@ const RegisterForm = () => {
       dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setRegistrationError(''));
-      // eslint-disable-next-line no-underscore-dangle
-      dispatch(getCartItemsFromServer(user._id));
+      dispatch(getCartItemsFromServer());
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));
       console.error('Помилка реєстрації:', error);
