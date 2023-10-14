@@ -56,6 +56,7 @@
       "no-nested-ternary": "off",
       "no-console": "off",
       "no-plusplus": "off",
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }],
       "react/function-component-definition": [
         2,
         {

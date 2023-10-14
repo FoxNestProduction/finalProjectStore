@@ -21,6 +21,7 @@ import {
   price,
   continueBtn,
 } from './styles';
+import ProductCartItem from '../ProductCartItem/ProductCartItem';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -30,9 +31,10 @@ const Cart = () => {
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
   const userToken = useSelector((state) => state.authorization.token);
 
+  // cartProducts.pop();
   console.log(cartProducts);
-  console.log(userIsHasCart);
-  console.log(isUserAuthorization);
+  // console.log(userIsHasCart);
+  // console.log(isUserAuthorization);
 
   const totalSum = 24.55;
 
@@ -84,7 +86,9 @@ const Cart = () => {
         <Box
           sx={cartProductsContainer}
         >
-          Тут знаходяться cartProduct
+          {cartProducts.map((product) => (
+            <ProductCartItem key={product.id} {...product} />
+          ))}
         </Box>
         <Button
           LinkComponent={NavLink}

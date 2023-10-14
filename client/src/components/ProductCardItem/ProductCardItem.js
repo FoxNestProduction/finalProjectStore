@@ -12,25 +12,42 @@ import CardContent from '@mui/material/CardContent';
 import PropTypes from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ColorChips from '../Chip/Chip';
 import { chipSizeDishes } from '../Chip/styles';
+import { addToCart } from '../../redux/slices/cartSlice';
 import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const ProductCardItem = ({ currentPrice, imageUrl, name, rating, id }) => {
+const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
   const isTablet = useMediaQuery('(min-width: 481px) and (max-width: 992px)');
   const isDesktop = useMediaQuery('(min-width: 993px)');
-  const products = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state.cart.cart.products);
+  const products = useSelector((state) => state.products.products);
+  const dispatch = useDispatch();
   const handleAddToCart = (event) => {
     event.preventDefault();
-    console.log(id);
+
+    const productToCart = products.findIndex((product) => product._id === _id);
+    let selectedItem = {};
+    if (productToCart !== -1) {
+      const foundObject = products[productToCart];
+      selectedItem = {
+        id: foundObject._id,
+        currentPrice: foundObject.currentPrice,
+        imageUrl: foundObject.imageUrl,
+        cartQuantity: foundObject.quantity,
+        name: foundObject.name,
+      };
+    }
+    (() => dispatch(addToCart(selectedItem)))();
+    console.log(cart);
   };
 
   return (
     <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
-      <Card sx={sylesContainer}>
+      <Card variant="MuiCartItem" sx={sylesContainer}>
         <Box sx={mediaBox}>
           <CardActions disableSpacing sx={favoriteIcon}>
             <IconButton aria-label="add to favorites" sx={{ color: '#323142' }}>
@@ -86,7 +103,7 @@ ProductCardItem.propTypes = {
   imageUrl: PropTypes.string,
   name: PropTypes.string,
   rating: PropTypes.number,
-  id: PropTypes.string,
+  _id: PropTypes.string,
 };
 
 ProductCardItem.defaultProps = {
@@ -94,7 +111,7 @@ ProductCardItem.defaultProps = {
   imageUrl: './img/salads/3.png',
   name: 'Chicken Hell',
   rating: 3,
-  id: '6507a306baee59670a047307',
+  _id: '6507a306baee59670a047307',
 };
 
 export default ProductCardItem;
