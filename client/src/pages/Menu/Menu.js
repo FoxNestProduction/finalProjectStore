@@ -10,6 +10,7 @@ import { setSearch } from '../../redux/slices/searchSlice';
 import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
 import Filter from '../../components/Filter/Filter';
+import SwiperBanner from '../../components/SwiperBanner/SwiperBanner';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -26,9 +27,62 @@ const MenuPage = () => {
 
   return (
     <>
-      <Container>
-        <Filter />
-        <Search />
+      <Container sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' } }}>
+        <Box
+          sx={{
+            // mt: { mobile: '62px', tablet: '85px', desktop: '50px' },
+            // height: '100%',
+            justifyContent: 'center',
+            display: 'grid',
+            gridTemplateAreas: {
+              mobile: `"a"
+            "b"
+            "c"`,
+              tablet: `"a"
+              "b"
+              "c"`,
+              lgTablet: `"a b"            
+            "c b"`,
+              desktop: `"a b"              
+              "c b"`,
+            },
+            gridTemplateColumns: {
+              mobile: '1fr',
+              tablet: '1fr',
+              lgTablet: '2fr 1fr',
+            },
+            columnGap: {
+              mobile: 0,
+              tablet: '1vw',
+              desktop: '3vw',
+            },
+            rowGap: {
+              mobile: '10vh',
+              tablet: '4vh',
+              desktop: '5vh',
+            },
+            gridTemplateRows: {
+              mobile: 'auto',
+              tablet: 'auto',
+              lgTablet: '2.2fr 0.8fr',
+            },
+          }}
+        >
+          <Box
+            sx={{
+              gridArea: 'a',
+              alignSelf: 'center',
+            }}
+          >
+            <SwiperBanner />
+          </Box>
+          <Box sx={{ gridArea: 'b', alignSelf: 'start' }}>
+            <Filter />
+          </Box>
+          <Box sx={{ gridArea: 'c', alignSelf: 'end' }}>
+            <Search />
+          </Box>
+        </Box>
       </Container>
 
       <ListItems

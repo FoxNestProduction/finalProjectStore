@@ -3,8 +3,9 @@ export const stylesWrap = {
   justyfyContent: 'column',
   fontFamily: 'fontPoppins',
   maxWidth: {
-    mobile: '316px',
-    tablet: '268px',
+    mobile: '380px',
+    tablet: '480px',
+    lgTablet: '377px',
     desktop: '377px',
   },
   borderRadius: '17px',
