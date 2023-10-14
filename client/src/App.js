@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import './App.scss';
 import { useLocation } from 'react-router';
@@ -10,8 +10,6 @@ import { getPartners } from './redux/slices/partnersSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
 
 const App = () => {
-  const [products, setProducts] = useState([]);
-
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 

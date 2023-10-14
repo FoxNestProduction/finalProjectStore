@@ -14,18 +14,20 @@ import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Badge from '@mui/material/Badge';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
-import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
+import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem, stylesBadge } from './styles';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   isUserAuthorized, handleCloseDrawer, handleOpenModalLogin }) => {
   const dispatch = useDispatch();
-
+  const favourite = useSelector((state) => state.favourites.favourites);
+  const favouritesAmount = isUserAuthorized ? favourite.length : null;
   const handleLogOut = () => {
     dispatch(setToken(null));
     dispatch(setAuthorization(false));
@@ -90,7 +92,13 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
           <MenuItemWithIcon
             navLink
             page="Favourites"
-            icon={<FavoriteBorderOutlinedIcon sx={stylesIcon} />}
+            icon={
+              (
+                <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                  <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                </Badge>
+              )
+            }
           />
           )}
         </List>

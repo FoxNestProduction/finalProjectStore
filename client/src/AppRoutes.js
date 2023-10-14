@@ -10,6 +10,7 @@ import ProductPage from './pages/Product/Product';
 import ReviewsPage from './pages/Reviews/Reviews';
 import Cart from './components/Cart/Cart';
 import Favourites from './components/Favourites/Favourites';
+import NotFound from './pages/NotFound/NotFound';
 
 const AppRoutes = () => {
   return (
@@ -24,6 +25,7 @@ const AppRoutes = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/menu/:productName" element={<ProductPage />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

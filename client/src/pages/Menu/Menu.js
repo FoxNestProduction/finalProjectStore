@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Box, Container } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import Search from '../../components/Search/Search';
@@ -8,6 +9,7 @@ import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
 import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
+import Filter from '../../components/Filter/Filter';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -24,7 +26,11 @@ const MenuPage = () => {
 
   return (
     <>
-      <Search />
+      <Container>
+        <Filter />
+        <Search />
+      </Container>
+
       <ListItems
         title={itemsFromSearch.length !== 0 && (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}
         items={itemsFromSearch}
@@ -32,6 +38,7 @@ const MenuPage = () => {
         actions={null}
         type={keyFromSearch === 'food' ? '' : 'partners'}
       />
+
       {/* <RestaurantItem /> */}
       <ListItems
         title="Our Top Restaurants"
