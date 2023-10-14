@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import Box from '@mui/material/Box';
@@ -7,18 +8,13 @@ import Stack from '@mui/material/Stack';
 import {
   Divider,
   FormControlLabel,
-  FormLabel,
   MenuItem,
   Radio,
   RadioGroup,
-  Select,
-  TextField,
   Typography,
 } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import InputMask from 'react-input-mask';
 import { useNavigate } from 'react-router';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -26,7 +22,6 @@ import axios from 'axios';
 import Input from '../../inputs/Input/Input';
 import validationSchema from './validationSchema';
 import SelectForFormik from '../../inputs/Select/Select';
-import { stylesButtonCard, stylesButtonCardOutline } from '../../ProductCard/styles';
 import {
   title,
   starsWrapper,
@@ -64,36 +59,28 @@ const CheckoutForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // setInitialValues({
-    //   name: user?.firstName || '',
-    //   email: user?.email || '',
-    //   tel: user?.tel || '',
-    //   city: user?.address?.city || 'Kyiv',
-    //   street: user?.address?.street || '',
-    //   house: user?.address?.house || '',
-    //   apartment: user?.address?.apartment || '',
-    //   payment: 'Card',
-    // });
-
     setInitialValues((prev) => {
       const newValues = { ...prev };
-      newValues.name = user?.firstName || '';
-      newValues.email = user?.email || '';
-      newValues.tel = user?.telephone || '';
+
+      if (isUserAuthorized && user) {
+        newValues.name = user.firstName;
+        newValues.email = user.email;
+        newValues.tel = user.telephone || '';
+      } else {
+        newValues.name = '';
+        newValues.email = '';
+        newValues.tel = '';
+      }
       return newValues;
     });
   }, [isUserAuthorized, user]);
 
   const handleContinue = async (values, actions) => {
-    // console.log(values);
+    console.log(values);
 
     if (isUserAuthorized && token) {
       const updatedCustomer = {
         telephone: values.tel,
-        // city: values.city,
-        // street: values.street,
-        // house: values.house,
-        // apartment: values.apartment,
       };
 
       try {
@@ -141,6 +128,7 @@ const CheckoutForm = () => {
                 Personal Information
               </Typography>
 
+              {/* eslint-disable-next-line no-undef */}
               <Input name="name" id="checkout-name" label="Name*" bgColor="#FFF" />
               <Input name="email" id="checkout-email" label="Email Address*" bgColor="#FFF" />
 
@@ -151,10 +139,12 @@ const CheckoutForm = () => {
                   </InputMask>
                 )}
               </Field>
+
               <Divider />
               <Typography variant="h3" component="h2" align="left" sx={subtitle}>
                 Delivery Information
               </Typography>
+
               <FormControl fullWidth>
                 <InputLabel id="checkout-city-label">City*</InputLabel>
                 <Field name="city" label="City*" component={SelectForFormik} labelId="checkout-city-label" id="checkout-city" bgColor="#FFF">
