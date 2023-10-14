@@ -35,6 +35,7 @@ import Input from '../../Input/Input';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';
+import { setFavourite } from '../../../redux/slices/favouriteSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -60,6 +61,8 @@ const LoginForm = () => {
         dispatch(setUser(user));
         dispatch(closeModal());
         dispatch(setAuthorizationError(''));
+        // eslint-disable-next-line no-underscore-dangle
+        dispatch(setFavourite(user.favourite));
       }
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));

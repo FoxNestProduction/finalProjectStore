@@ -46,7 +46,7 @@ export const stylesTextContainer = {
 export const stylesLabel = {
   color: 'text.secondary',
   fontWeight: 600,
-  fontFamily: 'Poppins',
+  fontFamily: 'fontPoppins',
   fontSize: {
     mobile: '9px',
     tablet: '12px',
@@ -67,7 +67,7 @@ export const stylesTitle = {
   },
   color: 'text.primary',
   fontWeight: 500,
-  fontFamily: 'Poppins',
+  fontFamily: 'fontPoppins',
   marginBottom: {
     mobile: '16px',
     tablet: '11px',
@@ -149,7 +149,6 @@ export const stylesRating = {
   marginBottom: {
     mobile: '47px',
   },
-  fontFamily: 'Poppins',
   display: 'flex',
   columnGap: '2px',
   justifyContent: {
@@ -160,6 +159,7 @@ export const stylesRating = {
 };
 
 export const stylesTrustpilot = {
+  fontFamily: 'Poppins',
   color: 'text.primary',
   fontWeight: 600,
 };
@@ -171,6 +171,7 @@ export const stylesStarts = {
 
 export const stylesReviewAmount = {
   color: 'text.secondary',
+  fontFamily: 'fontPoppins',
   fontSize: '10px',
   position: 'relative',
   top: '1px',
