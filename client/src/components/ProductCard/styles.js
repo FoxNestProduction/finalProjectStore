@@ -1,15 +1,30 @@
-export const stylesButtonCardOutline = {
+export const stylesButton = {
   p: '10px',
   borderRadius: '14px',
-  color: 'text.primary',
-  border: 1,
   fontSize: { mobile: '14px', tablet: '18px' },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
-  ':hover': {
+  '&:hover': {
     backgroundColor: 'primary.hover',
     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
     color: 'text.primaryLight',
   },
+  '&:active': {
+    backgroundColor: 'common.white',
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
+    color: 'primary.main',
+    border: '1px solid',
+  },
+};
+
+export const stylesButtonCardOutline = {
+  ...stylesButton,
+  border: '1px solid',
+  color: 'text.header',
+};
+
+export const stylesButtonCard = {
+  ...stylesButton,
+  border: '1px solid primary.main',
 };
 
 export const stylesSectionCard = {
@@ -90,18 +105,6 @@ export const stylesPriceCard = {
     desktop: 'flex-start',
   },
   my: 3,
-};
-
-export const stylesButtonCard = {
-  p: '10px',
-  borderRadius: '14px',
-  border: '1px solid primary.main',
-  fontSize: { mobile: '14px', tablet: '18px' },
-  transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
-  ':hover': {
-    backgroundColor: 'primary.hover',
-    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
-  },
 };
 
 export const stylesActionsCard = {

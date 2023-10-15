@@ -10,7 +10,6 @@ const partnersSlice = createSlice({
   initialState,
   reducers: {
     setPartners(state, action) {
-      // eslint-disable-next-line no-param-reassign
       state.partners = action.payload;
     },
   },
