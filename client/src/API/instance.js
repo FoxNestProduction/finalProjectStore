@@ -17,4 +17,7 @@ instance.interceptors.request.use((config) => {
     config.headers.authorization = store.getState().authorization.token;
   }
   return config;
+}, (error) => {
+  console.warn('Something went wrong in axios interceptors', `Request error: ${error}`);
+  return Promise.reject(error);
 });
