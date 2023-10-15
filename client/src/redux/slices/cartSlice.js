@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { createSlice } from '@reduxjs/toolkit';
 import { allProducts } from './productsSlice';
 import { instance } from '../../API/instance';
@@ -38,26 +39,25 @@ const cartSlice = createSlice({
        */
     },
     setCart(state, action) {
-      console.log(state.cart.products);
       if (state.cart.products.length === 0) {
         state.cart.products = action.payload;
       } else {
-        const uniqueFilteredProducts = action.payload.products.filter((product) => {
+        const uniqueFilteredProducts = action.payload.filter((cartProductObj) => {
           const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.id !== product.id);
+            .find((cartProduct) => cartProduct.product._id !== cartProductObj.product._id);
           const mark = matchedProduct !== undefined;
           return mark;
         });
-        const notUniqueFilteredProducts = action.payload.products.filter((product) => {
+        const notUniqueFilteredProducts = action.payload.filter((cartProductObj) => {
           const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.id === product.id);
+            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
           const mark = matchedProduct !== undefined;
           return mark;
-        }).map((product) => {
+        }).map((cartProductObj) => {
           const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.id === product.id);
-          product.cartQuantity += matchedProduct.cartQuantity;
-          return product;
+            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
+          cartProductObj.cartQuantity += matchedProduct.cartQuantity;
+          return cartProductObj;
         });
         state.cart.products = { ...uniqueFilteredProducts, ...notUniqueFilteredProducts };
       }
