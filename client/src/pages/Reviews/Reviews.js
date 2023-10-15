@@ -13,10 +13,6 @@ const ReviewsPage = () => {
   const newReview = useSelector((state) => state.reviews.newReview);
 
   const handleSendFeedback = () => {
-    if (newReview.content === '') {
-      dispatch(closeModal());
-      return;
-    }
     dispatch(addNewReview());
     dispatch(setNewReview({ field: 'user_id', value: '' }));
     dispatch(setNewReview({ field: 'rating', value: null }));
@@ -25,6 +21,17 @@ const ReviewsPage = () => {
     dispatch(setNewReview({ field: 'userReview', value: '' }));
     dispatch(closeModal());
   };
+
+  if (newReview.content !== '') {
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: false,
+      onClick: handleSendFeedback,
+    }));
+  } else {
+    dispatch(setButtonAgree({ disabled: true }));
+  }
 
   const handleOpenModalReview = () => {
     dispatch(openModal());
@@ -35,6 +42,7 @@ const ReviewsPage = () => {
     dispatch(setButtonAgree({
       text: 'Send',
       endIcon: true,
+      disabled: newReview.content === '',
       onClick: handleSendFeedback,
     }));
     dispatch(addButtonBox(true));
