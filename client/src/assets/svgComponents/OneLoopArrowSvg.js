@@ -15,7 +15,7 @@ OneLoopArrowSvg.propTypes = {
 };
 
 OneLoopArrowSvg.defaultProps = {
-  color: 'white',
+  color: '#6C5FBC',
 };
 
 export default OneLoopArrowSvg;

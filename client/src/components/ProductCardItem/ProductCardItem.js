@@ -19,6 +19,7 @@ import { chipSizeDishes } from '../Chip/styles';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox, cartIcons, cartIconsButton } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
+import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 
 const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
   const cart = useSelector((state) => state.cart.cart.products);
@@ -47,14 +48,17 @@ const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
   };
 
   return (
-    <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
-      <Card variant="MuiCartItem" sx={sylesContainer}>
+  // <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
+    <Card sx={sylesContainer}>
+      {/* <Box sx={mediaBox}> */}
+      <CardActions disableSpacing sx={favoriteIcon}>
+        <FavouriteIcon id={_id} />
+        {/* <IconButton aria-label="add to favorites" sx={{ color: '#323142' }}>
+          <FavoriteIcon />
+        </IconButton> */}
+      </CardActions>
+      <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
         <Box sx={mediaBox}>
-          <CardActions disableSpacing sx={favoriteIcon}>
-            <IconButton aria-label="add to favorites" sx={{ color: '#323142', p: '0' }}>
-              <FavoriteIcon />
-            </IconButton>
-          </CardActions>
           <CardMedia
             component="img"
             image={imageUrl}
@@ -98,8 +102,9 @@ const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
             </IconButton>
           </Box>
         </CardContent>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
+    // </Link>
   );
 };
 

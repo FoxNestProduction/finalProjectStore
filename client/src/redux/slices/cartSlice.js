@@ -1,7 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 import { createSlice } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
 import { allProducts } from './productsSlice';
+import { instance } from '../../API/instance';
 
 const initialState = {
   cart: {
@@ -40,24 +40,24 @@ const cartSlice = createSlice({
     },
     setCart(state, action) {
       if (state.cart.products.length === 0) {
-        state.cart = action.payload;
+        state.cart.products = action.payload;
       } else {
-        const uniqueFilteredProducts = action.payload.products.filter((product) => {
+        const uniqueFilteredProducts = action.payload.filter((cartProductObj) => {
           const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.id !== product.id);
+            .find((cartProduct) => cartProduct.product._id !== cartProductObj.product._id);
           const mark = matchedProduct !== undefined;
           return mark;
         });
-        const notUniqueFilteredProducts = action.payload.products.filter((product) => {
+        const notUniqueFilteredProducts = action.payload.filter((cartProductObj) => {
           const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.id === product.id);
+            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
           const mark = matchedProduct !== undefined;
           return mark;
-        }).map((product) => {
+        }).map((cartProductObj) => {
           const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.id === product.id);
-          product.cartQuantity += matchedProduct.cartQuantity;
-          return product;
+            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
+          cartProductObj.cartQuantity += matchedProduct.cartQuantity;
+          return cartProductObj;
         });
         state.cart.products = { ...uniqueFilteredProducts, ...notUniqueFilteredProducts };
       }
@@ -100,31 +100,22 @@ export const {
   setIsCart,
 } = cartSlice.actions;
 
-export const getCartItemsFromServer = (user, token) => async (dispatch) => {
+export const getCartItemsFromServer = () => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
-    if (user !== null && user !== undefined) {
-      const { data } = await axios.get('http://localhost:4000/api/cart', {
-        headers: {
-          Authorization: token,
-        },
-      });
-      if (data !== null && data !== undefined) {
-        dispatch(setIsCart(true));
-        dispatch(setCart(data.product));
-      }
-      // якщо data undefined, то нічого не передаємо в кошик
-      // а isCart(true or false). Код далі не виконується і дані на сторінці відмальовуються
-      // тільки зі стора
 
-      // dispatch(setCart(cartContainer)); // якщо ми тут оновимо state то оновиться і localStorage
-      //  тому тут потрібно написати логіку злиття даних з localStorage з даними з сервера.
-      dispatch(setIsLoading(false));
-    }
+    const { data } = await instance.get('/cart');
+
+    console.log(data.products);
+    console.log(data);
+
+    dispatch(setCart(data.products));
+    dispatch(setIsCart(true));
+    dispatch(setIsLoading(false));
   } catch (error) {
     console.warn('Error loading cart:', error);
     dispatch(setIsLoading(false));
-    dispatch(setIsCart(false));
+    // dispatch(setIsCart(false));
   }
 };
 
@@ -137,8 +128,10 @@ export const getCartItemsFromServer = (user, token) => async (dispatch) => {
  * Ця функція передається через dispatch. В неї прокидується id та key.
  * dispatch(deleteOrAddCartByItemId(id, key))
  */
-export const deleteOrAddCartByItemId = (id, key) => (dispatch) => {
-  const products = useSelector((state) => state.products.products);
+export const deleteOrAddCartByItemId = (id, key) => (dispatch, getState) => {
+  const state = getState();
+  const { products } = state.products;
+  // const products = useSelector((state) => state.products.products);
   if (products.length !== 0) {
     const cartItem = products.find((product) => product.id === id);
     if (cartItem !== null && cartItem !== undefined) {
