@@ -23,24 +23,15 @@ import Input from '../../inputs/Input/Input';
 import validationSchema from './validationSchema';
 import SelectForFormik from '../../inputs/Select/Select';
 import {
-  title,
-  starsWrapper,
-  backBtn,
-  btn,
-  continueBtn,
-  buttonsWrapper,
   inputsWrapper,
   subtitle,
   paymentRadioBtn, paymentWrapper,
 } from './styles';
-import GroupOfStarsSvg from '../../../assets/svgComponents/GroupOfStarsSvg';
 import { setUser } from '../../../redux/slices/userSlice';
+import CheckoutActions from './CheckoutActions';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
-  const handleGoBack = () => {
-    navigate(-1);
-  };
 
   const [initialValues, setInitialValues] = useState({
     name: '',
@@ -78,6 +69,7 @@ const CheckoutForm = () => {
   const handleContinue = async (values, actions) => {
     console.log(values);
 
+    // updating user info in DB and user slice
     if (isUserAuthorized && token) {
       const updatedCustomer = {
         telephone: values.tel,
@@ -85,119 +77,100 @@ const CheckoutForm = () => {
 
       try {
         const response = await axios.put('http://localhost:4000/api/customers', updatedCustomer, {
-          headers: {
-            'Authorization': token,
-          },
+          headers: { 'Authorization': token },
         });
         dispatch(setUser(response.data));
       } catch (err) {
         console.log('Error updating user: ', err);
       }
     }
+
+    // redirect to payment page if payment is set to Card
+    if (values.payment === 'Card') {
+      navigate('/checkout/payment');
+    }
   };
 
   return (
-    <Box sx={{ position: 'relative' }}>
-      <Typography
-        variant="h2"
-        component="h1"
-        align="center"
-        mb="30px"
-        sx={title}
-      >
-        {/* Order Information */}
-        Checkout
-      </Typography>
-      <Box sx={starsWrapper}>
-        <GroupOfStarsSvg />
-      </Box>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleContinue}
-        validationSchema={validationSchema}
-        enableReinitialize
-      >
-        {({ isValid }) => (
-          <Form>
-            <Stack
-              spacing={4}
-              sx={inputsWrapper}
-            >
-              <Divider />
-              <Typography variant="h3" component="h2" align="left" sx={subtitle}>
-                Personal Information
-              </Typography>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleContinue}
+      validationSchema={validationSchema}
+      enableReinitialize
+    >
+      {({ isValid }) => (
+        <Form>
+          <Stack
+            spacing={4}
+            sx={inputsWrapper}
+          >
+            <Divider />
+            <Typography variant="h3" component="h2" align="left" sx={subtitle}>
+              Personal Information
+            </Typography>
 
-              {/* eslint-disable-next-line no-undef */}
-              <Input name="name" id="checkout-name" label="Name*" bgColor="#FFF" />
-              <Input name="email" id="checkout-email" label="Email Address*" bgColor="#FFF" />
+            {/* eslint-disable-next-line no-undef */}
+            <Input name="name" id="checkout-name" label="Name*" bgColor="#FFF" />
+            <Input name="email" id="checkout-email" label="Email Address*" bgColor="#FFF" />
 
-              <Field name="tel">
-                {({ field }) => (
-                  <InputMask mask="+38 (099) 999-99-99" {...field}>
-                    <Input type="tel" name="tel" id="checkout-tel" bgColor="#FFF" label="Phone Number*" />
-                  </InputMask>
-                )}
+            <Field name="tel">
+              {({ field }) => (
+                <InputMask mask="+38 (099) 999-99-99" {...field}>
+                  <Input type="tel" name="tel" id="checkout-tel" bgColor="#FFF" label="Phone Number*" />
+                </InputMask>
+              )}
+            </Field>
+
+            <Divider />
+            <Typography variant="h3" component="h2" align="left" sx={subtitle}>
+              Delivery Information
+            </Typography>
+
+            <FormControl fullWidth>
+              <InputLabel id="checkout-city-label">City*</InputLabel>
+              <Field name="city" label="City*" component={SelectForFormik} labelId="checkout-city-label" id="checkout-city" bgColor="#FFF">
+                <MenuItem value="Kyiv">Kyiv</MenuItem>
+                <MenuItem value="Lviv">Lviv</MenuItem>
               </Field>
+            </FormControl>
 
-              <Divider />
-              <Typography variant="h3" component="h2" align="left" sx={subtitle}>
-                Delivery Information
-              </Typography>
-
-              <FormControl fullWidth>
-                <InputLabel id="checkout-city-label">City*</InputLabel>
-                <Field name="city" label="City*" component={SelectForFormik} labelId="checkout-city-label" id="checkout-city" bgColor="#FFF">
-                  <MenuItem value="Kyiv">Kyiv</MenuItem>
-                  <MenuItem value="Lviv">Lviv</MenuItem>
-                </Field>
-              </FormControl>
-
-              <Input name="street" id="checkout-street" label="Street*" bgColor="#FFF" />
-              <Box sx={{ display: 'flex', gap: '20px' }}>
-                <Input name="house" id="checkout-house" label="House*" bgColor="#FFF" />
-                <Input name="apartment" id="checkout-apartment" label="Apartment" bgColor="#FFF" />
-              </Box>
-
-              <Divider />
-              <Typography variant="h3" component="h2" align="left" sx={subtitle}>
-                Payment method
-              </Typography>
-
-              {/* ----- ВАРІАНТ З ІНПУТОМ ------*/}
-
-              {/* <FormControl fullWidth> */}
-              {/*  <InputLabel id="checkout-payment-label">Select payment method*</InputLabel> */}
-              {/*  <Field name="payment" label="Select payment method*" component={SelectForFormik} labelId="checkout-payment-label" id="checkout-payment" bgColor="#FFF"> */}
-              {/*    <MenuItem value="Card">Card</MenuItem> */}
-              {/*    <MenuItem value="Cash">Cash</MenuItem> */}
-              {/*  </Field> */}
-              {/* </FormControl> */}
-
-              <Field name="payment">
-                {({ field }) => (
-                  <FormControl sx={paymentWrapper}>
-                    <RadioGroup {...field}>
-                      <FormControlLabel value="Card" control={<Radio />} label="Card" sx={paymentRadioBtn} />
-                      <FormControlLabel value="Cash" control={<Radio />} label="Cash" sx={paymentRadioBtn} />
-                    </RadioGroup>
-                  </FormControl>
-                )}
-              </Field>
-
-            </Stack>
-            <Box sx={buttonsWrapper}>
-              <Button type="button" variant="outlined" sx={{ ...btn, ...backBtn }} onClick={handleGoBack}>
-                Back
-              </Button>
-              <Button type="submit" variant="contained" sx={{ ...btn, ...continueBtn }} disabled={!isValid}>
-                Continue
-              </Button>
+            <Input name="street" id="checkout-street" label="Street*" bgColor="#FFF" />
+            <Box sx={{ display: 'flex', gap: '20px' }}>
+              <Input name="house" id="checkout-house" label="House*" bgColor="#FFF" />
+              <Input name="apartment" id="checkout-apartment" label="Apartment" bgColor="#FFF" />
             </Box>
-          </Form>
-        )}
-      </Formik>
-    </Box>
+
+            <Divider />
+            <Typography variant="h3" component="h2" align="left" sx={subtitle}>
+              Payment method
+            </Typography>
+
+            {/* ----- ВАРІАНТ З ІНПУТОМ ------*/}
+
+            {/* <FormControl fullWidth> */}
+            {/*  <InputLabel id="checkout-payment-label">Select payment method*</InputLabel> */}
+            {/*  <Field name="payment" label="Select payment method*" component={SelectForFormik} labelId="checkout-payment-label" id="checkout-payment" bgColor="#FFF"> */}
+            {/*    <MenuItem value="Card">Card</MenuItem> */}
+            {/*    <MenuItem value="Cash">Cash</MenuItem> */}
+            {/*  </Field> */}
+            {/* </FormControl> */}
+
+            <Field name="payment">
+              {({ field }) => (
+                <FormControl sx={paymentWrapper}>
+                  <RadioGroup {...field}>
+                    <FormControlLabel value="Card" control={<Radio />} label="Card" sx={paymentRadioBtn} />
+                    <FormControlLabel value="Cash" control={<Radio />} label="Cash" sx={paymentRadioBtn} />
+                  </RadioGroup>
+                </FormControl>
+              )}
+            </Field>
+
+          </Stack>
+          <CheckoutActions isValid={isValid} />
+        </Form>
+      )}
+    </Formik>
   );
 };
 
