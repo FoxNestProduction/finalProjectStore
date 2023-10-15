@@ -14,6 +14,10 @@ const ReviewsPage = () => {
   const token = useSelector((state) => state.authorization.token);
 
   const handleSendFeedback = () => {
+    if (newReview.content === '') {
+      dispatch(closeModal());
+      return;
+    }
     dispatch(addNewReview());
     dispatch(closeModal());
     dispatch(setNewReview({ field: 'rating', value: null }));
