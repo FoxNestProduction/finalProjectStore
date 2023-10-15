@@ -10,7 +10,7 @@ import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, deleteFromCart } from '../../redux/slices/cartSlice';
-import { cartIconContainer, imgBox, textContentBox, textContent, buttonStyles } from './styles';
+import { cartIconContainer, imgBox, textContentBox, textContent, buttonStyles, quantityStyle } from './styles';
 
 const ProductCartItem = ({ id, name, cartQuantity, currentPrice, imageUrl }) => {
   const cartProducts = useSelector((state) => state.cart.cart.products);
@@ -44,7 +44,9 @@ const ProductCartItem = ({ id, name, cartQuantity, currentPrice, imageUrl }) => 
             <Button sx={buttonStyles} onClick={() => dispatch(deleteFromCart(id))}>
               <RemoveRoundedIcon />
             </Button>
-            <Button sx={buttonStyles}>{cartQuantity}</Button>
+            <Typography variant="body2" sx={quantityStyle}>
+              {cartQuantity}
+            </Typography>
             <Button sx={buttonStyles} onClick={() => {}}>
               <AddRoundedIcon />
             </Button>

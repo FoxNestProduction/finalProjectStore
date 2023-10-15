@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -13,36 +13,37 @@ import PropTypes from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import ColorChips from '../Chip/Chip';
 import { chipSizeDishes } from '../Chip/styles';
 import { addToCart } from '../../redux/slices/cartSlice';
-import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
+import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox, cartIcons, cartIconsButton } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
 const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
-  const isMobile = useMediaQuery('(max-width: 480px)');
-  const isTablet = useMediaQuery('(min-width: 481px) and (max-width: 992px)');
-  const isDesktop = useMediaQuery('(min-width: 993px)');
   const cart = useSelector((state) => state.cart.cart.products);
   const products = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
+  const [selectedItem, setSelectedItem] = useState({});
+  console.log(cart);
+  // console.log(selectedItem);
+  const isItemInCart = cart.findIndex((product) => product.id === selectedItem.id) !== -1;
+  console.log(isItemInCart);
   const handleAddToCart = (event) => {
     event.preventDefault();
-
     const productToCart = products.findIndex((product) => product._id === _id);
-    let selectedItem = {};
     if (productToCart !== -1) {
       const foundObject = products[productToCart];
-      selectedItem = {
+      setSelectedItem({
         id: foundObject._id,
         currentPrice: foundObject.currentPrice,
         imageUrl: foundObject.imageUrl,
         cartQuantity: foundObject.quantity,
         name: foundObject.name,
-      };
+      });
     }
+    console.log(selectedItem);
     (() => dispatch(addToCart(selectedItem)))();
-    console.log(cart);
   };
 
   return (
@@ -50,7 +51,7 @@ const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
       <Card variant="MuiCartItem" sx={sylesContainer}>
         <Box sx={mediaBox}>
           <CardActions disableSpacing sx={favoriteIcon}>
-            <IconButton aria-label="add to favorites" sx={{ color: '#323142' }}>
+            <IconButton aria-label="add to favorites" sx={{ color: '#323142', p: '0' }}>
               <FavoriteIcon />
             </IconButton>
           </CardActions>
@@ -88,8 +89,12 @@ const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
                 {currentPrice.toFixed(2).split('.')[1]}
               </Typography>
             </Typography>
-            <IconButton aria-label="add to cart" sx={{ color: '#323142' }} onClick={handleAddToCart}>
-              <AddBoxIcon sx={{ fontSize: isMobile ? '20px' : isTablet ? '25px' : '30px' }} />
+            <IconButton aria-label="add to cart" sx={cartIconsButton} onClick={handleAddToCart}>
+              { isItemInCart ? (
+                <AddBoxIcon sx={cartIcons} />
+              ) : (
+                <ShoppingCartCheckoutIcon sx={cartIcons} />
+              )}
             </IconButton>
           </Box>
         </CardContent>

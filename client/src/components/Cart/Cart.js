@@ -31,8 +31,8 @@ const Cart = () => {
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
   const userToken = useSelector((state) => state.authorization.token);
 
-  // cartProducts.pop();
-  console.log(cartProducts);
+  cartProducts.pop();
+  // console.log(cartProducts);
   // console.log(userIsHasCart);
   // console.log(isUserAuthorization);
 

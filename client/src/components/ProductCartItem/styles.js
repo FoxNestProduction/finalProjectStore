@@ -29,8 +29,13 @@ export const textContent = {
 export const buttonStyles = {
   padding: {
     mobile: '2px 7px',
-    tablet: '0 10px',
-    desktop: '1px 12px',
+    tablet: '0 8px',
+    desktop: '1px 11px',
   },
   borderRadius: '8px',
+};
+
+export const quantityStyle = {
+  border: '1px solid rgba(108, 095, 188, 0.5)',
+  px: '7px',
 };
