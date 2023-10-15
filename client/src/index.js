@@ -9,9 +9,11 @@ import { persistStore } from 'redux-persist';
 import App from './App';
 import store from './redux/store';
 import globalTheme from './muiTheme/globalTheme';
+import { injectStore } from './API/instance';
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // eslint-disable-line no-undef
 const persistor = persistStore(store);
+injectStore(store);
 
 root.render(
   <Provider store={store}>
