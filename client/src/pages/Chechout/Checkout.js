@@ -32,7 +32,7 @@ const CheckoutPage = ({ titleText, formComponent: FormComponent }) => {
 
 CheckoutPage.propTypes = {
   titleText: PropTypes.string.isRequired,
-  formComponent: PropTypes.element.isRequired,
+  formComponent: PropTypes.elementType.isRequired,
 };
 
 export default CheckoutPage;

@@ -16,7 +16,7 @@ import {
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import InputMask from 'react-input-mask';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Input from '../../inputs/Input/Input';
@@ -32,6 +32,8 @@ import CheckoutActions from './CheckoutActions';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
+  // const location = useLocation();
+  // console.log('location CheckoutForm', location);
 
   const [initialValues, setInitialValues] = useState({
     name: '',
@@ -71,6 +73,7 @@ const CheckoutForm = () => {
 
     // updating user info in DB and user slice
     if (isUserAuthorized && token) {
+      console.log('hello');
       const updatedCustomer = {
         telephone: values.tel,
       };
@@ -79,16 +82,70 @@ const CheckoutForm = () => {
         const response = await axios.put('http://localhost:4000/api/customers', updatedCustomer, {
           headers: { 'Authorization': token },
         });
+        console.log(response);
         dispatch(setUser(response.data));
       } catch (err) {
         console.log('Error updating user: ', err);
       }
     }
 
-    // redirect to payment page if payment is set to Card
-    if (values.payment === 'Card') {
-      navigate('/checkout/payment');
+    const { _id: id } = user;
+    const newOrder = {
+
+      // todo: дістати зі стор масив продуктів, зробити map корзини, куди замість id додати повний об'єкт продукту.
+      products: [
+        {
+          product: {
+            _id: '6507a306baee59670a047307',
+            currentPrice: 12.99,
+          },
+          cartQuantity: 2,
+        },
+        {
+          product: {
+            _id: '650a7e0761d4eecf99b85f01',
+            currentPrice: 10.99,
+          },
+          cartQuantity: 1,
+        },
+      ],
+      // products: [
+      //   {
+      //     product: '6507a306baee59670a047307',
+      //     cartQuantity: 2,
+      //   },
+      //   {
+      //     product: '650a7e0761d4eecf99b85f01',
+      //     cartQuantity: 1,
+      //   },
+      // ],
+      // customerId: id,
+      deliveryAddress: {
+        city: values.city,
+        street: values.street,
+        house: values.house,
+        apartment: values.apartment,
+      },
+      paymentInfo: values.payment,
+      status: 'new order',
+      email: values.email,
+      mobile: values.tel,
+      letterSubject: 'Thank you for order!',
+      letterHtml:
+        '<h1>Your order is placed. OrderNo is 023689452.</h1>',
+    };
+
+    try {
+      const response = await axios.post('http://localhost:4000/api/orders', newOrder);
+      console.log(response);
+    } catch (err) {
+      console.log('Error placing new order: ', err);
     }
+
+    // redirect to payment page if payment is set to Card
+    // if (values.payment === 'Card') {
+    //   navigate('/checkout/payment');
+    // }
   };
 
   return (
@@ -144,16 +201,6 @@ const CheckoutForm = () => {
             <Typography variant="h3" component="h2" align="left" sx={subtitle}>
               Payment method
             </Typography>
-
-            {/* ----- ВАРІАНТ З ІНПУТОМ ------*/}
-
-            {/* <FormControl fullWidth> */}
-            {/*  <InputLabel id="checkout-payment-label">Select payment method*</InputLabel> */}
-            {/*  <Field name="payment" label="Select payment method*" component={SelectForFormik} labelId="checkout-payment-label" id="checkout-payment" bgColor="#FFF"> */}
-            {/*    <MenuItem value="Card">Card</MenuItem> */}
-            {/*    <MenuItem value="Cash">Cash</MenuItem> */}
-            {/*  </Field> */}
-            {/* </FormControl> */}
 
             <Field name="payment">
               {({ field }) => (
