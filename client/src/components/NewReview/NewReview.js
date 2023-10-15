@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNewRating, setNewReview } from '../../redux/slices/reviewsSlice';
+import { setNewReview } from '../../redux/slices/reviewsSlice';
 
 const NewReview = () => {
   // const [rating, setRating] = useState();
