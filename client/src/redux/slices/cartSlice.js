@@ -24,8 +24,9 @@ const cartSlice = createSlice({
         state.cart.products.push(action.payload);
       } else {
         const index = state.cart.products
-          .findIndex((product) => product.id === action.payload.id);
+          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
         if (index === -1) {
+          action.payload.cartQuantity = 1;
           state.cart.products.push(action.payload);
         } else {
           state.cart.products[index].cartQuantity += 1;
@@ -72,7 +73,7 @@ const cartSlice = createSlice({
       // 1 - ий варіант - коли нам в action.payload надходить повний об'єкт item
       if (state.cart.products.length) {
         const index = state.cart.products
-          .findIndex((product) => product.id === action.payload.id);
+          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
 
         if (index !== -1) {
           if (state.cart.products[index].cartQuantity === 1) {
@@ -133,7 +134,7 @@ export const deleteOrAddCartByItemId = (id, key) => (dispatch, getState) => {
   const { products } = state.products;
   // const products = useSelector((state) => state.products.products);
   if (products.length !== 0) {
-    const cartItem = products.find((product) => product.id === id);
+    const cartItem = products.find((product) => product._id === id);
     if (cartItem !== null && cartItem !== undefined) {
       if (key === 'ADD') {
         dispatch(addToCart(cartItem));
@@ -166,7 +167,7 @@ export const deleteOrAddFromCartByItemIdWithValueFromState = (id) => (state) => 
   const products = allProducts(state);
   console.log(products);
   if (products.length !== 0) {
-    const cartItem = products.find((product) => product.id === id);
+    const cartItem = products.find((product) => product._id === id);
     console.log(cartItem);
     if (cartItem !== null && cartItem !== undefined) {
       return cartItem;

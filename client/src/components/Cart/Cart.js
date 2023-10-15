@@ -20,7 +20,7 @@ import {
   price,
   continueBtn,
 } from './styles';
-import createCart from './cartFunctions';
+import { createCart, updateCart } from './cartFunctions';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -33,13 +33,20 @@ const Cart = () => {
   // console.log(userIsHasCart);
   // console.log(isUserAuthorization);
   // console.log(userToken);
-
+  const cart = [{
+    product: {
+      _id: '650a7b0961d4eecf99b85ef6',
+    },
+    cartQuantity: 1,
+  },
+  { ...cartProducts[0] }];
   const totalSum = 24.55;
 
   const continueFn = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
-        console.log('We didn\'t create cart');
+        console.log('We must update cart');
+        updateCart(cart);
       } else {
         console.log('We must create cart');
         createCart(cartProducts);
