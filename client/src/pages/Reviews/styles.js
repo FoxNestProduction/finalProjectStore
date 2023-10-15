@@ -58,8 +58,7 @@ export const commentList = {
     mobile: 'column',
   },
   gridTemplateColumns: {
-    // lgTablet: 'repeat(2, 1fr)',
-    lgTablet: 'repeat(auto-fill, minmax(300px, 1fr))',
+    lgTablet: 'repeat(2, 1fr)',
   },
   rowGap: '20px',
   columnGap: '20px',

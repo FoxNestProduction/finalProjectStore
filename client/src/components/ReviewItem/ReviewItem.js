@@ -9,7 +9,6 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import { Box, Container } from '@mui/material';
 
 import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent } from './styles';
 
