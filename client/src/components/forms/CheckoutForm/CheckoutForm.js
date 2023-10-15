@@ -132,7 +132,7 @@ const CheckoutForm = () => {
       mobile: values.tel,
       letterSubject: 'Thank you for order!',
       letterHtml:
-        '<h1>Your order is placed. OrderNo is 023689452.</h1>',
+        '<h1>Your order is placed.</h1>',
     };
 
     try {
@@ -143,9 +143,9 @@ const CheckoutForm = () => {
     }
 
     // redirect to payment page if payment is set to Card
-    // if (values.payment === 'Card') {
-    //   navigate('/checkout/payment');
-    // }
+    if (values.payment === 'Card') {
+      navigate('/checkout/payment');
+    }
   };
 
   return (

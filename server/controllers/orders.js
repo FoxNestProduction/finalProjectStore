@@ -29,6 +29,10 @@ exports.placeOrder = async (req, res, next) => {
       order.paymentInfo = req.body.paymentInfo;
     }
 
+    if (req.body.letterHtml) {
+      order.letterHtml = `<h1>Your order is placed. OrderNo is ${order.orderNo}.</h1>`;
+    }
+
     if (req.body.customerId) {
       order.customerId = req.body.customerId;
 
@@ -65,7 +69,7 @@ exports.placeOrder = async (req, res, next) => {
     // } else {
       const subscriberMail = req.body.email;
       const letterSubject = req.body.letterSubject;
-      const letterHtml = req.body.letterHtml;
+      const letterHtml = order.letterHtml;
 
       const { errors, isValid } = validateOrderForm(req.body);
 
