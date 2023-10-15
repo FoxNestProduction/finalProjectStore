@@ -50,7 +50,7 @@ const ReviewItem = ({ review }) => {
             value={ratingNumber}
             readOnly
           />
-          <Typography>{formattedDate}</Typography>
+          <Typography sx={{ color: 'text.secondary' }}>{formattedDate}</Typography>
         </CardActions>
       </Card>
     </Container>
