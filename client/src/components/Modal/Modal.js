@@ -22,6 +22,7 @@ import {
 } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import { setAuthorizationError, setRegistrationError } from '../../redux/slices/errorSlice';
+import { setNewReview } from '../../redux/slices/reviewsSlice';
 
 const Modal = () => {
   const dispatch = useDispatch();
