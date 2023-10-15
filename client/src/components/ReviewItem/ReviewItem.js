@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
 import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { Box, Container } from '@mui/material';
@@ -14,7 +15,7 @@ import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent } fr
 
 const ReviewItem = ({ review }) => {
   const [isShow, setIsShow] = useState(false);
-  const { rating, content, avatarUrl, userReview } = review;
+  const { rating, content, avatarUrl, userReview, date } = review;
   const ratingNumber = Number(rating);
 
   return (
@@ -43,6 +44,7 @@ const ReviewItem = ({ review }) => {
           value={ratingNumber}
           readOnly
         />
+        <Typography>{date}</Typography>
       </CardActions>
     </Card>
   );
