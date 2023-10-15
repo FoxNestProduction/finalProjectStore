@@ -9,6 +9,7 @@ const initialState = {
     avatarUrl: '',
     content: '',
     userReview: '',
+    date: Date.now(),
     product: '6507a306baee59670a047307',
   },
 };
