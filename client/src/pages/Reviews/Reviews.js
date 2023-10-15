@@ -10,8 +10,7 @@ import { addNewReview, setNewReview } from '../../redux/slices/reviewsSlice';
 const ReviewsPage = () => {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
-  const newReview = useSelector((state) => state.reviews.newReviews);
-  const token = useSelector((state) => state.authorization.token);
+  const newReview = useSelector((state) => state.reviews.newReview);
 
   const handleSendFeedback = () => {
     if (newReview.content === '') {
@@ -19,8 +18,12 @@ const ReviewsPage = () => {
       return;
     }
     dispatch(addNewReview());
-    dispatch(closeModal());
+    dispatch(setNewReview({ field: 'user_id', value: '' }));
     dispatch(setNewReview({ field: 'rating', value: null }));
+    dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
+    dispatch(setNewReview({ field: 'content', value: '' }));
+    dispatch(setNewReview({ field: 'userReview', value: '' }));
+    dispatch(closeModal());
   };
 
   const handleOpenModalReview = () => {
@@ -45,7 +48,7 @@ const ReviewsPage = () => {
       <Typography variant="h2">Customer Say</Typography>
       <Stack>
         {/* eslint-disable-next-line no-underscore-dangle */}
-        {reviews.map((item) => <ReviewItem key={item.comment} review={item} />)}
+        {reviews.map((item) => <ReviewItem key={item._id} review={item} />)}
       </Stack>
       <Modal />
     </>
