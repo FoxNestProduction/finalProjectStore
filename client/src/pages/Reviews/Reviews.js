@@ -30,7 +30,11 @@ const ReviewsPage = () => {
       onClick: handleSendFeedback,
     }));
   } else {
-    dispatch(setButtonAgree({ disabled: true }));
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: true,
+    }));
   }
 
   const handleOpenModalReview = () => {
@@ -43,7 +47,6 @@ const ReviewsPage = () => {
       text: 'Send',
       endIcon: true,
       disabled: newReview.content === '',
-      onClick: handleSendFeedback,
     }));
     dispatch(addButtonBox(true));
   };
