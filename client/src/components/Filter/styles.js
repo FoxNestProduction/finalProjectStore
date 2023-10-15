@@ -3,8 +3,8 @@ export const stylesWrap = {
   justyfyContent: 'column',
   fontFamily: 'fontPoppins',
   maxWidth: {
-    mobile: '380px',
-    tablet: '480px',
+    mobile: '420px',
+    tablet: '570px',
     lgTablet: '377px',
     desktop: '377px',
   },
@@ -54,7 +54,8 @@ export const stylesCategoryIconsWrap = {
   justyfyContent: 'column',
   gap: {
     mobile: '10px',
-    tablet: '9px',
+    tablet: '12px',
+    lgTablet: '9px',
     desktop: '13px',
   },
   borderRadius: '15px',
@@ -66,12 +67,14 @@ export const stylesToggleButton = {
   p: '0',
   width: {
     mobile: '55px',
-    tablet: '47px',
+    tablet: '65px',
+    lgTablet: '47px',
     desktop: '66px',
   },
   height: {
     mobile: '80px',
-    tablet: '68px',
+    tablet: '80px',
+    lgTablet: '68px',
     desktop: '96px',
   },
   borderRadius: '15px',

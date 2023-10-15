@@ -1,15 +1,6 @@
 .wrap {
-    width: 310px;
-    height: 139px;
-    margin: 0 auto;
-    @media (min-width: 690px) {
-      width: 578px;
-      height: 245px;
-    }
-    @media (min-width: 993px) {
-      width: 813px;
-      height: 350px;
-    }
+  width: 100%;
+  height: 100%;
 }
 
 .swiperSlide {
@@ -22,20 +13,6 @@
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 20px;
-
-  & img {
-    width: 310px;
-    height: 123px;
-    @media (min-width: 690px) {
-      width: 578px;
-      height: 245px;
-    }
-
-    @media (min-width: 993px) {
-      width: 813px;
-      height: 350px;
-    }
-  }
 }
 
 .customPagination {
