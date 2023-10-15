@@ -11,6 +11,8 @@ export const stylesWrap = {
   borderRadius: '17px',
   bgcolor: '#ffffff',
   color: 'text.secondary',
+  boxShadow: '6px 10px 28px 1px rgba(108, 95, 188, 0.2)',
+  // boxShadow: '14px 10px 48px 0px rgba(0,0,0,0.2)',
   p: {
     mobile: '27px',
     tablet: '23px',

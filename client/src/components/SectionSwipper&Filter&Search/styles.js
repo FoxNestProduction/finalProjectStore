@@ -22,11 +22,11 @@ export const stylesGridConteiner = {
   columnGap: {
     mobile: '0',
     tablet: '0',
-    lgTablet: '1vw',
+    lgTablet: '2vw',
     desktop: '3vw',
   },
   rowGap: {
-    mobile: '7vh',
+    mobile: '30px',
     tablet: '4vh',
     lgTablet: '0',
   },
