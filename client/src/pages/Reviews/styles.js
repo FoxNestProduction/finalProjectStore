@@ -47,6 +47,17 @@ export const TitleBtn = {
   justifySelf: 'end',
 };
 
+export const useStyles = {
+  feedbackContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    // gridGap: theme.spacing(2),
+  },
+  feedbackCard: {
+    // padding: theme.spacing(2),
+  },
+};
+
 export const commentList = {
   display: {
     mobile: 'flex',
