@@ -2,6 +2,7 @@ export const stylesSearch = {
   color: 'primary.main',
   bgcolor: 'background.default',
   width: '100%',
+  minWidth: '260px',
   height: {
     mobile: '51px',
     tablet: '53px',
@@ -50,6 +51,11 @@ export const stylesBtn = {
 };
 
 export const stylesWrap = {
-  p: '10px',
+  // p: '10px',
   gap: 2,
+  width: {
+    mobile: '100%',
+    tablet: '100%',
+  },
+  minWidth: '260px',
 };

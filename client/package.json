@@ -24,6 +24,7 @@
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
+    "swiper": "^10.3.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },
@@ -70,7 +71,15 @@
           "consistent": true
         }
       ],
-      "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }]
+      "no-param-reassign": [
+        "error",
+        {
+          "props": true,
+          "ignorePropertyModificationsFor": [
+            "state"
+          ]
+        }
+      ]
     }
   },
   "browserslist": {

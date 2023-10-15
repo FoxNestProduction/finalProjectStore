@@ -16,6 +16,7 @@ import ColorChips from '../Chip/Chip';
 import { chipSizeDishes } from '../Chip/styles';
 import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
+import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 
 const ProductCardItem = ({ currentPrice, imageUrl, name, rating, id, setCartItems }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
@@ -42,14 +43,17 @@ const ProductCardItem = ({ currentPrice, imageUrl, name, rating, id, setCartItem
   };
 
   return (
-    <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
-      <Card sx={sylesContainer}>
+  // <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
+    <Card sx={sylesContainer}>
+      {/* <Box sx={mediaBox}> */}
+      <CardActions disableSpacing sx={favoriteIcon}>
+        <FavouriteIcon id={_id} />
+        {/* <IconButton aria-label="add to favorites" sx={{ color: '#323142' }}>
+          <FavoriteIcon />
+        </IconButton> */}
+      </CardActions>
+      <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
         <Box sx={mediaBox}>
-          <CardActions disableSpacing sx={favoriteIcon}>
-            <IconButton aria-label="add to favorites" sx={{ color: '#323142' }}>
-              <FavoriteIcon />
-            </IconButton>
-          </CardActions>
           <CardMedia
             component="img"
             image={imageUrl}
@@ -89,8 +93,9 @@ const ProductCardItem = ({ currentPrice, imageUrl, name, rating, id, setCartItem
             </IconButton>
           </Box>
         </CardContent>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
+    // </Link>
   );
 };
 
