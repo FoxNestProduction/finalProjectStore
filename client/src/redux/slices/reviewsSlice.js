@@ -11,12 +11,6 @@ const initialState = {
     userReview: '',
     product: '6507a306baee59670a047307',
   },
-  // newReview: {
-  //   content: '',
-  //   rating: null,
-  //   userReview: '',
-  //   product: '6507a306baee59670a047307',
-  // },
 };
 
 /* eslint-disable no-param-reassign */

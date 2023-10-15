@@ -30,7 +30,6 @@ export const stylesContent = {
     desktop: '16px',
   },
   fontStyle: 'italic',
-  overflow: 'auto',
   height: '45%',
   pb: {
     mobile: 10,
