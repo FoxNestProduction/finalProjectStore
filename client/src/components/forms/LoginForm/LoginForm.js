@@ -37,6 +37,7 @@ import { setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_LS_KEY } from '../../../constants';
+import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -64,11 +65,7 @@ const LoginForm = () => {
         dispatch(setAuthorizationError(''));
 
         removeDataFromSessionStorage(CHECKOUT_LS_KEY);
-        setDataToSessionStorage(CHECKOUT_LS_KEY, {
-          name: user.firstName,
-          email: user.email,
-          tel: user.telephone || '',
-        });
+        saveUserInfoToSessionStorage(user);
       }
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));

@@ -1,33 +1,39 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
+import axios from 'axios';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import {
-  Divider,
-  FormControlLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Typography,
-} from '@mui/material';
+import Divider from '@mui/material/Divider';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import InputMask from 'react-input-mask';
-import { useNavigate } from 'react-router';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+
 import Input from '../../inputs/Input/Input';
 import validationSchema from './validationSchema';
 import SelectForFormik from '../../inputs/Select/Select';
+import CheckoutActions from './CheckoutActions';
 import {
   subtitle,
   paymentRadioBtn, paymentWrapper,
 } from './styles';
 import { setUser } from '../../../redux/slices/userSlice';
-import CheckoutActions from './CheckoutActions';
 import { CHECKOUT_LS_KEY } from '../../../constants';
-import { getDataFromSessionStorage, updateSessionStorageValues } from '../../../utils/sessionStorageHelpers';
+import {
+  getDataFromSessionStorage,
+  removeDataFromSessionStorage, setDataToSessionStorage,
+  updateSessionStorageValues,
+} from '../../../utils/sessionStorageHelpers';
+import { setConfirmedOrder, setOrderInfo } from '../../../redux/slices/orderSlice';
+import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -71,20 +77,21 @@ const CheckoutForm = () => {
 
   const handleContinue = async (values, actions) => {
     // console.log(values);
+
     // updating user info in DB and user slice
     if (isUserAuthorized && token) {
       const updatedCustomer = {
         telephone: values.tel,
       };
 
-      // try {
-      //   const response = await axios.put('http://localhost:4000/api/customers', updatedCustomer, {
-      //     headers: { 'Authorization': token },
-      //   });
-      //   dispatch(setUser(response.data));
-      // } catch (err) {
-      //   console.log('Error updating user: ', err);
-      // }
+      try {
+        const response = await axios.put('http://localhost:4000/api/customers', updatedCustomer, {
+          headers: { 'Authorization': token },
+        });
+        dispatch(setUser(response.data));
+      } catch (err) {
+        console.log('Error updating user: ', err);
+      }
     }
 
     // cart products for unauthorised user
@@ -125,24 +132,31 @@ const CheckoutForm = () => {
       letterHtml: '<h1>Your order is placed.</h1>',
     };
 
-    if (isUserAuthorized && user) {
-      const { _id: id } = user;
-      newOrder.customerId = id;
+    // todo: uncomment when user will have a cart
+    // if (isUserAuthorized && user) {
+    //   const { _id: id } = user;
+    //   newOrder.customerId = id;
+    // } else {
+    newOrder.products = cartProducts;
+    // }
+
+    if (values.payment === 'Card') {
+      dispatch(setOrderInfo(newOrder));
+      navigate('/checkout/payment');
     } else {
-      newOrder.products = cartProducts;
+      try {
+        const response = await axios.post('http://localhost:4000/api/orders', newOrder);
+        console.log(response);
+        dispatch(setConfirmedOrder(response.data.order));
+        removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+        if (isUserAuthorized && user) {
+          saveUserInfoToSessionStorage(user);
+        }
+        navigate('/order-confirmation');
+      } catch (err) {
+        console.log('Error placing new order: ', err);
+      }
     }
-
-    // try {
-    //   const response = await axios.post('http://localhost:4000/api/orders', newOrder);
-    //   console.log(response);
-    // } catch (err) {
-    //   console.log('Error placing new order: ', err);
-    // }
-
-    // redirect to payment page if payment is set to Card
-    // if (values.payment === 'Card') {
-    //   navigate('/checkout/payment');
-    // }
   };
 
   return (
@@ -160,7 +174,6 @@ const CheckoutForm = () => {
               Personal Information
             </Typography>
 
-            {/* eslint-disable-next-line no-undef */}
             <Input
               name="name"
               id="checkout-name"
@@ -168,11 +181,21 @@ const CheckoutForm = () => {
               bgColor="#FFF"
               onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
             />
-            <Input name="email" id="checkout-email" label="Email Address*" bgColor="#FFF" onBlur={(e) => { handleFieldBlur(e, handleBlur); }} />
+            <Input
+              name="email"
+              id="checkout-email"
+              label="Email Address*"
+              bgColor="#FFF"
+              onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
+            />
 
             <Field name="tel">
               {({ field }) => (
-                <InputMask mask="+38 (099) 999-99-99" {...field} onBlur={(e) => { handleFieldBlur(e, handleBlur); }}>
+                <InputMask
+                  mask="+38 (099) 999-99-99"
+                  {...field}
+                  onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
+                >
                   <Input type="tel" name="tel" id="checkout-tel" bgColor="#FFF" label="Phone Number*" />
                 </InputMask>
               )}
@@ -185,16 +208,42 @@ const CheckoutForm = () => {
 
             <FormControl fullWidth>
               <InputLabel id="checkout-city-label">City*</InputLabel>
-              <Field name="city" label="City*" component={SelectForFormik} labelId="checkout-city-label" id="checkout-city" bgColor="#FFF" onBlur={(e) => { handleFieldBlur(e, handleBlur); }}>
+              <Field
+                name="city"
+                label="City*"
+                component={SelectForFormik}
+                labelId="checkout-city-label"
+                id="checkout-city"
+                bgColor="#FFF"
+                onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
+              >
                 <MenuItem value="Kyiv">Kyiv</MenuItem>
                 <MenuItem value="Lviv">Lviv</MenuItem>
               </Field>
             </FormControl>
 
-            <Input name="street" id="checkout-street" label="Street*" bgColor="#FFF" onBlur={(e) => { handleFieldBlur(e, handleBlur); }} />
+            <Input
+              name="street"
+              id="checkout-street"
+              label="Street*"
+              bgColor="#FFF"
+              onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
+            />
             <Box sx={{ display: 'flex', gap: '5%' }}>
-              <Input name="house" id="checkout-house" label="House*" bgColor="#FFF" onBlur={(e) => { handleFieldBlur(e, handleBlur); }} />
-              <Input name="apartment" id="checkout-apartment" label="Apartment" bgColor="#FFF" onBlur={(e) => { handleFieldBlur(e, handleBlur); }} />
+              <Input
+                name="house"
+                id="checkout-house"
+                label="House*"
+                bgColor="#FFF"
+                onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
+              />
+              <Input
+                name="apartment"
+                id="checkout-apartment"
+                label="Apartment"
+                bgColor="#FFF"
+                onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
+              />
             </Box>
 
             <Divider />
