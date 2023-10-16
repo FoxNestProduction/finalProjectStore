@@ -32,6 +32,8 @@ import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
 import { setRegistrationError } from '../../../redux/slices/errorSlice';
+import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
+import { CHECKOUT_LS_KEY } from '../../../constants';
 
 export const initialValues = {
   firstName: '',
@@ -60,6 +62,13 @@ const RegisterForm = () => {
       dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setRegistrationError(''));
+
+      removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+      setDataToSessionStorage(CHECKOUT_LS_KEY, {
+        name: user.firstName,
+        email: user.email,
+        tel: user.telephone || '',
+      });
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));
       console.error('Помилка реєстрації:', error);

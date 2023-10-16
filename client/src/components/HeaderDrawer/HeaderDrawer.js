@@ -21,15 +21,13 @@ import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
+import { setUser } from '../../redux/slices/userSlice';
+import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
+import { CHECKOUT_LS_KEY } from '../../constants';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
-  isUserAuthorized, handleCloseDrawer, handleOpenModalLogin }) => {
+  isUserAuthorized, handleCloseDrawer, handleOpenModalLogin, handleLogOut }) => {
   const dispatch = useDispatch();
-
-  const handleLogOut = () => {
-    dispatch(setToken(null));
-    dispatch(setAuthorization(false));
-  };
 
   return (
     <Drawer
@@ -131,6 +129,7 @@ HeaderDrawer.propTypes = {
   handleOpenModalLogin: PropTypes.func,
   navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   isUserAuthorized: PropTypes.bool,
+  handleLogOut: PropTypes.func,
 };
 
 HeaderDrawer.defaultProps = {
@@ -139,6 +138,7 @@ HeaderDrawer.defaultProps = {
   handleOpenModalLogin: () => {},
   navItems: [],
   isUserAuthorized: false,
+  handleLogOut: () => {},
 };
 
 export default HeaderDrawer;

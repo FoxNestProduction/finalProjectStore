@@ -29,10 +29,6 @@ exports.placeOrder = async (req, res, next) => {
       order.paymentInfo = req.body.paymentInfo;
     }
 
-    if (req.body.letterHtml) {
-      order.letterHtml = `<h1>Your order is placed. OrderNo is ${order.orderNo}.</h1>`;
-    }
-
     if (req.body.customerId) {
       order.customerId = req.body.customerId;
 
@@ -56,6 +52,15 @@ exports.placeOrder = async (req, res, next) => {
         sum + cartItem.product.currentPrice * cartItem.cartQuantity,
       0
     );
+
+    if (req.body.letterHtml) {
+      // order.letterHtml = `<h1>Your order is placed. OrderNo is ${order.orderNo}.</h1>`;
+      order.letterHtml = `<h1>Dear ${req.body.name}, thank you for ordering!</h1>
+    <div style="text-align: left; margin: 20px; font-size: 20px">
+        <p>Order Number: <strong>${order.orderNo}</strong></p>
+        <p>Total: <strong>${order.totalSum}$</strong></p>
+    </div>`;
+    }
 
     // const productAvailibilityInfo = await productAvailibilityChecker(
     //   order.products

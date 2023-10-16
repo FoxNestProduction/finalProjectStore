@@ -4,27 +4,31 @@ import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import GroupOfStarsSvg from '../../assets/svgComponents/GroupOfStarsSvg';
 import {
+  formContainer,
+  mainContainer,
   starsWrapper,
   title,
 } from './styles';
 
 const CheckoutPage = ({ titleText, formComponent: FormComponent }) => {
   return (
-    <Container sx={{ pt: '45px', pb: { mobile: '100px', lgTablet: '150px' } }}>
+    <Container sx={mainContainer}>
       <Box sx={{ position: 'relative' }}>
-        <Typography
-          variant="h2"
-          component="h1"
-          align="center"
-          mb="30px"
-          sx={title}
-        >
-          {titleText}
-        </Typography>
-        <Box sx={starsWrapper}>
-          <GroupOfStarsSvg />
+        <Box sx={formContainer}>
+          <Typography
+            variant="h2"
+            component="h1"
+            align="center"
+            mb="30px"
+            sx={title}
+          >
+            {titleText}
+          </Typography>
+          <Box sx={starsWrapper}>
+            <GroupOfStarsSvg />
+          </Box>
+          {FormComponent && <FormComponent />}
         </Box>
-        {FormComponent && <FormComponent />}
       </Box>
     </Container>
   );

@@ -24,7 +24,7 @@ module.exports = async (subscriberMail, letterSubject, letterHtml, res) => {
       pass:
         process.env.NODE_ENV === "production"
           ? configs.production.email.mailPassword
-          : 'tabt oxxg tybk kwmm'
+          : configs.development.email.mailPassword
     },
     tls: {
       rejectUnauthorized: false
