@@ -30,6 +30,7 @@ const ReviewsPage = () => {
       onClick: handleSendFeedback,
     }));
   } else {
+    dispatch(setNewReview({ field: 'rating', value: null }));
     dispatch(setButtonAgree({
       text: 'Send',
       endIcon: true,
