@@ -32,7 +32,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
 
   const handleOpenModalRegister = () => {
     dispatch(openModal());
-    dispatch(setContent(<RegisterForm/>));
+    dispatch(setContent(<RegisterForm />));
   };
   const favourite = useSelector((state) => state.favourites.favourites);
   const favouritesAmount = isUserAuthorized ? favourite.length : null;

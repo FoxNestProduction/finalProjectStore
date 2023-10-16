@@ -1,8 +1,6 @@
 export const stylesButton = {
   p: '10px',
   borderRadius: '16px',
-  // color: 'text.primary',
-  // border: 1,
   fontSize: { mobile: '14px', tablet: '18px' },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
   '&:hover': {
