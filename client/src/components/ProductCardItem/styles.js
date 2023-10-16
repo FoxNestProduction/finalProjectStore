@@ -32,17 +32,18 @@ export const stylesMiniTextWrapper = {
     tablet: '4px',
     desktop: '6px',
   },
-  height: '36px',
+  width: '60%',
+  height: '44px',
   display: 'flex',
   alignItems: 'end',
 };
 export const stylesMiniText = {
   ...chipSizeDishes,
   mb: '0',
-  mt: '1px',
-  height: '10px',
+  mt: '2px',
+  height: '12px',
   width: '100%',
-  fontSize: '9px',
+  fontSize: '10px',
 };
 const padding = {
   px: {
