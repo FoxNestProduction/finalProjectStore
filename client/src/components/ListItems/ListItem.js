@@ -32,7 +32,10 @@ const ListItems = ({ title, items, itemComponent, actions, type }) => {
 };
 
 ListItems.propTypes = {
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   actions: PropTypes.object,
   items: PropTypes.array,
   itemComponent: PropTypes.func,

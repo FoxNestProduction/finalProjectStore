@@ -16,24 +16,30 @@ import ColorChips from '../Chip/Chip';
 import { chipSizeDishes } from '../Chip/styles';
 import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
+import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 
-const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
+// eslint-disable-next-line no-underscore-dangle
+const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
   const isMobile = useMediaQuery('(max-width: 480px)');
   const isTablet = useMediaQuery('(min-width: 481px) and (max-width: 992px)');
   const isDesktop = useMediaQuery('(min-width: 993px)');
 
   return (
-    <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
-      <Card sx={sylesContainer}>
+  // <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
+    <Card sx={sylesContainer}>
+      {/* <Box sx={mediaBox}> */}
+      <CardActions disableSpacing sx={favoriteIcon}>
+        <FavouriteIcon id={_id} />
+        {/* <IconButton aria-label="add to favorites" sx={{ color: '#323142' }}>
+          <FavoriteIcon />
+        </IconButton> */}
+      </CardActions>
+      <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
         <Box sx={mediaBox}>
-          <CardActions disableSpacing sx={favoriteIcon}>
-            <IconButton aria-label="add to favorites" sx={{ color: '#323142' }}>
-              <FavoriteIcon />
-            </IconButton>
-          </CardActions>
           <CardMedia
             component="img"
             image={imageUrl}
+            title={name}
             sx={cardMedia}
           />
         </Box>
@@ -58,10 +64,10 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
           <Box sx={priceCardBox}>
             <Typography variant="body2" color="text.primary">
               $
-              {price.toFixed(0)}
+              {currentPrice.toFixed(0)}
               <Typography component="span" variant="body1" color="text.secondary">
                 .
-                {price.toFixed(2).split('.')[1]}
+                {currentPrice.toFixed(2).split('.')[1]}
               </Typography>
             </Typography>
             <IconButton aria-label="add to cart" sx={{ color: '#323142' }}>
@@ -69,25 +75,26 @@ const ProductCardItem = ({ price, imageUrl, name, rating, id }) => {
             </IconButton>
           </Box>
         </CardContent>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
+    // </Link>
   );
 };
 
 ProductCardItem.propTypes = {
-  price: PropTypes.number,
+  currentPrice: PropTypes.number,
   imageUrl: PropTypes.string,
   name: PropTypes.string,
   rating: PropTypes.number,
-  id: PropTypes.string,
+  _id: PropTypes.string,
 };
 
 ProductCardItem.defaultProps = {
-  price: 12.99,
-  imageUrl: './img/salads/3.png',
-  name: 'Chicken Hell',
-  rating: 3,
-  id: '6507a306baee59670a047307',
+  currentPrice: '',
+  imageUrl: '',
+  name: '',
+  rating: '',
+  _id: '',
 };
 
 export default ProductCardItem;

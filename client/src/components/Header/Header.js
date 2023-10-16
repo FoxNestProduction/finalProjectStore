@@ -43,7 +43,8 @@ const Header = () => {
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user);
-  const { cart, favourite } = user;
+  const { cart } = user;
+  const favourite = useSelector((state) => state.favourites.favourites);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
