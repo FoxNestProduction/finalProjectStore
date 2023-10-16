@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,25 +9,22 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import { Stack } from '@mui/material';
 import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
-import ColorChips from '../Chip/Chip';
-import { chipSizeRestaurant, chipBoxchipSizeRestaurant } from '../Chip/styles';
 
-const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupreme, cardSize }) => {
-  const styles = {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-  };
-
+const RestaurantCard = ({ rating, name, imageUrl }) => {
   return (
     <Card
       sx={{
-        ...styles,
-        flexWrap: 'wrap',
-        maxWidth: { ...cardSize },
         display: 'flex',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        maxWidth: {
+          mobile: 315,
+          lgTablet: 881,
+          desktop: 1285,
+        },
         margin: '0 auto',
         boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
         '&:hover .MuiCardMedia-img': {
@@ -43,72 +41,55 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
       >
         <CardMedia
           component="img"
-          height="160px"
           image={imageUrl}
           alt={name}
           sx={{
             transition: '.3s',
+            height: { mobile: '140px', lgTablet: '268px', desktop: '378px' },
           }}
         />
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          gap: '3%',
-          flexWrap: 'wrap',
-          width: '100%',
-          ...chipBoxchipSizeRestaurant,
-        }}
+      <Stack
+        direction="row"
+        width="100%"
+        flexWrap="wrap"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ margin: '25px' }}
       >
-        <ColorChips
-          customStyles={chipSizeRestaurant}
-          isHealthy={isHealthy}
-          isTranding={isTranding}
-          isSupreme={isSupreme}
-        />
-      </Box>
-      <CardHeader
-        title={(
-          <Typography
-            variant="h3"
-            color="text.primary"
-            sx={{
-              fontSize: {
-                mobile: '1.2rem',
-                tablet: '1.3rem',
-                desktop: '1.5rem',
-              },
-            }}
-          >
-            {name}
-          </Typography>
+        <CardHeader
+          title={(
+            <Typography
+              variant="h3"
+              color="text.primary"
+              sx={{
+                fontSize: {
+                  mobile: '1.2rem',
+                  tablet: '1.3rem',
+                  desktop: '1.5rem',
+                },
+              }}
+            >
+              {name}
+            </Typography>
         )}
-        sx={{
-          padding: '0',
-          marginLeft: '32px',
-          marginBottom: {
-            desktop: '10px',
-          },
-        }}
-      />
-      <Box
-        sx={{
-          ...styles,
-          marginLeft: '32px',
-          marginBottom: '20px',
-        }}
-      >
-        <CardContent
           sx={{
-            ...styles,
-            gap: {
-              mobile: '10px',
-              tablet: 0,
+            padding: '0',
+            marginBottom: {
               desktop: '10px',
             },
+            width: { mobile: '100%', lgTablet: '40%' },
+          }}
+
+        />
+        <CardContent
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
             padding: '0',
-            flexWrap: 'wrap',
+            width: { mobile: '87%', lgTablet: '55%' },
+            flexWrap: 'noWrap',
           }}
         >
           <RatingItem ratingValue={rating} />
@@ -118,7 +99,6 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
             color="text.secondary"
             sx={{
               width: {
-                // mobile: 140,
                 desktop: 67,
                 tablet: '100%',
               },
@@ -128,11 +108,13 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
           </Typography>
 
         </CardContent>
+
         <CardActions
           disableSpacing
           sx={{
             padding: '0',
             paddingRight: '18px',
+            width: { mobile: '13%', lgTablet: '5%' },
           }}
         >
           <IconButton
@@ -152,7 +134,21 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
             <BookmarkIcon />
           </IconButton>
         </CardActions>
-      </Box>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{
+            width: {
+              desktop: 67,
+              tablet: '100%',
+            },
+            mt: '50px',
+          }}
+        >
+          Serving the juiciest burgers in town with a variety of toppings and flavors.
+          Fast food at its finest!
+        </Typography>
+      </Stack>
     </Card>
   );
 };
@@ -161,20 +157,12 @@ RestaurantCard.propTypes = {
   rating: PropTypes.number,
   name: PropTypes.string,
   imageUrl: PropTypes.string,
-  isHealthy: PropTypes.bool,
-  isTranding: PropTypes.bool,
-  isSupreme: PropTypes.bool,
-  cardSize: PropTypes.object,
 };
 
 RestaurantCard.defaultProps = {
-  isHealthy: false,
-  isTranding: false,
-  isSupreme: false,
   rating: 3,
   name: 'The Chicken King',
   imageUrl: './img/restaurants/Resturent01.jpg',
-  cardSize: {},
 };
 
 export default RestaurantCard;

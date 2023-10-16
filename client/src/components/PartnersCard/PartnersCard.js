@@ -34,11 +34,7 @@ const PartnersCard = ({ partnersName }) => {
   console.log('nameOfProduct', nameOfPartners);
   console.log('rest', rest);
 
-  const cardSize = {
-    mobile: 315,
-    lgTablet: 880,
-    desktop: 1246,
-  };
+  // console.log('description', rest.description);
 
   return (
     <Container
@@ -46,10 +42,14 @@ const PartnersCard = ({ partnersName }) => {
       sx={{
         bgcolor: 'background.default',
         mt: { mobile: 5, tablet: 8 },
+        mb: { mobile: 5, tablet: 8 },
       }}
     >
 
-      <RestaurantCard cardSize={cardSize} {...rest} />
+      <RestaurantCard {...rest} />
+      <div>
+        <p>{rest.description}</p>
+      </div>
 
     </Container>
   );

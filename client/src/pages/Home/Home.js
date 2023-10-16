@@ -13,7 +13,7 @@ import MobileApp from '../../components/MobileApp/MobileApp';
 const HomePage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
-  const products = useSelector((state) => state.products.products);
+  const products = useSelector((state) => state.products.products, shallowEqual);
   const sortedProducts = useSortedItems(products, productsCardWidth);
   console.log(products);
   return (
