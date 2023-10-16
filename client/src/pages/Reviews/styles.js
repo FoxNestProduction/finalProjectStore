@@ -50,16 +50,16 @@ export const TitleBtn = {
 export const commentList = {
   display: {
     mobile: 'flex',
-    lgTablet: 'grid',
+    // lgTablet: 'grid',
   },
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: {
     mobile: 'column',
   },
-  gridTemplateColumns: {
-    lgTablet: 'repeat(2, 1fr)',
-  },
+  // gridTemplateColumns: {
+  //   lgTablet: 'repeat(2, 1fr)',
+  // },
   rowGap: '20px',
   columnGap: '20px',
 };

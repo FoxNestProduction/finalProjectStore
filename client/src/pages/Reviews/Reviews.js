@@ -55,9 +55,9 @@ const ReviewsPage = () => {
   return (
     <Container component="section" sx={{ ...flexCenter, ...container }}>
       <Box sx={titleContainer}>
-        <Typography variant="h2" sx={{ justifySelf: 'center' }}>Customer Say</Typography>
+        <Typography variant="h2" sx={{ justifySelf: 'center' }}>Customers Say</Typography>
         <Button variant="standard" sx={TitleBtn} onClick={handleOpenModalReview}>
-          {isLgTablet && <Typography mr={1}>Create your oun review</Typography>}
+          {isLgTablet && <Typography mr={1}>Create your own review</Typography>}
           <AddCircleOutlineIcon />
         </Button>
       </Box>
