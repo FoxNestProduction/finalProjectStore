@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ColorChips from '../Chip/Chip';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';

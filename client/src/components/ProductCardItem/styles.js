@@ -40,11 +40,7 @@ export const favoriteIcon = {
   right: '0',
   top: '0',
   zIndex: 1050,
-  borderRadius: '50%',
-  bgcolor: 'rgba(255, 255, 255, 0.6)',
-  '&:hover': {
-    bgcolor: 'rgba(102, 79, 255, 0.3)',
-  },
+
 };
 
 export const timeRatingBox = {
@@ -78,21 +74,5 @@ export const chipBox = {
     mobile: '2px',
     tablet: '4px',
     desktop: '8px',
-  },
-};
-
-export const cartIconsButton = {
-  bgcolor: 'none',
-  '&:hover': {
-    bgcolor: 'rgba(102, 79, 255, 0.2)',
-  },
-  color: 'text.primary',
-};
-
-export const cartIcons = {
-  fontSize: {
-    mobile: '20px',
-    tablet: '25px',
-    desktop: '30px',
   },
 };

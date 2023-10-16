@@ -1,52 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import IconButton from '@mui/material/IconButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import CardContent from '@mui/material/CardContent';
 import PropTypes from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { useDispatch, useSelector } from 'react-redux';
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import ColorChips from '../Chip/Chip';
 import { chipSizeDishes } from '../Chip/styles';
-import { addToCart } from '../../redux/slices/cartSlice';
-import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox, cartIcons, cartIconsButton } from './styles.js';
+import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
+import AddToCartIcon from '../addToCartIcon/addToCartIcon';
 
 const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
-  const cart = useSelector((state) => state.cart.cart.products);
-  const products = useSelector((state) => state.products.products);
-  const dispatch = useDispatch();
-  const [selectedItem, setSelectedItem] = useState({});
-  console.log(cart);
-  // console.log(selectedItem);
-  const isItemInCart = cart.findIndex((product) => product.id === selectedItem.id) !== -1;
-  console.log(isItemInCart);
-  const handleAddToCart = (event) => {
-    event.preventDefault();
-    const productToCart = products.findIndex((product) => product._id === _id);
-    if (productToCart !== -1) {
-      const foundObject = products[productToCart];
-      setSelectedItem({
-        id: foundObject._id,
-        currentPrice: foundObject.currentPrice,
-        imageUrl: foundObject.imageUrl,
-        cartQuantity: foundObject.quantity,
-        name: foundObject.name,
-      });
-    }
-    console.log(selectedItem);
-    (() => dispatch(addToCart(selectedItem)))();
-  };
-
   return (
   // <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
     <Card sx={sylesContainer}>
@@ -93,13 +62,7 @@ const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
                 {currentPrice.toFixed(2).split('.')[1]}
               </Typography>
             </Typography>
-            <IconButton aria-label="add to cart" sx={cartIconsButton} onClick={handleAddToCart}>
-              { isItemInCart ? (
-                <AddBoxIcon sx={cartIcons} />
-              ) : (
-                <ShoppingCartCheckoutIcon sx={cartIcons} />
-              )}
-            </IconButton>
+            <AddToCartIcon id={_id} />
           </Box>
         </CardContent>
       </Link>

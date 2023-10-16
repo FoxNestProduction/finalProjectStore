@@ -51,7 +51,7 @@ export const updateFavourites = (favourites) => async (dispatch, getState) => {
       });
       const { favourite } = data;
       setFavourite(data.favourite);// eslint-disable-line no-use-before-define
-      console.log(favourite);
+      // console.log(favourite);
     } else {
       console.log('The user is not authorized');
     }

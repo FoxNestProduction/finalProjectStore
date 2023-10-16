@@ -43,6 +43,8 @@ const cartSlice = createSlice({
         state.cart.products = action.payload;
       } else {
         const uniqueFilteredProducts = action.payload.filter((cartProductObj) => {
+          console.log(state.cart.products);
+          console.log(action.payload);
           const matchedProduct = state.cart.products
             .find((cartProduct) => cartProduct.product._id !== cartProductObj.product._id);
           const mark = matchedProduct !== undefined;
@@ -89,6 +91,16 @@ const cartSlice = createSlice({
          * Потрібно буде протестувати, який варіант зручніше, той і використовувати
          */
     },
+    addOneMore(state, action) {
+      if (state.cart.products.length) {
+        const index = state.cart.products
+          .findIndex((product) => product.id === action.payload.id);
+        console.log(index);
+        if (index !== -1) {
+          state.cart.products[index].cartQuantity += 1;
+        }
+      }
+    },
   },
 });
 
@@ -98,6 +110,7 @@ export const {
   setIsLoading,
   deleteFromCart,
   setIsCart,
+  addOneMore,
 } = cartSlice.actions;
 
 export const getCartItemsFromServer = () => async (dispatch) => {
@@ -106,8 +119,8 @@ export const getCartItemsFromServer = () => async (dispatch) => {
 
     const { data } = await instance.get('/cart');
 
-    console.log(data.products);
-    console.log(data);
+    // console.log(data.products);
+    // console.log(data);
 
     dispatch(setCart(data.products));
     dispatch(setIsCart(true));
@@ -116,6 +129,15 @@ export const getCartItemsFromServer = () => async (dispatch) => {
     console.warn('Error loading cart:', error);
     dispatch(setIsLoading(false));
     // dispatch(setIsCart(false));
+  }
+};
+
+export const sendCartToServer = () => async (cart) => {
+  try {
+    const { data } = await instance.post('/cart', cart);
+    console.log('Cart sent to server successfully:', data);
+  } catch (error) {
+    console.error('Error sending cart to server:', error);
   }
 };
 

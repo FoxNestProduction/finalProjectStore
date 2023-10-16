@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Typography,
   Container,
   Box,
   Button,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   mainBox,
@@ -22,18 +22,32 @@ import {
 } from './styles';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import createCart from './cartFunctions';
+import { instance } from '../../API/instance';
+import { getCartItemsFromServer, sendCartToServer, setCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cartProducts = useSelector((state) => state.cart.cart.products);
+  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
-  cartProducts.pop();
   // console.log(cartProducts);
   // console.log(userIsHasCart);
   // console.log(isUserAuthorization);
-  // console.log(userToken);
+  const getProductsFromDB = async () => {
+    try {
+      const { data } = await instance.get('http://localhost:4000/api/cart');
+      console.log(data);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  useEffect(() => {
+    // getProductsFromDB();
+    dispatch(getCartItemsFromServer());
+    // createCart(cartProducts);
+  }, [dispatch]);
 
   const totalSum = 24.55;
 

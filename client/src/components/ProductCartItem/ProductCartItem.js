@@ -9,12 +9,25 @@ import CardContent from '@mui/material/CardContent';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, deleteFromCart } from '../../redux/slices/cartSlice';
+import { addToCart, deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
 import { cartIconContainer, imgBox, textContentBox, textContent, buttonStyles, quantityStyle } from './styles';
 
 const ProductCartItem = ({ id, name, cartQuantity, currentPrice, imageUrl }) => {
   const cartProducts = useSelector((state) => state.cart.cart.products);
   const dispatch = useDispatch();
+  const index = cartProducts.findIndex((product) => product.id === id);
+  const handleDeleteOne = () => {
+    if (index !== -1) {
+      const foundObject = cartProducts[index];
+      (() => dispatch(deleteFromCart(foundObject)))();
+    }
+  };
+  const handleAddOne = () => {
+    if (index !== -1) {
+      const foundObject = cartProducts[index];
+      (() => dispatch(addOneMore(foundObject)))();
+    }
+  };
   return (
     <Card sx={cartIconContainer}>
       <CardMedia
@@ -41,13 +54,13 @@ const ProductCartItem = ({ id, name, cartQuantity, currentPrice, imageUrl }) => 
           }}
         >
           <ButtonGroup variant="outlined" aria-label="small button group">
-            <Button sx={buttonStyles} onClick={() => dispatch(deleteFromCart(id))}>
+            <Button sx={buttonStyles} onClick={handleDeleteOne}>
               <RemoveRoundedIcon />
             </Button>
             <Typography variant="body2" sx={quantityStyle}>
               {cartQuantity}
             </Typography>
-            <Button sx={buttonStyles} onClick={() => {}}>
+            <Button sx={buttonStyles} onClick={handleAddOne}>
               <AddRoundedIcon />
             </Button>
           </ButtonGroup>
