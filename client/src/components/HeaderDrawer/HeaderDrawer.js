@@ -14,22 +14,28 @@ import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Badge from '@mui/material/Badge';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
-import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
+import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem, stylesBadge } from './styles';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
+import { openModal, setContent } from '../../redux/slices/modalSlice';
+import RegisterForm from '../forms/RegisterForm/RegisterForm';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
-  isUserAuthorized, handleCloseDrawer, handleOpenModalLogin }) => {
+  handleCloseDrawer, handleOpenModalLogin, handleLogOut }) => {
   const dispatch = useDispatch();
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
-  const handleLogOut = () => {
-    dispatch(setToken(null));
-    dispatch(setAuthorization(false));
+  const handleOpenModalRegister = () => {
+    dispatch(openModal());
+    dispatch(setContent(<RegisterForm />));
   };
+  const favourite = useSelector((state) => state.favourites.favourites);
+  const favouritesAmount = isUserAuthorized ? favourite.length : null;
 
   return (
     <Drawer
@@ -90,7 +96,13 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
           <MenuItemWithIcon
             navLink
             page="Favourites"
-            icon={<FavoriteBorderOutlinedIcon sx={stylesIcon} />}
+            icon={
+              (
+                <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                  <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                </Badge>
+              )
+            }
           />
           )}
         </List>
@@ -114,7 +126,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
               <MenuItemWithIcon
                 page="Sign up"
                 icon={<PersonAddAlt1OutlinedIcon sx={stylesIcon} />}
-                onClick={() => { console.log('Sign up'); }}
+                onClick={handleOpenModalRegister}
               />
             </>
           )}
@@ -130,7 +142,7 @@ HeaderDrawer.propTypes = {
   handleCloseDrawer: PropTypes.func,
   handleOpenModalLogin: PropTypes.func,
   navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
-  isUserAuthorized: PropTypes.bool,
+  handleLogOut: PropTypes.func,
 };
 
 HeaderDrawer.defaultProps = {
@@ -138,7 +150,7 @@ HeaderDrawer.defaultProps = {
   handleCloseDrawer: () => {},
   handleOpenModalLogin: () => {},
   navItems: [],
-  isUserAuthorized: false,
+  handleLogOut: () => {},
 };
 
 export default HeaderDrawer;

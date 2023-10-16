@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
-import Search from '../../components/Search/Search';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
 import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
 import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
+import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -24,14 +24,18 @@ const MenuPage = () => {
 
   return (
     <>
-      <Search />
+      <SectionSwipperFilterSearch />
+
       <ListItems
-        title={itemsFromSearch.length !== 0 && (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}
+        // title={itemsFromSearch.length !== 0 &&
+        // (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}
+        title={itemsFromSearch.length !== 0 ? 'Search Results' : ''}
         items={itemsFromSearch}
         itemComponent={keyFromSearch === 'food' ? ProductCardItem : RestaurantItem}
         actions={null}
         type={keyFromSearch === 'food' ? '' : 'partners'}
       />
+
       {/* <RestaurantItem /> */}
       <ListItems
         title="Our Top Restaurants"

@@ -58,7 +58,7 @@ const MobileApp = () => {
         </Box>
         <Box
           component="img"
-          src={`${process.env.PUBLIC_URL}/img/mobile.png`}
+          src={`${process.env.PUBLIC_URL}/img/layout/mobile.png`}
           alt="phone"
           sx={mobileImg}
         />
