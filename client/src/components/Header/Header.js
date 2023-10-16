@@ -152,7 +152,6 @@ const Header = () => {
           handleCloseDrawer={handleCloseDrawer}
           handleOpenModalLogin={handleOpenModalLogin}
           navItems={navItems}
-          isUserAuthorized={isUserAuthorized}
           handleLogOut={handleLogOut}
         />
       </nav>

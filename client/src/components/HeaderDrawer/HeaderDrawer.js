@@ -16,18 +16,22 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem } from './styles';
-import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
-import { setUser } from '../../redux/slices/userSlice';
-import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
-import { CHECKOUT_LS_KEY } from '../../constants';
+import { openModal, setContent } from '../../redux/slices/modalSlice';
+import RegisterForm from '../forms/RegisterForm/RegisterForm';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
-  isUserAuthorized, handleCloseDrawer, handleOpenModalLogin, handleLogOut }) => {
+  handleCloseDrawer, handleOpenModalLogin, handleLogOut }) => {
   const dispatch = useDispatch();
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+
+  const handleOpenModalRegister = () => {
+    dispatch(openModal());
+    dispatch(setContent(<RegisterForm />));
+  };
 
   return (
     <Drawer
@@ -112,7 +116,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
               <MenuItemWithIcon
                 page="Sign up"
                 icon={<PersonAddAlt1OutlinedIcon sx={stylesIcon} />}
-                onClick={() => { console.log('Sign up'); }}
+                onClick={handleOpenModalRegister}
               />
             </>
           )}
@@ -128,7 +132,6 @@ HeaderDrawer.propTypes = {
   handleCloseDrawer: PropTypes.func,
   handleOpenModalLogin: PropTypes.func,
   navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
-  isUserAuthorized: PropTypes.bool,
   handleLogOut: PropTypes.func,
 };
 
@@ -137,7 +140,6 @@ HeaderDrawer.defaultProps = {
   handleCloseDrawer: () => {},
   handleOpenModalLogin: () => {},
   navItems: [],
-  isUserAuthorized: false,
   handleLogOut: () => {},
 };
 
