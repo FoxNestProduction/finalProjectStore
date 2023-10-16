@@ -29,8 +29,9 @@ export const linkStyles = {
 
 export const gridStylesContainer = {
   display: 'flex',
-  justifyContent: 'center',
-  gap: '10px',
+  justifyContent: 'space-evenly',
+  alignItems: 'space-between',
+  columnGap: '20px',
 };
 
 export const gridStylesItemPartners = {
@@ -39,14 +40,28 @@ export const gridStylesItemPartners = {
   alignItems: 'center',
   maxWidth: { lgTablet: '49%', desktop: '32%' },
   cursor: 'pointer',
+  mb: '40px',
 };
 
 export const gridStylesItemProducts = {
-  display: 'grid',
-  justifyContent: 'center',
-  alignItems: 'center',
-  maxWidth: { mobile: '48%', tablet: '48%', lgTablet: '50%', desktop: '50%' },
-  cursor: 'pointer',
+  position: 'relative',
+  boxShadow: '0 20px 20px 0px rgba(229, 229, 229, 1)',
+  '&:hover .MuiCardMedia-img': {
+    transform: 'scale(1.05)',
+  },
+  borderRadius: '16px',
+  overflow: 'hidden',
+  maxWidth: {
+    mobile: '46%',
+    tablet: '44%',
+    lgTablet: '26%',
+    desktop: '16%',
+  },
+  mb: '40px',
+  minWidth: {
+    desktop: '160px',
+    tablet: '160px',
+  },
 };
 
 export const partnersCardWidth = {
@@ -59,6 +74,6 @@ export const partnersCardWidth = {
 export const productsCardWidth = {
   mobile: 4,
   tablet: 4,
-  lgTablet: 4,
-  desktop: 4,
+  lgTablet: 3,
+  desktop: 5,
 };

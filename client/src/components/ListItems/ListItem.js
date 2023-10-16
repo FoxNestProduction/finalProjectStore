@@ -19,6 +19,7 @@ const ListItems = ({ title, items, itemComponent, actions, type }) => {
       <Grid container spacing={0} sx={gridStylesContainer}>
 
         { items && items.map((item) => (
+
           // eslint-disable-next-line dot-notation
           <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
 
