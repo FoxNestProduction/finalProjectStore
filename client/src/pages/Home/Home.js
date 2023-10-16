@@ -16,6 +16,7 @@ const HomePage = () => {
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
   const products = useSelector((state) => state.products.products);
   const sortedProducts = useSortedItems(products, productsCardWidth);
+
   return (
     <>
       <SectionGetStarted />
@@ -28,7 +29,7 @@ const HomePage = () => {
         actions={<ListItemAction />}
         type="partners"
       />
-      <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
+      <ListItems title="Our Top Dishes" topDish items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
     </>
   );
 };

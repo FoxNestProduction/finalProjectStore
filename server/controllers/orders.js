@@ -53,19 +53,28 @@ exports.placeOrder = async (req, res, next) => {
       0
     );
 
-    const productAvailibilityInfo = await productAvailibilityChecker(
-      order.products
-    );
+    if (req.body.letterHtml) {
+      // order.letterHtml = `<h1>Your order is placed. OrderNo is ${order.orderNo}.</h1>`;
+      order.letterHtml = `<h1>Dear ${req.body.name}, thank you for ordering!</h1>
+    <div style="text-align: left; margin: 20px; font-size: 20px">
+        <p>Order Number: <strong>${order.orderNo}</strong></p>
+        <p>Total: <strong>${order.totalSum}$</strong></p>
+    </div>`;
+    }
 
-    if (!productAvailibilityInfo.productsAvailibilityStatus) {
-      res.json({
-        message: "Some of your products are unavailable for now",
-        productAvailibilityInfo
-      });
-    } else {
+    // const productAvailibilityInfo = await productAvailibilityChecker(
+    //   order.products
+    // );
+
+    // if (!productAvailibilityInfo.productsAvailibilityStatus) {
+    //   res.json({
+    //     message: "Some of your products are unavailable for now",
+    //     productAvailibilityInfo
+    //   });
+    // } else {
       const subscriberMail = req.body.email;
       const letterSubject = req.body.letterSubject;
-      const letterHtml = req.body.letterHtml;
+      const letterHtml = order.letterHtml;
 
       const { errors, isValid } = validateOrderForm(req.body);
 
@@ -104,12 +113,14 @@ exports.placeOrder = async (req, res, next) => {
             res
           );
 
-          for (item of order.products){
-            const id = item.product._id;
-            const product = await Product.findOne({ _id: id });
-            const productQuantity = product.quantity;
-            await Product.findOneAndUpdate({ _id: id }, { quantity: productQuantity - item.cartQuantity }, { new: true })
-          }
+          console.log(mailResult);
+
+          // for (item of order.products){
+          //   const id = item.product._id;
+          //   const product = await Product.findOne({ _id: id });
+          //   const productQuantity = product.quantity;
+          //   await Product.findOneAndUpdate({ _id: id }, { quantity: productQuantity - item.cartQuantity }, { new: true })
+          // }
 
           res.json({ order, mailResult });
         })
@@ -118,7 +129,7 @@ exports.placeOrder = async (req, res, next) => {
             message: `Error happened on server: "${err}" `
           })
         );
-    }
+    // }
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `

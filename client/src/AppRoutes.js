@@ -10,6 +10,10 @@ import ProductPage from './pages/Product/Product';
 import ReviewsPage from './pages/Reviews/Reviews';
 import Cart from './components/Cart/Cart';
 import Favourites from './components/Favourites/Favourites';
+import CheckoutPage from './pages/Chechout/Checkout';
+import CheckoutForm from './components/forms/CheckoutForm/CheckoutForm';
+import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
+import PaymentForm from './components/forms/PaymentForm/PaymentForm';
 import NotFound from './pages/NotFound/NotFound';
 
 const AppRoutes = () => {
@@ -24,6 +28,9 @@ const AppRoutes = () => {
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/favourites" element={<Favourites />} />
+        <Route path="/checkout" element={<CheckoutPage titleText="Checkout" formComponent={CheckoutForm} />} />
+        <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
+        <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         <Route path="/menu/:productName" element={<ProductPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>
