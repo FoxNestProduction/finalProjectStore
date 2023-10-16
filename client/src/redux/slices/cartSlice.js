@@ -132,14 +132,14 @@ export const getCartItemsFromServer = () => async (dispatch) => {
   }
 };
 
-export const sendCartToServer = () => async (cart) => {
-  try {
-    const { data } = await instance.post('/cart', cart);
-    console.log('Cart sent to server successfully:', data);
-  } catch (error) {
-    console.error('Error sending cart to server:', error);
-  }
-};
+// export const sendCartToServer = () => async (dispatch) => {
+//   try {
+//     const { data } = await instance.post('/cart', cart);
+//     console.log('Cart sent to server successfully:', data);
+//   } catch (error) {
+//     console.error('Error sending cart to server:', error);
+//   }
+// };
 
 /** 2 варіанти функції якщо ми додаємо або видаляємо товар в state cart через прокидування id:
  * TODO: варіант A:

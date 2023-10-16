@@ -23,7 +23,7 @@ import {
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import createCart from './cartFunctions';
 import { instance } from '../../API/instance';
-import { getCartItemsFromServer, sendCartToServer, setCart } from '../../redux/slices/cartSlice';
+import { getCartItemsFromServer, setCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -34,20 +34,11 @@ const Cart = () => {
   // console.log(cartProducts);
   // console.log(userIsHasCart);
   // console.log(isUserAuthorization);
-  const getProductsFromDB = async () => {
-    try {
-      const { data } = await instance.get('http://localhost:4000/api/cart');
-      console.log(data);
-    } catch (err) {
-      console.warn(err);
-    }
-  };
 
   useEffect(() => {
-    // getProductsFromDB();
     dispatch(getCartItemsFromServer());
-    // createCart(cartProducts);
-  }, [dispatch]);
+    createCart(cartProducts);
+  }, [dispatch, cartProducts]);
 
   const totalSum = 24.55;
 

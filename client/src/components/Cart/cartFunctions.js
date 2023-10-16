@@ -22,4 +22,13 @@ const createCart = async (cartProducts) => {
   }
 };
 
+const sendCarttoDB = async (cartProducts) => {
+  try {
+    const { data } = await instance.get('http://localhost:4000/api/cart');
+    console.log(data);
+  } catch (err) {
+    console.warn(err);
+  }
+};
+
 export default createCart;
