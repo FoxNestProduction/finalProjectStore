@@ -127,7 +127,7 @@ export const forgetPassword = {
     tablet: '14px',
     desktop: '24px',
   },
-  ':hover': {
+  '&:hover': {
     color: 'primary.hover',
   },
 };
@@ -146,7 +146,7 @@ export const signInBtn = {
     desktop: '60px',
   },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
-  ':hover': {
+  '&:hover': {
     backgroundColor: 'primary.hover',
     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
   },

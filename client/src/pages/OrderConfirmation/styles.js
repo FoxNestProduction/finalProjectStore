@@ -10,7 +10,7 @@ export const backHomeBtn = {
   },
   color: 'text.primaryLight',
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
-  ':hover': {
+  '&:hover': {
     backgroundColor: 'primary.hover',
   },
 };
