@@ -47,8 +47,9 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
               color: isactive ? 'primary.main' : (ishovered ? 'text.primaryLight' : 'text.header'),
               width: '24px',
               height: '24px',
-              '&:hover': { color: 'text.primaryLight' },
-              '&:active': { color: 'primary.main' },
+              '&:hover': { color: 'secondary.main' },
+              '&:active': { color: 'secondary.hover' },
+
             }}
           />
         )
