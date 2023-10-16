@@ -28,6 +28,9 @@ const favouriteSlice = createSlice({
       state.favourites = newStateFavourites;
       state.cardStates[id] = false;
     },
+    resetCardStates(state) {
+      state.cardStates = {};
+    },
   },
 });
 
@@ -35,14 +38,13 @@ export const {
   addFavourite,
   removeFavourite,
   setFavourite,
-  isFavourite,
+  resetCardStates,
 } = favouriteSlice.actions;
 
 export const updateFavourites = (favourites) => async (dispatch, getState) => {
   try {
     const state = getState();
     const { authorization } = state;
-    // console.log(state.favourites.favourites);
     if (authorization && authorization.token) {
       const { data } = await axios.put('http://localhost:4000/api/customers', { favourite: state.favourites.favourites }, {
         headers: {
@@ -51,7 +53,6 @@ export const updateFavourites = (favourites) => async (dispatch, getState) => {
       });
       const { favourite } = data;
       setFavourite(data.favourite);// eslint-disable-line no-use-before-define
-      console.log(favourite);
     } else {
       console.log('The user is not authorized');
     }
