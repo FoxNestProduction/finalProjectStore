@@ -1,7 +1,6 @@
 import { Divider, Box, Button, Container, List, ListItem, Typography } from '@mui/material';
 import React from 'react';
 import { section, descriptionBox, list, listText, googleAppleBtn, googleAppleBox, arrow, mobileImg } from './styles';
-import { ReactComponent as DoubleLoopArrow } from './DoubleLoopArrow.svg';
 
 const MobileApp = () => {
   const onClick = (url) => {
@@ -37,7 +36,7 @@ const MobileApp = () => {
             </ListItem>
           </List>
           <Box sx={googleAppleBox}>
-            <Button onClick={() => onClick('https://play.google.com/')}>
+            <Button sx={{ padding: '0' }} onClick={() => onClick('https://play.google.com/')}>
               <Box
                 component="img"
                 src={`${process.env.PUBLIC_URL}/img/google-play.png`}
@@ -45,7 +44,7 @@ const MobileApp = () => {
                 sx={googleAppleBtn}
               />
             </Button>
-            <Button onClick={() => onClick('https://www.apple.com/ua/app-store/')}>
+            <Button sx={{ padding: '0' }} onClick={() => onClick('https://www.apple.com/ua/app-store/')}>
               <Box
                 component="img"
                 src={`${process.env.PUBLIC_URL}/img/app-store.png`}
@@ -53,7 +52,7 @@ const MobileApp = () => {
                 sx={googleAppleBtn}
               />
             </Button>
-            <Box sx={arrow}><DoubleLoopArrow /></Box>
+            {/* <Box sx={arrow}><DoubleLoopArrow /></Box> */}
           </Box>
         </Box>
         <Box
