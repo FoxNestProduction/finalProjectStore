@@ -1,73 +1,93 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
-import CardContent from '@mui/material/CardContent';
 import PropTypes from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import { useDispatch, useSelector } from 'react-redux';
 import ColorChips from '../Chip/Chip';
-import { chipSizeDishes } from '../Chip/styles';
-import { sylesContainer, mediaBox, cardMedia, favoriteIcon, timeRatingBox, priceCardBox, bgRatingBox, chipBox } from './styles.js';
+import { stylesMiniTextWrapper, stylesMiniText, stylesTime, stylesImageWrapper, stylesImage, stylesFavoriteIcon, stylesTitle, stylesRatingWrapper, stylesPrice, stylesStarWrapper, stylesButton } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
-import AddToCartIcon from '../addToCartIcon/addToCartIcon';
+import useBreakpoint from '../../customHooks/useBreakpoint';
+import { openModal, setContent } from '../../redux/slices/modalSlice';
+import LoginForm from '../forms/LoginForm/LoginForm';
+// eslint-disable-next-line no-underscore-dangle
+const ProductCardItem = ({
+  currentPrice,
+  imageUrl,
+  name,
+  rating,
+  _id,
+  isTranding,
+  isSupreme,
+  isHealthy,
+}) => {
+  const breackPoint = useBreakpoint();
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const dispatch = useDispatch();
+  const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+  const handleOpenModalLogin = () => {
+    dispatch(openModal());
+    dispatch(setContent(LoginForm));
+  };
 
-const ProductCardItem = ({ currentPrice, imageUrl, name, rating, _id }) => {
   return (
-  // <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
-    <Card sx={sylesContainer}>
-      {/* <Box sx={mediaBox}> */}
-      <CardActions disableSpacing sx={favoriteIcon}>
+    <>
+      <CardActions
+        onClick={!isUserAuthorized
+          ? handleOpenModalLogin
+          : null}
+        sx={stylesFavoriteIcon}
+      >
         <FavouriteIcon id={_id} />
-        {/* <IconButton aria-label="add to favorites" sx={{ color: '#323142' }}>
-          <FavoriteIcon />
-        </IconButton> */}
       </CardActions>
-      <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
-        <Box sx={mediaBox}>
-          <CardMedia
-            component="img"
-            image={imageUrl}
-            title={name}
-            sx={cardMedia}
-          />
-        </Box>
-        <Box sx={chipBox}>
-          <ColorChips customStyles={chipSizeDishes} />
-        </Box>
-        <CardContent>
-          <Typography variant="h3" color="text.primary">
+      <Box>
+        <Link sx={{ cursor: 'pointer' }} to={`/menu/${fixedEncodeURIComponent(name)}`}>
+          <Box sx={stylesImageWrapper}>
+            <CardMedia
+              component="img"
+              image={imageUrl}
+              title={name}
+              sx={stylesImage}
+            />
+          </Box>
+          <Box sx={stylesMiniTextWrapper}>
+            <ColorChips
+              isHealthy={isHealthy}
+              isTranding={isTranding}
+              isSupreme={isSupreme}
+              customStyles={stylesMiniText}
+            />
+          </Box>
+          <Typography sx={stylesTitle} variant="h6" color="text.primary">
             {name}
           </Typography>
-          <Box sx={timeRatingBox}>
-            <Typography variant="body1" color="text.secondary">
-              24min •
-            </Typography>
-            <Box sx={bgRatingBox}>
-              <StarRateRoundedIcon color="primary" />
-              <Typography variant="body1" color="text.secondary">
-                {rating}
-              </Typography>
-            </Box>
+        </Link>
+        <Box sx={stylesRatingWrapper}>
+          <Typography sx={stylesTime}>
+            {randomNum}
+            min
+          </Typography>
+          <FiberManualRecordIcon sx={{ fontSize: '6px', color: 'text.secondary' }} />
+          <Box sx={stylesStarWrapper}>
+            <StarRateRoundedIcon color="primary" />
+            <Typography>{rating}</Typography>
           </Box>
-          <Box sx={priceCardBox}>
-            <Typography variant="body2" color="text.primary">
-              $
-              {currentPrice.toFixed(0)}
-              <Typography component="span" variant="body1" color="text.secondary">
-                .
-                {currentPrice.toFixed(2).split('.')[1]}
-              </Typography>
-            </Typography>
-            <AddToCartIcon id={_id} />
-          </Box>
-        </CardContent>
-      </Link>
-    </Card>
-    // </Link>
+        </Box>
+        <Typography sx={stylesPrice}>
+          {`$${currentPrice}`}
+        </Typography>
+      </Box>
+      <CardActions onClick={() => { console.log('add to cart'); }} sx={stylesButton}>
+        {breackPoint !== 'mobile' ? (<b>ADD</b>) : null}
+        <ShoppingCartCheckoutIcon />
+      </CardActions>
+    </>
   );
 };
 
@@ -77,14 +97,20 @@ ProductCardItem.propTypes = {
   name: PropTypes.string,
   rating: PropTypes.number,
   _id: PropTypes.string,
+  isHealthy: PropTypes.bool,
+  isTranding: PropTypes.bool,
+  isSupreme: PropTypes.bool,
 };
 
 ProductCardItem.defaultProps = {
-  currentPrice: 12.99,
-  imageUrl: './img/salads/3.png',
-  name: 'Chicken Hell',
-  rating: 3,
-  _id: '6507a306baee59670a047307',
+  currentPrice: '',
+  imageUrl: '',
+  name: '',
+  rating: '',
+  _id: '',
+  isHealthy: null,
+  isTranding: null,
+  isSupreme: null,
 };
 
 export default ProductCardItem;

@@ -60,8 +60,8 @@ const Filter = () => {
           <Stack
             component="div"
             direction="row"
-            spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
-            justifyContent="space-between"
+            gap={{ mobile: '10px', tablet: '9px', desktop: '13px' }}
+            justifyContent={{ mobile: 'space-between', tablet: 'space-around', lgTablet: 'space-between' }}
             sx={{ width: '100%' }}
           >
             <ToggleButton
@@ -121,7 +121,7 @@ const Filter = () => {
             component="div"
             direction="row"
             spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
-            justifyContent="space-between"
+            justifyContent={{ mobile: 'space-between', tablet: 'space-around', lgTablet: 'space-between' }}
             sx={{ width: '100%' }}
           >
             <ToggleButton
@@ -199,7 +199,7 @@ const Filter = () => {
         <Typography component="h3" sx={stylesTitle}>
           Sort By
         </Typography>
-        <Stack component="div" direction="column" spacing={1} alignItems="flex-start" sx={{ width: '100%' }}>
+        <Stack component="div" direction="column" spacing={0} alignItems="flex-start" sx={{ width: '100%' }}>
           <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
             <ToggleButton
               sx={stylesSortBtn}
@@ -236,11 +236,11 @@ const Filter = () => {
         </Stack>
       </Stack>
 
-      <Stack component="div" sx={{ mt: { mobile: '25px', tablet: '20px', desktop: '30px' } }}>
+      <Stack component="div" sx={{ mt: { mobile: '15px', tablet: '10px', desktop: '15px' } }}>
         <Typography component="h3" sx={stylesTitle}>
           Price
         </Typography>
-        <Box component="div" sx={{ width: '100%', mt: { mobile: '25px', tablet: '20px', desktop: '30px' } }}>
+        <Box component="div" sx={{ width: '100%', mt: { mobile: '15px', tablet: '10px', desktop: '15px' } }}>
           <Slider
             sx={stylesSlider}
             max={30}
