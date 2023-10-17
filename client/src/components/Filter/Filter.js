@@ -60,7 +60,7 @@ const Filter = () => {
           <Stack
             component="div"
             direction="row"
-            spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
+            gap={{ mobile: '10px', tablet: '9px', desktop: '13px' }}
             justifyContent={{ mobile: 'space-between', tablet: 'space-around', lgTablet: 'space-between' }}
             sx={{ width: '100%' }}
           >
@@ -200,12 +200,7 @@ const Filter = () => {
           Sort By
         </Typography>
         <Stack component="div" direction="column" spacing={0} alignItems="flex-start" sx={{ width: '100%' }}>
-          <Stack
-            component="div"
-            direction="row"
-            justifyContent="space-between"
-            sx={{ width: '100%' }}
-          >
+          <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
             <ToggleButton
               sx={stylesSortBtn}
               value="recomended"
