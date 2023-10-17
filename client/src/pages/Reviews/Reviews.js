@@ -14,18 +14,39 @@ const ReviewsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
+  const newReview = useSelector((state) => state.reviews.newReview);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const isLgTablet = useMediaQuery('(min-width: 690px)');
 
   const handleSendFeedback = () => {
     dispatch(addNewReview());
-    dispatch(closeModal());
     dispatch(setNewReview({ field: 'user_id', value: '' }));
     dispatch(setNewReview({ field: 'rating', value: null }));
     dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
     dispatch(setNewReview({ field: 'content', value: '' }));
     dispatch(setNewReview({ field: 'userReview', value: '' }));
+    dispatch(closeModal());
   };
+
+  if (newReview.content !== '') {
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: false,
+      onClick: handleSendFeedback,
+    }));
+  } else {
+    dispatch(setNewReview({ field: 'user_id', value: '' }));
+    dispatch(setNewReview({ field: 'rating', value: null }));
+    dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
+    dispatch(setNewReview({ field: 'content', value: '' }));
+    dispatch(setNewReview({ field: 'userReview', value: '' }));
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: true,
+    }));
+  }
 
   const handleOpenModalReview = () => {
     dispatch(openModal());
@@ -36,7 +57,7 @@ const ReviewsPage = () => {
     dispatch(setButtonAgree({
       text: 'Send',
       endIcon: true,
-      onClick: handleSendFeedback,
+      disabled: newReview.content === '',
     }));
     dispatch(addButtonBox(true));
   };

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setNewReview } from '../../redux/slices/reviewsSlice';
 
 const NewReview = () => {
-  // const [rating, setRating] = useState();
   const dispatch = useDispatch();
   const { lastName, firstName } = useSelector((state) => state.user.user);
   const rating = useSelector((state) => state.reviews.newReview.rating);
