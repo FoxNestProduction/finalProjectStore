@@ -13,6 +13,7 @@ import searchSlice from './slices/searchSlice';
 import errorSlice from './slices/errorSlice';
 import reviewsSlice from './slices/reviewsSlice';
 import favouriteSlice from './slices/favouriteSlice';
+import orderSlice from './slices/orderSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -52,6 +53,7 @@ const reducer = combineReducers({
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
   search: persistReducer(searchPersistConfig, searchSlice),
+  order: orderSlice,
   reviews: reviewsSlice,
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
 });
