@@ -4,7 +4,7 @@ const createCart = async (cartProducts) => {
   const cartProductsFromServer = cartProducts.map((cartProduct) => {
     const newCartProductObj = {
       // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.product._id,
+      product: cartProduct.id,
       cartQuantity: cartProduct.cartQuantity,
     };
     return newCartProductObj;
@@ -45,4 +45,14 @@ const updateCart = async (cartProducts) => {
   }
 };
 
-export { createCart, updateCart };
+const updateCartAfterCloseWindow = (cartProducts) => {
+  const handleUnload = () => {
+    updateCart(cartProducts);
+  };
+  window.addEventListener('beforeunload', handleUnload);
+  return () => {
+    window.removeEventListener('beforeunload', handleUnload);
+  };
+};
+
+export { createCart, updateCart, updateCartAfterCloseWindow };

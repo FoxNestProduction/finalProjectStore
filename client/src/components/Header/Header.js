@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
@@ -38,10 +38,13 @@ import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_LS_KEY } from '../../constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
+import { updateCart } from '../Cart/cartFunctions';
+import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user);
   const { cart } = user;
@@ -49,7 +52,7 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
-
+  console.log(cartProducts);
   useEffect(() => {
     if (breakpoint === 'lgTablet' || breakpoint === 'desktop') {
       setIsMobileMenuOpen(false);
@@ -72,7 +75,10 @@ const Header = () => {
     dispatch(setContent(<LoginForm />));
   };
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
+    await updateCart(cartProducts);
+    dispatch(setIsCart(false));
+    dispatch(resetCart());
     dispatch(setToken(null));
     dispatch(setAuthorization(false));
     dispatch(setUser({}));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';

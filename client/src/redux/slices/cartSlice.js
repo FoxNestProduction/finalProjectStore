@@ -8,7 +8,7 @@ const initialState = {
     products: [],
   },
   isLoading: false,
-  isCart: false,
+  isCart: true,
 };
 
 /* eslint-disable no-param-reassign */
@@ -60,8 +60,21 @@ const cartSlice = createSlice({
           cartProductObj.cartQuantity += matchedProduct.cartQuantity;
           return cartProductObj;
         });
-        state.cart.products = { ...uniqueFilteredProducts, ...notUniqueFilteredProducts };
+        const uniqueFilteredProductsFromStore = state.cart.products.filter((cartProductObj) => {
+          const uniqueStoreProducts = action.payload
+            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
+          const mark = uniqueStoreProducts === undefined;
+          return mark;
+        });
+        state.cart.products = [
+          ...uniqueFilteredProducts,
+          ...notUniqueFilteredProducts,
+          ...uniqueFilteredProductsFromStore,
+        ];
       }
+    },
+    resetCart(state) {
+      state.cart.products = [];
     },
     setIsLoading(state, action) {
       state.isLoading = action.payload;
@@ -74,7 +87,6 @@ const cartSlice = createSlice({
       if (state.cart.products.length) {
         const index = state.cart.products
           .findIndex((productObj) => productObj.product._id === action.payload.product._id);
-
         if (index !== -1) {
           if (state.cart.products[index].cartQuantity === 1) {
             state.cart.products.splice(index, 1);
@@ -90,6 +102,16 @@ const cartSlice = createSlice({
          * Потрібно буде протестувати, який варіант зручніше, той і використовувати
          */
     },
+    addOneMore(state, action) {
+      if (state.cart.products.length) {
+        const index = state.cart.products
+          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
+        console.log(index);
+        if (index !== -1) {
+          state.cart.products[index].cartQuantity += 1;
+        }
+      }
+    },
   },
 });
 
@@ -99,6 +121,8 @@ export const {
   setIsLoading,
   deleteFromCart,
   setIsCart,
+  addOneMore,
+  resetCart,
 } = cartSlice.actions;
 
 export const getCartItemsFromServer = () => async (dispatch) => {
@@ -107,9 +131,7 @@ export const getCartItemsFromServer = () => async (dispatch) => {
 
     const { data } = await instance.get('/cart');
 
-    console.log(data.products);
-    console.log(data);
-
+    // console.log(data.products);
     dispatch(setCart(data.products));
     dispatch(setIsCart(true));
     dispatch(setIsLoading(false));
@@ -132,7 +154,6 @@ export const getCartItemsFromServer = () => async (dispatch) => {
 export const deleteOrAddCartByItemId = (id, key) => (dispatch, getState) => {
   const state = getState();
   const { products } = state.products;
-  // const products = useSelector((state) => state.products.products);
   if (products.length !== 0) {
     const cartItem = products.find((product) => product._id === id);
     if (cartItem !== null && cartItem !== undefined) {

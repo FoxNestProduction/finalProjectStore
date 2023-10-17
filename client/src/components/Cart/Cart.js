@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Typography,
   Container,
   Box,
   Button,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   mainBox,
@@ -20,33 +20,43 @@ import {
   price,
   continueBtn,
 } from './styles';
-import { createCart, updateCart } from './cartFunctions';
+import { createCart, updateCart, updateCartAfterCloseWindow } from './cartFunctions';
+import ProductCartItem from '../ProductCartItem/ProductCartItem';
+import { getCartItemsFromServer } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cartProducts = useSelector((state) => state.cart.cart.products);
+  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
-
+  // console.log(cartProducts.map((product) => product.cartQuantity));
   console.log(cartProducts);
+  // cartProducts.pop();
   // console.log(userIsHasCart);
   // console.log(isUserAuthorization);
   // console.log(userToken);
-  const cart = [{
-    product: {
-      _id: '650a7b0961d4eecf99b85ef6',
-    },
-    cartQuantity: 1,
-  },
-  { ...cartProducts[0] }];
   const totalSum = 24.55;
+
+  const getCart = () => {
+    if (isUserAuthorization) {
+      dispatch(getCartItemsFromServer());
+    } else {
+      console.log('user need to autorise');
+    }
+  };
+
+  useEffect(() => {
+    // getCart();
+    updateCartAfterCloseWindow(cartProducts);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUserAuthorization]);
 
   const continueFn = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
         console.log('We must update cart');
-        updateCart(cart);
+        updateCart(cartProducts);
       } else {
         console.log('We must create cart');
         createCart(cartProducts);
@@ -71,7 +81,9 @@ const Cart = () => {
         <Box
           sx={cartProductsContainer}
         >
-          Тут знаходяться cartProduct
+          {cartProducts.map(({ product, cartQuantity }) => (
+            <ProductCartItem key={product._id} cartQuantity={cartQuantity} {...product} />
+          ))}
         </Box>
         <Button
           LinkComponent={NavLink}
