@@ -27,11 +27,14 @@ import {
   signUpBtn,
   signInLink,
 } from './styles';
-import Input from '../../Input/Input';
+import Input from '../../inputs/Input/Input';
 import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
 import { setRegistrationError } from '../../../redux/slices/errorSlice';
+import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
+import { CHECKOUT_LS_KEY } from '../../../constants';
+import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
 
 export const initialValues = {
@@ -61,6 +64,9 @@ const RegisterForm = () => {
       dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setRegistrationError(''));
+
+      removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+      saveUserInfoToSessionStorage(user);
       dispatch(getCartItemsFromServer());
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));

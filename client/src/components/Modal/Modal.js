@@ -10,7 +10,6 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
-import { Snackbar, Alert } from '@mui/material';
 
 import {
   openModal,
@@ -106,6 +105,7 @@ const Modal = () => {
             endIcon={buttonAgree.endIcon && <SendIcon />}
             startIcon={buttonAgree.startIcon && <DeleteIcon />}
             onClick={buttonAgree.onClick}
+            disabled={buttonAgree.disabled}
             autoFocus
           >
             {buttonAgree.text}

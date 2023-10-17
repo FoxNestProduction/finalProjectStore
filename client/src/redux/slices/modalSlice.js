@@ -10,6 +10,7 @@ const initialState = {
     startIcon: false,
     endIcon: false,
     onClick: null,
+    disabled: false,
   },
 };
 
@@ -29,6 +30,7 @@ const modalSlice = createSlice({
       state.buttonAgree.startIcon = false;
       state.buttonAgree.endIcon = false;
       state.buttonAgree.onClick = null;
+      state.buttonAgree.disabled = false;
     },
     setTitle(state, action) {
       state.title = action.payload;
