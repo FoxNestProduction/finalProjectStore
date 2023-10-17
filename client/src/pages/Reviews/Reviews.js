@@ -10,14 +10,33 @@ import { addNewReview, setNewReview } from '../../redux/slices/reviewsSlice';
 const ReviewsPage = () => {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
-  const newReview = useSelector((state) => state.reviews.newReviews);
-  const token = useSelector((state) => state.authorization.token);
+  const newReview = useSelector((state) => state.reviews.newReview);
 
   const handleSendFeedback = () => {
     dispatch(addNewReview());
-    dispatch(closeModal());
+    dispatch(setNewReview({ field: 'user_id', value: '' }));
     dispatch(setNewReview({ field: 'rating', value: null }));
+    dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
+    dispatch(setNewReview({ field: 'content', value: '' }));
+    dispatch(setNewReview({ field: 'userReview', value: '' }));
+    dispatch(closeModal());
   };
+
+  if (newReview.content !== '') {
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: false,
+      onClick: handleSendFeedback,
+    }));
+  } else {
+    dispatch(setNewReview({ field: 'rating', value: null }));
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: true,
+    }));
+  }
 
   const handleOpenModalReview = () => {
     dispatch(openModal());
@@ -28,7 +47,7 @@ const ReviewsPage = () => {
     dispatch(setButtonAgree({
       text: 'Send',
       endIcon: true,
-      onClick: handleSendFeedback,
+      disabled: newReview.content === '',
     }));
     dispatch(addButtonBox(true));
   };
@@ -41,7 +60,7 @@ const ReviewsPage = () => {
       <Typography variant="h2">Customer Say</Typography>
       <Stack>
         {/* eslint-disable-next-line no-underscore-dangle */}
-        {reviews.map((item) => <ReviewItem key={item.comment} review={item} />)}
+        {reviews.map((item) => <ReviewItem key={item._id} review={item} />)}
       </Stack>
       <Modal />
     </>
