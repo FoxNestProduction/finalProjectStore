@@ -8,7 +8,8 @@ const initialState = {
     products: [],
   },
   isLoading: false,
-  isCart: false,
+  isCart: true,
+  customerId: '',
 };
 
 /* eslint-disable no-param-reassign */
@@ -43,8 +44,6 @@ const cartSlice = createSlice({
         state.cart.products = action.payload;
       } else {
         const uniqueFilteredProducts = action.payload.filter((cartProductObj) => {
-          console.log(state.cart.products);
-          console.log(action.payload);
           const matchedProduct = state.cart.products
             .find((cartProduct) => cartProduct.product._id !== cartProductObj.product._id);
           const mark = matchedProduct !== undefined;
@@ -69,6 +68,9 @@ const cartSlice = createSlice({
     },
     setIsCart(state, action) {
       state.isCart = action.payload;
+    },
+    setCustomerId(state, action) {
+      state.customerId = action.payload;
     },
     deleteFromCart(state, action) {
       // 1 - ий варіант - коли нам в action.payload надходить повний об'єкт item
@@ -111,6 +113,7 @@ export const {
   deleteFromCart,
   setIsCart,
   addOneMore,
+  setCustomerId,
 } = cartSlice.actions;
 
 export const getCartItemsFromServer = () => async (dispatch) => {
@@ -120,8 +123,8 @@ export const getCartItemsFromServer = () => async (dispatch) => {
     const { data } = await instance.get('/cart');
 
     // console.log(data.products);
-    // console.log(data);
-
+    console.log(data._id);
+    dispatch(setCustomerId(data._id));
     dispatch(setCart(data.products));
     dispatch(setIsCart(true));
     dispatch(setIsLoading(false));
@@ -131,15 +134,6 @@ export const getCartItemsFromServer = () => async (dispatch) => {
     // dispatch(setIsCart(false));
   }
 };
-
-// export const sendCartToServer = () => async (dispatch) => {
-//   try {
-//     const { data } = await instance.post('/cart', cart);
-//     console.log('Cart sent to server successfully:', data);
-//   } catch (error) {
-//     console.error('Error sending cart to server:', error);
-//   }
-// };
 
 /** 2 варіанти функції якщо ми додаємо або видаляємо товар в state cart через прокидування id:
  * TODO: варіант A:
@@ -153,7 +147,6 @@ export const getCartItemsFromServer = () => async (dispatch) => {
 export const deleteOrAddCartByItemId = (id, key) => (dispatch, getState) => {
   const state = getState();
   const { products } = state.products;
-  // const products = useSelector((state) => state.products.products);
   if (products.length !== 0) {
     const cartItem = products.find((product) => product.id === id);
     if (cartItem !== null && cartItem !== undefined) {
