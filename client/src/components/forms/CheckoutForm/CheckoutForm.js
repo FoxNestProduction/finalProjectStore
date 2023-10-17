@@ -85,7 +85,7 @@ const CheckoutForm = () => {
       };
 
       try {
-        const response = await axios.put('http://localhost:4000/api/customers', updatedCustomer, {
+        const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/customers`, updatedCustomer, {
           headers: { 'Authorization': token },
         });
         dispatch(setUser(response.data));
@@ -145,7 +145,7 @@ const CheckoutForm = () => {
       navigate('/checkout/payment');
     } else {
       try {
-        const response = await axios.post('http://localhost:4000/api/orders', newOrder);
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, newOrder);
         console.log(response);
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_LS_KEY);

@@ -44,7 +44,7 @@ export const updateFavourites = (favourites) => async (dispatch, getState) => {
     const { authorization } = state;
     // console.log(state.favourites.favourites);
     if (authorization && authorization.token) {
-      const { data } = await axios.put('http://localhost:4000/api/customers', { favourite: state.favourites.favourites }, {
+      const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/api/customers`, { favourite: state.favourites.favourites }, {
         headers: {
           Authorization: state.authorization.token,
         },

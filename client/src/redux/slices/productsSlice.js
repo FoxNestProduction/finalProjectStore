@@ -19,7 +19,7 @@ export const { setProducts } = productsSlice.actions;
 
 export const getProducts = () => async (dispatch) => {
   try {
-    const { data } = await axios.get('http://localhost:4000/api/products');
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/products`);
     dispatch(setProducts(data));
   } catch (error) {
     console.log('Error loading products:', error);

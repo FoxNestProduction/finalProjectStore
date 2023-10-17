@@ -55,7 +55,7 @@ const RegisterForm = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:4000/api/customers', newCustomer);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/customers`, newCustomer);
       const { user, token } = response.data;
 
       dispatch(setToken(token));

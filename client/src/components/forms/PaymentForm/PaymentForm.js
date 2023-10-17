@@ -36,7 +36,7 @@ const PaymentForm = () => {
     // console.log(values);
 
     try {
-      const response = await axios.post('http://localhost:4000/api/orders', orderInfo);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, orderInfo);
       console.log(response);
       dispatch(setConfirmedOrder(response.data.order));
       removeDataFromSessionStorage(CHECKOUT_LS_KEY);

@@ -55,7 +55,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (values, actions) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/customers/login', values);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/customers/login`, values);
       const { token } = response.data;
       const { user } = response.data;
       if (token) {
