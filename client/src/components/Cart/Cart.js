@@ -20,10 +20,7 @@ import {
   price,
   continueBtn,
 } from './styles';
-import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import { createCart, updateCart } from './cartFunctions';
-import { instance } from '../../API/instance';
-import { getCartItemsFromServer, setCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -31,23 +28,28 @@ const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
-  const customerId = useSelector((state) => state.cart.customerId);
-  console.log(customerId);
   // console.log(cartProducts);
   // console.log(userIsHasCart);
   // console.log(isUserAuthorization);
-
+  // console.log(userToken);
+  const cart = [{
+    product: {
+      _id: '650a7b0961d4eecf99b85ef6',
+    },
+    cartQuantity: 1,
+  },
+  { ...cartProducts[0] }];
   const totalSum = 24.55;
 
-  useEffect(() => {
-    dispatch(getCartItemsFromServer());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCartItemsFromServer());
+  // }, [dispatch]);
 
   const continueFn = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
-        updateCart(cartProducts, customerId);
-        console.log('We didn\'t create cart');
+        console.log('We must update cart');
+        updateCart(cart);
       } else {
         console.log('We must create cart');
         createCart(cartProducts);

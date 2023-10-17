@@ -15,29 +15,30 @@ const createCart = async (cartProducts) => {
     ],
   };
   try {
-    const { data } = await instance.post('http://localhost:4000/api/cart', cart);
+    const { data } = await instance.post('/cart', cart);
     console.log(data);
   } catch (err) {
     console.warn(err);
   }
 };
 
-const updateCart = async (cartProducts, userId) => {
+const updateCart = async (cartProducts) => {
   const cartProductsFromServer = cartProducts.map((cartProduct) => {
     const newCartProductObj = {
       // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.id,
+      product: cartProduct.product._id,
       cartQuantity: cartProduct.cartQuantity,
     };
     return newCartProductObj;
   });
-  const newCart = {
+  console.log(cartProductsFromServer);
+  const updatedCart = {
     products: [
       ...cartProductsFromServer,
     ],
   };
   try {
-    const { data } = await instance.put(`http://localhost:4000/api/cart/${userId}`, newCart);
+    const { data } = await instance.put('/cart', updatedCart);
     console.log(data);
   } catch (err) {
     console.warn(err);

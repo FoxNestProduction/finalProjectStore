@@ -9,7 +9,6 @@ const initialState = {
   },
   isLoading: false,
   isCart: true,
-  customerId: '',
 };
 
 /* eslint-disable no-param-reassign */
@@ -25,8 +24,9 @@ const cartSlice = createSlice({
         state.cart.products.push(action.payload);
       } else {
         const index = state.cart.products
-          .findIndex((product) => product.id === action.payload.id);
+          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
         if (index === -1) {
+          action.payload.cartQuantity = 1;
           state.cart.products.push(action.payload);
         } else {
           state.cart.products[index].cartQuantity += 1;
@@ -69,14 +69,11 @@ const cartSlice = createSlice({
     setIsCart(state, action) {
       state.isCart = action.payload;
     },
-    setCustomerId(state, action) {
-      state.customerId = action.payload;
-    },
     deleteFromCart(state, action) {
       // 1 - ий варіант - коли нам в action.payload надходить повний об'єкт item
       if (state.cart.products.length) {
         const index = state.cart.products
-          .findIndex((product) => product.id === action.payload.id);
+          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
 
         if (index !== -1) {
           if (state.cart.products[index].cartQuantity === 1) {
@@ -113,7 +110,6 @@ export const {
   deleteFromCart,
   setIsCart,
   addOneMore,
-  setCustomerId,
 } = cartSlice.actions;
 
 export const getCartItemsFromServer = () => async (dispatch) => {
@@ -123,8 +119,6 @@ export const getCartItemsFromServer = () => async (dispatch) => {
     const { data } = await instance.get('/cart');
 
     // console.log(data.products);
-    console.log(data._id);
-    dispatch(setCustomerId(data._id));
     dispatch(setCart(data.products));
     dispatch(setIsCart(true));
     dispatch(setIsLoading(false));
@@ -148,7 +142,7 @@ export const deleteOrAddCartByItemId = (id, key) => (dispatch, getState) => {
   const state = getState();
   const { products } = state.products;
   if (products.length !== 0) {
-    const cartItem = products.find((product) => product.id === id);
+    const cartItem = products.find((product) => product._id === id);
     if (cartItem !== null && cartItem !== undefined) {
       if (key === 'ADD') {
         dispatch(addToCart(cartItem));
@@ -181,7 +175,7 @@ export const deleteOrAddFromCartByItemIdWithValueFromState = (id) => (state) => 
   const products = allProducts(state);
   console.log(products);
   if (products.length !== 0) {
-    const cartItem = products.find((product) => product.id === id);
+    const cartItem = products.find((product) => product._id === id);
     console.log(cartItem);
     if (cartItem !== null && cartItem !== undefined) {
       return cartItem;
