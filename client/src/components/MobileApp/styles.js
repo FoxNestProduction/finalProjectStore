@@ -24,10 +24,7 @@ export const section = {
 
 export const descriptionBox = {
   display: 'flex',
-  alignItems: {
-    mobile: 'center',
-    tablet: 'flex-start',
-  },
+  alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
   rowGap: {
@@ -59,18 +56,22 @@ export const listText = {
 
 export const googleAppleBox = {
   position: 'relative',
-  width: '100%',
   display: 'flex',
-  flexDirection: {
-    mobile: 'column',
-    tablet: 'row',
-  },
-  mb: '25px',
+  mb: '35px',
+  columnGap: '14px',
 };
 
 export const googleAppleBtn = {
-  width: '120px',
-  height: '40px',
+  width: {
+    mobile: '110px',
+    tablet: '188px',
+  },
+  height: {
+    mobile: '41px',
+    tablet: '60px',
+  },
+  borderRadius: '16px',
+
 };
 
 export const arrow = {
@@ -101,15 +102,11 @@ export const mobileImg = {
   position: 'relative',
   left: {
     mobile: '15px',
-    tablet: '0',
+    tablet: '19px',
   },
   width: {
     mobile: '170px',
     tablet: '216px',
     desktop: '300px',
-  },
-  mt: {
-    mobile: '110px',
-    tablet: '0',
   },
 };

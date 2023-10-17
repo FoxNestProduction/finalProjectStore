@@ -34,6 +34,10 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
+import { setUser } from '../../redux/slices/userSlice';
+import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
+import { CHECKOUT_LS_KEY } from '../../constants';
+import { resetCardStates } from '../../redux/slices/favouriteSlice';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -71,6 +75,9 @@ const Header = () => {
   const handleLogOut = () => {
     dispatch(setToken(null));
     dispatch(setAuthorization(false));
+    dispatch(setUser({}));
+    removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+    dispatch(resetCardStates());
   };
 
   const navItems = ['Menu', 'Pricing', 'Reviews', 'Contact'];
@@ -148,7 +155,7 @@ const Header = () => {
           handleCloseDrawer={handleCloseDrawer}
           handleOpenModalLogin={handleOpenModalLogin}
           navItems={navItems}
-          isUserAuthorized={isUserAuthorized}
+          handleLogOut={handleLogOut}
         />
       </nav>
     </>
