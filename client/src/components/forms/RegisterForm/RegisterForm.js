@@ -35,6 +35,7 @@ import { setRegistrationError } from '../../../redux/slices/errorSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_LS_KEY } from '../../../constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
+import { instance } from '../../../API/instance';
 
 export const initialValues = {
   firstName: '',
@@ -55,7 +56,7 @@ const RegisterForm = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:4000/api/customers', newCustomer);
+      const response = await instance.post('/customers', newCustomer);
       const { user, token } = response.data;
 
       dispatch(setToken(token));

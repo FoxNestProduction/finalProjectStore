@@ -17,6 +17,7 @@ import { setConfirmedOrder } from '../../../redux/slices/orderSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_LS_KEY } from '../../../constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
+import { instance } from '../../../API/instance';
 
 const PaymentForm = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const PaymentForm = () => {
     // console.log(values);
 
     try {
-      const response = await axios.post('http://localhost:4000/api/orders', orderInfo);
+      const response = await instance.post('/orders', orderInfo);
       console.log(response);
       dispatch(setConfirmedOrder(response.data.order));
       removeDataFromSessionStorage(CHECKOUT_LS_KEY);
