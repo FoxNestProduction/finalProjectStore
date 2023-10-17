@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { instance } from '../../API/instance';
 
 const initialState = {
   products: [],
@@ -19,7 +20,7 @@ export const { setProducts } = productsSlice.actions;
 
 export const getProducts = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/products`);
+    const { data } = await instance.get('/products');
     dispatch(setProducts(data));
   } catch (error) {
     console.log('Error loading products:', error);

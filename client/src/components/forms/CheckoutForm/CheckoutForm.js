@@ -34,6 +34,7 @@ import {
 } from '../../../utils/sessionStorageHelpers';
 import { setConfirmedOrder, setOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
+import { instance } from '../../../API/instance';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ const CheckoutForm = () => {
       };
 
       try {
-        const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/customers`, updatedCustomer, {
+        const response = await instance.put('/customers', updatedCustomer, {
           headers: { 'Authorization': token },
         });
         dispatch(setUser(response.data));
@@ -145,7 +146,7 @@ const CheckoutForm = () => {
       navigate('/checkout/payment');
     } else {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, newOrder);
+        const response = await instance.post('/orders', newOrder);
         console.log(response);
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_LS_KEY);

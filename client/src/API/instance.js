@@ -7,7 +7,7 @@ export const injectStore = (_store) => {
 };
 
 export const instance = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}/api`,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 instance.interceptors.request.use((config) => {

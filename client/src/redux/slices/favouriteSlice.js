@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { instance } from '../../API/instance';
 
 const initialState = {
   favourites: [],
@@ -46,7 +47,7 @@ export const updateFavourites = (favourites) => async (dispatch, getState) => {
     const state = getState();
     const { authorization } = state;
     if (authorization && authorization.token) {
-      const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/api/customers`, { favourite: state.favourites.favourites }, {
+      const { data } = await instance.put('/customers', { favourite: state.favourites.favourites }, {
         headers: {
           Authorization: state.authorization.token,
         },
