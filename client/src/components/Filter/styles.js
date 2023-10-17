@@ -134,19 +134,29 @@ export const stylesSlider = {
     tablet: '12px',
     desktop: '17px',
   },
-  fontSize: {
-    mobile: '9px',
-    tablet: '8px',
-    desktop: '11px',
-  },
   '.MuiSlider-markLabel': {
     fontFamily: 'fontPoppins',
+    fontSize: {
+      mobile: '12px',
+      tablet: '11px',
+      desktop: '15px',
+    },
   },
   fontWeight: '500',
   '.MuiSlider-valueLabel': {
     fontFamily: 'fontPoppins',
-    fontSize: '7px',
-    lineHeight: '12px',
+    // fontSize: '12px',
+    fontSize: {
+      mobile: '12px',
+      tablet: '11px',
+      desktop: '15px',
+    },
+    // lineHeight: '14px',
+    lineHeight: {
+      mobile: '14px',
+      tablet: '13px',
+      desktop: '17px',
+    },
     p: '0.25rem 0.5rem',
   },
 };
