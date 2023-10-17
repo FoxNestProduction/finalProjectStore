@@ -73,8 +73,7 @@ const cartSlice = createSlice({
       // 1 - ий варіант - коли нам в action.payload надходить повний об'єкт item
       if (state.cart.products.length) {
         const index = state.cart.products
-          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
-
+          .findIndex((productObj) => productObj.id === action.payload.id);
         if (index !== -1) {
           if (state.cart.products[index].cartQuantity === 1) {
             state.cart.products.splice(index, 1);

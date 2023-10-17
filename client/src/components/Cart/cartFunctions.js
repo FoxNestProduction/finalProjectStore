@@ -45,20 +45,14 @@ const updateCart = async (cartProducts) => {
   }
 };
 
-const updateCartAfterCloseWindow = (isUserAuthorization, cartProducts, userId) => {
+const updateCartAfterCloseWindow = (isUserAuthorization, cartProducts) => {
   const handleUnload = () => {
-    updateCart(cartProducts, userId);
+    updateCart(cartProducts);
   };
-  if (isUserAuthorization) {
-    window.addEventListener('beforeunload', handleUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-    };
-  }
   window.addEventListener('beforeunload', handleUnload);
   return () => {
     window.removeEventListener('beforeunload', handleUnload);
   };
 };
 
-export { createCart, updateCart };
+export { createCart, updateCart, updateCartAfterCloseWindow };

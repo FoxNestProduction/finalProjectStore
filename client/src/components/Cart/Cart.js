@@ -20,7 +20,9 @@ import {
   price,
   continueBtn,
 } from './styles';
-import { createCart, updateCart } from './cartFunctions';
+import { createCart, updateCart, updateCartAfterCloseWindow } from './cartFunctions';
+import ProductCartItem from '../ProductCartItem/ProductCartItem';
+import { getCartItemsFromServer } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
-  // console.log(cartProducts);
+  // console.log(cartProducts.map((product) => product.cartQuantity));
   // console.log(userIsHasCart);
   // console.log(isUserAuthorization);
   // console.log(userToken);
@@ -41,9 +43,19 @@ const Cart = () => {
   { ...cartProducts[0] }];
   const totalSum = 24.55;
 
-  // useEffect(() => {
-  //   dispatch(getCartItemsFromServer());
-  // }, [dispatch]);
+  const getCart = () => {
+    if (isUserAuthorization) {
+      dispatch(getCartItemsFromServer());
+    } else {
+      console.log('user need to autorise');
+    }
+  };
+
+  useEffect(() => {
+    getCart();
+    updateCartAfterCloseWindow(isUserAuthorization, cartProducts);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUserAuthorization]);
 
   const continueFn = () => {
     if (isUserAuthorization) {
