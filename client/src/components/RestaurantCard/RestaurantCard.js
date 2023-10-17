@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,10 +9,13 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { Stack } from '@mui/material';
+import Button from '@mui/material/Button';
 import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
 
-const RestaurantCard = ({ rating, name, imageUrl }) => {
+const RestaurantCard = ({ rating, name, imageUrl, description }) => {
+  const [desc, setDesc] = useState(false);
+  console.log(description);
   return (
     <Card
       sx={{
@@ -134,21 +136,33 @@ const RestaurantCard = ({ rating, name, imageUrl }) => {
             <BookmarkIcon />
           </IconButton>
         </CardActions>
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          sx={{
-            width: {
-              desktop: 67,
-              tablet: '100%',
-            },
-            mt: '50px',
-          }}
-        >
-          Serving the juiciest burgers in town with a variety of toppings and flavors.
-          Fast food at its finest!
-        </Typography>
       </Stack>
+      <Stack direction="row" justifyContent="flex-end" width="100%" m="15px">
+        <Button
+          variant="contained"
+          sx={{
+            borderRadius: '14px',
+            border: '1px solid primary.main',
+            fontSize: { mobile: '14px', tablet: '18px' },
+            transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
+            ':hover': {
+              backgroundColor: 'primary.hover',
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
+            },
+          }}
+          onClick={() => setDesc((prev) => !prev)}
+        >
+          {desc ? 'Close' : 'Show more'}
+        </Button>
+      </Stack>
+      <Typography
+        variant="description"
+        component="p"
+        margin={desc ? '25px' : '0'}
+        sx={{ textAlign: 'justify' }}
+      >
+        {desc && description}
+      </Typography>
     </Card>
   );
 };
@@ -157,12 +171,14 @@ RestaurantCard.propTypes = {
   rating: PropTypes.number,
   name: PropTypes.string,
   imageUrl: PropTypes.string,
+  description: PropTypes.bool,
 };
 
 RestaurantCard.defaultProps = {
   rating: 3,
   name: 'The Chicken King',
   imageUrl: './img/restaurants/Resturent01.jpg',
+  description: false,
 };
 
 export default RestaurantCard;

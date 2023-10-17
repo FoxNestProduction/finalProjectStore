@@ -7,6 +7,7 @@ import QuestionsList from '../../components/QuestionsList/QuestionsList';
 import ListItems from '../../components/ListItems/ListItem';
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
+import getChangedString from '../../utils/getChangedString';
 
 const PartnersPage = () => {
   const { partnersName } = useParams();
@@ -19,25 +20,12 @@ const PartnersPage = () => {
   });
   console.log(allProductsOfRest);
 
-  function capitalizeWords(inputString) {
-    // Розділіть рядок на окремі слова
-    const words = inputString.split(' ');
-
-    // Виконайте першу букву кожного слова великою
-    const capitalizedWords = words.map((word) => {
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    });
-
-    // Поверніть з'єднані слова
-    return capitalizedWords.join(' ');
-  }
-
-  const capitalizedString = capitalizeWords(nameOfPartners);
+  const title = getChangedString(nameOfPartners);
 
   return (
     <Box>
       <PartnersCard partnersName={partnersName} />
-      <ListItems title={`${capitalizedString} Dishes`} items={allProductsOfRest} itemComponent={ProductCardItem} actions={null} />
+      <ListItems title={`${title} Dishes`} items={allProductsOfRest} itemComponent={ProductCardItem} actions={null} />
       <QuestionsList />
     </Box>
   );
