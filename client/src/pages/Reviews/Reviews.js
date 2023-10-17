@@ -14,7 +14,7 @@ const ReviewsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
-  const newReview = useSelector((state) => state.reviews.newReview);
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const isLgTablet = useMediaQuery('(min-width: 690px)');
 
   const handleSendFeedback = () => {
@@ -52,17 +52,22 @@ const ReviewsPage = () => {
     };
   }, []);
 
+  const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
+
   return (
     <Container component="section" sx={{ ...flexCenter, ...container }}>
       <Box sx={titleContainer}>
         <Typography variant="h2" sx={{ justifySelf: 'center' }}>Customers Say</Typography>
-        <Button variant="standard" sx={TitleBtn} onClick={handleOpenModalReview}>
-          {isLgTablet && <Typography mr={1}>Create your own review</Typography>}
-          <AddCircleOutlineIcon />
-        </Button>
+        {isUserAuthorized && (
+          <Button variant="standard" sx={TitleBtn} onClick={handleOpenModalReview}>
+            {isLgTablet && <Typography mr={1}>Create your own review</Typography>}
+            <AddCircleOutlineIcon />
+          </Button>
+        )}
+
       </Box>
       <Box sx={commentList}>
-        {reviews.slice(0, currentIndex).map((item) => (
+        {sortedReviews.slice(0, currentIndex).map((item) => (
           <Box sx={commentItem}>
             <ReviewItem key={item._id} review={item} />
           </Box>
