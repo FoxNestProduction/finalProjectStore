@@ -31,16 +31,11 @@ const Cart = () => {
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
   // console.log(cartProducts.map((product) => product.cartQuantity));
+  console.log(cartProducts);
+  // cartProducts.pop();
   // console.log(userIsHasCart);
   // console.log(isUserAuthorization);
   // console.log(userToken);
-  const cart = [{
-    product: {
-      _id: '650a7b0961d4eecf99b85ef6',
-    },
-    cartQuantity: 1,
-  },
-  { ...cartProducts[0] }];
   const totalSum = 24.55;
 
   const getCart = () => {
@@ -52,8 +47,8 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    getCart();
-    updateCartAfterCloseWindow(isUserAuthorization, cartProducts);
+    // getCart();
+    updateCartAfterCloseWindow(cartProducts);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuthorization]);
 
@@ -61,7 +56,7 @@ const Cart = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
         console.log('We must update cart');
-        updateCart(cart);
+        updateCart(cartProducts);
       } else {
         console.log('We must create cart');
         createCart(cartProducts);
@@ -86,8 +81,8 @@ const Cart = () => {
         <Box
           sx={cartProductsContainer}
         >
-          {cartProducts.map((product) => (
-            <ProductCartItem key={product.id} {...product} />
+          {cartProducts.map(({ product, cartQuantity }) => (
+            <ProductCartItem key={product._id} cartQuantity={cartQuantity} {...product} />
           ))}
         </Box>
         <Button

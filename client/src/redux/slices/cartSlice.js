@@ -60,8 +60,21 @@ const cartSlice = createSlice({
           cartProductObj.cartQuantity += matchedProduct.cartQuantity;
           return cartProductObj;
         });
-        state.cart.products = { ...uniqueFilteredProducts, ...notUniqueFilteredProducts };
+        const uniqueFilteredProductsFromStore = state.cart.products.filter((cartProductObj) => {
+          const uniqueStoreProducts = action.payload
+            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
+          const mark = uniqueStoreProducts === undefined;
+          return mark;
+        });
+        state.cart.products = [
+          ...uniqueFilteredProducts,
+          ...notUniqueFilteredProducts,
+          ...uniqueFilteredProductsFromStore,
+        ];
       }
+    },
+    resetCart(state) {
+      state.cart.products = [];
     },
     setIsLoading(state, action) {
       state.isLoading = action.payload;
@@ -73,7 +86,7 @@ const cartSlice = createSlice({
       // 1 - ий варіант - коли нам в action.payload надходить повний об'єкт item
       if (state.cart.products.length) {
         const index = state.cart.products
-          .findIndex((productObj) => productObj.id === action.payload.id);
+          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
         if (index !== -1) {
           if (state.cart.products[index].cartQuantity === 1) {
             state.cart.products.splice(index, 1);
@@ -92,7 +105,7 @@ const cartSlice = createSlice({
     addOneMore(state, action) {
       if (state.cart.products.length) {
         const index = state.cart.products
-          .findIndex((product) => product.id === action.payload.id);
+          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
         console.log(index);
         if (index !== -1) {
           state.cart.products[index].cartQuantity += 1;
@@ -109,6 +122,7 @@ export const {
   deleteFromCart,
   setIsCart,
   addOneMore,
+  resetCart,
 } = cartSlice.actions;
 
 export const getCartItemsFromServer = () => async (dispatch) => {

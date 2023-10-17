@@ -12,10 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
 import { cartIconContainer, imgBox, textContentBox, textContent, buttonStyles, quantityStyle } from './styles';
 
-const ProductCartItem = ({ id, name, cartQuantity, currentPrice, imageUrl }) => {
+const ProductCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
   const cartProducts = useSelector((state) => state.cart.cart.products);
   const dispatch = useDispatch();
-  const index = cartProducts.findIndex((product) => product.id === id);
+  const index = cartProducts.findIndex(({ product }) => product._id === _id);
   const handleDeleteOne = () => {
     if (index !== -1) {
       const foundObject = cartProducts[index];
@@ -75,7 +75,7 @@ ProductCartItem.propTypes = {
   imageUrl: PropTypes.string,
   name: PropTypes.string,
   cartQuantity: PropTypes.number,
-  id: PropTypes.string,
+  _id: PropTypes.string,
 };
 
 ProductCartItem.defaultProps = {
@@ -83,7 +83,7 @@ ProductCartItem.defaultProps = {
   imageUrl: './img/salads/3.png',
   name: 'Chicken Hell',
   cartQuantity: 3,
-  id: '',
+  _id: '',
 };
 
 export default ProductCartItem;

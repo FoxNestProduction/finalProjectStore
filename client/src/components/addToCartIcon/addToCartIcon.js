@@ -9,7 +9,7 @@ import { cartIcons, cartIconsButton } from './styles.js';
 
 const AddToCartIcon = ({ id }) => {
   const cart = useSelector((state) => state.cart.cart.products);
-  const products = useSelector((state) => state.products.products);
+  
   const dispatch = useDispatch();
   let selectedItem;
   const handleAddToCart = (event) => {

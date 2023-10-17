@@ -45,7 +45,7 @@ const updateCart = async (cartProducts) => {
   }
 };
 
-const updateCartAfterCloseWindow = (isUserAuthorization, cartProducts) => {
+const updateCartAfterCloseWindow = (cartProducts) => {
   const handleUnload = () => {
     updateCart(cartProducts);
   };
