@@ -39,6 +39,7 @@ import { setFavourite } from '../../../redux/slices/favouriteSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_LS_KEY } from '../../../constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
+import { instance } from '../../../API/instance';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (values, actions) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/customers/login', values);
+      const response = await instance.post('/customers/login', values);
       const { token } = response.data;
       const { user } = response.data;
       if (token) {
