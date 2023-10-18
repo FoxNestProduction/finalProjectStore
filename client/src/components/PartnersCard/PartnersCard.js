@@ -10,6 +10,11 @@ const PartnersCard = ({ partnersName }) => {
 
   const nameOfPartners = fixedDecodeURIComponent(partnersName);
   const rest = partners.find((item) => item.name.toLowerCase() === nameOfPartners);
+  const styleRestaurantCard = {
+    mobile: 315,
+    lgTablet: 881,
+    desktop: 1285,
+  };
 
   return (
     <Container
@@ -21,7 +26,7 @@ const PartnersCard = ({ partnersName }) => {
       }}
     >
 
-      <RestaurantCard {...rest} />
+      <RestaurantCard {...rest} styleWidth={styleRestaurantCard} />
     </Container>
   );
 };

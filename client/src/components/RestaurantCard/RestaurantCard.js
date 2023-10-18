@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
 
-const RestaurantCard = ({ rating, name, imageUrl, description }) => {
+const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => {
   const [desc, setDesc] = useState(false);
   console.log(description);
   return (
@@ -22,12 +22,10 @@ const RestaurantCard = ({ rating, name, imageUrl, description }) => {
         display: 'flex',
         alignItems: 'center',
         flexWrap: 'wrap',
-        maxWidth: {
-          mobile: 315,
-          lgTablet: 881,
-          desktop: 1285,
-        },
+        width: '100%',
+        maxWidth: { ...styleWidth },
         margin: '0 auto',
+        marginBottom: '50px',
         boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
         '&:hover .MuiCardMedia-img': {
           transform: 'scale(1.05)',
@@ -47,7 +45,7 @@ const RestaurantCard = ({ rating, name, imageUrl, description }) => {
           alt={name}
           sx={{
             transition: '.3s',
-            height: { mobile: '140px', lgTablet: '268px', desktop: '378px' },
+            height: { mobile: '140px', tablet: '220px', lgTablet: '268px', desktop: '378px' },
           }}
         />
       </Box>
@@ -139,18 +137,23 @@ const RestaurantCard = ({ rating, name, imageUrl, description }) => {
       </Stack>
       <Stack direction="row" justifyContent="flex-end" width="100%" m="15px">
         <Button
+          disableSpacing
           variant="contained"
           sx={{
             borderRadius: '14px',
             border: '1px solid primary.main',
-            fontSize: { mobile: '14px', tablet: '18px' },
+            fontSize: { mobile: '14px', lgTablet: '18px' },
             transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
             ':hover': {
               backgroundColor: 'primary.hover',
               boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
+              zIndex: 100,
             },
           }}
-          onClick={() => setDesc((prev) => !prev)}
+          onClick={(e) => {
+            e.preventDefault();
+            setDesc((prev) => !prev);
+          }}
         >
           {desc ? 'Close' : 'Show more'}
         </Button>
@@ -172,6 +175,7 @@ RestaurantCard.propTypes = {
   name: PropTypes.string,
   imageUrl: PropTypes.string,
   description: PropTypes.bool,
+  styleWidth: PropTypes.object,
 };
 
 RestaurantCard.defaultProps = {
@@ -179,6 +183,7 @@ RestaurantCard.defaultProps = {
   name: 'The Chicken King',
   imageUrl: './img/restaurants/Resturent01.jpg',
   description: false,
+  styleWidth: {},
 };
 
 export default RestaurantCard;

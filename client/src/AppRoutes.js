@@ -18,7 +18,7 @@ const AppRoutes = () => {
       <Route element={<PublicLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/menu" element={<MenuPage />} />
-        <Route path="/restaurant" element={<RestaurantPage />} />
+        <Route path="/restaurants" element={<RestaurantPage />} />
         <Route path="/reviews" element={<ReviewsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />

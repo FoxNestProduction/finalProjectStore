@@ -14,7 +14,7 @@ const ListItemAction = () => {
       >
         <Link
           underline="none"
-          href="/Menu"
+          href="/restaurants"
           color="text.secondaryGray"
           sx={linkStyles}
         >

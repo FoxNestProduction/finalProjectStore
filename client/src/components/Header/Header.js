@@ -74,7 +74,7 @@ const Header = () => {
     dispatch(setAuthorization(false));
   };
 
-  const navItems = ['Menu', 'Restaurant', 'Reviews', 'Contact'];
+  const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
 
   return (
     <>
