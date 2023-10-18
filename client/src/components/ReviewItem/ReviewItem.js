@@ -9,9 +9,9 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
-import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent } from './styles';
+import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, stylesText } from './styles';
 
 const ReviewItem = ({ review }) => {
   const [isShow, setIsShow] = useState(false);
@@ -24,36 +24,36 @@ const ReviewItem = ({ review }) => {
   const formattedDate = `${day}.${month}.${year}`;
 
   return (
-    <Container>
-      <Card sx={stylesCardReview}>
-        {!isShow && (
-        <CardHeader
-          avatar={(
-            <Avatar>
-              { avatarUrl || <PersonOutlineOutlinedIcon /> }
-            </Avatar>
-          )}
-          title={
-            userReview
-          }
-          action={
-            <FormatQuoteRoundedIcon sx={stylesQuoteIcon} />
-          }
-        />
+    <Card sx={stylesCardReview}>
+      {!isShow && (
+      <CardHeader
+        avatar={(
+          <Avatar>
+            { avatarUrl || <PersonOutlineOutlinedIcon /> }
+          </Avatar>
         )}
-        <CardContent sx={stylesContent}>
+        title={
+          userReview
+        }
+        action={
+          <FormatQuoteRoundedIcon sx={stylesQuoteIcon} />
+        }
+      />
+      )}
+      <CardContent sx={stylesContent}>
+        <Box sx={stylesText}>
           {content}
-        </CardContent>
-        <CardActions sx={stylesActionCard}>
-          <Rating
-            name="simple-controlled"
-            value={ratingNumber}
-            readOnly
-          />
-          <Typography sx={{ color: 'text.secondary' }}>{formattedDate}</Typography>
-        </CardActions>
-      </Card>
-    </Container>
+        </Box>
+      </CardContent>
+      <CardActions sx={stylesActionCard}>
+        <Rating
+          name="simple-controlled"
+          value={ratingNumber}
+          readOnly
+        />
+        <Typography sx={{ color: 'text.secondary' }}>{formattedDate}</Typography>
+      </CardActions>
+    </Card>
   );
 };
 

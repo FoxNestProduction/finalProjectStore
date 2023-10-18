@@ -1,0 +1,88 @@
+.swiperScrollbar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 8px;
+  width: 100%;
+  background-color: #6C5FBC;
+  border-radius: 16px;
+  opacity: 0.4;
+}
+
+.swiperScrollbar.active {
+  background-color: #6C5FBC;
+}
+
+.swiperScrollbarDrag {
+  background-color: #6C5FBC;
+}
+
+.wrapperFirst {
+  @media (min-width: 691px) {
+    width: 30vw;
+  } 
+  @media (min-width: 691px) {
+    width: 50vw;
+  } 
+  @media (min-width: 991px) {
+    width: 30vw;
+  } 
+  height: 100%;
+}
+.wrapper {
+  position: relative;
+  height: 100%;
+  padding-bottom: 63px;
+  @media (min-width: 481px) {
+    width: 100vw;
+  } 
+  @media (min-width: 691px) {
+    width: 50vw;
+  } 
+  @media (min-width: 991px) {
+    width: 70vw;
+  } 
+}
+
+// .swiperWrapper {
+//   // width: fit-content;
+//   height: 100%;
+//   overflow: hidden;
+//   display: flex;
+// }
+
+// .swiperScrollbar {
+//   position: absolute;
+//   right: 0px;
+//   bottom: 0px;
+//   width: 60%;
+//   height: 12px;
+//   background-color: #dbd9ee;
+//   border-radius: 55px;
+//   cursor: pointer;
+//   transition: 0.3s;
+// }
+
+// .swiperScrollbarActive {
+//   position: absolute;
+//   right: 0px;
+//   bottom: 0px;
+//   width: 60%;
+//   height: 12px;
+//   background-color: green;
+//   border-radius: 55px;
+//   cursor: pointer;
+//   transition: 0.3s;
+// }
+
+// .swiperScrollbarItem {
+//   width: 10%;
+//   height: 100%;
+//   // backgroundColor: 'primary.main',
+//   border-radius: 55px;
+//   cursor: pointer;
+//   transition: 0.3s;
+//   &.active {
+//     background-color: #6c5fbc;
+//   }
+// }

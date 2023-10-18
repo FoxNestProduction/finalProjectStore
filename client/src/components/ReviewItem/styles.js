@@ -7,7 +7,7 @@ export const stylesCardReview = {
   },
   width: {
     mobile: '100%',
-    tablet: '37%',
+    // tablet: '37%',
   },
   px: '9px',
   pt: { mobile: '10px', tablet: '22px' },
@@ -28,13 +28,24 @@ export const stylesContent = {
     desktop: '16px',
   },
   fontStyle: 'italic',
-  overflow: 'auto',
+  // overflow: 'auto',
   height: '45%',
   pb: {
     mobile: 10,
     tablet: 14,
     desktop: 16,
   },
+  maxHeight: '180px',
+};
+
+export const stylesText = {
+  height: '56px',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  display: '-webkit-box',
+  WebkitLineClamp: 3,
+  WebkitBoxDisplay: 'box',
+  WebkitBoxOrient: 'vertical',
 };
 
 export const stylesActionCard = {
