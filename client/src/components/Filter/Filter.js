@@ -1,4 +1,4 @@
-import { Button, CardMedia, Container, Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Button, CardMedia, Container, MenuItem, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -12,9 +12,11 @@ import {
   stylesCategoryIconsWrap,
   stylesCategoryItem,
   stylesToggleButton,
+  stylesSortSelect,
 } from './styles';
 import { setFilter } from '../../redux/slices/filterSlice';
 import { setSearch } from '../../redux/slices/searchSlice';
+import setInputValue from '../Search/Search';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -32,6 +34,106 @@ const Filter = () => {
   const [mostPopular, setMostPopular] = React.useState(false);
   const [fastDelivery, setFastDelivery] = React.useState(false);
   const [valueSlider, setValueSlider] = React.useState();
+
+  // const items = [
+  //   {_id:{"$oid":"6507a306baee59670a047307"},
+  //   restaurant_name:"Welcome Pizzeria",
+  //   name:"Margherita Pizza",
+  //   description:"Classic pizza with rich tomato sauce, .",
+  //   currentPrice:"12.99",
+  //   isFavourite:false,
+  //   isTranding:false,
+  //   isSupreme:false,
+  //   isHealthy:true,
+  //   rating:"4",
+  //   filterCategories:"pizza",
+  //   enabled:true},
+  //   {_id:{"$oid":"6507a306baee59670a047307"},
+  //   restaurant_name:"Welcome Pizzeria",
+  //   name:"Margherita Pizza",
+  //   description:"Classic pizza with rich tomato sauce, .",
+  //   currentPrice:"11.99",
+  //   isFavourite:false,
+  //   isTranding:false,
+  //   isSupreme:false,
+  //   isHealthy:true,
+  //   rating:"4",
+  //   filterCategories:"burgers",
+  //   enabled:true},
+  //   {_id:{"$oid":"6507a306baee59670a047307"},
+  //   restaurant_name:"Welcome Pizzeria",
+  //   name:"Margherita Pizza",
+  //   description:"Classic pizza with rich tomato sauce, ",
+  //   currentPrice:"12.99",
+  //   isFavourite:false,
+  //   isTranding:false,
+  //   isSupreme:false,
+  //   isHealthy:true,
+  //   rating:"4",
+  //   filterCategories:"sushi",
+  //   enabled:true},
+  //   {_id:{"$oid":"6507a306baee59670a047307"},
+  //   restaurant_name:"Welcome Pizzeria",
+  //   name:"Margherita Pizza",
+  //   description:"Classic pizza with rich tomato sauce, .",
+  //   currentPrice:"12.99",
+  //   isFavourite:false,
+  //   isTranding:false,
+  //   isSupreme:false,
+  //   isHealthy:true,
+  //   rating:"4",
+  //   filterCategories:"salads",
+  //   enabled:true},
+  //   {_id:{"$oid":"6507a306baee59670a047307"},
+  //   restaurant_name:"Welcome Pizzeria",
+  //   name:"Margherita Pizza",
+  //   description:"Classic pizza with rich tomato sauce, .",
+  //   currentPrice:"9",
+  //   isFavourite:false,
+  //   isTranding:false,
+  //   isSupreme:false,
+  //   isHealthy:true,
+  //   rating:"4",
+  //   filterCategories:"pizza",
+  //   enabled:true},
+  //   {_id:{"$oid":"6507a306baee59670a047307"},
+  //   restaurant_name:"Welcome Pizzeria",
+  //   name:"Margherita Pizza",
+  //   description:"Classic pizza with rich tomato sauce, .",
+  //   currentPrice:"10",
+  //   isFavourite:false,
+  //   isTranding:false,
+  //   isSupreme:false,
+  //   isHealthy:true,
+  //   rating:"4",
+  //   filterCategories:"pasta",
+  //   enabled:true},
+  //   {_id:{"$oid":"6507a306baee59670a047307"},
+  //   restaurant_name:"Welcome Pizzeria",
+  //   name:"Margherita Pizza",
+  //   description:"Classic pizza with rich tomato sauce, .",
+  //   currentPrice:"15",
+  //   isFavourite:false,
+  //   isTranding:false,
+  //   isSupreme:false,
+  //   isHealthy:true,
+  //   rating:"4",
+  //   filterCategories:"burgers",
+  //   enabled:true},
+  //   {_id:{"$oid":"6507a306baee59670a047307"},
+  //   restaurant_name:"Welcome Pizzeria",
+  //   name:"Margherita Pizza",
+  //   description:"Classic pizza with rich tomato sauce, melted cheese.",
+  //   currentPrice:"18",
+  //   isFavourite:false,
+  //   isTranding:false,
+  //   isSupreme:false,
+  //   isHealthy:true,
+  //   rating:"4",
+  //   filterCategories:"salads",
+  //   enabled:true}
+  // ]
+
   const marks = [
     {
       value: 0,
@@ -51,103 +153,151 @@ const Filter = () => {
     },
   ];
 
+  const currencies = [
+    {
+      value: 'Sort name A -> X',
+      label: 'Sort name A -> X',
+    },
+    {
+      value: 'Sort name X -> A',
+      label: 'Sort name X -> A',
+    },
+    {
+      value: 'Sort price 0 -> 30',
+      label: 'Sort price 0 -> 30',
+    },
+    {
+      value: 'Sort price 30 -> 0',
+      label: 'Sort price 30 -> 0',
+    },
+  ];
+
+  const filterOptions = {
+    burgers: `${burgers}`,
+    pizza: `${pizza}`,
+    sushi: `${sushi}`,
+    salads: `${salads}`,
+    pasta: `${pasta}`,
+    sandwiches: `${sandwiches}`,
+    bbqMeat: `${bbqMeat}`,
+    drink: `${drink}`,
+    // recomended: `${recomended}`,
+    // mostPopular: `${mostPopular}`,
+    // fastDelivery: `${fastDelivery}`,
+    // valueSlider: `${valueSlider}`,
+  };
+
   // const filterOptions = {
-  //   burgers: `${burgers}`,
-  //   pizza: `${pizza}`,
-  //   sushi: `${sushi}`,
-  //   salads: `${salads}`,
-  //   pasta: `${pasta}`,
-  //   sandwiches: `${sandwiches}`,
-  //   bbqMeat: `${bbqMeat}`,
-  //   drink: `${drink}`,
-  //   recomended: `${recomended}`,
-  //   mostPopular: `${mostPopular}`,
-  //   fastDelivery: `${fastDelivery}`,
-  //   valueSlider: `${valueSlider}`,
+  //   burgers: true,
+  //   pizza: false,
+  //   sushi: true,
+  //   salads: false,
+  //   pasta: true,
+  //   sandwiches: false,
+  //   bbqMeat: false,
+  //   drink: false,
+  //   recomended: true,
+  //   mostPopular: false,
+  //   fastDelivery: false,
+  //   valueSlider: false,
   // };
 
   const valuetext = (value) => {
     return (`${value}$`, setValueSlider(value));
   };
 
-  const getFilteredProducts = (options) => {
-    let filteredProducts = [];
-    filteredProducts = filteredProducts.concat(
-      products.filter((element) => { // eslint-disable-line
-        if (pizza && element.filterCategories === 'pizza') {
-          return element;
-        }
-      }),
-    );
-    filteredProducts = filteredProducts.concat(
-      products.filter((element) => { // eslint-disable-line
-        if (burgers && element.filterCategories === 'burgers') {
-          return element;
-        }
-      }),
-    );
-    filteredProducts = filteredProducts.concat(
-      products.filter((element) => { // eslint-disable-line
-        if (sushi && element.filterCategories === 'sushi') {
-          return element;
-        }
-      }),
-    );
-    filteredProducts = filteredProducts.concat(
-      products.filter((element) => { // eslint-disable-line
-        if (salads && element.filterCategories === 'salads') {
-          return element;
-        }
-      }),
-    );
-    filteredProducts = filteredProducts.concat(
-      products.filter((element) => { // eslint-disable-line
-        if (pasta && element.filterCategories === 'pasta') {
-          return element;
-        }
-      }),
-    );
-    filteredProducts = filteredProducts.concat(
-      products.filter((element) => { // eslint-disable-line
-        if (sandwiches && element.filterCategories === 'sandwiches') {
-          return element;
-        }
-      }),
-    );
-    filteredProducts = filteredProducts.concat(
-      products.filter((element) => { // eslint-disable-line
-        if (bbqMeat && element.filterCategories === 'bbqMeat') {
-          return element;
-        }
-      }),
-    );
-    filteredProducts = filteredProducts.concat(
-      products.filter((element) => { // eslint-disable-line
-        if (drink && element.filterCategories === 'drink') {
-          return element;
-        }
-      }),
-    );
+  // const getFilteredProducts = (options) => {
+  //   let filteredProducts = [];
+  //   filteredProducts = filteredProducts.concat(
+  //     products.filter((element) => { // eslint-disable-line
+  //       if (pizza && element.filterCategories === 'pizza') {
+  //         return element;
+  //       }
+  //     }),
+  //   );
+  //   filteredProducts = filteredProducts.concat(
+  //     products.filter((element) => { // eslint-disable-line
+  //       if (burgers && element.filterCategories === 'burgers') {
+  //         return element;
+  //       }
+  //     }),
+  //   );
+  //   filteredProducts = filteredProducts.concat(
+  //     products.filter((element) => { // eslint-disable-line
+  //       if (sushi && element.filterCategories === 'sushi') {
+  //         return element;
+  //       }
+  //     }),
+  //   );
+  //   filteredProducts = filteredProducts.concat(
+  //     products.filter((element) => { // eslint-disable-line
+  //       if (salads && element.filterCategories === 'salads') {
+  //         return element;
+  //       }
+  //     }),
+  //   );
+  //   filteredProducts = filteredProducts.concat(
+  //     products.filter((element) => { // eslint-disable-line
+  //       if (pasta && element.filterCategories === 'pasta') {
+  //         return element;
+  //       }
+  //     }),
+  //   );
+  //   filteredProducts = filteredProducts.concat(
+  //     products.filter((element) => { // eslint-disable-line
+  //       if (sandwiches && element.filterCategories === 'sandwiches') {
+  //         return element;
+  //       }
+  //     }),
+  //   );
+  //   filteredProducts = filteredProducts.concat(
+  //     products.filter((element) => { // eslint-disable-line
+  //       if (bbqMeat && element.filterCategories === 'bbqMeat') {
+  //         return element;
+  //       }
+  //     }),
+  //   );
+  //   filteredProducts = filteredProducts.concat(
+  //     products.filter((element) => { // eslint-disable-line
+  //       if (drink && element.filterCategories === 'drink') {
+  //         return element;
+  //       }
+  //     }),
+  //   );
 
-    if (filteredProducts.length !== 0) {
-      filteredProducts = filteredProducts.filter((element) => { // eslint-disable-line
-        if (element.currentPrice <= valueSlider) {
-          return element;
-        }
-      });
-    } else {
-      filteredProducts = products.filter((element) => { // eslint-disable-line
-        if (element.currentPrice < `${valueSlider}`) {
-          return element;
-        }
-      });
-    }
-    return filteredProducts;
-  };
+  //   if (filteredProducts.length !== 0) {
+  //     filteredProducts = filteredProducts.filter((element) => { // eslint-disable-line
+  //       if (element.currentPrice <= valueSlider) {
+  //         return element;
+  //       }
+  //     });
+  //   } else {
+  //     filteredProducts = products.filter((element) => { // eslint-disable-line
+  //       if (element.currentPrice < `${valueSlider}`) {
+  //         return element;
+  //       }
+  //     });
+  //   }
+  //   return filteredProducts;
+  // };
 
-  const handleApplyFilter = () => {
-    dispatch(setFilter(getFilteredProducts()));
-  };
+  // const handleApplyFilter = () => {
+  //   dispatch(setFilter(getFilteredProducts()));
+  // };
+  // console.log(getFilteredProducts());
+
+  const filteredItems = products.filter((prod) => {
+    const category = prod.filterCategories;
+    const price = prod.currentPrice;
+    console.log(filterOptions[category]);
+    return filterOptions[category] && price < valueSlider;
+  });
+
+  console.log(filteredItems);
+
+  // const handleApplyFilter = () => {
+  //   dispatch(setFilter(filteredItems));
+  // };
 
   return (
     <Stack component="section" sx={stylesWrap}>
@@ -322,16 +472,35 @@ const Filter = () => {
             </ToggleButton>
           </Stack>
 
-          <ToggleButton
-            sx={stylesSortBtn}
-            value="mostPopular"
-            selected={mostPopular}
-            onChange={() => {
-              setMostPopular(!mostPopular);
-            }}
-          >
-            Most Popular
-          </ToggleButton>
+          <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
+            <ToggleButton
+              sx={stylesSortBtn}
+              value="mostPopular"
+              selected={mostPopular}
+              onChange={() => {
+                setMostPopular(!mostPopular);
+              }}
+            >
+              Most Popular
+            </ToggleButton>
+
+            <TextField
+              sx={stylesSortSelect}
+              id="standard-select-currency"
+              size="small"
+              select
+              label="Select"
+              defaultValue=""
+              helperText="Please select your sort by"
+              variant="standard"
+            >
+              {currencies.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Stack>
         </Stack>
       </Stack>
 
@@ -344,7 +513,7 @@ const Filter = () => {
             sx={stylesSlider}
             max={30}
             aria-label="Always visible"
-            defaultValue={25}
+            defaultValue={15}
             getAriaValueText={valuetext}
             step={1}
             marks={marks}
@@ -352,7 +521,12 @@ const Filter = () => {
           />
         </Box>
       </Stack>
-      <Button sx={stylesBtn} onClick={handleApplyFilter}>Apply</Button>
+      <Button
+        sx={stylesBtn}
+        // onClick={handleApplyFilter}
+      >
+        Apply
+      </Button>
     </Stack>
   );
 };

@@ -13,7 +13,7 @@ const MenuPage = () => {
   const dispatch = useDispatch();
   const itemsFromSearch = useSelector((state) => state.search.search);
   const itemsFromFilter = useSelector((state) => state.filter.filter);
-  console.log(itemsFromFilter);
+  // console.log(itemsFromFilter);
   const keyFromSearch = useSelector((state) => state.search.key);
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
@@ -23,24 +23,24 @@ const MenuPage = () => {
     dispatch(setSearch([]));
   }, [dispatch]);
 
-  const changeItems = () => {
-    let prod = [];
-    if (keyFromSearch === 'food' && itemsFromSearch.length !== 0) {
-      prod = itemsFromSearch;
-    }
-    if (keyFromSearch === 'food' && itemsFromFilter.length !== 0) {
-      prod = itemsFromFilter;
-      dispatch(setSearch([]));
-    } else {
-      prod = products;
-    }
-    return prod;
-  };
+  // const changeItems = () => {
+  //   let prod = [];
+  //   if (keyFromSearch === 'food' && itemsFromSearch.length !== 0) {
+  //     prod = itemsFromSearch;
+  //   }
+  //   if (itemsFromFilter.length !== 0) {
+  //     prod = itemsFromFilter;
+  //     dispatch(setSearch([]));
+  //   } else {
+  //     prod = products;
+  //   }
+  //   return prod;
+  // };
   return (
     <>
       <SectionSwipperFilterSearch />
 
-      {keyFromSearch === 'restaurant' && (
+      {/* {keyFromSearch === 'restaurant' && (
         <ListItems
           title={itemsFromSearch.length !== 0 ? 'Search Results' : ''}
           items={itemsFromSearch}
@@ -50,13 +50,37 @@ const MenuPage = () => {
         />
       )}
 
+      {keyFromSearch === 'food' && itemsFromSearch.length !== 0 && (
+        <ListItems
+          title={keyFromSearch === 'food' && itemsFromSearch.length !== 0 ?
+          'Search Results' : 'Our Dishes'}
+          items={itemsFromSearch.length !== 0 ? itemsFromSearch : products}
+          itemComponent={ProductCardItem}
+          actions={null}
+          type="food"
+        />
+      )} */}
+
+      {/* {itemsFromFilter.length !== 0 && ( */}
       <ListItems
-        title={keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? 'Search Results' : 'Our Dishes'}
-        items={changeItems}
+        title={itemsFromFilter.length !== 0 ? 'Search Results' : 'Our Dishes'}
+        items={itemsFromFilter.length !== 0 ? itemsFromFilter : products}
+        // items={changeItems()}
         itemComponent={ProductCardItem}
         actions={null}
         type="food"
       />
+      {/* )} */}
+
+      {/* {products && (
+        <ListItems
+          title="Our Dishes"
+          items={itemsFromFilter.length !== 0 ? itemsFromFilter : products}
+          itemComponent={ProductCardItem}
+          actions={null}
+          type="food"
+        />
+      )} */}
 
       <ListItems
         title="Our Top Restaurants"
