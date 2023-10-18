@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="67619bbd-f387-44c6-897c-257b1c41c7f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Vo2ONBPn6JQwdqcE4mOxfTUIX6" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "deploy__settings",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/ihork/OneDrive/Робочий стіл/finalProjectStore/client/src/components/forms/RegisterForm",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ihork\OneDrive\Робочий стіл\finalProjectStore\client\src\components\forms\RegisterForm" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ihork\OneDrive\Робочий стіл\finalProjectStore\client\src\pages\NotFound" />
+      <recent name="C:\Users\ihork\OneDrive\Робочий стіл\finalProjectStore\client\src\customHooks" />
+      <recent name="C:\Users\ihork\OneDrive\Робочий стіл\finalProjectStore\client\src" />
+      <recent name="C:\Users\ihork\OneDrive\Робочий стіл\finalProjectStore\client\public\img\layout" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="67619bbd-f387-44c6-897c-257b1c41c7f1" name="Changes" comment="" />
+      <created>1695488080228</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695488080228</updated>
+      <workItem from="1695488082256" duration="1420000" />
+      <workItem from="1695521385336" duration="1928000" />
+      <workItem from="1695537648749" duration="286000" />
+      <workItem from="1695537962556" duration="13333000" />
+      <workItem from="1695559035500" duration="4771000" />
+      <workItem from="1695645485761" duration="455000" />
+      <workItem from="1695654223999" duration="2939000" />
+      <workItem from="1695658184261" duration="3788000" />
+      <workItem from="1695747491913" duration="15719000" />
+      <workItem from="1695809482675" duration="14091000" />
+      <workItem from="1695828499046" duration="12035000" />
+      <workItem from="1695909763646" duration="4497000" />
+      <workItem from="1695914443537" duration="365000" />
+      <workItem from="1695917389117" duration="1677000" />
+      <workItem from="1695920668070" duration="1421000" />
+      <workItem from="1695986868579" duration="8806000" />
+      <workItem from="1696006451662" duration="8789000" />
+      <workItem from="1696019561875" duration="769000" />
+      <workItem from="1696078571439" duration="9716000" />
+      <workItem from="1696094396306" duration="7033000" />
+      <workItem from="1696160945585" duration="34529000" />
+      <workItem from="1696251533444" duration="13109000" />
+      <workItem from="1696344790569" duration="19193000" />
+      <workItem from="1696381152753" duration="5981000" />
+      <workItem from="1696440690565" duration="16007000" />
+      <workItem from="1696466154628" duration="5257000" />
+      <workItem from="1696523254421" duration="11262000" />
+      <workItem from="1696613139317" duration="1770000" />
+      <workItem from="1696690253764" duration="2066000" />
+      <workItem from="1696701113994" duration="5844000" />
+      <workItem from="1696782912107" duration="1592000" />
+      <workItem from="1696784542062" duration="22000" />
+      <workItem from="1696784671656" duration="17397000" />
+      <workItem from="1696846977863" duration="9623000" />
+      <workItem from="1696866181537" duration="1945000" />
+      <workItem from="1696956758017" duration="2396000" />
+      <workItem from="1696990222444" duration="139000" />
+      <workItem from="1697055532666" duration="13571000" />
+      <workItem from="1697137291911" duration="3334000" />
+      <workItem from="1697165777686" duration="27854000" />
+      <workItem from="1697202363175" duration="698000" />
+      <workItem from="1697240589356" duration="283000" />
+      <workItem from="1697289752943" duration="1182000" />
+      <workItem from="1697308035272" duration="5244000" />
+      <workItem from="1697372554683" duration="44124000" />
+      <workItem from="1697471199089" duration="4877000" />
+      <workItem from="1697490759478" duration="5839000" />
+      <workItem from="1697512033738" duration="350000" />
+      <workItem from="1697512518764" duration="5104000" />
+      <workItem from="1697527883555" duration="9330000" />
+      <workItem from="1697571984663" duration="245000" />
+      <workItem from="1697572239511" duration="27000" />
+      <workItem from="1697572565224" duration="2595000" />
+      <workItem from="1697605298548" duration="1085000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="ee8fd873-0402-4918-ac6c-c8a6fcfd799a" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/loginComponent" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="ee8fd873-0402-4918-ac6c-c8a6fcfd799a">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

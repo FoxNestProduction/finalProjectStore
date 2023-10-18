@@ -1,0 +1,17 @@
+Index: client/src/components/SectionSwipper&Filter&Search/styles.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>export const stylesGridConteiner = {\r\n  justifyContent: 'center',\r\n  display: 'grid',\r\n  mb: '40px',\r\n  gridTemplateAreas: {\r\n    mobile: `\"a\"\r\n    \"b\"\r\n    \"c\"`,\r\n    tablet: `\"a\"\r\n      \"b\"\r\n      \"c\"`,\r\n    lgTablet: `\"a b\"            \r\n    \"c b\"`,\r\n    desktop: `\"a b\"              \r\n      \"c b\"`,\r\n  },\r\n  gridTemplateColumns: {\r\n    mobile: '1fr',\r\n    tablet: '1fr',\r\n    lgTablet: '2.05fr 0.95fr',\r\n  },\r\n  columnGap: {\r\n    mobile: '0',\r\n    tablet: '0',\r\n    lgTablet: '1vw',\r\n    desktop: '3vw',\r\n  },\r\n  rowGap: {\r\n    mobile: '7vh',\r\n    tablet: '4vh',\r\n    lgTablet: '0',\r\n  },\r\n  gridTemplateRows: {\r\n    mobile: 'auto',\r\n    tablet: 'auto',\r\n    lgTablet: '2.2fr 0.8fr',\r\n  },\r\n};\r\n\r\nexport const stylesSwipper = {\r\n  gridArea: 'a',\r\n  alignSelf: 'center',\r\n  overflow: 'hidden',\r\n};\r\n\r\nexport const stylesFilter = {\r\n  gridArea: 'b',\r\n  alignSelf: 'start',\r\n};\r\n\r\nexport const stylesSearch = {\r\n  gridArea: 'c',\r\n  alignSelf: 'center',\r\n};\r\n
+===================================================================
+diff --git a/client/src/components/SectionSwipper&Filter&Search/styles.js b/client/src/components/SectionSwipper&Filter&Search/styles.js
+--- a/client/src/components/SectionSwipper&Filter&Search/styles.js	
++++ b/client/src/components/SectionSwipper&Filter&Search/styles.js	
+@@ -26,7 +26,7 @@
+     desktop: '3vw',
+   },
+   rowGap: {
+-    mobile: '7vh',
++    mobile: '4vh',
+     tablet: '4vh',
+     lgTablet: '0',
+   },

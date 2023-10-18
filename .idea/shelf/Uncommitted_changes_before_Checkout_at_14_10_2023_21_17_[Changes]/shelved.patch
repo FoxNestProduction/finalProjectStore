@@ -1,0 +1,18 @@
+Index: client/src/pages/Home/Home.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport { shallowEqual, useSelector } from 'react-redux';\r\nimport SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';\r\nimport ListItems from '../../components/ListItems/ListItem';\r\nimport RestaurantItem from '../../components/RestaurantItem/RestaurantItem';\r\nimport ProductCardItem from '../../components/ProductCardItem/ProductCardItem';\r\nimport ListItemAction from '../../components/ListItems/ListItemAction';\r\nimport { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';\r\nimport useSortedItems from '../../customHooks/useSortedItems';\r\nimport Features from '../../components/Features/Features';\r\nimport MobileApp from '../../components/MobileApp/MobileApp';\r\nimport SwiperBanner from '../../components/SwiperBanner/SwiperBanner';\r\n\r\nconst HomePage = () => {\r\n  const partners = useSelector((state) => state.partners.partners, shallowEqual);\r\n  const sortedPartners = useSortedItems(partners, partnersCardWidth);\r\n  const products = useSelector((state) => state.products.products);\r\n  const sortedProducts = useSortedItems(products, productsCardWidth);\r\n  return (\r\n    <>\r\n      <SectionGetStarted />\r\n      <Features />\r\n      <MobileApp />\r\n      <ListItems title=\"Our Top Restaurants\" items={sortedPartners} itemComponent={RestaurantItem} actions={<ListItemAction />} type=\"partners\" />\r\n      <ListItems title=\"Our Top Dishes\" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />\r\n      <SwiperBanner />\r\n    </>\r\n  );\r\n};\r\n\r\nexport default HomePage;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/client/src/pages/Home/Home.js b/client/src/pages/Home/Home.js
+--- a/client/src/pages/Home/Home.js	(revision ddbca43c860c8fc778191066459d34b3c4736073)
++++ b/client/src/pages/Home/Home.js	(date 1697289930874)
+@@ -23,7 +23,6 @@
+       <MobileApp />
+       <ListItems title="Our Top Restaurants" items={sortedPartners} itemComponent={RestaurantItem} actions={<ListItemAction />} type="partners" />
+       <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
+-      <SwiperBanner />
+     </>
+   );
+ };

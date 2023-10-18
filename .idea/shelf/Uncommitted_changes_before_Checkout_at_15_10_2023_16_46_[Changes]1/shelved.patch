@@ -1,0 +1,85 @@
+Index: client/src/pages/Menu/Menu.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useEffect } from 'react';\r\nimport { shallowEqual, useDispatch, useSelector } from 'react-redux';\r\nimport RestaurantItem from '../../components/RestaurantItem/RestaurantItem';\r\nimport ProductCardItem from '../../components/ProductCardItem/ProductCardItem';\r\nimport ListItemAction from '../../components/ListItems/ListItemAction';\r\nimport ListItems from '../../components/ListItems/ListItem';\r\nimport { setSearch } from '../../redux/slices/searchSlice';\r\nimport { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';\r\nimport useSortedItems from '../../customHooks/useSortedItems';\r\nimport SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';\r\n\r\nconst MenuPage = () => {\r\n  const dispatch = useDispatch();\r\n  const itemsFromSearch = useSelector((state) => state.search.search);\r\n  const keyFromSearch = useSelector((state) => state.search.key);\r\n  const partners = useSelector((state) => state.partners.partners, shallowEqual);\r\n  const sortedPartners = useSortedItems(partners, partnersCardWidth);\r\n  const products = useSelector((state) => state.products.products);\r\n  const sortedProducts = useSortedItems(products, productsCardWidth);\r\n\r\n  useEffect(() => {\r\n    dispatch(setSearch([]));\r\n  }, [dispatch]);\r\n\r\n  return (\r\n    <>\r\n      <SectionSwipperFilterSearch />\r\n\r\n      <ListItems\r\n        // title={itemsFromSearch.length !== 0 &&\r\n        // (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}\r\n        title={itemsFromSearch.length !== 0 ? 'Search Results' : ''}\r\n        items={itemsFromSearch}\r\n        itemComponent={keyFromSearch === 'food' ? ProductCardItem : RestaurantItem}\r\n        actions={null}\r\n        type={keyFromSearch === 'food' ? '' : 'partners'}\r\n      />\r\n\r\n      {/* <RestaurantItem /> */}\r\n      <ListItems\r\n        title=\"Our Top Restaurants\"\r\n        items={sortedPartners}\r\n        itemComponent={RestaurantItem}\r\n        actions={<ListItemAction />}\r\n        type=\"partners\"\r\n      />\r\n      <ListItems title=\"Our Top Dishes\" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />\r\n      {/* для перевірки переходу на сторінку блюда при кліку на картку блюда */}\r\n      {/* {products.slice(0, 6).map(({ price, imageUrl, name, rating, _id: id }) => ( */}\r\n      {/*  <ProductCardItem */}\r\n      {/*    key={id} */}\r\n      {/*    price={price} */}\r\n      {/*    imageUrl={imageUrl} */}\r\n      {/*    name={name} */}\r\n      {/*    rating={rating} */}\r\n      {/*    id={id} */}\r\n      {/*  /> */}\r\n      {/* ))} */}\r\n    </>\r\n  );\r\n};\r\n\r\nexport default MenuPage;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/client/src/pages/Menu/Menu.js b/client/src/pages/Menu/Menu.js
+--- a/client/src/pages/Menu/Menu.js	
++++ b/client/src/pages/Menu/Menu.js	
+@@ -27,9 +27,7 @@
+       <SectionSwipperFilterSearch />
+ 
+       <ListItems
+-        // title={itemsFromSearch.length !== 0 &&
+-        // (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}
+-        title={itemsFromSearch.length !== 0 ? 'Search Results' : ''}
++        title={itemsFromSearch.length !== 0 && (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}
+         items={itemsFromSearch}
+         itemComponent={keyFromSearch === 'food' ? ProductCardItem : RestaurantItem}
+         actions={null}
+Index: client/src/components/SwiperBanner/SwiperBanner.module.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.wrap {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.swiperSlide {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.swiperSlideItem {\r\n  border-radius: 20px;\r\n  overflow: hidden;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.customPagination {\r\n  display: none;\r\n\r\n  @media (min-width: 481px) {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    margin-top: 20px;\r\n    margin-bottom: 20px;\r\n  }\r\n}\r\n\r\n.customPaginationItem {\r\n  width: 23px;\r\n  height: 6px;\r\n  background-color: #dbd9ee;\r\n  border-radius: 55px;\r\n  cursor: pointer;\r\n  transition: 0.3s;\r\n  @media (min-width: 690px) {\r\n    width: 30px;\r\n  }\r\n\r\n  &:not(:last-child) {\r\n    margin-right: 10px;\r\n  }\r\n\r\n  &.active {\r\n    background-color: #6c5fbc;\r\n    width: 43px;\r\n    @media (min-width: 690px) {\r\n      width: 61px;\r\n    }\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/client/src/components/SwiperBanner/SwiperBanner.module.scss b/client/src/components/SwiperBanner/SwiperBanner.module.scss
+--- a/client/src/components/SwiperBanner/SwiperBanner.module.scss	
++++ b/client/src/components/SwiperBanner/SwiperBanner.module.scss	
+@@ -13,6 +13,7 @@
+   border-radius: 20px;
+   overflow: hidden;
+   margin-bottom: 20px;
++
+ }
+ 
+ .customPagination {
+Index: client/src/components/SwiperBanner/SwiperBanner.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useState } from 'react';\r\nimport { Swiper, SwiperSlide } from 'swiper/react';\r\nimport { Autoplay, EffectCube, Pagination } from 'swiper/modules';\r\nimport classNames from 'classnames';\r\n\r\nimport 'swiper/scss';\r\nimport 'swiper/css/effect-cube';\r\nimport 'swiper/css/pagination';\r\n\r\nimport styles from './SwiperBanner.module.scss';\r\n\r\nconst SwiperBanner = () => {\r\n  const [swiperInstance, setSwiperInstance] = useState(null);\r\n  const [activeSlideIndex, setActiveSlideIndex] = useState(0);\r\n\r\n  const data = [\r\n    { url: './img/Banner.jpg', index: 0 },\r\n    { url: './img/Banner2.jpg', index: 1 },\r\n    { url: './img/Banner3.jpg', index: 2 },\r\n  ];\r\n\r\n  const handleSlideChange = (swiper) => {\r\n    setActiveSlideIndex(swiper.realIndex);\r\n  };\r\n\r\n  const handlePaginationClick = (index) => {\r\n    setActiveSlideIndex(index);\r\n    swiperInstance.slideToLoop(index);\r\n  };\r\n\r\n  return (\r\n    <>\r\n      <Swiper\r\n        className={styles.wrap}\r\n        effect=\"cube\"\r\n        grabCursor\r\n        cubeEffect={{\r\n          shadow: false,\r\n          slideShadows: true,\r\n          shadowOffset: 20,\r\n          shadowScale: 0.94,\r\n        }}\r\n        loop\r\n        modules={[Autoplay, EffectCube, Pagination]}\r\n        pagination={{ clickable: true, el: '.customPaginationItem' }}\r\n        onSwiper={(swiper) => setSwiperInstance(swiper)}\r\n        onSlideChange={handleSlideChange}\r\n        speed={700}\r\n        autoplay={{\r\n          delay: 4000,\r\n          disableOnInteraction: false,\r\n        }}\r\n      >\r\n        {data.map((item) => (\r\n          <SwiperSlide className={styles.swiperSlide} key={item.index}>\r\n            <div id={item.index} className={styles.swiperSlideItem}>\r\n              <img src={item.url} alt={`Slide${item.index}`} />\r\n            </div>\r\n          </SwiperSlide>\r\n        ))}\r\n      </Swiper>\r\n      <div className={styles.customPagination}>\r\n        {data.map((item) => (\r\n          // eslint-disable-next-line max-len\r\n          // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions\r\n          <div\r\n            id={item.index}\r\n            key={item.index}\r\n            className={classNames(styles.customPaginationItem, {\r\n              [styles.active]: item.index === activeSlideIndex,\r\n            })}\r\n            onClick={() => handlePaginationClick(item.index)}\r\n          />\r\n        ))}\r\n      </div>\r\n    </>\r\n  );\r\n};\r\n\r\nexport default SwiperBanner;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/client/src/components/SwiperBanner/SwiperBanner.js b/client/src/components/SwiperBanner/SwiperBanner.js
+--- a/client/src/components/SwiperBanner/SwiperBanner.js	
++++ b/client/src/components/SwiperBanner/SwiperBanner.js	
+@@ -29,7 +29,7 @@
+   };
+ 
+   return (
+-    <>
++    <div>
+       <Swiper
+         className={styles.wrap}
+         effect="cube"
+@@ -73,7 +73,7 @@
+           />
+         ))}
+       </div>
+-    </>
++    </div>
+   );
+ };
+ 
+Index: client/src/App.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>body {\r\n  //usage example\r\n  font-family: 'Inter', sans-serif;\r\n  //font-family: 'Poppins', sans-serif;\r\n  background-color: #F9F9F9;\r\n}\r\n\r\nhtml, body {\r\n  scroll-behavior: smooth;\r\n}\r\n\r\n.swiper-pagination-bullet {\r\n  width: 50px;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/client/src/App.scss b/client/src/App.scss
+--- a/client/src/App.scss	
++++ b/client/src/App.scss	
+@@ -11,4 +11,5 @@
+ 
+ .swiper-pagination-bullet {
+   width: 50px;
+-}
+\ No newline at end of file
++}
++
