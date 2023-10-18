@@ -37,6 +37,7 @@ import { setAuthorization, setToken } from '../../redux/slices/authorizationSlic
 import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_LS_KEY } from '../../constants';
+import { resetCardStates } from '../../redux/slices/favouriteSlice';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -76,6 +77,7 @@ const Header = () => {
     dispatch(setAuthorization(false));
     dispatch(setUser({}));
     removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+    dispatch(resetCardStates());
   };
 
   const navItems = ['Menu', 'Pricing', 'Reviews', 'Contact'];

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { instance } from '../../API/instance';
 
 const initialState = {
   reviews: [],
@@ -39,7 +40,7 @@ const reviewsSlice = createSlice({
 
 export const getReviews = () => async (dispatch) => {
   try {
-    const { data } = await axios.get('http://localhost:4000/api/comments');
+    const { data } = await instance.get('/comments');
     console.log(data);
     dispatch(setReviews(data));// eslint-disable-line no-use-before-define
   } catch (error) {
@@ -51,7 +52,7 @@ export const addNewReview = (review) => async (dispatch, getState) => {
   try {
     const state = getState();
     dispatch(addReview(state.newReview));// eslint-disable-line no-use-before-define
-    const { data } = await axios.post('http://localhost:4000/api/comments', state.reviews.newReview, {
+    const { data } = await instance.post('/comments', state.reviews.newReview, {
       headers: {
         Authorization: state.authorization.token,
       },
@@ -63,7 +64,7 @@ export const addNewReview = (review) => async (dispatch, getState) => {
 
 export const removeReviewId = (_id) => async (dispatch) => {
   try {
-    await axios.delete('http://localhost:4000/api/comments/_id');
+    await instance.delete('/comments/_id');
     dispatch(removeReview(_id));// eslint-disable-line no-use-before-define
   } catch (error) {
     console.log('%cError delete review:', 'color: red; font-weight: bold;', error);
