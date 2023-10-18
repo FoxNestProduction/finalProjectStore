@@ -160,14 +160,68 @@ const CheckoutForm = () => {
     }
   };
 
+  const setInitialTouched = () => {
+    const values = getDataFromSessionStorage(CHECKOUT_LS_KEY);
+
+    if (values) {
+      return {
+        name: 'name' in values,
+        email: 'email' in values,
+        tel: 'tel' in values,
+        street: 'street' in values,
+        house: 'house' in values,
+      };
+      // return {
+      //   name: true,
+      //   email: true,
+      //   tel: true,
+      //   street: true,
+      //   house: true,
+      // };
+    }
+    return null;
+  };
+
+  const setIsValidateOnMount = () => {
+    const values = getDataFromSessionStorage(CHECKOUT_LS_KEY);
+    if (values) {
+      return ('street' in values
+        || 'house' in values
+        || values.name !== user.firstName
+        || values.email !== user.email
+        || values.tel !== user.telephone);
+    }
+    return false;
+  };
+
+  const setIsValid = (touched, errors, isValid) => {
+    console.log(isValid);
+    console.log(touched);
+    console.log(errors);
+    let isFormValid = isValid;
+
+    Object.keys(errors).forEach((key) => {
+      console.log(key);
+      console.log(key in touched);
+      if (!(key in touched) || !touched[key]) {
+        console.log(key, 'not touched');
+        isFormValid = true;
+      }
+    });
+    console.log(isFormValid);
+    return isFormValid;
+  };
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleContinue}
       validationSchema={validationSchema}
       enableReinitialize
+      initialTouched={setInitialTouched()}
+      validateOnMount={setIsValidateOnMount()}
     >
-      {({ handleBlur, isValid }) => (
+      {({ isValid, handleBlur, touched, errors }) => (
         <Form>
           <Stack spacing={4}>
             <Divider />
@@ -180,7 +234,13 @@ const CheckoutForm = () => {
               id="checkout-name"
               label="Name*"
               bgColor="#FFF"
-              onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
+              onBlur={(e) => {
+                handleFieldBlur(e, handleBlur);
+                // console.log('touched', touched);
+                // console.log('errors', errors);
+                // console.log('isValid', isValid);
+                // console.log('values', values);
+              }}
             />
             <Input
               name="email"
@@ -264,7 +324,7 @@ const CheckoutForm = () => {
             </Field>
 
           </Stack>
-          <CheckoutActions isValid={isValid} />
+          <CheckoutActions isValid={setIsValid(touched, errors, isValid)} />
         </Form>
       )}
     </Formik>

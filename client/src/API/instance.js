@@ -12,7 +12,6 @@ export const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
   if (store.getState().authorization && store.getState().authorization.token) {
-    console.log('Validation is success');
     // eslint-disable-next-line no-param-reassign
     config.headers.authorization = store.getState().authorization.token;
   }
