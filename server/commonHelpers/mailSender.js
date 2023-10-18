@@ -12,6 +12,8 @@ module.exports = async (subscriberMail, letterSubject, letterHtml, res) => {
 
   //authorization for sending email
   let transporter = nodemailer.createTransport({
+    // host: 'smtp.gmail.com',
+    // port: 587,
     service:
       process.env.NODE_ENV === "production"
         ? configs.production.email.mailService

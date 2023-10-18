@@ -113,7 +113,7 @@ exports.placeOrder = async (req, res, next) => {
             res
           );
 
-          console.log(mailResult);
+          // console.log(mailResult);
 
           // for (item of order.products){
           //   const id = item.product._id;
