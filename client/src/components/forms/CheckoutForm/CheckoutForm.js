@@ -195,20 +195,13 @@ const CheckoutForm = () => {
   };
 
   const setIsValid = (touched, errors, isValid) => {
-    console.log(isValid);
-    console.log(touched);
-    console.log(errors);
     let isFormValid = isValid;
 
     Object.keys(errors).forEach((key) => {
-      console.log(key);
-      console.log(key in touched);
       if (!(key in touched) || !touched[key]) {
-        console.log(key, 'not touched');
         isFormValid = true;
       }
     });
-    console.log(isFormValid);
     return isFormValid;
   };
 
@@ -236,10 +229,6 @@ const CheckoutForm = () => {
               bgColor="#FFF"
               onBlur={(e) => {
                 handleFieldBlur(e, handleBlur);
-                // console.log('touched', touched);
-                // console.log('errors', errors);
-                // console.log('isValid', isValid);
-                // console.log('values', values);
               }}
             />
             <Input
