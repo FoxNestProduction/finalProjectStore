@@ -2,16 +2,18 @@ export const stylesCardReview = {
   background:
   'background.paper',
   position: 'relative',
-  minWidth: {
-    tablet: '295px',
-  },
-  width: {
-    mobile: '100%',
-    tablet: '37%',
-  },
+  // minWidth: {
+  //   tablet: '295px',
+  // },
+  // width: {
+  //   mobile: '100%',
+  //   tablet: '37%',
+  // },
+  width: '100%',
+  height: '100%',
   px: '9px',
-  pt: { mobile: '10px', tablet: '22px' },
-  mb: '48px',
+  // pt: { mobile: '10px', tablet: '22px' },
+  // mb: '48px',
   boxShadow: '0px 0px 25px #0000001A',
 };
 
@@ -28,7 +30,6 @@ export const stylesContent = {
     desktop: '16px',
   },
   fontStyle: 'italic',
-  overflow: 'auto',
   height: '45%',
   pb: {
     mobile: 10,
