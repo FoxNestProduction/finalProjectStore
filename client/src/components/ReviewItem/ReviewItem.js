@@ -16,6 +16,11 @@ const ReviewItem = ({ review }) => {
   const [isShow, setIsShow] = useState(false);
   const { rating, content, avatarUrl, userReview, date } = review;
   const ratingNumber = Number(rating);
+  const dateReview = new Date(+date);
+  const day = String(dateReview.getDate()).padStart(2, '0');
+  const month = String(dateReview.getMonth() + 1).padStart(2, '0');
+  const year = dateReview.getFullYear();
+  const formattedDate = `${day}.${month}.${year}`;
 
   return (
     <Card sx={stylesCardReview}>
@@ -43,7 +48,7 @@ const ReviewItem = ({ review }) => {
           value={ratingNumber}
           readOnly
         />
-        <Typography>{date}</Typography>
+        <Typography sx={{ color: 'text.secondary' }}>{formattedDate}</Typography>
       </CardActions>
     </Card>
   );

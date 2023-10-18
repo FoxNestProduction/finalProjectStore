@@ -27,11 +27,15 @@ import {
   signUpBtn,
   signInLink,
 } from './styles';
-import Input from '../../Input/Input';
+import Input from '../../inputs/Input/Input';
 import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
 import { setRegistrationError } from '../../../redux/slices/errorSlice';
+import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
+import { CHECKOUT_LS_KEY } from '../../../constants';
+import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
+import { instance } from '../../../API/instance';
 
 export const initialValues = {
   firstName: '',
@@ -52,7 +56,7 @@ const RegisterForm = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:4000/api/customers', newCustomer);
+      const response = await instance.post('/customers', newCustomer);
       const { user, token } = response.data;
 
       dispatch(setToken(token));
@@ -60,6 +64,9 @@ const RegisterForm = () => {
       dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setRegistrationError(''));
+
+      removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+      saveUserInfoToSessionStorage(user);
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));
       console.error('Помилка реєстрації:', error);

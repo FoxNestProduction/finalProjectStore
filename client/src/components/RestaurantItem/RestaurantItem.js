@@ -12,7 +12,7 @@ import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
 import ColorChips from '../Chip/Chip';
 import { chipSizeRestaurant, chipBoxchipSizeRestaurant } from '../Chip/styles';
-import { mediaBox } from '../ProductCardItem/styles';
+import { stylesImageWrapper } from '../ProductCardItem/styles';
 
 const RestaurantItem = ({ rating, name, imageUrl, isHealthy, isTranding, isSupreme }) => {
   const styles = {

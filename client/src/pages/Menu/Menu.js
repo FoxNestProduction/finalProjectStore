@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
-import { Box, Container } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
-import Search from '../../components/Search/Search';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
 import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
-import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
+import { partnersCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
-import Filter from '../../components/Filter/Filter';
+import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -18,7 +16,6 @@ const MenuPage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
   const products = useSelector((state) => state.products.products);
-  const sortedProducts = useSortedItems(products, productsCardWidth);
 
   useEffect(() => {
     dispatch(setSearch([]));
@@ -26,20 +23,26 @@ const MenuPage = () => {
 
   return (
     <>
-      <Container>
-        <Filter />
-        <Search />
-      </Container>
+      <SectionSwipperFilterSearch />
+
+      {keyFromSearch === 'restaurant' && (
+        <ListItems
+          title={itemsFromSearch.length !== 0 ? 'Search Results' : ''}
+          items={itemsFromSearch}
+          itemComponent={RestaurantItem}
+          actions={null}
+          type="partners"
+        />
+      )}
 
       <ListItems
-        title={itemsFromSearch.length !== 0 && (keyFromSearch === 'food' ? 'Our Dishes' : 'Our Restaurants')}
-        items={itemsFromSearch}
-        itemComponent={keyFromSearch === 'food' ? ProductCardItem : RestaurantItem}
+        title={keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? 'Search Results' : 'Our Dishes'}
+        items={keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? itemsFromSearch : products}
+        itemComponent={ProductCardItem}
         actions={null}
-        type={keyFromSearch === 'food' ? '' : 'partners'}
+        type="food"
       />
 
-      {/* <RestaurantItem /> */}
       <ListItems
         title="Our Top Restaurants"
         items={sortedPartners}
@@ -47,18 +50,6 @@ const MenuPage = () => {
         actions={<ListItemAction />}
         type="partners"
       />
-      <ListItems title="Our Top Dishes" items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
-      {/* для перевірки переходу на сторінку блюда при кліку на картку блюда */}
-      {/* {products.slice(0, 6).map(({ price, imageUrl, name, rating, _id: id }) => ( */}
-      {/*  <ProductCardItem */}
-      {/*    key={id} */}
-      {/*    price={price} */}
-      {/*    imageUrl={imageUrl} */}
-      {/*    name={name} */}
-      {/*    rating={rating} */}
-      {/*    id={id} */}
-      {/*  /> */}
-      {/* ))} */}
     </>
   );
 };

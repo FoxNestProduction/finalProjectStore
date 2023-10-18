@@ -6,7 +6,7 @@ const validationSchema = object({
   //   .matches('^[A-Z][a-z]+ [A-Z][a-z]+$', 'Enter Name and Last Name'),
   firstName: string()
     .required('Enter your first name')
-    .matches('^[A-Z][a-z]+$', 'The name must be capitalized and contain only Latin letters'),
+    .matches('^[A-Z][a-z]+$', 'The first name must be capitalized and contain only Latin letters'),
   lastName: string()
     .required('Enter your last name')
     .matches('^[A-Z][a-z]+$', 'The last name must be capitalized and contain only Latin letters'),

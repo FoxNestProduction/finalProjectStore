@@ -10,18 +10,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
 
-// ------- Приклад використання -------
-
-// --- варіант з лейбл ----
-// <Input name="name" id="name" label="Name" placeholder="Enter your name..."
-// icon={<PersonSvg />} />
-// --- варіант без лейбл ---
-// просто не передавати label
-
-// --- для textarea додаємо атрибут multiline ---
-// <Input name="comment" id="comment" placeholder="Enter the problem or query..." multiline />
-
-const Input = ({ type, label, icon, multiline, id, error, bgColor, ...props }) => {
+const Input = ({ type, label, icon, id, error, bgColor, ...props }) => {
   const [field, meta] = useField(props.name);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,6 +18,7 @@ const Input = ({ type, label, icon, multiline, id, error, bgColor, ...props }) =
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
   return (
     <FormControl
       fullWidth
@@ -48,11 +38,9 @@ const Input = ({ type, label, icon, multiline, id, error, bgColor, ...props }) =
         id={id}
         aria-describedby="helper-text"
         label={label}
-        multiline={multiline}
-        rows={multiline ? 3 : ''}
         /* eslint-disable-next-line no-nested-ternary */
         type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
-        startAdornment={(
+        startAdornment={icon && (
           <InputAdornment
             position="start"
             sx={{
@@ -93,7 +81,6 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   icon: PropTypes.element,
   label: PropTypes.string,
-  multiline: PropTypes.bool,
   id: PropTypes.string.isRequired,
   bgColor: PropTypes.string,
 };
@@ -103,7 +90,6 @@ Input.defaultProps = {
   type: 'text',
   icon: null,
   label: '',
-  multiline: false,
   bgColor: '#F9F9F9',
 };
 

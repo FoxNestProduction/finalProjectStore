@@ -39,8 +39,11 @@ export const stylesContent = {
 };
 
 export const stylesActionCard = {
+  width: '90%',
   p: 2,
   position: 'absolute',
+  display: 'flex',
+  justifyContent: 'space-between',
   bottom: {
     mobile: '10px',
     tablet: '20px',

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { instance } from '../../API/instance';
 
 const initialState = {
   partners: [],
@@ -19,7 +20,7 @@ export const { setPartners } = partnersSlice.actions;
 
 export const getPartners = () => async (dispatch) => {
   try {
-    const { data } = await axios.get('http://localhost:4000/api/partners');
+    const { data } = await instance.get('/partners');
     dispatch(setPartners(data));
   } catch (err) {
     console.log('%cError loading products:', 'color: red; font-weight: bold;', err);

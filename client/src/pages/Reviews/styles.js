@@ -48,18 +48,10 @@ export const TitleBtn = {
 };
 
 export const commentList = {
-  display: {
-    mobile: 'flex',
-    lgTablet: 'grid',
-  },
+  display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  flexDirection: {
-    mobile: 'column',
-  },
-  gridTemplateColumns: {
-    lgTablet: 'repeat(2, 1fr)',
-  },
+  flexDirection: 'column',
   rowGap: '20px',
   columnGap: '20px',
 };

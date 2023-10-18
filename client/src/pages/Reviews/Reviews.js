@@ -15,17 +15,38 @@ const ReviewsPage = () => {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
   const newReview = useSelector((state) => state.reviews.newReview);
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const isLgTablet = useMediaQuery('(min-width: 690px)');
 
   const handleSendFeedback = () => {
     dispatch(addNewReview());
-    dispatch(closeModal());
     dispatch(setNewReview({ field: 'user_id', value: '' }));
     dispatch(setNewReview({ field: 'rating', value: null }));
     dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
     dispatch(setNewReview({ field: 'content', value: '' }));
     dispatch(setNewReview({ field: 'userReview', value: '' }));
+    dispatch(closeModal());
   };
+
+  if (newReview.content !== '') {
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: false,
+      onClick: handleSendFeedback,
+    }));
+  } else {
+    dispatch(setNewReview({ field: 'user_id', value: '' }));
+    dispatch(setNewReview({ field: 'rating', value: null }));
+    dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
+    dispatch(setNewReview({ field: 'content', value: '' }));
+    dispatch(setNewReview({ field: 'userReview', value: '' }));
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: true,
+    }));
+  }
 
   const handleOpenModalReview = () => {
     dispatch(openModal());
@@ -36,7 +57,7 @@ const ReviewsPage = () => {
     dispatch(setButtonAgree({
       text: 'Send',
       endIcon: true,
-      onClick: handleSendFeedback,
+      disabled: newReview.content === '',
     }));
     dispatch(addButtonBox(true));
   };
@@ -52,17 +73,22 @@ const ReviewsPage = () => {
     };
   }, []);
 
+  const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
+
   return (
     <Container component="section" sx={{ ...flexCenter, ...container }}>
       <Box sx={titleContainer}>
-        <Typography variant="h2" sx={{ justifySelf: 'center' }}>Customer Say</Typography>
-        <Button variant="standard" sx={TitleBtn} onClick={handleOpenModalReview}>
-          {isLgTablet && <Typography mr={1}>Create your oun review</Typography>}
-          <AddCircleOutlineIcon />
-        </Button>
+        <Typography variant="h2" sx={{ justifySelf: 'center' }}>Customers Say</Typography>
+        {isUserAuthorized && (
+          <Button variant="standard" sx={TitleBtn} onClick={handleOpenModalReview}>
+            {isLgTablet && <Typography mr={1}>Create your own review</Typography>}
+            <AddCircleOutlineIcon />
+          </Button>
+        )}
+
       </Box>
-      <Box sx={{ ...commentList }}>
-        {reviews.slice(0, currentIndex).map((item) => (
+      <Box sx={commentList}>
+        {sortedReviews.slice(0, currentIndex).map((item) => (
           <Box sx={commentItem}>
             <ReviewItem key={item._id} review={item} />
           </Box>
