@@ -14,11 +14,6 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const wishlist = useSelector((state) => state.favourites.favourites);
   const token = useSelector((state) => state.authorization.token);
 
-  // const handleOpenModalLogin = () => {
-  //   dispatch(openModal());
-  //   dispatch(setContent(<LoginForm />));
-  // };
-
   const toggleFavourite = () => {
     if (token) {
       if (isFavourite) {
@@ -26,9 +21,6 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
       } else {
         dispatch(addFavourite({ id }));
       }
-    } else {
-      console.log('The user is not authorized');
-      // handleOpenModalLogin();
     }
   };
 

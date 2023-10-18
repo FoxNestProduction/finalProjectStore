@@ -10,12 +10,14 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 
-import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, stylesText } from './styles';
+import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, stylesText, stylesFullText } from './styles';
 
 const ReviewItem = ({ review }) => {
   const location = useLocation();
+  const styleComment = (location.pathname === '/reviews') ? stylesFullText : stylesText;
+
   const [isShow, setIsShow] = useState(false);
   const { rating, content, avatarUrl, userReview, date } = review;
   const ratingNumber = Number(rating);
@@ -43,7 +45,7 @@ const ReviewItem = ({ review }) => {
       />
       )}
       <CardContent sx={stylesContent}>
-        <Box sx={stylesText}>
+        <Box sx={styleComment}>
           {content}
         </Box>
       </CardContent>

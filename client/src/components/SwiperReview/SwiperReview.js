@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -16,12 +17,17 @@ const SwiperReview = () => {
   const isMobile = useMediaQuery('(max-width: 491px)');
   const isTablet = useMediaQuery('(min-width: 491px) and (max-width: 691px)');
   const isLgTablet = useMediaQuery('(min-width: 691px)');
+  const navigate = useNavigate();
 
   const reviews = useSelector((state) => state.reviews.reviews);
   const [swiperInstance, setSwiperInstance] = useState(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isScrollbarActive, setIsScrollbarActive] = useState(false);
   console.log(isScrollbarActive);
+  const handleReviewClick = () => {
+    navigate('/reviews');
+  };
+
   return (
     <Container>
       <Box sx={{ mr: { mobile: '0px', tablet: '-65px', desctop: '-90px' }, pt: '82px', pb: '150px', position: 'relative', display: 'flex', gap: 3, flexDirection: 'row' }}>
@@ -55,7 +61,7 @@ const SwiperReview = () => {
           onScrollbarDragEnd={() => setIsScrollbarActive(false)}
         >
           {reviews.map((item) => (
-            <SwiperSlide key={item.index}>
+            <SwiperSlide key={item.index} onClick={() => handleReviewClick(item)}>
               <div><ReviewItem review={item} /></div>
             </SwiperSlide>
           ))}
