@@ -7,6 +7,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
 import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
 import { setSearch, setKey } from '../../redux/slices/searchSlice';
+import { setFilter } from '../../redux/slices/filterSlice';
 
 const Search = () => {
   const dispatch = useDispatch();

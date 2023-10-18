@@ -2,6 +2,7 @@ import { Button, CardMedia, Container, Stack, ToggleButton, ToggleButtonGroup, T
 import React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   stylesWrap,
   stylesTitle,
@@ -12,21 +13,25 @@ import {
   stylesCategoryItem,
   stylesToggleButton,
 } from './styles';
+import { setFilter } from '../../redux/slices/filterSlice';
+import { setSearch } from '../../redux/slices/searchSlice';
 
 const Filter = () => {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.products);
   const [pizza, setPizza] = React.useState(false);
-  const [burger, setBurger] = React.useState(false);
+  const [burgers, setBurgers] = React.useState(false);
   const [sushi, setSushi] = React.useState(false);
-  const [salad, setSalad] = React.useState(false);
+  const [salads, setSalads] = React.useState(false);
   const [pasta, setPasta] = React.useState(false);
-  const [sandwich, setSandwich] = React.useState(false);
+  const [sandwiches, setSandwiches] = React.useState(false);
   const [bbqMeat, setBbqMeat] = React.useState(false);
   const [drink, setDrink] = React.useState(false);
   // const [vegan, setVegan] = React.useState(false);
   const [recomended, setRecomended] = React.useState(false);
   const [mostPopular, setMostPopular] = React.useState(false);
   const [fastDelivery, setFastDelivery] = React.useState(false);
-
+  const [valueSlider, setValueSlider] = React.useState();
   const marks = [
     {
       value: 0,
@@ -46,8 +51,102 @@ const Filter = () => {
     },
   ];
 
+  // const filterOptions = {
+  //   burgers: `${burgers}`,
+  //   pizza: `${pizza}`,
+  //   sushi: `${sushi}`,
+  //   salads: `${salads}`,
+  //   pasta: `${pasta}`,
+  //   sandwiches: `${sandwiches}`,
+  //   bbqMeat: `${bbqMeat}`,
+  //   drink: `${drink}`,
+  //   recomended: `${recomended}`,
+  //   mostPopular: `${mostPopular}`,
+  //   fastDelivery: `${fastDelivery}`,
+  //   valueSlider: `${valueSlider}`,
+  // };
+
   const valuetext = (value) => {
-    return `${value}$`;
+    return (`${value}$`, setValueSlider(value));
+  };
+
+  const getFilteredProducts = (options) => {
+    let filteredProducts = [];
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (pizza && element.filterCategories === 'pizza') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (burgers && element.filterCategories === 'burgers') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (sushi && element.filterCategories === 'sushi') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (salads && element.filterCategories === 'salads') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (pasta && element.filterCategories === 'pasta') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (sandwiches && element.filterCategories === 'sandwiches') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (bbqMeat && element.filterCategories === 'bbqMeat') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (drink && element.filterCategories === 'drink') {
+          return element;
+        }
+      }),
+    );
+
+    if (filteredProducts.length !== 0) {
+      filteredProducts = filteredProducts.filter((element) => { // eslint-disable-line
+        if (element.currentPrice <= valueSlider) {
+          return element;
+        }
+      });
+    } else {
+      filteredProducts = products.filter((element) => { // eslint-disable-line
+        if (element.currentPrice < `${valueSlider}`) {
+          return element;
+        }
+      });
+    }
+    return filteredProducts;
+  };
+
+  const handleApplyFilter = () => {
+    dispatch(setFilter(getFilteredProducts()));
   };
 
   return (
@@ -79,15 +178,15 @@ const Filter = () => {
             </ToggleButton>
             <ToggleButton
               sx={stylesToggleButton}
-              value="burger"
-              selected={burger}
+              value="burgers"
+              selected={burgers}
               onChange={() => {
-                setBurger(!burger);
+                setBurgers(!burgers);
               }}
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/burger.png" alt="burger" />
-                <Typography component="p">Burger</Typography>
+                <Typography component="p">Burgers</Typography>
               </Stack>
             </ToggleButton>
             <ToggleButton
@@ -105,15 +204,15 @@ const Filter = () => {
             </ToggleButton>
             <ToggleButton
               sx={stylesToggleButton}
-              value="salad"
-              selected={salad}
+              value="salads"
+              selected={salads}
               onChange={() => {
-                setSalad(!salad);
+                setSalads(!salads);
               }}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/salad_2.png" alt="salad" />
-                <Typography component="p">Salad</Typography>
+                <CardMedia component="img" image="./img/salad_2.png" alt="salads" />
+                <Typography component="p">Salads</Typography>
               </Stack>
             </ToggleButton>
           </Stack>
@@ -140,9 +239,9 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="sandwich"
-              selected={sandwich}
+              selected={sandwiches}
               onChange={() => {
-                setSandwich(!sandwich);
+                setSandwiches(!sandwiches);
               }}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -245,7 +344,7 @@ const Filter = () => {
             sx={stylesSlider}
             max={30}
             aria-label="Always visible"
-            defaultValue={15}
+            defaultValue={25}
             getAriaValueText={valuetext}
             step={1}
             marks={marks}
@@ -253,7 +352,7 @@ const Filter = () => {
           />
         </Box>
       </Stack>
-      <Button sx={stylesBtn}>Apply</Button>
+      <Button sx={stylesBtn} onClick={handleApplyFilter}>Apply</Button>
     </Stack>
   );
 };

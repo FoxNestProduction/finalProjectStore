@@ -40,7 +40,7 @@ const reviewsSlice = createSlice({
 export const getReviews = () => async (dispatch) => {
   try {
     const { data } = await axios.get('http://localhost:4000/api/comments');
-    console.log(data);
+    // console.log(data);
     dispatch(setReviews(data));// eslint-disable-line no-use-before-define
   } catch (error) {
     console.log('%cError loading reviews:', 'color: red; font-weight: bold;', error);

@@ -12,6 +12,8 @@ import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&S
 const MenuPage = () => {
   const dispatch = useDispatch();
   const itemsFromSearch = useSelector((state) => state.search.search);
+  const itemsFromFilter = useSelector((state) => state.filter.filter);
+  console.log(itemsFromFilter);
   const keyFromSearch = useSelector((state) => state.search.key);
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
@@ -21,6 +23,19 @@ const MenuPage = () => {
     dispatch(setSearch([]));
   }, [dispatch]);
 
+  const changeItems = () => {
+    let prod = [];
+    if (keyFromSearch === 'food' && itemsFromSearch.length !== 0) {
+      prod = itemsFromSearch;
+    }
+    if (keyFromSearch === 'food' && itemsFromFilter.length !== 0) {
+      prod = itemsFromFilter;
+      dispatch(setSearch([]));
+    } else {
+      prod = products;
+    }
+    return prod;
+  };
   return (
     <>
       <SectionSwipperFilterSearch />
@@ -37,7 +52,7 @@ const MenuPage = () => {
 
       <ListItems
         title={keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? 'Search Results' : 'Our Dishes'}
-        items={keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? itemsFromSearch : products}
+        items={changeItems}
         itemComponent={ProductCardItem}
         actions={null}
         type="food"
