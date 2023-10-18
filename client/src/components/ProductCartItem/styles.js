@@ -1,29 +1,60 @@
 export const cartIconContainer = {
-  minHeight: {
+  maxHeight: {
     mobile: '110px',
     tablet: '125px',
     desktop: '153px',
   },
   display: 'flex',
-  justifyContent: 'space-beetwen',
-  alignItems: 'center',
-  m: '0 auto',
+  justifyContent: 'space-between',
+  alignItems: 'stretch',
   borderRadius: '18px',
 };
 
 export const textContentBox = {
   display: 'flex',
   justifyContent: 'space-beetwen',
-  alignItems: 'flex-start',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  mx: {
+    mobile: '4px',
+    tablet: '20px',
+    desktop: '30px',
+  },
 };
 
 export const imgBox = {
-  width: '18%',
+  width: {
+    mobile: '18%',
+    tablet: '22%',
+    desktop: '25%',
+  },
   borderRadius: '8px',
 };
 
 export const textContent = {
-  p: '0 2px',
+  p: {
+    mobile: '0 4px',
+    tablet: '0 10px',
+    desktop: '0 20px',
+  },
+  maxWidth: {
+    mobile: '106px',
+    tablet: '260px',
+  },
+};
+
+export const textTitle = {
+  fontSize: {
+    mobile: '14px',
+    tablet: '18px',
+  },
+  weight: 600,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 };
 
 export const buttonStyles = {
@@ -37,5 +68,5 @@ export const buttonStyles = {
 
 export const quantityStyle = {
   border: '1px solid rgba(108, 095, 188, 0.5)',
-  px: '7px',
+  px: '9px',
 };

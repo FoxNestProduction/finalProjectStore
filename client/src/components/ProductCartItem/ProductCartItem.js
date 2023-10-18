@@ -10,7 +10,7 @@ import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
-import { cartIconContainer, imgBox, textContentBox, textContent, buttonStyles, quantityStyle } from './styles';
+import { cartIconContainer, imgBox, textContentBox, textContent, buttonStyles, quantityStyle, textTitle } from './styles';
 
 const ProductCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
   const cartProducts = useSelector((state) => state.cart.cart.products);
@@ -38,19 +38,20 @@ const ProductCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) =>
       />
       <Box sx={textContentBox}>
         <CardContent sx={textContent}>
-          <Typography variant="body2">
+          <Typography sx={textTitle} variant="body2">
             {name}
           </Typography>
           <Typography variant="h3">
+            $
             {currentPrice}
           </Typography>
         </CardContent>
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
-            margin: '0 auto',
+            m: '5px 5px',
           }}
         >
           <ButtonGroup variant="outlined" aria-label="small button group">
