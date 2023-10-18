@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
@@ -19,15 +19,18 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
+import { getProducts } from '../../redux/slices/productsSlice';
 
 const ProductCard = ({ productName }) => {
-  const products = useSelector((state) => state.products.products, shallowEqual);
   const dispatch = useDispatch();
+  const nameOfProduct = fixedDecodeURIComponent(productName);
+  console.log(nameOfProduct);
+  const products = useSelector((state) => state.products.products, shallowEqual);
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
-  const nameOfProduct = fixedDecodeURIComponent(productName);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
+  console.log(products);
   const {
     name,
     description,

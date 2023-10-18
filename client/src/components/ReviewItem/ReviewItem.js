@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -14,6 +15,7 @@ import { Box, Container } from '@mui/material';
 import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, stylesText } from './styles';
 
 const ReviewItem = ({ review }) => {
+  const location = useLocation();
   const [isShow, setIsShow] = useState(false);
   const { rating, content, avatarUrl, userReview, date } = review;
   const ratingNumber = Number(rating);
