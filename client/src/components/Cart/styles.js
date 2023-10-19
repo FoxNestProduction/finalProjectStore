@@ -180,9 +180,9 @@ export const price = {
   },
   textAlign: 'center',
   p: {
-    tablet: '11px 28px',
-    lgTablet: '12px 32px',
-    desktop: '13px 44px',
+    tablet: '11px 18px',
+    lgTablet: '12px 22px',
+    desktop: '13px 24px',
   },
 };
 
