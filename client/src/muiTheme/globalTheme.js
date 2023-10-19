@@ -115,6 +115,23 @@ const globalTheme = createTheme({
         }),
       },
     },
+    MuiCardContent: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '&:last-child': {
+            [theme.breakpoints.up('mobile')]: {
+              padding: '0 12px',
+            },
+            [theme.breakpoints.up('tablet')]: {
+              padding: '0 15px',
+            },
+            [theme.breakpoints.up('desktop')]: {
+              padding: '0 19px',
+            },
+          },
+        }),
+      },
+    },
   },
 });
 
