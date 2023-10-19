@@ -68,7 +68,9 @@ const SwiperReview = () => {
           {reviews.map((item) => (
             // eslint-disable-next-line no-underscore-dangle
             <SwiperSlide
+            // eslint-disable-next-line no-underscore-dangle
               key={item._id}
+              // eslint-disable-next-line no-underscore-dangle
               data={item._id}
               className={styles.card}
               onClick={() => handleReviewClick(item)}
