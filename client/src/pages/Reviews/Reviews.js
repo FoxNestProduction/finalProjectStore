@@ -79,24 +79,31 @@ const ReviewsPage = () => {
   }, []);
 
   useEffect(() => {
-    const scrollScreen = (id) => {
-      if (containerRef.current) {
-        const element = containerRef.current.querySelector(`[data="${id}"]`);
-        if (element) {
-          console.log(element);
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+    console.log(searchReview);
+    const element = isRendered && containerRef.current.querySelector(`[data="${searchReview}"]`);
+    const scrollScreen = () => {
+      // console.log(containerRef.current);
+      // console.log(element);
+      // console.log(searchReview);
+      // console.log(isRendered);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
-    if (searchReview && isRendered) {
-      scrollScreen(searchReview);
-    }
-  }, [searchReview, isRendered]);
+    scrollScreen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRendered]);
+
+  // useEffect(() => {
+  //   if (searchReview && isRendered) {
+  //     scrollScreen();
+  //   }
+  // }, [searchReview, isRendered, scrollScreen]);
 
   const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
 
   return (
-    <Container component="section" sx={{ ...flexCenter, ...container }}>
+    <Container component="section" ref={containerRef} sx={{ ...flexCenter, ...container }}>
       <Box sx={titleContainer}>
         <Typography variant="h2" sx={{ justifySelf: 'center' }}>Customers Say</Typography>
         {isUserAuthorized && (
@@ -107,7 +114,7 @@ const ReviewsPage = () => {
         )}
 
       </Box>
-      <Box sx={commentList} ref={containerRef}>
+      <Box sx={commentList}>
         {sortedReviews.slice(0, currentIndex).map((item) => (
           <Box key={item._id} data={item._id} sx={commentItem}>
             <ReviewItem review={item} />

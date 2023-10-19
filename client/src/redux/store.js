@@ -43,6 +43,11 @@ const favouritePersistConfig = {
   version: 1,
   storage,
 };
+const reviewsPersistConfig = {
+  key: 'reviews',
+  version: 1,
+  storage,
+};
 
 /*
     todo: - ЗВЕРНІТЬ УВАГУ!
@@ -60,7 +65,7 @@ const reducer = combineReducers({
   products: persistReducer(productPersistConfig, productsSlice),
   search: persistReducer(searchPersistConfig, searchSlice),
   order: orderSlice,
-  reviews: reviewsSlice,
+  reviews: persistReducer(reviewsPersistConfig, reviewsSlice),
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
 });
 
