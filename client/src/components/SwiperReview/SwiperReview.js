@@ -42,6 +42,7 @@ const SwiperReview = () => {
             ))}
           </Box>
         )}
+        {/* <div className={styles.scrollingWrapper}> */}
         <Swiper
           className={styles.wrapper}
           modules={[Scrollbar]}
@@ -66,7 +67,12 @@ const SwiperReview = () => {
         >
           {reviews.map((item) => (
             // eslint-disable-next-line no-underscore-dangle
-            <SwiperSlide key={item._id} data={item._id} onClick={() => handleReviewClick(item)}>
+            <SwiperSlide
+              key={item._id}
+              data={item._id}
+              className={styles.card}
+              onClick={() => handleReviewClick(item)}
+            >
               <div><ReviewItem review={item} /></div>
             </SwiperSlide>
           ))}
@@ -80,6 +86,7 @@ const SwiperReview = () => {
             />
           </div>
         </Swiper>
+        {/* </div> */}
       </Box>
     </Container>
   );

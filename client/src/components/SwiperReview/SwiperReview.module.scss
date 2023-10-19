@@ -43,46 +43,18 @@
     width: 70vw;
   } 
 }
+// css scroll
+.scrollingWrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
 
-// .swiperWrapper {
-//   // width: fit-content;
-//   height: 100%;
-//   overflow: hidden;
-//   display: flex;
-// }
+  .card {
+    display: inline-block;
+  }
 
-// .swiperScrollbar {
-//   position: absolute;
-//   right: 0px;
-//   bottom: 0px;
-//   width: 60%;
-//   height: 12px;
-//   background-color: #dbd9ee;
-//   border-radius: 55px;
-//   cursor: pointer;
-//   transition: 0.3s;
-// }
-
-// .swiperScrollbarActive {
-//   position: absolute;
-//   right: 0px;
-//   bottom: 0px;
-//   width: 60%;
-//   height: 12px;
-//   background-color: green;
-//   border-radius: 55px;
-//   cursor: pointer;
-//   transition: 0.3s;
-// }
-
-// .swiperScrollbarItem {
-//   width: 10%;
-//   height: 100%;
-//   // backgroundColor: 'primary.main',
-//   border-radius: 55px;
-//   cursor: pointer;
-//   transition: 0.3s;
-//   &.active {
-//     background-color: #6c5fbc;
-//   }
-// }
+  &::-webkit-scrollbar {
+    -webkit-overflow-scrolling: touch;
+    height: 10px;
+  }
+}
