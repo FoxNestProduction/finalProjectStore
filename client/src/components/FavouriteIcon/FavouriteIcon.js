@@ -4,9 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import LoginForm from '../forms/LoginForm/LoginForm';
-import { openModal, setContent } from '../../redux/slices/modalSlice';
-import { addFavourite, removeFavourite, setFavourite, updateFavourites } from '../../redux/slices/favouriteSlice';
+import { addFavourite, removeFavourite, updateFavourites } from '../../redux/slices/favouriteSlice';
 
 const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const dispatch = useDispatch();
