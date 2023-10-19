@@ -20,7 +20,12 @@ import {
   price,
   continueBtn,
 } from './styles';
-import { createCart, updateCart, updateCartAfterCloseWindow } from './cartFunctions';
+import {
+  createCart,
+  updateCart,
+  updateCartAfterCloseWindow,
+  totalSumFromCart,
+} from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import { getCartItemsFromServer } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
@@ -31,13 +36,8 @@ const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
-  // console.log(cartProducts.map((product) => product.cartQuantity));
-  console.log(cartProducts);
-  // cartProducts.pop();
-  // console.log(userIsHasCart);
-  // console.log(isUserAuthorization);
-  // console.log(userToken);
-  const totalSum = 24.55;
+
+  const totalSum = totalSumFromCart(cartProducts);
 
   const getCart = () => {
     if (isUserAuthorization) {
@@ -56,16 +56,14 @@ const Cart = () => {
   const continueFn = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
-        console.log('We must update cart');
         updateCart(cartProducts);
       } else {
-        console.log('We must create cart');
         createCart(cartProducts);
       }
     } else {
-      navigate('/personalInformation');
+      navigate('/checkout');
     }
-    console.log('Continue');
+    navigate('/checkout');
   };
 
   return (
