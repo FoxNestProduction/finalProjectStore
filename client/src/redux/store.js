@@ -11,6 +11,9 @@ import userSlice from './slices/userSlice';
 import partnersSlice from './slices/partnersSlice';
 import searchSlice from './slices/searchSlice';
 import errorSlice from './slices/errorSlice';
+import reviewsSlice from './slices/reviewsSlice';
+import favouriteSlice from './slices/favouriteSlice';
+import orderSlice from './slices/orderSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -26,6 +29,11 @@ const userPersistConfig = {
 
 const searchPersistConfig = {
   key: 'search',
+  version: 1,
+  storage,
+};
+const favouritePersistConfig = {
+  key: 'favorites',
   version: 1,
   storage,
 };
@@ -45,6 +53,9 @@ const reducer = combineReducers({
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
   search: persistReducer(searchPersistConfig, searchSlice),
+  order: orderSlice,
+  reviews: reviewsSlice,
+  favourites: persistReducer(favouritePersistConfig, favouriteSlice),
 });
 
 const middleware = getDefaultMiddleware({

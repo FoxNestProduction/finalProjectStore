@@ -19,6 +19,7 @@ const ListItems = ({ title, items, itemComponent, actions, type }) => {
       <Grid container spacing={0} sx={gridStylesContainer}>
 
         { items && items.map((item) => (
+
           // eslint-disable-next-line dot-notation
           <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
 
@@ -32,7 +33,10 @@ const ListItems = ({ title, items, itemComponent, actions, type }) => {
 };
 
 ListItems.propTypes = {
-  title: PropTypes.oneOfType(string, bool),
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   actions: PropTypes.object,
   items: PropTypes.array,
   itemComponent: PropTypes.func,

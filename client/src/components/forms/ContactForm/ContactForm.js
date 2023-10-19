@@ -11,8 +11,8 @@ import {
   formWrapper,
   purpleArrow,
 } from './styles';
-import Input from '../../Input/Input';
-import Textarea from '../../Textarea/Textarea';
+import Input from '../../inputs/Input/Input';
+import Textarea from '../../inputs/Textarea/Textarea';
 import OneLoopArrowSvg from '../../../assets/svgComponents/OneLoopArrowSvg';
 
 const ContactForm = () => {

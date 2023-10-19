@@ -6,12 +6,10 @@ import IconButton from '@mui/material/IconButton';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContentText from '@mui/material/DialogContentText';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
-import { Snackbar, Alert } from '@mui/material';
 
 import {
   openModal,
@@ -43,10 +41,6 @@ const Modal = () => {
     dispatch(closeModal());
   };
 
-  const handleSendFeedback = () => {
-    dispatch(closeModal());
-  };
-
   const handleOpenModalWarning = () => {
     dispatch(openModal());
     dispatch(setTitle('Are you sure you want to remove the product?'));
@@ -63,47 +57,11 @@ const Modal = () => {
     }));
   };
 
-  const handleOpenModalReview = () => {
-    dispatch(openModal());
-    dispatch(setTitle('Feedback about the service will help us work even better:'));
-    dispatch(setContent(
-      <TextField
-        autoFocus
-        multiline
-        rows={4}
-        margin="dense"
-        id="review"
-        label="leave your feedback about the service"
-        type="text"
-        fullWidth
-        variant="outlined"
-      />,
-    ));
-    dispatch(setButtonAgree({
-      text: 'Send',
-      endIcon: true,
-      onClick: handleSendFeedback,
-    }));
-    dispatch(addButtonBox(true));
-  };
-
-  const handleOpenModalLogin = () => {
-    dispatch(openModal());
-    dispatch(setContent(<LoginForm />));
-  };
-
   return (
     <>
       {/* <Button variant="outlined" onClick={handleOpenModalWarning}> */}
       {/*  Open modal with warning text */}
       {/* </Button> */}
-      {/* <Button variant="standard" onClick={handleOpenModalReview}> */}
-      {/*  Open modal with review */}
-      {/* </Button> */}
-      {/* <Button variant="outlined" onClick={handleOpenModalLogin}>
-        Open modal with LogIn
-      </Button> */}
-
       <Dialog
         open={isOpen}
         onClose={handleClose}
@@ -147,16 +105,17 @@ const Modal = () => {
             endIcon={buttonAgree.endIcon && <SendIcon />}
             startIcon={buttonAgree.startIcon && <DeleteIcon />}
             onClick={buttonAgree.onClick}
+            disabled={buttonAgree.disabled}
             autoFocus
           >
             {buttonAgree.text}
           </Button>
           {/* eslint-disable-next-line no-restricted-globals,no-undef */}
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
               This is a success message!
             </Alert>
-          </Snackbar>
+          </Snackbar> */}
         </DialogActions>
         )}
       </Dialog>
