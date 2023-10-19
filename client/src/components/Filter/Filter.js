@@ -16,7 +16,7 @@ import {
 } from './styles';
 import { setFilter } from '../../redux/slices/filterSlice';
 import { setSearch } from '../../redux/slices/searchSlice';
-import setInputValue from '../Search/Search';
+// піца, бургер, салати, десерти, sea food, мясо-гриль, веганська їжа, паста, напої
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -34,105 +34,6 @@ const Filter = () => {
   const [mostPopular, setMostPopular] = React.useState(false);
   const [fastDelivery, setFastDelivery] = React.useState(false);
   const [valueSlider, setValueSlider] = React.useState();
-
-  // const items = [
-  //   {_id:{"$oid":"6507a306baee59670a047307"},
-  //   restaurant_name:"Welcome Pizzeria",
-  //   name:"Margherita Pizza",
-  //   description:"Classic pizza with rich tomato sauce, .",
-  //   currentPrice:"12.99",
-  //   isFavourite:false,
-  //   isTranding:false,
-  //   isSupreme:false,
-  //   isHealthy:true,
-  //   rating:"4",
-  //   filterCategories:"pizza",
-  //   enabled:true},
-  //   {_id:{"$oid":"6507a306baee59670a047307"},
-  //   restaurant_name:"Welcome Pizzeria",
-  //   name:"Margherita Pizza",
-  //   description:"Classic pizza with rich tomato sauce, .",
-  //   currentPrice:"11.99",
-  //   isFavourite:false,
-  //   isTranding:false,
-  //   isSupreme:false,
-  //   isHealthy:true,
-  //   rating:"4",
-  //   filterCategories:"burgers",
-  //   enabled:true},
-  //   {_id:{"$oid":"6507a306baee59670a047307"},
-  //   restaurant_name:"Welcome Pizzeria",
-  //   name:"Margherita Pizza",
-  //   description:"Classic pizza with rich tomato sauce, ",
-  //   currentPrice:"12.99",
-  //   isFavourite:false,
-  //   isTranding:false,
-  //   isSupreme:false,
-  //   isHealthy:true,
-  //   rating:"4",
-  //   filterCategories:"sushi",
-  //   enabled:true},
-  //   {_id:{"$oid":"6507a306baee59670a047307"},
-  //   restaurant_name:"Welcome Pizzeria",
-  //   name:"Margherita Pizza",
-  //   description:"Classic pizza with rich tomato sauce, .",
-  //   currentPrice:"12.99",
-  //   isFavourite:false,
-  //   isTranding:false,
-  //   isSupreme:false,
-  //   isHealthy:true,
-  //   rating:"4",
-  //   filterCategories:"salads",
-  //   enabled:true},
-  //   {_id:{"$oid":"6507a306baee59670a047307"},
-  //   restaurant_name:"Welcome Pizzeria",
-  //   name:"Margherita Pizza",
-  //   description:"Classic pizza with rich tomato sauce, .",
-  //   currentPrice:"9",
-  //   isFavourite:false,
-  //   isTranding:false,
-  //   isSupreme:false,
-  //   isHealthy:true,
-  //   rating:"4",
-  //   filterCategories:"pizza",
-  //   enabled:true},
-  //   {_id:{"$oid":"6507a306baee59670a047307"},
-  //   restaurant_name:"Welcome Pizzeria",
-  //   name:"Margherita Pizza",
-  //   description:"Classic pizza with rich tomato sauce, .",
-  //   currentPrice:"10",
-  //   isFavourite:false,
-  //   isTranding:false,
-  //   isSupreme:false,
-  //   isHealthy:true,
-  //   rating:"4",
-  //   filterCategories:"pasta",
-  //   enabled:true},
-  //   {_id:{"$oid":"6507a306baee59670a047307"},
-  //   restaurant_name:"Welcome Pizzeria",
-  //   name:"Margherita Pizza",
-  //   description:"Classic pizza with rich tomato sauce, .",
-  //   currentPrice:"15",
-  //   isFavourite:false,
-  //   isTranding:false,
-  //   isSupreme:false,
-  //   isHealthy:true,
-  //   rating:"4",
-  //   filterCategories:"burgers",
-  //   enabled:true},
-  //   {_id:{"$oid":"6507a306baee59670a047307"},
-  //   restaurant_name:"Welcome Pizzeria",
-  //   name:"Margherita Pizza",
-  //   description:"Classic pizza with rich tomato sauce, melted cheese.",
-  //   currentPrice:"18",
-  //   isFavourite:false,
-  //   isTranding:false,
-  //   isSupreme:false,
-  //   isHealthy:true,
-  //   rating:"4",
-  //   filterCategories:"salads",
-  //   enabled:true}
-  // ]
 
   const marks = [
     {
@@ -187,117 +88,26 @@ const Filter = () => {
     // valueSlider: `${valueSlider}`,
   };
 
-  // const filterOptions = {
-  //   burgers: true,
-  //   pizza: false,
-  //   sushi: true,
-  //   salads: false,
-  //   pasta: true,
-  //   sandwiches: false,
-  //   bbqMeat: false,
-  //   drink: false,
-  //   recomended: true,
-  //   mostPopular: false,
-  //   fastDelivery: false,
-  //   valueSlider: false,
-  // };
-
   const valuetext = (value) => {
     return (`${value}$`, setValueSlider(value));
   };
 
-  // const getFilteredProducts = (options) => {
-  //   let filteredProducts = [];
-  //   filteredProducts = filteredProducts.concat(
-  //     products.filter((element) => { // eslint-disable-line
-  //       if (pizza && element.filterCategories === 'pizza') {
-  //         return element;
-  //       }
-  //     }),
-  //   );
-  //   filteredProducts = filteredProducts.concat(
-  //     products.filter((element) => { // eslint-disable-line
-  //       if (burgers && element.filterCategories === 'burgers') {
-  //         return element;
-  //       }
-  //     }),
-  //   );
-  //   filteredProducts = filteredProducts.concat(
-  //     products.filter((element) => { // eslint-disable-line
-  //       if (sushi && element.filterCategories === 'sushi') {
-  //         return element;
-  //       }
-  //     }),
-  //   );
-  //   filteredProducts = filteredProducts.concat(
-  //     products.filter((element) => { // eslint-disable-line
-  //       if (salads && element.filterCategories === 'salads') {
-  //         return element;
-  //       }
-  //     }),
-  //   );
-  //   filteredProducts = filteredProducts.concat(
-  //     products.filter((element) => { // eslint-disable-line
-  //       if (pasta && element.filterCategories === 'pasta') {
-  //         return element;
-  //       }
-  //     }),
-  //   );
-  //   filteredProducts = filteredProducts.concat(
-  //     products.filter((element) => { // eslint-disable-line
-  //       if (sandwiches && element.filterCategories === 'sandwiches') {
-  //         return element;
-  //       }
-  //     }),
-  //   );
-  //   filteredProducts = filteredProducts.concat(
-  //     products.filter((element) => { // eslint-disable-line
-  //       if (bbqMeat && element.filterCategories === 'bbqMeat') {
-  //         return element;
-  //       }
-  //     }),
-  //   );
-  //   filteredProducts = filteredProducts.concat(
-  //     products.filter((element) => { // eslint-disable-line
-  //       if (drink && element.filterCategories === 'drink') {
-  //         return element;
-  //       }
-  //     }),
-  //   );
-
-  //   if (filteredProducts.length !== 0) {
-  //     filteredProducts = filteredProducts.filter((element) => { // eslint-disable-line
-  //       if (element.currentPrice <= valueSlider) {
-  //         return element;
-  //       }
-  //     });
-  //   } else {
-  //     filteredProducts = products.filter((element) => { // eslint-disable-line
-  //       if (element.currentPrice < `${valueSlider}`) {
-  //         return element;
-  //       }
-  //     });
-  //   }
-  //   return filteredProducts;
-  // };
-
-  // const handleApplyFilter = () => {
-  //   dispatch(setFilter(getFilteredProducts()));
-  // };
-  // console.log(getFilteredProducts());
-
   const filteredItems = products.filter((prod) => {
     const category = prod.filterCategories;
     const price = prod.currentPrice;
-    console.log(filterOptions[category]);
-    return filterOptions[category] && price < valueSlider;
+    if (Object.values(filterOptions).includes("true")) { // eslint-disable-line
+      return (JSON.parse(filterOptions[category]) && price < valueSlider);
+    } else
+    { return price < valueSlider; // eslint-disable-line
+    }
   });
+  // console.log(filteredItems);
+  // console.log(filterOptions);
 
-  console.log(filteredItems);
-
-  // const handleApplyFilter = () => {
-  //   dispatch(setFilter(filteredItems));
-  // };
+  const handleApplyFilter = () => {
+    dispatch(setFilter(filteredItems));
+    dispatch(setSearch([]));
+  };
 
   return (
     <Stack component="section" sx={stylesWrap}>
@@ -440,8 +250,6 @@ const Filter = () => {
               <Typography>Vegan</Typography>
             </Stack>
           </ToggleButton> */}
-          {/* <div>Sorter : піца, бургер, салати, десерти, sea food,</div> */}
-          {/* <div> мясо-гриль, веганська їжа, паста, напої</div> */}
         </Stack>
       </Stack>
       <Stack component="div" sx={{ mt: { mobile: '25px', tablet: '30px' } }}>
@@ -523,7 +331,7 @@ const Filter = () => {
       </Stack>
       <Button
         sx={stylesBtn}
-        // onClick={handleApplyFilter}
+        onClick={handleApplyFilter}
       >
         Apply
       </Button>

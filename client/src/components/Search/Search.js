@@ -17,7 +17,7 @@ const Search = () => {
   const [inputValue, setInputValue] = React.useState('');
   const labelForTextField = `Search  ${alignment}`;
 
-  const handleChange = (event, newAlignment) => {
+  const handleChangeButton = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
       setInputValue('');
@@ -39,6 +39,7 @@ const Search = () => {
     if (newInputValue.length !== 0) {
       dispatch(setSearch(filteredProductsOrRestaurants(newInputValue)));
       dispatch(setKey(alignment));
+      dispatch(setFilter([]));
     }
   };
 
@@ -71,7 +72,7 @@ const Search = () => {
           )}
         />
       </Stack>
-      <ToggleButtonGroup value={alignment} exclusive onChange={handleChange} aria-label="Platform">
+      <ToggleButtonGroup value={alignment} exclusive onChange={handleChangeButton} aria-label="Platform">
         <ToggleButton value="food" sx={stylesBtn}>
           Food
         </ToggleButton>
