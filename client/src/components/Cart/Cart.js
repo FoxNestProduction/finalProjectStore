@@ -23,6 +23,7 @@ import {
 import { createCart, updateCart, updateCartAfterCloseWindow } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import { getCartItemsFromServer } from '../../redux/slices/cartSlice';
+import MiniCart from '../MiniCart/MiniCart';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const Cart = () => {
   useEffect(() => {
     // getCart();
     updateCartAfterCloseWindow(cartProducts);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuthorization]);
 
   const continueFn = () => {
@@ -130,6 +131,7 @@ const Cart = () => {
           >
             Continue
           </Button>
+          <MiniCart />
         </Box>
       </Box>
     </Container>
