@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
@@ -12,6 +12,7 @@ import 'swiper/css/scrollbar';
 import { Container, Box } from '@mui/material';
 import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import { searchReview } from '../../redux/slices/reviewsSlice';
 
 const SwiperReview = () => {
   const isMobile = useMediaQuery('(max-width: 491px)');
@@ -24,8 +25,11 @@ const SwiperReview = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isScrollbarActive, setIsScrollbarActive] = useState(false);
   console.log(isScrollbarActive);
-  const handleReviewClick = () => {
+  const dispatch = useDispatch();
+  const handleReviewClick = (item) => {
     navigate('/reviews');
+    // eslint-disable-next-line no-underscore-dangle
+    dispatch(searchReview(item._id));
   };
 
   return (
@@ -61,7 +65,8 @@ const SwiperReview = () => {
           onScrollbarDragEnd={() => setIsScrollbarActive(false)}
         >
           {reviews.map((item) => (
-            <SwiperSlide key={item.index} onClick={() => handleReviewClick(item)}>
+            // eslint-disable-next-line no-underscore-dangle
+            <SwiperSlide key={item._id} data={item._id} onClick={() => handleReviewClick(item)}>
               <div><ReviewItem review={item} /></div>
             </SwiperSlide>
           ))}

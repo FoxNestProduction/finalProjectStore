@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Stack, Button, Box, Container, useMediaQuery, useTheme } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -12,11 +12,15 @@ import { TitleBtn, commentItem, commentList, container, flexCenter, titleContain
 
 const ReviewsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isRendered, setIsRendered] = useState(false);
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
   const newReview = useSelector((state) => state.reviews.newReview);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const searchReview = useSelector((state) => state.reviews.search);
   const isLgTablet = useMediaQuery('(min-width: 690px)');
+
+  const containerRef = useRef(null);
 
   const handleSendFeedback = () => {
     dispatch(addNewReview());
@@ -67,11 +71,27 @@ const ReviewsPage = () => {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(incrementIndex, 400);
+    const intervalId = setInterval(incrementIndex, 200);
+    setIsRendered(true);
     return () => {
       clearInterval(intervalId);
     };
   }, []);
+
+  useEffect(() => {
+    const scrollScreen = (id) => {
+      if (containerRef.current) {
+        const element = containerRef.current.querySelector(`[data="${id}"]`);
+        if (element) {
+          console.log(element);
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    };
+    if (searchReview && isRendered) {
+      scrollScreen(searchReview);
+    }
+  }, [searchReview, isRendered]);
 
   const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
 
@@ -87,10 +107,10 @@ const ReviewsPage = () => {
         )}
 
       </Box>
-      <Box sx={commentList}>
+      <Box sx={commentList} ref={containerRef}>
         {sortedReviews.slice(0, currentIndex).map((item) => (
-          <Box sx={commentItem}>
-            <ReviewItem key={item._id} review={item} />
+          <Box key={item._id} data={item._id} sx={commentItem}>
+            <ReviewItem review={item} />
           </Box>
         ))}
       </Box>

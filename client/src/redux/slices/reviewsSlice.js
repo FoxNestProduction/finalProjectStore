@@ -13,6 +13,7 @@ const initialState = {
     date: Date.now(),
     product: '6507a306baee59670a047307',
   },
+  search: '',
 };
 
 /* eslint-disable no-param-reassign */
@@ -34,6 +35,9 @@ const reviewsSlice = createSlice({
     setNewReview(state, action) {
       const { field, value } = action.payload;
       state.newReview[field] = value;
+    },
+    searchReview(state, action) {
+      state.search = action.payload;
     },
   },
 });
@@ -74,8 +78,8 @@ export const {
   setReviews,
   addReview,
   removeReview,
-  setNewRating,
   setNewReview,
+  searchReview,
 } = reviewsSlice.actions;
 
 /* eslint-enable no-param-reassign */
