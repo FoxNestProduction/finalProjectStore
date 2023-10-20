@@ -26,7 +26,7 @@ const MenuPage = () => {
     <>
       <SectionSwipperFilterSearch />
 
-      {keyFromSearch === 'restaurant' && itemsFromSearch.length !== 0 ? (
+      {keyFromSearch === 'restaurant' && itemsFromSearch.length !== 0 && (
         <ListItems
           title={`Search Restaurant (${itemsFromSearch.length})`}
           items={itemsFromSearch}
@@ -34,7 +34,9 @@ const MenuPage = () => {
           actions={null}
           type="partners"
         />
-      ) : keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
+      )}
+
+      {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
         <ListItems
           title={`Search Results (${itemsFromSearch.length})`}
           items={itemsFromSearch}

@@ -12,11 +12,9 @@ import {
   stylesCategoryIconsWrap,
   stylesCategoryItem,
   stylesToggleButton,
-  stylesSortSelect,
 } from './styles';
 import { setFilter } from '../../redux/slices/filterSlice';
-import { setSearch } from '../../redux/slices/searchSlice';
-// піца, бургер, салати, десерти, sea food, мясо-гриль, веганська їжа, паста, напої
+import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -29,10 +27,10 @@ const Filter = () => {
   const [sandwiches, setSandwiches] = React.useState(false);
   const [bbqMeat, setBbqMeat] = React.useState(false);
   const [drink, setDrink] = React.useState(false);
-  // const [vegan, setVegan] = React.useState(false);
-  const [recomended, setRecomended] = React.useState(false);
+  const [isTranding, setIsTranding] = React.useState(false);
   const [mostPopular, setMostPopular] = React.useState(false);
-  const [fastDelivery, setFastDelivery] = React.useState(false);
+  const [isHealthy, setIsHealthy] = React.useState(false);
+  const [isSupreme, setIsSupreme] = React.useState(false);
   const [valueSlider, setValueSlider] = React.useState();
 
   const marks = [
@@ -54,26 +52,10 @@ const Filter = () => {
     },
   ];
 
-  const currencies = [
-    {
-      value: 'Sort name A -> X',
-      label: 'Sort name A -> X',
-    },
-    {
-      value: 'Sort name X -> A',
-      label: 'Sort name X -> A',
-    },
-    {
-      value: 'Sort price 0 -> 30',
-      label: 'Sort price 0 -> 30',
-    },
-    {
-      value: 'Sort price 30 -> 0',
-      label: 'Sort price 30 -> 0',
-    },
-  ];
-
-  const filterOptions = {
+  const valuetext = (value) => {
+    return (`${value}$`, setValueSlider(value));
+  };
+  const foodCategories = {
     burgers: `${burgers}`,
     pizza: `${pizza}`,
     sushi: `${sushi}`,
@@ -82,31 +64,31 @@ const Filter = () => {
     sandwiches: `${sandwiches}`,
     bbqMeat: `${bbqMeat}`,
     drink: `${drink}`,
-    // recomended: `${recomended}`,
-    // mostPopular: `${mostPopular}`,
-    // fastDelivery: `${fastDelivery}`,
-    // valueSlider: `${valueSlider}`,
   };
-
-  const valuetext = (value) => {
-    return (`${value}$`, setValueSlider(value));
-  };
-
-  const filteredItems = products.filter((prod) => {
+  const filteredItemsByCatagory = products.filter((prod) => {
     const category = prod.filterCategories;
     const price = prod.currentPrice;
-    if (Object.values(filterOptions).includes("true")) { // eslint-disable-line
-      return (JSON.parse(filterOptions[category]) && price < valueSlider);
-    } else
-    { return price < valueSlider; // eslint-disable-line
-    }
+    return (Object.values(foodCategories).includes('true')
+      ? (JSON.parse(foodCategories[category]) && price < valueSlider)
+      : (price < valueSlider));
   });
-  // console.log(filteredItems);
-  // console.log(filterOptions);
-
+  const filters = [
+    { condition: mostPopular, filterFunc: (el) => el.rating > 4 },
+    { condition: isTranding, filterFunc: (el) => el.isTranding },
+    { condition: isHealthy, filterFunc: (el) => el.isHealthy },
+    { condition: isSupreme, filterFunc: (el) => el.isSupreme },
+  ];
+  const filteredAndSortedItems = filters.reduce((items, filter) => {
+    if (filter.condition) {
+      return items.filter(filter.filterFunc);
+    }
+    return items;
+  }, filteredItemsByCatagory);
+  // console.log(filteredAndSortedItems);
   const handleApplyFilter = () => {
-    dispatch(setFilter(filteredItems));
+    dispatch(setFilter(filteredAndSortedItems));
     dispatch(setSearch([]));
+    dispatch(setInputSearchValue(''));
   };
 
   return (
@@ -179,7 +161,7 @@ const Filter = () => {
           <Stack
             component="div"
             direction="row"
-            spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
+            gap={{ mobile: '10px', tablet: '9px', desktop: '13px' }}
             justifyContent={{ mobile: 'space-between', tablet: 'space-around', lgTablet: 'space-between' }}
             sx={{ width: '100%' }}
           >
@@ -260,27 +242,37 @@ const Filter = () => {
           <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
             <ToggleButton
               sx={stylesSortBtn}
-              value="recomended"
-              selected={recomended}
+              value="isTranding"
+              selected={isTranding}
               onChange={() => {
-                setRecomended(!recomended);
+                setIsTranding(!isTranding);
               }}
             >
-              Recomended
+              Tranding
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
-              value="fastDelivery"
-              selected={fastDelivery}
+              value="isHealthy"
+              selected={isHealthy}
               onChange={() => {
-                setFastDelivery(!fastDelivery);
+                setIsHealthy(!isHealthy);
               }}
             >
-              Fast Delivery
+              Healthy
             </ToggleButton>
           </Stack>
 
           <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
+            <ToggleButton
+              sx={stylesSortBtn}
+              value="isSupreme"
+              selected={isSupreme}
+              onChange={() => {
+                setIsSupreme(!isSupreme);
+              }}
+            >
+              Supreme
+            </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
               value="mostPopular"
@@ -291,23 +283,6 @@ const Filter = () => {
             >
               Most Popular
             </ToggleButton>
-
-            <TextField
-              sx={stylesSortSelect}
-              id="standard-select-currency"
-              size="small"
-              select
-              label="Select"
-              defaultValue=""
-              helperText="Please select your sort by"
-              variant="standard"
-            >
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
           </Stack>
         </Stack>
       </Stack>
