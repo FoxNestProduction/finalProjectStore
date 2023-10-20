@@ -3,9 +3,10 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes, { bool, string } from 'prop-types';
 import Grid from '@mui/material/Grid';
+import Divider from '@mui/material/Divider';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer } from './styles';
 
-const ListItems = ({ title, items, itemComponent, actions, type }) => {
+const ListItems = ({ title, items, itemComponent, actions, pagination, type }) => {
   return (
     <Container sx={{ mb: 13 }}>
       <Typography
@@ -28,6 +29,8 @@ const ListItems = ({ title, items, itemComponent, actions, type }) => {
         ))}
       </Grid>
       {actions}
+      {pagination}
+      <Divider sx={{ marginTop: '67px' }} />
     </Container>
   );
 };
@@ -38,6 +41,7 @@ ListItems.propTypes = {
     PropTypes.bool,
   ]),
   actions: PropTypes.object,
+  pagination: PropTypes.element,
   items: PropTypes.array,
   itemComponent: PropTypes.func,
   type: PropTypes.string,
@@ -46,6 +50,7 @@ ListItems.propTypes = {
 ListItems.defaultProps = {
   title: '',
   actions: {},
+  pagination: null,
   items: [],
   itemComponent: () => {},
   type: '',

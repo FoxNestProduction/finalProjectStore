@@ -1,20 +1,51 @@
-import React from 'react';
-import Container from '@mui/material/Container';
+import React, { useState } from 'react';
+import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 
-const pageSize = 3;
+// eslint-disable-next-line react/prop-types
+const AppPagination = ({ page, setPage, productsPerPage, count }) => {
+  console.log(count);
+  // const [pagination, setPagination] = useState({
+  //   count: 0, // quantity of products
+  //   from: 0,
+  //   to: pageSize,
+  // });
 
-const AppPagination = () => {
+  const handlePageChange = (event, currentPage) => {
+    setPage(currentPage);
+    console.log(currentPage);
+  };
+
   return (
-    <Container sx={{
+    <Box sx={{
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      my: '30px',
+      mt: '50px',
     }}
     >
-      <Pagination count={10} color="primary" size="large" />
-    </Container>
+      <Pagination
+        // count={10}
+        page={page}
+        count={Math.ceil(count / productsPerPage)}
+        onChange={handlePageChange}
+        // page={1} // the number of current page
+        color="secondary"
+        // hidePrevButton
+        // hideNextButton
+        sx={{
+          '& .MuiButtonBase-root': {
+            // fontSize: '16px',
+            // // px: '2px',
+            // minWidth: '30px',
+            // height: '30px',
+          },
+          '& .MuiButtonBase-root.Mui-selected': {
+            color: 'text.primaryLight',
+          },
+        }}
+      />
+    </Box>
   );
 };
 
