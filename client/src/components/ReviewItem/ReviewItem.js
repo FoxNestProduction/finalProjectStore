@@ -16,10 +16,14 @@ import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, sty
 
 const ReviewItem = ({ review }) => {
   const location = useLocation();
-  const styleComment = (location.pathname === '/reviews') ? stylesFullText : stylesText;
-
   const [isShow, setIsShow] = useState(false);
   const { rating, content, avatarUrl, userReview, date } = review;
+  const isMoreThreeLineText = content.split('\n').length > 3;
+  const isLessThreeLineText = content.split('\n').length > 1;
+  const styleComment = (location.pathname === '/reviews') ? stylesFullText : { ...stylesText, whiteSpace: isLessThreeLineText && 'pre-line', lineClamp: isMoreThreeLineText && 3 };
+  const minMidthWraper = !(location.pathname === '/reviews') && { tablet: '295px' };
+
+  console.log(isMoreThreeLineText);
   const ratingNumber = Number(rating);
   const dateReview = new Date(+date);
   const day = String(dateReview.getDate()).padStart(2, '0');
@@ -28,7 +32,7 @@ const ReviewItem = ({ review }) => {
   const formattedDate = `${day}.${month}.${year}`;
 
   return (
-    <Card sx={stylesCardReview}>
+    <Card sx={{ ...stylesCardReview, minWidth: minMidthWraper }}>
       {!isShow && (
       <CardHeader
         avatar={(
@@ -45,7 +49,7 @@ const ReviewItem = ({ review }) => {
       />
       )}
       <CardContent sx={stylesContent}>
-        <Box sx={styleComment}>
+        <Box sx={{ ...styleComment }}>
           {content}
         </Box>
       </CardContent>

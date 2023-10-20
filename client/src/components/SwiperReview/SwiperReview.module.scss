@@ -1,77 +1,44 @@
-.swiperScrollbar {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  height: 8px;
-  width: 100%;
-  background-color: #6C5FBC;
-  border-radius: 16px;
-  opacity: 0.4;
-}
-
-.swiperScrollbar.active {
-  background-color: #6C5FBC;
-}
-
-.swiperScrollbarDrag {
-  background-color: #6C5FBC;
-}
-
-.wrapperFirst {
-  @media (min-width: 691px) {
-    width: 30vw;
-  } 
-  @media (min-width: 691px) {
-    width: 50vw;
-  } 
-  @media (min-width: 991px) {
-    width: 30vw;
-  } 
-  height: 100%;
-}
-.wrapper {
-  position: relative;
-  height: 100%;
-  padding-bottom: 63px;
-  @media (min-width: 481px) {
-    width: 100vw;
-  } 
-  @media (min-width: 691px) {
-    width: 50vw;
-  } 
-  @media (min-width: 991px) {
-    width: 70vw;
-  } 
-}
-// css scroll
 .scrollingWrapper {
   display: flex;
   gap: 1vw;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
-  padding: 40px; 
-  // width: calc(100% - 500px);
+  text-overflow: ellipsis;
+  height: 100%;
+  padding-top: 82px;
+  padding-bottom: 96px;
+  width: 100%;
+  cursor: pointer;
 
   .card {
     display: inline-block;
-    width: 40%;
+    width: 100%;
+    @media (min-width: 691px) {
+      width: 375px;
+    } 
+    @media (min-width: 991px) {
+      width: 458px;
+    } 
+    height: 100%;
   }
 
   &::-webkit-scrollbar {
     -webkit-overflow-scrolling: touch;
-    height: 15px;
+    height: 12px;
   }
   &::-webkit-scrollbar-track {
     background: #c8c5df;
     border-radius: 35px;
-    margin-left: 26vw;
     margin-top: 70px;
+    @media (min-width: 691px) {
+      margin-left: 300px;
+    } 
   }
   &::-webkit-scrollbar-thumb {
     background-color: #6C5FBC;
-    width: 4vw;
+    width: 20vw;
     border-radius: 35px;
-    border: 4px solid #c8c5df; 
+    border: 3px solid #c8c5df; 
   }
 }

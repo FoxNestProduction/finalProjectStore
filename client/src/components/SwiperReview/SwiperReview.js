@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -13,6 +13,7 @@ import { Container, Box } from '@mui/material';
 import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import { searchReview } from '../../redux/slices/reviewsSlice';
+import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
 
 const SwiperReview = () => {
   const isMobile = useMediaQuery('(max-width: 491px)');
@@ -21,10 +22,7 @@ const SwiperReview = () => {
   const navigate = useNavigate();
 
   const reviews = useSelector((state) => state.reviews.reviews);
-  const [swiperInstance, setSwiperInstance] = useState(null);
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [isScrollbarActive, setIsScrollbarActive] = useState(false);
-  console.log(isScrollbarActive);
+  const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
   const dispatch = useDispatch();
   const handleReviewClick = (item) => {
     navigate('/reviews');
@@ -34,65 +32,30 @@ const SwiperReview = () => {
 
   return (
     <Container>
-      <Box sx={{ mr: { mobile: '0px', tablet: '-65px', desctop: '-90px' }, pt: '82px', pb: '150px', position: 'relative' }}>
-        {/* <Box sx={{ mr: { mobile: '0px', tablet: '-65px', desctop: '-90px' }, pt: '82px',
-      pb: '150px', position: 'relative', display: 'flex', gap: 3, flexDirection: 'row' }}>
-        {isMobile || isTablet || (
-          <Box sx={{ width: '37%', height: '100%' }}>
-            {reviews.slice(0, 1).map((item) => (
-              <ReviewItem review={item} />
-            ))}
-          </Box>
-        )}
-        <Swiper
-          className={styles.wrapper}
-          modules={[Scrollbar]}
-          spaceBetween="20px"
-          grabCursor="true"
-          // slidesPerView={1.7}
-          breakpoints={{
-            isMobile: { slidesPerView: 1 },
-            491: { slidesPerView: 0.2 },
-            991: { slidesPerView: 1.7 },
-          }}
-          scrollbar={{
-            draggable: true,
-            dragSize: '80px',
-            // el: '.swiperScrollbarDrag',
-            allowTouchMove: true,
-          }}
-          onSwiper={(swiper) => setSwiperInstance(swiper)}
-          onSlideChange={() => console.log('slide change')}
-          onScrollbarDragStart={() => setIsScrollbarActive(true)}
-          onScrollbarDragEnd={() => setIsScrollbarActive(false)}
+      <Box sx={{ pb: '150px' }}>
+        <Box
+          // sx={{
+          //   ...scrollingWrapperStyles,
+          //   '&::-webkit-scrollbar': scrollbarStyles,
+          //   '&::-webkit-scrollbar-track': scrollbarTrackStyles,
+          //   '&::-webkit-scrollbar-thumb': scrollbarThumbStyles,
+          // }}
+          className={styles.scrollingWrapper}
         >
-          {reviews.map((item) => (
-            // eslint-disable-next-line no-underscore-dangle
-            <SwiperSlide
+          {sortedReviews.slice(0, 9).map((item, index) => (
+            <Box
             // eslint-disable-next-line no-underscore-dangle
               key={item._id}
-            // eslint-disable-next-line no-underscore-dangle
+              // eslint-disable-next-line no-underscore-dangle
               data={item._id}
               className={styles.card}
+              // sx={cardStyles}
               onClick={() => handleReviewClick(item)}
             >
-              <div><ReviewItem review={item} /></div>
-            </SwiperSlide>
+              <ReviewItem review={item} />
+            </Box>
           ))}
-          <div className={styles.swiperScrollbar}>
-            <div
-              className={classNames(styles.swiperScrollbarDrag, {
-                [styles.active]: isScrollbarActive,
-              })}
-              onMouseEnter={() => setIsScrollbarActive(true)}
-              onMouseLeave={() => setIsScrollbarActive(false)}
-            />
-          </div>
-        </Swiper>
-      </Box> */}
-        <div className={styles.scrollingWrapper}>
-          {reviews.map((item) => <div className={styles.card}><ReviewItem review={item} /></div>)}
-        </div>
+        </Box>
       </Box>
     </Container>
   );

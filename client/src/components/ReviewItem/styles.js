@@ -2,18 +2,9 @@ export const stylesCardReview = {
   background:
   'background.paper',
   position: 'relative',
-  // minWidth: {
-  //   tablet: '295px',
-  // },
-  // width: {
-  //   mobile: '100%',
-  //   tablet: '37%',
-  // },
   width: '100%',
   height: '100%',
   px: '9px',
-  // pt: { mobile: '10px', tablet: '22px' },
-  // mb: '48px',
   boxShadow: '0px 0px 25px #0000001A',
 };
 
@@ -37,29 +28,25 @@ export const stylesContent = {
     tablet: 14,
     desktop: 16,
   },
-  // maxHeight: '180px',
 };
 
 export const stylesText = {
   height: '56px',
+  width: '100%',
   textOverflow: 'ellipsis',
   overflow: 'hidden',
   display: '-webkit-box',
   WebkitLineClamp: 3,
   WebkitBoxDisplay: 'box',
   WebkitBoxOrient: 'vertical',
+  lineClamp: 3,
+  boxOrient: 'vertical',
   maxHeight: '180px',
 };
 
 export const stylesFullText = {
   overflow: 'auto',
   height: 'fit-content',
-  // textOverflow: 'ellipsis',
-  // overflow: 'hidden',
-  // display: '-webkit-box',
-  // WebkitLineClamp: 3,
-  // WebkitBoxDisplay: 'box',
-  // WebkitBoxOrient: 'vertical',
 };
 
 export const stylesActionCard = {
