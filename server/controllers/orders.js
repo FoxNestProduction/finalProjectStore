@@ -106,12 +106,12 @@ exports.placeOrder = async (req, res, next) => {
       newOrder
         .save()
         .then(async order => {
-          const mailResult = await sendMail(
-            subscriberMail,
-            letterSubject,
-            letterHtml,
-            res
-          );
+          // const mailResult = await sendMail(
+          //   subscriberMail,
+          //   letterSubject,
+          //   letterHtml,
+          //   res
+          // );
 
           // console.log(mailResult);
 
@@ -122,7 +122,8 @@ exports.placeOrder = async (req, res, next) => {
           //   await Product.findOneAndUpdate({ _id: id }, { quantity: productQuantity - item.cartQuantity }, { new: true })
           // }
 
-          res.json({ order, mailResult });
+          // res.json({ order, mailResult });
+          res.json({ order });
         })
         .catch(err =>
           res.status(400).json({

@@ -77,7 +77,8 @@ const CheckoutForm = () => {
   };
 
   const handleContinue = async (values, actions) => {
-    // console.log(values);
+    console.log(values);
+    // console.log(actions);
 
     // updating user info in DB and user slice
     if (isUserAuthorized && token) {
@@ -86,9 +87,7 @@ const CheckoutForm = () => {
       };
 
       try {
-        const response = await instance.put('/customers', updatedCustomer, {
-          headers: { 'Authorization': token },
-        });
+        const response = await instance.put('/customers', updatedCustomer);
         dispatch(setUser(response.data));
       } catch (err) {
         console.log('Error updating user: ', err);
@@ -153,7 +152,7 @@ const CheckoutForm = () => {
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
         }
-        navigate('/order-confirmation');
+        // navigate('/order-confirmation');
       } catch (err) {
         console.log('Error placing new order: ', err);
       }
@@ -171,38 +170,12 @@ const CheckoutForm = () => {
         street: 'street' in values,
         house: 'house' in values,
       };
-      // return {
-      //   name: true,
-      //   email: true,
-      //   tel: true,
-      //   street: true,
-      //   house: true,
-      // };
     }
     return null;
   };
 
-  const setIsValidateOnMount = () => {
-    const values = getDataFromSessionStorage(CHECKOUT_LS_KEY);
-    if (values) {
-      return ('street' in values
-        || 'house' in values
-        || values.name !== user.firstName
-        || values.email !== user.email
-        || values.tel !== user.telephone);
-    }
-    return false;
-  };
-
-  const setIsValid = (touched, errors, isValid) => {
-    let isFormValid = isValid;
-
-    Object.keys(errors).forEach((key) => {
-      if (!(key in touched) || !touched[key]) {
-        isFormValid = true;
-      }
-    });
-    return isFormValid;
+  const setIsValid = (touched, errors) => {
+    return !Object.keys(errors).some((key) => touched[key] === true);
   };
 
   return (
@@ -212,9 +185,8 @@ const CheckoutForm = () => {
       validationSchema={validationSchema}
       enableReinitialize
       initialTouched={setInitialTouched()}
-      validateOnMount={setIsValidateOnMount()}
     >
-      {({ isValid, handleBlur, touched, errors }) => (
+      {({ handleBlur, touched, errors }) => (
         <Form>
           <Stack spacing={4}>
             <Divider />
@@ -313,7 +285,7 @@ const CheckoutForm = () => {
             </Field>
 
           </Stack>
-          <CheckoutActions isValid={setIsValid(touched, errors, isValid)} />
+          <CheckoutActions isValid={setIsValid(touched, errors)} />
         </Form>
       )}
     </Formik>

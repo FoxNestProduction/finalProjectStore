@@ -8,6 +8,7 @@ import { setSearch } from '../../redux/slices/searchSlice';
 import { partnersCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
+import AppPagination from '../../components/Pagination/Pagination';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const MenuPage = () => {
         actions={null}
         type="food"
       />
+      <AppPagination />
 
       <ListItems
         title="Our Top Restaurants"
