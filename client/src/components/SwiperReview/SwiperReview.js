@@ -34,7 +34,9 @@ const SwiperReview = () => {
 
   return (
     <Container>
-      <Box sx={{ mr: { mobile: '0px', tablet: '-65px', desctop: '-90px' }, pt: '82px', pb: '150px', position: 'relative', display: 'flex', gap: 3, flexDirection: 'row' }}>
+      <Box sx={{ mr: { mobile: '0px', tablet: '-65px', desctop: '-90px' }, pt: '82px', pb: '150px', position: 'relative' }}>
+        {/* <Box sx={{ mr: { mobile: '0px', tablet: '-65px', desctop: '-90px' }, pt: '82px',
+      pb: '150px', position: 'relative', display: 'flex', gap: 3, flexDirection: 'row' }}>
         {isMobile || isTablet || (
           <Box sx={{ width: '37%', height: '100%' }}>
             {reviews.slice(0, 1).map((item) => (
@@ -42,7 +44,6 @@ const SwiperReview = () => {
             ))}
           </Box>
         )}
-        {/* <div className={styles.scrollingWrapper}> */}
         <Swiper
           className={styles.wrapper}
           modules={[Scrollbar]}
@@ -70,7 +71,7 @@ const SwiperReview = () => {
             <SwiperSlide
             // eslint-disable-next-line no-underscore-dangle
               key={item._id}
-              // eslint-disable-next-line no-underscore-dangle
+            // eslint-disable-next-line no-underscore-dangle
               data={item._id}
               className={styles.card}
               onClick={() => handleReviewClick(item)}
@@ -88,7 +89,10 @@ const SwiperReview = () => {
             />
           </div>
         </Swiper>
-        {/* </div> */}
+      </Box> */}
+        <div className={styles.scrollingWrapper}>
+          {reviews.map((item) => <div className={styles.card}><ReviewItem review={item} /></div>)}
+        </div>
       </Box>
     </Container>
   );

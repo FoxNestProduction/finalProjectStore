@@ -45,16 +45,33 @@
 }
 // css scroll
 .scrollingWrapper {
+  display: flex;
+  gap: 1vw;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+  padding: 40px; 
+  // width: calc(100% - 500px);
 
   .card {
     display: inline-block;
+    width: 40%;
   }
 
   &::-webkit-scrollbar {
     -webkit-overflow-scrolling: touch;
-    height: 10px;
+    height: 15px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #c8c5df;
+    border-radius: 35px;
+    margin-left: 26vw;
+    margin-top: 70px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #6C5FBC;
+    width: 4vw;
+    border-radius: 35px;
+    border: 4px solid #c8c5df; 
   }
 }
