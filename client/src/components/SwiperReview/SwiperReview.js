@@ -32,13 +32,23 @@ const SwiperReview = () => {
   };
 
   const scrollingWrapperRef = useRef(null);
-  const cardRefs = useRef([]);
-  console.log(cardRefs);
+  const cardRef = useRef([]);
 
   useEffect(() => {
     const scrollingWrapper = scrollingWrapperRef.current;
-    const cards = cardRefs.map((ref) => ref.current);
-  }, []);
+    const card = cardRef.current.map((item, index) => item.current[index]);
+    console.log(cardRef);
+    const scrollingWrapperRect = scrollingWrapper.getBoundingClientRect();
+    console.log(scrollingWrapperRect);
+    // if (scrollingWrapper && cards.length > 0) {
+    //   const scrollingWrapperRect = scrollingWrapper.getBoundingClientRect();
+    //   const cardRect = cards[0].getBoundingClientRect();
+
+    //   if (scrollingWrapperRect.left === cardRect.left) {
+    //     setIsFullCard(true);
+    //   }
+    // }
+  }, [scrollingWrapperRef, isFullCard, cardRef]);
 
   // if (wrapperContainerRect.left === cardContainerRect.left) {
   //   setIsFullCard(true);
@@ -63,7 +73,9 @@ const SwiperReview = () => {
               key={item._id}
               // eslint-disable-next-line no-underscore-dangle
               data={item._id}
-              ref={(el) => cardRefs.current[index] === el}
+              // eslint-disable-next-line
+              ref={function (el) { cardRef.current[index] = el; }}
+              // ref={cardRef[index]}
               className={styles.card}
               // isFullCard={isFullCard}
               // sx={cardStyles}

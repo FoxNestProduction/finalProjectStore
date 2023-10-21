@@ -24,7 +24,6 @@ const ReviewItem = ({ review }) => {
 
   const minMidthWraper = !(location.pathname === '/reviews') && { tablet: '295px' };
 
-  console.log(isMoreThreeLineText);
   const ratingNumber = Number(rating);
   const dateReview = new Date(+date);
   const day = String(dateReview.getDate()).padStart(2, '0');
