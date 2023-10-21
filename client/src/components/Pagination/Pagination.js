@@ -10,12 +10,12 @@ const AppPagination = ({ page, setPage, pageQty, anchor }) => {
 
   const handleClick = () => {
     if (anchor) {
-      // setTimeout(() => {
+      setTimeout(() => {
       // eslint-disable-next-line react/prop-types
-      anchor.scrollIntoView({
-        block: 'start',
-      });
-      // }, 300);
+        anchor.scrollIntoView({
+          block: 'start',
+        });
+      }, 200);
     }
   };
 
