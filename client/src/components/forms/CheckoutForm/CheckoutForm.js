@@ -152,7 +152,7 @@ const CheckoutForm = () => {
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
         }
-        // navigate('/order-confirmation');
+        navigate('/order-confirmation');
       } catch (err) {
         console.log('Error placing new order: ', err);
       }
