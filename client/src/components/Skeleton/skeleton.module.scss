@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 315px;
+    padding-bottom: 20px;
+    box-shadow: 6px 71px 35px 0px rgba(229, 229, 229, 0.70);
+    border-radius: 16px;
+    background-color: #676767;
+}
+
+.imageSkeleton {
+    width: 100%;
+    height: 160px;
+    margin-bottom: 10px;
+    border-radius: 16px 16px 0 0;
+}
+
+.chipsTitleRatingSkeleton {
+    margin-top: 10px;
+    margin-left: 32px;
+    width: 250px;
+    height: 20px;
+    border-radius: 16px;
+}
+
+.loading {
+    background: linear-gradient(-75deg, transparent 60%, #6C5FBC, transparent 80%) 200% 100% / 200% 100%, #ACADB9;
+    animation: loading 4s infinite linear;
+    background-attachment: fixed;
+}
+
+@keyframes loading {
+    to {
+        background-position: -200% 0;
+    }
+}
