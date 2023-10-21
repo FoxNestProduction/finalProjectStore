@@ -1,4 +1,4 @@
-import { Button, CardMedia, Container, MenuItem, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Button, CardMedia, Container, Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -14,7 +14,7 @@ import {
   stylesToggleButton,
 } from './styles';
 import { setFilter } from '../../redux/slices/filterSlice';
-import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
+import { setSearch } from '../../redux/slices/searchSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -27,12 +27,11 @@ const Filter = () => {
   const [sandwiches, setSandwiches] = React.useState(false);
   const [bbqMeat, setBbqMeat] = React.useState(false);
   const [drink, setDrink] = React.useState(false);
-  const [isTranding, setIsTranding] = React.useState(false);
+  // const [vegan, setVegan] = React.useState(false);
+  const [recomended, setRecomended] = React.useState(false);
   const [mostPopular, setMostPopular] = React.useState(false);
-  const [isHealthy, setIsHealthy] = React.useState(false);
-  const [isSupreme, setIsSupreme] = React.useState(false);
+  const [fastDelivery, setFastDelivery] = React.useState(false);
   const [valueSlider, setValueSlider] = React.useState();
-
   const marks = [
     {
       value: 0,
@@ -52,47 +51,102 @@ const Filter = () => {
     },
   ];
 
+  // const filterOptions = {
+  //   burgers: `${burgers}`,
+  //   pizza: `${pizza}`,
+  //   sushi: `${sushi}`,
+  //   salads: `${salads}`,
+  //   pasta: `${pasta}`,
+  //   sandwiches: `${sandwiches}`,
+  //   bbqMeat: `${bbqMeat}`,
+  //   drink: `${drink}`,
+  //   recomended: `${recomended}`,
+  //   mostPopular: `${mostPopular}`,
+  //   fastDelivery: `${fastDelivery}`,
+  //   valueSlider: `${valueSlider}`,
+  // };
+
   const valuetext = (value) => {
     return (`${value}$`, setValueSlider(value));
   };
-  const foodCategories = {
-    burgers: `${burgers}`,
-    pizza: `${pizza}`,
-    sushi: `${sushi}`,
-    salads: `${salads}`,
-    pasta: `${pasta}`,
-    sandwiches: `${sandwiches}`,
-    bbqMeat: `${bbqMeat}`,
-    drink: `${drink}`,
-  };
-  const filteredItemsByCatagory = products.filter((prod) => {
-    const category = prod.filterCategories;
-    const price = prod.currentPrice;
-    return (Object.values(foodCategories).includes('true')
-      ? (JSON.parse(foodCategories[category]) && price < valueSlider)
-      : (price < valueSlider));
-  });
-  const filters = [
-    { condition: mostPopular, filterFunc: (el) => el.rating > 4 },
-    { condition: isTranding, filterFunc: (el) => el.isTranding },
-    { condition: isHealthy, filterFunc: (el) => el.isHealthy },
-    { condition: isSupreme, filterFunc: (el) => el.isSupreme },
-  ];
-  const filteredAndSortedItems = filters.reduce((items, filter) => {
-    if (filter.condition) {
-      return items.filter(filter.filterFunc);
-    }
-    return items;
-  }, filteredItemsByCatagory);
-  // console.log(filteredAndSortedItems);
-  const handleApplyFilter = () => {
-    if (filteredAndSortedItems.length === 0) {
-      alert('Nothing found :(');
+
+  const getFilteredProducts = (options) => {
+    let filteredProducts = [];
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (pizza && element.filterCategories === 'pizza') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (burgers && element.filterCategories === 'burgers') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (sushi && element.filterCategories === 'sushi') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (salads && element.filterCategories === 'salads') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (pasta && element.filterCategories === 'pasta') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (sandwiches && element.filterCategories === 'sandwiches') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (bbqMeat && element.filterCategories === 'bbqMeat') {
+          return element;
+        }
+      }),
+    );
+    filteredProducts = filteredProducts.concat(
+      products.filter((element) => { // eslint-disable-line
+        if (drink && element.filterCategories === 'drink') {
+          return element;
+        }
+      }),
+    );
+
+    if (filteredProducts.length !== 0) {
+      filteredProducts = filteredProducts.filter((element) => { // eslint-disable-line
+        if (element.currentPrice <= valueSlider) {
+          return element;
+        }
+      });
     } else {
-      dispatch(setFilter(filteredAndSortedItems));
-      dispatch(setSearch([]));
-      dispatch(setInputSearchValue(''));
+      filteredProducts = products.filter((element) => { // eslint-disable-line
+        if (element.currentPrice < `${valueSlider}`) {
+          return element;
+        }
+      });
     }
+    return filteredProducts;
+  };
+
+  const handleApplyFilter = () => {
+    dispatch(setFilter(getFilteredProducts()));
   };
 
   return (
@@ -165,7 +219,7 @@ const Filter = () => {
           <Stack
             component="div"
             direction="row"
-            gap={{ mobile: '10px', tablet: '9px', desktop: '13px' }}
+            spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
             justifyContent={{ mobile: 'space-between', tablet: 'space-around', lgTablet: 'space-between' }}
             sx={{ width: '100%' }}
           >
@@ -236,6 +290,8 @@ const Filter = () => {
               <Typography>Vegan</Typography>
             </Stack>
           </ToggleButton> */}
+          {/* <div>Sorter : піца, бургер, салати, десерти, sea food,</div> */}
+          {/* <div> мясо-гриль, веганська їжа, паста, напої</div> */}
         </Stack>
       </Stack>
       <Stack component="div" sx={{ mt: { mobile: '25px', tablet: '30px' } }}>
@@ -246,48 +302,36 @@ const Filter = () => {
           <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
             <ToggleButton
               sx={stylesSortBtn}
-              value="isTranding"
-              selected={isTranding}
+              value="recomended"
+              selected={recomended}
               onChange={() => {
-                setIsTranding(!isTranding);
+                setRecomended(!recomended);
               }}
             >
-              Tranding
+              Recomended
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
-              value="isHealthy"
-              selected={isHealthy}
+              value="fastDelivery"
+              selected={fastDelivery}
               onChange={() => {
-                setIsHealthy(!isHealthy);
+                setFastDelivery(!fastDelivery);
               }}
             >
-              Healthy
+              Fast Delivery
             </ToggleButton>
           </Stack>
 
-          <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
-            <ToggleButton
-              sx={stylesSortBtn}
-              value="isSupreme"
-              selected={isSupreme}
-              onChange={() => {
-                setIsSupreme(!isSupreme);
-              }}
-            >
-              Supreme
-            </ToggleButton>
-            <ToggleButton
-              sx={stylesSortBtn}
-              value="mostPopular"
-              selected={mostPopular}
-              onChange={() => {
-                setMostPopular(!mostPopular);
-              }}
-            >
-              Most Popular
-            </ToggleButton>
-          </Stack>
+          <ToggleButton
+            sx={stylesSortBtn}
+            value="mostPopular"
+            selected={mostPopular}
+            onChange={() => {
+              setMostPopular(!mostPopular);
+            }}
+          >
+            Most Popular
+          </ToggleButton>
         </Stack>
       </Stack>
 
@@ -300,7 +344,7 @@ const Filter = () => {
             sx={stylesSlider}
             max={30}
             aria-label="Always visible"
-            defaultValue={15}
+            defaultValue={25}
             getAriaValueText={valuetext}
             step={1}
             marks={marks}
@@ -308,12 +352,7 @@ const Filter = () => {
           />
         </Box>
       </Stack>
-      <Button
-        sx={stylesBtn}
-        onClick={handleApplyFilter}
-      >
-        Apply
-      </Button>
+      <Button sx={stylesBtn} onClick={handleApplyFilter}>Apply</Button>
     </Stack>
   );
 };
