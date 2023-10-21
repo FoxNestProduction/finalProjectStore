@@ -38,9 +38,6 @@ const MenuPage = () => {
         />
       )}
 
-      {/*  pagination */}
-      {/*  anchor={productsAnchor} */}
-
       {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
         <ListItems
           title={`Search Results (${itemsFromSearch.length})`}
