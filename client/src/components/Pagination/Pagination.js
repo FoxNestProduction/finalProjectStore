@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
+import PropTypes from 'prop-types';
 
 // eslint-disable-next-line react/prop-types
-const AppPagination = ({ page, setPage, productsPerPage, count }) => {
-  console.log(count);
-  // const [pagination, setPagination] = useState({
-  //   count: 0, // quantity of products
-  //   from: 0,
-  //   to: pageSize,
-  // });
-
+const AppPagination = ({ page, setPage, pageQty, anchor }) => {
   const handlePageChange = (event, currentPage) => {
     setPage(currentPage);
-    console.log(currentPage);
+  };
+
+  const handleClick = () => {
+    if (anchor) {
+      // setTimeout(() => {
+      // eslint-disable-next-line react/prop-types
+      anchor.scrollIntoView({
+        block: 'start',
+      });
+      // }, 300);
+    }
   };
 
   return (
@@ -25,21 +29,19 @@ const AppPagination = ({ page, setPage, productsPerPage, count }) => {
     }}
     >
       <Pagination
-        // count={10}
         page={page}
-        count={Math.ceil(count / productsPerPage)}
+        count={pageQty}
         onChange={handlePageChange}
-        // page={1} // the number of current page
+        onClick={handleClick}
         color="secondary"
-        // hidePrevButton
-        // hideNextButton
         sx={{
-          '& .MuiButtonBase-root': {
-            // fontSize: '16px',
-            // // px: '2px',
-            // minWidth: '30px',
-            // height: '30px',
-          },
+          '& .MuiButtonBase-root': (theme) => ({
+            [theme.breakpoints.down('tablet')]: {
+              minWidth: '30px',
+              height: '30px',
+            },
+            fontWeight: theme.typography.fontWeightMedium,
+          }),
           '& .MuiButtonBase-root.Mui-selected': {
             color: 'text.primaryLight',
           },
@@ -47,6 +49,17 @@ const AppPagination = ({ page, setPage, productsPerPage, count }) => {
       />
     </Box>
   );
+};
+
+AppPagination.propTypes = {
+  page: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired,
+  pageQty: PropTypes.number.isRequired,
+  anchor: PropTypes.object,
+};
+
+AppPagination.defaultProps = {
+  anchor: null,
 };
 
 export default AppPagination;
