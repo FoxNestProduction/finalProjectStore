@@ -1,12 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Button, Box, Container, useMediaQuery, useTheme } from '@mui/material';
+import { Typography, Stack, Button, Box, Container, useMediaQuery, useTheme } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ReviewItem from '../../components/ReviewItem/ReviewItem';
+import Modal from '../../components/Modal/Modal';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
-import { addNewReview, setNewReview } from '../../redux/slices/reviewsSlice';
+import { addNewReview, setNewReview, resetReviewState } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 
 const ReviewsPage = () => {
@@ -18,44 +19,38 @@ const ReviewsPage = () => {
   const isLgTablet = useMediaQuery('(min-width: 690px)');
 
   const handleSendFeedback = () => {
-    if (newReview.content !== '') {
-      dispatch(setButtonAgree({
-      //   text: 'Send',
-      //   endIcon: true,
-        disabled: false,
-      //   onClick: handleSendFeedback,
-      }));
-      dispatch(addNewReview());
-      dispatch(closeModal());
-      dispatch(setNewReview({ field: 'user_id', value: '' }));
-      dispatch(setNewReview({ field: 'rating', value: null }));
-      dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
-      dispatch(setNewReview({ field: 'content', value: '' }));
-      dispatch(setNewReview({ field: 'userReview', value: '' }));
-    } else {
-      dispatch(setNewReview({ field: 'user_id', value: '' }));
-      dispatch(setNewReview({ field: 'rating', value: null }));
-      dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
-      dispatch(setNewReview({ field: 'content', value: '' }));
-      dispatch(setNewReview({ field: 'userReview', value: '' }));
-      dispatch(setButtonAgree({
-        text: 'Send',
-        endIcon: true,
-        disabled: true,
-        onClick: handleSendFeedback,
-      }));
-    }
+    dispatch(addNewReview());
+    dispatch(resetReviewState());
+    dispatch(closeModal());
   };
+
+  if (newReview.content !== '') {
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: false,
+      onClick: handleSendFeedback,
+    }));
+  } else {
+    dispatch(resetReviewState());
+    dispatch(setButtonAgree({
+      text: 'Send',
+      endIcon: true,
+      disabled: true,
+    }));
+  }
 
   const handleOpenModalReview = () => {
     dispatch(openModal());
     dispatch(setTitle('Feedback about the service will help us work even better:'));
-    dispatch(setContent(<NewReview />));
+    dispatch(setContent(
+      <NewReview />,
+    ));
+    dispatch(resetReviewState());
     dispatch(setButtonAgree({
       text: 'Send',
       endIcon: true,
-      // disabled: newReview.content === '',
-      disabled: true,
+      disabled: newReview.content === '',
     }));
     dispatch(addButtonBox(true));
   };
@@ -87,8 +82,8 @@ const ReviewsPage = () => {
       </Box>
       <Box sx={commentList}>
         {sortedReviews.slice(0, currentIndex).map((item) => (
-          <Box key={item._id} sx={commentItem}>
-            <ReviewItem review={item} />
+          <Box sx={commentItem}>
+            <ReviewItem key={item._id} review={item} />
           </Box>
         ))}
       </Box>
