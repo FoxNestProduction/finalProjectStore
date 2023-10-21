@@ -25,33 +25,40 @@ const ReviewsPage = () => {
     dispatch(closeModal());
   };
 
-  if (newReview.content !== '') {
-    dispatch(setButtonAgree({
-      disabled: false,
-    }));
-  } else {
-    dispatch(resetReviewState());
-    dispatch(setButtonAgree({
-      text: 'Send',
-      endIcon: true,
-      disabled: true,
-    }));
-  }
+  useEffect(() => {
+    if (newReview.content && newReview.content !== '') {
+      dispatch(setButtonAgree({
+        text: 'Send',
+        endIcon: true,
+        disabled: false,
+        onClick: handleSendFeedback,
+      }));
+    } else {
+      dispatch(resetReviewState());
+      dispatch(setButtonAgree({
+        text: 'Send',
+        endIcon: true,
+        disabled: true,
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newReview]);
 
   const handleOpenModalReview = () => {
-    dispatch(openModal());
-    dispatch(setTitle('Feedback about the service will help us work even better:'));
-    dispatch(setContent(
-      <NewReview />,
-    ));
-    dispatch(resetReviewState());
-    dispatch(setButtonAgree({
-      text: 'Send',
-      endIcon: true,
-      disabled: newReview.content === '',
-      onClick: handleSendFeedback,
-    }));
-    dispatch(addButtonBox(true));
+    if (isRendered) {
+      dispatch(openModal());
+      dispatch(setTitle('Feedback about the service will help us work even better:'));
+      dispatch(setContent(
+        <NewReview />,
+      ));
+      dispatch(resetReviewState());
+      dispatch(setButtonAgree({
+        text: 'Send',
+        endIcon: true,
+        disabled: newReview.content === '',
+      }));
+      dispatch(addButtonBox(true));
+    }
   };
 
   const incrementIndex = () => {
@@ -64,7 +71,7 @@ const ReviewsPage = () => {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [isRendered]);
 
   const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
 
