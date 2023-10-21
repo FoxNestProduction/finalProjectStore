@@ -14,6 +14,7 @@ import errorSlice from './slices/errorSlice';
 import reviewsSlice from './slices/reviewsSlice';
 import favouriteSlice from './slices/favouriteSlice';
 import orderSlice from './slices/orderSlice';
+import filterSlice from './slices/filterSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -49,6 +50,12 @@ const reviewsPersistConfig = {
   storage,
 };
 
+const filterPersistConfig = {
+  key: 'filter',
+  version: 1,
+  storage,
+};
+
 /*
     todo: - ЗВЕРНІТЬ УВАГУ!
       якщо вам потрібно щоб ваш стейт не зникав після перезавантаження
@@ -67,6 +74,7 @@ const reducer = combineReducers({
   order: orderSlice,
   reviews: persistReducer(reviewsPersistConfig, reviewsSlice),
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
+  filter: persistReducer(filterPersistConfig, filterSlice),
 });
 
 const middleware = getDefaultMiddleware({
