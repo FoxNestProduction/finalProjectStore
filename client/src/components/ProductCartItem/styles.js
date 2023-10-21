@@ -24,7 +24,7 @@ export const textContentBox = {
 
 export const imgBox = {
   width: {
-    mobile: '18%',
+    mobile: '26%', // було 18%
     tablet: '22%',
     desktop: '25%',
   },
