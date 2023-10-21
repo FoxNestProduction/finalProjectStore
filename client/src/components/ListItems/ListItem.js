@@ -97,9 +97,8 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
       <AppPagination
         page={page}
         setPage={setPage}
-        productsPerPage={productsPerPage}
-        anchor={anchor}
         pageQty={pageQty}
+        anchor={anchor}
       />
       )}
       <Divider sx={{ marginTop: '67px' }} />
