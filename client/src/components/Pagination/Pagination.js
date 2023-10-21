@@ -6,12 +6,9 @@ import PropTypes from 'prop-types';
 const AppPagination = ({ page, setPage, pageQty, anchor }) => {
   const handlePageChange = (event, currentPage) => {
     setPage(currentPage);
-  };
-
-  const handleClick = () => {
     if (anchor) {
       setTimeout(() => {
-      // eslint-disable-next-line react/prop-types
+        // eslint-disable-next-line react/prop-types
         anchor.scrollIntoView({
           block: 'start',
         });
@@ -31,7 +28,6 @@ const AppPagination = ({ page, setPage, pageQty, anchor }) => {
         page={page}
         count={pageQty}
         onChange={handlePageChange}
-        onClick={handleClick}
         color="secondary"
         sx={{
           '& .MuiButtonBase-root': (theme) => ({
