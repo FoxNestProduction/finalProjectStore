@@ -84,7 +84,6 @@ const Filter = () => {
     }
     return items;
   }, filteredItemsByCatagory);
-  // console.log(filteredAndSortedItems);
   const handleApplyFilter = () => {
     if (filteredAndSortedItems.length === 0) {
       alert('Nothing found :(');
