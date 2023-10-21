@@ -149,6 +149,12 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
               boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
               zIndex: 100,
             },
+            '&:active': {
+              backgroundColor: 'common.white',
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
+              color: 'primary.main',
+              border: '1px solid',
+            },
           }}
           onClick={(e) => {
             e.preventDefault();

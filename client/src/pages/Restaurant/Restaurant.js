@@ -30,6 +30,7 @@ const RestaurantPage = () => {
       sx={{
         bgcolor: 'background.default',
         m: '60px 0',
+        my: '60px',
       }}
     >
       <Typography
