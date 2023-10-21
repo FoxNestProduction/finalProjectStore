@@ -62,16 +62,6 @@ exports.placeOrder = async (req, res, next) => {
     </div>`;
     }
 
-    // const productAvailibilityInfo = await productAvailibilityChecker(
-    //   order.products
-    // );
-
-    // if (!productAvailibilityInfo.productsAvailibilityStatus) {
-    //   res.json({
-    //     message: "Some of your products are unavailable for now",
-    //     productAvailibilityInfo
-    //   });
-    // } else {
       const subscriberMail = req.body.email;
       const letterSubject = req.body.letterSubject;
       const letterHtml = order.letterHtml;
@@ -113,13 +103,6 @@ exports.placeOrder = async (req, res, next) => {
             res
           );
 
-          // for (item of order.products){
-          //   const id = item.product._id;
-          //   const product = await Product.findOne({ _id: id });
-          //   const productQuantity = product.quantity;
-          //   await Product.findOneAndUpdate({ _id: id }, { quantity: productQuantity - item.cartQuantity }, { new: true })
-          // }
-
           res.json({ order, mailResult });
         })
         .catch(err =>
@@ -127,7 +110,6 @@ exports.placeOrder = async (req, res, next) => {
             message: `Error happened on server: "${err}" `
           })
         );
-    // }
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `

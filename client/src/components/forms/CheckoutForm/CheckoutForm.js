@@ -76,16 +76,12 @@ const CheckoutForm = () => {
     updateSessionStorageValues(CHECKOUT_LS_KEY, { [e.target.name]: e.target.value });
   };
 
-  const handleContinue = async (values, actions) => {
-    console.log(values);
-    // console.log(actions);
-
+  const handleContinue = async (values) => {
     // updating user info in DB and user slice
     if (isUserAuthorized && token) {
       const updatedCustomer = {
         telephone: values.tel,
       };
-
       try {
         const response = await instance.put('/customers', updatedCustomer);
         dispatch(setUser(response.data));

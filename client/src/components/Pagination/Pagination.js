@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const AppPagination = ({ page, setPage, pageQty, anchor }) => {
   const handlePageChange = (event, currentPage) => {
     setPage(currentPage);
