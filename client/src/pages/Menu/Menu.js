@@ -12,6 +12,7 @@ import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&S
 const MenuPage = () => {
   const dispatch = useDispatch();
   const itemsFromSearch = useSelector((state) => state.search.search);
+  const itemsFromFilter = useSelector((state) => state.filter.filter);
   const keyFromSearch = useSelector((state) => state.search.key);
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
@@ -25,9 +26,9 @@ const MenuPage = () => {
     <>
       <SectionSwipperFilterSearch />
 
-      {keyFromSearch === 'restaurant' && (
+      {keyFromSearch === 'restaurant' && itemsFromSearch.length !== 0 && (
         <ListItems
-          title={itemsFromSearch.length !== 0 ? 'Search Results' : ''}
+          title={`Search Restaurant (${itemsFromSearch.length})`}
           items={itemsFromSearch}
           itemComponent={RestaurantItem}
           actions={null}
@@ -35,13 +36,25 @@ const MenuPage = () => {
         />
       )}
 
-      <ListItems
-        title={keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? 'Search Results' : 'Our Dishes'}
-        items={keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? itemsFromSearch : products}
-        itemComponent={ProductCardItem}
-        actions={null}
-        type="food"
-      />
+      {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
+        <ListItems
+          title={`Search Results (${itemsFromSearch.length})`}
+          items={itemsFromSearch}
+          itemComponent={ProductCardItem}
+          actions={null}
+          type="food"
+        />
+      ) : itemsFromFilter.length !== 0 ? (
+        <ListItems
+          title={`Filter Results (${itemsFromFilter.length})`}
+          items={itemsFromFilter}
+          itemComponent={ProductCardItem}
+          actions={null}
+          type="food"
+        />
+      ) : (
+        <ListItems title="All Dishes" items={products} itemComponent={ProductCardItem} actions={null} type="food" />
+      )}
 
       <ListItems
         title="Our Top Restaurants"
