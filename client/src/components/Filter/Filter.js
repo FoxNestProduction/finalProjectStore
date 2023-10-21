@@ -86,9 +86,13 @@ const Filter = () => {
   }, filteredItemsByCatagory);
   // console.log(filteredAndSortedItems);
   const handleApplyFilter = () => {
-    dispatch(setFilter(filteredAndSortedItems));
-    dispatch(setSearch([]));
-    dispatch(setInputSearchValue(''));
+    if (filteredAndSortedItems.length === 0) {
+      alert('Nothing found :(');
+    } else {
+      dispatch(setFilter(filteredAndSortedItems));
+      dispatch(setSearch([]));
+      dispatch(setInputSearchValue(''));
+    }
   };
 
   return (
