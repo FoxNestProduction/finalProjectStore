@@ -117,8 +117,6 @@ export const stylesPrice = {
   alignItems: 'center',
   mb: '7px',
   gap: '100%',
-  // width: '30px',
-  // height: '30px',
   backgroundColor: 'primary.main',
   fontSize: { mobile: '16px', tablet: '16px' },
   fontWeight: 700,
