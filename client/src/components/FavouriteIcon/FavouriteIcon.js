@@ -11,7 +11,6 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const wishlist = useSelector((state) => state.favourites.favourites);
   const token = useSelector((state) => state.authorization.token);
-  console.log(ishovered);
 
   const toggleFavourite = () => {
     if (token && !ishovered) {
