@@ -86,6 +86,7 @@ const Filter = () => {
   }, filteredItemsByCatagory);
   const handleApplyFilter = () => {
     if (filteredAndSortedItems.length === 0) {
+      // eslint-disable-next-line no-undef,no-alert
       alert('Nothing found :(');
     } else {
       dispatch(setFilter(filteredAndSortedItems));
