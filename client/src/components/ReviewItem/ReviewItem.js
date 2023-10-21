@@ -16,7 +16,7 @@ import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, sty
 
 const ReviewItem = ({ review }) => {
   const location = useLocation();
-  const [isShow, setIsShow] = useState(false);
+  const [isFullCard, setIsShow] = useState(false);
   const { rating, content, avatarUrl, userReview, date } = review;
   const isMoreThreeLineText = content.split('\n').length > 3;
   const isLessThreeLineText = content.split('\n').length > 1;
@@ -34,7 +34,7 @@ const ReviewItem = ({ review }) => {
 
   return (
     <Card sx={{ ...stylesCardReview, minWidth: minMidthWraper }}>
-      {!isShow && (
+      {!isFullCard && (
       <CardHeader
         avatar={(
           <Avatar>
@@ -68,9 +68,11 @@ const ReviewItem = ({ review }) => {
 
 ReviewItem.propTypes = {
   review: PropTypes.object,
+  // isFullCard: PropTypes.bool,
 };
 ReviewItem.defaultProps = {
   review: {},
+  // isFullCard: false,
 };
 
 export default ReviewItem;

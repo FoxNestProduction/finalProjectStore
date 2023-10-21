@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -16,6 +16,7 @@ import { searchReview } from '../../redux/slices/reviewsSlice';
 import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
 
 const SwiperReview = () => {
+  const [isFullCard, setIsFullCard] = useState(false);
   const isMobile = useMediaQuery('(max-width: 491px)');
   const isTablet = useMediaQuery('(min-width: 491px) and (max-width: 691px)');
   const isLgTablet = useMediaQuery('(min-width: 691px)');
@@ -30,6 +31,19 @@ const SwiperReview = () => {
     dispatch(searchReview(item._id));
   };
 
+  const scrollingWrapperRef = useRef(null);
+  const cardRefs = useRef([]);
+  console.log(cardRefs);
+
+  useEffect(() => {
+    const scrollingWrapper = scrollingWrapperRef.current;
+    const cards = cardRefs.map((ref) => ref.current);
+  }, []);
+
+  // if (wrapperContainerRect.left === cardContainerRect.left) {
+  //   setIsFullCard(true);
+  // }
+
   return (
     <Container>
       <Box sx={{ pb: '150px' }}>
@@ -41,6 +55,7 @@ const SwiperReview = () => {
           //   '&::-webkit-scrollbar-thumb': scrollbarThumbStyles,
           // }}
           className={styles.scrollingWrapper}
+          ref={scrollingWrapperRef}
         >
           {sortedReviews.slice(0, 9).map((item, index) => (
             <Box
@@ -48,7 +63,9 @@ const SwiperReview = () => {
               key={item._id}
               // eslint-disable-next-line no-underscore-dangle
               data={item._id}
+              ref={(el) => cardRefs.current[index] === el}
               className={styles.card}
+              // isFullCard={isFullCard}
               // sx={cardStyles}
               onClick={() => handleReviewClick(item)}
             >
