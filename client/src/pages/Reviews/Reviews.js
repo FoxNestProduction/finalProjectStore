@@ -12,6 +12,7 @@ import { TitleBtn, commentItem, commentList, container, flexCenter, titleContain
 
 const ReviewsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isRendered, setIsRendered] = useState(false);
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
   const newReview = useSelector((state) => state.reviews.newReview);
@@ -26,10 +27,7 @@ const ReviewsPage = () => {
 
   if (newReview.content !== '') {
     dispatch(setButtonAgree({
-      text: 'Send',
-      endIcon: true,
       disabled: false,
-      onClick: handleSendFeedback,
     }));
   } else {
     dispatch(resetReviewState());
@@ -51,6 +49,7 @@ const ReviewsPage = () => {
       text: 'Send',
       endIcon: true,
       disabled: newReview.content === '',
+      onClick: handleSendFeedback,
     }));
     dispatch(addButtonBox(true));
   };
@@ -61,6 +60,7 @@ const ReviewsPage = () => {
 
   useEffect(() => {
     const intervalId = setInterval(incrementIndex, 400);
+    setIsRendered(true);
     return () => {
       clearInterval(intervalId);
     };
@@ -82,8 +82,8 @@ const ReviewsPage = () => {
       </Box>
       <Box sx={commentList}>
         {sortedReviews.slice(0, currentIndex).map((item) => (
-          <Box sx={commentItem}>
-            <ReviewItem key={item._id} review={item} />
+          <Box key={item._id} sx={commentItem}>
+            <ReviewItem review={item} />
           </Box>
         ))}
       </Box>
