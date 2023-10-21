@@ -23,6 +23,10 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
   const [pageQty, setPageQty] = useState(1);
 
   useEffect(() => {
+    setPage(1);
+  }, [items]);
+
+  useEffect(() => {
     setProductsPerPage(productsPerPageMap[breakpoint]);
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint]);
