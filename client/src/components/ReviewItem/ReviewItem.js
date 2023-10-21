@@ -21,6 +21,7 @@ const ReviewItem = ({ review }) => {
   const isMoreThreeLineText = content.split('\n').length > 3;
   const isLessThreeLineText = content.split('\n').length > 1;
   const styleComment = (location.pathname === '/reviews') ? stylesFullText : { ...stylesText, whiteSpace: isLessThreeLineText && 'pre-line', lineClamp: isMoreThreeLineText && 3 };
+
   const minMidthWraper = !(location.pathname === '/reviews') && { tablet: '295px' };
 
   console.log(isMoreThreeLineText);
