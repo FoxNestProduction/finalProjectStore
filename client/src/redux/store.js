@@ -15,6 +15,7 @@ import reviewsSlice from './slices/reviewsSlice';
 import favouriteSlice from './slices/favouriteSlice';
 import cartSlice from './slices/cartSlice';
 import orderSlice from './slices/orderSlice';
+import filterSlice from './slices/filterSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -35,6 +36,12 @@ const searchPersistConfig = {
 };
 const favouritePersistConfig = {
   key: 'favorites',
+  version: 1,
+  storage,
+};
+
+const filterPersistConfig = {
+  key: 'filter',
   version: 1,
   storage,
 };
@@ -62,6 +69,7 @@ const reducer = combineReducers({
   order: orderSlice,
   reviews: reviewsSlice,
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
+  filter: persistReducer(filterPersistConfig, filterSlice),
   cart: persistReducer(cartPersistConfig, cartSlice),
 });
 

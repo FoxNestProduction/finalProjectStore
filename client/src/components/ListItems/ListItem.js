@@ -1,11 +1,39 @@
 import React, { createElement } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import PropTypes, { bool, string } from 'prop-types';
+import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
+import { Box } from '@mui/material';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer } from './styles';
 
 const ListItems = ({ title, items, itemComponent, actions, type }) => {
+// const currencies = [
+  //   {
+  //     value: 'Sort price 0 -> 30',
+  //     label: 'Sort price 0 -> 30',
+  //   },
+  //   {
+  //     value: 'Sort price 30 -> 0',
+  //     label: 'Sort price 30 -> 0',
+  //   },
+  // ];
+  /* <TextField
+              sx={stylesSortSelect}
+              id="standard-select-currency"
+              size="small"
+              select
+              label="Select"
+              defaultValue=""
+              helperText="Please select your sort by"
+              variant="standard"
+            >
+              {currencies.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField> */
+
   return (
     <Container sx={{ mb: 13 }}>
       <Typography
@@ -16,6 +44,7 @@ const ListItems = ({ title, items, itemComponent, actions, type }) => {
       >
         {title}
       </Typography>
+      {/* <Box sx={{ width: '100%', height: '40px', bgcolor: 'blue', mb: '10px' }} /> */}
       <Grid container spacing={0} sx={gridStylesContainer}>
 
         { items && items.map((item) => (
