@@ -41,7 +41,7 @@ const reviewsSlice = createSlice({
 export const getReviews = () => async (dispatch) => {
   try {
     const { data } = await instance.get('/comments');
-    console.log(data);
+    // console.log(data);
     dispatch(setReviews(data));// eslint-disable-line no-use-before-define
   } catch (error) {
     console.log('%cError loading reviews:', 'color: red; font-weight: bold;', error);

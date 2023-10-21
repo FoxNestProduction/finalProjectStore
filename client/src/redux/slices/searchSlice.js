@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   search: [],
   key: '',
+  inputSearchValue: '',
 };
 
 const searchSlice = createSlice({
@@ -15,9 +16,12 @@ const searchSlice = createSlice({
     setKey(state, action) { // eslint-disable-line no-shadow
       state.key = action.payload;
     },
+    setInputSearchValue(state, action) { // eslint-disable-line no-shadow
+      state.inputSearchValue = action.payload;
+    },
   },
 });
 
-export const { setSearch, setKey } = searchSlice.actions;
+export const { setSearch, setKey, setInputSearchValue } = searchSlice.actions;
 
 export default searchSlice.reducer;

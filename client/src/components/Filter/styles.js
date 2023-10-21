@@ -50,6 +50,20 @@ export const stylesSortBtn = {
     bgcolor: '#ffffff',
   },
 };
+export const stylesSortSelect = {
+  color: 'text.secondaryGray',
+  fontFamily: 'fontPoppins',
+  whiteSpace: 'nowrap',
+  fontSize: {
+    mobile: '13px',
+    tablet: '11px',
+    desktop: '16px',
+  },
+  '& .MuiInputBase-input': {
+    fontFamily: 'fontPoppins',
+    color: 'text.secondaryGray',
+  },
+};
 
 export const stylesCategoryIconsWrap = {
   display: 'flex',
