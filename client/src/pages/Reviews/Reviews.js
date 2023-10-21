@@ -19,19 +19,19 @@ const ReviewsPage = () => {
 
   const handleSendFeedback = () => {
     if (newReview.content !== '') {
+      dispatch(setButtonAgree({
+      //   text: 'Send',
+      //   endIcon: true,
+        disabled: false,
+      //   onClick: handleSendFeedback,
+      }));
       dispatch(addNewReview());
+      dispatch(closeModal());
       dispatch(setNewReview({ field: 'user_id', value: '' }));
       dispatch(setNewReview({ field: 'rating', value: null }));
       dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
       dispatch(setNewReview({ field: 'content', value: '' }));
       dispatch(setNewReview({ field: 'userReview', value: '' }));
-      dispatch(closeModal());
-      dispatch(setButtonAgree({
-        text: 'Send',
-        endIcon: true,
-        disabled: false,
-        onClick: handleSendFeedback,
-      }));
     } else {
       dispatch(setNewReview({ field: 'user_id', value: '' }));
       dispatch(setNewReview({ field: 'rating', value: null }));
@@ -42,6 +42,7 @@ const ReviewsPage = () => {
         text: 'Send',
         endIcon: true,
         disabled: true,
+        onClick: handleSendFeedback,
       }));
     }
   };
@@ -53,7 +54,8 @@ const ReviewsPage = () => {
     dispatch(setButtonAgree({
       text: 'Send',
       endIcon: true,
-      disabled: newReview.content === '',
+      // disabled: newReview.content === '',
+      disabled: true,
     }));
     dispatch(addButtonBox(true));
   };
