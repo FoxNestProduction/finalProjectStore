@@ -112,14 +112,13 @@ export const stylesStarWrapper = {
 export const stylesPrice = {
   ...padding,
   position: 'relative',
-  color: 'text.primary',
+  color: 'text.primaryLight',
   display: 'flex',
   alignItems: 'center',
   mb: '7px',
   gap: '100%',
-  width: '30px',
-  height: '30px',
-  fontSize: { mobile: '16px', tablet: '18px' },
+  backgroundColor: 'primary.main',
+  fontSize: { mobile: '16px', tablet: '16px' },
   fontWeight: 700,
 };
 
@@ -130,11 +129,11 @@ export const stylesButton = {
   right: '0',
   bottom: '0',
   borderRadius: '16px',
-  p: '4px',
-  my: '2px',
+  margin: '4px',
   height: { mobile: '40px', tablet: '40px' },
   width: { mobile: '40px', tablet: '75px' },
   zIndex: 1050,
+  backgroundColor: 'background.default',
   '&:hover': {
     backgroundColor: 'primary.hover',
     borderColor: 'primary.hover',
