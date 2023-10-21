@@ -1,13 +1,15 @@
-import { Button, CardMedia, Container, MenuItem, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
-import React from 'react';
+import { Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   stylesWrap,
   stylesTitle,
+  stylesWrapTitle,
   stylesSlider,
   stylesBtn,
+  stylesBtnReset,
   stylesSortBtn,
   stylesCategoryIconsWrap,
   stylesCategoryItem,
@@ -18,6 +20,11 @@ import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(setFilter([]));
+  //   // dispatch(setSearch([]));
+  //   // dispatch(setInputSearchValue(''));
+  // }, [dispatch]);
   const products = useSelector((state) => state.products.products);
   const [pizza, setPizza] = React.useState(false);
   const [burgers, setBurgers] = React.useState(false);
@@ -31,7 +38,8 @@ const Filter = () => {
   const [mostPopular, setMostPopular] = React.useState(false);
   const [isHealthy, setIsHealthy] = React.useState(false);
   const [isSupreme, setIsSupreme] = React.useState(false);
-  const [valueSlider, setValueSlider] = React.useState();
+  const defaultSliderValue = 15;
+  const [valueSlider, setValueSlider] = React.useState(defaultSliderValue);
 
   const marks = [
     {
@@ -52,9 +60,9 @@ const Filter = () => {
     },
   ];
 
-  const valuetext = (value) => {
-    return (`${value}$`, setValueSlider(value));
-  };
+  // const valuetext = (value) => {
+  //   return (`${value}$`, setValueSlider(value));
+  // };
   const foodCategories = {
     burgers: `${burgers}`,
     pizza: `${pizza}`,
@@ -94,13 +102,36 @@ const Filter = () => {
       dispatch(setInputSearchValue(''));
     }
   };
-
+  const handleResetFilter = () => {
+    dispatch(setFilter([]));
+    setPizza(false);
+    setBurgers(false);
+    setSushi(false);
+    setSalads(false);
+    setPasta(false);
+    setSandwiches(false);
+    setBbqMeat(false);
+    setDrink(false);
+    setIsTranding(false);
+    setMostPopular(false);
+    setIsHealthy(false);
+    setIsSupreme(false);
+    setValueSlider(defaultSliderValue);
+  };
   return (
     <Stack component="section" sx={stylesWrap}>
       <Stack component="div">
-        <Typography component="h3" sx={stylesTitle}>
-          Category
-        </Typography>
+        <Stack component="div" sx={stylesWrapTitle}>
+          <Typography component="h3" sx={stylesTitle}>
+            Category
+          </Typography>
+          <Button
+            sx={stylesBtnReset}
+            onClick={handleResetFilter}
+          >
+            Reset
+          </Button>
+        </Stack>
         <Stack component="div" sx={stylesCategoryIconsWrap}>
           <Stack
             component="div"
@@ -300,11 +331,13 @@ const Filter = () => {
             sx={stylesSlider}
             max={30}
             aria-label="Always visible"
-            defaultValue={15}
-            getAriaValueText={valuetext}
+            // defaultValue={15}
+            // getAriaValueText={valuetext}
+            value={valueSlider}
             step={1}
             marks={marks}
             valueLabelDisplay="on"
+            onChange={(event, newValue) => setValueSlider(newValue)}
           />
         </Box>
       </Stack>
