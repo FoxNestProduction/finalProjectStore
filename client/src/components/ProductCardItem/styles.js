@@ -119,7 +119,7 @@ export const stylesPrice = {
   gap: '100%',
   width: '30px',
   height: '30px',
-  fontSize: { mobile: '16px', tablet: '20px' },
+  fontSize: { mobile: '16px', tablet: '18px' },
   fontWeight: 700,
 };
 
@@ -130,7 +130,8 @@ export const stylesButton = {
   right: '0',
   bottom: '0',
   borderRadius: '16px',
-  margin: '4px',
+  p: '4px',
+  my: '2px',
   height: { mobile: '40px', tablet: '40px' },
   width: { mobile: '40px', tablet: '75px' },
   zIndex: 1050,
