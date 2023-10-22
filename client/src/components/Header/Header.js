@@ -80,7 +80,7 @@ const Header = () => {
     dispatch(resetCardStates());
   };
 
-  const navItems = ['Menu', 'Pricing', 'Reviews', 'Contact'];
+  const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
 
   return (
     <>
