@@ -5,6 +5,7 @@ export const stylesCardReview = {
   width: '100%',
   height: '100%',
   px: '9px',
+  pt: '25px',
   boxShadow: '0px 0px 25px #0000001A',
 };
 
@@ -22,7 +23,7 @@ export const stylesContent = {
   },
   fontStyle: 'italic',
   overflow: 'auto',
-  minHeight: '45%',
+  // minHeight: '45%',
   pb: {
     mobile: 10,
     tablet: 14,

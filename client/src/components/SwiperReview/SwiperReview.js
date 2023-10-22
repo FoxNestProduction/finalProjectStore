@@ -16,7 +16,7 @@ import { searchReview } from '../../redux/slices/reviewsSlice';
 import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
 
 const SwiperReview = () => {
-  const [isFullCard, setIsFullCard] = useState(false);
+  const [isFullCard, setIsFullCard] = useState(true);
   const isMobile = useMediaQuery('(max-width: 491px)');
   const isTablet = useMediaQuery('(min-width: 491px) and (max-width: 691px)');
   const isLgTablet = useMediaQuery('(min-width: 691px)');
@@ -36,10 +36,17 @@ const SwiperReview = () => {
 
   useEffect(() => {
     const scrollingWrapper = scrollingWrapperRef.current;
-    const card = cardRef.current.map((item, index) => item.current[index]);
-    console.log(cardRef);
+    // console.log(cardRef);
     const scrollingWrapperRect = scrollingWrapper.getBoundingClientRect();
-    console.log(scrollingWrapperRect);
+    const cardsRect = cardRef.current.map((item) => item.getBoundingClientRect());
+    // console.log(scrollingWrapperRect);
+    // console.log(cardsRect);
+    cardsRect.forEach((item) => {
+      if (scrollingWrapperRect.x === item.x) {
+        setIsFullCard(false);
+      }
+      // console.log(isFullCard);
+    });
     // if (scrollingWrapper && cards.length > 0) {
     //   const scrollingWrapperRect = scrollingWrapper.getBoundingClientRect();
     //   const cardRect = cards[0].getBoundingClientRect();
@@ -49,10 +56,6 @@ const SwiperReview = () => {
     //   }
     // }
   }, [scrollingWrapperRef, isFullCard, cardRef]);
-
-  // if (wrapperContainerRect.left === cardContainerRect.left) {
-  //   setIsFullCard(true);
-  // }
 
   return (
     <Container>
@@ -77,7 +80,7 @@ const SwiperReview = () => {
               ref={function (el) { cardRef.current[index] = el; }}
               // ref={cardRef[index]}
               className={styles.card}
-              // isFullCard={isFullCard}
+              isFullCard={isFullCard}
               // sx={cardStyles}
               onClick={() => handleReviewClick(item)}
             >

@@ -71,7 +71,7 @@ export const sendBtn = {
     transform: 'translateY(1px)',
     backgroundColor: 'common.white',
     color: '#1C186C',
-    border: '1px solid primary.main',
+    border: '1px solid',
     borderColor: 'primary.main',
   },
   fontSize: {

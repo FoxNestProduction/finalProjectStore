@@ -31,6 +31,7 @@ const favouriteSlice = createSlice({
     },
     resetCardStates(state) {
       state.cardStates = {};
+      state.favourites = [];
     },
   },
 });

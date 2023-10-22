@@ -14,9 +14,9 @@ import { Box } from '@mui/material';
 
 import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, stylesText, stylesFullText } from './styles';
 
-const ReviewItem = ({ review }) => {
+const ReviewItem = ({ review, isFullCard }) => {
   const location = useLocation();
-  const [isFullCard, setIsShow] = useState(false);
+  // const [isFullCard, setIsShow] = useState(false);
   const { rating, content, avatarUrl, userReview, date } = review;
   const isMoreThreeLineText = content.split('\n').length > 3;
   const isLessThreeLineText = content.split('\n').length > 1;
@@ -67,11 +67,11 @@ const ReviewItem = ({ review }) => {
 
 ReviewItem.propTypes = {
   review: PropTypes.object,
-  // isFullCard: PropTypes.bool,
+  isFullCard: PropTypes.bool,
 };
 ReviewItem.defaultProps = {
   review: {},
-  // isFullCard: false,
+  isFullCard: false,
 };
 
 export default ReviewItem;

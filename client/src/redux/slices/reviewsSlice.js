@@ -39,6 +39,10 @@ const reviewsSlice = createSlice({
     searchReview(state, action) {
       state.search = action.payload;
     },
+    resetReviewState(state) {
+      state.newReview.rating = null;
+      state.newReview.content = '';
+    },
   },
 });
 
@@ -80,6 +84,7 @@ export const {
   removeReview,
   setNewReview,
   searchReview,
+  resetReviewState,
 } = reviewsSlice.actions;
 
 /* eslint-enable no-param-reassign */
