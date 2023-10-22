@@ -2,16 +2,24 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import './App.scss';
 import { useLocation } from 'react-router';
+import { Box } from '@mui/material';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { getProducts } from './redux/slices/productsSlice';
 import { getPartners } from './redux/slices/partnersSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
+import { setIsLoading } from './redux/slices/skeletonSlice';
+
+import styles from './styles.module.scss';
 
 const App = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+
+  const loading = () => {
+    setTimeout(() => dispatch(setIsLoading(false)), 2500);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,14 +29,28 @@ const App = () => {
     dispatch(getPartners());
     dispatch(getProducts());
     dispatch(getReviews());
+    loading();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return (
-    <>
+    <Box className={styles.mainBackground}>
+      <ul>
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+      </ul>
       <Modal disagree="Close" />
       <AppRoutes />
       <ScrollTop />
-    </>
+    </Box>
   );
 };
 

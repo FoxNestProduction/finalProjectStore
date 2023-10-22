@@ -87,6 +87,7 @@ const Filter = () => {
   // console.log(filteredAndSortedItems);
   const handleApplyFilter = () => {
     if (filteredAndSortedItems.length === 0) {
+      // eslint-disable-next-line no-alert, no-undef
       alert('Nothing found :(');
     } else {
       dispatch(setFilter(filteredAndSortedItems));

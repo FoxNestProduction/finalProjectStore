@@ -4,10 +4,13 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer } from './styles';
+import Skeleton from '../Skeleton/Skeleton';
 
 const ListItems = ({ title, items, itemComponent, actions, type }) => {
-// const currencies = [
+  const isLoading = useSelector((state) => state.skeleton.isLoading);
+  // const currencies = [
   //   {
   //     value: 'Sort price 0 -> 30',
   //     label: 'Sort price 0 -> 30',
@@ -47,14 +50,42 @@ const ListItems = ({ title, items, itemComponent, actions, type }) => {
       {/* <Box sx={{ width: '100%', height: '40px', bgcolor: 'blue', mb: '10px' }} /> */}
       <Grid container spacing={0} sx={gridStylesContainer}>
 
-        { items && items.map((item) => (
+        { !isLoading ? items.map((item) => (
 
           // eslint-disable-next-line dot-notation
           <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
 
             {createElement(itemComponent, { ...item })}
           </Grid>
-        ))}
+        )) : type === 'partners' ? (
+          <>
+            <Skeleton
+              style={{
+                flexWrap: 'wrap',
+                maxWidth: {
+                  mobile: 315,
+                  lgTablet: 281,
+                  desktop: 385,
+                },
+                boxShadow: '6px 71px 35px 0px rgba(229, 229, 229, 0.70)',
+                '&:hover .MuiCardMedia-img': {
+                  transform: 'scale(1.05)',
+                },
+              }}
+              skeletonType="restaurant"
+            />
+            <Skeleton skeletonType="restaurant" />
+            <Skeleton skeletonType="restaurant" />
+          </>
+        ) : (
+          <>
+            <Skeleton skeletonType="product" />
+            <Skeleton skeletonType="product" />
+            <Skeleton skeletonType="product" />
+            <Skeleton skeletonType="product" />
+            <Skeleton skeletonType="product" />
+          </>
+        )}
       </Grid>
       {actions}
     </Container>

@@ -9,6 +9,7 @@ import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
 import { addNewReview, setNewReview } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
+import Skeleton from '../../components/Skeleton/Skeleton';
 
 const ReviewsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -85,9 +86,9 @@ const ReviewsPage = () => {
             <AddCircleOutlineIcon />
           </Button>
         )}
-
       </Box>
       <Box sx={commentList}>
+        <Skeleton type="reviews" />
         {sortedReviews.slice(0, currentIndex).map((item) => (
           <Box sx={commentItem}>
             <ReviewItem key={item._id} review={item} />

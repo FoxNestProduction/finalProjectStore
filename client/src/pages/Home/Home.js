@@ -10,6 +10,7 @@ import useSortedItems from '../../customHooks/useSortedItems';
 import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperBanner from '../../components/SwiperBanner/SwiperBanner';
+import Skeleton from '../../components/Skeleton/Skeleton';
 
 const HomePage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
@@ -22,6 +23,7 @@ const HomePage = () => {
       <SectionGetStarted />
       <Features />
       <MobileApp />
+      <Skeleton skeletonType="restaurant" />
       <ListItems
         title="Our Top Restaurants"
         items={sortedPartners}
