@@ -1,13 +1,15 @@
-import { Button, CardMedia, Container, MenuItem, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
-import React from 'react';
+import { Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   stylesWrap,
   stylesTitle,
+  stylesWrapTitle,
   stylesSlider,
   stylesBtn,
+  stylesBtnReset,
   stylesSortBtn,
   stylesCategoryIconsWrap,
   stylesCategoryItem,
@@ -18,20 +20,45 @@ import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
+  /* eslint-disable no-undef */
   const products = useSelector((state) => state.products.products);
-  const [pizza, setPizza] = React.useState(false);
-  const [burgers, setBurgers] = React.useState(false);
-  const [sushi, setSushi] = React.useState(false);
-  const [salads, setSalads] = React.useState(false);
-  const [pasta, setPasta] = React.useState(false);
-  const [sandwiches, setSandwiches] = React.useState(false);
-  const [bbqMeat, setBbqMeat] = React.useState(false);
-  const [drink, setDrink] = React.useState(false);
-  const [isTranding, setIsTranding] = React.useState(false);
-  const [mostPopular, setMostPopular] = React.useState(false);
-  const [isHealthy, setIsHealthy] = React.useState(false);
-  const [isSupreme, setIsSupreme] = React.useState(false);
-  const [valueSlider, setValueSlider] = React.useState();
+  const [pizza, setPizza] = React.useState(sessionStorage.getItem('pizza') === 'true' || false);
+  const [burgers, setBurgers] = React.useState(sessionStorage.getItem('burgers') === 'true' || false);
+  const [sushi, setSushi] = React.useState(sessionStorage.getItem('sushi') === 'true' || false);
+  const [salads, setSalads] = React.useState(sessionStorage.getItem('salads') === 'true' || false);
+  const [pasta, setPasta] = React.useState(sessionStorage.getItem('pasta') === 'true' || false);
+  const [sandwiches, setSandwiches] = React.useState(sessionStorage.getItem('sandwiches') === 'true' || false);
+  const [bbqMeat, setBbqMeat] = React.useState(sessionStorage.getItem('bbqMeat') === 'true' || false);
+  const [drink, setDrink] = React.useState(sessionStorage.getItem('drink') === 'true' || false);
+  const [isTranding, setIsTranding] = React.useState(sessionStorage.getItem('isTranding') === 'true' || false);
+  const [mostPopular, setMostPopular] = React.useState(sessionStorage.getItem('mostPopular') === 'true' || false);
+  const [isHealthy, setIsHealthy] = React.useState(sessionStorage.getItem('isHealthy') === 'true' || false);
+  const [isSupreme, setIsSupreme] = React.useState(sessionStorage.getItem('isSupreme') === 'true' || false);
+  const defaultSliderValue = 15;
+  const [valueSlider, setValueSlider] = React.useState(Number(sessionStorage.getItem('valueSlider')) || defaultSliderValue);
+
+  const saveFilterToSessionStorage = () => {
+    sessionStorage.setItem('pizza', pizza.toString());
+    sessionStorage.setItem('burgers', burgers.toString());
+    sessionStorage.setItem('sushi', sushi.toString());
+    sessionStorage.setItem('salads', salads.toString());
+    sessionStorage.setItem('pasta', pasta.toString());
+    sessionStorage.setItem('sandwiches', sandwiches.toString());
+    sessionStorage.setItem('bbqMeat', bbqMeat.toString());
+    sessionStorage.setItem('drink', drink.toString());
+    sessionStorage.setItem('isTranding', isTranding.toString());
+    sessionStorage.setItem('mostPopular', mostPopular.toString());
+    sessionStorage.setItem('isHealthy', isHealthy.toString());
+    sessionStorage.setItem('isSupreme', isSupreme.toString());
+    sessionStorage.setItem('valueSlider', valueSlider.toString());
+  };
+
+  useEffect(() => {
+    saveFilterToSessionStorage(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pizza, burgers, sushi, salads, pasta, sandwiches, bbqMeat,
+    drink, isTranding, mostPopular, isHealthy, isSupreme, valueSlider]);
+
+  const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
 
   const marks = [
     {
@@ -52,9 +79,9 @@ const Filter = () => {
     },
   ];
 
-  const valuetext = (value) => {
-    return (`${value}$`, setValueSlider(value));
-  };
+  // const valuetext = (value) => {
+  //   return (`${value}$`, setValueSlider(value));
+  // };
   const foodCategories = {
     burgers: `${burgers}`,
     pizza: `${pizza}`,
@@ -93,14 +120,44 @@ const Filter = () => {
       dispatch(setSearch([]));
       dispatch(setInputSearchValue(''));
     }
-  };
 
+    if (anchor) {
+      // eslint-disable-next-line react/prop-types
+      anchor.scrollIntoView({
+        block: 'start',
+      });
+    }
+  };
+  const handleResetFilter = () => {
+    dispatch(setFilter([]));
+    setPizza(false);
+    setBurgers(false);
+    setSushi(false);
+    setSalads(false);
+    setPasta(false);
+    setSandwiches(false);
+    setBbqMeat(false);
+    setDrink(false);
+    setIsTranding(false);
+    setMostPopular(false);
+    setIsHealthy(false);
+    setIsSupreme(false);
+    setValueSlider(defaultSliderValue);
+  };
   return (
     <Stack component="section" sx={stylesWrap}>
       <Stack component="div">
-        <Typography component="h3" sx={stylesTitle}>
-          Category
-        </Typography>
+        <Stack component="div" sx={stylesWrapTitle}>
+          <Typography component="h3" sx={stylesTitle}>
+            Category
+          </Typography>
+          <Button
+            sx={stylesBtnReset}
+            onClick={handleResetFilter}
+          >
+            Reset
+          </Button>
+        </Stack>
         <Stack component="div" sx={stylesCategoryIconsWrap}>
           <Stack
             component="div"
@@ -300,11 +357,13 @@ const Filter = () => {
             sx={stylesSlider}
             max={30}
             aria-label="Always visible"
-            defaultValue={15}
-            getAriaValueText={valuetext}
+            // defaultValue={15}
+            // getAriaValueText={valuetext}
+            value={valueSlider}
             step={1}
             marks={marks}
             valueLabelDisplay="on"
+            onChange={(event, newValue) => setValueSlider(newValue)}
           />
         </Box>
       </Stack>
