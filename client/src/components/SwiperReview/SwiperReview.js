@@ -4,7 +4,7 @@ import 'swiper/scss';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { Container, Box } from '@mui/material';
+import { Container, Box, Typography } from '@mui/material';
 import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
@@ -32,7 +32,8 @@ const SwiperReview = () => {
   }, [scrollingWrapperRef, cardRef]);
 
   return (
-    <Container>
+    <Container component="section">
+      <Typography variant="h2" component="h2" color="text.primary" sx={{ textAlign: 'center', mb: 2 }}>Customer Say</Typography>
       <Box sx={{ pb: '150px' }}>
         <Box
           // sx={{
