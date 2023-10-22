@@ -18,6 +18,7 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
+import { addToCart } from '../../redux/slices/cartSlice';
 
 const ProductCard = ({ productName }) => {
   const products = useSelector((state) => state.products.products, shallowEqual);
@@ -47,6 +48,19 @@ const ProductCard = ({ productName }) => {
     } else {
       dispatch(addFavourite({ id }));
     }
+  };
+
+  const handleAddToCart = () => {
+    const selectedItem = {
+      product: {
+        _id: id,
+        currentPrice,
+        imageUrl,
+        name,
+      },
+      cartQuantity: 1,
+    };
+    dispatch(addToCart(selectedItem));
   };
 
   return (
@@ -149,6 +163,7 @@ const ProductCard = ({ productName }) => {
               <Button
                 variant="contained"
                 sx={stylesButtonCard}
+                onClick={handleAddToCart}
               >
                 Add to card
                 <AddBoxOutlinedIcon
