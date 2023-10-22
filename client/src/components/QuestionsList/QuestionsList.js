@@ -47,7 +47,7 @@ const QuestionsList = () => {
       sx={{ mb: { mobile: 8, tablet: 12, desktop: 18 } }}
     >
       <Divider sx={{ mb: 12 }} />
-      <Typography variant="h5" component="h3" sx={{ textAlign: 'center', mb: { mobile: '67px', desktop: '78px' } }}>
+      <Typography variant="h5" component="h3" color="text.primary" sx={{ textAlign: 'center', mb: { mobile: '67px', desktop: '78px' } }}>
         Frequently Asked
         <br />
         Questions
@@ -58,7 +58,7 @@ const QuestionsList = () => {
             <List disablePadding>
               <ListItem disablePadding sx={{ pb: 3 }}>
                 <ListItemText
-                  primary={<Typography variant="h3" component="h5">{item.question}</Typography>}
+                  primary={<Typography variant="h3" component="h5" color="text.primary">{item.question}</Typography>}
                 />
                 <IconButton onClick={() => getAnswer(item.question)}>
                   {!isOpen[item.question]
