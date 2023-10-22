@@ -15,7 +15,6 @@ import RatingItem from '../Rating/Rating';
 
 const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => {
   const [desc, setDesc] = useState(false);
-  console.log(description);
   return (
     <Card
       sx={{
@@ -45,7 +44,7 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
           alt={name}
           sx={{
             transition: '.3s',
-            height: { mobile: '140px', tablet: '220px', lgTablet: '268px', desktop: '378px' },
+            height: { mobile: '220px', lgTablet: '268px', desktop: '378px' },
           }}
         />
       </Box>
@@ -110,7 +109,6 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
         </CardContent>
 
         <CardActions
-          disableSpacing
           sx={{
             padding: '0',
             paddingRight: '18px',
@@ -137,7 +135,6 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
       </Stack>
       <Stack direction="row" justifyContent="flex-end" width="100%" m="15px">
         <Button
-          disableSpacing
           variant="contained"
           sx={{
             borderRadius: '14px',
@@ -180,7 +177,7 @@ RestaurantCard.propTypes = {
   rating: PropTypes.number,
   name: PropTypes.string,
   imageUrl: PropTypes.string,
-  description: PropTypes.bool,
+  description: PropTypes.string,
   styleWidth: PropTypes.object,
 };
 
@@ -188,7 +185,7 @@ RestaurantCard.defaultProps = {
   rating: 3,
   name: 'The Chicken King',
   imageUrl: './img/restaurants/Resturent01.jpg',
-  description: false,
+  description: '',
   styleWidth: {},
 };
 
