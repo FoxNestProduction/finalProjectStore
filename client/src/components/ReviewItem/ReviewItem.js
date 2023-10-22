@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -10,14 +11,18 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Box } from '@mui/material';
+import { searchReview } from '../../redux/slices/reviewsSlice';
 
 import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, stylesText, stylesFullText } from './styles';
 
-const ReviewItem = ({ review, isFullCard }) => {
+const ReviewItem = ({ review }) => {
   const location = useLocation();
-  // const [isFullCard, setIsShow] = useState(false);
-  const { rating, content, avatarUrl, userReview, date } = review;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { rating, content, avatarUrl, userReview, date, _id: id } = review;
+  const isMoreThreeLineText = (content.length >= 150) && (location.pathname !== '/reviews');
   const styleComment = (location.pathname === '/reviews') ? stylesFullText : { ...stylesText };
   const minMidthWraper = !(location.pathname === '/reviews') && '295px';
   const widthWrapper = !(location.pathname === '/reviews') ? { mobile: '100%', tablet: '345px', desktop: '485px' } : '100%';
@@ -29,9 +34,13 @@ const ReviewItem = ({ review, isFullCard }) => {
   const year = dateReview.getFullYear();
   const formattedDate = `${day}.${month}.${year}`;
 
+  const handleReviewClick = () => {
+    navigate('/reviews');
+    dispatch(searchReview(id));
+  };
+
   return (
     <Card sx={{ ...stylesCardReview, minWidth: minMidthWraper, width: widthWrapper }}>
-      {!isFullCard && (
       <CardHeader
         avatar={(
           <Avatar>
@@ -45,11 +54,16 @@ const ReviewItem = ({ review, isFullCard }) => {
           <FormatQuoteRoundedIcon sx={stylesQuoteIcon} />
         }
       />
-      )}
       <CardContent sx={stylesContent}>
         <Box sx={{ ...styleComment }}>
           {content}
         </Box>
+        {isMoreThreeLineText && (
+          <MoreHorizIcon
+            sx={{ position: 'absolute', right: '30px' }}
+            onClick={() => handleReviewClick(id)}
+          />
+        )}
       </CardContent>
       <CardActions sx={stylesActionCard}>
         <Rating
@@ -65,11 +79,9 @@ const ReviewItem = ({ review, isFullCard }) => {
 
 ReviewItem.propTypes = {
   review: PropTypes.object,
-  isFullCard: PropTypes.bool,
 };
 ReviewItem.defaultProps = {
   review: {},
-  isFullCard: false,
 };
 
 export default ReviewItem;

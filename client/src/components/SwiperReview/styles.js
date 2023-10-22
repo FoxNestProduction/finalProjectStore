@@ -15,12 +15,6 @@ const scrollingWrapperStyles = {
 const cardStyles = {
   display: 'inline-block',
   width: '100%',
-  '@media (min-width: 691px)': {
-    width: '375px',
-  },
-  '@media (min-width: 991px)': {
-    width: '458px',
-  },
   height: '100%',
 };
 
@@ -33,14 +27,14 @@ const scrollbarTrackStyles = {
   background: '#c8c5df',
   borderRadius: '35px',
   marginTop: '70px',
-  '@media (min-width: 691px)': {
-    marginLeft: '300px',
+  '@media (min-width: 481px)': {
+    mx: '80px',
   },
 };
 
 const scrollbarThumbStyles = {
-  backgroundColor: '#6C5FBC',
-  width: '20vw',
+  backgroundColor: 'primary.main',
+  width: '10vw',
   borderRadius: '35px',
   border: '3px solid #c8c5df',
 };

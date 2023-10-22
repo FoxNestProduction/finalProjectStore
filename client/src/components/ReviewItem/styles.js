@@ -1,6 +1,5 @@
 export const stylesCardReview = {
-  background:
-  'background.paper',
+  background: 'background.paper',
   position: 'relative',
   height: '100%',
   px: '19px',
@@ -15,6 +14,7 @@ export const stylesQuoteIcon = {
 };
 
 export const stylesContent = {
+  position: 'relative',
   fontSize: {
     mobile: '11px',
     tablet: '13px',
@@ -30,18 +30,19 @@ export const stylesContent = {
 };
 
 export const stylesText = {
-  height: '56px',
+  height: '60px',
   width: '100%',
   textOverflow: 'ellipsis',
   overflow: 'hidden',
-  display: '-webkit-box',
-  // WebkitLineClamp: 3,
+  WebkitLineClamp: 3,
   whiteSpace: 'pre-line',
-  // WebkitBoxDisplay: 'box',
-  // WebkitBoxOrient: 'vertical',
-  lineClamp: 3,
-  boxOrient: 'vertical',
-  maxHeight: '180px',
+  WebkitBoxDisplay: 'box',
+  WebkitBoxOrient: 'vertical',
+  maxHeight: {
+    mobile: '40px',
+    tablet: '50px',
+    desktop: '60px',
+  },
 };
 
 export const stylesFullText = {
