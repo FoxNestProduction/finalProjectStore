@@ -28,14 +28,14 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
       label: 'Rating DOWN',
     },
     {
-      value: '',
-      label: '',
+      value: 'Default',
+      label: 'Default',
     },
   ];
 
   const [selectedValueSortBy, setSelectedValueSortBy] = React.useState('');
   useEffect(() => {
-    setSelectedValueSortBy('');
+    setSelectedValueSortBy('Default');
   }, [items]);
   const itemsCopy = React.useMemo(() => {
     const copy = [...items];
@@ -57,18 +57,6 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
     setSelectedValueSortBy(event.target.value);
   };
 
-  // const itemsCopy = [...items];
-  // const handleSelectChangeSortBy = (event) => {
-  //   const selectedValue = event.target.value;
-  //   if (selectedValue === 'Price UP') {
-  //     itemsCopy.sort((a, b) => a.currentPrice - b.currentPrice);
-  //   }
-  //   if (selectedValue === 'Price DOWN') {
-  //     itemsCopy.sort((a, b) => b.currentPrice - a.currentPrice);
-  //   }
-  //   setSelectedValueSortBy(selectedValue);
-  // };
-  // console.log(selectedValueSortBy);
   const breakpoint = usePaginationBreakpoint();
   const productsPerPageMap = {
     mobileTablet: 10,
@@ -120,9 +108,8 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
           id="standard-select-currency"
           size="small"
           select
-          label="Select"
-          defaultValue=""
-          helperText="Please select your Sort by"
+          label="Sort by"
+          defaultValue="Default"
           variant="standard"
           value={selectedValueSortBy}
           onChange={handleSelectChangeSortBy}
