@@ -20,26 +20,41 @@ import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(setFilter([]));
-  //   // dispatch(setSearch([]));
-  //   // dispatch(setInputSearchValue(''));
-  // }, [dispatch]);
   const products = useSelector((state) => state.products.products);
-  const [pizza, setPizza] = React.useState(false);
-  const [burgers, setBurgers] = React.useState(false);
-  const [sushi, setSushi] = React.useState(false);
-  const [salads, setSalads] = React.useState(false);
-  const [pasta, setPasta] = React.useState(false);
-  const [sandwiches, setSandwiches] = React.useState(false);
-  const [bbqMeat, setBbqMeat] = React.useState(false);
-  const [drink, setDrink] = React.useState(false);
-  const [isTranding, setIsTranding] = React.useState(false);
-  const [mostPopular, setMostPopular] = React.useState(false);
-  const [isHealthy, setIsHealthy] = React.useState(false);
-  const [isSupreme, setIsSupreme] = React.useState(false);
+  const [pizza, setPizza] = React.useState(sessionStorage.getItem('pizza') === 'true' || false);
+  const [burgers, setBurgers] = React.useState(sessionStorage.getItem('burgers') === 'true' || false);
+  const [sushi, setSushi] = React.useState(sessionStorage.getItem('sushi') === 'true' || false);
+  const [salads, setSalads] = React.useState(sessionStorage.getItem('salads') === 'true' || false);
+  const [pasta, setPasta] = React.useState(sessionStorage.getItem('pasta') === 'true' || false);
+  const [sandwiches, setSandwiches] = React.useState(sessionStorage.getItem('sandwiches') === 'true' || false);
+  const [bbqMeat, setBbqMeat] = React.useState(sessionStorage.getItem('bbqMeat') === 'true' || false);
+  const [drink, setDrink] = React.useState(sessionStorage.getItem('drink') === 'true' || false);
+  const [isTranding, setIsTranding] = React.useState(sessionStorage.getItem('isTranding') === 'true' || false);
+  const [mostPopular, setMostPopular] = React.useState(sessionStorage.getItem('mostPopular') === 'true' || false);
+  const [isHealthy, setIsHealthy] = React.useState(sessionStorage.getItem('isHealthy') === 'true' || false);
+  const [isSupreme, setIsSupreme] = React.useState(sessionStorage.getItem('isSupreme') === 'true' || false);
   const defaultSliderValue = 15;
-  const [valueSlider, setValueSlider] = React.useState(defaultSliderValue);
+  const [valueSlider, setValueSlider] = React.useState(Number(sessionStorage.getItem('valueSlider')) || defaultSliderValue);
+
+  const saveFilterToSessionStorage = () => {
+    sessionStorage.setItem('pizza', pizza.toString());
+    sessionStorage.setItem('burgers', burgers.toString());
+    sessionStorage.setItem('sushi', sushi.toString());
+    sessionStorage.setItem('salads', salads.toString());
+    sessionStorage.setItem('pasta', pasta.toString());
+    sessionStorage.setItem('sandwiches', sandwiches.toString());
+    sessionStorage.setItem('bbqMeat', bbqMeat.toString());
+    sessionStorage.setItem('drink', drink.toString());
+    sessionStorage.setItem('isTranding', isTranding.toString());
+    sessionStorage.setItem('mostPopular', mostPopular.toString());
+    sessionStorage.setItem('isHealthy', isHealthy.toString());
+    sessionStorage.setItem('isSupreme', isSupreme.toString());
+    sessionStorage.setItem('valueSlider', valueSlider.toString());
+  };
+
+  useEffect(() => {
+    saveFilterToSessionStorage(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pizza, burgers, sushi, salads, pasta, sandwiches, bbqMeat, drink, valueSlider]);
 
   const marks = [
     {
