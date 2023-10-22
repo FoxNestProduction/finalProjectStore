@@ -26,10 +26,10 @@ const HomePage = () => {
         title="Our Top Restaurants"
         items={sortedPartners}
         itemComponent={RestaurantItem}
-        actions={<ListItemAction />}
+        actions={<ListItemAction type="partners" />}
         type="partners"
       />
-      <ListItems title="Our Top Dishes" topDish items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
+      <ListItems title="Our Top Dishes" topDish items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction type="products" />} />
     </>
   );
 };

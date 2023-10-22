@@ -46,7 +46,7 @@ const QuestionsList = () => {
       component="section"
       sx={{ mb: { mobile: 8, tablet: 12, desktop: 18 } }}
     >
-      <Divider sx={{ mb: 12 }} />
+      {/* <Divider sx={{ mb: 12 }} /> */}
       <Typography variant="h5" component="h3" sx={{ textAlign: 'center', mb: { mobile: '67px', desktop: '78px' } }}>
         Frequently Asked
         <br />
