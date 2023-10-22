@@ -4,9 +4,10 @@ import PublicLayout from './components/Layout/PublicLayout';
 import ContactPage from './pages/Contact/Contact';
 import HomePage from './pages/Home/Home';
 import MenuPage from './pages/Menu/Menu';
-import PricingPage from './pages/Pricing/Pricing';
+import RestaurantPage from './pages/Restaurant/Restaurant';
 import AboutUsPage from './pages/AboutUs/AboutUs';
 import ProductPage from './pages/Product/Product';
+import PartnersPage from './pages/Partners/Partners';
 import ReviewsPage from './pages/Reviews/Reviews';
 import Cart from './components/Cart/Cart';
 import Favourites from './components/Favourites/Favourites';
@@ -22,7 +23,7 @@ const AppRoutes = () => {
       <Route element={<PublicLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/menu" element={<MenuPage />} />
-        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/restaurants" element={<RestaurantPage />} />
         <Route path="/reviews" element={<ReviewsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
@@ -32,6 +33,7 @@ const AppRoutes = () => {
         <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         <Route path="/menu/:productName" element={<ProductPage />} />
+        <Route path="/restaurants/:partnersName" element={<PartnersPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

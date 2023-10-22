@@ -1,19 +1,21 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import { Link } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import PropTypes from 'prop-types';
 import { actionsStyle, linkStyles } from './styles';
 import ArrowIcon from '../../assets/svgComponents/ArrowIcon';
 
-const ListItemAction = () => {
+const ListItemAction = ({ type }) => {
   return (
     <Box
       sx={actionsStyle}
     >
       <Link
+        component={RouterLink}
         underline="none"
-        href="/Menu"
+        to={type === 'partners' ? '/restaurants' : '/menu'}
         color="text.secondaryGray"
         sx={linkStyles}
       >
@@ -37,6 +39,14 @@ const ListItemAction = () => {
       </Link>
     </Box>
   );
+};
+
+ListItemAction.propTypes = {
+  type: PropTypes.string,
+};
+
+ListItemAction.defaultProps = {
+  type: '',
 };
 
 export default ListItemAction;
