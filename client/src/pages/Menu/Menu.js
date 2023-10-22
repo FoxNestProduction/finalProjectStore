@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
@@ -17,6 +17,8 @@ const MenuPage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
   const products = useSelector((state) => state.products.products);
+
+  const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
 
   useEffect(() => {
     dispatch(setSearch([]));
@@ -43,6 +45,8 @@ const MenuPage = () => {
           itemComponent={ProductCardItem}
           actions={null}
           type="food"
+          pagination
+          anchor={productsAnchor}
         />
       ) : itemsFromFilter.length !== 0 ? (
         <ListItems
@@ -51,9 +55,19 @@ const MenuPage = () => {
           itemComponent={ProductCardItem}
           actions={null}
           type="food"
+          pagination
+          anchor={productsAnchor}
         />
       ) : (
-        <ListItems title="All Dishes" items={products} itemComponent={ProductCardItem} actions={null} type="food" />
+        <ListItems
+          title="All Dishes"
+          items={products}
+          itemComponent={ProductCardItem}
+          actions={null}
+          type="food"
+          pagination
+          anchor={productsAnchor}
+        />
       )}
 
       <ListItems

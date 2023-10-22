@@ -7,11 +7,12 @@ import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import Modal from '../../components/Modal/Modal';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
-import { addNewReview, setNewReview } from '../../redux/slices/reviewsSlice';
+import { addNewReview, setNewReview, resetReviewState } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 
 const ReviewsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isRendered, setIsRendered] = useState(false);
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
   const newReview = useSelector((state) => state.reviews.newReview);
@@ -20,46 +21,44 @@ const ReviewsPage = () => {
 
   const handleSendFeedback = () => {
     dispatch(addNewReview());
-    dispatch(setNewReview({ field: 'user_id', value: '' }));
-    dispatch(setNewReview({ field: 'rating', value: null }));
-    dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
-    dispatch(setNewReview({ field: 'content', value: '' }));
-    dispatch(setNewReview({ field: 'userReview', value: '' }));
+    dispatch(resetReviewState());
     dispatch(closeModal());
   };
 
-  if (newReview.content !== '') {
-    dispatch(setButtonAgree({
-      text: 'Send',
-      endIcon: true,
-      disabled: false,
-      onClick: handleSendFeedback,
-    }));
-  } else {
-    dispatch(setNewReview({ field: 'user_id', value: '' }));
-    dispatch(setNewReview({ field: 'rating', value: null }));
-    dispatch(setNewReview({ field: 'avatarUrl', value: '' }));
-    dispatch(setNewReview({ field: 'content', value: '' }));
-    dispatch(setNewReview({ field: 'userReview', value: '' }));
-    dispatch(setButtonAgree({
-      text: 'Send',
-      endIcon: true,
-      disabled: true,
-    }));
-  }
+  useEffect(() => {
+    if (newReview.content && newReview.content !== '') {
+      dispatch(setButtonAgree({
+        text: 'Send',
+        endIcon: true,
+        disabled: false,
+        onClick: handleSendFeedback,
+      }));
+    } else {
+      dispatch(resetReviewState());
+      dispatch(setButtonAgree({
+        text: 'Send',
+        endIcon: true,
+        disabled: true,
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newReview]);
 
   const handleOpenModalReview = () => {
-    dispatch(openModal());
-    dispatch(setTitle('Feedback about the service will help us work even better:'));
-    dispatch(setContent(
-      <NewReview />,
-    ));
-    dispatch(setButtonAgree({
-      text: 'Send',
-      endIcon: true,
-      disabled: newReview.content === '',
-    }));
-    dispatch(addButtonBox(true));
+    if (isRendered) {
+      dispatch(openModal());
+      dispatch(setTitle('Feedback about the service will help us work even better:'));
+      dispatch(setContent(
+        <NewReview />,
+      ));
+      dispatch(resetReviewState());
+      dispatch(setButtonAgree({
+        text: 'Send',
+        endIcon: true,
+        disabled: newReview.content === '',
+      }));
+      dispatch(addButtonBox(true));
+    }
   };
 
   const incrementIndex = () => {
@@ -68,10 +67,11 @@ const ReviewsPage = () => {
 
   useEffect(() => {
     const intervalId = setInterval(incrementIndex, 400);
+    setIsRendered(true);
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [isRendered]);
 
   const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
 
@@ -89,8 +89,8 @@ const ReviewsPage = () => {
       </Box>
       <Box sx={commentList}>
         {sortedReviews.slice(0, currentIndex).map((item) => (
-          <Box sx={commentItem}>
-            <ReviewItem key={item._id} review={item} />
+          <Box key={item._id} sx={commentItem}>
+            <ReviewItem review={item} />
           </Box>
         ))}
       </Box>

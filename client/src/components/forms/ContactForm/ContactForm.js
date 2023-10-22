@@ -24,7 +24,7 @@ const ContactForm = () => {
 
   const handleSubmit = (values, actions) => {
     console.log(values);
-    actions.resetForm();
+    // actions.resetForm();
   };
 
   return (

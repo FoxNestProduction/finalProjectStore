@@ -7,7 +7,13 @@ import { stylesGridConteiner, stylesSwipper, stylesSearch, stylesFilter } from '
 
 const SectionSwipperFilterSearch = () => {
   return (
-    <Container component="section" sx={{ mt: { mobile: '62px', tablet: '85px', desktop: '50px' } }}>
+    <Container
+      component="section"
+      sx={{
+        mt: { mobile: '62px', tablet: '85px', desktop: '50px' },
+        mb: { mobile: '70px', tablet: '80px', desktop: '90px' },
+      }}
+    >
       <Box component="div" sx={stylesGridConteiner}>
         <Box component="div" sx={stylesSwipper}>
           <SwiperBanner />

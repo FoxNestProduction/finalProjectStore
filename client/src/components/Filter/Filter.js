@@ -58,6 +58,8 @@ const Filter = () => {
   }, [pizza, burgers, sushi, salads, pasta, sandwiches, bbqMeat,
     drink, isTranding, mostPopular, isHealthy, isSupreme, valueSlider]);
 
+  const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
+
   const marks = [
     {
       value: 0,
@@ -117,6 +119,13 @@ const Filter = () => {
       dispatch(setFilter(filteredAndSortedItems));
       dispatch(setSearch([]));
       dispatch(setInputSearchValue(''));
+    }
+
+    if (anchor) {
+      // eslint-disable-next-line react/prop-types
+      anchor.scrollIntoView({
+        block: 'start',
+      });
     }
   };
   const handleResetFilter = () => {

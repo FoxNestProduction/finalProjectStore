@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import './App.scss';
 import { useLocation } from 'react-router';
 import AppRoutes from './AppRoutes';
@@ -8,10 +8,20 @@ import ScrollTop from './components/ScrollTop/ScrollTop';
 import { getProducts } from './redux/slices/productsSlice';
 import { getPartners } from './redux/slices/partnersSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
+import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 
 const App = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+
+  const user = useSelector((state) => state.user.user, shallowEqual);
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+
+  useEffect(() => {
+    if (isUserAuthorized && user) {
+      saveUserInfoToSessionStorage(user);
+    }
+  }, [isUserAuthorized, user]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
