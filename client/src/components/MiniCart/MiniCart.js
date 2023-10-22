@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Popover, Button, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+import MiniCartItem from '../MiniCartItem/MiniCartItem';
 
 const MiniCart = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const cartProducts = useSelector((state) => state.cart.cart.products);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,16 +31,16 @@ const MiniCart = () => {
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: 'right',
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'left',
+          horizontal: 'right',
         }}
       >
-        <Typography>Content of Popover</Typography>
-        <Typography>Content of Popover 2</Typography>
-        <Typography>Content of Popover 3</Typography>
+        {cartProducts.length && cartProducts
+          .map(({ product, cartQuantity }) => (
+            <MiniCartItem key={product._id} cartQuantity={cartQuantity} {...product} />))}
       </Popover>
     </div>
   );
