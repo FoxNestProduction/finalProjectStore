@@ -35,6 +35,10 @@ const reviewsSlice = createSlice({
       const { field, value } = action.payload;
       state.newReview[field] = value;
     },
+    resetReviewState(state, action) {
+      state.newReview.rating = null;
+      state.newReview.content = '';
+    },
   },
 });
 
@@ -76,6 +80,7 @@ export const {
   removeReview,
   setNewRating,
   setNewReview,
+  resetReviewState,
 } = reviewsSlice.actions;
 
 /* eslint-enable no-param-reassign */

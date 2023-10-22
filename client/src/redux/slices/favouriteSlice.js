@@ -31,6 +31,7 @@ const favouriteSlice = createSlice({
     },
     resetCardStates(state) {
       state.cardStates = {};
+      state.favourites = [];
     },
   },
 });
@@ -54,8 +55,6 @@ export const updateFavourites = (favourites) => async (dispatch, getState) => {
       });
       const { favourite } = data;
       setFavourite(data.favourite);// eslint-disable-line no-use-before-define
-    } else {
-      console.log('The user is not authorized');
     }
   } catch (error) {
     console.log('%cError push review:', 'color: red; font-weight: bold;', error);

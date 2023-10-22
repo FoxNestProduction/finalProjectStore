@@ -15,13 +15,16 @@ import Rating from '@mui/material/Rating';
 
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ColorChips from '../Chip/Chip';
+import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
+import { openModal, setContent } from '../../redux/slices/modalSlice';
 
 const ProductCard = ({ productName }) => {
   const products = useSelector((state) => state.products.products, shallowEqual);
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
@@ -48,6 +51,10 @@ const ProductCard = ({ productName }) => {
     } else {
       dispatch(addFavourite({ id }));
     }
+  };
+  const handleOpenModalLogin = () => {
+    dispatch(openModal());
+    dispatch(setContent(<LoginForm />));
   };
 
   return (
@@ -135,18 +142,18 @@ const ProductCard = ({ productName }) => {
             <CardActions
               sx={stylesActionsCard}
             >
-              <Button
+              <Box
                 variant="outlined"
                 sx={stylesButtonCardOutline}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onMouseDown={() => setIsActive(true)}
                 onMouseUp={() => setIsActive(false)}
-                onClick={toggleFavourite}
+                onClick={isUserAuthorized ? toggleFavourite : handleOpenModalLogin}
               >
                 Favourite
                 <FavouriteIcon id={id} sx={{ ml: 1 }} ishovered={ishovered} isactive={isactive} />
-              </Button>
+              </Box>
               <Button
                 variant="contained"
                 sx={stylesButtonCard}
