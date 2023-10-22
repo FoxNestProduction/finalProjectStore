@@ -55,7 +55,8 @@ const Filter = () => {
 
   useEffect(() => {
     saveFilterToSessionStorage(); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pizza, burgers, sushi, salads, pasta, sandwiches, bbqMeat, drink, valueSlider]);
+  }, [pizza, burgers, sushi, salads, pasta, sandwiches, bbqMeat,
+    drink, isTranding, mostPopular, isHealthy, isSupreme, valueSlider]);
 
   const marks = [
     {
