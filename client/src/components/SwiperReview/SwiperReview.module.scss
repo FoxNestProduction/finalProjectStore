@@ -14,12 +14,6 @@
   .card {
     display: inline-block;
     width: 100%;
-    @media (min-width: 691px) {
-      width: 375px;
-    } 
-    @media (min-width: 991px) {
-      width: 458px;
-    } 
     height: 100%;
   }
 

@@ -2,9 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import classNames from 'classnames';
 import 'swiper/scss';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -45,7 +42,6 @@ const SwiperReview = () => {
       if (scrollingWrapperRect.x === item.x) {
         setIsFullCard(false);
       }
-      // console.log(isFullCard);
     });
     // if (scrollingWrapper && cards.length > 0) {
     //   const scrollingWrapperRect = scrollingWrapper.getBoundingClientRect();
@@ -78,7 +74,6 @@ const SwiperReview = () => {
               data={item._id}
               // eslint-disable-next-line
               ref={function (el) { cardRef.current[index] = el; }}
-              // ref={cardRef[index]}
               className={styles.card}
               isFullCard={isFullCard}
               // sx={cardStyles}

@@ -18,11 +18,9 @@ const ReviewItem = ({ review, isFullCard }) => {
   const location = useLocation();
   // const [isFullCard, setIsShow] = useState(false);
   const { rating, content, avatarUrl, userReview, date } = review;
-  const isMoreThreeLineText = content.split('\n').length > 3;
-  const isLessThreeLineText = content.split('\n').length > 1;
-  const styleComment = (location.pathname === '/reviews') ? stylesFullText : { ...stylesText, whiteSpace: isLessThreeLineText && 'pre-line', lineClamp: isMoreThreeLineText && 3 };
-
-  const minMidthWraper = !(location.pathname === '/reviews') && { tablet: '295px' };
+  const styleComment = (location.pathname === '/reviews') ? stylesFullText : { ...stylesText };
+  const minMidthWraper = !(location.pathname === '/reviews') && '295px';
+  const widthWrapper = !(location.pathname === '/reviews') ? { mobile: '100%', tablet: '345px', desktop: '485px' } : '100%';
 
   const ratingNumber = Number(rating);
   const dateReview = new Date(+date);
@@ -32,7 +30,7 @@ const ReviewItem = ({ review, isFullCard }) => {
   const formattedDate = `${day}.${month}.${year}`;
 
   return (
-    <Card sx={{ ...stylesCardReview, minWidth: minMidthWraper }}>
+    <Card sx={{ ...stylesCardReview, minWidth: minMidthWraper, width: widthWrapper }}>
       {!isFullCard && (
       <CardHeader
         avatar={(
