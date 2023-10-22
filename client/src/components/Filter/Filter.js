@@ -20,6 +20,7 @@ import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
+  /* eslint-disable no-undef */
   const products = useSelector((state) => state.products.products);
   const [pizza, setPizza] = React.useState(sessionStorage.getItem('pizza') === 'true' || false);
   const [burgers, setBurgers] = React.useState(sessionStorage.getItem('burgers') === 'true' || false);
