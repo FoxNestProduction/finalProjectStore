@@ -2,11 +2,15 @@ import { setDataToSessionStorage } from './sessionStorageHelpers';
 import { CHECKOUT_LS_KEY } from '../constants';
 
 const saveUserInfoToSessionStorage = (user) => {
-  setDataToSessionStorage(CHECKOUT_LS_KEY, {
+  const data = {
     name: user.firstName,
     email: user.email,
-    tel: user.telephone || '',
-  });
+  };
+
+  if (user.telephone) {
+    data.tel = user.telephone;
+  }
+  setDataToSessionStorage(CHECKOUT_LS_KEY, data);
 };
 
 export default saveUserInfoToSessionStorage;

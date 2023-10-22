@@ -15,6 +15,7 @@ import reviewsSlice from './slices/reviewsSlice';
 import favouriteSlice from './slices/favouriteSlice';
 import orderSlice from './slices/orderSlice';
 import filterSlice from './slices/filterSlice';
+import scrollAnchorSlice from './slices/scrollAnchorSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -70,6 +71,7 @@ const reducer = combineReducers({
   reviews: reviewsSlice,
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
   filter: persistReducer(filterPersistConfig, filterSlice),
+  scrollAnchor: scrollAnchorSlice,
 });
 
 const middleware = getDefaultMiddleware({
