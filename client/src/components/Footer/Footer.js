@@ -50,7 +50,7 @@ const Footer = () => {
                 sx={stylesLinkWrap}
               >
                 <Link component={NavLink} to="/reviews" sx={stylesLink}>Reviews</Link>
-                <Link component={NavLink} to="/pricing" sx={stylesLink}>Restaurants</Link>
+                <Link component={NavLink} to="/Restaurants" sx={stylesLink}>Restaurants</Link>
                 <Link component={NavLink} to="/about-us" sx={stylesLink}>About Us</Link>
                 <Link component={NavLink} to="/contact" sx={stylesLink}>Contact</Link>
               </Stack>
