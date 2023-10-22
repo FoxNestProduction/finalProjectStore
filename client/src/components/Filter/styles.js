@@ -20,6 +20,12 @@ export const stylesWrap = {
   },
 };
 
+export const stylesWrapTitle = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+};
+
 export const stylesTitle = {
   fontSize: {
     mobile: '18px',
@@ -29,6 +35,24 @@ export const stylesTitle = {
   fontFamily: 'fontPoppins',
   fontWeight: '600',
   color: '#000000',
+};
+
+export const stylesBtnReset = {
+  color: 'text.primaryLight',
+  bgcolor: 'primary.main',
+  fontFamily: 'fontPoppins',
+  fontSize: {
+    mobile: '12px',
+    tablet: '10px',
+    desktop: '12px',
+  },
+  maxWidth: '50px',
+  '.MuiButton-root': {},
+  '&:hover': {
+    bgcolor: 'primary.hover',
+    color: 'text.primaryLight',
+    borderColor: 'primary.hover',
+  },
 };
 
 export const stylesSortBtn = {
@@ -50,10 +74,24 @@ export const stylesSortBtn = {
     bgcolor: '#ffffff',
   },
 };
+export const stylesSortSelect = {
+  color: 'text.secondaryGray',
+  fontFamily: 'fontPoppins',
+  whiteSpace: 'nowrap',
+  fontSize: {
+    mobile: '13px',
+    tablet: '11px',
+    desktop: '16px',
+  },
+  '& .MuiInputBase-input': {
+    fontFamily: 'fontPoppins',
+    color: 'text.secondaryGray',
+  },
+};
 
 export const stylesCategoryIconsWrap = {
   display: 'flex',
-  justyfyContent: 'column',
+  flexDirection: 'column',
   gap: {
     mobile: '10px',
     tablet: '12px',

@@ -8,37 +8,42 @@ import ArrowIcon from '../../assets/svgComponents/ArrowIcon';
 
 const ListItemAction = () => {
   return (
-    <>
-      <Box
-        sx={actionsStyle}
+    <Box
+      sx={actionsStyle}
+    >
+      <Link
+        underline="none"
+        href="/Menu"
+        color="text.secondaryGray"
+        sx={linkStyles}
       >
+<<<<<<< HEAD
         <Link
           underline="none"
           href="/restaurants"
           color="text.secondaryGray"
           sx={linkStyles}
+=======
+        <Typography
+          variant="body4"
+          component="p"
+          sx={{
+            lineHeight: {
+              mobile: '20px',
+              desktop: '24px',
+            },
+            fontSize: {
+              mobile: '14px',
+              desktop: '20px',
+            },
+          }}
+>>>>>>> dev
         >
-          <Typography
-            variant="body4"
-            component="p"
-            sx={{
-              lineHeight: {
-                mobile: '20px',
-                desktop: '24px',
-              },
-              fontSize: {
-                mobile: '14px',
-                desktop: '20px',
-              },
-            }}
-          >
-            View All
-          </Typography>
-          <ArrowIcon fill="text.secondaryGray" />
-        </Link>
-      </Box>
-      <Divider sx={{ marginTop: '67px' }} />
-    </>
+          View All
+        </Typography>
+        <ArrowIcon fill="text.secondaryGray" />
+      </Link>
+    </Box>
   );
 };
 

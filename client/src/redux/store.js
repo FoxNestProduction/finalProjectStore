@@ -14,6 +14,8 @@ import errorSlice from './slices/errorSlice';
 import reviewsSlice from './slices/reviewsSlice';
 import favouriteSlice from './slices/favouriteSlice';
 import orderSlice from './slices/orderSlice';
+import filterSlice from './slices/filterSlice';
+import scrollAnchorSlice from './slices/scrollAnchorSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -27,6 +29,12 @@ const userPersistConfig = {
   storage,
 };
 
+const productPersistConfig = {
+  key: 'products',
+  version: 1,
+  storage,
+};
+
 const searchPersistConfig = {
   key: 'search',
   version: 1,
@@ -34,6 +42,12 @@ const searchPersistConfig = {
 };
 const favouritePersistConfig = {
   key: 'favorites',
+  version: 1,
+  storage,
+};
+
+const filterPersistConfig = {
+  key: 'filter',
   version: 1,
   storage,
 };
@@ -51,11 +65,13 @@ const reducer = combineReducers({
   partners: partnersSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
-  products: productsSlice,
+  products: persistReducer(productPersistConfig, productsSlice),
   search: persistReducer(searchPersistConfig, searchSlice),
   order: orderSlice,
   reviews: reviewsSlice,
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
+  filter: persistReducer(filterPersistConfig, filterSlice),
+  scrollAnchor: scrollAnchorSlice,
 });
 
 const middleware = getDefaultMiddleware({

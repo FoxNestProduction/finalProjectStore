@@ -35,13 +35,16 @@ const reviewsSlice = createSlice({
       const { field, value } = action.payload;
       state.newReview[field] = value;
     },
+    resetReviewState(state, action) {
+      state.newReview.rating = null;
+      state.newReview.content = '';
+    },
   },
 });
 
 export const getReviews = () => async (dispatch) => {
   try {
     const { data } = await instance.get('/comments');
-    console.log(data);
     dispatch(setReviews(data));// eslint-disable-line no-use-before-define
   } catch (error) {
     console.log('%cError loading reviews:', 'color: red; font-weight: bold;', error);
@@ -77,6 +80,7 @@ export const {
   removeReview,
   setNewRating,
   setNewReview,
+  resetReviewState,
 } = reviewsSlice.actions;
 
 /* eslint-enable no-param-reassign */

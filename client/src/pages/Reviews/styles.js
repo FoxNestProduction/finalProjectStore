@@ -48,6 +48,7 @@ export const TitleBtn = {
 };
 
 export const commentList = {
+  width: '100%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
