@@ -67,7 +67,18 @@ const QuestionsList = () => {
                 </IconButton>
               </ListItem>
               {isOpen[item.question] && (
-              <ListItem disablePadding sx={{ pb: 5 }}>
+              <ListItem
+                disablePadding
+                sx={{
+                  pb: 5,
+                  width: '80%',
+                  color: 'text.secondaryGray',
+                  fontSize: {
+                    mobile: '11px',
+                    tablet: '14px',
+                  },
+                }}
+              >
                 <ListItemText
                   primary={<Typography variant="description" fontWeight={400}>{item.answer}</Typography>}
                 />
