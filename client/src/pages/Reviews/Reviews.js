@@ -91,12 +91,10 @@ const ReviewsPage = () => {
       };
       scrollScreen();
       setIsScrolling(true);
-      console.log(searchReview);
     }
     if (isScrolling) {
       dispatch(searchReviews(''));
     }
-    console.log(searchReview);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRendered, searchReview, cardRef.current.length]);
 
