@@ -78,10 +78,6 @@ const Filter = () => {
       label: '30$',
     },
   ];
-
-  // const valuetext = (value) => {
-  //   return (`${value}$`, setValueSlider(value));
-  // };
   const foodCategories = {
     burgers: `${burgers}`,
     pizza: `${pizza}`,
