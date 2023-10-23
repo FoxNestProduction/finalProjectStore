@@ -1,31 +1,64 @@
-import { Button, CardMedia, Container, Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
-import React from 'react';
+import { Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   stylesWrap,
   stylesTitle,
+  stylesWrapTitle,
   stylesSlider,
   stylesBtn,
+  stylesBtnReset,
   stylesSortBtn,
   stylesCategoryIconsWrap,
   stylesCategoryItem,
   stylesToggleButton,
 } from './styles';
+import { setFilter } from '../../redux/slices/filterSlice';
+import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
 
 const Filter = () => {
-  const [pizza, setPizza] = React.useState(false);
-  const [burger, setBurger] = React.useState(false);
-  const [sushi, setSushi] = React.useState(false);
-  const [salad, setSalad] = React.useState(false);
-  const [pasta, setPasta] = React.useState(false);
-  const [sandwich, setSandwich] = React.useState(false);
-  const [bbqMeat, setBbqMeat] = React.useState(false);
-  const [drink, setDrink] = React.useState(false);
-  // const [vegan, setVegan] = React.useState(false);
-  const [recomended, setRecomended] = React.useState(false);
-  const [mostPopular, setMostPopular] = React.useState(false);
-  const [fastDelivery, setFastDelivery] = React.useState(false);
+  const dispatch = useDispatch();
+  /* eslint-disable no-undef */
+  const products = useSelector((state) => state.products.products);
+  const [pizza, setPizza] = React.useState(sessionStorage.getItem('pizza') === 'true' || false);
+  const [burgers, setBurgers] = React.useState(sessionStorage.getItem('burgers') === 'true' || false);
+  const [sushi, setSushi] = React.useState(sessionStorage.getItem('sushi') === 'true' || false);
+  const [salads, setSalads] = React.useState(sessionStorage.getItem('salads') === 'true' || false);
+  const [pasta, setPasta] = React.useState(sessionStorage.getItem('pasta') === 'true' || false);
+  const [sandwiches, setSandwiches] = React.useState(sessionStorage.getItem('sandwiches') === 'true' || false);
+  const [bbqMeat, setBbqMeat] = React.useState(sessionStorage.getItem('bbqMeat') === 'true' || false);
+  const [drink, setDrink] = React.useState(sessionStorage.getItem('drink') === 'true' || false);
+  const [isTranding, setIsTranding] = React.useState(sessionStorage.getItem('isTranding') === 'true' || false);
+  const [mostPopular, setMostPopular] = React.useState(sessionStorage.getItem('mostPopular') === 'true' || false);
+  const [isHealthy, setIsHealthy] = React.useState(sessionStorage.getItem('isHealthy') === 'true' || false);
+  const [isSupreme, setIsSupreme] = React.useState(sessionStorage.getItem('isSupreme') === 'true' || false);
+  const defaultSliderValue = 15;
+  const [valueSlider, setValueSlider] = React.useState(Number(sessionStorage.getItem('valueSlider')) || defaultSliderValue);
+
+  const saveFilterToSessionStorage = () => {
+    sessionStorage.setItem('pizza', pizza.toString());
+    sessionStorage.setItem('burgers', burgers.toString());
+    sessionStorage.setItem('sushi', sushi.toString());
+    sessionStorage.setItem('salads', salads.toString());
+    sessionStorage.setItem('pasta', pasta.toString());
+    sessionStorage.setItem('sandwiches', sandwiches.toString());
+    sessionStorage.setItem('bbqMeat', bbqMeat.toString());
+    sessionStorage.setItem('drink', drink.toString());
+    sessionStorage.setItem('isTranding', isTranding.toString());
+    sessionStorage.setItem('mostPopular', mostPopular.toString());
+    sessionStorage.setItem('isHealthy', isHealthy.toString());
+    sessionStorage.setItem('isSupreme', isSupreme.toString());
+    sessionStorage.setItem('valueSlider', valueSlider.toString());
+  };
+
+  useEffect(() => {
+    saveFilterToSessionStorage(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pizza, burgers, sushi, salads, pasta, sandwiches, bbqMeat,
+    drink, isTranding, mostPopular, isHealthy, isSupreme, valueSlider]);
+
+  const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
 
   const marks = [
     {
@@ -46,16 +79,85 @@ const Filter = () => {
     },
   ];
 
-  const valuetext = (value) => {
-    return `${value}$`;
+  // const valuetext = (value) => {
+  //   return (`${value}$`, setValueSlider(value));
+  // };
+  const foodCategories = {
+    burgers: `${burgers}`,
+    pizza: `${pizza}`,
+    sushi: `${sushi}`,
+    salads: `${salads}`,
+    pasta: `${pasta}`,
+    sandwiches: `${sandwiches}`,
+    bbqMeat: `${bbqMeat}`,
+    drink: `${drink}`,
   };
+  const filteredItemsByCatagory = products.filter((prod) => {
+    const category = prod.filterCategories;
+    const price = prod.currentPrice;
+    return (Object.values(foodCategories).includes('true')
+      ? (JSON.parse(foodCategories[category]) && price < valueSlider)
+      : (price < valueSlider));
+  });
+  const filters = [
+    { condition: mostPopular, filterFunc: (el) => el.rating > 4 },
+    { condition: isTranding, filterFunc: (el) => el.isTranding },
+    { condition: isHealthy, filterFunc: (el) => el.isHealthy },
+    { condition: isSupreme, filterFunc: (el) => el.isSupreme },
+  ];
+  const filteredAndSortedItems = filters.reduce((items, filter) => {
+    if (filter.condition) {
+      return items.filter(filter.filterFunc);
+    }
+    return items;
+  }, filteredItemsByCatagory);
+  const handleApplyFilter = () => {
+    if (filteredAndSortedItems.length === 0) {
+      // eslint-disable-next-line no-undef,no-alert
+      alert('Nothing found :(');
+    } else {
+      dispatch(setFilter(filteredAndSortedItems));
+      dispatch(setSearch([]));
+      dispatch(setInputSearchValue(''));
+    }
 
+    if (anchor) {
+      // eslint-disable-next-line react/prop-types
+      anchor.scrollIntoView({
+        block: 'start',
+      });
+    }
+  };
+  const handleResetFilter = () => {
+    dispatch(setFilter([]));
+    setPizza(false);
+    setBurgers(false);
+    setSushi(false);
+    setSalads(false);
+    setPasta(false);
+    setSandwiches(false);
+    setBbqMeat(false);
+    setDrink(false);
+    setIsTranding(false);
+    setMostPopular(false);
+    setIsHealthy(false);
+    setIsSupreme(false);
+    setValueSlider(defaultSliderValue);
+  };
   return (
     <Stack component="section" sx={stylesWrap}>
       <Stack component="div">
-        <Typography component="h3" sx={stylesTitle}>
-          Category
-        </Typography>
+        <Stack component="div" sx={stylesWrapTitle}>
+          <Typography component="h3" sx={stylesTitle}>
+            Category
+          </Typography>
+          <Button
+            sx={stylesBtnReset}
+            onClick={handleResetFilter}
+          >
+            Reset
+          </Button>
+        </Stack>
         <Stack component="div" sx={stylesCategoryIconsWrap}>
           <Stack
             component="div"
@@ -79,15 +181,15 @@ const Filter = () => {
             </ToggleButton>
             <ToggleButton
               sx={stylesToggleButton}
-              value="burger"
-              selected={burger}
+              value="burgers"
+              selected={burgers}
               onChange={() => {
-                setBurger(!burger);
+                setBurgers(!burgers);
               }}
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/burger.png" alt="burger" />
-                <Typography component="p">Burger</Typography>
+                <Typography component="p">Burgers</Typography>
               </Stack>
             </ToggleButton>
             <ToggleButton
@@ -105,22 +207,22 @@ const Filter = () => {
             </ToggleButton>
             <ToggleButton
               sx={stylesToggleButton}
-              value="salad"
-              selected={salad}
+              value="salads"
+              selected={salads}
               onChange={() => {
-                setSalad(!salad);
+                setSalads(!salads);
               }}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/salad_2.png" alt="salad" />
-                <Typography component="p">Salad</Typography>
+                <CardMedia component="img" image="./img/salad_2.png" alt="salads" />
+                <Typography component="p">Salads</Typography>
               </Stack>
             </ToggleButton>
           </Stack>
           <Stack
             component="div"
             direction="row"
-            spacing={{ gap: { mobile: '10px', tablet: '9px', desktop: '13px' } }}
+            gap={{ mobile: '10px', tablet: '9px', desktop: '13px' }}
             justifyContent={{ mobile: 'space-between', tablet: 'space-around', lgTablet: 'space-between' }}
             sx={{ width: '100%' }}
           >
@@ -140,9 +242,9 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="sandwich"
-              selected={sandwich}
+              selected={sandwiches}
               onChange={() => {
-                setSandwich(!sandwich);
+                setSandwiches(!sandwiches);
               }}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -191,8 +293,6 @@ const Filter = () => {
               <Typography>Vegan</Typography>
             </Stack>
           </ToggleButton> */}
-          {/* <div>Sorter : піца, бургер, салати, десерти, sea food,</div> */}
-          {/* <div> мясо-гриль, веганська їжа, паста, напої</div> */}
         </Stack>
       </Stack>
       <Stack component="div" sx={{ mt: { mobile: '25px', tablet: '30px' } }}>
@@ -203,36 +303,48 @@ const Filter = () => {
           <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
             <ToggleButton
               sx={stylesSortBtn}
-              value="recomended"
-              selected={recomended}
+              value="isTranding"
+              selected={isTranding}
               onChange={() => {
-                setRecomended(!recomended);
+                setIsTranding(!isTranding);
               }}
             >
-              Recomended
+              Tranding
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
-              value="fastDelivery"
-              selected={fastDelivery}
+              value="isHealthy"
+              selected={isHealthy}
               onChange={() => {
-                setFastDelivery(!fastDelivery);
+                setIsHealthy(!isHealthy);
               }}
             >
-              Fast Delivery
+              Healthy
             </ToggleButton>
           </Stack>
 
-          <ToggleButton
-            sx={stylesSortBtn}
-            value="mostPopular"
-            selected={mostPopular}
-            onChange={() => {
-              setMostPopular(!mostPopular);
-            }}
-          >
-            Most Popular
-          </ToggleButton>
+          <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
+            <ToggleButton
+              sx={stylesSortBtn}
+              value="isSupreme"
+              selected={isSupreme}
+              onChange={() => {
+                setIsSupreme(!isSupreme);
+              }}
+            >
+              Supreme
+            </ToggleButton>
+            <ToggleButton
+              sx={stylesSortBtn}
+              value="mostPopular"
+              selected={mostPopular}
+              onChange={() => {
+                setMostPopular(!mostPopular);
+              }}
+            >
+              Most Popular
+            </ToggleButton>
+          </Stack>
         </Stack>
       </Stack>
 
@@ -245,15 +357,22 @@ const Filter = () => {
             sx={stylesSlider}
             max={30}
             aria-label="Always visible"
-            defaultValue={15}
-            getAriaValueText={valuetext}
+            // defaultValue={15}
+            // getAriaValueText={valuetext}
+            value={valueSlider}
             step={1}
             marks={marks}
             valueLabelDisplay="on"
+            onChange={(event, newValue) => setValueSlider(newValue)}
           />
         </Box>
       </Stack>
-      <Button sx={stylesBtn}>Apply</Button>
+      <Button
+        sx={stylesBtn}
+        onClick={handleApplyFilter}
+      >
+        Apply
+      </Button>
     </Stack>
   );
 };
