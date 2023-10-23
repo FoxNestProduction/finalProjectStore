@@ -60,7 +60,7 @@ const ReviewItem = ({ review }) => {
         </Box>
         {isMoreThreeLineText && (
           <MoreHorizIcon
-            sx={{ position: 'absolute', right: '30px' }}
+            sx={{ position: 'absolute', right: '30px', cursor: 'pointer' }}
             onClick={() => handleReviewClick(id)}
           />
         )}
