@@ -20,6 +20,12 @@ export const stylesWrap = {
   },
 };
 
+export const stylesWrapTitle = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+};
+
 export const stylesTitle = {
   fontSize: {
     mobile: '18px',
@@ -29,6 +35,24 @@ export const stylesTitle = {
   fontFamily: 'fontPoppins',
   fontWeight: '600',
   color: '#000000',
+};
+
+export const stylesBtnReset = {
+  color: 'text.primaryLight',
+  bgcolor: 'primary.main',
+  fontFamily: 'fontPoppins',
+  fontSize: {
+    mobile: '12px',
+    tablet: '10px',
+    desktop: '12px',
+  },
+  maxWidth: '50px',
+  '.MuiButton-root': {},
+  '&:hover': {
+    bgcolor: 'primary.hover',
+    color: 'text.primaryLight',
+    borderColor: 'primary.hover',
+  },
 };
 
 export const stylesSortBtn = {
@@ -53,7 +77,7 @@ export const stylesSortBtn = {
 
 export const stylesCategoryIconsWrap = {
   display: 'flex',
-  justyfyContent: 'column',
+  flexDirection: 'column',
   gap: {
     mobile: '10px',
     tablet: '12px',

@@ -8,16 +8,19 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Input from '../../inputs/Input/Input';
-import { subtitle } from './styles';
+import { subtitle, input, paymentSystemsWrapper, imgVisa } from './styles';
 import CheckoutActions from '../CheckoutForm/CheckoutActions';
 import { setConfirmedOrder } from '../../../redux/slices/orderSlice';
-import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
+import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_LS_KEY } from '../../../constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
+import { resetCart } from '../../../redux/slices/cartSlice';
 
 const PaymentForm = () => {
   const navigate = useNavigate();
@@ -34,13 +37,12 @@ const PaymentForm = () => {
   };
 
   const handleContinue = async (values, actions) => {
-    // console.log(values);
-
     try {
       const response = await instance.post('/orders', orderInfo);
       console.log(response);
       dispatch(setConfirmedOrder(response.data.order));
       removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+      dispatch(resetCart());
       if (isUserAuthorized && user) {
         saveUserInfoToSessionStorage(user);
       }
@@ -60,15 +62,113 @@ const PaymentForm = () => {
           <Stack
             spacing={4}
           >
+            <Box sx={paymentSystemsWrapper}>
+              <IconButton
+                aria-label="checked"
+                size="small"
+                disableFocusRipple
+                disableRipple
+                sx={{
+                  cursor: 'initial',
+                }}
+                disable
+              >
+                <CheckCircleOutlineIcon fontSize="small" />
+              </IconButton>
+              <Box
+                component="img"
+                src={`${process.env.PUBLIC_URL}/img/checkout/visa.png`}
+                alt="visa"
+                sx={imgVisa}
+              />
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{ userSelect: 'none', color: 'text.primary' }}
+              >
+                Credit /
+                {' '}
+                <Typography
+                  component="span"
+                  sx={{ whiteSpace: 'nowrap' }}
+                >
+                  Debit card
+                </Typography>
+              </Typography>
+            </Box>
+            <Box sx={paymentSystemsWrapper}>
+              <IconButton
+                aria-label="checked"
+                size="small"
+                disableFocusRipple
+                disableRipple
+                sx={{
+                  cursor: 'initial',
+                }}
+                disable
+              >
+                <RadioButtonUncheckedIcon fontSize="small" />
+              </IconButton>
+              <Box
+                component="img"
+                src={`${process.env.PUBLIC_URL}/img/checkout/mastercard.png`}
+                alt="visa"
+                sx={imgVisa}
+              />
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{ userSelect: 'none', color: 'text.primary' }}
+              >
+                Credit /
+                {' '}
+                <Typography
+                  component="span"
+                  sx={{ whiteSpace: 'nowrap' }}
+                >
+                  Debit card
+                </Typography>
+              </Typography>
+            </Box>
+
             <Typography variant="h3" component="h2" align="left" sx={subtitle}>
               Add new card
             </Typography>
 
-            <Input name="name" id="checkout-name" label="Cardholder name*" bgColor="#FFF" disabled />
-            <Input name="cardNumber" id="checkout-cardNumber" label="Card number*" bgColor="#FFF" disabled />
+            <Input
+              name="name"
+              id="checkout-name"
+              label="Cardholder name*"
+              bgColor="#FFF"
+              disabled
+              styles={input}
+            />
+            <Input
+              name="cardNumber"
+              id="checkout-cardNumber"
+              label="Card number*"
+              bgColor="#FFF"
+              disabled
+              styles={input}
+            />
             <Box sx={{ display: 'flex', gap: '5%' }}>
-              <Input name="expiryDate" id="checkout-expiryDate" label="Expiry date" bgColor="#FFF" disabled />
-              <Input name="cvv" id="checkout-cvv" label="CVV" bgColor="#FFF" type="password" disabled />
+              <Input
+                name="expiryDate"
+                id="checkout-expiryDate"
+                label="Expiry date"
+                bgColor="#FFF"
+                disabled
+                styles={input}
+              />
+              <Input
+                name="cvv"
+                id="checkout-cvv"
+                label="CVV"
+                bgColor="#FFF"
+                type="password"
+                disabled
+                styles={input}
+              />
             </Box>
 
           </Stack>

@@ -13,7 +13,10 @@ import searchSlice from './slices/searchSlice';
 import errorSlice from './slices/errorSlice';
 import reviewsSlice from './slices/reviewsSlice';
 import favouriteSlice from './slices/favouriteSlice';
+import cartSlice from './slices/cartSlice';
 import orderSlice from './slices/orderSlice';
+import filterSlice from './slices/filterSlice';
+import scrollAnchorSlice from './slices/scrollAnchorSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -23,6 +26,12 @@ const authPersistConfig = {
 
 const userPersistConfig = {
   key: 'user',
+  version: 1,
+  storage,
+};
+
+const productPersistConfig = {
+  key: 'products',
   version: 1,
   storage,
 };
@@ -37,7 +46,23 @@ const favouritePersistConfig = {
   version: 1,
   storage,
 };
+const reviewsPersistConfig = {
+  key: 'reviews',
+  version: 1,
+  storage,
+};
 
+const filterPersistConfig = {
+  key: 'filter',
+  version: 1,
+  storage,
+};
+
+const cartPersistConfig = {
+  key: 'cart',
+  version: 1,
+  storage,
+};
 /*
     todo: - ЗВЕРНІТЬ УВАГУ!
       якщо вам потрібно щоб ваш стейт не зникав після перезавантаження
@@ -51,11 +76,14 @@ const reducer = combineReducers({
   partners: partnersSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
-  products: productsSlice,
+  products: persistReducer(productPersistConfig, productsSlice),
   search: persistReducer(searchPersistConfig, searchSlice),
   order: orderSlice,
-  reviews: reviewsSlice,
+  reviews: persistReducer(reviewsPersistConfig, reviewsSlice),
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
+  filter: persistReducer(filterPersistConfig, filterSlice),
+  cart: persistReducer(cartPersistConfig, cartSlice),
+  scrollAnchor: scrollAnchorSlice,
 });
 
 const middleware = getDefaultMiddleware({

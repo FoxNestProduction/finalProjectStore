@@ -35,6 +35,7 @@ import {
 import { setConfirmedOrder, setOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
+import { resetCart } from '../../../redux/slices/cartSlice';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -76,19 +77,14 @@ const CheckoutForm = () => {
     updateSessionStorageValues(CHECKOUT_LS_KEY, { [e.target.name]: e.target.value });
   };
 
-  const handleContinue = async (values, actions) => {
-    // console.log(values);
-
+  const handleContinue = async (values) => {
     // updating user info in DB and user slice
     if (isUserAuthorized && token) {
       const updatedCustomer = {
         telephone: values.tel,
       };
-
       try {
-        const response = await instance.put('/customers', updatedCustomer, {
-          headers: { 'Authorization': token },
-        });
+        const response = await instance.put('/customers', updatedCustomer);
         dispatch(setUser(response.data));
       } catch (err) {
         console.log('Error updating user: ', err);
@@ -150,6 +146,7 @@ const CheckoutForm = () => {
         console.log(response);
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+        dispatch(resetCart());
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
         }
@@ -160,14 +157,34 @@ const CheckoutForm = () => {
     }
   };
 
+  const setInitialTouched = () => {
+    const values = getDataFromSessionStorage(CHECKOUT_LS_KEY);
+
+    if (values) {
+      return {
+        name: 'name' in values,
+        email: 'email' in values,
+        tel: 'tel' in values,
+        street: 'street' in values,
+        house: 'house' in values,
+      };
+    }
+    return null;
+  };
+
+  const setIsValid = (touched, errors) => {
+    return !Object.keys(errors).some((key) => touched[key] === true);
+  };
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleContinue}
       validationSchema={validationSchema}
       enableReinitialize
+      initialTouched={setInitialTouched()}
     >
-      {({ handleBlur, isValid }) => (
+      {({ handleBlur, touched, errors }) => (
         <Form>
           <Stack spacing={4}>
             <Divider />
@@ -180,7 +197,9 @@ const CheckoutForm = () => {
               id="checkout-name"
               label="Name*"
               bgColor="#FFF"
-              onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
+              onBlur={(e) => {
+                handleFieldBlur(e, handleBlur);
+              }}
             />
             <Input
               name="email"
@@ -264,7 +283,7 @@ const CheckoutForm = () => {
             </Field>
 
           </Stack>
-          <CheckoutActions isValid={isValid} />
+          <CheckoutActions isValid={setIsValid(touched, errors)} />
         </Form>
       )}
     </Formik>
