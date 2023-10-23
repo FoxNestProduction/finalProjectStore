@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, restaurantSkeletonContainer } from './styles';
+import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import usePaginationBreakpoint from '../../customHooks/usePaginationBreakpoint';
 import Skeleton from '../Skeleton/Skeleton';
