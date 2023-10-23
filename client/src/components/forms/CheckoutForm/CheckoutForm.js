@@ -57,7 +57,6 @@ const CheckoutForm = () => {
   const user = useSelector((state) => state.user.user, shallowEqual);
   const token = useSelector((state) => state.authorization.token);
   const cart = useSelector((state) => state.cart.cart.products);
-  console.log(cart);
 
   const dispatch = useDispatch();
 
