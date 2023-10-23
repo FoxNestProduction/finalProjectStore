@@ -17,18 +17,19 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Badge from '@mui/material/Badge';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem, stylesBadge } from './styles';
-import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import RegisterForm from '../forms/RegisterForm/RegisterForm';
+import { cartIconCounterFunction } from '../Cart/cartFunctions';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   handleCloseDrawer, handleOpenModalLogin, handleLogOut }) => {
   const dispatch = useDispatch();
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
 
   const handleOpenModalRegister = () => {
     dispatch(openModal());
@@ -36,6 +37,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   };
   const favourite = useSelector((state) => state.favourites.favourites);
   const favouritesAmount = isUserAuthorized ? favourite.length : null;
+  const cartAmount = cartIconCounterFunction(cartProducts);
 
   return (
     <Drawer
@@ -90,7 +92,11 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
           <MenuItemWithIcon
             navLink
             page="Cart"
-            icon={<ShoppingCartOutlinedIcon sx={stylesIcon} />}
+            icon={(
+              <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
+                <ShoppingCartOutlinedIcon sx={stylesIcon} />
+              </Badge>
+            )}
           />
           {isUserAuthorized && (
           <MenuItemWithIcon
