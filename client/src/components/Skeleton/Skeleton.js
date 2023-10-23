@@ -9,9 +9,15 @@ const Skeleton = ({ skeletonType }) => {
       { skeletonType === 'restaurant' ? (
         <div className={styles.restaurantCardSkeleton}>
           <div className={classNames(styles.restaurantImageSkeleton, styles.loading)} />
-          <div className={classNames(styles.restaurantChipsTitleRatingSkeleton, styles.loading)} />
-          <div className={classNames(styles.restaurantChipsTitleRatingSkeleton, styles.loading)} />
-          <div className={classNames(styles.restaurantChipsTitleRatingSkeleton, styles.loading)} />
+          <div
+            className={classNames(styles.restaurantChipsTitleRatingSkeleton, styles.loading)}
+          />
+          <div
+            className={classNames(styles.restaurantChipsTitleRatingSkeleton, styles.loading)}
+          />
+          <div
+            className={classNames(styles.restaurantChipsTitleRatingSkeleton, styles.loading)}
+          />
         </div>
       ) : skeletonType === 'product' ? (
         <div className={styles.productCardSkeleton}>

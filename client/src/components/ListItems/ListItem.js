@@ -4,8 +4,9 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
+import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer } from './styles';
+import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, restaurantSkeletonContainer } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import usePaginationBreakpoint from '../../customHooks/usePaginationBreakpoint';
 import Skeleton from '../Skeleton/Skeleton';
@@ -23,6 +24,8 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
   const [productsPerPage, setProductsPerPage] = useState(productsPerPageMap[breakpoint]);
   const [page, setPage] = useState(1);
   const [pageQty, setPageQty] = useState(1);
+
+  const isLoading = useSelector((state) => state.skeleton.isLoading);
 
   useEffect(() => {
     setPage(1);
@@ -56,31 +59,34 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
       >
         {title}
       </Typography>
-      <Grid container spacing={0} sx={gridStylesContainer}>
 
-        { pageProducts ? pageProducts.map((item) => (
+      {isLoading ? type === 'partners' ? (
+        <Box sx={gridStylesContainer}>
+          <Skeleton skeletonType="restaurant" />
+          <Skeleton skeletonType="restaurant" />
+          <Skeleton skeletonType="restaurant" />
+        </Box>
+      ) : (
+        <Box sx={gridStylesContainer}>
+          <Skeleton skeletonType="product" />
+          <Skeleton skeletonType="product" />
+          <Skeleton skeletonType="product" />
+          <Skeleton skeletonType="product" />
+          <Skeleton skeletonType="product" />
+        </Box>
+      ) : (
+        <Grid container spacing={0} sx={gridStylesContainer}>
 
-          // eslint-disable-next-line dot-notation
-          <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
+          { pageProducts && pageProducts.map((item) => (
 
-            {createElement(itemComponent, { ...item })}
-          </Grid>
-        )) : type === 'partners' ? (
-          <>
-            <Skeleton skeletonType="restaurant" />
-            <Skeleton skeletonType="restaurant" />
-            <Skeleton skeletonType="restaurant" />
-          </>
-        ) : (
-          <>
-            <Skeleton skeletonType="product" />
-            <Skeleton skeletonType="product" />
-            <Skeleton skeletonType="product" />
-            <Skeleton skeletonType="product" />
-            <Skeleton skeletonType="product" />
-          </>
-        )}
-      </Grid>
+            // eslint-disable-next-line dot-notation
+            <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
+
+              {createElement(itemComponent, { ...item })}
+            </Grid>
+          ))}
+        </Grid>
+      )}
       {actions}
       {(pagination && pageQty > 1) && (
       <AppPagination

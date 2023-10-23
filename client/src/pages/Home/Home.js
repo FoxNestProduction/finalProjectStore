@@ -23,7 +23,6 @@ const HomePage = () => {
       <SectionGetStarted />
       <Features />
       <MobileApp />
-      <Skeleton skeletonType="restaurant" />
       <ListItems
         title="Our Top Restaurants"
         items={sortedPartners}
