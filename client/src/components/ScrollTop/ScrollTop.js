@@ -21,8 +21,8 @@ const ScrollTop = () => {
         onClick={handleClick}
         sx={{
           position: 'fixed',
-          bottom: 15,
-          right: 15,
+          bottom: 30,
+          right: 30,
           zIndex: 1500,
           '& .MuiButtonBase-root': {
             backgroundColor: 'primary.main',

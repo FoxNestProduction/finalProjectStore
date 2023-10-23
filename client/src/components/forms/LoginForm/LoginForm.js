@@ -40,6 +40,7 @@ import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../
 import { CHECKOUT_LS_KEY } from '../../../constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
+import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -65,11 +66,11 @@ const LoginForm = () => {
         dispatch(setUser(user));
         dispatch(closeModal());
         dispatch(setAuthorizationError(''));
-        // eslint-disable-next-line no-underscore-dangle
         dispatch(setFavourite(user.favourite));
 
         removeDataFromSessionStorage(CHECKOUT_LS_KEY);
         saveUserInfoToSessionStorage(user);
+        dispatch(getCartItemsFromServer());
       }
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));

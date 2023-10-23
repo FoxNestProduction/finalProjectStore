@@ -36,6 +36,7 @@ import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../
 import { CHECKOUT_LS_KEY } from '../../../constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
+import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
 
 export const initialValues = {
   firstName: '',
@@ -67,6 +68,7 @@ const RegisterForm = () => {
 
       removeDataFromSessionStorage(CHECKOUT_LS_KEY);
       saveUserInfoToSessionStorage(user);
+      dispatch(getCartItemsFromServer());
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));
       console.error('Помилка реєстрації:', error);

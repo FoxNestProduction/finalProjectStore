@@ -35,6 +35,7 @@ import {
 import { setConfirmedOrder, setOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
+import { resetCart } from '../../../redux/slices/cartSlice';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -55,6 +56,8 @@ const CheckoutForm = () => {
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user, shallowEqual);
   const token = useSelector((state) => state.authorization.token);
+  const cart = useSelector((state) => state.cart.cart.products);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -90,27 +93,6 @@ const CheckoutForm = () => {
       }
     }
 
-    // cart products for unauthorised user
-    // todo: замінити на продукти з LS або store;
-    const cartProducts = [
-      {
-        product: {
-          _id: '6507a306baee59670a047307',
-          name: 'Margherita Pizza',
-          currentPrice: 12.99,
-        },
-        cartQuantity: 2,
-      },
-      {
-        product: {
-          _id: '650a7e0761d4eecf99b85f01',
-          name: 'Burger Haven',
-          currentPrice: 10.99,
-        },
-        cartQuantity: 1,
-      },
-    ];
-
     const { name, email, tel, city, street, house, apartment, payment } = values;
     const newOrder = {
       status: 'new order',
@@ -129,12 +111,12 @@ const CheckoutForm = () => {
     };
 
     // todo: uncomment when user will have a cart
-    // if (isUserAuthorized && user) {
-    //   const { _id: id } = user;
-    //   newOrder.customerId = id;
-    // } else {
-    newOrder.products = cartProducts;
-    // }
+    if (isUserAuthorized && user) {
+      const { _id: id } = user;
+      newOrder.customerId = id;
+    } else {
+      newOrder.products = cart;
+    }
 
     if (values.payment === 'Card') {
       dispatch(setOrderInfo(newOrder));
@@ -145,6 +127,7 @@ const CheckoutForm = () => {
         console.log(response);
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+        dispatch(resetCart());
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
         }

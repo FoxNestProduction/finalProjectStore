@@ -27,4 +27,6 @@ export const getProducts = () => async (dispatch) => {
   }
 };
 
+export const allProducts = (state) => state.products.products;
+
 export default productsSlice.reducer;
