@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
@@ -10,12 +10,27 @@ import useSortedItems from '../../customHooks/useSortedItems';
 import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
+import useBreakpoint from '../../customHooks/useBreakpoint';
+import { instance } from '../../API/instance';
 
 const HomePage = () => {
+  const [topDishes, setTopDishes] = useState([]);
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const sortedProducts = useSortedItems(products, productsCardWidth);
+
+  const breakpoint = useBreakpoint();
+  // .slice(0, cardWidth[breakpoint]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await instance.get(`/products/filter?perPage=${productsCardWidth[breakpoint]}&sort=-rating`);
+        setTopDishes(response.data.products);
+      } catch (err) {
+        console.error('Error getting top products: ', err);
+      }
+    })();
+  }, [breakpoint]);
 
   return (
     <>
@@ -29,7 +44,13 @@ const HomePage = () => {
         actions={<ListItemAction type="partners" />}
         type="partners"
       />
-      <ListItems title="Our Top Dishes" topDish items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
+      <ListItems
+        title="Our Top Dishes"
+        topDish
+        items={topDishes}
+        itemComponent={ProductCardItem}
+        actions={<ListItemAction />}
+      />
       <SwiperReview />
     </>
   );

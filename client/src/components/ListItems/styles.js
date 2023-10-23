@@ -60,7 +60,7 @@ export const gridStylesItemProducts = {
   mb: '40px',
   minWidth: {
     desktop: '145px',
-    tablet: '160px',
+    tablet: '155px',
   },
 };
 

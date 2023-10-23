@@ -7,7 +7,7 @@ import Divider from '@mui/material/Divider';
 import { Box, MenuItem, TextField } from '@mui/material';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
-import usePaginationBreakpoint from '../../customHooks/usePaginationBreakpoint';
+import useBreakpoint from '../../customHooks/useBreakpoint';
 
 const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, type }) => {
   let currencies;
@@ -75,12 +75,12 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
     setSelectedValueSortBy(event.target.value);
   };
 
-  const breakpoint = usePaginationBreakpoint();
+  const breakpoint = useBreakpoint();
   const productsPerPageMap = {
-    mobileTablet: 10,
+    mobile: 10,
+    tablet: 10,
     lgTablet: 9,
-    desktop: 12,
-    lgDesktop: 15,
+    desktop: 15,
   };
 
   const [pageProducts, setPageProducts] = useState([]);
