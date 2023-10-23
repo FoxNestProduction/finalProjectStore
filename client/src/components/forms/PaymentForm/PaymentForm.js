@@ -11,6 +11,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Input from '../../inputs/Input/Input';
 import { subtitle, input, paymentSystemsWrapper, imgVisa } from './styles';
 import CheckoutActions from '../CheckoutForm/CheckoutActions';
@@ -68,12 +69,47 @@ const PaymentForm = () => {
                 sx={{
                   cursor: 'initial',
                 }}
+                disable
               >
-                <CheckCircleOutlineIcon fontSize="small" sx={{ color: 'text.primary' }} />
+                <CheckCircleOutlineIcon fontSize="small" />
               </IconButton>
               <Box
                 component="img"
                 src={`${process.env.PUBLIC_URL}/img/checkout/visa.png`}
+                alt="visa"
+                sx={imgVisa}
+              />
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{ userSelect: 'none', color: 'text.primary' }}
+              >
+                Credit /
+                {' '}
+                <Typography
+                  component="span"
+                  sx={{ whiteSpace: 'nowrap' }}
+                >
+                  Debit card
+                </Typography>
+              </Typography>
+            </Box>
+            <Box sx={paymentSystemsWrapper}>
+              <IconButton
+                aria-label="checked"
+                size="small"
+                disableFocusRipple
+                disableRipple
+                sx={{
+                  cursor: 'initial',
+                }}
+                disable
+              >
+                <RadioButtonUncheckedIcon fontSize="small" />
+              </IconButton>
+              <Box
+                component="img"
+                src={`${process.env.PUBLIC_URL}/img/checkout/mastercard.png`}
                 alt="visa"
                 sx={imgVisa}
               />
