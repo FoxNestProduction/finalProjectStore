@@ -41,8 +41,7 @@ const OrderConfirmationPage = () => {
           >
             Order number:
             {' '}
-            {/* {order.orderNo} */}
-            76842346
+            {order.orderNo}
           </Typography>
           <Button
             component="a"
