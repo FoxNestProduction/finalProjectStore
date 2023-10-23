@@ -24,11 +24,6 @@ const Input = ({ type, label, icon, id, error, bgColor, styles, ...props }) => {
       fullWidth
       variant="outlined"
       error={Boolean(error || (meta.touched && meta.error))}
-      // sx={{
-      //   '& .MuiInputBase-input.MuiOutlinedInput-input': {
-      //     fontSize: '16px',
-      //   },
-      // }}
     >
       <InputLabel htmlFor={id}>
         {label}
