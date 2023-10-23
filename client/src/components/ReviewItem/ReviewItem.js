@@ -13,7 +13,7 @@ import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Box } from '@mui/material';
-import { searchReview } from '../../redux/slices/reviewsSlice';
+import { searchReviews } from '../../redux/slices/reviewsSlice';
 
 import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, stylesText, stylesFullText } from './styles';
 
@@ -36,7 +36,7 @@ const ReviewItem = ({ review }) => {
 
   const handleReviewClick = () => {
     navigate('/reviews');
-    dispatch(searchReview(id));
+    dispatch(searchReviews(id));
   };
 
   return (

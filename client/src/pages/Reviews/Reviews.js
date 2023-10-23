@@ -1,17 +1,18 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Button, Box, Container, useMediaQuery } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
-import { addNewReview, resetReviewState } from '../../redux/slices/reviewsSlice';
+import { addNewReview, resetReviewState, searchReviews } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 
 const ReviewsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isRendered, setIsRendered] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
   const newReview = useSelector((state) => state.reviews.newReview);
@@ -77,10 +78,10 @@ const ReviewsPage = () => {
   }, []);
 
   useEffect(() => {
-    if (cardRef.current.length > 0) {
+    if (searchReview && cardRef.current.length > 0) {
       const element = containerRef.current.querySelector(`[data="${searchReview}"]`);
       const scrollScreen = () => {
-        if (element) {
+        if (element && !isScrolling.current) {
           const elementPosition = element.getBoundingClientRect().top;
           window.scrollTo({
             top: window.scrollY + elementPosition - 110,
@@ -89,9 +90,15 @@ const ReviewsPage = () => {
         }
       };
       scrollScreen();
+      setIsScrolling(true);
+      console.log(searchReview);
     }
+    if (isScrolling) {
+      dispatch(searchReviews(''));
+    }
+    console.log(searchReview);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRendered, cardRef.current.length]);
+  }, [isRendered, searchReview, cardRef.current.length]);
 
   const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
 
@@ -108,7 +115,7 @@ const ReviewsPage = () => {
       </Box>
 
       <Box ref={containerRef} sx={commentList}>
-        {sortedReviews.slice(0, currentIndex).map((item, index) => (
+        {sortedReviews.map((item, index) => (
           <Box
             key={item._id}
             data={item._id}

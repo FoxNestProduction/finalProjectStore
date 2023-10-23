@@ -36,7 +36,7 @@ const reviewsSlice = createSlice({
       const { field, value } = action.payload;
       state.newReview[field] = value;
     },
-    searchReview(state, action) {
+    searchReviews(state, action) {
       state.search = action.payload;
     },
     resetReviewState(state) {
@@ -83,7 +83,7 @@ export const {
   addReview,
   removeReview,
   setNewReview,
-  searchReview,
+  searchReviews,
   resetReviewState,
 } = reviewsSlice.actions;
 
