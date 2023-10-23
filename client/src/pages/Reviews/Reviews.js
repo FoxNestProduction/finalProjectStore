@@ -88,7 +88,7 @@ const ReviewsPage = () => {
         )}
       </Box>
       <Box sx={commentList}>
-        <Skeleton type="reviews" />
+        {/* <Skeleton type="reviews" /> */}
         {sortedReviews.slice(0, currentIndex).map((item) => (
           <Box key={item._id} sx={commentItem}>
             <ReviewItem review={item} />
