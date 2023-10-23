@@ -42,7 +42,7 @@ export const img = {
   //   mobile: '106px',
   //   tablet: '127px',
   // },
-  maxWidth: '100%',
+  // maxWidth: '100%',
   height: 'auto',
   objectFit: 'cover',
   // borderRadius: '8px',
@@ -58,12 +58,20 @@ export const textTitle = {
     tablet: '18px',
     desktop: '20px',
   },
+  lineHeight: {
+    mobile: '15px',
+    tablet: '23px',
+    desktop: '26px',
+  },
   weight: 600,
   display: 'flex',
-  width: '80%',
+  width: {
+    mobile: '100px',
+    tablet: '160px',
+  },
   flexWrap: 'wrap',
   // overflow: 'hidden',
-  whiteSpace: 'nowrap',
+  // whiteSpace: 'nowrap',
   textDecoration: 'none',
 };
 
