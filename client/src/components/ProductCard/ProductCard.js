@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ColorChips from '../Chip/Chip';
 import LoginForm from '../forms/LoginForm/LoginForm';
@@ -20,6 +19,7 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
+import { addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 
 const ProductCard = ({ productName }) => {
@@ -56,6 +56,19 @@ const ProductCard = ({ productName }) => {
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
+  };
+
+  const handleAddToCart = () => {
+    const selectedItem = {
+      product: {
+        _id: id,
+        currentPrice,
+        imageUrl,
+        name,
+      },
+      cartQuantity: 1,
+    };
+    dispatch(addToCart(selectedItem));
   };
 
   return (
@@ -158,6 +171,7 @@ const ProductCard = ({ productName }) => {
               <Button
                 variant="contained"
                 sx={stylesButtonCard}
+                onClick={handleAddToCart}
               >
                 Add to card
                 <AddBoxOutlinedIcon

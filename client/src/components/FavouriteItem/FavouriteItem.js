@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { CardActions, CardContent, CardMedia, Rating, Button, Box, Card } from '@mui/material';
@@ -10,8 +10,10 @@ import { chipForFavourite } from '../Chip/styles';
 import { stylesButton, styleCardFavourite, styleMediaFavourite, styleContentFavourite } from './styles';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
+import { addToCart } from '../../redux/slices/cartSlice';
 
 const FavouriteItem = ({ product }) => {
+  const dispatch = useDispatch();
   // eslint-disable-next-line no-underscore-dangle
   const products = useSelector((state) => state.products.products, shallowEqual);
   // eslint-disable-next-line no-underscore-dangle
@@ -20,6 +22,20 @@ const FavouriteItem = ({ product }) => {
     return null;
   }
   const { name, currentPrice, isTranding, rating, imageUrl, isSupreme, isHealthy, _id } = dish;
+
+  // let selectedItem;
+  const handleAddToCart = () => {
+    const selectedItem = {
+      product: {
+        _id,
+        currentPrice,
+        imageUrl,
+        name,
+      },
+      cartQuantity: 1,
+    };
+    dispatch(addToCart(selectedItem));
+  };
 
   return (
     <Card sx={styleCardFavourite}>
@@ -56,6 +72,7 @@ const FavouriteItem = ({ product }) => {
       </Link>
       <CardActions sx={{ alignItems: 'flex-end', p: 0, minWidth: '130px' }}>
         <Button
+          onClick={handleAddToCart}
           variant="outline"
           fontSize="medium"
           sx={stylesButton}

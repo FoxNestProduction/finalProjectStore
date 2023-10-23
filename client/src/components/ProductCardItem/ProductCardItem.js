@@ -16,6 +16,7 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
+import { addToCart } from '../../redux/slices/cartSlice';
 // eslint-disable-next-line no-underscore-dangle
 const ProductCardItem = ({
   currentPrice,
@@ -28,12 +29,32 @@ const ProductCardItem = ({
   isHealthy,
 }) => {
   const breackPoint = useBreakpoint();
+  const products = useSelector((state) => state.products.products);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
+  };
+
+  let selectedItem;
+  const handleAddToCart = (event) => {
+    event.preventDefault();
+    const index = products.findIndex((product) => product._id === _id);
+    if (index !== -1) {
+      const foundObject = products[index];
+      selectedItem = {
+        product: {
+          _id: foundObject._id,
+          currentPrice: foundObject.currentPrice,
+          imageUrl: foundObject.imageUrl,
+          name: foundObject.name,
+        },
+        cartQuantity: 1,
+      };
+    }
+    (() => dispatch(addToCart(selectedItem)))();
   };
 
   return (
@@ -83,7 +104,7 @@ const ProductCardItem = ({
           {`$${currentPrice}`}
         </Typography>
       </Box>
-      <CardActions onClick={() => { console.log('add to cart'); }} sx={stylesButton}>
+      <CardActions onClick={handleAddToCart} sx={stylesButton}>
         {breackPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>

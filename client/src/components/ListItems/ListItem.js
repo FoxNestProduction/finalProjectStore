@@ -145,7 +145,6 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
 
           // eslint-disable-next-line dot-notation
           <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
-
             {createElement(itemComponent, { ...item })}
           </Grid>
         ))}
