@@ -26,8 +26,10 @@
     background: #c8c5df;
     border-radius: 35px;
     margin-top: 70px;
+    margin-left: 13vw;
+    margin-right: 13vw;
     @media (min-width: 481px) {
-      margin: 0 80px;
+      margin: 0 20vw;
     } 
   }
   &::-webkit-scrollbar-thumb {

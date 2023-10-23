@@ -24,7 +24,6 @@ const ReviewItem = ({ review }) => {
   const { rating, content, avatarUrl, userReview, date, _id: id } = review;
   const isMoreThreeLineText = (content.length >= 150) && (location.pathname !== '/reviews');
   const styleComment = (location.pathname === '/reviews') ? stylesFullText : { ...stylesText };
-  const minMidthWraper = !(location.pathname === '/reviews') && '295px';
   const widthWrapper = !(location.pathname === '/reviews') ? { mobile: '100%', tablet: '345px', desktop: '485px' } : '100%';
 
   const ratingNumber = Number(rating);
@@ -40,7 +39,7 @@ const ReviewItem = ({ review }) => {
   };
 
   return (
-    <Card sx={{ ...stylesCardReview, minWidth: minMidthWraper, width: widthWrapper }}>
+    <Card sx={{ ...stylesCardReview, width: widthWrapper }} onClick={() => handleReviewClick(id)}>
       <CardHeader
         avatar={(
           <Avatar>
@@ -61,7 +60,6 @@ const ReviewItem = ({ review }) => {
         {isMoreThreeLineText && (
           <MoreHorizIcon
             sx={{ position: 'absolute', right: '30px', cursor: 'pointer' }}
-            onClick={() => handleReviewClick(id)}
           />
         )}
       </CardContent>
