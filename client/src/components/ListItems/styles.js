@@ -71,13 +71,6 @@ export const partnersCardWidth = {
   desktop: 3,
 };
 
-export const productsCardWidth = {
-  mobile: 4,
-  tablet: 4,
-  lgTablet: 3,
-  desktop: 5,
-};
-
 export const stylesSortSelect = {
   color: 'text.primary',
   fontFamily: 'fontPoppins',
