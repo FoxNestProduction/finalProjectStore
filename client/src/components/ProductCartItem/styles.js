@@ -48,7 +48,7 @@ export const textTitle = {
     mobile: '14px',
     tablet: '18px',
   },
-  weight: 600,
+  weight: 'fontWeightSemiBold',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',

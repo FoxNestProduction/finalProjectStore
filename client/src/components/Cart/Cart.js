@@ -129,7 +129,6 @@ const Cart = () => {
           >
             Continue
           </Button>
-          <MiniCart />
         </Box>
       </Box>
     </Container>

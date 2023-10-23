@@ -40,6 +40,7 @@ import { CHECKOUT_LS_KEY } from '../../constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
 import { updateCart, cartIconCounterFunction } from '../Cart/cartFunctions';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
+import MiniCart from '../MiniCart/MiniCart';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -134,11 +135,14 @@ const Header = () => {
                   </IconButton>
                 )}
 
-                <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/cart">
+                {/* <IconButton aria-label="cart" edge="end" size="small" component={NavLink}
+                 to="/cart">
                   <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
                     <ShoppingCartOutlinedIcon sx={stylesIcon} />
                   </Badge>
-                </IconButton>
+                </IconButton> */}
+
+                <MiniCart />
 
                 {(isUserAuthorized) ? (
                   <IconButton aria-label="logout" edge="end" size="small" onClick={handleLogOut}>
