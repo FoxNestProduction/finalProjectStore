@@ -10,28 +10,46 @@ import AppPagination from '../Pagination/Pagination';
 import usePaginationBreakpoint from '../../customHooks/usePaginationBreakpoint';
 
 const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, type }) => {
-  const currencies = [
-    {
-      value: 'Price UP',
-      label: 'Price UP',
-    },
-    {
-      value: 'Price DOWN',
-      label: 'Price DOWN',
-    },
-    {
-      value: 'Rating UP',
-      label: 'Rating UP',
-    },
-    {
-      value: 'Rating DOWN',
-      label: 'Rating DOWN',
-    },
-    {
-      value: 'Default',
-      label: 'Default',
-    },
-  ];
+  let currencies;
+  if (type === 'partners') {
+    currencies = [
+      {
+        value: 'Rating UP',
+        label: 'Rating UP',
+      },
+      {
+        value: 'Rating DOWN',
+        label: 'Rating DOWN',
+      },
+      {
+        value: 'Default',
+        label: 'Default',
+      },
+    ];
+  } else {
+    currencies = [
+      {
+        value: 'Price UP',
+        label: 'Price UP',
+      },
+      {
+        value: 'Price DOWN',
+        label: 'Price DOWN',
+      },
+      {
+        value: 'Rating UP',
+        label: 'Rating UP',
+      },
+      {
+        value: 'Rating DOWN',
+        label: 'Rating DOWN',
+      },
+      {
+        value: 'Default',
+        label: 'Default',
+      },
+    ];
+  }
 
   const [selectedValueSortBy, setSelectedValueSortBy] = React.useState('');
   useEffect(() => {
