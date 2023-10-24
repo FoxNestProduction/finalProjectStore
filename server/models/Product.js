@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema(
   {
-    itemNo: {
-      type: String,
-      required: false
-    },
+    // itemNo: {
+    //   type: String,
+    //   required: false
+    // },
     enabled: {
       type: Boolean,
       required: false,
@@ -38,30 +38,42 @@ const ProductSchema = new Schema(
       required: false,
       default: 0
     },
-    color: {
-      type: String
-    },
-    sizes: {
-      type: String
-    },
+    // color: {
+    //   type: String
+    // },
+    // sizes: {
+    //   type: String
+    // },
     productUrl: {
       type: String
     },
-    brand: {
-      type: String
-    },
-    manufacturer: {
-      type: String
-    },
-    manufacturerCountry: {
-      type: String
-    },
-    seller: {
-      type: String
-    },
+    // brand: {
+    //   type: String
+    // },
+    // manufacturer: {
+    //   type: String
+    // },
+    // manufacturerCountry: {
+    //   type: String
+    // },
+    // seller: {
+    //   type: String
+    // },
     date: {
       type: Date,
       default: Date.now
+    },
+    rating: {
+      type: Number,
+    },
+    isSupreme: {
+      type: Boolean,
+    },
+    іsTranding: {
+      type: Boolean,
+    },
+    isHealthy: {
+      type: Boolean,
     }
   },
   { strict: false }

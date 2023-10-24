@@ -18,7 +18,6 @@ const TopDishes = ({ title, actions }) => {
   };
 
   useEffect(() => {
-    console.log(topDishesQtyMap[breakpoint]);
     (async () => {
       try {
         const response = await instance.get(`/products/filter?perPage=${topDishesQtyMap[breakpoint]}&sort=-rating`);

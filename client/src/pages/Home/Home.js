@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
@@ -10,10 +10,22 @@ import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
 import TopDishes from '../../components/TopDishes/TopDishes';
+import { instance } from '../../API/instance';
 
 const HomePage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await instance.get('/products/search', { query: 'pizza' });
+        console.log(response);
+      } catch (err) {
+        console.error('Error getting pizza: ', err);
+      }
+    })();
+  }, []);
 
   return (
     <>
