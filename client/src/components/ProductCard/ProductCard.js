@@ -22,7 +22,7 @@ import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice
 import { addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 
-const ProductCard = ({ productName }) => {
+const ProductCard = ({ productName, itemNo }) => {
   const nameOfProduct = fixedDecodeURIComponent(productName);
   const products = useSelector((state) => state.products.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
@@ -31,7 +31,6 @@ const ProductCard = ({ productName }) => {
   const [isactive, setIsActive] = useState(false);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
-  console.log(products);
   const {
     name,
     description,
@@ -189,6 +188,7 @@ const ProductCard = ({ productName }) => {
 
 ProductCard.propTypes = {
   productName: PropTypes.string.isRequired,
+  itemNo: PropTypes.string.isRequired,
 };
 
 ProductCard.defaultProps = {
