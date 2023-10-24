@@ -71,7 +71,7 @@ const PaymentForm = () => {
                 sx={{
                   cursor: 'initial',
                 }}
-                disable
+                disabled
               >
                 <CheckCircleOutlineIcon fontSize="small" />
               </IconButton>
@@ -105,7 +105,7 @@ const PaymentForm = () => {
                 sx={{
                   cursor: 'initial',
                 }}
-                disable
+                disabled
               >
                 <RadioButtonUncheckedIcon fontSize="small" />
               </IconButton>
