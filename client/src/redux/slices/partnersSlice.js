@@ -13,7 +13,6 @@ export const fetchTopPartners = createAsyncThunk(
   async (count, { rejectWithValue }) => {
     try {
       const response = await instance.get(`/partners/filter?perPage=${count}&sort=-rating`);
-      console.log(response);
       return response.data.partners;
     } catch (err) {
       return rejectWithValue(err.response.data);
