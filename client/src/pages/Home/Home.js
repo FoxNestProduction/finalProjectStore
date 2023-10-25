@@ -9,23 +9,12 @@ import useSortedItems from '../../customHooks/useSortedItems';
 import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
-import TopDishes from '../../components/TopDishes/TopDishes';
-import { instance } from '../../API/instance';
+import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 
 const HomePage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await instance.get('/products/search', { query: 'pizza' });
-        console.log(response);
-      } catch (err) {
-        console.error('Error getting pizza: ', err);
-      }
-    })();
-  }, []);
+  const topProducts = useSelector((state) => state.products.topProducts);
 
   return (
     <>
@@ -39,7 +28,14 @@ const HomePage = () => {
         actions={<ListItemAction type="partners" />}
         type="partners"
       />
-      <TopDishes actions={<ListItemAction />} />
+      {topProducts.length > 0 && (
+      <ListItems
+        title="Our Top Dishes"
+        items={topProducts}
+        itemComponent={ProductCardItem}
+        actions={<ListItemAction />}
+      />
+      ) }
       <SwiperReview />
     </>
   );

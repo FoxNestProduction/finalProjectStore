@@ -8,6 +8,7 @@ import { setSearch } from '../../redux/slices/searchSlice';
 import { partnersCardWidth } from '../../components/ListItems/styles';
 import useSortedItems from '../../customHooks/useSortedItems';
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
+import { instance } from '../../API/instance';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,18 @@ const MenuPage = () => {
   useEffect(() => {
     dispatch(setSearch([]));
   }, [dispatch]);
+
+  // приклад запиту за продуктами, які відповідають пошуку
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await instance.post('/products/search', { query: 'cheese' });
+  //       console.log(response);
+  //     } catch (err) {
+  //       console.error('Error getting searched products: ', err);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <>

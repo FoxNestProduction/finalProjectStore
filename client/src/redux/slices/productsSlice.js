@@ -1,9 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
 
 const initialState = {
   products: [],
+  topProducts: [],
+  loading: 'idle', // 'idle' | 'pending' | 'succeeded' | 'failed'
+  error: null,
+};
+
+export const fetchTopProducts = createAsyncThunk(
+  'products/fetchTopProducts',
+  async (count, { rejectWithValue }) => {
+    try {
+      const response = await instance.get(`/products/filter?perPage=${count}&sort=-rating`);
+      return response.data.products;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const setError = (state, action) => {
+  state.loading = 'failed';
+  state.error = action.payload;
 };
 
 const productsSlice = createSlice({
@@ -13,6 +32,17 @@ const productsSlice = createSlice({
     setProducts(state, action) {
       state.products = action.payload;
     },
+  },
+  extraReducers: {
+    [fetchTopProducts.pending]: (state) => {
+      state.loading = 'pending';
+      state.error = null;
+    },
+    [fetchTopProducts.fulfilled]: (state, action) => {
+      state.loading = 'succeeded';
+      state.topProducts = action.payload;
+    },
+    [fetchTopProducts.rejected]: setError,
   },
 });
 
