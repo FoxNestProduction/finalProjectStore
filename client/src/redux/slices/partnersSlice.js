@@ -1,9 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
 
 const initialState = {
   partners: [],
+  topPartners: [],
+  loading: 'idle', // 'idle' | 'pending' | 'succeeded' | 'failed'
+  error: null,
+};
+
+export const fetchTopPartners = createAsyncThunk(
+  'partners/fetchTopPartners',
+  async (count, { rejectWithValue }) => {
+    try {
+      const response = await instance.get(`/partners/filter?perPage=${count}&sort=-rating`);
+      return response.data.partners;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const setError = (state, action) => {
+  state.loading = 'failed';
+  state.error = action.payload;
 };
 
 const partnersSlice = createSlice({
@@ -13,6 +32,17 @@ const partnersSlice = createSlice({
     setPartners(state, action) {
       state.partners = action.payload;
     },
+  },
+  extraReducers: {
+    [fetchTopPartners.pending]: (state) => {
+      state.loading = 'pending';
+      state.error = null;
+    },
+    [fetchTopPartners.fulfilled]: (state, action) => {
+      state.loading = 'succeeded';
+      state.topPartners = action.payload;
+    },
+    [fetchTopPartners.rejected]: setError,
   },
 });
 

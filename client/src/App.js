@@ -6,7 +6,7 @@ import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
-import { getPartners } from './redux/slices/partnersSlice';
+import { fetchTopPartners, getPartners } from './redux/slices/partnersSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
@@ -37,8 +37,16 @@ const App = () => {
     desktop: 5,
   };
 
+  const topPartnersQtyMap = {
+    mobile: 3,
+    tablet: 3,
+    lgTablet: 2,
+    desktop: 3,
+  };
+
   useEffect(() => {
     dispatch(fetchTopProducts(topProductsQtyMap[breakpoint]));
+    dispatch(fetchTopPartners(topPartnersQtyMap[breakpoint]));
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint, dispatch]);
 
