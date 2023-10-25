@@ -8,21 +8,18 @@ import Box from '@mui/material/Box';
 import FavouriteItem from '../FavouriteItem/FavouriteItem';
 import ListItems from '../ListItems/ListItem';
 import ProductCardItem from '../ProductCardItem/ProductCardItem';
-import { getProducts } from '../../redux/slices/productsSlice';
 import { getFavourites } from '../../redux/slices/favouriteSlice';
 
 const Favourites = () => {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery('(max-width: 690px)');
   const isLgTablet = useMediaQuery('(min-width: 690px)');
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const favourite = useSelector((state) => state.favourites.favourites);
 
-  useEffect(() => {
-    dispatch(getFavourites());
-  }, [dispatch]);
   // eslint-disable-next-line no-underscore-dangle
   const favouritesList = useSelector((state) => state.favourites.favourites);
+  const isFavourite = useSelector((state) => state.favourites.cardStates);
+  console.log(favouritesList);
+  console.log(isFavourite);
 
   return (
     <Box sx={{ mb: '300px', pt: { mobile: '40px', lgTablet: '60px' } }}>

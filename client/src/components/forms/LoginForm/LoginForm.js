@@ -35,12 +35,12 @@ import Input from '../../inputs/Input/Input';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
 import { setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';
-import { setFavourite } from '../../../redux/slices/favouriteSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_LS_KEY } from '../../../constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
 import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
+import { getFavourites } from '../../../redux/slices/favouriteSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -70,6 +70,7 @@ const LoginForm = () => {
         removeDataFromSessionStorage(CHECKOUT_LS_KEY);
         saveUserInfoToSessionStorage(user);
         dispatch(getCartItemsFromServer());
+        dispatch(getFavourites());
       }
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));

@@ -31,7 +31,6 @@ const ProductCard = ({ productName }) => {
   const [isactive, setIsActive] = useState(false);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
-  console.log(products);
   const {
     name,
     description,
