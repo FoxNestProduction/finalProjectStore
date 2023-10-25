@@ -69,7 +69,7 @@ const ProductCardItem = ({
         <FavouriteIcon id={_id} />
       </CardActions>
       <Box>
-        <Link sx={{ cursor: 'pointer' }} to={`/menu/${fixedEncodeURIComponent(name)}`}>
+        <Link sx={{ cursor: 'pointer' }} to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
           <Box sx={stylesImageWrapper}>
             <CardMedia
               component="img"
