@@ -126,6 +126,7 @@ const Cart = () => {
             variant="contained"
             onClick={continueFn}
             sx={continueBtn}
+            disabled={cartProducts.length === 0}
           >
             Continue
           </Button>

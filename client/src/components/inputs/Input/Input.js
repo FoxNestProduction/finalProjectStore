@@ -10,7 +10,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
 
-const Input = ({ type, label, icon, id, error, bgColor, ...props }) => {
+const Input = ({ type, label, icon, id, error, bgColor, styles, ...props }) => {
   const [field, meta] = useField(props.name);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,8 +30,9 @@ const Input = ({ type, label, icon, id, error, bgColor, ...props }) => {
       </InputLabel>
       <OutlinedInput
         sx={{
+          ...styles,
           bgcolor: `${bgColor}`,
-          '&:hover:not(.Mui-error):not(.Mui-focused) > .MuiOutlinedInput-notchedOutline': {
+          '&:hover:not(.Mui-error):not(.Mui-focused):not(.Mui-disabled) > .MuiOutlinedInput-notchedOutline': {
             borderColor: '#664FFF',
           },
         }}
@@ -83,6 +84,7 @@ Input.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string.isRequired,
   bgColor: PropTypes.string,
+  styles: PropTypes.object,
 };
 
 Input.defaultProps = {
@@ -91,6 +93,7 @@ Input.defaultProps = {
   icon: null,
   label: '',
   bgColor: '#F9F9F9',
+  styles: {},
 };
 
 export default Input;

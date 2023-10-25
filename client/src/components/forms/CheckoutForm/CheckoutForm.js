@@ -56,6 +56,8 @@ const CheckoutForm = () => {
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user, shallowEqual);
   const token = useSelector((state) => state.authorization.token);
+  const cart = useSelector((state) => state.cart.cart.products);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -77,45 +79,19 @@ const CheckoutForm = () => {
     updateSessionStorageValues(CHECKOUT_LS_KEY, { [e.target.name]: e.target.value });
   };
 
-  const handleContinue = async (values, actions) => {
-    // console.log(values);
-
+  const handleContinue = async (values) => {
     // updating user info in DB and user slice
     if (isUserAuthorized && token) {
       const updatedCustomer = {
         telephone: values.tel,
       };
-
       try {
-        const response = await instance.put('/customers', updatedCustomer, {
-          headers: { 'Authorization': token },
-        });
+        const response = await instance.put('/customers', updatedCustomer);
         dispatch(setUser(response.data));
       } catch (err) {
         console.log('Error updating user: ', err);
       }
     }
-
-    // cart products for unauthorised user
-    // todo: замінити на продукти з LS або store;
-    const cartProducts = [
-      {
-        product: {
-          _id: '6507a306baee59670a047307',
-          name: 'Margherita Pizza',
-          currentPrice: 12.99,
-        },
-        cartQuantity: 2,
-      },
-      {
-        product: {
-          _id: '650a7e0761d4eecf99b85f01',
-          name: 'Burger Haven',
-          currentPrice: 10.99,
-        },
-        cartQuantity: 1,
-      },
-    ];
 
     const { name, email, tel, city, street, house, apartment, payment } = values;
     const newOrder = {
@@ -135,12 +111,12 @@ const CheckoutForm = () => {
     };
 
     // todo: uncomment when user will have a cart
-    // if (isUserAuthorized && user) {
-    //   const { _id: id } = user;
-    //   newOrder.customerId = id;
-    // } else {
-    newOrder.products = cartProducts;
-    // }
+    if (isUserAuthorized && user) {
+      const { _id: id } = user;
+      newOrder.customerId = id;
+    } else {
+      newOrder.products = cart;
+    }
 
     if (values.payment === 'Card') {
       dispatch(setOrderInfo(newOrder));
@@ -162,14 +138,34 @@ const CheckoutForm = () => {
     }
   };
 
+  const setInitialTouched = () => {
+    const values = getDataFromSessionStorage(CHECKOUT_LS_KEY);
+
+    if (values) {
+      return {
+        name: 'name' in values,
+        email: 'email' in values,
+        tel: 'tel' in values,
+        street: 'street' in values,
+        house: 'house' in values,
+      };
+    }
+    return null;
+  };
+
+  const setIsValid = (touched, errors) => {
+    return !Object.keys(errors).some((key) => touched[key] === true);
+  };
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleContinue}
       validationSchema={validationSchema}
       enableReinitialize
+      initialTouched={setInitialTouched()}
     >
-      {({ handleBlur, isValid }) => (
+      {({ handleBlur, touched, errors }) => (
         <Form>
           <Stack spacing={4}>
             <Divider />
@@ -182,7 +178,9 @@ const CheckoutForm = () => {
               id="checkout-name"
               label="Name*"
               bgColor="#FFF"
-              onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
+              onBlur={(e) => {
+                handleFieldBlur(e, handleBlur);
+              }}
             />
             <Input
               name="email"
@@ -266,7 +264,7 @@ const CheckoutForm = () => {
             </Field>
 
           </Stack>
-          <CheckoutActions isValid={isValid} />
+          <CheckoutActions isValid={setIsValid(touched, errors)} />
         </Form>
       )}
     </Formik>

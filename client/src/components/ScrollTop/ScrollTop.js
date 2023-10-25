@@ -19,9 +19,20 @@ const ScrollTop = () => {
     <Fade in={trigger}>
       <Box
         onClick={handleClick}
-        sx={{ position: 'fixed', bottom: 18, right: 18 }}
+        sx={{
+          position: 'fixed',
+          bottom: 30,
+          right: 30,
+          zIndex: 1500,
+          '& .MuiButtonBase-root': {
+            backgroundColor: 'primary.main',
+          },
+          '&:hover .MuiButtonBase-root': {
+            backgroundColor: 'primary.hover',
+          },
+        }}
       >
-        <Fab size="small" aria-label="scroll back to top">
+        <Fab size="small" aria-label="scroll back to top" sx={{ color: 'text.primaryLight' }}>
           <KeyboardArrowUpIcon />
         </Fab>
       </Box>

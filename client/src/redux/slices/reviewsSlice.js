@@ -13,6 +13,7 @@ const initialState = {
     date: Date.now(),
     product: '6507a306baee59670a047307',
   },
+  search: '',
 };
 
 /* eslint-disable no-param-reassign */
@@ -35,13 +36,19 @@ const reviewsSlice = createSlice({
       const { field, value } = action.payload;
       state.newReview[field] = value;
     },
+    searchReviews(state, action) {
+      state.search = action.payload;
+    },
+    resetReviewState(state) {
+      state.newReview.rating = null;
+      state.newReview.content = '';
+    },
   },
 });
 
 export const getReviews = () => async (dispatch) => {
   try {
     const { data } = await instance.get('/comments');
-    // console.log(data);
     dispatch(setReviews(data));// eslint-disable-line no-use-before-define
   } catch (error) {
     console.log('%cError loading reviews:', 'color: red; font-weight: bold;', error);
@@ -75,8 +82,9 @@ export const {
   setReviews,
   addReview,
   removeReview,
-  setNewRating,
   setNewReview,
+  searchReviews,
+  resetReviewState,
 } = reviewsSlice.actions;
 
 /* eslint-enable no-param-reassign */

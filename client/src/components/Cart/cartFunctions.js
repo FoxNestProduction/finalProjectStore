@@ -31,7 +31,6 @@ const updateCart = async (cartProducts) => {
     };
     return newCartProductObj;
   });
-  console.log(cartProductsFromServer);
   const updatedCart = {
     products: [
       ...cartProductsFromServer,

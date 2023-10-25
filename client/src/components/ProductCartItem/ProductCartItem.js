@@ -9,8 +9,13 @@ import CardContent from '@mui/material/CardContent';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { useDispatch, useSelector } from 'react-redux';
+// import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@mui/material/Link';
 import { addToCart, deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
-import { cartIconContainer, imgBox, textContentBox, textContent, buttonStyles, quantityStyle, textTitle } from './styles';
+import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
+
+import { cartIconContainer, img, textContentBox, textContent, buttonStyles, linkContainer, quantityStyle, textTitle } from './styles';
 
 const ProductCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
   const cartProducts = useSelector((state) => state.cart.cart.products);
@@ -30,14 +35,16 @@ const ProductCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) =>
   };
   return (
     <Card sx={cartIconContainer}>
-      <CardMedia
-        component="img"
-        sx={imgBox}
-        image={imageUrl}
-        alt="Live from space album cover"
-      />
-      <Box sx={textContentBox}>
-        <CardContent sx={textContent}>
+      <Box sx={linkContainer}>
+        <Link component={RouterLink} to={`/menu/${fixedEncodeURIComponent(name)}`}>
+          <CardMedia
+            component="img"
+            sx={img}
+            image={imageUrl}
+            alt="Live from space album cover"
+          />
+        </Link>
+        <Box sx={textContentBox}>
           <Typography sx={textTitle} variant="body2">
             {name}
           </Typography>
@@ -45,27 +52,27 @@ const ProductCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) =>
             $
             {currentPrice}
           </Typography>
-        </CardContent>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            m: '5px 5px',
-          }}
-        >
-          <ButtonGroup variant="outlined" aria-label="small button group">
-            <Button sx={buttonStyles} onClick={handleDeleteOne}>
-              <RemoveRoundedIcon />
-            </Button>
-            <Typography variant="body2" sx={quantityStyle}>
-              {cartQuantity}
-            </Typography>
-            <Button sx={buttonStyles} onClick={handleAddOne}>
-              <AddRoundedIcon />
-            </Button>
-          </ButtonGroup>
         </Box>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          mr: '5px',
+        }}
+      >
+        <ButtonGroup variant="outlined" aria-label="small button group">
+          <Button sx={buttonStyles} onClick={handleDeleteOne}>
+            <RemoveRoundedIcon />
+          </Button>
+          <Typography variant="body2" sx={quantityStyle}>
+            {cartQuantity}
+          </Typography>
+          <Button sx={buttonStyles} onClick={handleAddOne}>
+            <AddRoundedIcon />
+          </Button>
+        </ButtonGroup>
       </Box>
     </Card>
   );

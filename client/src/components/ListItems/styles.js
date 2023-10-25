@@ -38,7 +38,7 @@ export const gridStylesItemPartners = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  maxWidth: { lgTablet: '49%', desktop: '32%' },
+  maxWidth: { lgTablet: '49%', desktop: '30%' },
   cursor: 'pointer',
   mb: '40px',
 };
@@ -55,11 +55,11 @@ export const gridStylesItemProducts = {
     mobile: '46%',
     tablet: '44%',
     lgTablet: '26%',
-    desktop: '16%',
+    desktop: '17%',
   },
   mb: '40px',
   minWidth: {
-    desktop: '160px',
+    desktop: '145px',
     tablet: '160px',
   },
 };
@@ -76,4 +76,38 @@ export const productsCardWidth = {
   tablet: 4,
   lgTablet: 3,
   desktop: 5,
+};
+
+export const stylesSortSelect = {
+  color: 'text.primary',
+  fontFamily: 'fontPoppins',
+  whiteSpace: 'nowrap',
+  fontSize: {
+    mobile: '15px',
+    tablet: '16px',
+    desktop: '20px',
+  },
+  '& .MuiInputBase-input': {
+    width: '150px',
+    fontFamily: 'fontPoppins',
+    color: 'primary.main',
+    fontWeight: '600',
+    textAlign: 'left',
+    pt: '5px',
+    pl: '5px',
+    borderRadius: '10px',
+    fontSize: {
+      mobile: '14px',
+      tablet: '13px',
+      desktop: '16px',
+    },
+  },
+  '& .MuiFormHelperText-root': {
+    fontFamily: 'fontPoppins',
+    color: 'text.secondary',
+  },
+  '& .MuiFormLabel-root': {
+    fontFamily: 'fontPoppins',
+    color: 'primary.main',
+  },
 };

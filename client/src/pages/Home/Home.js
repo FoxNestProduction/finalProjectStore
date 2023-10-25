@@ -9,12 +9,12 @@ import { partnersCardWidth, productsCardWidth } from '../../components/ListItems
 import useSortedItems from '../../customHooks/useSortedItems';
 import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
-import SwiperBanner from '../../components/SwiperBanner/SwiperBanner';
+import SwiperReview from '../../components/SwiperReview/SwiperReview';
 
 const HomePage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
-  const products = useSelector((state) => state.products.products);
+  const products = useSelector((state) => state.products.products, shallowEqual);
   const sortedProducts = useSortedItems(products, productsCardWidth);
 
   return (
@@ -26,10 +26,11 @@ const HomePage = () => {
         title="Our Top Restaurants"
         items={sortedPartners}
         itemComponent={RestaurantItem}
-        actions={<ListItemAction />}
+        actions={<ListItemAction type="partners" />}
         type="partners"
       />
       <ListItems title="Our Top Dishes" topDish items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
+      <SwiperReview />
     </>
   );
 };

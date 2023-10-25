@@ -1,20 +1,21 @@
 export const cartIconContainer = {
-  maxHeight: {
-    mobile: '110px',
-    tablet: '125px',
-    desktop: '153px',
+  // maxHeight: {
+  //   mobile: '120px',
+  //   tablet: '135px',
+  //   desktop: '143px',
+  // },
+  maxWidth: {
+    mobile: '481px',
+    tablet: '993px',
+    desktop: '1440px',
   },
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'stretch',
+  alignItems: 'center',
   borderRadius: '18px',
 };
 
 export const textContentBox = {
-  display: 'flex',
-  justifyContent: 'space-beetwen',
-  alignItems: 'center',
-  flexWrap: 'wrap',
   mx: {
     mobile: '4px',
     tablet: '20px',
@@ -22,39 +23,56 @@ export const textContentBox = {
   },
 };
 
-export const imgBox = {
-  width: {
-    mobile: '26%', // було 18%
-    tablet: '22%',
-    desktop: '25%',
+export const linkContainer = {
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  flexWrap: 'nowrap',
+  width: '40%',
+  height: 'auto',
+};
+
+export const img = {
+  minWidth: {
+    mobile: '76px',
+    tablet: '96px',
+    desktop: '110px',
   },
-  borderRadius: '8px',
+  // maxWidth: {
+  //   mobile: '106px',
+  //   tablet: '127px',
+  // },
+  // maxWidth: '100%',
+  height: 'auto',
+  objectFit: 'cover',
+  // borderRadius: '8px',
 };
 
 export const textContent = {
-  p: {
-    mobile: '0 4px',
-    tablet: '0 10px',
-    desktop: '0 20px',
-  },
-  maxWidth: {
-    mobile: '106px',
-    tablet: '260px',
-  },
+
 };
 
 export const textTitle = {
   fontSize: {
     mobile: '14px',
     tablet: '18px',
+    desktop: '20px',
   },
-  weight: 'fontWeightSemiBold',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  '&:hover': {
-    textDecoration: 'underline',
+  lineHeight: {
+    mobile: '15px',
+    tablet: '23px',
+    desktop: '26px',
   },
+  weight: 600,
+  display: 'flex',
+  width: {
+    mobile: '100px',
+    tablet: '160px',
+  },
+  flexWrap: 'wrap',
+  // overflow: 'hidden',
+  // whiteSpace: 'nowrap',
+  textDecoration: 'none',
 };
 
 export const buttonStyles = {
@@ -68,5 +86,5 @@ export const buttonStyles = {
 
 export const quantityStyle = {
   border: '1px solid rgba(108, 095, 188, 0.5)',
-  px: '9px',
+  px: '10px',
 };
