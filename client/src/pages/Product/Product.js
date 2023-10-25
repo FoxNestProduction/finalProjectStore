@@ -10,13 +10,12 @@ import QuestionsList from '../../components/QuestionsList/QuestionsList';
 import { productsCardWidth } from '../../components/ListItems/styles';
 
 const ProductPage = () => {
-  const { productName } = useParams();
   const products = useSelector((state) => state.products.products);
   const sortedProducts = useSortedItems(products, productsCardWidth);
 
   return (
     <Box>
-      <ProductCard productName={productName} />
+      <ProductCard />
       <ListItems title="Popular" items={sortedProducts} itemComponent={ProductCardItem} actions={null} />
       <QuestionsList />
     </Box>
