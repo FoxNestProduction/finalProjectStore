@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -16,21 +17,36 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ColorChips from '../Chip/Chip';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
+import { instance } from '../../API/instance';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
-import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
+import { addFavourite, removeFavourite, addToFavourites, deleteFromFavourites } from '../../redux/slices/favouriteSlice';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 
-const ProductCard = ({ productName }) => {
-  const nameOfProduct = fixedDecodeURIComponent(productName);
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+const ProductCard = () => {
+  const { itemNo } = useParams();
   const dispatch = useDispatch();
+  const [dish, setDish] = useState({});
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
-  // eslint-disable-next-line no-underscore-dangle
-  const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
+
+  // const nameOfProduct = fixedDecodeURIComponent(productName);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const { data } = await instance.get(`/products/${itemNo}`);
+        setDish(data);
+      } catch (error) {
+        console.log('Error loading products:', error);
+      }
+    };
+    getProducts();
+  }, [itemNo]);
+
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+
   const {
     name,
     description,
@@ -43,13 +59,14 @@ const ProductCard = ({ productName }) => {
     // eslint-disable-next-line no-underscore-dangle
     _id: id,
   } = dish;
-
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const toggleFavourite = () => {
     if (isFavourite) {
-      dispatch(removeFavourite({ id }));
+      // dispatch(removeFavourite(id));
+      dispatch(deleteFromFavourites({ id }));
     } else {
-      dispatch(addFavourite({ id }));
+      // dispatch(addFavourite(id));
+      dispatch(addToFavourites({ id }));
     }
   };
   const handleOpenModalLogin = () => {
@@ -120,10 +137,9 @@ const ProductCard = ({ productName }) => {
               >
                 <Typography variant="body1" sx={{ whiteSpace: 'nowrap' }}>24min •</Typography>
                 <Stack direction="row" spacing={1}>
-                  {/* <RatingItem /> */}
                   <Rating
-                    name="half-rating"
-                    value={rating}
+                    name="read-only"
+                    value={rating ?? 0}
                     size="medium"
                     readOnly
                     sx={{ color: 'primary.main' }}
@@ -187,7 +203,8 @@ const ProductCard = ({ productName }) => {
 };
 
 ProductCard.propTypes = {
-  productName: PropTypes.string.isRequired,
+  // productName: PropTypes.string.isRequired,
+  // itemNo: PropTypes.string.isRequired,
 };
 
 ProductCard.defaultProps = {

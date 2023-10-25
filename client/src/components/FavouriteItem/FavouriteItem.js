@@ -15,7 +15,15 @@ import { addToCart } from '../../redux/slices/cartSlice';
 const FavouriteItem = ({ product }) => {
   const dispatch = useDispatch();
 
-  const { name, currentPrice, isTranding, rating, imageUrl, isSupreme, isHealthy, _id } = product;
+  const {
+    name,
+    itemNo,
+    currentPrice,
+    isTranding, rating,
+    imageUrl, isSupreme,
+    isHealthy,
+    _id,
+  } = product;
 
   // let selectedItem;
   const handleAddToCart = () => {
@@ -33,7 +41,7 @@ const FavouriteItem = ({ product }) => {
 
   return (
     <Card sx={styleCardFavourite}>
-      <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
+      <Link to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', maxWidth: '900px' }}>
           <CardMedia
             component="img"
