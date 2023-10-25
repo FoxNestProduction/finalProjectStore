@@ -7,7 +7,9 @@ const {
   addPartner,
   updatePartner,
   deletePartner,
-  getPartners
+  getPartners,
+  getPartnersFilterParams,
+  searchPartners
 } = require("../controllers/partners");
 
 // @route   POST /partners
@@ -41,5 +43,15 @@ router.delete(
 // @desc    GET existing partners
 // @access  Public
 router.get("/", getPartners);
+
+// @route   GET /products/filter
+// @desc    GET appropriate filtered products
+// @access  Public
+router.get("/filter", getPartnersFilterParams);
+
+// @route   POST /products/search
+// @desc    POST appropriate to search query products
+// @access  Public
+router.post("/search", searchPartners);
 
 module.exports = router;
