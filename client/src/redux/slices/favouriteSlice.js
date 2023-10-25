@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { instance } from '../../API/instance';
 
 const initialState = {
@@ -42,6 +41,28 @@ export const {
   setFavourite,
   resetCardStates,
 } = favouriteSlice.actions;
+
+export const getFavourites = () => async (dispatch) => {
+  try {
+    // dispatch(setIsLoading(true));
+    const { data } = await instance.get('/wishlist');
+    console.log(data.products);
+    dispatch(setFavourite(data.products));
+    // dispatch(setIsLoading(false));
+  } catch (error) {
+    console.warn('Error loading favourites:', error);
+    // dispatch(setIsLoading(false));
+  }
+};
+
+export const addToFavourites = ({ id }) => async (dispatch) => {
+  try {
+    const response = await instance.put(`/wishlist/${id}`);
+    console.log(response);
+  } catch (error) {
+    console.warn('Error loading favourites:', error);
+  }
+};
 
 export const updateFavourites = (favourites) => async (dispatch, getState) => {
   try {

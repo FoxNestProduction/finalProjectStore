@@ -9,6 +9,7 @@ import FavouriteItem from '../FavouriteItem/FavouriteItem';
 import ListItems from '../ListItems/ListItem';
 import ProductCardItem from '../ProductCardItem/ProductCardItem';
 import { getProducts } from '../../redux/slices/productsSlice';
+import { getFavourites } from '../../redux/slices/favouriteSlice';
 
 const Favourites = () => {
   const dispatch = useDispatch();
@@ -18,10 +19,10 @@ const Favourites = () => {
   const favourite = useSelector((state) => state.favourites.favourites);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getFavourites());
   }, [dispatch]);
   // eslint-disable-next-line no-underscore-dangle
-  const favouritesList = favourite.map((item) => products.find((product) => product._id === item));
+  const favouritesList = useSelector((state) => state.favourites.favourites);
 
   return (
     <Box sx={{ mb: '300px', pt: { mobile: '40px', lgTablet: '60px' } }}>
@@ -30,7 +31,7 @@ const Favourites = () => {
           <Container sx={{ backgroundColor: 'background.default' }}>
             <Typography variant="h2" component="h3" sx={{ textAlign: 'center', mb: { lgTablet: '34px', desktop: '28px' } }}>Favourite</Typography>
             <Stack direction="column" spacing={3}>
-              { favourite.map((item) => <FavouriteItem key={item} product={item} />)}
+              { favouritesList.map((item) => <FavouriteItem key={item} product={item} />)}
             </Stack>
           </Container>
         )}

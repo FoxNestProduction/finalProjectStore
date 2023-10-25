@@ -66,7 +66,6 @@ const LoginForm = () => {
         dispatch(setUser(user));
         dispatch(closeModal());
         dispatch(setAuthorizationError(''));
-        dispatch(setFavourite(user.favourite));
 
         removeDataFromSessionStorage(CHECKOUT_LS_KEY);
         saveUserInfoToSessionStorage(user);

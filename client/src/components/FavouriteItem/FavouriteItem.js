@@ -14,14 +14,8 @@ import { addToCart } from '../../redux/slices/cartSlice';
 
 const FavouriteItem = ({ product }) => {
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-underscore-dangle
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  // eslint-disable-next-line no-underscore-dangle
-  const dish = products.find((item) => (item._id) === product);
-  if (!dish) {
-    return null;
-  }
-  const { name, currentPrice, isTranding, rating, imageUrl, isSupreme, isHealthy, _id } = dish;
+
+  const { name, currentPrice, isTranding, rating, imageUrl, isSupreme, isHealthy, _id } = product;
 
   // let selectedItem;
   const handleAddToCart = () => {
