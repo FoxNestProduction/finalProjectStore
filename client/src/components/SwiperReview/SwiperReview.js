@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import 'swiper/scss';
 import 'swiper/css/navigation';
@@ -8,11 +8,26 @@ import { Container, Box, Typography } from '@mui/material';
 import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
+import { instance } from '../../API/instance';
 
 const SwiperReview = () => {
+  const [lastReviews, setLastReviews] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await instance.get('/comments/filter?startPage=1&perPage=9&sort=-date');
+        console.log(response.data);
+        setLastReviews(response.data.comments);
+      } catch (err) {
+        console.error(err.response.data);
+      }
+    })();
+  }, []);
+
   // const [isFullCard, setIsFullCard] = useState(true);
-  const reviews = useSelector((state) => state.reviews.reviews);
-  const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
+  // const reviews = useSelector((state) => state.reviews.reviews);
+  // const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
 
   const scrollingWrapperRef = useRef(null);
   const cardRef = useRef([]);
@@ -45,7 +60,7 @@ const SwiperReview = () => {
           className={styles.scrollingWrapper}
           ref={scrollingWrapperRef}
         >
-          {sortedReviews.slice(0, 12).map((item, index) => (
+          {lastReviews.map((item, index) => (
             <Box
             // eslint-disable-next-line no-underscore-dangle
               key={item._id}
