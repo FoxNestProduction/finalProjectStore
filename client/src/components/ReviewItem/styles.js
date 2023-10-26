@@ -5,7 +5,6 @@ export const stylesCardReview = {
   px: '19px',
   pt: '25px',
   boxShadow: '0px 0px 25px #0000001A',
-  cursor: 'pointer',
 };
 
 export const stylesQuoteIcon = {
@@ -44,6 +43,7 @@ export const stylesText = {
     tablet: '50px',
     desktop: '60px',
   },
+  cursor: 'pointer',
 };
 
 export const stylesFullText = {

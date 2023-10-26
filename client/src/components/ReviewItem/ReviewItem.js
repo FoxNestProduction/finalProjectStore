@@ -34,8 +34,10 @@ const ReviewItem = ({ review }) => {
   const formattedDate = `${day}.${month}.${year}`;
 
   const handleReviewClick = () => {
-    navigate('/reviews');
-    dispatch(searchReviews(id));
+    if (location.pathname !== '/reviews') {
+      navigate('/reviews');
+      dispatch(searchReviews(id));
+    }
   };
 
   return (
