@@ -17,7 +17,6 @@ const SwiperReview = () => {
     (async () => {
       try {
         const response = await instance.get('/comments/filter?startPage=1&perPage=9&sort=-date');
-        console.log(response.data);
         setLastReviews(response.data.comments);
       } catch (err) {
         console.error(err.response.data);

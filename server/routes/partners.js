@@ -44,13 +44,13 @@ router.delete(
 // @access  Public
 router.get("/", getPartners);
 
-// @route   GET /products/filter
-// @desc    GET appropriate filtered products
+// @route   GET /partners/filter
+// @desc    GET appropriate filtered partners
 // @access  Public
 router.get("/filter", getPartnersFilterParams);
 
-// @route   POST /products/search
-// @desc    POST appropriate to search query products
+// @route   POST /partners/search
+// @desc    POST appropriate to search query partners
 // @access  Public
 router.post("/search", searchPartners);
 
