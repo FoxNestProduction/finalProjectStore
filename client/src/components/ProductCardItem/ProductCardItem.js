@@ -27,6 +27,7 @@ const ProductCardItem = ({
   isTranding,
   isSupreme,
   isHealthy,
+  itemNo,
 }) => {
   const breackPoint = useBreakpoint();
   const products = useSelector((state) => state.products.products);
@@ -68,7 +69,7 @@ const ProductCardItem = ({
         <FavouriteIcon id={_id} />
       </CardActions>
       <Box>
-        <Link sx={{ cursor: 'pointer' }} to={`/menu/${fixedEncodeURIComponent(name)}`}>
+        <Link sx={{ cursor: 'pointer' }} to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
           <Box sx={stylesImageWrapper}>
             <CardMedia
               component="img"
@@ -121,6 +122,7 @@ ProductCardItem.propTypes = {
   isHealthy: PropTypes.bool,
   isTranding: PropTypes.bool,
   isSupreme: PropTypes.bool,
+  itemNo: PropTypes.string,
 };
 
 ProductCardItem.defaultProps = {
@@ -132,6 +134,7 @@ ProductCardItem.defaultProps = {
   isHealthy: null,
   isTranding: null,
   isSupreme: null,
+  itemNo: '',
 };
 
 export default ProductCardItem;

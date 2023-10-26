@@ -17,7 +17,7 @@ import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
 import { cartIconContainer, img, textContentBox, textContent, buttonStyles, linkContainer, quantityStyle, textTitle } from './styles';
 
-const ProductCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
+const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageUrl }) => {
   const cartProducts = useSelector((state) => state.cart.cart.products);
   const dispatch = useDispatch();
   const index = cartProducts.findIndex(({ product }) => product._id === _id);
@@ -36,7 +36,7 @@ const ProductCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) =>
   return (
     <Card sx={cartIconContainer}>
       <Box sx={linkContainer}>
-        <Link component={RouterLink} to={`/menu/${fixedEncodeURIComponent(name)}`}>
+        <Link component={RouterLink} to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
           <CardMedia
             component="img"
             sx={img}
@@ -84,6 +84,7 @@ ProductCartItem.propTypes = {
   name: PropTypes.string,
   cartQuantity: PropTypes.number,
   _id: PropTypes.string,
+  itemNo: PropTypes.string,
 };
 
 ProductCartItem.defaultProps = {
@@ -92,6 +93,7 @@ ProductCartItem.defaultProps = {
   name: 'Chicken Hell',
   cartQuantity: 3,
   _id: '',
+  itemNo: '',
 };
 
 export default ProductCartItem;
