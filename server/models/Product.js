@@ -69,7 +69,7 @@ const ProductSchema = new Schema(
     isSupreme: {
       type: Boolean,
     },
-    іsTranding: {
+    isTrending: {
       type: Boolean,
     },
     isHealthy: {
