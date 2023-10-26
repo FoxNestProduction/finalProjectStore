@@ -31,8 +31,6 @@ const ProductCard = () => {
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
 
-  // const nameOfProduct = fixedDecodeURIComponent(productName);
-
   useEffect(() => {
     const getProducts = async () => {
       try {
