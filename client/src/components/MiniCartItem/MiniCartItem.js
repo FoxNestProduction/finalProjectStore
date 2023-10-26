@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -18,13 +18,21 @@ import {
   MiniCartItemContainer,
   buttonStyles,
   quantityStyle,
+  textAndQuantityCardContent,
+  cardTextContent,
+  productName,
+  currentPriceStyles,
+  buttonsWrapper,
+  roundedIcons,
 } from './styles';
 import { deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
+import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
 const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cart.products);
   const index = cartProducts.findIndex(({ product }) => product._id === _id);
+  const relevantPrice = totalSumFromCartProduct(currentPrice, cartQuantity);
   const handleDeleteOne = () => {
     if (index !== -1) {
       const foundObject = cartProducts[index];
@@ -50,42 +58,31 @@ const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
         />
       </Box>
       <Box
-        sx={{
-          display: 'flex',
-          width: '90%',
-          justifyContent: 'space-between',
-        }}
+        sx={textAndQuantityCardContent}
       >
         <Box
           sx={{
             alignSelf: 'center',
           }}
         >
-          <CardContent>
+          <CardContent
+            sx={cardTextContent}
+          >
             <Typography
-              sx={{
-                fontWeight: 'fontWeightSemiBold',
-              }}
+              sx={productName}
             >
               {name}
             </Typography>
             <Typography
-              sx={{
-                fontWeight: 'fontWeightSemiBold',
-              }}
+              sx={currentPriceStyles}
             >
               $
-              {currentPrice}
+              {relevantPrice}
             </Typography>
           </CardContent>
         </Box>
         <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            m: '5px 5px',
-          }}
+          sx={buttonsWrapper}
         >
           <ButtonGroup
             variant="outlined"
@@ -95,10 +92,11 @@ const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
               onClick={handleDeleteOne}
               sx={buttonStyles}
             >
-              <RemoveRoundedIcon />
+              <RemoveRoundedIcon
+                sx={roundedIcons}
+              />
             </Button>
             <Typography
-              variant="body2"
               sx={quantityStyle}
             >
               {cartQuantity}
@@ -107,7 +105,9 @@ const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
               onClick={handleAddOne}
               sx={buttonStyles}
             >
-              <AddRounded />
+              <AddRounded
+                sx={roundedIcons}
+              />
             </Button>
           </ButtonGroup>
 
@@ -131,4 +131,4 @@ MiniCartItem.defaultProps = {
   imageUrl: './img/pasta.png',
 };
 
-export default MiniCartItem;
+export default memo(MiniCartItem);

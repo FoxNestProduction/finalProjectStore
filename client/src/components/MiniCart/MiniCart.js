@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Popover, Box, IconButton, Badge, Button, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { NavLink } from 'react-router-dom';
 import MiniCartItem from '../MiniCartItem/MiniCartItem';
-import { stylesBadge, stylesIcon } from './styles';
+import {
+  stylesBadge,
+  stylesIcon,
+  dropDownListWrapper,
+  goToCartBtn,
+} from './styles';
 import { cartIconCounterFunction } from '../Cart/cartFunctions';
 
 const MiniCart = () => {
+  const matches = useMediaQuery('(min-width:690px)');
   const [anchorEl, setAnchorEl] = useState(null);
   const cartProducts = useSelector((state) => state.cart.cart.products);
-  const matches = useMediaQuery('(min-width:600px)');
 
-  if (matches) {
-    console.log('Працює');
-  } else {
-    console.log('Теж працює');
+  console.log(matches);
+
+  if (!matches && anchorEl !== null) {
+    setAnchorEl(null);
+  }
+
+  if (!cartProducts.length && anchorEl !== null) {
+    setAnchorEl(null);
   }
 
   const handleClick = (event) => {
@@ -46,13 +55,6 @@ const MiniCart = () => {
         </Badge>
       </IconButton>
       <Popover
-        sx={{
-          display: {
-            mobile: 'none',
-            tablet: 'none',
-            lgTablet: 'block',
-          },
-        }}
         id={id}
         onClose={handleClose}
         open={open}
@@ -67,16 +69,7 @@ const MiniCart = () => {
         }}
       >
         <Box
-          sx={{
-            backgroundColor: 'background.default',
-            // backgroundColor: 'primary.main',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-            mb: {
-              tablet: '10px',
-            },
-          }}
+          sx={dropDownListWrapper}
         >
           {cartProducts.length && cartProducts
             .map(({ product, cartQuantity }) => (
@@ -87,9 +80,7 @@ const MiniCart = () => {
           component={NavLink}
           to="/cart"
           onClick={handleClose}
-          sx={{
-            width: '100%',
-          }}
+          sx={goToCartBtn}
         >
           Go to cart
         </Button>
@@ -98,4 +89,4 @@ const MiniCart = () => {
   );
 };
 
-export default MiniCart;
+export default memo(MiniCart);

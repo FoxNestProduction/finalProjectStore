@@ -17,6 +17,14 @@ export const stylesBadge = {
   },
 };
 
+export const dropDownListWrapper = {
+  borderRadius: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  opacity: '0.8',
+  backgroundColor: 'background.default',
+};
+
 export const stylesIcon = {
   width: {
     lgTablet: '27px',
@@ -25,4 +33,10 @@ export const stylesIcon = {
   fontSize: {
     desktop: 30,
   },
+};
+
+export const goToCartBtn = {
+  width: '100%',
+  borderRadius: 0,
+  opacity: '0.8',
 };

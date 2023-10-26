@@ -18,6 +18,7 @@ import Badge from '@mui/material/Badge';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import MiniCart from '../MiniCart/MiniCart';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem, stylesBadge } from './styles';
@@ -93,23 +94,24 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
             navLink
             page="Cart"
             icon={(
-              <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
-                <ShoppingCartOutlinedIcon sx={stylesIcon} />
-              </Badge>
+              <MiniCart />
+              // <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
+              //   <ShoppingCartOutlinedIcon sx={stylesIcon} />
+              // </Badge>
             )}
           />
           {isUserAuthorized && (
-          <MenuItemWithIcon
-            navLink
-            page="Favourites"
-            icon={
-              (
-                <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
-                  <FavoriteBorderOutlinedIcon sx={stylesIcon} />
-                </Badge>
-              )
-            }
-          />
+            <MenuItemWithIcon
+              navLink
+              page="Favourites"
+              icon={
+                (
+                  <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                    <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                  </Badge>
+                )
+              }
+            />
           )}
         </List>
 
@@ -153,10 +155,10 @@ HeaderDrawer.propTypes = {
 
 HeaderDrawer.defaultProps = {
   isMobileMenuOpen: false,
-  handleCloseDrawer: () => {},
-  handleOpenModalLogin: () => {},
+  handleCloseDrawer: () => { },
+  handleOpenModalLogin: () => { },
   navItems: [],
-  handleLogOut: () => {},
+  handleLogOut: () => { },
 };
 
 export default HeaderDrawer;
