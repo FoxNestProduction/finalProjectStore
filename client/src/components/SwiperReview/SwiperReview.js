@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import 'swiper/scss';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import { Container, Box, Typography } from '@mui/material';
+import { Container, Box, Typography, IconButton } from '@mui/material';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
@@ -14,38 +12,45 @@ import useGetAPI from '../../customHooks/useGetAPI';
 const SwiperReview = () => {
   const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
 
-  // const [isFullCard, setIsFullCard] = useState(true);
-  // const reviews = useSelector((state) => state.reviews.reviews);
-  // const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const [widthStep, setWidthStep] = useState(0);
+  const reviews = useSelector((state) => state.reviews.reviews);
+  const sortedReviews = reviews
+    ? [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date))
+    : null;
 
   const scrollingWrapperRef = useRef(null);
   const cardRef = useRef([]);
 
   useEffect(() => {
-    const scrollingWrapper = scrollingWrapperRef.current;
-    // console.log(cardRef);
-    const scrollingWrapperRect = scrollingWrapper.getBoundingClientRect();
-    const cardsRect = cardRef.current.map((item) => item.getBoundingClientRect());
-    // console.log(scrollingWrapperRect);
-    // console.log(cardsRect);
-    cardsRect.forEach((item) => {
-      if (scrollingWrapperRect.x === item.x) {
-        // setIsFullCard(false);
-      }
+    sortedReviews.forEach((item, index) => {
+      cardRef.current[index] = scrollingWrapperRef.current.children[index];
+      const step = cardRef.current[0].offsetWidth;
+      setWidthStep(step);
     });
-  }, [scrollingWrapperRef, cardRef]);
+  }, [sortedReviews]);
+
+  const scrollStep = scrollingWrapperRef.current ? widthStep : 0;
+
+  const handleNextClick = () => {
+    if (scrollingWrapperRef.current && currentIndex < sortedReviews.length) {
+      setCurrentIndex(currentIndex + 1);
+      scrollingWrapperRef.current.scrollLeft += scrollStep;
+    }
+  };
+
+  const handlePrevClick = () => {
+    if (scrollingWrapperRef.current && currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+      scrollingWrapperRef.current.scrollLeft -= scrollStep;
+    }
+  };
 
   return (
     <Container component="section">
       <Typography variant="h2" component="h2" color="text.primary" sx={{ textAlign: 'center', mb: 2 }}>Customer Say</Typography>
-      <Box sx={{ pb: '150px' }}>
+      <Box sx={{ pb: '150px', position: 'relative' }}>
         <Box
-          // sx={{
-          //   ...scrollingWrapperStyles,
-          //   '&::-webkit-scrollbar': scrollbarStyles,
-          //   '&::-webkit-scrollbar-track': scrollbarTrackStyles,
-          //   '&::-webkit-scrollbar-thumb': scrollbarThumbStyles,
-          // }}
           className={styles.scrollingWrapper}
           ref={scrollingWrapperRef}
         >
@@ -58,13 +63,27 @@ const SwiperReview = () => {
               // eslint-disable-next-line no-underscore-dangle
               data={item._id}
               // eslint-disable-next-line
-              ref={function (el) { cardRef.current[index] = el; }}
               className={styles.card}
-              // sx={cardStyles}
             >
-              <ReviewItem review={item} />
+              <ReviewItem review={item} ref={cardRef.current[index]} />
             </Box>
           ))}
+          <IconButton
+            aria-label="prev"
+            sx={{ position: 'absolute', bottom: '23%', left: '30px', backgroundColor: 'background.quote' }}
+            disabled={currentIndex === 0}
+            onClick={handlePrevClick}
+          >
+            <NavigateBeforeIcon fontSize="large" sx={{ color: 'primary.main' }} />
+          </IconButton>
+          <IconButton
+            aria-label="next"
+            sx={{ position: 'absolute', bottom: '23%', right: '30px', backgroundColor: 'background.quote' }}
+            disabled={(currentIndex === sortedReviews.length - 1)}
+            onClick={handleNextClick}
+          >
+            <NavigateNextIcon fontSize="large" sx={{ color: 'primary.main' }} />
+          </IconButton>
         </Box>
       </Box>
     </Container>
