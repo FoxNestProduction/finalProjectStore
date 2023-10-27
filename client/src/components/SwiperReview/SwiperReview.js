@@ -5,8 +5,12 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
+import { instance } from '../../API/instance';
+import useGetAPI from '../../customHooks/useGetAPI';
 
 const SwiperReview = () => {
+  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
   const [currentIndex, setCurrentIndex] = useState(1);
   const [widthStep, setWidthStep] = useState(0);
   const reviews = useSelector((state) => state.reviews.reviews);
@@ -49,7 +53,9 @@ const SwiperReview = () => {
           className={styles.scrollingWrapper}
           ref={scrollingWrapperRef}
         >
-          {sortedReviews.map((item, index) => (
+          {/* todo: render skeleton here! */}
+          {/* {loading && <p>Loading...</p>} */}
+          {lastReviewsData && lastReviewsData?.comments.map((item, index) => (
             <Box
             // eslint-disable-next-line no-underscore-dangle
               key={item._id}

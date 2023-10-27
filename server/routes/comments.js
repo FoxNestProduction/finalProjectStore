@@ -9,7 +9,8 @@ const {
   deleteComment,
   getComments,
   getCustomerComments,
-  // getProductComments
+  getProductComments,
+  getCommentsFilterParams
 } = require("../controllers/comments");
 
 // @route   POST /comments
@@ -48,6 +49,11 @@ router.get("/customer/:customerId", getCustomerComments);
 // @route   GET /comments/:productId
 // @desc    GET existing comments of particular product
 // @access  Public
-// router.get("/product/:productId", getProductComments);
+router.get("/product/:productId", getProductComments);
+
+// @route   GET /comments/filter
+// @desc    GET appropriate filtered comments
+// @access  Public
+router.get("/filter", getCommentsFilterParams);
 
 module.exports = router;

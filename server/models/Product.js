@@ -14,11 +14,11 @@ const ProductSchema = new Schema(
     },
     name: {
       type: String,
-      required: false
+      required: true
     },
     currentPrice: {
       type: Number,
-      required: false
+      required: true
     },
     previousPrice: {
       type: Number
@@ -38,31 +38,31 @@ const ProductSchema = new Schema(
       required: false,
       default: 0
     },
-    color: {
-      type: String
-    },
-    sizes: {
-      type: String
-    },
     productUrl: {
-      type: String
-    },
-    brand: {
-      type: String
-    },
-    manufacturer: {
-      type: String
-    },
-    manufacturerCountry: {
-      type: String
-    },
-    seller: {
       type: String
     },
     date: {
       type: Date,
       default: Date.now
-    }
+    },
+    rating: {
+      type: Number,
+    },
+    isSupreme: {
+      type: Boolean,
+    },
+    isTrending: {
+      type: Boolean,
+    },
+    isHealthy: {
+      type: Boolean,
+    },
+    filterCategories: {
+      type: String
+    },
+    restaurant_name: {
+      type: String
+    },
   },
   { strict: false }
 );

@@ -1,9 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
+import { setLoading, setError } from '../extraReducersHelpers';
+
+export const fetchTopProducts = createAsyncThunk(
+  'products/fetchTopProducts',
+  async (count, { rejectWithValue }) => {
+    try {
+      const response = await instance.get(`/products/filter?perPage=${count}&sort=-rating`);
+      return response.data.products;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
 
 const initialState = {
   products: [],
+  topProducts: [],
+  loading: false,
+  error: null,
 };
 
 const productsSlice = createSlice({
@@ -14,10 +29,19 @@ const productsSlice = createSlice({
       state.products = action.payload;
     },
   },
+  extraReducers: {
+    [fetchTopProducts.pending]: setLoading,
+    [fetchTopProducts.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.topProducts = action.payload;
+    },
+    [fetchTopProducts.rejected]: setError,
+  },
 });
 
 export const { setProducts } = productsSlice.actions;
 
+// todo: видалити, коли всі дані будуть завантажуватись через asyncThunk/локально в компонентах
 export const getProducts = () => async (dispatch) => {
   try {
     const { data } = await instance.get('/products');

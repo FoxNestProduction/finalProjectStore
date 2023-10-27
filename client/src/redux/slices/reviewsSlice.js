@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { instance } from '../../API/instance';
 
 const initialState = {
@@ -49,7 +50,7 @@ export const {
 export const getReviews = () => async (dispatch) => {
   try {
     const { data } = await instance.get('/comments');
-    dispatch(setReviews(data));// eslint-disable-line no-use-before-define
+    dispatch(setReviews(data));
   } catch (error) {
     console.log('%cError loading reviews:', 'color: red; font-weight: bold;', error);
   }
