@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
+import { setLoading, setError } from '../extraReducersHelpers';
 
 const initialState = {
   partners: [],
@@ -32,21 +33,13 @@ export const fetchPartners = createAsyncThunk(
   },
 );
 
-const setError = (state, action) => {
-  state.loading = 'failed';
-  state.error = action.payload;
-};
-
 const partnersSlice = createSlice({
   name: 'partners',
   initialState,
   extraReducers: {
-    [fetchTopPartners.pending]: (state) => {
-      state.loading = 'pending';
-      state.error = null;
-    },
+    [fetchTopPartners.pending]: setLoading,
     [fetchTopPartners.fulfilled]: (state, action) => {
-      state.loading = 'succeeded';
+      state.loading = false;
       state.topPartners = action.payload;
     },
     [fetchTopPartners.rejected]: setError,
