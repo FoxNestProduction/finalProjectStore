@@ -9,20 +9,10 @@ import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
 import { instance } from '../../API/instance';
+import useGetAPI from '../../customHooks/useAPI';
 
 const SwiperReview = () => {
-  const [lastReviews, setLastReviews] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await instance.get('/comments/filter?startPage=1&perPage=9&sort=-date');
-        setLastReviews(response.data.comments);
-      } catch (err) {
-        console.error(err.response.data);
-      }
-    })();
-  }, []);
+  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
 
   // const [isFullCard, setIsFullCard] = useState(true);
   // const reviews = useSelector((state) => state.reviews.reviews);
@@ -59,7 +49,9 @@ const SwiperReview = () => {
           className={styles.scrollingWrapper}
           ref={scrollingWrapperRef}
         >
-          {lastReviews.map((item, index) => (
+          {/* todo: render skeleton here! */}
+          {/* {loading && <p>Loading...</p>} */}
+          {lastReviewsData && lastReviewsData?.comments.map((item, index) => (
             <Box
             // eslint-disable-next-line no-underscore-dangle
               key={item._id}
