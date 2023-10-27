@@ -45,11 +45,6 @@ router.delete(
 // @access  Public
 router.get("/", getPartners);
 
-// @route   GET /partner/:id
-// @desc    GET existing partner by id
-// @access  Public
-router.get("/:customId", getPartnerById);
-
 // @route   GET /partners/filter
 // @desc    GET appropriate filtered partners
 // @access  Public
@@ -59,5 +54,10 @@ router.get("/filter", getPartnersFilterParams);
 // @desc    POST appropriate to search query partners
 // @access  Public
 router.post("/search", searchPartners);
+
+// @route   GET /partner/:id
+// @desc    GET existing partner by id
+// @access  Public
+router.get("/:customId", getPartnerById);
 
 module.exports = router;

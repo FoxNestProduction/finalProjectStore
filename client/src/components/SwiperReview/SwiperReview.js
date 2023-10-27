@@ -9,7 +9,7 @@ import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
 import { instance } from '../../API/instance';
-import useGetAPI from '../../customHooks/useAPI';
+import useGetAPI from '../../customHooks/useGetAPI';
 
 const SwiperReview = () => {
   const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
