@@ -10,7 +10,9 @@ import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyl
 const SwiperReview = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const reviews = useSelector((state) => state.reviews.reviews);
-  const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date).slice(0, 10) : null;
+  const sortedReviews = reviews
+    ? [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date))
+    : null;
 
   const scrollingWrapperRef = useRef(null);
   const cardRef = useRef([]);
@@ -26,7 +28,6 @@ const SwiperReview = () => {
   // });
 
   const scrollToNextReview = (index) => {
-    // console.log(index);
     if (scrollingWrapperRef.current && index >= 0 && index < sortedReviews.length) {
       const slideWidth = cardRef.current[index].offsetWidth;
       scrollingWrapperRef.current.scrollLeft = 1 * index * slideWidth;
