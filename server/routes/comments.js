@@ -9,7 +9,7 @@ const {
   deleteComment,
   getComments,
   getCustomerComments,
-  getProductComments
+  // getProductComments
 } = require("../controllers/comments");
 
 // @route   POST /comments
@@ -48,6 +48,6 @@ router.get("/customer/:customerId", getCustomerComments);
 // @route   GET /comments/:productId
 // @desc    GET existing comments of particular product
 // @access  Public
-router.get("/product/:productId", getProductComments);
+// router.get("/product/:productId", getProductComments);
 
 module.exports = router;
