@@ -98,7 +98,9 @@ const ReviewsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRendered, searchReview, cardRef.current.length]);
 
-  const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
+  const sortedReviews = reviews
+    ? [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date))
+    : null;
 
   return (
     <Container component="section" sx={{ ...flexCenter, ...container }}>
