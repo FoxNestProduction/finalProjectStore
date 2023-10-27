@@ -15,14 +15,26 @@ const SwiperReview = () => {
   const scrollingWrapperRef = useRef(null);
   const cardRef = useRef([]);
 
+  // let isThumbClicked = false;
+
+  // scrollingWrapperRef.current.addEventListener('mousedown', () => {
+  //   isThumbClicked = true;
+  // });
+
+  // document.addEventListener('mouseup', () => {
+  //   isThumbClicked = false;
+  // });
+
   const scrollToNextReview = (index) => {
-    if (scrollingWrapperRef.current) {
+    // console.log(index);
+    if (scrollingWrapperRef.current && index >= 0 && index < sortedReviews.length) {
       const slideWidth = cardRef.current[index].offsetWidth;
       scrollingWrapperRef.current.scrollLeft = 1 * index * slideWidth;
     }
   };
 
   const handleNextClick = () => {
+    console.log('good');
     if (currentIndex < sortedReviews.length) {
       setCurrentIndex(currentIndex + 1);
       scrollToNextReview(currentIndex + 1);
@@ -30,6 +42,7 @@ const SwiperReview = () => {
   };
 
   const handlePrevClick = () => {
+    console.log('hello');
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
       scrollToNextReview(currentIndex - 1);
@@ -76,7 +89,7 @@ const SwiperReview = () => {
         <IconButton
           aria-label="next"
           sx={{ position: 'absolute', bottom: '23%', right: '30px', backgroundColor: 'background.quote' }}
-          disabled={currentIndex === sortedReviews.length - 1}
+          disabled={(currentIndex === sortedReviews.length - 1)}
           onClick={handleNextClick}
         >
           <NavigateNextIcon fontSize="large" sx={{ color: 'primary.main' }} />
