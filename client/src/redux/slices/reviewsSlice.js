@@ -65,7 +65,7 @@ export const addNewReview = (review) => async (dispatch, getState) => {
     dispatch(setNewReview({ field: 'date', value: date }));
     dispatch(setNewReview({ field: 'content', value: content }));
     dispatch(setNewReview({ field: 'rating', value: rating }));
-    dispatch(addReview(state.reviews.newReview));
+    // dispatch(addReview(state.reviews.newReview));
   } catch (error) {
     console.log('%cError push review:', 'color: red; font-weight: bold;', error);
   }
