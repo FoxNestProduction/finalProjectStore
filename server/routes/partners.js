@@ -8,6 +8,7 @@ const {
   updatePartner,
   deletePartner,
   getPartners,
+  getPartnerById,
   getPartnersFilterParams,
   searchPartners
 } = require("../controllers/partners");
@@ -43,6 +44,11 @@ router.delete(
 // @desc    GET existing partners
 // @access  Public
 router.get("/", getPartners);
+
+// @route   GET /partner/:id
+// @desc    GET existing partner by id
+// @access  Public
+router.get("/:customId", getPartnerById);
 
 // @route   GET /partners/filter
 // @desc    GET appropriate filtered partners
