@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
-
-const initialState = {
-  products: [],
-  topProducts: [],
-  loading: 'idle', // 'idle' | 'pending' | 'succeeded' | 'failed'
-  error: null,
-};
+import { setLoading, setError } from '../extraReducersHelpers';
 
 export const fetchTopProducts = createAsyncThunk(
   'products/fetchTopProducts',
@@ -20,9 +14,11 @@ export const fetchTopProducts = createAsyncThunk(
   },
 );
 
-const setError = (state, action) => {
-  state.loading = 'failed';
-  state.error = action.payload;
+const initialState = {
+  products: [],
+  topProducts: [],
+  loading: false,
+  error: null,
 };
 
 const productsSlice = createSlice({
@@ -34,12 +30,9 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchTopProducts.pending]: (state) => {
-      state.loading = 'pending';
-      state.error = null;
-    },
+    [fetchTopProducts.pending]: setLoading,
     [fetchTopProducts.fulfilled]: (state, action) => {
-      state.loading = 'succeeded';
+      state.loading = false;
       state.topProducts = action.payload;
     },
     [fetchTopProducts.rejected]: setError,
@@ -48,6 +41,7 @@ const productsSlice = createSlice({
 
 export const { setProducts } = productsSlice.actions;
 
+// todo: видалити, коли всі дані будуть завантажуватись через asyncThunk/локально в компонентах
 export const getProducts = () => async (dispatch) => {
   try {
     const { data } = await instance.get('/products');

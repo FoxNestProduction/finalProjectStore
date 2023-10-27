@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
-
-const initialState = {
-  partners: [],
-  topPartners: [],
-  loading: 'idle', // 'idle' | 'pending' | 'succeeded' | 'failed'
-  error: null,
-};
+import { setError, setLoading } from '../extraReducersHelpers';
 
 export const fetchTopPartners = createAsyncThunk(
   'partners/fetchTopPartners',
@@ -20,9 +14,11 @@ export const fetchTopPartners = createAsyncThunk(
   },
 );
 
-const setError = (state, action) => {
-  state.loading = 'failed';
-  state.error = action.payload;
+const initialState = {
+  partners: [],
+  topPartners: [],
+  loading: false,
+  error: null,
 };
 
 const partnersSlice = createSlice({
@@ -34,12 +30,9 @@ const partnersSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchTopPartners.pending]: (state) => {
-      state.loading = 'pending';
-      state.error = null;
-    },
+    [fetchTopPartners.pending]: setLoading,
     [fetchTopPartners.fulfilled]: (state, action) => {
-      state.loading = 'succeeded';
+      state.loading = false;
       state.topPartners = action.payload;
     },
     [fetchTopPartners.rejected]: setError,
@@ -48,6 +41,7 @@ const partnersSlice = createSlice({
 
 export const { setPartners } = partnersSlice.actions;
 
+// todo: видалити, коли всі дані будуть завантажуватись через asyncThunk/локально в компонентах
 export const getPartners = () => async (dispatch) => {
   try {
     const { data } = await instance.get('/partners');
