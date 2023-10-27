@@ -144,6 +144,10 @@ exports.getProductsFilterParams = async (req, res, next) => {
   const startPage = Number(req.query.startPage);
   const sort = req.query.sort;
 
+  if (mongooseQuery.restaurant_name) {
+    mongooseQuery.restaurant_name = new RegExp(mongooseQuery.restaurant_name, "i");
+  }
+
   try {
     const products = await Product.find(mongooseQuery)
       .skip(startPage * perPage - perPage)
