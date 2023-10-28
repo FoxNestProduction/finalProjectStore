@@ -1,15 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Container from '@mui/material/Container';
-import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import RestaurantCard from '../RestaurantCard/RestaurantCard';
-import useGetPartners from '../../customHooks/useGetPartners';
 
-const PartnersCard = ({ partnersName }) => {
-  const partners = useGetPartners();
-
-  const nameOfPartners = fixedDecodeURIComponent(partnersName);
-  const rest = partners.find((item) => item.name.toLowerCase() === nameOfPartners);
+const PartnersCard = ({ partner }) => {
   const styleRestaurantCard = {
     mobile: 315,
     lgTablet: 881,
@@ -26,13 +20,17 @@ const PartnersCard = ({ partnersName }) => {
       }}
     >
 
-      <RestaurantCard {...rest} styleWidth={styleRestaurantCard} />
+      <RestaurantCard {...partner} styleWidth={styleRestaurantCard} />
     </Container>
   );
 };
 
 PartnersCard.propTypes = {
-  partnersName: PropTypes.string.isRequired,
+  partner: PropTypes.object,
+};
+
+PartnersCard.defaultProps = {
+  partner: {},
 };
 
 export default PartnersCard;

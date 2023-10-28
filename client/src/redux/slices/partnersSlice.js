@@ -3,9 +3,8 @@ import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
 
 const initialState = {
-  // partners: [],
   topPartners: [],
-  loading: false, // 'idle' | 'pending' | 'succeeded' | 'failed'
+  loading: false,
   error: null,
 };
 
@@ -21,18 +20,6 @@ export const fetchTopPartners = createAsyncThunk(
   },
 );
 
-// export const fetchPartners = createAsyncThunk(
-//   'partners/fetchPartners',
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const response = await instance.get('/partners');
-//       return response.data;
-//     } catch (err) {
-//       return rejectWithValue(err.response.data);
-//     }
-//   },
-// );
-
 const partnersSlice = createSlice({
   name: 'partners',
   initialState,
@@ -43,12 +30,6 @@ const partnersSlice = createSlice({
       state.topPartners = action.payload;
     },
     [fetchTopPartners.rejected]: setError,
-    // [fetchPartners.pending]: setLoading,
-    // [fetchPartners.fulfilled]: (state, action) => {
-    //   state.loading = false;
-    //   state.partners = action.payload;
-    // },
-    // [fetchPartners.rejected]: setError,
   },
 });
 

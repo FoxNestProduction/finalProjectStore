@@ -8,7 +8,7 @@ import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
 import ListItems from '../../components/ListItems/ListItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import useGetAPI from '../../customHooks/useAPI';
+import useGetAPI from '../../customHooks/useGetAPI';
 
 const RestaurantPage = () => {
   const [partners, loading, error] = useGetAPI('/partners');
@@ -39,8 +39,8 @@ const RestaurantPage = () => {
         >
           Our All Restaurants
         </Typography>
-        {partners && partners.map(({ rating, name, imageUrl, description }) => (
-          <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}`}>
+        {partners && partners.map(({ rating, name, imageUrl, description, customId }) => (
+          <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}>
             <RestaurantCard
               rating={rating}
               name={name}

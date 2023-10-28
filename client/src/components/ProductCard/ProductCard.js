@@ -19,7 +19,6 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { instance } from '../../API/instance';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
-import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
