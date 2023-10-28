@@ -16,7 +16,17 @@ import { deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
-import { cartIconContainer, img, textContentBox, textContent, buttonStyles, linkContainer, quantityStyle, textTitle } from './styles';
+import {
+  cartIconContainer,
+  img,
+  textContentBox,
+  textContent,
+  buttonStyles,
+  linkContainer,
+  quantityStyle,
+  textTitle,
+  roundedIcons,
+} from './styles';
 
 const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageUrl }) => {
   const cartProducts = useSelector((state) => state.cart.cart.products);
@@ -75,13 +85,13 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
       >
         <ButtonGroup variant="outlined" aria-label="small button group">
           <Button sx={buttonStyles} onClick={handleDeleteOne}>
-            <RemoveRoundedIcon />
+            <RemoveRoundedIcon sx={roundedIcons} />
           </Button>
           <Typography variant="body2" sx={quantityStyle}>
             {cartQuantity}
           </Typography>
           <Button sx={buttonStyles} onClick={handleAddOne}>
-            <AddRoundedIcon />
+            <AddRoundedIcon sx={roundedIcons} />
           </Button>
         </ButtonGroup>
       </Box>

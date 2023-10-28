@@ -82,14 +82,53 @@ export const textTitle = {
 
 export const buttonStyles = {
   padding: {
-    mobile: '2px 7px',
+    // mobile: '2px 7px',
+    mobile: '0px 5px',
     tablet: '0 8px',
     desktop: '1px 11px',
   },
   borderRadius: '8px',
+  minWidth: '28px',
 };
 
 export const quantityStyle = {
   border: '1px solid rgba(108, 095, 188, 0.5)',
-  px: '10px',
+  // px: '10px',
+  px: {
+    mobile: '0',
+    tablet: '10px',
+  },
+  fontSize: {
+    mobile: '14px',
+    tablet: '18px',
+    desktop: '20px',
+  },
+  width: '2rem',
+  textAlign: 'center',
 };
+
+// export const buttonStyles = {
+//   padding: {
+//     lgTablet: '0 5px',
+//   },
+//   borderRadius: '8px',
+//   minWidth: '32px',
+// };
+
+export const roundedIcons = {
+  fontSize: {
+    mobile: '1.2rem',
+    tablet: '1.5rem',
+  },
+};
+
+// export const quantityStyle = {
+//   border: '1px solid rgba(108, 095, 188, 0.5)',
+//   pt: '1px',
+//   fontWeight: 'fontWeightMedium',
+//   fontSize: {
+//     lgTablet: '14px',
+//   },
+//   width: '2rem',
+//   textAlign: 'center',
+// };
