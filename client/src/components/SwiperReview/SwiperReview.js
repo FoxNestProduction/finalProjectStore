@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, createRef } from 'react';
 import { Container, Box, Typography, IconButton } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -16,8 +16,10 @@ const SwiperReview = () => {
   const cardRef = useRef([]);
 
   useEffect(() => {
+    if (lastReviewsData?.comments) {
+      cardRef.current = lastReviewsData.comments.map(() => createRef());
+    }
     lastReviewsData?.comments.forEach((item, index) => {
-      cardRef.current[index] = scrollingWrapperRef.current.children[index];
       const step = cardRef.current[0].offsetWidth;
       setWidthStep(step);
     });

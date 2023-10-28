@@ -30,7 +30,6 @@ const ReviewsPage = () => {
     }
     setReviews(lastReviewsData?.comments);// eslint-disable-line no-use-before-define
     setIsRendered(true);
-    console.log(error);
   }, [lastReviewsData?.comments, error]);
 
   const handleSendFeedback = () => {
