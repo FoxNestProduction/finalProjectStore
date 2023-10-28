@@ -2,6 +2,7 @@ const Partner = require("../models/Partner");
 const queryCreator = require("../commonHelpers/queryCreator");
 const _ = require("lodash");
 const filterParser = require("../commonHelpers/filterParser");
+const Product = require("../models/Product");
 
 exports.addPartner = (req, res, next) => {
   Partner.findOne({ customId: req.body.customId }).then(partner => {
@@ -86,6 +87,26 @@ exports.deletePartner = (req, res, next) => {
 exports.getPartners = (req, res, next) => {
   Partner.find()
     .then(partners => res.status(200).json(partners))
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
+
+exports.getPartnerById = (req, res, next) => {
+  Partner.findOne({
+    customId: req.params.customId
+  })
+    .then(partner => {
+      if(!partner) {
+        res.status(400).json({
+          message: `Restaurant with customId ${req.params.customId} is not found`
+        });
+      } else {
+        res.status(200).json(partner);
+      }
+    })
     .catch(err =>
       res.status(400).json({
         message: `Error happened on server: "${err}" `
