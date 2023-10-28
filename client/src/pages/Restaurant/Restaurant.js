@@ -9,9 +9,12 @@ import QuestionsList from '../../components/QuestionsList/QuestionsList';
 import ListItems from '../../components/ListItems/ListItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import useGetPartners from '../../customHooks/useGetPartners';
+import useGetAPI from '../../customHooks/useAPI';
 
 const RestaurantPage = () => {
   const partners = useGetPartners();
+  const [data, loading, error] = useGetAPI('/partners');
+  console.log(data);
   const topProducts = useSelector((state) => state.products.topProducts);
 
   const styleRestaurant = {
