@@ -17,7 +17,7 @@ import { subtitle, input, paymentSystemsWrapper, imgVisa } from './styles';
 import CheckoutActions from '../CheckoutForm/CheckoutActions';
 import { setConfirmedOrder } from '../../../redux/slices/orderSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
-import { CHECKOUT_SS_KEY } from '../../../constants';
+import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
 import { resetCart } from '../../../redux/slices/cartSlice';

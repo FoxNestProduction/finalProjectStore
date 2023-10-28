@@ -36,7 +36,7 @@ import ElevationScroll from '../ElevationScroll/ElevationScroll';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
-import { CHECKOUT_SS_KEY } from '../../constants';
+import { CHECKOUT_SS_KEY } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
 import { updateCart, cartIconCounterFunction } from '../Cart/cartFunctions';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';

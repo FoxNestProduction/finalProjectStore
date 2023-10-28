@@ -26,7 +26,7 @@ import {
   paymentRadioBtn, paymentWrapper,
 } from './styles';
 import { setUser } from '../../../redux/slices/userSlice';
-import { CHECKOUT_SS_KEY } from '../../../constants';
+import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import {
   getDataFromSessionStorage,
   removeDataFromSessionStorage, setDataToSessionStorage,

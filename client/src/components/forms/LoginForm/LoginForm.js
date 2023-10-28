@@ -37,7 +37,7 @@ import { setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 import { setFavourite } from '../../../redux/slices/favouriteSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
-import { CHECKOUT_SS_KEY } from '../../../constants';
+import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
 import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';

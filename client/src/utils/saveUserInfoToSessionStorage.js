@@ -1,5 +1,5 @@
 import { setDataToSessionStorage } from './sessionStorageHelpers';
-import { CHECKOUT_SS_KEY } from '../constants';
+import { CHECKOUT_SS_KEY } from '../constants/constants';
 
 const saveUserInfoToSessionStorage = (user) => {
   const data = {
