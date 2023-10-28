@@ -22,9 +22,9 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
     }
   };
 
-  useEffect(() => {
-    dispatch(updateFavourites(wishlist));
-  }, [dispatch, wishlist]);
+  // useEffect(() => {
+  //   dispatch(updateFavourites(wishlist));
+  // }, [dispatch, wishlist]);
 
   return (
     <IconButton onClick={() => toggleFavourite()} sx={{ m: 0, p: 0 }}>
