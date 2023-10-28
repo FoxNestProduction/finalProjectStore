@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ColorChips from '../Chip/Chip';
 import LoginForm from '../forms/LoginForm/LoginForm';
@@ -20,17 +19,19 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
+import { addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 
 const ProductCard = ({ productName }) => {
+  const nameOfProduct = fixedDecodeURIComponent(productName);
   const products = useSelector((state) => state.products.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
-  const nameOfProduct = fixedDecodeURIComponent(productName);
   // eslint-disable-next-line no-underscore-dangle
   const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
+  console.log(products);
   const {
     name,
     description,
@@ -55,6 +56,19 @@ const ProductCard = ({ productName }) => {
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
+  };
+
+  const handleAddToCart = () => {
+    const selectedItem = {
+      product: {
+        _id: id,
+        currentPrice,
+        imageUrl,
+        name,
+      },
+      cartQuantity: 1,
+    };
+    dispatch(addToCart(selectedItem));
   };
 
   return (
@@ -157,6 +171,7 @@ const ProductCard = ({ productName }) => {
               <Button
                 variant="contained"
                 sx={stylesButtonCard}
+                onClick={handleAddToCart}
               >
                 Add to card
                 <AddBoxOutlinedIcon

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
@@ -9,6 +9,7 @@ import { partnersCardWidth, productsCardWidth } from '../../components/ListItems
 import useSortedItems from '../../customHooks/useSortedItems';
 import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
+import SwiperReview from '../../components/SwiperReview/SwiperReview';
 import SwiperBanner from '../../components/SwiperBanner/SwiperBanner';
 import Skeleton from '../../components/Skeleton/Skeleton';
 
@@ -30,7 +31,8 @@ const HomePage = () => {
         actions={<ListItemAction type="partners" />}
         type="partners"
       />
-      <ListItems title="Our Top Dishes" topDish items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction type="products" />} />
+      <ListItems title="Our Top Dishes" topDish items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
+      <SwiperReview />
     </>
   );
 };

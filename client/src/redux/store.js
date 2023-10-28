@@ -13,6 +13,7 @@ import searchSlice from './slices/searchSlice';
 import errorSlice from './slices/errorSlice';
 import reviewsSlice from './slices/reviewsSlice';
 import favouriteSlice from './slices/favouriteSlice';
+import cartSlice from './slices/cartSlice';
 import orderSlice from './slices/orderSlice';
 import filterSlice from './slices/filterSlice';
 import scrollAnchorSlice from './slices/scrollAnchorSlice';
@@ -46,6 +47,11 @@ const favouritePersistConfig = {
   version: 1,
   storage,
 };
+const reviewsPersistConfig = {
+  key: 'reviews',
+  version: 1,
+  storage,
+};
 
 const filterPersistConfig = {
   key: 'filter',
@@ -53,6 +59,11 @@ const filterPersistConfig = {
   storage,
 };
 
+const cartPersistConfig = {
+  key: 'cart',
+  version: 1,
+  storage,
+};
 /*
     todo: - ЗВЕРНІТЬ УВАГУ!
       якщо вам потрібно щоб ваш стейт не зникав після перезавантаження
@@ -69,9 +80,10 @@ const reducer = combineReducers({
   products: persistReducer(productPersistConfig, productsSlice),
   search: persistReducer(searchPersistConfig, searchSlice),
   order: orderSlice,
-  reviews: reviewsSlice,
+  reviews: persistReducer(reviewsPersistConfig, reviewsSlice),
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
   filter: persistReducer(filterPersistConfig, filterSlice),
+  cart: persistReducer(cartPersistConfig, cartSlice),
   scrollAnchor: scrollAnchorSlice,
   skeleton: skeletonSlice,
 });

@@ -28,10 +28,13 @@ const Skeleton = ({ skeletonType }) => {
           <div className={classNames(styles.productPriceSkeleton, styles.loading)} />
         </div>
       ) : (
-        <div className={styles.reviewsCardSkeleton}>
-          <div className={classNames(styles.chipsTitleRatingSkeleton, styles.loading)} />
-          <div className={classNames(styles.chipsTitleRatingSkeleton, styles.loading)} />
-          <div className={classNames(styles.chipsTitleRatingSkeleton, styles.loading)} />
+        <div className={styles.reviewCardSkeleton}>
+          <div className={styles.userContainer}>
+            <div className={classNames(styles.avatar, styles.loading)} />
+            <div className={classNames(styles.username, styles.loading)} />
+          </div>
+          <div className={classNames(styles.reviewText, styles.loading)} />
+          <div className={classNames(styles.rating, styles.loading)} />
         </div>
       ) }
     </div>

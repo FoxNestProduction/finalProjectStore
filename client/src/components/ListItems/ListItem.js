@@ -4,14 +4,79 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import { Box } from '@mui/material';
+import { Box, MenuItem, TextField } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer } from './styles';
+import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import usePaginationBreakpoint from '../../customHooks/usePaginationBreakpoint';
 import Skeleton from '../Skeleton/Skeleton';
 
 const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, type }) => {
+  let currencies;
+  if (type === 'partners') {
+    currencies = [
+      {
+        value: 'Rating UP',
+        label: 'Rating UP',
+      },
+      {
+        value: 'Rating DOWN',
+        label: 'Rating DOWN',
+      },
+      {
+        value: 'Default',
+        label: 'Default',
+      },
+    ];
+  } else {
+    currencies = [
+      {
+        value: 'Price UP',
+        label: 'Price UP',
+      },
+      {
+        value: 'Price DOWN',
+        label: 'Price DOWN',
+      },
+      {
+        value: 'Rating UP',
+        label: 'Rating UP',
+      },
+      {
+        value: 'Rating DOWN',
+        label: 'Rating DOWN',
+      },
+      {
+        value: 'Default',
+        label: 'Default',
+      },
+    ];
+  }
+
+  const [selectedValueSortBy, setSelectedValueSortBy] = React.useState('');
+  useEffect(() => {
+    setSelectedValueSortBy('Default');
+  }, [items]);
+  const itemsCopy = React.useMemo(() => {
+    const copy = [...items];
+    if (selectedValueSortBy === 'Price UP') {
+      return copy.sort((a, b) => a.currentPrice - b.currentPrice);
+    }
+    if (selectedValueSortBy === 'Price DOWN') {
+      return copy.sort((a, b) => b.currentPrice - a.currentPrice);
+    }
+    if (selectedValueSortBy === 'Rating UP') {
+      return copy.sort((a, b) => a.rating - b.rating);
+    }
+    if (selectedValueSortBy === 'Rating DOWN') {
+      return copy.sort((a, b) => b.rating - a.rating);
+    }
+    return copy;
+  }, [items, selectedValueSortBy]);
+  const handleSelectChangeSortBy = (event) => {
+    setSelectedValueSortBy(event.target.value);
+  };
+
   const breakpoint = usePaginationBreakpoint();
   const productsPerPageMap = {
     mobileTablet: 10,
@@ -29,7 +94,7 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
 
   useEffect(() => {
     setPage(1);
-  }, [items]);
+  }, [itemsCopy]);
 
   useEffect(() => {
     setProductsPerPage(productsPerPageMap[breakpoint]);
@@ -39,15 +104,15 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
   useEffect(() => {
     const from = (page - 1) * productsPerPage;
     const to = page * productsPerPage;
-    setPageProducts(items.slice(from, to));
+    setPageProducts(itemsCopy.slice(from, to));
 
-    const currentPageQty = Math.ceil(items.length / productsPerPage);
+    const currentPageQty = Math.ceil(itemsCopy.length / productsPerPage);
     setPageQty(currentPageQty);
 
     if (page > currentPageQty) {
       setPage(1);
     }
-  }, [items, page, productsPerPage, breakpoint]);
+  }, [itemsCopy, page, productsPerPage, breakpoint]);
 
   return (
     <Container sx={{ mb: 13 }}>
@@ -59,6 +124,25 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
       >
         {title}
       </Typography>
+      <Box sx={{ width: '100%', height: '40px', mb: '40px', paddingRight: '30px', textAlign: 'end' }}>
+        <TextField
+          sx={stylesSortSelect}
+          id="standard-select-currency"
+          size="small"
+          select
+          label="Sort by"
+          defaultValue="Default"
+          variant="standard"
+          value={selectedValueSortBy}
+          onChange={handleSelectChangeSortBy}
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Box>
 
       {isLoading ? type === 'partners' ? (
         <Box sx={gridStylesContainer}>
@@ -81,7 +165,6 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
 
             // eslint-disable-next-line dot-notation
             <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
-
               {createElement(itemComponent, { ...item })}
             </Grid>
           ))}

@@ -1,24 +1,30 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Stack, Button, Box, Container, useMediaQuery, useTheme } from '@mui/material';
+import { Typography, Button, Box, Container, useMediaQuery } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ReviewItem from '../../components/ReviewItem/ReviewItem';
-import Modal from '../../components/Modal/Modal';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
-import { addNewReview, setNewReview, resetReviewState } from '../../redux/slices/reviewsSlice';
+import { addNewReview, resetReviewState, searchReviews } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 import Skeleton from '../../components/Skeleton/Skeleton';
 
 const ReviewsPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isRendered, setIsRendered] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
   const newReview = useSelector((state) => state.reviews.newReview);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const searchReview = useSelector((state) => state.reviews.search);
+  const isLoading = useSelector((state) => state.skeleton.isLoading);
+
   const isLgTablet = useMediaQuery('(min-width: 690px)');
+
+  const containerRef = useRef(null);
+  const cardRef = useRef([]);
 
   const handleSendFeedback = () => {
     dispatch(addNewReview());
@@ -67,12 +73,33 @@ const ReviewsPage = () => {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(incrementIndex, 400);
+    const intervalId = setInterval(incrementIndex, 200);
     setIsRendered(true);
     return () => {
       clearInterval(intervalId);
     };
-  }, [isRendered]);
+  }, []);
+
+  useEffect(() => {
+    if (searchReview && cardRef.current.length > 0) {
+      const element = containerRef.current.querySelector(`[data="${searchReview}"]`);
+      const scrollScreen = () => {
+        if (element && !isScrolling.current) {
+          const elementPosition = element.getBoundingClientRect().top;
+          window.scrollTo({
+            top: window.scrollY + elementPosition - 110,
+            behavior: 'smooth',
+          });
+        }
+      };
+      scrollScreen();
+      setIsScrolling(true);
+    }
+    if (isScrolling) {
+      dispatch(searchReviews(''));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRendered, searchReview, cardRef.current.length]);
 
   const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
 
@@ -87,13 +114,27 @@ const ReviewsPage = () => {
           </Button>
         )}
       </Box>
-      <Box sx={commentList}>
-        <Skeleton type="reviews" />
-        {sortedReviews.slice(0, currentIndex).map((item) => (
-          <Box key={item._id} sx={commentItem}>
-            <ReviewItem review={item} />
-          </Box>
-        ))}
+
+      <Box ref={containerRef} sx={commentList}>
+        {isLoading ? (
+          <>
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </>
+        ) : (
+          sortedReviews.map((item, index) => (
+            <Box
+              key={item._id}
+              data={item._id}
+              // eslint-disable-next-line
+              ref={function (el) { cardRef.current[index] = el; }}
+              sx={commentItem}
+            >
+              <ReviewItem review={item} />
+            </Box>
+          ))
+        )}
       </Box>
     </Container>
   );

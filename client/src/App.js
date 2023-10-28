@@ -13,12 +13,16 @@ import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import { setIsLoading } from './redux/slices/skeletonSlice';
 
 import styles from './styles.module.scss';
+import googleAuth from './services/googleAuth/googleAuth.js';
 
 const App = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   const user = useSelector((state) => state.user.user, shallowEqual);
+  const partners = useSelector((state) => state.partners.partners);
+  const products = useSelector((state) => state.products.products, shallowEqual);
+  const reviews = useSelector((state) => state.reviews.reviews, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   useEffect(() => {
@@ -28,19 +32,29 @@ const App = () => {
   }, [isUserAuthorized, user]);
 
   const loading = () => {
-    setTimeout(() => dispatch(setIsLoading(false)), 2500);
+    console.log(partners);
+    console.log(products);
+    console.log(reviews);
+    dispatch(setIsLoading(true));
+    if (partners && products && reviews) {
+      dispatch(setIsLoading(false));
+      console.log(partners);
+      console.log(products);
+      console.log(reviews);
+    }
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    googleAuth();
   }, [pathname]);
 
   useEffect(() => {
+    loading();
     dispatch(getPartners());
     dispatch(getProducts());
     dispatch(getReviews());
-    loading();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return (

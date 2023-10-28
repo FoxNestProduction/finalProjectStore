@@ -1,0 +1,39 @@
+.scrollingWrapper {
+  display: flex;
+  gap: 1vw;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 100%;
+  padding-top: 32px;
+  padding-bottom: 96px;
+  width: 100%;
+  cursor: pointer;
+
+  .card {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    cursor: context-menu;
+  }
+
+  &::-webkit-scrollbar {
+    -webkit-overflow-scrolling: touch;
+    height: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #c8c5df;
+    border-radius: 35px;
+    margin-top: 70px;
+    @media (min-width: 481px) {
+      margin: 0 80px;
+    } 
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #6C5FBC;
+    width: 10vw;
+    border-radius: 35px;
+    border: 3px solid #c8c5df;
+  }
+}

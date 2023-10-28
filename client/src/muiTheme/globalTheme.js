@@ -193,6 +193,19 @@ globalTheme.typography.body4 = {
   },
 };
 
+globalTheme.typography.description = {
+  fontWeight: 400,
+  fontSize: '13px',
+  lineHeight: '1.8em',
+  color: 'text.secondaryGray',
+  [globalTheme.breakpoints.up('tablet')]: {
+    fontSize: '16px',
+  },
+  [globalTheme.breakpoints.up('desktop')]: {
+    fontSize: '18px',
+  },
+};
+
 globalTheme.typography.h1 = {
   fontFamily: 'Poppins, sans-serif',
   fontWeight: 500,
