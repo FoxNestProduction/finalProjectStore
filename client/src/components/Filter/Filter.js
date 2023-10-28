@@ -15,7 +15,6 @@ import {
   stylesCategoryItem,
   stylesToggleButton,
 } from './styles';
-import { setFilter } from '../../redux/slices/filterSlice';
 import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
 
 const Filter = () => {

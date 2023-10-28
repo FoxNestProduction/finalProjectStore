@@ -9,7 +9,6 @@ import { getProducts } from './redux/slices/productsSlice';
 import { getPartners } from './redux/slices/partnersSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
-import { setFilter } from './redux/slices/filterSlice';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,7 +28,6 @@ const App = () => {
   }, [pathname]);
 
   useEffect(() => {
-    // dispatch(setFilter([]));
     dispatch(getPartners());
     dispatch(getProducts());
     dispatch(getReviews());

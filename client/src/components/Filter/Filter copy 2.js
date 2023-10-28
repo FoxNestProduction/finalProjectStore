@@ -103,7 +103,7 @@ const Filter = () => {
       try {
         const response = await instance.get(newURL);
         if (response.data.products.length === 0) {
-          alert('Nothing found!');
+          alert('Nothing found!');// eslint-disable-line
           dispatch(setFilteredProducts([]));
         } else {
           dispatch(setFilteredProducts(response.data.products));
