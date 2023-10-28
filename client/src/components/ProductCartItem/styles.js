@@ -28,7 +28,8 @@ export const linkContainer = {
 export const textContentBox = {
   mx: {
     mobile: '4px',
-    tablet: '20px',
+    tablet: '10px',
+    lgTablet: '20px',
     desktop: '30px',
   },
   width: '100%',
@@ -37,8 +38,8 @@ export const textContentBox = {
 export const img = {
   minWidth: {
     // mobile: '76px',
-    mobile: '52px',
-    tablet: '96px',
+    mobile: '58px',
+    tablet: '70px',
     desktop: '110px',
   },
   // maxWidth: {
@@ -69,8 +70,7 @@ export const textTitle = {
   weight: 600,
   display: 'flex',
   width: {
-    mobile: '100px',
-    // tablet: '160px',
+    mobile: '100%',
     tablet: '100%',
   },
   flexWrap: 'wrap',
@@ -84,11 +84,16 @@ export const buttonStyles = {
   padding: {
     // mobile: '2px 7px',
     mobile: '0px 5px',
-    tablet: '0 8px',
+    tablet: '0 6px',
+    lgTablet: '0 8px',
     desktop: '1px 11px',
   },
   borderRadius: '8px',
-  minWidth: '28px',
+  minWidth: {
+    mobile: '28px !important',
+    // tablet: '29px !important',
+    lgTablet: '40px !important',
+  },
 };
 
 export const quantityStyle = {
@@ -96,14 +101,19 @@ export const quantityStyle = {
   // px: '10px',
   px: {
     mobile: '0',
-    tablet: '10px',
+    lgTablet: '10px',
   },
   fontSize: {
     mobile: '14px',
-    tablet: '18px',
+    tablet: '16px',
+    lgTablet: '18px',
     desktop: '20px',
   },
-  width: '2rem',
+  width: {
+    mobile: '2rem',
+    tablet: '2.5rem',
+    lgTablet: 'max-content',
+  },
   textAlign: 'center',
 };
 
@@ -118,7 +128,7 @@ export const quantityStyle = {
 export const roundedIcons = {
   fontSize: {
     mobile: '1.2rem',
-    tablet: '1.5rem',
+    lgTablet: '1.5rem',
   },
 };
 

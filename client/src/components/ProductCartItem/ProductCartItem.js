@@ -51,8 +51,9 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
         <Box
           sx={{
             width: {
-              // mobile: '40px',
-              tablet: '59%',
+              mobile: '50%',
+              tablet: '40%',
+              desktop: '35%',
             },
           }}
         >
