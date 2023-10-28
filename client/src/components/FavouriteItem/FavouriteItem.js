@@ -21,7 +21,17 @@ const FavouriteItem = ({ product }) => {
   if (!dish) {
     return null;
   }
-  const { name, currentPrice, isTranding, rating, imageUrl, isSupreme, isHealthy, _id } = dish;
+  const {
+    name,
+    itemNo,
+    currentPrice,
+    isTrending,
+    rating,
+    imageUrl,
+    isSupreme,
+    isHealthy,
+    _id,
+  } = dish;
 
   // let selectedItem;
   const handleAddToCart = () => {
@@ -39,7 +49,7 @@ const FavouriteItem = ({ product }) => {
 
   return (
     <Card sx={styleCardFavourite}>
-      <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
+      <Link to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', maxWidth: '900px' }}>
           <CardMedia
             component="img"
@@ -52,7 +62,7 @@ const FavouriteItem = ({ product }) => {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
               <Typography variant="h3" sx={{ p: 0, mb: 1 }}>{name}</Typography>
               <ColorChips
-                isTranding={isTranding}
+                isTrending={isTrending}
                 isSupreme={isSupreme}
                 isHealthy={isHealthy}
                 customStyles={chipForFavourite}

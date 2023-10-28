@@ -5,24 +5,35 @@ import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
 import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
-import { partnersCardWidth } from '../../components/ListItems/styles';
-import useSortedItems from '../../customHooks/useSortedItems';
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
+import { instance } from '../../API/instance';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
   const itemsFromSearch = useSelector((state) => state.search.search);
   const itemsFromFilter = useSelector((state) => state.filter.filteredProducts);
   const keyFromSearch = useSelector((state) => state.search.key);
-  const partners = useSelector((state) => state.partners.partners, shallowEqual);
-  const sortedPartners = useSortedItems(partners, partnersCardWidth);
   const products = useSelector((state) => state.products.products);
+
+  const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
 
   const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
 
   useEffect(() => {
     dispatch(setSearch([]));
   }, [dispatch]);
+
+  // приклад запиту за продуктами, які відповідають пошуку
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await instance.post('/products/search', { query: 'cheese' });
+  //       console.log(response);
+  //     } catch (err) {
+  //       console.error('Error getting searched products: ', err);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <>
@@ -70,13 +81,15 @@ const MenuPage = () => {
         />
       )}
 
-      <ListItems
-        title="Our Top Restaurants"
-        items={sortedPartners}
-        itemComponent={RestaurantItem}
-        actions={<ListItemAction />}
-        type="partners"
-      />
+      {topPartners.length > 0 && (
+        <ListItems
+          title="Our Top Restaurants"
+          items={topPartners}
+          itemComponent={RestaurantItem}
+          actions={<ListItemAction type="partners" />}
+          type="partners"
+        />
+      ) }
     </>
   );
 };

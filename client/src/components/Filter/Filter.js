@@ -29,7 +29,7 @@ const Filter = () => {
   const [sandwiches, setSandwiches] = React.useState(sessionStorage.getItem('sandwiches') === 'true' || false);
   const [bbqMeat, setBbqMeat] = React.useState(sessionStorage.getItem('bbqMeat') === 'true' || false);
   const [drink, setDrink] = React.useState(sessionStorage.getItem('drink') === 'true' || false);
-  const [isTranding, setIsTranding] = React.useState(sessionStorage.getItem('isTranding') === 'true' || false);
+  const [isTrending, setIsTrending] = React.useState(sessionStorage.getItem('isTrending') === 'true' || false);
   const [mostPopular, setMostPopular] = React.useState(sessionStorage.getItem('mostPopular') === 'true' || false);
   const [isHealthy, setIsHealthy] = React.useState(sessionStorage.getItem('isHealthy') === 'true' || false);
   const [isSupreme, setIsSupreme] = React.useState(sessionStorage.getItem('isSupreme') === 'true' || false);
@@ -44,7 +44,7 @@ const Filter = () => {
     sessionStorage.setItem('sandwiches', sandwiches.toString());
     sessionStorage.setItem('bbqMeat', bbqMeat.toString());
     sessionStorage.setItem('drink', drink.toString());
-    sessionStorage.setItem('isTranding', isTranding.toString());
+    sessionStorage.setItem('isTrending', isTrending.toString());
     sessionStorage.setItem('mostPopular', mostPopular.toString());
     sessionStorage.setItem('isHealthy', isHealthy.toString());
     sessionStorage.setItem('isSupreme', isSupreme.toString());
@@ -54,7 +54,7 @@ const Filter = () => {
   useEffect(() => {
     saveFilterToSessionStorage(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pizza, burgers, sushi, salads, pasta, sandwiches, bbqMeat,
-    drink, isTranding, mostPopular, isHealthy, isSupreme, valueSlider]);
+    drink, isTrending, mostPopular, isHealthy, isSupreme, valueSlider]);
 
   const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
 
@@ -100,7 +100,7 @@ const Filter = () => {
 
   const filters = [
     { condition: mostPopular, filterFunc: (el) => el.rating > 4 },
-    { condition: isTranding, filterFunc: (el) => el.isTranding },
+    { condition: isTrending, filterFunc: (el) => el.isTrending },
     { condition: isHealthy, filterFunc: (el) => el.isHealthy },
     { condition: isSupreme, filterFunc: (el) => el.isSupreme },
   ];
@@ -141,7 +141,7 @@ const Filter = () => {
     setSandwiches(false);
     setBbqMeat(false);
     setDrink(false);
-    setIsTranding(false);
+    setIsTrending(false);
     setMostPopular(false);
     setIsHealthy(false);
     setIsSupreme(false);
@@ -293,13 +293,13 @@ const Filter = () => {
           <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
             <ToggleButton
               sx={stylesSortBtn}
-              value="isTranding"
-              selected={isTranding}
+              value="isTrending"
+              selected={isTrending}
               onChange={() => {
-                setIsTranding(!isTranding);
+                setIsTrending(!isTrending);
               }}
             >
-              Tranding
+              Trending
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}

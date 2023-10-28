@@ -6,10 +6,12 @@ import Typography from '@mui/material/Typography';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
-import TopDishes from '../../components/TopDishes/TopDishes';
+import ListItems from '../../components/ListItems/ListItem';
+import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 
 const RestaurantPage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
+  const topProducts = useSelector((state) => state.products.topProducts);
 
   const styleRestaurant = {
     mobile: 315,
@@ -47,7 +49,14 @@ const RestaurantPage = () => {
           </Link>
         ))}
       </Container>
-      <TopDishes />
+      {topProducts.length > 0 && (
+        <ListItems
+          title="Our Top Dishes"
+          items={topProducts}
+          itemComponent={ProductCardItem}
+          actions={null}
+        />
+      ) }
       <QuestionsList />
     </>
   );

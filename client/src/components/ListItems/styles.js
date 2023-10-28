@@ -64,13 +64,6 @@ export const gridStylesItemProducts = {
   },
 };
 
-export const partnersCardWidth = {
-  mobile: 3,
-  tablet: 3,
-  lgTablet: 2,
-  desktop: 3,
-};
-
 export const stylesSortSelect = {
   color: 'text.primary',
   fontFamily: 'fontPoppins',

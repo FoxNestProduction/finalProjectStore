@@ -5,10 +5,12 @@ import { useLocation } from 'react-router';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
-import { getProducts } from './redux/slices/productsSlice';
-import { getPartners } from './redux/slices/partnersSlice';
+import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
+import { fetchTopPartners, getPartners } from './redux/slices/partnersSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
+import useBreakpoint from './customHooks/useBreakpoint';
+import { topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,14 @@ const App = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  const breakpoint = useBreakpoint();
+
+  useEffect(() => {
+    dispatch(fetchTopProducts(topProductsQtyMap[breakpoint]));
+    dispatch(fetchTopPartners(topPartnersQtyMap[breakpoint]));
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [breakpoint, dispatch]);
 
   useEffect(() => {
     dispatch(getPartners());

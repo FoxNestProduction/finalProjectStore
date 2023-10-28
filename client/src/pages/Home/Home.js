@@ -1,45 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
-import { partnersCardWidth } from '../../components/ListItems/styles';
-import useSortedItems from '../../customHooks/useSortedItems';
 import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
-import TopDishes from '../../components/TopDishes/TopDishes';
+import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import { instance } from '../../API/instance';
 
 const HomePage = () => {
-  const partners = useSelector((state) => state.partners.partners, shallowEqual);
-  const sortedPartners = useSortedItems(partners, partnersCardWidth);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await instance.post('/products/search', { query: 'pizza' });
-  //       console.log(response);
-  //     } catch (err) {
-  //       console.error('Error getting pizza: ', err);
-  //     }
-  //   })();
-  // }, []);
+  const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
+  const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
 
   return (
     <>
       <SectionGetStarted />
       <Features />
       <MobileApp />
+      {topPartners.length > 0 && (
       <ListItems
         title="Our Top Restaurants"
-        items={sortedPartners}
+        items={topPartners}
         itemComponent={RestaurantItem}
         actions={<ListItemAction type="partners" />}
         type="partners"
       />
-      <TopDishes actions={<ListItemAction />} />
+      ) }
+      {topProducts.length > 0 && (
+      <ListItems
+        title="Our Top Dishes"
+        items={topProducts}
+        itemComponent={ProductCardItem}
+        actions={<ListItemAction />}
+      />
+      ) }
       <SwiperReview />
     </>
   );
