@@ -1,18 +1,18 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, createRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Button, Box, Container, useMediaQuery } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { instance } from '../../API/instance';
+import useGetAPI from '../../customHooks/useGetAPI';
 import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
-import { addNewReview, resetReviewState, searchReviews, setNewReview } from '../../redux/slices/reviewsSlice';
+import { addNewReview, resetReviewState, searchReviews } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 
 const ReviewsPage = () => {
+  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
   const [reviews, setReviews] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const dispatch = useDispatch();
@@ -25,24 +25,13 @@ const ReviewsPage = () => {
   const cardRef = useRef([]);
 
   useEffect(() => {
-    const getReviews = async () => {
-      try {
-        const { data } = await instance.get('/comments');
-        setReviews(data);// eslint-disable-line no-use-before-define
-        setIsLoading(true);
-        setIsRendered(true);
-        console.log(data);
-      } catch (error) {
-        console.log('%cError loading reviews:', 'color: red; font-weight: bold;', error);
-      }
-    };
-    getReviews();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const sortedReviews = reviews
-    ? [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date))
-    : null;
+    if (lastReviewsData?.comments) {
+      cardRef.current = lastReviewsData.comments.map(() => createRef());
+    }
+    setReviews(lastReviewsData?.comments);// eslint-disable-line no-use-before-define
+    setIsRendered(true);
+    console.log(error);
+  }, [lastReviewsData?.comments, error]);
 
   const handleSendFeedback = () => {
     dispatch(addNewReview());
@@ -92,12 +81,8 @@ const ReviewsPage = () => {
   };
 
   useEffect(() => {
-    sortedReviews.forEach((item, index) => {
-      cardRef.current[index] = containerRef.current.children[index];
-    });
     if (searchReview && cardRef.current.length > 0) {
       const element = containerRef.current.querySelector(`[data="${searchReview}"]`);
-      console.log(element);
       const scrollScreen = () => {
         if (element && !isScrolling.current) {
           const elementPosition = element.getBoundingClientRect().top;
@@ -127,23 +112,21 @@ const ReviewsPage = () => {
           </Button>
         )}
       </Box>
-      {isLoading ? (
-        <Box ref={containerRef} sx={commentList}>
-          {sortedReviews.map((item, index) => (
-            <Box
-              key={item._id}
-              data={item._id}
-              // eslint-disable-next-line
-              ref={cardRef.current[index]}
-              sx={commentItem}
-            >
-              <ReviewItem review={item} />
-            </Box>
-          ))}
-        </Box>
-      ) : (
-        <div>Loading...</div> // тут має бути скелетон?
-      )}
+      <Box ref={containerRef} sx={commentList}>
+        {lastReviewsData && reviews.map((item, index) => (
+          <Box
+            key={item._id}
+            data={item._id}
+            // eslint-disable-next-line
+            ref={cardRef.current[index]}
+            sx={commentItem}
+          >
+            <ReviewItem review={item} />
+          </Box>
+        ))}
+      </Box>
+      {loading && <div>Loading...</div>}
+      {error && <div>{error.statusText}</div>}
     </Container>
   );
 };
