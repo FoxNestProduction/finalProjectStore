@@ -12,7 +12,7 @@ import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&S
 const MenuPage = () => {
   const dispatch = useDispatch();
   const itemsFromSearch = useSelector((state) => state.search.search);
-  const itemsFromFilter = useSelector((state) => state.filter.filter);
+  const itemsFromFilter = useSelector((state) => state.filter.filteredProducts);
   const keyFromSearch = useSelector((state) => state.search.key);
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);

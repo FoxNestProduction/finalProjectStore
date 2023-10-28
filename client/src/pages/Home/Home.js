@@ -16,16 +16,16 @@ const HomePage = () => {
   const partners = useSelector((state) => state.partners.partners, shallowEqual);
   const sortedPartners = useSortedItems(partners, partnersCardWidth);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await instance.get('/products/search', { query: 'pizza' });
-        console.log(response);
-      } catch (err) {
-        console.error('Error getting pizza: ', err);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await instance.post('/products/search', { query: 'pizza' });
+  //       console.log(response);
+  //     } catch (err) {
+  //       console.error('Error getting pizza: ', err);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <>

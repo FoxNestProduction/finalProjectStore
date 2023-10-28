@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import React from 'react';
 import SwiperBanner from '../SwiperBanner/SwiperBanner';
-import Filter from '../Filter/Filter';
+import Filter from '../Filter/Filter copy 2';
 import Search from '../Search/Search';
 import { stylesGridConteiner, stylesSwipper, stylesSearch, stylesFilter } from './styles';
 

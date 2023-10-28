@@ -1,19 +1,39 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  filter: [],
+  filteredProducts: [],
+  filterParams: {
+    filterCategories: [],
+    isTrending: false,
+    rating: null, // mostPopular
+    isHealthy: false,
+    isSupreme: false,
+    minPrice: null,
+    maxPrice: null,
+  },
+  sortParams: {},
 };
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setFilter(state, action) { // eslint-disable-line no-shadow
-      state.filter = action.payload;
+    setFilteredProducts(state, action) { // eslint-disable-line no-shadow
+      state.filteredProducts = action.payload;
     },
+    setFilterParams(state, action) { // eslint-disable-line no-shadow
+      state.filterParams.filterCategories = action.payload.filterCategories;
+      state.filterParams.isTrending = action.payload.isTrending;
+      state.filterParams.rating = action.payload.rating;
+      state.filterParams.isHealthy = action.payload.isHealthy;
+      state.filterParams.isSupreme = action.payload.isSupreme;
+      state.filterParams.minPrice = action.payload.minPrice;
+      state.filterParams.maxPrice = action.payload.maxPrice;
+    },
+
   },
 });
 
-export const { setFilter } = filterSlice.actions;
+export const { setFilteredProducts, setFilterParams } = filterSlice.actions;
 
 export default filterSlice.reducer;

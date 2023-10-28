@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
 import { setSearch, setKey, setInputSearchValue } from '../../redux/slices/searchSlice';
 import { setScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
-import { setFilter } from '../../redux/slices/filterSlice';
+import { setFilteredProducts } from '../../redux/slices/filterSlice';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const Search = () => {
     if (newInputValue.length !== 0) {
       dispatch(setSearch(filteredProductsOrRestaurants(newInputValue)));
       dispatch(setKey(alignment));
-      dispatch(setFilter([]));
+      dispatch(setFilteredProducts([]));
     }
   };
 

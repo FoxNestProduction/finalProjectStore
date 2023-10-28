@@ -1,8 +1,11 @@
-import { Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
+import React, { useEffect, useMemo } from 'react';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux';
+import { instance } from '../../API/instance';
 import {
   stylesWrap,
   stylesTitle,
@@ -20,44 +23,122 @@ import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   /* eslint-disable no-undef */
-  const products = useSelector((state) => state.products.products);
-  const [pizza, setPizza] = React.useState(sessionStorage.getItem('pizza') === 'true' || false);
-  const [burgers, setBurgers] = React.useState(sessionStorage.getItem('burgers') === 'true' || false);
-  const [sushi, setSushi] = React.useState(sessionStorage.getItem('sushi') === 'true' || false);
-  const [salads, setSalads] = React.useState(sessionStorage.getItem('salads') === 'true' || false);
-  const [pasta, setPasta] = React.useState(sessionStorage.getItem('pasta') === 'true' || false);
-  const [sandwiches, setSandwiches] = React.useState(sessionStorage.getItem('sandwiches') === 'true' || false);
-  const [bbqMeat, setBbqMeat] = React.useState(sessionStorage.getItem('bbqMeat') === 'true' || false);
-  const [drink, setDrink] = React.useState(sessionStorage.getItem('drink') === 'true' || false);
-  const [isTranding, setIsTranding] = React.useState(sessionStorage.getItem('isTranding') === 'true' || false);
-  const [mostPopular, setMostPopular] = React.useState(sessionStorage.getItem('mostPopular') === 'true' || false);
-  const [isHealthy, setIsHealthy] = React.useState(sessionStorage.getItem('isHealthy') === 'true' || false);
-  const [isSupreme, setIsSupreme] = React.useState(sessionStorage.getItem('isSupreme') === 'true' || false);
-  const defaultSliderValue = [5, 25];
-  const [valueSlider, setValueSlider] = React.useState(Number(sessionStorage.getItem('valueSlider')) || defaultSliderValue);
-  const saveFilterToSessionStorage = () => {
-    sessionStorage.setItem('pizza', pizza.toString());
-    sessionStorage.setItem('burgers', burgers.toString());
-    sessionStorage.setItem('sushi', sushi.toString());
-    sessionStorage.setItem('salads', salads.toString());
-    sessionStorage.setItem('pasta', pasta.toString());
-    sessionStorage.setItem('sandwiches', sandwiches.toString());
-    sessionStorage.setItem('bbqMeat', bbqMeat.toString());
-    sessionStorage.setItem('drink', drink.toString());
-    sessionStorage.setItem('isTranding', isTranding.toString());
-    sessionStorage.setItem('mostPopular', mostPopular.toString());
-    sessionStorage.setItem('isHealthy', isHealthy.toString());
-    sessionStorage.setItem('isSupreme', isSupreme.toString());
-    sessionStorage.setItem('valueSlider', valueSlider.toString());
+  const [filteredItems, setFilteredItems] = React.useState([]);
+  const [pizza, setPizza] = React.useState(false);
+  const [burgers, setBurgers] = React.useState(false);
+  const [sushi, setSushi] = React.useState(false);
+  const [salads, setSalads] = React.useState(false);
+  const [pasta, setPasta] = React.useState(false);
+  const [sandwiches, setSandwiches] = React.useState(false);
+  const [bbqMeat, setBbqMeat] = React.useState(false);
+  const [drink, setDrink] = React.useState(false);
+  const [isTrending, setIsTrending] = React.useState(false);
+  const [mostPopular, setMostPopular] = React.useState(false);
+  const [isHealthy, setIsHealthy] = React.useState(false);
+  const [isSupreme, setIsSupreme] = React.useState(false);
+  const defaultSliderValue = useMemo(() => [5, 25], []);
+  const [valueSlider, setValueSlider] = React.useState(defaultSliderValue);
+  const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
+  // 1111111111111111111111111111111111111111111111111111111111111111111111111
+  useEffect(() => {
+    const queryParams = qs.parse(window.location.search, { ignoreQueryPrefix: true });
+    setPizza(queryParams.filterCategories?.split(',').includes('pizza') || false);
+    setBurgers(queryParams.filterCategories?.split(',').includes('burgers') || false);
+    setSushi(queryParams.filterCategories?.split(',').includes('sushi') || false);
+    setSalads(queryParams.filterCategories?.split(',').includes('salads') || false);
+    setPasta(queryParams.filterCategories?.split(',').includes('pasta') || false);
+    setSandwiches(queryParams.filterCategories?.split(',').includes('sandwiches') || false);
+    setBbqMeat(queryParams.filterCategories?.split(',').includes('bbqMeat') || false);
+    setDrink(queryParams.filterCategories?.split(',').includes('drink') || false);
+    setIsTrending(queryParams.isTrending === 'true' || false);
+    setMostPopular(queryParams.rating === '5' || false);
+    setIsHealthy(queryParams.isHealthy === 'true' || false);
+    setIsSupreme(queryParams.isSupreme === 'true' || false);
+    setValueSlider([
+      // eslint-disable-next-line radix
+      parseInt(queryParams.minPrice) || defaultSliderValue[0],
+      // eslint-disable-next-line radix
+      parseInt(queryParams.maxPrice) || defaultSliderValue[1],
+    ]);
+    // eslint-disable-next-line
+  }, []);
+
+  /* eslint-disable object-shorthand */
+
+  const updateURL = () => {
+    const filterCategories = [
+      burgers ? 'burgers' : '',
+      pizza ? 'pizza' : '',
+      sushi ? 'sushi' : '',
+      salads ? 'salads' : '',
+      pasta ? 'pasta' : '',
+      sandwiches ? 'sandwiches' : '',
+      bbqMeat ? 'bbqMeat' : '',
+      drink ? 'drink' : '',
+    ]
+      .filter((category) => category)
+      .join(',');
+
+    let queryString = '?';
+
+    if (filterCategories) {
+      queryString += `filterCategories=${filterCategories}&`;
+    }
+
+    if (isTrending) {
+      queryString += `isTrending=${isTrending}&`;
+    }
+
+    if (mostPopular) {
+      queryString += 'rating=5&';
+    }
+
+    if (isHealthy) {
+      queryString += `isHealthy=${isHealthy}&`;
+    }
+
+    if (isSupreme) {
+      queryString += `isSupreme=${isSupreme}&`;
+    }
+    if (valueSlider[0] !== 5 || valueSlider[1] !== 25) {
+      queryString += `minPrice=${valueSlider[0]}&maxPrice=${valueSlider[1]}&`;
+    }
+
+    const newURL = `/products/filter${queryString}`;
+    window.history.pushState(null, '', navigate(`${queryString}`));
+    navigate(`${queryString}`);
+    // console.log(newURL);
+    return newURL;
   };
+  /* eslint-enable object-shorthand */
 
   useEffect(() => {
-    saveFilterToSessionStorage(); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pizza, burgers, sushi, salads, pasta, sandwiches, bbqMeat,
-    drink, isTranding, mostPopular, isHealthy, isSupreme, valueSlider]);
-
-  const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
+    (async () => {
+      try {
+        const response = await instance.get(updateURL());
+        setFilteredItems(response.data.products);
+      } catch (err) {
+        console.error('Error getting top products: ', err);
+      }
+    })();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [
+    burgers,
+    pizza,
+    sushi,
+    salads,
+    pasta,
+    sandwiches,
+    bbqMeat,
+    drink,
+    isTrending,
+    mostPopular,
+    isHealthy,
+    isSupreme,
+    valueSlider,
+  ]);
 
   const marks = [
     {
@@ -78,48 +159,14 @@ const Filter = () => {
     },
   ];
 
-  const foodCategories = {
-    burgers: `${burgers}`,
-    pizza: `${pizza}`,
-    sushi: `${sushi}`,
-    salads: `${salads}`,
-    pasta: `${pasta}`,
-    sandwiches: `${sandwiches}`,
-    bbqMeat: `${bbqMeat}`,
-    drink: `${drink}`,
-  };
-
-  const filteredItemsByCatagory = products.filter((prod) => {
-    const category = prod.filterCategories;
-    const price = prod.currentPrice;
-    return (
-      Object.values(foodCategories).includes('true')
-        ? (JSON.parse(foodCategories[category])
-        && (valueSlider[0] < price && price < valueSlider[1]))
-        : (valueSlider[0] < price && price < valueSlider[1]));
-  });
-
-  const filters = [
-    { condition: mostPopular, filterFunc: (el) => el.rating > 4 },
-    { condition: isTranding, filterFunc: (el) => el.isTranding },
-    { condition: isHealthy, filterFunc: (el) => el.isHealthy },
-    { condition: isSupreme, filterFunc: (el) => el.isSupreme },
-  ];
-
-  const filteredAndSortedItems = filters.reduce((items, filter) => {
-    if (filter.condition) {
-      return items.filter(filter.filterFunc);
-    }
-    return items;
-  }, filteredItemsByCatagory);
-
   const handleApplyFilter = () => {
-    if (filteredAndSortedItems.length === 0) {
-      // eslint-disable-next-line no-undef,no-alert
-      alert('Nothing found :(');
+    if (filteredItems.length === 0) {
       dispatch(setFilter([]));
+      // eslint-disable-next-line no-undef,no-alert
+      // alert('Nothing found :(');
+        <Alert severity="warning">`Nothing found!</Alert>;
     } else {
-      dispatch(setFilter(filteredAndSortedItems));
+      dispatch(setFilter(filteredItems));
       dispatch(setSearch([]));
       dispatch(setInputSearchValue(''));
     }
@@ -142,7 +189,7 @@ const Filter = () => {
     setSandwiches(false);
     setBbqMeat(false);
     setDrink(false);
-    setIsTranding(false);
+    setIsTrending(false);
     setMostPopular(false);
     setIsHealthy(false);
     setIsSupreme(false);
@@ -156,10 +203,7 @@ const Filter = () => {
           <Typography component="h3" sx={stylesTitle}>
             Category
           </Typography>
-          <Button
-            sx={stylesBtnReset}
-            onClick={handleResetFilter}
-          >
+          <Button sx={stylesBtnReset} onClick={handleResetFilter}>
             Reset
           </Button>
         </Stack>
@@ -294,13 +338,13 @@ const Filter = () => {
           <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
             <ToggleButton
               sx={stylesSortBtn}
-              value="isTranding"
-              selected={isTranding}
+              value="isTrending"
+              selected={isTrending}
               onChange={() => {
-                setIsTranding(!isTranding);
+                setIsTrending(!isTrending);
               }}
             >
-              Tranding
+              Trending
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
@@ -347,7 +391,7 @@ const Filter = () => {
           <Slider
             sx={stylesSlider}
             max={30}
-            aria-label="Always visible"
+            getAriaLabel={() => 'Always visible'}
             value={valueSlider}
             step={1}
             marks={marks}
@@ -356,10 +400,7 @@ const Filter = () => {
           />
         </Box>
       </Stack>
-      <Button
-        sx={stylesBtn}
-        onClick={handleApplyFilter}
-      >
+      <Button sx={stylesBtn} onClick={handleApplyFilter}>
         Apply
       </Button>
     </Stack>
