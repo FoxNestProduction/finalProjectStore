@@ -17,12 +17,12 @@ const SwiperReview = () => {
 
   useEffect(() => {
     if (lastReviewsData?.comments) {
-      cardRef.current = lastReviewsData.comments.map(() => createRef());
-    }
-    lastReviewsData?.comments.forEach((item, index) => {
+      cardRef.current = lastReviewsData.comments
+        .map((item, index) => scrollingWrapperRef.current.children[index]);
+      console.log(cardRef.current[0].current);
       const step = cardRef.current[0].offsetWidth;
       setWidthStep(step);
-    });
+    }
   }, [lastReviewsData?.comments]);
 
   const scrollStep = scrollingWrapperRef.current ? widthStep : 0;
@@ -31,6 +31,8 @@ const SwiperReview = () => {
     if (scrollingWrapperRef.current && currentIndex < (lastReviewsData.comments.length - 1)) {
       scrollingWrapperRef.current.scrollLeft += scrollStep;
       setCurrentIndex(currentIndex + 1);
+      console.log(currentIndex);
+      console.log(widthStep);
     }
     if (currentIndex === lastReviewsData.comments.length - 1) {
       scrollingWrapperRef.current.scrollLeft = scrollStep * currentIndex;
@@ -41,6 +43,8 @@ const SwiperReview = () => {
     if (scrollingWrapperRef.current && currentIndex > 0) {
       scrollingWrapperRef.current.scrollLeft -= scrollStep;
       setCurrentIndex(currentIndex - 1);
+      console.log(currentIndex);
+      console.log(scrollStep);
     }
     if (currentIndex === 1) {
       scrollingWrapperRef.current.scrollLeft = 0;
@@ -79,8 +83,9 @@ const SwiperReview = () => {
               data={item._id}
               // eslint-disable-next-line
               className={styles.card}
+              ref={cardRef}
             >
-              <ReviewItem review={item} ref={cardRef.current[index]} />
+              <ReviewItem review={item} />
             </Box>
           ))}
           <Box sx={{ display: { mobile: 'none', lgTablet: 'block' } }}>
