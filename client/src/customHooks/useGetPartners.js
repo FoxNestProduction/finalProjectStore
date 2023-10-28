@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { fetchPartners } from '../redux/slices/partnersSlice';
+// import React, { useEffect } from 'react';
+// import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+// import { fetchPartners } from '../redux/slices/partnersSlice';
 
-const useGetPartners = () => {
-  const dispatch = useDispatch();
+// const useGetPartners = () => {
+//   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchPartners());
-  }, [dispatch]);
+//   useEffect(() => {
+//     dispatch(fetchPartners());
+//   }, [dispatch]);
 
-  const partners = useSelector((state) => state.partners.partners, shallowEqual);
+//   const partners = useSelector((state) => state.partners.partners, shallowEqual);
 
-  return partners;
-};
+//   return partners;
+// };
 
-export default useGetPartners;
+// export default useGetPartners;

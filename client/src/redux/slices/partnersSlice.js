@@ -3,9 +3,9 @@ import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
 
 const initialState = {
-  partners: [],
+  // partners: [],
   topPartners: [],
-  loading: null, // 'idle' | 'pending' | 'succeeded' | 'failed'
+  loading: false, // 'idle' | 'pending' | 'succeeded' | 'failed'
   error: null,
 };
 
@@ -21,17 +21,17 @@ export const fetchTopPartners = createAsyncThunk(
   },
 );
 
-export const fetchPartners = createAsyncThunk(
-  'partners/fetchPartners',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await instance.get('/partners');
-      return response.data;
-    } catch (err) {
-      return rejectWithValue(err.response.data);
-    }
-  },
-);
+// export const fetchPartners = createAsyncThunk(
+//   'partners/fetchPartners',
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await instance.get('/partners');
+//       return response.data;
+//     } catch (err) {
+//       return rejectWithValue(err.response.data);
+//     }
+//   },
+// );
 
 const partnersSlice = createSlice({
   name: 'partners',
@@ -43,15 +43,12 @@ const partnersSlice = createSlice({
       state.topPartners = action.payload;
     },
     [fetchTopPartners.rejected]: setError,
-    [fetchPartners.pending]: (state) => {
-      state.loading = 'pending';
-      state.error = null;
-    },
-    [fetchPartners.fulfilled]: (state, action) => {
-      state.loading = 'succeeded';
-      state.partners = action.payload;
-    },
-    [fetchPartners.rejected]: setError,
+    // [fetchPartners.pending]: setLoading,
+    // [fetchPartners.fulfilled]: (state, action) => {
+    //   state.loading = false;
+    //   state.partners = action.payload;
+    // },
+    // [fetchPartners.rejected]: setError,
   },
 });
 

@@ -8,13 +8,11 @@ import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
 import ListItems from '../../components/ListItems/ListItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import useGetPartners from '../../customHooks/useGetPartners';
 import useGetAPI from '../../customHooks/useAPI';
 
 const RestaurantPage = () => {
-  const partners = useGetPartners();
-  const [data, loading, error] = useGetAPI('/partners');
-  console.log(data);
+  const [partners, loading, error] = useGetAPI('/partners');
+
   const topProducts = useSelector((state) => state.products.topProducts);
 
   const styleRestaurant = {
@@ -41,7 +39,7 @@ const RestaurantPage = () => {
         >
           Our All Restaurants
         </Typography>
-        {partners.map(({ rating, name, imageUrl, description }) => (
+        {partners && partners.map(({ rating, name, imageUrl, description }) => (
           <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}`}>
             <RestaurantCard
               rating={rating}
