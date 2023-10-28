@@ -25,7 +25,7 @@ const FavouriteItem = ({ product }) => {
     name,
     itemNo,
     currentPrice,
-    isTranding,
+    isTrending,
     rating,
     imageUrl,
     isSupreme,
@@ -62,7 +62,7 @@ const FavouriteItem = ({ product }) => {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
               <Typography variant="h3" sx={{ p: 0, mb: 1 }}>{name}</Typography>
               <ColorChips
-                isTranding={isTranding}
+                isTrending={isTrending}
                 isSupreme={isSupreme}
                 isHealthy={isHealthy}
                 customStyles={chipForFavourite}
