@@ -95,9 +95,6 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
             page="Cart"
             icon={(
               <MiniCart />
-              // <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
-              //   <ShoppingCartOutlinedIcon sx={stylesIcon} />
-              // </Badge>
             )}
           />
           {isUserAuthorized && (
