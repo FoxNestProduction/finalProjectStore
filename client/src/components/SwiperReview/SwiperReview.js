@@ -13,35 +13,36 @@ const SwiperReview = () => {
   const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
   const [currentIndex, setCurrentIndex] = useState(1);
   const [widthStep, setWidthStep] = useState(0);
-  const reviews = useSelector((state) => state.reviews.reviews);
-  const sortedReviews = reviews
-    ? [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date))
-    : null;
+  const lengthReviews = lastReviewsData && lastReviewsData.comments.length - 1;
+  // const reviews = useSelector((state) => state.reviews.reviews);
+  // const sortedReviews = reviews
+  //   ? [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date))
+  //   : null;
 
   const scrollingWrapperRef = useRef(null);
   const cardRef = useRef([]);
 
   useEffect(() => {
-    sortedReviews.forEach((item, index) => {
+    lastReviewsData?.comments.forEach((item, index) => {
       cardRef.current[index] = scrollingWrapperRef.current.children[index];
       const step = cardRef.current[0].offsetWidth;
       setWidthStep(step);
     });
-  }, [sortedReviews]);
+  }, [lastReviewsData?.comments]);
 
   const scrollStep = scrollingWrapperRef.current ? widthStep : 0;
 
   const handleNextClick = () => {
-    if (scrollingWrapperRef.current && currentIndex < sortedReviews.length) {
-      setCurrentIndex(currentIndex + 1);
+    if (scrollingWrapperRef.current && currentIndex < (lastReviewsData.comments.length - 1)) {
       scrollingWrapperRef.current.scrollLeft += scrollStep;
+      setCurrentIndex(currentIndex + 1);
     }
   };
 
   const handlePrevClick = () => {
     if (scrollingWrapperRef.current && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
       scrollingWrapperRef.current.scrollLeft -= scrollStep;
+      setCurrentIndex(currentIndex - 1);
     }
   };
 
@@ -70,7 +71,7 @@ const SwiperReview = () => {
           <IconButton
             aria-label="prev"
             sx={{ position: 'absolute', bottom: '23%', left: '30px', backgroundColor: 'background.quote' }}
-            disabled={currentIndex === 0}
+            disabled={currentIndex === 1}
             onClick={handlePrevClick}
           >
             <NavigateBeforeIcon fontSize="large" sx={{ color: 'primary.main' }} />
@@ -78,7 +79,7 @@ const SwiperReview = () => {
           <IconButton
             aria-label="next"
             sx={{ position: 'absolute', bottom: '23%', right: '30px', backgroundColor: 'background.quote' }}
-            disabled={(currentIndex === sortedReviews.length - 1)}
+            disabled={(currentIndex === 8)}
             onClick={handleNextClick}
           >
             <NavigateNextIcon fontSize="large" sx={{ color: 'primary.main' }} />
