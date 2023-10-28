@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Container, Box, Typography, IconButton } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
-import { scrollingWrapperStyles, cardStyles, scrollbarStyles, scrollbarTrackStyles, scrollbarThumbStyles } from './styles';
-import { instance } from '../../API/instance';
 import useGetAPI from '../../customHooks/useGetAPI';
 
 const SwiperReview = () => {
@@ -14,10 +11,6 @@ const SwiperReview = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [widthStep, setWidthStep] = useState(0);
   const lengthReviews = lastReviewsData && lastReviewsData.comments.length - 1;
-  // const reviews = useSelector((state) => state.reviews.reviews);
-  // const sortedReviews = reviews
-  //   ? [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date))
-  //   : null;
 
   const scrollingWrapperRef = useRef(null);
   const cardRef = useRef([]);
@@ -37,6 +30,9 @@ const SwiperReview = () => {
       scrollingWrapperRef.current.scrollLeft += scrollStep;
       setCurrentIndex(currentIndex + 1);
     }
+    if (currentIndex === lastReviewsData.comments.length - 1) {
+      scrollingWrapperRef.current.scrollLeft = scrollStep * currentIndex;
+    }
   };
 
   const handlePrevClick = () => {
@@ -44,7 +40,24 @@ const SwiperReview = () => {
       scrollingWrapperRef.current.scrollLeft -= scrollStep;
       setCurrentIndex(currentIndex - 1);
     }
+    if (currentIndex === 1) {
+      scrollingWrapperRef.current.scrollLeft = 0;
+    }
   };
+
+  useEffect(() => {
+    const scrollingWrapper = scrollingWrapperRef.current;
+
+    const handleScroll = () => {
+      const { scrollLeft } = scrollingWrapper;
+      const newIndex = Math.floor(scrollLeft / scrollStep);
+      setCurrentIndex(newIndex);
+    };
+    scrollingWrapper.addEventListener('scroll', handleScroll);
+    return () => {
+      scrollingWrapper.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollStep]);
 
   return (
     <Container component="section">
@@ -68,22 +81,24 @@ const SwiperReview = () => {
               <ReviewItem review={item} ref={cardRef.current[index]} />
             </Box>
           ))}
-          <IconButton
-            aria-label="prev"
-            sx={{ position: 'absolute', bottom: '23%', left: '30px', backgroundColor: 'background.quote' }}
-            disabled={currentIndex === 1}
-            onClick={handlePrevClick}
-          >
-            <NavigateBeforeIcon fontSize="large" sx={{ color: 'primary.main' }} />
-          </IconButton>
-          <IconButton
-            aria-label="next"
-            sx={{ position: 'absolute', bottom: '23%', right: '30px', backgroundColor: 'background.quote' }}
-            disabled={(currentIndex === 8)}
-            onClick={handleNextClick}
-          >
-            <NavigateNextIcon fontSize="large" sx={{ color: 'primary.main' }} />
-          </IconButton>
+          <Box sx={{ display: { mobile: 'none', lgTablet: 'block' } }}>
+            <IconButton
+              aria-label="prev"
+              sx={{ position: 'absolute', bottom: '23%', left: '30px', backgroundColor: 'background.quote' }}
+              disabled={currentIndex < 0}
+              onClick={handlePrevClick}
+            >
+              <NavigateBeforeIcon fontSize="large" sx={{ color: 'primary.main' }} />
+            </IconButton>
+            <IconButton
+              aria-label="next"
+              sx={{ position: 'absolute', bottom: '23%', right: '30px', backgroundColor: 'background.quote' }}
+              disabled={(currentIndex >= lengthReviews)}
+              onClick={handleNextClick}
+            >
+              <NavigateNextIcon fontSize="large" sx={{ color: 'primary.main' }} />
+            </IconButton>
+          </Box>
         </Box>
       </Box>
     </Container>

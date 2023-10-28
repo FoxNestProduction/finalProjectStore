@@ -31,6 +31,7 @@ const ReviewsPage = () => {
         setReviews(data);// eslint-disable-line no-use-before-define
         setIsLoading(true);
         setIsRendered(true);
+        console.log(data);
       } catch (error) {
         console.log('%cError loading reviews:', 'color: red; font-weight: bold;', error);
       }
