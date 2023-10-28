@@ -48,11 +48,7 @@ export const updateFavourites = (favourites) => async (dispatch, getState) => {
     const state = getState();
     const { authorization } = state;
     if (authorization && authorization.token) {
-      const { data } = await instance.put('/customers', { favourite: state.favourites.favourites }, {
-        headers: {
-          Authorization: state.authorization.token,
-        },
-      });
+      const { data } = await instance.put('/customers', { favourite: state.favourites.favourites });
       const { favourite } = data;
       setFavourite(data.favourite);// eslint-disable-line no-use-before-define
     }

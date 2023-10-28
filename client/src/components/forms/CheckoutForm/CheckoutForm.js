@@ -26,7 +26,7 @@ import {
   paymentRadioBtn, paymentWrapper,
 } from './styles';
 import { setUser } from '../../../redux/slices/userSlice';
-import { CHECKOUT_LS_KEY } from '../../../constants';
+import { CHECKOUT_SS_KEY } from '../../../constants';
 import {
   getDataFromSessionStorage,
   removeDataFromSessionStorage, setDataToSessionStorage,
@@ -61,7 +61,7 @@ const CheckoutForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const checkoutValues = getDataFromSessionStorage(CHECKOUT_LS_KEY);
+    const checkoutValues = getDataFromSessionStorage(CHECKOUT_SS_KEY);
     const newValues = getInitialValues();
 
     if (checkoutValues) {
@@ -76,7 +76,7 @@ const CheckoutForm = () => {
 
   const handleFieldBlur = (e, handleBlur) => {
     handleBlur(e);
-    updateSessionStorageValues(CHECKOUT_LS_KEY, { [e.target.name]: e.target.value });
+    updateSessionStorageValues(CHECKOUT_SS_KEY, { [e.target.name]: e.target.value });
   };
 
   const handleContinue = async (values) => {
@@ -126,7 +126,7 @@ const CheckoutForm = () => {
         const response = await instance.post('/orders', newOrder);
         console.log(response);
         dispatch(setConfirmedOrder(response.data.order));
-        removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+        removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
@@ -139,7 +139,7 @@ const CheckoutForm = () => {
   };
 
   const setInitialTouched = () => {
-    const values = getDataFromSessionStorage(CHECKOUT_LS_KEY);
+    const values = getDataFromSessionStorage(CHECKOUT_SS_KEY);
 
     if (values) {
       return {
