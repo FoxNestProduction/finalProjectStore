@@ -15,26 +15,29 @@ export const cartIconContainer = {
   borderRadius: '18px',
 };
 
+export const linkContainer = {
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  flexWrap: 'nowrap',
+  // width: '40%',
+  width: '78%', // було 40%
+  height: 'auto',
+};
+
 export const textContentBox = {
   mx: {
     mobile: '4px',
     tablet: '20px',
     desktop: '30px',
   },
-};
-
-export const linkContainer = {
-  display: 'flex',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  flexWrap: 'nowrap',
-  width: '40%',
-  height: 'auto',
+  width: '100%',
 };
 
 export const img = {
   minWidth: {
-    mobile: '76px',
+    // mobile: '76px',
+    mobile: '52px',
     tablet: '96px',
     desktop: '110px',
   },
@@ -67,9 +70,11 @@ export const textTitle = {
   display: 'flex',
   width: {
     mobile: '100px',
-    tablet: '160px',
+    // tablet: '160px',
+    tablet: '100%',
   },
   flexWrap: 'wrap',
+  // width: '100%',
   // overflow: 'hidden',
   // whiteSpace: 'nowrap',
   textDecoration: 'none',

@@ -12,8 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
-import { addToCart, deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
+import { deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
+import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
 import { cartIconContainer, img, textContentBox, textContent, buttonStyles, linkContainer, quantityStyle, textTitle } from './styles';
 
@@ -21,6 +22,7 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
   const cartProducts = useSelector((state) => state.cart.cart.products);
   const dispatch = useDispatch();
   const index = cartProducts.findIndex(({ product }) => product._id === _id);
+  const finallySumOfCartProduct = totalSumFromCartProduct(currentPrice, cartQuantity);
   const handleDeleteOne = () => {
     if (index !== -1) {
       const foundObject = cartProducts[index];
@@ -36,21 +38,30 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
   return (
     <Card sx={cartIconContainer}>
       <Box sx={linkContainer}>
-        <Link component={RouterLink} to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
-          <CardMedia
-            component="img"
-            sx={img}
-            image={imageUrl}
-            alt="Live from space album cover"
-          />
-        </Link>
+        <Box
+          sx={{
+            width: {
+              // mobile: '40px',
+              tablet: '59%',
+            },
+          }}
+        >
+          <Link component={RouterLink} to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
+            <CardMedia
+              component="img"
+              sx={img}
+              image={imageUrl}
+              alt="Live from space album cover"
+            />
+          </Link>
+        </Box>
         <Box sx={textContentBox}>
           <Typography sx={textTitle} variant="body2">
             {name}
           </Typography>
           <Typography variant="h3">
             $
-            {currentPrice}
+            {finallySumOfCartProduct}
           </Typography>
         </Box>
       </Box>
