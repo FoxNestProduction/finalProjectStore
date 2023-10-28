@@ -78,6 +78,7 @@ const Filter = () => {
       label: '30$',
     },
   ];
+
   const foodCategories = {
     burgers: `${burgers}`,
     pizza: `${pizza}`,
@@ -88,6 +89,7 @@ const Filter = () => {
     bbqMeat: `${bbqMeat}`,
     drink: `${drink}`,
   };
+
   const filteredItemsByCatagory = products.filter((prod) => {
     const category = prod.filterCategories;
     const price = prod.currentPrice;
@@ -95,18 +97,21 @@ const Filter = () => {
       ? (JSON.parse(foodCategories[category]) && price < valueSlider)
       : (price < valueSlider));
   });
+
   const filters = [
     { condition: mostPopular, filterFunc: (el) => el.rating > 4 },
     { condition: isTranding, filterFunc: (el) => el.isTranding },
     { condition: isHealthy, filterFunc: (el) => el.isHealthy },
     { condition: isSupreme, filterFunc: (el) => el.isSupreme },
   ];
+
   const filteredAndSortedItems = filters.reduce((items, filter) => {
     if (filter.condition) {
       return items.filter(filter.filterFunc);
     }
     return items;
   }, filteredItemsByCatagory);
+
   const handleApplyFilter = () => {
     if (filteredAndSortedItems.length === 0) {
       // eslint-disable-next-line no-undef,no-alert
@@ -124,6 +129,7 @@ const Filter = () => {
       });
     }
   };
+
   const handleResetFilter = () => {
     dispatch(setFilter([]));
     setPizza(false);
@@ -140,6 +146,7 @@ const Filter = () => {
     setIsSupreme(false);
     setValueSlider(defaultSliderValue);
   };
+
   return (
     <Stack component="section" sx={stylesWrap}>
       <Stack component="div">
