@@ -1,9 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
 
 const initialState = {
-  reviews: [],
   newReview: {
     user_id: '',
     customer: {},
@@ -18,13 +16,6 @@ const reviewsSlice = createSlice({
   name: 'reviews',
   initialState,
   reducers: {
-    setReviews(state, action) { // eslint-disable-line no-shadow
-      state.reviews = action.payload;
-    },
-    addReview(state) {
-      // state.reviews.unshift(state.newReview);
-      state.reviews.push(state.newReview);
-    },
     setNewReview(state, action) {
       const { field, value } = action.payload;
       state.newReview[field] = value;
@@ -40,21 +31,10 @@ const reviewsSlice = createSlice({
 });
 
 export const {
-  setReviews,
-  addReview,
   setNewReview,
   searchReviews,
   resetReviewState,
 } = reviewsSlice.actions;
-
-export const getReviews = () => async (dispatch) => {
-  try {
-    const { data } = await instance.get('/comments');
-    dispatch(setReviews(data));
-  } catch (error) {
-    console.log('%cError loading reviews:', 'color: red; font-weight: bold;', error);
-  }
-};
 
 export const addNewReview = (review) => async (dispatch, getState) => {
   try {
@@ -66,7 +46,6 @@ export const addNewReview = (review) => async (dispatch, getState) => {
     dispatch(setNewReview({ field: 'date', value: date }));
     dispatch(setNewReview({ field: 'content', value: content }));
     dispatch(setNewReview({ field: 'rating', value: rating }));
-    // dispatch(addReview(state.reviews.newReview));
   } catch (error) {
     console.log('%cError push review:', 'color: red; font-weight: bold;', error);
   }
