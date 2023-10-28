@@ -3,7 +3,7 @@ import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 
-const ColorChips = ({ isHealthy, isTranding, isSupreme, customStyles }) => {
+const ColorChips = ({ isHealthy, isTrending, isSupreme, customStyles }) => {
   return (
     <Box
       sx={{
@@ -28,7 +28,7 @@ const ColorChips = ({ isHealthy, isTranding, isSupreme, customStyles }) => {
           }}
         />
       ) }
-      { isTranding && (
+      { isTrending && (
         <Chip
           label="Trending"
           sx={{
@@ -54,14 +54,14 @@ const ColorChips = ({ isHealthy, isTranding, isSupreme, customStyles }) => {
 
 ColorChips.propTypes = {
   isHealthy: PropTypes.bool,
-  isTranding: PropTypes.bool,
+  isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
   customStyles: PropTypes.object,
 };
 
 ColorChips.defaultProps = {
   isHealthy: false,
-  isTranding: false,
+  isTrending: false,
   isSupreme: false,
   customStyles: {},
 };
