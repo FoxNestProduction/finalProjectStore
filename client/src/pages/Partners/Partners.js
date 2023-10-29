@@ -9,11 +9,10 @@ import useGetAPI from '../../customHooks/useGetAPI';
 
 const PartnersPage = () => {
   const { customId } = useParams();
-  const [products, setProducts] = useState([]);
 
-  const [title, setTitle] = useState([]);
+  const [title, setTitle] = useState('');
 
-  const [partner, loading, error] = useGetAPI(`/partners/${customId}`);
+  const [partner, partnerLoading, partnerError] = useGetAPI(`/partners/${customId}`);
 
   const [productsOfRest, productsLoading, productsError] = useGetAPI(`/products/filter?restaurant_name=${title}`);
 
