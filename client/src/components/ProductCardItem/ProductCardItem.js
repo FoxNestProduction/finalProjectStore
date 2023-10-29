@@ -24,15 +24,17 @@ const ProductCardItem = ({
   name,
   rating,
   _id,
-  isTranding,
+  isTrending,
   isSupreme,
   isHealthy,
+  itemNo,
 }) => {
-  const breackPoint = useBreakpoint();
+  const breakPoint = useBreakpoint();
   const products = useSelector((state) => state.products.products);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
@@ -68,7 +70,7 @@ const ProductCardItem = ({
         <FavouriteIcon id={_id} />
       </CardActions>
       <Box>
-        <Link sx={{ cursor: 'pointer' }} to={`/menu/${fixedEncodeURIComponent(name)}`}>
+        <Link sx={{ cursor: 'pointer' }} to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
           <Box sx={stylesImageWrapper}>
             <CardMedia
               component="img"
@@ -80,7 +82,7 @@ const ProductCardItem = ({
           <Box sx={stylesMiniTextWrapper}>
             <ColorChips
               isHealthy={isHealthy}
-              isTranding={isTranding}
+              isTrending={isTrending}
               isSupreme={isSupreme}
               customStyles={stylesMiniText}
             />
@@ -105,7 +107,7 @@ const ProductCardItem = ({
         </Typography>
       </Box>
       <CardActions onClick={handleAddToCart} sx={stylesButton}>
-        {breackPoint !== 'mobile' ? (<b>ADD</b>) : null}
+        {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
     </>
@@ -119,8 +121,9 @@ ProductCardItem.propTypes = {
   rating: PropTypes.number,
   _id: PropTypes.string,
   isHealthy: PropTypes.bool,
-  isTranding: PropTypes.bool,
+  isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
+  itemNo: PropTypes.string,
 };
 
 ProductCardItem.defaultProps = {
@@ -130,8 +133,9 @@ ProductCardItem.defaultProps = {
   rating: '',
   _id: '',
   isHealthy: null,
-  isTranding: null,
+  isTrending: null,
   isSupreme: null,
+  itemNo: '',
 };
 
 export default ProductCardItem;

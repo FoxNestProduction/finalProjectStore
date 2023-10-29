@@ -6,14 +6,14 @@ import { Box } from '@mui/material';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
-import { getProducts } from './redux/slices/productsSlice';
-import { getPartners } from './redux/slices/partnersSlice';
+import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
+import { fetchTopPartners, getPartners } from './redux/slices/partnersSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
-import { setIsLoading } from './redux/slices/skeletonSlice';
+import useBreakpoint from './customHooks/useBreakpoint';
+import { topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
 
 import styles from './styles.module.scss';
-import googleAuth from './services/googleAuth/googleAuth.js';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,26 +31,19 @@ const App = () => {
     }
   }, [isUserAuthorized, user]);
 
-  const loading = () => {
-    console.log(partners);
-    console.log(products);
-    console.log(reviews);
-    dispatch(setIsLoading(true));
-    if (partners && products && reviews) {
-      dispatch(setIsLoading(false));
-      console.log(partners);
-      console.log(products);
-      console.log(reviews);
-    }
-  };
-
   useEffect(() => {
     window.scrollTo(0, 0);
-    googleAuth();
   }, [pathname]);
 
+  const breakpoint = useBreakpoint();
+
   useEffect(() => {
-    loading();
+    dispatch(fetchTopProducts(topProductsQtyMap[breakpoint]));
+    dispatch(fetchTopPartners(topPartnersQtyMap[breakpoint]));
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [breakpoint, dispatch]);
+
+  useEffect(() => {
     dispatch(getPartners());
     dispatch(getProducts());
     dispatch(getReviews());
