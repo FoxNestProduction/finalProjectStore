@@ -18,7 +18,6 @@ const PartnersPage = () => {
   const allProductsOfRest = products.filter((item) => {
     return item.restaurant_name.toLowerCase() === nameOfPartners;
   });
-  console.log(allProductsOfRest);
 
   const title = getChangedString(nameOfPartners);
 
