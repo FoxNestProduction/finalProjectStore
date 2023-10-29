@@ -5,16 +5,18 @@ import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
+import { instance } from '../../API/instance';
 import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
 import { setSearch, setKey, setInputSearchValue } from '../../redux/slices/searchSlice';
 import { setScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
-import { setFilteredProducts } from '../../redux/slices/filterSlice';
+import { setFilterParams, setFilteredProducts } from '../../redux/slices/filterSlice';
 
 const Search = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   const partners = useSelector((state) => state.partners.partners);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
+  const filterParams = useSelector((state) => state.filter.filterParams);
   const [alignment, setAlignment] = useState('food');
   const labelForTextField = `Search  ${alignment}`;
 
@@ -25,33 +27,35 @@ const Search = () => {
       dispatch(setSearch([]));
     }
   };
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await instance.post('/products/search', { query: 'pizza' });
-  //       console.log(response);
-  //     } catch (err) {
-  //       console.error('Error getting pizza: ', err);
-  //     }
-  //   })();
-  // }, []);
-
-  const filteredProductsOrRestaurants = (name) => {
-    return (alignment === 'food' ? products : partners).filter((el) => {
-      return el.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
-    });
-  };
-
   const handleInputChange = (event, newInputValue) => {
     dispatch(setInputSearchValue(newInputValue));
     if (newInputValue.length === 0) {
       dispatch(setSearch([]));
     }
     if (newInputValue.length !== 0) {
-      dispatch(setSearch(filteredProductsOrRestaurants(newInputValue)));
-      dispatch(setKey(alignment));
-      dispatch(setFilteredProducts([]));
+      (async () => {
+        try {
+          const response = await instance.post((alignment === 'food' ? '/products/search' : '/partners/search'), { query: `${newInputValue}` });
+          console.log(response.data);
+          dispatch(setSearch(response.data));
+          dispatch(setKey(alignment));
+          dispatch(setFilteredProducts([]));
+          dispatch(
+            setFilterParams({
+              ...filterParams,
+              filterCategories: [],
+              isTrending: false,
+              rating: 0,
+              isHealthy: false,
+              isSupreme: false,
+              minPrice: 0,
+              maxPrice: 30,
+            }),
+          );
+        } catch (err) {
+          console.error('Error getting pizza: ', err);
+        }
+      })();
     }
   };
 

@@ -45,6 +45,7 @@ const Filter = () => {
       dispatch(setFilterParams(initialFilterParams));
     }
   }, []); // eslint-disable-line
+
   const handleChangeDishes = (dishes) => {
     dispatch(
       setFilterParams({
