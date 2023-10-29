@@ -12,26 +12,22 @@ const PartnersPage = () => {
   const { customId } = useParams();
   const [products, setProducts] = useState([]);
 
+  const [title, setTitle] = useState([]);
+
   const [partner, loading, error] = useGetAPI(`/partners/${customId}`);
 
-  const title = partner ? partner.name : '';
+  const [productsOfRest, productsLoading, productsError] = useGetAPI(`/products/filter?restaurant_name=${title}`);
 
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const { data } = await instance.get(`/products/filter?restaurant_name=${title}`);
-        setProducts(data.products);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getProducts();
-  }, [title]);
+    if (partner) {
+      setTitle(partner.name);
+    }
+  }, [partner]);
 
   return (
     <Box>
       <PartnersCard partner={partner} />
-      <ListItems title={`${title} Dishes`} items={products} itemComponent={ProductCardItem} actions={null} />
+      <ListItems title={`${title} Dishes`} items={productsOfRest?.products ? productsOfRest.products : []} itemComponent={ProductCardItem} actions={null} />
       <QuestionsList />
     </Box>
   );
