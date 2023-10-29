@@ -1,9 +1,4 @@
 export const cartIconContainer = {
-  // maxHeight: {
-  //   mobile: '120px',
-  //   tablet: '135px',
-  //   desktop: '143px',
-  // },
   maxWidth: {
     mobile: '481px',
     tablet: '993px',
@@ -21,7 +16,6 @@ export const linkContainer = {
   justifyContent: 'flex-start',
   alignItems: 'center',
   flexWrap: 'nowrap',
-  // width: '40%',
   width: '78%', // було 40%
   height: 'auto',
 };
@@ -38,23 +32,12 @@ export const textContentBox = {
 
 export const img = {
   minWidth: {
-    // mobile: '76px',
     mobile: '58px',
     tablet: '70px',
     desktop: '110px',
   },
-  // maxWidth: {
-  //   mobile: '106px',
-  //   tablet: '127px',
-  // },
-  // maxWidth: '100%',
   height: 'auto',
   objectFit: 'cover',
-  // borderRadius: '8px',
-};
-
-export const textContent = {
-
 };
 
 export const textTitle = {
@@ -70,20 +53,13 @@ export const textTitle = {
   },
   weight: 600,
   display: 'flex',
-  width: {
-    mobile: '100%',
-    tablet: '100%',
-  },
+  width: '100%',
   flexWrap: 'wrap',
-  // width: '100%',
-  // overflow: 'hidden',
-  // whiteSpace: 'nowrap',
   textDecoration: 'none',
 };
 
 export const buttonStyles = {
   padding: {
-    // mobile: '2px 7px',
     mobile: '0px 5px',
     tablet: '0 6px',
     lgTablet: '0 8px',
@@ -92,14 +68,12 @@ export const buttonStyles = {
   borderRadius: '8px',
   minWidth: {
     mobile: '28px !important',
-    // tablet: '29px !important',
     lgTablet: '40px !important',
   },
 };
 
 export const quantityStyle = {
   border: '1px solid rgba(108, 095, 188, 0.5)',
-  // px: '10px',
   px: {
     mobile: '0',
     lgTablet: '10px',
@@ -118,28 +92,9 @@ export const quantityStyle = {
   textAlign: 'center',
 };
 
-// export const buttonStyles = {
-//   padding: {
-//     lgTablet: '0 5px',
-//   },
-//   borderRadius: '8px',
-//   minWidth: '32px',
-// };
-
 export const roundedIcons = {
   fontSize: {
     mobile: '1.2rem',
     lgTablet: '1.5rem',
   },
 };
-
-// export const quantityStyle = {
-//   border: '1px solid rgba(108, 095, 188, 0.5)',
-//   pt: '1px',
-//   fontWeight: 'fontWeightMedium',
-//   fontSize: {
-//     lgTablet: '14px',
-//   },
-//   width: '2rem',
-//   textAlign: 'center',
-// };

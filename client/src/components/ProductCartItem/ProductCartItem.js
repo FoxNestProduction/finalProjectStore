@@ -5,15 +5,13 @@ import { CardMedia, IconButton, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import CardContent from '@mui/material/CardContent';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
-import { deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
+import { deleteFromCart, addOneMore, deleteFullProduct } from '../../redux/slices/cartSlice';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
@@ -21,7 +19,6 @@ import {
   cartIconContainer,
   img,
   textContentBox,
-  textContent,
   buttonStyles,
   linkContainer,
   quantityStyle,
@@ -44,6 +41,12 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
     if (index !== -1) {
       const foundObject = cartProducts[index];
       (() => dispatch(addOneMore(foundObject)))();
+    }
+  };
+  const handleDeleteFullProduct = () => {
+    if (index !== -1) {
+      const foundObject = cartProducts[index];
+      dispatch(deleteFullProduct(foundObject));
     }
   };
   return (
@@ -77,34 +80,12 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
           </Typography>
         </Box>
       </Box>
-      {/* <Box
+      <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           mr: '5px',
-        }}
-      > */}
-      <Box
-        sx={{
-          display: 'flex',
-          // flexDirection: 'column',
-          justifyContent: {
-            mobile: 'center',
-          },
-          alignItems: 'center',
-          // gap: {
-          // mobile: '10px',
-          // },
-          // alignItems: 'center',
-          mr: '5px',
-          // alignSelf: {
-          //   mobile: 'flex-end',
-          // },
-          // mb: {
-          //   mobile: '5px',
-          // },
-          // position: 'relative',
         }}
       >
         <ButtonGroup variant="outlined" aria-label="small button group">
@@ -119,9 +100,8 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
           </Button>
         </ButtonGroup>
       </Box>
-      {/* </Box> */}
       <IconButton
-        // disableRipple
+        onClick={handleDeleteFullProduct}
         aria-label="CloseRoundedIcon"
         size="small"
         color="secondary"
@@ -129,21 +109,33 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
           alignSelf: 'flex-end',
           p: {
             mobile: '0px',
+            tablet: '0px',
+            lgTablet: '2px',
+            desktop: '4px',
           },
           position: 'absolute',
-          top: '1px',
-          right: '12px', // 7
-          // margin: {
-          //   mobile: '0 5% 5% 0',
-          // },
+          top: {
+            mobile: '1px',
+            tablet: '2px',
+            lgTablet: '2px',
+            desktop: '3px',
+          },
+          right: {
+            mobile: '6px',
+            tablet: '4px',
+            lgTablet: '3px',
+            desktop: '4px',
+          },
         }}
       >
         <CloseRoundedIcon
           fontSize="small"
           sx={{
             fontSize: {
-              mobile: '80%', // 14
-              // mobile: '14px', // 14
+              mobile: '14px',
+              tablet: '18px',
+              lgTablet: '22px',
+              desktop: '26px',
             },
           }}
         />
