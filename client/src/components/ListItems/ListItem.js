@@ -5,37 +5,40 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import Sorter from '../Sorter/Sorter';
 import { productsPerPageMap } from '../../constants/bpMapConstants';
 
-const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, type }) => {
+const ListItems = ({ title, items, itemComponent, actions,
+  pagination, anchor, type, itemsFrom }) => {
   const { pathname } = useLocation();
+  const filterParams = useSelector((state) => state.filter.filterParams);
 
-  const [selectedValueSortBy, setSelectedValueSortBy] = React.useState('');
+  // const [selectedValueSortBy, setSelectedValueSortBy] = React.useState('');
 
-  useEffect(() => {
-    setSelectedValueSortBy('Default');
-  }, [items]);
+  // useEffect(() => {
+  //   setSelectedValueSortBy('Default');
+  // }, [items]);
 
-  const itemsCopy = React.useMemo(() => {
-    const copy = [...items];
-    if (selectedValueSortBy === 'Price UP') {
-      return copy.sort((a, b) => a.currentPrice - b.currentPrice);
-    }
-    if (selectedValueSortBy === 'Price DOWN') {
-      return copy.sort((a, b) => b.currentPrice - a.currentPrice);
-    }
-    if (selectedValueSortBy === 'Rating UP') {
-      return copy.sort((a, b) => a.rating - b.rating);
-    }
-    if (selectedValueSortBy === 'Rating DOWN') {
-      return copy.sort((a, b) => b.rating - a.rating);
-    }
-    return copy;
-  }, [items, selectedValueSortBy]);
+  // const itemsCopy = React.useMemo(() => {
+  //   const copy = [...items];
+  //   if (selectedValueSortBy === 'Price UP') {
+  //     return copy.sort((a, b) => a.currentPrice - b.currentPrice);
+  //   }
+  //   if (selectedValueSortBy === 'Price DOWN') {
+  //     return copy.sort((a, b) => b.currentPrice - a.currentPrice);
+  //   }
+  //   if (selectedValueSortBy === 'Rating UP') {
+  //     return copy.sort((a, b) => a.rating - b.rating);
+  //   }
+  //   if (selectedValueSortBy === 'Rating DOWN') {
+  //     return copy.sort((a, b) => b.rating - a.rating);
+  //   }
+  //   return copy;
+  // }, [items, selectedValueSortBy]);
 
   const breakpoint = useBreakpoint();
 
@@ -46,7 +49,7 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
 
   useEffect(() => {
     setPage(1);
-  }, [itemsCopy]);
+  }, [items]);
 
   useEffect(() => {
     setProductsPerPage(productsPerPageMap[breakpoint]);
@@ -55,15 +58,15 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
   useEffect(() => {
     const from = (page - 1) * productsPerPage;
     const to = page * productsPerPage;
-    setPageProducts(itemsCopy.slice(from, to));
+    setPageProducts(items.slice(from, to));
 
-    const currentPageQty = Math.ceil(itemsCopy.length / productsPerPage);
+    const currentPageQty = Math.ceil(items.length / productsPerPage);
     setPageQty(currentPageQty);
 
     if (page > currentPageQty) {
       setPage(1);
     }
-  }, [itemsCopy, page, productsPerPage, breakpoint]);
+  }, [items, page, productsPerPage, breakpoint]);
 
   return (
     <Container sx={{ mb: 13 }}>
@@ -79,8 +82,9 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
       { pathname === '/menu' && (
       <Sorter
         type={type}
-        selectedValueSortBy={selectedValueSortBy}
-        setSelectedValueSortBy={setSelectedValueSortBy}
+        itemsFrom={itemsFrom}
+        // selectedValueSortBy={filterParams.sort}
+        // setSelectedValueSortBy={setSelectedValueSortBy}
       />
       )}
 
@@ -115,6 +119,7 @@ ListItems.propTypes = {
   items: PropTypes.array,
   itemComponent: PropTypes.func,
   type: PropTypes.string,
+  itemsFrom: PropTypes.string,
 };
 
 ListItems.defaultProps = {
@@ -125,6 +130,8 @@ ListItems.defaultProps = {
   items: [],
   itemComponent: () => {},
   type: '',
+  itemsFrom: '',
+
 };
 
 export default ListItems;

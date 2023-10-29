@@ -10,8 +10,9 @@ const initialState = {
     isSupreme: false,
     minPrice: null,
     maxPrice: null,
+    sort: '',
   },
-  sortParams: {},
+  // sortParams: {},
 };
 
 const filterSlice = createSlice({
@@ -29,6 +30,7 @@ const filterSlice = createSlice({
       state.filterParams.isSupreme = action.payload.isSupreme;
       state.filterParams.minPrice = action.payload.minPrice;
       state.filterParams.maxPrice = action.payload.maxPrice;
+      state.filterParams.sort = action.payload.sort;
     },
 
   },

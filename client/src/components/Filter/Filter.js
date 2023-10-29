@@ -37,6 +37,7 @@ const Filter = () => {
       isSupreme: queryParams.isSupreme === 'true',
       minPrice: queryParams.minPrice ? parseInt(queryParams.minPrice, 10) : defaultSliderValue[0],
       maxPrice: queryParams.maxPrice ? parseInt(queryParams.maxPrice, 10) : defaultSliderValue[1],
+      sort: queryParams.sort,
     };
   };
   useEffect(() => {
@@ -58,7 +59,7 @@ const Filter = () => {
       }),
     );
   };
-  console.log(filterParams);
+  // console.log(filterParams);
   const marks = [
     {
       value: 0,
@@ -79,12 +80,19 @@ const Filter = () => {
   ];
 
   const handleApplyFilter = () => {
+    dispatch(
+      setFilterParams({
+        ...filterParams,
+        sort: '',
+      }),
+    );
     const filterParamsAp = {
       isTrending: filterParams.isTrending,
       isHealthy: filterParams.isHealthy,
       isSupreme: filterParams.isSupreme,
       minPrice: filterParams.minPrice,
       maxPrice: filterParams.maxPrice,
+      sort: '',
     };
     if (filterParams.filterCategories.length !== 0) {
       filterParamsAp.filterCategories = filterParams.filterCategories.join(',');
@@ -94,11 +102,12 @@ const Filter = () => {
     }
     const filteredFilterParams = Object.fromEntries(
       Object.entries(filterParamsAp).filter(([key, value]) => {
-        return value !== undefined && value !== false;
+        return value !== undefined && value !== false && value !== null && value !== '';
       }),
     );
     const queryString = qs.stringify(filteredFilterParams, { arrayFormat: 'comma', encode: false });
     navigate(`?${queryString}`);
+    console.log(queryString);
     const newURL = `/products/filter?${queryString}`;
     (async () => {
       try {
@@ -135,6 +144,7 @@ const Filter = () => {
         isSupreme: false,
         minPrice: 0,
         maxPrice: 30,
+        sort: '',
       }),
     );
   };

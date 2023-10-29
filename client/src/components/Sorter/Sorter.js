@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, MenuItem, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { stylesSortSelect } from '../ListItems/styles';
+import { setFilteredProducts, setFilterParams } from '../../redux/slices/filterSlice';
+import { instance } from '../../API/instance';
+import { setProducts } from '../../redux/slices/productsSlice';
+import { setSearch } from '../../redux/slices/searchSlice';
 
-const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
+const Sorter = ({ type, itemsFrom }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const filterParams = useSelector((state) => state.filter.filterParams);
+  const [selectedValueSortBy, setSelectedValueSortBy] = React.useState('Default');
   let currencies;
   if (type === 'partners') {
     currencies = [
@@ -46,8 +57,115 @@ const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
   }
 
   const handleSelectChangeSortBy = (event) => {
+    if (event.target.value === 'Price UP') {
+      dispatch(
+        setFilterParams({
+          ...filterParams,
+          sort: '+currentPrice',
+        }),
+      );
+    }
+    if (event.target.value === 'Price DOWN') {
+      dispatch(
+        setFilterParams({
+          ...filterParams,
+          sort: '-currentPrice',
+        }),
+      );
+    }
+    if (event.target.value === 'Rating UP') {
+      dispatch(
+        setFilterParams({
+          ...filterParams,
+          sort: '+rating',
+        }),
+      );
+    }
+    if (event.target.value === 'Rating DOWN') {
+      dispatch(
+        setFilterParams({
+          ...filterParams,
+          sort: '-rating',
+        }),
+      );
+    }
+    if (event.target.value === 'Default') {
+      dispatch(
+        setFilterParams({
+          ...filterParams,
+          sort: '',
+        }),
+      );
+    }
     setSelectedValueSortBy(event.target.value);
   };
+
+  useEffect(() => {
+    if (itemsFrom === 'filter') {
+      const filterParamsAp = {
+        isTrending: filterParams.isTrending,
+        isHealthy: filterParams.isHealthy,
+        isSupreme: filterParams.isSupreme,
+        minPrice: filterParams.minPrice,
+        maxPrice: filterParams.maxPrice,
+        sort: filterParams.sort,
+      };
+      if (filterParams.filterCategories.length !== 0) {
+        filterParamsAp.filterCategories = filterParams.filterCategories.join(',');
+      }
+      if (filterParams.rating !== 0) {
+        filterParamsAp.rating = filterParams.rating;
+      }
+      const filteredFilterParams = Object.fromEntries(
+        Object.entries(filterParamsAp).filter(([key, value]) => {
+          return value !== undefined && value !== false && value !== null && value !== '';
+        }),
+      );
+      const queryString = qs.stringify(filteredFilterParams, { arrayFormat: 'comma', encode: false });
+      navigate(`?${queryString}`);
+      const newURL = `/products/filter?${queryString}`;
+      (async () => {
+        try {
+          const response = await instance.get(newURL);
+          dispatch(setFilteredProducts(response.data.products));
+        } catch (err) {
+          console.error('Error getting top products: ', err);
+        }
+      })();
+    }
+    // if (itemsFrom === 'search') {
+    //   (async () => {
+    //     try {
+    //       // const response = await instance.post((alignment === 'food' ? '/products/search' :
+    //       // '/partners/search'), { query: `${newInputValue}` });
+    //       // dispatch(setSearch(response.data.products));
+    //     } catch (err) {
+    //       console.error('Error getting top products: ', err);
+    //     }
+    //   })();
+    // }
+    if (itemsFrom === 'allDishes') {
+      const filterParamsAp = {
+        sort: filterParams.sort,
+      };
+      const filteredFilterParams = Object.fromEntries(
+        Object.entries(filterParamsAp).filter(([key, value]) => {
+          return value !== undefined && value !== false && value !== null && value !== '';
+        }),
+      );
+      const queryString = qs.stringify(filteredFilterParams, { arrayFormat: 'comma', encode: false });
+      navigate(`?${queryString}`);
+      const newURL = `/products/filter?${queryString}`;
+      (async () => {
+        try {
+          const response = await instance.get(newURL);
+          dispatch(setProducts(response.data.products));
+        } catch (err) {
+          console.error('Error getting top products: ', err);
+        }
+      })();
+    }
+  }, [selectedValueSortBy, filterParams.sort, itemsFrom]); // eslint-disable-line
 
   return (
     <Box sx={{ width: '100%', height: '40px', mb: '40px', paddingRight: '30px', textAlign: 'end' }}>
@@ -57,7 +175,7 @@ const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
         size="small"
         select
         label="Sort by"
-        defaultValue="Default"
+        defaultValue=""
         variant="standard"
         value={selectedValueSortBy}
         onChange={handleSelectChangeSortBy}
@@ -74,14 +192,16 @@ const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
 
 Sorter.propTypes = {
   type: PropTypes.string,
-  selectedValueSortBy: PropTypes.string,
-  setSelectedValueSortBy: PropTypes.func,
+  itemsFrom: PropTypes.string,
+  // selectedValueSortBy: PropTypes.string,
+  // setSelectedValueSortBy: PropTypes.func,
 };
 
 Sorter.defaultProps = {
   type: '',
-  selectedValueSortBy: '',
-  setSelectedValueSortBy: () => {},
+  itemsFrom: '',
+  // selectedValueSortBy: '',
+  // setSelectedValueSortBy: () => {},
 };
 
 export default Sorter;

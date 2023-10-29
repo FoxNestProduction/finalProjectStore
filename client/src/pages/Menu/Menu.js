@@ -46,6 +46,7 @@ const MenuPage = () => {
           itemComponent={RestaurantItem}
           actions={null}
           type="partners"
+          itemsFrom="search"
         />
       )}
 
@@ -58,6 +59,7 @@ const MenuPage = () => {
           type="food"
           pagination
           anchor={productsAnchor}
+          itemsFrom="search"
         />
       ) : itemsFromFilter.length !== 0 ? (
         <ListItems
@@ -68,6 +70,7 @@ const MenuPage = () => {
           type="food"
           pagination
           anchor={productsAnchor}
+          itemsFrom="filter"
         />
       ) : (
         <ListItems
@@ -78,6 +81,7 @@ const MenuPage = () => {
           type="food"
           pagination
           anchor={productsAnchor}
+          itemsFrom="allDishes"
         />
       )}
 
@@ -89,7 +93,7 @@ const MenuPage = () => {
           actions={<ListItemAction type="partners" />}
           type="partners"
         />
-      ) }
+      )}
     </>
   );
 };
