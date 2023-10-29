@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
-import { CardMedia, Typography } from '@mui/material';
+import { CardMedia, IconButton, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
@@ -51,7 +52,7 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
         <Box
           sx={{
             width: {
-              mobile: '50%',
+              mobile: '40%',
               tablet: '40%',
               desktop: '35%',
             },
@@ -76,12 +77,34 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
           </Typography>
         </Box>
       </Box>
-      <Box
+      {/* <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           mr: '5px',
+        }}
+      > */}
+      <Box
+        sx={{
+          display: 'flex',
+          // flexDirection: 'column',
+          justifyContent: {
+            mobile: 'center',
+          },
+          alignItems: 'center',
+          // gap: {
+          // mobile: '10px',
+          // },
+          // alignItems: 'center',
+          mr: '5px',
+          // alignSelf: {
+          //   mobile: 'flex-end',
+          // },
+          // mb: {
+          //   mobile: '5px',
+          // },
+          // position: 'relative',
         }}
       >
         <ButtonGroup variant="outlined" aria-label="small button group">
@@ -96,6 +119,35 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
           </Button>
         </ButtonGroup>
       </Box>
+      {/* </Box> */}
+      <IconButton
+        // disableRipple
+        aria-label="CloseRoundedIcon"
+        size="small"
+        color="secondary"
+        sx={{
+          alignSelf: 'flex-end',
+          p: {
+            mobile: '0px',
+          },
+          position: 'absolute',
+          top: '1px',
+          right: '12px', // 7
+          // margin: {
+          //   mobile: '0 5% 5% 0',
+          // },
+        }}
+      >
+        <CloseRoundedIcon
+          fontSize="small"
+          sx={{
+            fontSize: {
+              mobile: '80%', // 14
+              // mobile: '14px', // 14
+            },
+          }}
+        />
+      </IconButton>
     </Card>
   );
 };

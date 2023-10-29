@@ -13,6 +13,7 @@ export const cartIconContainer = {
   justifyContent: 'space-between',
   alignItems: 'center',
   borderRadius: '18px',
+  position: 'relative',
 };
 
 export const linkContainer = {
