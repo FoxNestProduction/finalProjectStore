@@ -21,8 +21,6 @@ export const dropDownListWrapper = {
   borderRadius: 0,
   display: 'flex',
   flexDirection: 'column',
-  opacity: '0.8',
-  backgroundColor: 'background.default',
 };
 
 export const stylesIcon = {

@@ -55,7 +55,7 @@ export const buttonStyles = {
     lgTablet: '0 5px',
   },
   borderRadius: '8px',
-  minWidth: '32px',
+  minWidth: '32px !important',
 };
 
 export const roundedIcons = { fontSize: '1.2rem' };

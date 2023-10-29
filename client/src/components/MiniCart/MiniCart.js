@@ -55,6 +55,9 @@ const MiniCart = () => {
         </Badge>
       </IconButton>
       <Popover
+        sx={{
+          opacity: '0.9',
+        }}
         id={id}
         onClose={handleClose}
         open={open}
