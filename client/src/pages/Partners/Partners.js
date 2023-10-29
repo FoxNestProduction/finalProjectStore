@@ -5,7 +5,6 @@ import PartnersCard from '../../components/PartnersCard/PartnersCard';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
 import ListItems from '../../components/ListItems/ListItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import { instance } from '../../API/instance';
 import useGetAPI from '../../customHooks/useGetAPI';
 
 const PartnersPage = () => {
