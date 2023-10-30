@@ -13,10 +13,8 @@ import { TitleBtn, commentItem, commentList, container, flexCenter, titleContain
 const ReviewsPage = () => {
   const searchReview = useSelector((state) => state.reviews.search);
   const indexSearchReview = useSelector((state) => state.reviews.indexSearch);
-  const perPage = 3;
-  const [startPage, setStartPage] = useState(
-    !searchReview ? 1 : Math.ceil(indexSearchReview / perPage),
-  );
+  const [perPage, setPerPage] = useState(!searchReview ? 3 : indexSearchReview + 1);
+  const [startPage, setStartPage] = useState(1);
   const [data, loading, error] = useGetAPI(`/comments/filter?startPage=${startPage}&perPage=${perPage}&sort=-date`);
   const [reviews, setReviews] = useState([]);
   const [isRendered, setIsRendered] = useState(false);
@@ -40,6 +38,7 @@ const ReviewsPage = () => {
       if (containerRect && containerRect.bottom < screenHeight && !isLoading) {
         setIsLoading(true);
         setStartPage(startPage + 1);
+        setPerPage(3);
       }
     };
     if (!loadMore) {
