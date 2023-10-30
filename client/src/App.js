@@ -8,7 +8,6 @@ import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
 import { fetchTopPartners, getPartners } from './redux/slices/partnersSlice';
-import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
 import { topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
@@ -46,7 +45,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getPartners());
     dispatch(getProducts());
-    dispatch(getReviews());
+    // dispatch(getReviews());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
