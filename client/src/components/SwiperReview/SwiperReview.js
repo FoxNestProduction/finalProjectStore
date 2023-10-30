@@ -19,7 +19,6 @@ const SwiperReview = () => {
     if (lastReviewsData?.comments) {
       cardRef.current = lastReviewsData.comments
         .map((item, index) => scrollingWrapperRef.current.children[index]);
-      // console.log(cardRef.current[0].current);
       const step = cardRef.current[0].offsetWidth;
       setWidthStep(step);
     }
@@ -85,7 +84,7 @@ const SwiperReview = () => {
               className={styles.card}
               ref={cardRef}
             >
-              <ReviewItem review={item} />
+              <ReviewItem review={item} index={index} />
             </Box>
           ))}
           <Box sx={{ display: { mobile: 'none', lgTablet: 'block' } }}>
