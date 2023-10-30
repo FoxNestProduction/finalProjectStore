@@ -4,7 +4,7 @@ import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
 import ListItems from '../../components/ListItems/ListItem';
-import { setSearch } from '../../redux/slices/searchSlice';
+import { setInputSearchValue, setSearch } from '../../redux/slices/searchSlice';
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
 
 const MenuPage = () => {
@@ -20,6 +20,7 @@ const MenuPage = () => {
 
   useEffect(() => {
     dispatch(setSearch([]));
+    dispatch(setInputSearchValue(''));
   }, [dispatch]);
 
   return (

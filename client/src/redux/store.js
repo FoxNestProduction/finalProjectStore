@@ -30,11 +30,6 @@ const userPersistConfig = {
   storage,
 };
 
-const searchPersistConfig = {
-  key: 'search',
-  version: 1,
-  storage,
-};
 const favouritePersistConfig = {
   key: 'favorites',
   version: 1,
@@ -66,7 +61,7 @@ const reducer = combineReducers({
   authorization: persistReducer(authPersistConfig, authorizationSlice),
   user: persistReducer(userPersistConfig, userSlice),
   products: productsSlice,
-  search: persistReducer(searchPersistConfig, searchSlice),
+  search: searchSlice,
   order: orderSlice,
   reviews: reviewsSlice,
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
