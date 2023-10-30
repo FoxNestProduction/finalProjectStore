@@ -57,6 +57,13 @@ export const commentList = {
   columnGap: '20px',
 };
 
+export const commentItemSkeleton = {
+  width: '100%',
+  height: '100%',
+  ...flexCenter,
+  mt: '20px',
+};
+
 export const commentItem = {
   width: '100%',
   height: '100%',

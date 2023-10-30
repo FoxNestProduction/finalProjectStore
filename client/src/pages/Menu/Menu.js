@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { Box, Container } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
@@ -7,6 +8,8 @@ import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
 import { instance } from '../../API/instance';
+import { gridStylesContainer } from '../../components/ListItems/styles';
+import Skeleton from '../../components/Skeleton/Skeleton';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -14,8 +17,10 @@ const MenuPage = () => {
   const itemsFromFilter = useSelector((state) => state.filter.filter);
   const keyFromSearch = useSelector((state) => state.search.key);
   const products = useSelector((state) => state.products.products);
+  const loadingProducts = useSelector((state) => state.products.loading);
 
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
+  const loadingPartners = useSelector((state) => state.partners.loading);
 
   const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
 
@@ -48,7 +53,37 @@ const MenuPage = () => {
           type="partners"
         />
       )}
-
+      {loadingProducts && (
+        <>
+          <Container sx={{ mb: 13 }}>
+            <Box sx={gridStylesContainer}>
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+            </Box>
+          </Container>
+          <Container sx={{ mb: 13 }}>
+            <Box sx={gridStylesContainer}>
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+            </Box>
+          </Container>
+          <Container sx={{ mb: 13 }}>
+            <Box sx={gridStylesContainer}>
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+            </Box>
+          </Container>
+        </>
+      )}
       {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
         <ListItems
           title={`Search Results (${itemsFromSearch.length})`}
@@ -81,7 +116,15 @@ const MenuPage = () => {
         />
       )}
 
-      {topPartners.length > 0 && (
+      {loadingPartners ? (
+        <Container sx={{ mb: 13 }}>
+          <Box sx={gridStylesContainer}>
+            <Skeleton skeletonType="restaurant" />
+            <Skeleton skeletonType="restaurant" />
+            <Skeleton skeletonType="restaurant" />
+          </Box>
+        </Container>
+      ) : (topPartners.length > 0 && (
         <ListItems
           title="Our Top Restaurants"
           items={topPartners}
@@ -89,7 +132,7 @@ const MenuPage = () => {
           actions={<ListItemAction type="partners" />}
           type="partners"
         />
-      ) }
+      )) }
     </>
   );
 };

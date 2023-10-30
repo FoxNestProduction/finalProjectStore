@@ -46,8 +46,6 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
   const [page, setPage] = useState(1);
   const [pageQty, setPageQty] = useState(1);
 
-  const isLoading = useSelector((state) => state.skeleton.isLoading);
-
   useEffect(() => {
     setPage(1);
   }, [itemsCopy]);

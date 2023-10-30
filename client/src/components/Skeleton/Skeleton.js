@@ -19,6 +19,16 @@ const Skeleton = ({ skeletonType }) => {
             className={classNames(styles.restaurantChipsTitleRatingSkeleton, styles.loading)}
           />
         </div>
+      ) : skeletonType === 'restaurantsPage' ? (
+        <div className={styles.restaurantsPageCardSkeleton}>
+          <div className={classNames(styles.restaurantsPageImageSkeleton, styles.loading)} />
+          <div
+            className={classNames(styles.restaurantsPageChipsTitleRatingSkeleton, styles.loading)}
+          />
+          <div
+            className={classNames(styles.restaurantsPageChipsTitleRatingSkeleton, styles.loading)}
+          />
+        </div>
       ) : skeletonType === 'product' ? (
         <div className={styles.productCardSkeleton}>
           <div className={classNames(styles.productImageSkeleton, styles.loading)} />

@@ -8,7 +8,8 @@ import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
 import { addNewReview, resetReviewState, searchReviews, setNewReview } from '../../redux/slices/reviewsSlice';
-import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
+import { TitleBtn, commentItem, commentItemSkeleton, commentList, container, flexCenter, titleContainer } from './styles';
+import Skeleton from '../../components/Skeleton/Skeleton';
 
 const ReviewsPage = () => {
   const [startPage, setStartPage] = useState(1);
@@ -161,7 +162,25 @@ const ReviewsPage = () => {
           </Box>
         ))}
       </Box>
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <>
+          <Box
+            sx={commentItemSkeleton}
+          >
+            <Skeleton />
+          </Box>
+          <Box
+            sx={commentItemSkeleton}
+          >
+            <Skeleton />
+          </Box>
+          <Box
+            sx={commentItemSkeleton}
+          >
+            <Skeleton />
+          </Box>
+        </>
+      )}
       {error && <div>{error.statusText}</div>}
     </Container>
   );

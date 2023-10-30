@@ -17,7 +17,6 @@ import cartSlice from './slices/cartSlice';
 import orderSlice from './slices/orderSlice';
 import filterSlice from './slices/filterSlice';
 import scrollAnchorSlice from './slices/scrollAnchorSlice';
-import skeletonSlice from './slices/skeletonSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -74,7 +73,6 @@ const reducer = combineReducers({
   filter: persistReducer(filterPersistConfig, filterSlice),
   cart: persistReducer(cartPersistConfig, cartSlice),
   scrollAnchor: scrollAnchorSlice,
-  skeleton: skeletonSlice,
 });
 
 const middleware = getDefaultMiddleware({
