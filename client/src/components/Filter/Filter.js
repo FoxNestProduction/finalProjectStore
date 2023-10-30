@@ -59,7 +59,6 @@ const Filter = () => {
       }),
     );
   };
-  // console.log(filterParams);
   const marks = [
     {
       value: 0,
@@ -80,19 +79,13 @@ const Filter = () => {
   ];
 
   const handleApplyFilter = () => {
-    dispatch(
-      setFilterParams({
-        ...filterParams,
-        sort: '',
-      }),
-    );
     const filterParamsAp = {
       isTrending: filterParams.isTrending,
       isHealthy: filterParams.isHealthy,
       isSupreme: filterParams.isSupreme,
       minPrice: filterParams.minPrice,
       maxPrice: filterParams.maxPrice,
-      sort: '',
+      sort: filterParams.sort,
     };
     if (filterParams.filterCategories.length !== 0) {
       filterParamsAp.filterCategories = filterParams.filterCategories.join(',');
@@ -102,12 +95,11 @@ const Filter = () => {
     }
     const filteredFilterParams = Object.fromEntries(
       Object.entries(filterParamsAp).filter(([key, value]) => {
-        return value !== undefined && value !== false && value !== null && value !== '';
+        return value === 0 || !!value;
       }),
     );
     const queryString = qs.stringify(filteredFilterParams, { arrayFormat: 'comma', encode: false });
     navigate(`?${queryString}`);
-    console.log(queryString);
     const newURL = `/products/filter?${queryString}`;
     (async () => {
       try {
@@ -144,7 +136,6 @@ const Filter = () => {
         isSupreme: false,
         minPrice: 0,
         maxPrice: 30,
-        sort: '',
       }),
     );
   };

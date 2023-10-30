@@ -12,7 +12,6 @@ const initialState = {
     maxPrice: null,
     sort: '',
   },
-  // sortParams: {},
 };
 
 const filterSlice = createSlice({

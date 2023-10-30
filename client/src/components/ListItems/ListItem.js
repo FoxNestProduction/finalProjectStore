@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import { useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import useBreakpoint from '../../customHooks/useBreakpoint';
@@ -13,33 +12,8 @@ import Sorter from '../Sorter/Sorter';
 import { productsPerPageMap } from '../../constants/bpMapConstants';
 
 const ListItems = ({ title, items, itemComponent, actions,
-  pagination, anchor, type, itemsFrom }) => {
+  pagination, anchor, type, itemsFrom, sorting }) => {
   const { pathname } = useLocation();
-  const filterParams = useSelector((state) => state.filter.filterParams);
-
-  // const [selectedValueSortBy, setSelectedValueSortBy] = React.useState('');
-
-  // useEffect(() => {
-  //   setSelectedValueSortBy('Default');
-  // }, [items]);
-
-  // const itemsCopy = React.useMemo(() => {
-  //   const copy = [...items];
-  //   if (selectedValueSortBy === 'Price UP') {
-  //     return copy.sort((a, b) => a.currentPrice - b.currentPrice);
-  //   }
-  //   if (selectedValueSortBy === 'Price DOWN') {
-  //     return copy.sort((a, b) => b.currentPrice - a.currentPrice);
-  //   }
-  //   if (selectedValueSortBy === 'Rating UP') {
-  //     return copy.sort((a, b) => a.rating - b.rating);
-  //   }
-  //   if (selectedValueSortBy === 'Rating DOWN') {
-  //     return copy.sort((a, b) => b.rating - a.rating);
-  //   }
-  //   return copy;
-  // }, [items, selectedValueSortBy]);
-
   const breakpoint = useBreakpoint();
 
   const [pageProducts, setPageProducts] = useState([]);
@@ -79,12 +53,10 @@ const ListItems = ({ title, items, itemComponent, actions,
         {title}
       </Typography>
 
-      { pathname === '/menu' && (
+      { sorting && (
       <Sorter
         type={type}
         itemsFrom={itemsFrom}
-        // selectedValueSortBy={filterParams.sort}
-        // setSelectedValueSortBy={setSelectedValueSortBy}
       />
       )}
 
@@ -115,6 +87,7 @@ ListItems.propTypes = {
   title: PropTypes.string,
   actions: PropTypes.object,
   pagination: PropTypes.bool,
+  sorting: PropTypes.bool,
   anchor: PropTypes.object,
   items: PropTypes.array,
   itemComponent: PropTypes.func,
@@ -126,6 +99,7 @@ ListItems.defaultProps = {
   title: '',
   actions: {},
   pagination: false,
+  sorting: false,
   anchor: {},
   items: [],
   itemComponent: () => {},

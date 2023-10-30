@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
@@ -6,7 +6,6 @@ import ListItemAction from '../../components/ListItems/ListItemAction';
 import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
-import { instance } from '../../API/instance';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -22,18 +21,6 @@ const MenuPage = () => {
   useEffect(() => {
     dispatch(setSearch([]));
   }, [dispatch]);
-
-  // приклад запиту за продуктами, які відповідають пошуку
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await instance.post('/products/search', { query: 'cheese' });
-  //       console.log(response);
-  //     } catch (err) {
-  //       console.error('Error getting searched products: ', err);
-  //     }
-  //   })();
-  // }, []);
 
   return (
     <>
@@ -69,6 +56,7 @@ const MenuPage = () => {
           actions={null}
           type="food"
           pagination
+          sorting
           anchor={productsAnchor}
           itemsFrom="filter"
         />
@@ -80,6 +68,7 @@ const MenuPage = () => {
           actions={null}
           type="food"
           pagination
+          sorting
           anchor={productsAnchor}
           itemsFrom="allDishes"
         />

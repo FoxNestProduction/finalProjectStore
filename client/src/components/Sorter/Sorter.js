@@ -8,7 +8,6 @@ import { stylesSortSelect } from '../ListItems/styles';
 import { setFilteredProducts, setFilterParams } from '../../redux/slices/filterSlice';
 import { instance } from '../../API/instance';
 import { setProducts } from '../../redux/slices/productsSlice';
-import { setSearch } from '../../redux/slices/searchSlice';
 
 const Sorter = ({ type, itemsFrom }) => {
   const dispatch = useDispatch();
@@ -57,47 +56,49 @@ const Sorter = ({ type, itemsFrom }) => {
   }
 
   const handleSelectChangeSortBy = (event) => {
-    if (event.target.value === 'Price UP') {
-      dispatch(
-        setFilterParams({
-          ...filterParams,
-          sort: '+currentPrice',
-        }),
-      );
-    }
-    if (event.target.value === 'Price DOWN') {
-      dispatch(
-        setFilterParams({
-          ...filterParams,
-          sort: '-currentPrice',
-        }),
-      );
-    }
-    if (event.target.value === 'Rating UP') {
-      dispatch(
-        setFilterParams({
-          ...filterParams,
-          sort: '+rating',
-        }),
-      );
-    }
-    if (event.target.value === 'Rating DOWN') {
-      dispatch(
-        setFilterParams({
-          ...filterParams,
-          sort: '-rating',
-        }),
-      );
-    }
-    if (event.target.value === 'Default') {
-      dispatch(
-        setFilterParams({
-          ...filterParams,
-          sort: '',
-        }),
-      );
-    }
     setSelectedValueSortBy(event.target.value);
+    switch (event.target.value) {
+      case 'Price UP':
+        dispatch(
+          setFilterParams({
+            ...filterParams,
+            sort: '+currentPrice',
+          }),
+        );
+        break;
+      case 'Price DOWN':
+        dispatch(
+          setFilterParams({
+            ...filterParams,
+            sort: '-currentPrice',
+          }),
+        );
+        break;
+      case 'Rating UP':
+        dispatch(
+          setFilterParams({
+            ...filterParams,
+            sort: '+rating',
+          }),
+        );
+        break;
+      case 'Rating DOWN':
+        dispatch(
+          setFilterParams({
+            ...filterParams,
+            sort: '-rating',
+          }),
+        );
+        break;
+      default:
+        dispatch(
+          setFilterParams({
+            ...filterParams,
+            sort: '',
+          }),
+        );
+        break;
+    }
   };
 
   useEffect(() => {
@@ -133,24 +134,13 @@ const Sorter = ({ type, itemsFrom }) => {
         }
       })();
     }
-    // if (itemsFrom === 'search') {
-    //   (async () => {
-    //     try {
-    //       // const response = await instance.post((alignment === 'food' ? '/products/search' :
-    //       // '/partners/search'), { query: `${newInputValue}` });
-    //       // dispatch(setSearch(response.data.products));
-    //     } catch (err) {
-    //       console.error('Error getting top products: ', err);
-    //     }
-    //   })();
-    // }
     if (itemsFrom === 'allDishes') {
       const filterParamsAp = {
         sort: filterParams.sort,
       };
       const filteredFilterParams = Object.fromEntries(
         Object.entries(filterParamsAp).filter(([key, value]) => {
-          return value !== undefined && value !== false && value !== null && value !== '';
+          return !!value;
         }),
       );
       const queryString = qs.stringify(filteredFilterParams, { arrayFormat: 'comma', encode: false });
@@ -193,15 +183,11 @@ const Sorter = ({ type, itemsFrom }) => {
 Sorter.propTypes = {
   type: PropTypes.string,
   itemsFrom: PropTypes.string,
-  // selectedValueSortBy: PropTypes.string,
-  // setSelectedValueSortBy: PropTypes.func,
 };
 
 Sorter.defaultProps = {
   type: '',
   itemsFrom: '',
-  // selectedValueSortBy: '',
-  // setSelectedValueSortBy: () => {},
 };
 
 export default Sorter;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -13,6 +14,7 @@ import { setFilterParams, setFilteredProducts } from '../../redux/slices/filterS
 
 const Search = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const products = useSelector((state) => state.products.products);
   const partners = useSelector((state) => state.partners.partners);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
@@ -36,7 +38,6 @@ const Search = () => {
       (async () => {
         try {
           const response = await instance.post((alignment === 'food' ? '/products/search' : '/partners/search'), { query: `${newInputValue}` });
-          console.log(response.data);
           dispatch(setSearch(response.data));
           dispatch(setKey(alignment));
           dispatch(setFilteredProducts([]));
@@ -50,8 +51,10 @@ const Search = () => {
               isSupreme: false,
               minPrice: 0,
               maxPrice: 30,
+              sort: '',
             }),
           );
+          navigate('');
         } catch (err) {
           console.error('Error getting pizza: ', err);
         }
