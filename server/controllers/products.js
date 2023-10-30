@@ -182,10 +182,13 @@ exports.searchProducts = async (req, res, next) => {
   // const phraseQuery = `\"${query}\"`;
 
   // Finding ALL products, that have at least one match
-  let matchedProducts = await Product.find({
-    $text: { $search: query }
-  })
-    .sort({score: {$meta: 'textScore'}});
+  // let matchedProducts = await Product.find({
+  //   $text: { $search: query }
+  // });
+  let matchedProducts = await Product.find(
+    { $text: { $search: query } },
+    { score: { $meta: 'textScore' } }
+  ).sort({ score: { $meta: 'textScore' } });
 
   res.send(matchedProducts);
 };
