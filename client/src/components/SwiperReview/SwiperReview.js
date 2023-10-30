@@ -78,10 +78,18 @@ const SwiperReview = () => {
           {/* {loading && <p>Loading...</p>} */}
           {loading ? (
             <>
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
+              <Box className={styles.card}>
+                <Skeleton />
+              </Box>
+              <Box className={styles.card}>
+                <Skeleton />
+              </Box>
+              <Box className={styles.card}>
+                <Skeleton />
+              </Box>
+              <Box className={styles.card}>
+                <Skeleton />
+              </Box>
             </>
           ) : lastReviewsData && lastReviewsData?.comments.map((item, index) => (
             <Box

@@ -9,7 +9,6 @@ import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
 import { addNewReview, resetReviewState, searchReviews } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
-import Skeleton from '../../components/Skeleton/Skeleton';
 
 const ReviewsPage = () => {
   const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
@@ -113,14 +112,7 @@ const ReviewsPage = () => {
         )}
       </Box>
       <Box ref={containerRef} sx={commentList}>
-        {loading ? (
-          <>
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </>
-        ) : (lastReviewsData && reviews.map((item, index) => (
+        {lastReviewsData && reviews.map((item, index) => (
           <Box
             key={item._id}
             data={item._id}
@@ -130,7 +122,7 @@ const ReviewsPage = () => {
           >
             <ReviewItem review={item} />
           </Box>
-        )))}
+        ))}
       </Box>
       {loading && <div>Loading...</div>}
       {error && <div>{error.statusText}</div>}
