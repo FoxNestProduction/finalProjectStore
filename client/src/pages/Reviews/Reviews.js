@@ -7,14 +7,19 @@ import useGetAPI from '../../customHooks/useGetAPI';
 import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
-import { addNewReview, resetReviewState, searchReviews } from '../../redux/slices/reviewsSlice';
+import { addNewReview, resetReviewState, searchReviews, setNewReview } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 
 const ReviewsPage = () => {
-  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
+  const [startPage, setStartPage] = useState(1);
+  const perPage = 3;
+  const [data, loading, error] = useGetAPI(`/comments/filter?startPage=${startPage}&perPage=${perPage}&sort=-date`);
   const [reviews, setReviews] = useState([]);
   const [isRendered, setIsRendered] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [loadMore, setLoadMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const newReview = useSelector((state) => state.reviews.newReview);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
@@ -23,25 +28,49 @@ const ReviewsPage = () => {
 
   const containerRef = useRef(null);
   const cardRef = useRef([]);
+  const prevDataRef = useRef();
 
   useEffect(() => {
-    if (lastReviewsData?.comments) {
-      cardRef.current = lastReviewsData.comments.map(() => createRef());
+    const handleScroll = () => {
+      const screenHeight = window.innerHeight;
+      const containerRect = containerRef.current?.getBoundingClientRect();
+      if (containerRect.bottom < screenHeight && !isLoading) {
+        setIsLoading(true);
+        setStartPage(startPage + 1);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isLoading, startPage]);
+
+  useEffect(() => {
+    if (prevDataRef.current !== data && !loading) {
+      setIsLoading(false);
+      if (data?.comments && loadMore) {
+        if (reviews.length > 0) {
+          setReviews([...reviews, ...data.comments]);
+        } else {
+          setReviews(data.comments);
+        }
+        cardRef.current = data?.comments.map(() => createRef());
+        setIsLoading(false);
+        setIsRendered(true);
+        prevDataRef.current = data;
+      }
     }
-    setReviews(lastReviewsData?.comments);// eslint-disable-line no-use-before-define
-    setIsRendered(true);
-  }, [lastReviewsData?.comments, error]);
+    if (reviews.length > data?.commentsQuantity) {
+      setLoadMore(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.comments, startPage, loading, loadMore]);
 
   const handleSendFeedback = () => {
     dispatch(addNewReview());
     dispatch(resetReviewState());
     dispatch(closeModal());
   };
-
-  useEffect(() => {
-    setReviews([newReview, ...reviews]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newReview.customer]);
 
   useEffect(() => {
     if (newReview.content && newReview.content !== '') {
@@ -80,6 +109,15 @@ const ReviewsPage = () => {
   };
 
   useEffect(() => {
+    if (newReview && reviews.length > 0) {
+      setReviews([newReview, ...reviews]);
+    } else {
+      setNewReview(newReview);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newReview.customer]);
+
+  useEffect(() => {
     if (searchReview && cardRef.current.length > 0) {
       const element = containerRef.current.querySelector(`[data="${searchReview}"]`);
       const scrollScreen = () => {
@@ -112,11 +150,10 @@ const ReviewsPage = () => {
         )}
       </Box>
       <Box ref={containerRef} sx={commentList}>
-        {lastReviewsData && reviews.map((item, index) => (
+        {reviews && reviews.map((item, index) => (
           <Box
             key={item._id}
             data={item._id}
-            // eslint-disable-next-line
             ref={cardRef.current[index]}
             sx={commentItem}
           >
