@@ -183,8 +183,8 @@ RestaurantCard.propTypes = {
 
 RestaurantCard.defaultProps = {
   rating: 3,
-  name: 'The Chicken King',
-  imageUrl: './img/restaurants/Resturent01.jpg',
+  name: '',
+  imageUrl: '',
   description: '',
   styleWidth: {},
 };
