@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
-import { setError, setLoading } from '../extraReducersHelpers';
+import { setLoading, setError } from '../extraReducersHelpers';
+
+const initialState = {
+  topPartners: [],
+  loading: false,
+  error: null,
+};
 
 export const fetchTopPartners = createAsyncThunk(
   'partners/fetchTopPartners',
@@ -14,21 +20,9 @@ export const fetchTopPartners = createAsyncThunk(
   },
 );
 
-const initialState = {
-  partners: [],
-  topPartners: [],
-  loading: false,
-  error: null,
-};
-
 const partnersSlice = createSlice({
   name: 'partners',
   initialState,
-  reducers: {
-    setPartners(state, action) {
-      state.partners = action.payload;
-    },
-  },
   extraReducers: {
     [fetchTopPartners.pending]: setLoading,
     [fetchTopPartners.fulfilled]: (state, action) => {
@@ -40,15 +34,5 @@ const partnersSlice = createSlice({
 });
 
 export const { setPartners } = partnersSlice.actions;
-
-// todo: видалити, коли всі дані будуть завантажуватись через asyncThunk/локально в компонентах
-export const getPartners = () => async (dispatch) => {
-  try {
-    const { data } = await instance.get('/partners');
-    dispatch(setPartners(data));
-  } catch (err) {
-    console.log('%cError loading products:', 'color: red; font-weight: bold;', err);
-  }
-};
 
 export default partnersSlice.reducer;

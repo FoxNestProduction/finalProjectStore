@@ -15,7 +15,7 @@ import ColorChips from '../Chip/Chip';
 import { chipSizeRestaurant, chipBoxchipSizeRestaurant } from '../Chip/styles';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupreme }) => {
+const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupreme, customId }) => {
   const styles = {
     display: 'flex',
     alignItems: 'center',
@@ -23,7 +23,7 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupre
   };
 
   return (
-    <Link to={`/restaurants/${fixedEncodeURIComponent(name)}`}>
+    <Link to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}>
       <Card
         sx={{
           ...styles,
@@ -172,6 +172,7 @@ RestaurantCard.propTypes = {
   isHealthy: PropTypes.bool,
   isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
+  customId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 RestaurantCard.defaultProps = {
@@ -179,8 +180,9 @@ RestaurantCard.defaultProps = {
   isTrending: false,
   isSupreme: false,
   rating: 3,
-  name: 'The Chicken King',
-  imageUrl: './img/restaurants/Resturent01.jpg',
+  name: '',
+  imageUrl: '',
+  customId: '',
 };
 
 export default RestaurantCard;

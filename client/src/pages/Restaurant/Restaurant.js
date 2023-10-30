@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { shallowEqual, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Container, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
@@ -8,11 +8,13 @@ import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
 import ListItems from '../../components/ListItems/ListItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
+import useGetAPI from '../../customHooks/useGetAPI';
 import { gridStylesContainer } from '../../components/ListItems/styles';
 import Skeleton from '../../components/Skeleton/Skeleton';
 
 const RestaurantPage = () => {
-  const partners = useSelector((state) => state.partners.partners, shallowEqual);
+  const [partners, loading, error] = useGetAPI('/partners');
+
   const loadingPartners = useSelector((state) => state.partners.loading);
   const topProducts = useSelector((state) => state.products.topProducts);
   const loadingProducts = useSelector((state) => state.products.loading);
@@ -51,8 +53,8 @@ const RestaurantPage = () => {
             <Skeleton skeletonType="restaurantsPage" />
           </>
         ) : (
-          partners.map(({ rating, name, imageUrl, description }) => (
-            <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}`}>
+          partners && partners.map(({ rating, name, imageUrl, description, customId }) => (
+            <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}>
               <RestaurantCard
                 rating={rating}
                 name={name}
