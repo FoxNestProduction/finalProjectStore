@@ -1,31 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { shallowEqual, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import PartnersCard from '../../components/PartnersCard/PartnersCard';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
 import ListItems from '../../components/ListItems/ListItem';
-import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import getChangedString from '../../utils/getChangedString';
+import useGetAPI from '../../customHooks/useGetAPI';
 
 const PartnersPage = () => {
-  const { partnersName } = useParams();
+  const { customId } = useParams();
 
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const nameOfPartners = fixedDecodeURIComponent(partnersName);
+  const [title, setTitle] = useState('');
 
-  const allProductsOfRest = products.filter((item) => {
-    return item.restaurant_name.toLowerCase() === nameOfPartners;
-  });
-  console.log(allProductsOfRest);
+  const [partner, partnerLoading, partnerError] = useGetAPI(`/partners/${customId}`);
 
-  const title = getChangedString(nameOfPartners);
+  const [productsOfRest, productsLoading, productsError] = useGetAPI(`/products/filter?restaurant_name=${title}`);
+
+  useEffect(() => {
+    if (partner) {
+      setTitle(partner.name);
+    }
+  }, [partner]);
 
   return (
     <Box>
-      <PartnersCard partnersName={partnersName} />
-      <ListItems title={`${title} Dishes`} items={allProductsOfRest} itemComponent={ProductCardItem} actions={null} />
+      <PartnersCard partner={partner} />
+      <ListItems title={`${title} Dishes`} items={productsOfRest?.products ? productsOfRest.products : []} itemComponent={ProductCardItem} actions={null} />
       <QuestionsList />
     </Box>
   );

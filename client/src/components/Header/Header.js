@@ -36,7 +36,7 @@ import ElevationScroll from '../ElevationScroll/ElevationScroll';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
-import { CHECKOUT_LS_KEY } from '../../constants';
+import { CHECKOUT_SS_KEY } from '../../constants/constants';
 import { getFavourites, resetCardStates } from '../../redux/slices/favouriteSlice';
 import { updateCart, cartIconCounterFunction } from '../Cart/cartFunctions';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
@@ -82,7 +82,7 @@ const Header = () => {
     dispatch(setToken(null));
     dispatch(setAuthorization(false));
     dispatch(setUser({}));
-    removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+    removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     dispatch(resetCardStates());
   };
 

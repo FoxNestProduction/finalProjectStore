@@ -28,9 +28,29 @@ const PartnerSchema = new Schema(
     date: {
       type: Date,
       default: Date.now
-    }
+    },
+    isBookmark: {
+      type: Boolean,
+    },
+    isSupreme: {
+      type: Boolean,
+    },
+    isTrending: {
+      type: Boolean,
+    },
+    isHealthy: {
+      type: Boolean,
+    },
+    rating: {
+      type: Number,
+    },
+    address: {
+      type: String
+    },
   },
   { strict: false }
 );
+
+PartnerSchema.index({ "$**": "text" });
 
 module.exports = Partner = mongoose.model("partners", PartnerSchema);

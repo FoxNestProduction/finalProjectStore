@@ -60,22 +60,8 @@ export const gridStylesItemProducts = {
   mb: '40px',
   minWidth: {
     desktop: '145px',
-    tablet: '160px',
+    tablet: '155px',
   },
-};
-
-export const partnersCardWidth = {
-  mobile: 3,
-  tablet: 3,
-  lgTablet: 2,
-  desktop: 3,
-};
-
-export const productsCardWidth = {
-  mobile: 4,
-  tablet: 4,
-  lgTablet: 3,
-  desktop: 5,
 };
 
 export const stylesSortSelect = {

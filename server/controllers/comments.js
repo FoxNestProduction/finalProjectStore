@@ -1,6 +1,8 @@
 const Comment = require("../models/Comment");
 const queryCreator = require("../commonHelpers/queryCreator");
 const _ = require("lodash");
+const filterParser = require("../commonHelpers/filterParser");
+const Product = require("../models/Product");
 
 exports.addComment = (req, res, next) => {
   const commentData = _.cloneDeep(req.body);
@@ -121,4 +123,27 @@ exports.getProductComments = (req, res, next) => {
         message: `Error happened on server: "${err}" `
       })
     );
+};
+
+exports.getCommentsFilterParams = async (req, res, next) => {
+  const mongooseQuery = filterParser(req.query);
+  const perPage = Number(req.query.perPage);
+  const startPage = Number(req.query.startPage);
+  const sort = req.query.sort;
+
+  try {
+    const comments = await Comment.find(mongooseQuery)
+      .populate("customer")
+      .skip(startPage * perPage - perPage)
+      .limit(perPage)
+      .sort(sort);
+
+    const commentsQuantity = await Comment.find(mongooseQuery);
+
+    res.json({ comments, commentsQuantity: commentsQuantity.length });
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
+    });
+  }
 };

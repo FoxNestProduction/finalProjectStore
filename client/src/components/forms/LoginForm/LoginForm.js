@@ -36,7 +36,7 @@ import { setAuthorization, setToken } from '../../../redux/slices/authorizationS
 import { setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../utils/sessionStorageHelpers';
-import { CHECKOUT_LS_KEY } from '../../../constants';
+import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
 import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
@@ -67,7 +67,7 @@ const LoginForm = () => {
         dispatch(closeModal());
         dispatch(setAuthorizationError(''));
 
-        removeDataFromSessionStorage(CHECKOUT_LS_KEY);
+        removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         saveUserInfoToSessionStorage(user);
         dispatch(getCartItemsFromServer());
         dispatch(getFavourites());
