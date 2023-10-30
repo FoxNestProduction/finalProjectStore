@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -17,30 +16,34 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ColorChips from '../Chip/Chip';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
+<<<<<<< HEAD
 import { instance } from '../../API/instance';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
+=======
+import { stylesButtonCard,
+  stylesButtonCardOutline,
+  stylesSectionCard,
+  stylesHeaderTopCard,
+  stylesHeaderInCard,
+  stylesContentCard,
+  stylesActionsCard,
+  stylesPriceCard,
+  stylesRatingCard,
+  stylesLabelCard,
+  stylesMediaCard } from './styles';
+>>>>>>> dev
 import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
+import useGetAPI from '../../customHooks/useGetAPI';
 
 const ProductCard = () => {
   const { itemNo } = useParams();
   const dispatch = useDispatch();
-  const [dish, setDish] = useState({});
+  const [dish, loading, error] = useGetAPI(`/products/${itemNo}`);
+
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const { data } = await instance.get(`/products/${itemNo}`);
-        setDish(data);
-      } catch (error) {
-        console.log('Error loading products:', error);
-      }
-    };
-    getProducts();
-  }, [itemNo]);
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
@@ -48,14 +51,15 @@ const ProductCard = () => {
     name,
     description,
     currentPrice,
-    isTranding,
+    isTrending,
     rating,
     imageUrl,
     isSupreme,
     isHealthy,
     // eslint-disable-next-line no-underscore-dangle
     _id: id,
-  } = dish;
+  } = dish || {};
+
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const toggleFavourite = () => {
     if (isFavourite) {
@@ -88,7 +92,6 @@ const ProductCard = () => {
       sx={{
         bgcolor: 'background.default',
         mt: { mobile: 5, tablet: 8 },
-
       }}
     >
       <Card
@@ -121,7 +124,7 @@ const ProductCard = () => {
             >
               <Box sx={{ my: 2, width: { lgTablet: '350px' } }}>
                 <ColorChips
-                  isTrending={isTranding}
+                  isTrending={isTrending}
                   isSupreme={isSupreme}
                   isHealthy={isHealthy}
                 />
@@ -195,14 +198,6 @@ const ProductCard = () => {
       </Card>
     </Container>
   );
-};
-
-ProductCard.propTypes = {
-  // productName: PropTypes.string.isRequired,
-  // itemNo: PropTypes.string.isRequired,
-};
-
-ProductCard.defaultProps = {
 };
 
 export default ProductCard;

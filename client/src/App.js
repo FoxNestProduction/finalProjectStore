@@ -10,6 +10,7 @@ import { fetchTopPartners } from './redux/slices/partnersSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
+import { topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,20 +30,6 @@ const App = () => {
   }, [pathname]);
 
   const breakpoint = useBreakpoint();
-
-  const topProductsQtyMap = {
-    mobile: 4,
-    tablet: 4,
-    lgTablet: 3,
-    desktop: 5,
-  };
-
-  const topPartnersQtyMap = {
-    mobile: 3,
-    tablet: 3,
-    lgTablet: 2,
-    desktop: 3,
-  };
 
   useEffect(() => {
     dispatch(fetchTopProducts(topProductsQtyMap[breakpoint]));

@@ -4,12 +4,12 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import { Box, MenuItem, TextField } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import Sorter from '../Sorter/Sorter';
+import { productsPerPageMap } from '../../constants/bpMapConstants';
 
 const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, type }) => {
   const { pathname } = useLocation();
@@ -38,12 +38,6 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
   }, [items, selectedValueSortBy]);
 
   const breakpoint = useBreakpoint();
-  const productsPerPageMap = {
-    mobile: 10,
-    tablet: 10,
-    lgTablet: 9,
-    desktop: 15,
-  };
 
   const [pageProducts, setPageProducts] = useState([]);
   const [productsPerPage, setProductsPerPage] = useState(productsPerPageMap[breakpoint]);
@@ -56,7 +50,6 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
 
   useEffect(() => {
     setProductsPerPage(productsPerPageMap[breakpoint]);
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint]);
 
   useEffect(() => {

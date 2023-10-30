@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
 
-import { CHECKOUT_LS_KEY } from '../constants';
-
 export const setDataToSessionStorage = (key, data) => {
   sessionStorage.setItem(key, JSON.stringify(data));
 };

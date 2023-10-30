@@ -15,7 +15,7 @@ import ColorChips from '../Chip/Chip';
 import { chipSizeRestaurant, chipBoxchipSizeRestaurant } from '../Chip/styles';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupreme, customId }) => {
+const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupreme, customId }) => {
   const styles = {
     display: 'flex',
     alignItems: 'center',
@@ -71,7 +71,7 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
           <ColorChips
             customStyles={chipSizeRestaurant}
             isHealthy={isHealthy}
-            isTranding={isTranding}
+            isTrending={isTrending}
             isSupreme={isSupreme}
           />
         </Box>
@@ -170,14 +170,14 @@ RestaurantCard.propTypes = {
   name: PropTypes.string,
   imageUrl: PropTypes.string,
   isHealthy: PropTypes.bool,
-  isTranding: PropTypes.bool,
+  isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
   customId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 RestaurantCard.defaultProps = {
   isHealthy: false,
-  isTranding: false,
+  isTrending: false,
   isSupreme: false,
   rating: 3,
   name: '',
