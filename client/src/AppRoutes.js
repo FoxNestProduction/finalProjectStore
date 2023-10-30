@@ -33,7 +33,7 @@ const AppRoutes = () => {
         <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
-        <Route path="/restaurants/:partnersName" element={<PartnersPage />} />
+        <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

@@ -16,17 +16,7 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ColorChips from '../Chip/Chip';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
-import { stylesButtonCard,
-  stylesButtonCardOutline,
-  stylesSectionCard,
-  stylesHeaderTopCard,
-  stylesHeaderInCard,
-  stylesContentCard,
-  stylesActionsCard,
-  stylesPriceCard,
-  stylesRatingCard,
-  stylesLabelCard,
-  stylesMediaCard } from './styles';
+import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
