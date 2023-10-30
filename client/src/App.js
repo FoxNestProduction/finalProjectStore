@@ -6,7 +6,7 @@ import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
-import { fetchTopPartners, getPartners } from './redux/slices/partnersSlice';
+import { fetchTopPartners } from './redux/slices/partnersSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
 import { topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
@@ -37,7 +37,6 @@ const App = () => {
   }, [breakpoint, dispatch]);
 
   useEffect(() => {
-    dispatch(getPartners());
     dispatch(getProducts());
   }, [dispatch]);
 
