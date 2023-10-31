@@ -13,7 +13,6 @@ import { productsPerPageMap } from '../../constants/bpMapConstants';
 
 const ListItems = ({ title, items, itemComponent, actions,
   pagination, anchor, type, itemsFrom, sorting }) => {
-  const { pathname } = useLocation();
   const breakpoint = useBreakpoint();
 
   const [pageProducts, setPageProducts] = useState([]);
