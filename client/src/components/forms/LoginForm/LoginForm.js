@@ -40,7 +40,7 @@ import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
 import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
-import { getFavourites } from '../../../redux/slices/favouriteSlice';
+import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const LoginForm = () => {
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         saveUserInfoToSessionStorage(user);
         dispatch(getCartItemsFromServer());
-        dispatch(getFavourites());
+        dispatch(fetchFavourites());
       }
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));

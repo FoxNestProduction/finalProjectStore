@@ -1,10 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
+import { setLoading, setError } from '../extraReducersHelpers';
+
+export const fetchFavourites = createAsyncThunk(
+  'favourites/fetchByIdStatus',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await instance.get('/wishlist');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
 
 const initialState = {
   favourites: [],
   cardStates: {},
-  user: '',
+  loading: false,
+  error: null,
 };
 
 const favouriteSlice = createSlice({
@@ -16,9 +30,6 @@ const favouriteSlice = createSlice({
       action.payload.forEach(({ _id }) => {
         state.cardStates[_id] = true;
       });
-    },
-    setUser(state, action) {
-      state.user = action.payload;
     },
     addFavourite(state, action) {
       const id = action.payload;
@@ -36,6 +47,18 @@ const favouriteSlice = createSlice({
       state.favourites = [];
     },
   },
+  extraReducers: {
+    [fetchFavourites.pending]: setLoading,
+    [fetchFavourites.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.favourites = action.payload;
+      state.user = action.payload;
+      action.payload.forEach(({ _id }) => {
+        state.cardStates[_id] = true;
+      });
+    },
+    [fetchFavourites.rejected]: setError,
+  },
 });
 
 export const {
@@ -44,20 +67,6 @@ export const {
   setFavourite,
   resetCardStates,
 } = favouriteSlice.actions;
-
-export const getFavourites = () => async (dispatch) => {
-  try {
-    // dispatch(setIsLoading(true));
-    const { data } = await instance.get('/wishlist');
-    console.log(data);
-    const { products } = data;
-    dispatch(setFavourite(products));
-    // dispatch(setIsLoading(false));
-  } catch (error) {
-    console.warn('Error loading favourites:', error);
-    // dispatch(setIsLoading(false));
-  }
-};
 
 export const addToFavourites = ({ id }) => async (dispatch) => {
   try {
@@ -78,25 +87,6 @@ export const deleteFromFavourites = ({ id }) => async (dispatch) => {
     console.log(id);
   } catch (error) {
     console.warn('Error loading favourites:', error);
-  }
-};
-
-export const updateFavourites = (favourites) => async (dispatch, getState) => {
-  try {
-    const state = getState();
-    const updatedWishlist = {
-      products: state.favourites.favourites,
-    };
-    console.log(favourites);
-    const { authorization } = state;
-    if (authorization && authorization.token) {
-      const response = await instance.put('/wishlist', updatedWishlist);
-      console.log(response);
-      // const { favourite } = data;
-      // setFavourite(data.favourite);// eslint-disable-line no-use-before-define
-    }
-  } catch (error) {
-    console.log('%cError push review:', 'color: red; font-weight: bold;', error);
   }
 };
 
