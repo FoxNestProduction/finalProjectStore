@@ -8,7 +8,7 @@ import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import { instance } from '../../API/instance';
+import CustomAlert from '../../components/Alert/Alert';
 
 const HomePage = () => {
   const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
@@ -37,6 +37,7 @@ const HomePage = () => {
       />
       ) }
       <SwiperReview />
+      <CustomAlert />
     </>
   );
 };
