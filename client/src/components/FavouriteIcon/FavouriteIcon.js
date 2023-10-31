@@ -13,7 +13,6 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const token = useSelector((state) => state.authorization.token);
 
   const toggleFavourite = () => {
-    console.log(isFavourite);
     if (token && !ishovered) {
       if (isFavourite) {
         // dispatch(removeFavourite(id));
@@ -23,7 +22,6 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
         dispatch(addToFavourites({ id }));
       }
     }
-    console.log(isFavourite);
   };
 
   useEffect(() => {

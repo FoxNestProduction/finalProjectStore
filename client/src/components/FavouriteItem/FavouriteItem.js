@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { CardActions, CardContent, CardMedia, Rating, Button, Box, Card } from '@mui/material';
@@ -26,7 +26,6 @@ const FavouriteItem = ({ product }) => {
     isHealthy,
     _id,
   } = product;
-
   // let selectedItem;
   const handleAddToCart = () => {
     const selectedItem = {
@@ -96,10 +95,10 @@ const FavouriteItem = ({ product }) => {
 };
 
 FavouriteItem.propTypes = {
-  product: PropTypes.string,
+  product: PropTypes.object,
 };
 FavouriteItem.defaultProps = {
-  product: '',
+  product: {},
 };
 
 export default FavouriteItem;
