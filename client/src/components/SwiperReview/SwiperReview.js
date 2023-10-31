@@ -30,8 +30,6 @@ const SwiperReview = () => {
     if (scrollingWrapperRef.current && currentIndex < (lastReviewsData.comments.length - 1)) {
       scrollingWrapperRef.current.scrollLeft += scrollStep;
       setCurrentIndex(currentIndex + 1);
-      console.log(currentIndex);
-      console.log(widthStep);
     }
     if (currentIndex === lastReviewsData.comments.length - 1) {
       scrollingWrapperRef.current.scrollLeft = scrollStep * currentIndex;
@@ -42,10 +40,8 @@ const SwiperReview = () => {
     if (scrollingWrapperRef.current && currentIndex > 0) {
       scrollingWrapperRef.current.scrollLeft -= scrollStep;
       setCurrentIndex(currentIndex - 1);
-      console.log(currentIndex);
-      console.log(scrollStep);
     }
-    if (currentIndex === 1) {
+    if (currentIndex === 1 || currentIndex === 0) {
       scrollingWrapperRef.current.scrollLeft = 0;
     }
   };

@@ -7,6 +7,7 @@ const initialState = {
     customer: {},
     rating: null,
     content: '',
+    _id: '',
   },
   search: '',
   indexSearch: null,
@@ -46,11 +47,12 @@ export const addNewReview = (review) => async (dispatch, getState) => {
     const state = getState();
     // eslint-disable-line no-use-before-define
     const { data } = await instance.post('/comments', state.reviews.newReview);
-    const { customer, date, content, rating } = data;
+    const { customer, date, content, rating, _id } = data;
     dispatch(setNewReview({ field: 'customer', value: customer }));
     dispatch(setNewReview({ field: 'date', value: date }));
     dispatch(setNewReview({ field: 'content', value: content }));
     dispatch(setNewReview({ field: 'rating', value: rating }));
+    dispatch(setNewReview({ field: '_id', value: _id }));
   } catch (error) {
     console.log('%cError push review:', 'color: red; font-weight: bold;', error);
   }

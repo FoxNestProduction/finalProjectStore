@@ -35,7 +35,7 @@ const Favourites = () => {
       <Typography
         variant="h2"
         component="h3"
-        sx={{ textAlign: 'center', mb: { lgTablet: '34px', desktop: '28px' }, pt: { mobile: '40px', lgTablet: '60px' } }}
+        sx={{ textAlign: 'center', mx: 0, mb: { lgTablet: '34px', desktop: '28px' }, pt: { mobile: '40px', lgTablet: '60px' } }}
       >
         Favourite
       </Typography>
@@ -52,7 +52,6 @@ const Favourites = () => {
           {isMobile
             && (
               <ListItems
-                title="Favourite"
                 items={favouritesList}
                 itemComponent={ProductCardItem}
                 actions={null}
