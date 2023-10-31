@@ -37,8 +37,10 @@ const ReviewsPage = () => {
       const containerRect = containerRef.current?.getBoundingClientRect();
       if (containerRect && containerRect.bottom < screenHeight && !isLoading) {
         setIsLoading(true);
-        setStartPage(startPage + 1);
         setPerPage(3);
+        setStartPage(searchReview !== ''
+          ? startPage + Math.ceil((indexSearchReview + perPage) / perPage) + 1
+          : startPage + 1);
       }
     };
     if (!loadMore) {
@@ -46,7 +48,7 @@ const ReviewsPage = () => {
     } else {
       window.addEventListener('scroll', handleScroll);
     }
-  }, [isLoading, startPage, loadMore]);
+  }, [isLoading, startPage, loadMore, searchReview, indexSearchReview, perPage]);
 
   // додавання і рендеринг нових відгуків, якщо виконуються умови
   useEffect(() => {
@@ -125,6 +127,10 @@ const ReviewsPage = () => {
   // скрол екрана до searchReview
   useEffect(() => {
     if (searchReview && cardRef.current.length > 0) {
+      console.log(startPage);
+      console.log(perPage);
+      console.log(reviews);
+      console.log(searchReview);
       const element = containerRef.current.querySelector(`[data="${searchReview}"]`);
       const scrollScreen = () => {
         if (element && !isScrolling.current) {
