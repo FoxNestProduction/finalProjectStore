@@ -127,10 +127,6 @@ const ReviewsPage = () => {
   // скрол екрана до searchReview
   useEffect(() => {
     if (searchReview && cardRef.current.length > 0) {
-      console.log(startPage);
-      console.log(perPage);
-      console.log(reviews);
-      console.log(searchReview);
       const element = containerRef.current.querySelector(`[data="${searchReview}"]`);
       const scrollScreen = () => {
         if (element && !isScrolling.current) {
