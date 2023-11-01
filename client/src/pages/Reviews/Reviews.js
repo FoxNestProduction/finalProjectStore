@@ -1,8 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, createRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Button, Box, Container, useMediaQuery } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import useGetAPI from '../../customHooks/useGetAPI';
 import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
@@ -10,11 +11,11 @@ import { addNewReview, resetReviewState, searchReviews } from '../../redux/slice
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 
 const ReviewsPage = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
+  const [reviews, setReviews] = useState([]);
   const [isRendered, setIsRendered] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.reviews.reviews);
   const newReview = useSelector((state) => state.reviews.newReview);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const searchReview = useSelector((state) => state.reviews.search);
@@ -23,11 +24,24 @@ const ReviewsPage = () => {
   const containerRef = useRef(null);
   const cardRef = useRef([]);
 
+  useEffect(() => {
+    if (lastReviewsData?.comments) {
+      cardRef.current = lastReviewsData.comments.map(() => createRef());
+    }
+    setReviews(lastReviewsData?.comments);// eslint-disable-line no-use-before-define
+    setIsRendered(true);
+  }, [lastReviewsData?.comments, error]);
+
   const handleSendFeedback = () => {
     dispatch(addNewReview());
     dispatch(resetReviewState());
     dispatch(closeModal());
   };
+
+  useEffect(() => {
+    setReviews([newReview, ...reviews]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newReview.customer]);
 
   useEffect(() => {
     if (newReview.content && newReview.content !== '') {
@@ -65,18 +79,6 @@ const ReviewsPage = () => {
     }
   };
 
-  const incrementIndex = () => {
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-  };
-
-  useEffect(() => {
-    const intervalId = setInterval(incrementIndex, 200);
-    setIsRendered(true);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-
   useEffect(() => {
     if (searchReview && cardRef.current.length > 0) {
       const element = containerRef.current.querySelector(`[data="${searchReview}"]`);
@@ -98,8 +100,6 @@ const ReviewsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRendered, searchReview, cardRef.current.length]);
 
-  const sortedReviews = reviews ? [...reviews].sort((a, b) => b.date - a.date) : null;
-
   return (
     <Container component="section" sx={{ ...flexCenter, ...container }}>
       <Box sx={titleContainer}>
@@ -111,20 +111,21 @@ const ReviewsPage = () => {
           </Button>
         )}
       </Box>
-
       <Box ref={containerRef} sx={commentList}>
-        {sortedReviews.map((item, index) => (
+        {lastReviewsData && reviews.map((item, index) => (
           <Box
             key={item._id}
             data={item._id}
             // eslint-disable-next-line
-            ref={function (el) { cardRef.current[index] = el; }}
+            ref={cardRef.current[index]}
             sx={commentItem}
           >
             <ReviewItem review={item} />
           </Box>
         ))}
       </Box>
+      {loading && <div>Loading...</div>}
+      {error && <div>{error.statusText}</div>}
     </Container>
   );
 };
