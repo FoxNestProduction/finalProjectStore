@@ -15,7 +15,7 @@ import { getProducts } from '../../redux/slices/productsSlice';
 const Favourites = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLgTablet = useMediaQuery('(mix-width: 690px)');
+  const isLgTablet = useMediaQuery('(min-width: 690px)');
   const products = useSelector((state) => state.products.products, shallowEqual);
   const favourite = useSelector((state) => state.favourites.favourites);
 
@@ -34,20 +34,20 @@ const Favourites = () => {
       {favourite.length !== 0 ? (
         <Box sx={{ mb: '300px' }}>
           {isLgTablet
-          && (
-            <Container sx={{ backgroundColor: 'background.default' }}>
-              <Typography
-                variant="h2"
-                component="h3"
-                sx={{ textAlign: 'center', mb: '30px' }}
-              >
-                Favourites
-              </Typography>
-              <Stack direction="column" spacing={3}>
-                { favourite.map((item) => <FavouriteItem key={item} product={item} />)}
-              </Stack>
-            </Container>
-          )}
+            && (
+              <Container sx={{ backgroundColor: 'background.default' }}>
+                <Typography
+                  variant="h2"
+                  component="h3"
+                  sx={{ textAlign: 'center', mb: '30px' }}
+                >
+                  Favourites
+                </Typography>
+                <Stack direction="column" spacing={3}>
+                  {favourite.map((item) => <FavouriteItem key={item} product={item} />)}
+                </Stack>
+              </Container>
+            )}
           {!isLgTablet
             && (
               <ListItems
