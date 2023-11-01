@@ -39,7 +39,8 @@ const ReviewsPage = () => {
         setIsLoading(true);
         setPerPage(3);
         setStartPage(searchReview !== ''
-          ? startPage + Math.ceil((indexSearchReview + perPage) / perPage) + 1
+          ? startPage + Math.ceil((indexSearchReview + perPage + 1) / perPage)
+          // ? startPage + Math.ceil((indexSearchReview + perPage) / perPage) + 1
           : startPage + 1);
       }
     };
