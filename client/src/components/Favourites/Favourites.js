@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 import FavouriteItem from '../FavouriteItem/FavouriteItem';
 import ListItems from '../ListItems/ListItem';
 import ProductCardItem from '../ProductCardItem/ProductCardItem';
@@ -15,10 +16,12 @@ const Favourites = () => {
 
   // eslint-disable-next-line no-underscore-dangle
   const favouritesList = useSelector((state) => state.favourites.favourites, shallowEqual);
+  const loading = useSelector((state) => state.favourites.loading);
+  const error = useSelector((state) => state.favourites.error);
 
   return (
     <Box sx={{ mb: '300px', pt: { mobile: '40px', lgTablet: '60px' } }}>
-      { isLgTablet
+      { favouritesList && isLgTablet
         && (
           <Container sx={{ backgroundColor: 'background.default' }}>
             <Typography variant="h2" component="h3" sx={{ textAlign: 'center', mb: { lgTablet: '34px', desktop: '28px' } }}>Favourite</Typography>
@@ -27,7 +30,7 @@ const Favourites = () => {
             </Stack>
           </Container>
         )}
-      { isMobile
+      { favouritesList && isMobile
         && (
           <ListItems
             title="Favourite"
@@ -36,6 +39,13 @@ const Favourites = () => {
             actions={null}
           />
         )}
+      {loading
+      && (
+        <Box sx={{ width: '100%' }}>
+          <LinearProgress />
+        </Box>
+      )}
+      {error && <div>{error.statusText}</div>}
     </Box>
   );
 };

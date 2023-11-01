@@ -26,7 +26,7 @@ const FavouriteItem = ({ product }) => {
     isHealthy,
     _id,
   } = product;
-  // let selectedItem;
+
   const handleAddToCart = () => {
     const selectedItem = {
       product: {
@@ -89,6 +89,7 @@ const FavouriteItem = ({ product }) => {
       </CardActions>
       <CardActions sx={{ position: 'absolute', top: '0', right: '0' }}>
         <FavouriteIcon id={_id} />
+        {/* <FavouriteIcon product={product} /> */}
       </CardActions>
     </Card>
   );
