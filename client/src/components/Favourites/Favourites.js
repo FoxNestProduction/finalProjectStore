@@ -15,7 +15,7 @@ import { getProducts } from '../../redux/slices/productsSlice';
 const Favourites = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isMobile = useMediaQuery('(max-width: 690px)');
+  const isLgTablet = useMediaQuery('(mix-width: 690px)');
   const products = useSelector((state) => state.products.products, shallowEqual);
   const favourite = useSelector((state) => state.favourites.favourites);
 
@@ -33,7 +33,7 @@ const Favourites = () => {
     <Box>
       {favourite.length !== 0 ? (
         <Box sx={{ mb: '300px' }}>
-          {!isMobile
+          {isLgTablet
           && (
             <Container sx={{ backgroundColor: 'background.default' }}>
               <Typography
@@ -48,7 +48,7 @@ const Favourites = () => {
               </Stack>
             </Container>
           )}
-          {isMobile
+          {!isLgTablet
             && (
               <ListItems
                 title="Favourites"
