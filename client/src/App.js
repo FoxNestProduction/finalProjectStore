@@ -7,7 +7,6 @@ import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
 import { fetchTopPartners } from './redux/slices/partnersSlice';
-import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
 import { topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
@@ -39,7 +38,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-    dispatch(getReviews());
   }, [dispatch]);
 
   return (
