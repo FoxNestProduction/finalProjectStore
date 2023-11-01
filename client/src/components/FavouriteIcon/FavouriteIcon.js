@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
@@ -20,10 +20,6 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
       }
     }
   };
-
-  useEffect(() => {
-    console.log(id);
-  }, [id]);
 
   return (
     <IconButton onClick={() => toggleFavourite()} sx={{ m: 0, p: 0 }}>

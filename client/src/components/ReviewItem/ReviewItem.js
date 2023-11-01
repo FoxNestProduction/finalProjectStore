@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -21,26 +21,28 @@ const ReviewItem = ({ review }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { rating, content, avatarUrl, userReview, date, _id: id } = review;
+  const { rating, content, avatarUrl, date, _id: id, customer: { lastName, firstName } } = review;
+
   const isMoreThreeLineText = (content.length >= 150) && (location.pathname !== '/reviews');
   const styleComment = (location.pathname === '/reviews') ? stylesFullText : { ...stylesText };
-  const minMidthWraper = !(location.pathname === '/reviews') && '295px';
   const widthWrapper = !(location.pathname === '/reviews') ? { mobile: '100%', tablet: '345px', desktop: '485px' } : '100%';
 
   const ratingNumber = Number(rating);
-  const dateReview = new Date(+date);
+  const dateReview = new Date(date);
   const day = String(dateReview.getDate()).padStart(2, '0');
   const month = String(dateReview.getMonth() + 1).padStart(2, '0');
   const year = dateReview.getFullYear();
   const formattedDate = `${day}.${month}.${year}`;
 
   const handleReviewClick = () => {
-    navigate('/reviews');
-    dispatch(searchReviews(id));
+    if (location.pathname !== '/reviews') {
+      navigate('/reviews');
+      dispatch(searchReviews(id));
+    }
   };
 
   return (
-    <Card sx={{ ...stylesCardReview, minWidth: minMidthWraper, width: widthWrapper }}>
+    <Card sx={{ ...stylesCardReview, width: widthWrapper }} onClick={() => handleReviewClick(id)}>
       <CardHeader
         avatar={(
           <Avatar>
@@ -48,7 +50,7 @@ const ReviewItem = ({ review }) => {
           </Avatar>
         )}
         title={
-          userReview
+          `${lastName} ${firstName}`
         }
         action={
           <FormatQuoteRoundedIcon sx={stylesQuoteIcon} />
@@ -61,7 +63,6 @@ const ReviewItem = ({ review }) => {
         {isMoreThreeLineText && (
           <MoreHorizIcon
             sx={{ position: 'absolute', right: '30px', cursor: 'pointer' }}
-            onClick={() => handleReviewClick(id)}
           />
         )}
       </CardContent>

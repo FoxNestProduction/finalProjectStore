@@ -8,19 +8,18 @@ const CommentSchema = new Schema(
       ref: "customers",
       required: true
     },
-    product: {
-      type: Schema.Types.ObjectId,
-      ref: "products",
-      required: true
-    },
     category: {
       type: Schema.Types.ObjectId,
       ref: "catalogs"
     },
     rating: {
       type: Number,
-      required: true
+      // required: true
     },
+    date: {
+      type: Date,
+      default: Date.now
+    }
   },
   { strict: false }
 );

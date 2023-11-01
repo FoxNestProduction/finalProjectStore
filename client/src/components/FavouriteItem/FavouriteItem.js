@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { CardActions, CardContent, CardMedia, Rating, Button, Box, Card } from '@mui/material';
@@ -26,6 +26,8 @@ const FavouriteItem = ({ product }) => {
     isHealthy,
     _id,
   } = product;
+
+  const isFavourite = useSelector((state) => state.favourites.cardStates[_id]);
 
   const handleAddToCart = () => {
     const selectedItem = {

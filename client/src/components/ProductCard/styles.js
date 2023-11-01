@@ -7,7 +7,7 @@ export const stylesButton = {
     backgroundColor: 'primary.hover',
     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
     color: 'text.primaryLight',
-    border: 0,
+    border: '1px solid #664FFF',
   },
   '&:active': {
     backgroundColor: 'common.white',
@@ -23,12 +23,6 @@ export const stylesButtonCardOutline = {
   color: 'text.header',
   display: 'flex',
   gap: 1,
-  // '&:hover': {
-  //   backgroundColor: 'primary.hover',
-  //   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
-  //   color: 'text.primaryLight',
-  //   border: '1px solid primary.hover',
-  // },
 };
 
 export const stylesButtonCard = {
