@@ -16,7 +16,6 @@ const Favourites = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width: 690px)');
-  const isLgTablet = useMediaQuery('(min-width: 690px)');
   const products = useSelector((state) => state.products.products, shallowEqual);
   const favourite = useSelector((state) => state.favourites.favourites);
 
@@ -34,7 +33,7 @@ const Favourites = () => {
     <Box>
       {favourite.length !== 0 ? (
         <Box sx={{ mb: '300px' }}>
-          {isLgTablet
+          {!isMobile
           && (
             <Container sx={{ backgroundColor: 'background.default' }}>
               <Typography
