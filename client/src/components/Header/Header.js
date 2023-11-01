@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,6 +18,7 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
+import { useNavigate } from 'react-router';
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
 import {
@@ -43,6 +44,8 @@ import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
@@ -86,6 +89,16 @@ const Header = () => {
     dispatch(resetCardStates());
   };
 
+  const setNavigateTo = (page) => {
+    if (page === 'Menu') {
+      if (location.pathname === '/menu' && location.search) {
+        return `/menu${location.search}`;
+      }
+      return '/menu';
+    }
+    return `/${page.toLowerCase()}`;
+  };
+
   const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
 
   return (
@@ -106,7 +119,8 @@ const Header = () => {
                   <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                     <Button
                       component={NavLink}
-                      to={`/${page.toLowerCase()}`}
+                      // to={`/${page.toLowerCase()}`}
+                      to={setNavigateTo(page)}
                       sx={stylesNavMenuItem}
                     >
                       {page}
@@ -162,6 +176,7 @@ const Header = () => {
           handleOpenModalLogin={handleOpenModalLogin}
           navItems={navItems}
           handleLogOut={handleLogOut}
+          setNavigateTo={setNavigateTo}
         />
       </nav>
     </>

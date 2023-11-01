@@ -2,7 +2,7 @@
 import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,6 +23,7 @@ import { fetchFilteredProducts, setFilteredProducts, setFilterParams } from '../
 const Filter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const defaultSliderValue = useMemo(() => [0, 30], []);
 
@@ -54,7 +55,8 @@ const Filter = () => {
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    const queryString = window.location.search;
+    const queryString = location.search;
+    // console.log('queryString', queryString);
 
     if (queryString) {
       navigate(queryString);

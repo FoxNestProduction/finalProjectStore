@@ -26,7 +26,7 @@ import RegisterForm from '../forms/RegisterForm/RegisterForm';
 import { cartIconCounterFunction } from '../Cart/cartFunctions';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
-  handleCloseDrawer, handleOpenModalLogin, handleLogOut }) => {
+  handleCloseDrawer, handleOpenModalLogin, handleLogOut, setNavigateTo }) => {
   const dispatch = useDispatch();
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
@@ -75,7 +75,8 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
                   // },
                 }}
                 component={NavLink}
-                to={`/${page.toLowerCase()}`}
+                // to={`/${page.toLowerCase()}`}
+                to={setNavigateTo(page)}
               >
                 <ListItemText
                   primary={page}
@@ -149,6 +150,7 @@ HeaderDrawer.propTypes = {
   handleOpenModalLogin: PropTypes.func,
   navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   handleLogOut: PropTypes.func,
+  setNavigateTo: PropTypes.func,
 };
 
 HeaderDrawer.defaultProps = {
@@ -157,6 +159,7 @@ HeaderDrawer.defaultProps = {
   handleOpenModalLogin: () => {},
   navItems: [],
   handleLogOut: () => {},
+  setNavigateTo: () => {},
 };
 
 export default HeaderDrawer;
