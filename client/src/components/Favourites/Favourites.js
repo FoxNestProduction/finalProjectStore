@@ -40,8 +40,9 @@ const Favourites = () => {
               <Typography
                 variant="h2"
                 component="h3"
+                sx={{ textAlign: 'center', mb: '30px' }}
               >
-                Favourite
+                Favourites
               </Typography>
               <Stack direction="column" spacing={3}>
                 { favourite.map((item) => <FavouriteItem key={item} product={item} />)}
@@ -51,6 +52,7 @@ const Favourites = () => {
           {isMobile
             && (
               <ListItems
+                title="Favourites"
                 items={favouritesList}
                 itemComponent={ProductCardItem}
                 actions={null}
