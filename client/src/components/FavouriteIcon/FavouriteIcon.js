@@ -9,7 +9,6 @@ import { addToFavourites, deleteFromFavourites } from '../../redux/slices/favour
 const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const dispatch = useDispatch();
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
-  const wishlist = useSelector((state) => state.favourites.favourites);
   const token = useSelector((state) => state.authorization.token);
 
   const toggleFavourite = () => {
@@ -37,6 +36,7 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
               color: isactive ? 'primary.main' : (ishovered ? 'text.primaryLight' : 'text.header'),
               width: '24px',
               height: '24px',
+              transitionDelay: 'color 0.3s ease',
               '&:hover': { color: 'secondary.main' },
               '&:active': { color: 'secondary.hover' },
 
