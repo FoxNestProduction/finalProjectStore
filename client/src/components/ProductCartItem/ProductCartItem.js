@@ -86,6 +86,21 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
           justifyContent: 'center',
           alignItems: 'center',
           mr: '5px',
+          position: {
+            mobile: 'relative',
+          },
+          bottom: {
+            mobile: '-12px',
+            // tablet: '2px',
+            lgTablet: '0px',
+            // desktop: '0px',
+          },
+          right: {
+            mobile: '2px',
+            // tablet: '4px',
+            lgTablet: '0px',
+            // desktop: '4px',
+          },
         }}
       >
         <ButtonGroup variant="outlined" aria-label="small button group">
@@ -106,24 +121,22 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
         size="small"
         color="secondary"
         sx={{
-          alignSelf: 'flex-end',
           p: {
-            mobile: '0px',
-            tablet: '0px',
+            mobile: '1px',
             lgTablet: '2px',
             desktop: '4px',
           },
           position: 'absolute',
           top: {
-            mobile: '1px',
-            tablet: '2px',
-            lgTablet: '2px',
+            mobile: '3px',
+            tablet: '3px',
+            lgTablet: '4px',
             desktop: '3px',
           },
           right: {
-            mobile: '6px',
+            mobile: '4px',
             tablet: '4px',
-            lgTablet: '3px',
+            lgTablet: '4px',
             desktop: '4px',
           },
         }}
@@ -132,7 +145,7 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
           fontSize="small"
           sx={{
             fontSize: {
-              mobile: '14px',
+              mobile: '16px',
               tablet: '18px',
               lgTablet: '22px',
               desktop: '26px',

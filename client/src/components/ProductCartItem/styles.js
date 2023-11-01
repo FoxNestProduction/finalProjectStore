@@ -70,6 +70,21 @@ export const buttonStyles = {
     mobile: '28px !important',
     lgTablet: '40px !important',
   },
+  // position: {
+  //   mobile: 'absolute',
+  // },
+  // bottom: {
+  // mobile: '0px',
+  // tablet: '2px',
+  // lgTablet: '2px',
+  // desktop: '3px',
+  // },
+  // right: {
+  // mobile: '0px',
+  // tablet: '4px',
+  // lgTablet: '3px',
+  // desktop: '4px',
+  // },
 };
 
 export const quantityStyle = {
