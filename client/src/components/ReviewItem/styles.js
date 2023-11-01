@@ -24,7 +24,8 @@ export const stylesContent = {
   overflow: 'auto',
   pb: {
     mobile: 10,
-    tablet: 12,
+    tablet: 14,
+    desktop: 16,
   },
 };
 

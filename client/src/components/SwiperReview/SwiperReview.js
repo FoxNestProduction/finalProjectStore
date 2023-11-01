@@ -86,7 +86,7 @@ const SwiperReview = () => {
           <Box sx={{ display: { mobile: 'none', lgTablet: 'block' } }}>
             <IconButton
               aria-label="prev"
-              sx={{ position: 'absolute', bottom: '23%', left: '30px', backgroundColor: 'background.quote' }}
+              sx={{ position: 'absolute', bottom: '25%', left: '30px', backgroundColor: 'background.quote' }}
               disabled={currentIndex < 0}
               onClick={handlePrevClick}
             >
@@ -94,7 +94,7 @@ const SwiperReview = () => {
             </IconButton>
             <IconButton
               aria-label="next"
-              sx={{ position: 'absolute', bottom: '23%', right: '30px', backgroundColor: 'background.quote' }}
+              sx={{ position: 'absolute', bottom: '25%', right: '30px', backgroundColor: 'background.quote' }}
               disabled={(currentIndex >= lengthReviews)}
               onClick={handleNextClick}
             >
