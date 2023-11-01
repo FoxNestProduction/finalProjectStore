@@ -1,4 +1,4 @@
-import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
+import { Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
@@ -55,7 +55,7 @@ const Filter = () => {
     dispatch(
       setFilterParams({
         ...filterParams,
-        filterCategories: Array.isArray(filterParams.filterCategories)
+        filterCategories: filterParams.filterCategories
           ? filterParams.filterCategories.includes(`${dishes}`)
             ? filterParams.filterCategories.filter((category) => category !== `${dishes}`)
             : [...filterParams.filterCategories, `${dishes}`]
@@ -176,7 +176,7 @@ const Filter = () => {
               sx={stylesToggleButton}
               value="pizza"
               // eslint-disable-next-line
-              selected={Array.isArray(filterParams.filterCategories) && filterParams.filterCategories.includes('pizza')}
+              selected={filterParams.filterCategories.includes('pizza')}
               onChange={() => handleChangeDishes('pizza')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -188,7 +188,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="burgers"
-              selected={Array.isArray(filterParams.filterCategories) && filterParams.filterCategories.includes('burgers')}
+              selected={filterParams.filterCategories.includes('burgers')}
               onChange={() => handleChangeDishes('burgers')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -200,7 +200,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="sushi"
-              selected={Array.isArray(filterParams.filterCategories) && filterParams.filterCategories.includes('sushi')}
+              selected={filterParams.filterCategories.includes('sushi')}
               onChange={() => handleChangeDishes('sushi')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -212,7 +212,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="salads"
-              selected={Array.isArray(filterParams.filterCategories) && filterParams.filterCategories.includes('salads')}
+              selected={filterParams.filterCategories.includes('salads')}
               onChange={() => handleChangeDishes('salads')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -233,7 +233,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="pasta"
-              selected={Array.isArray(filterParams.filterCategories) && filterParams.filterCategories.includes('pasta')}
+              selected={filterParams.filterCategories.includes('pasta')}
               onChange={() => handleChangeDishes('pasta')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -245,7 +245,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="sandwiches"
-              selected={Array.isArray(filterParams.filterCategories) && filterParams.filterCategories.includes('sandwiches')}
+              selected={filterParams.filterCategories.includes('sandwiches')}
               onChange={() => handleChangeDishes('sandwiches')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -257,7 +257,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="bbqMeat"
-              selected={Array.isArray(filterParams.filterCategories) && filterParams.filterCategories.includes('bbqMeat')}
+              selected={filterParams.filterCategories.includes('bbqMeat')}
               onChange={() => handleChangeDishes('bbqMeat')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -269,7 +269,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="drink"
-              selected={Array.isArray(filterParams.filterCategories) && filterParams.filterCategories.includes('drink')}
+              selected={filterParams.filterCategories.includes('drink')}
               onChange={() => handleChangeDishes('drink')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
