@@ -35,12 +35,12 @@ const favouritePersistConfig = {
   version: 1,
   storage,
 };
-
-const filterPersistConfig = {
-  key: 'filter',
-  version: 1,
-  storage,
-};
+//
+// const filterPersistConfig = {
+//   key: 'filter',
+//   version: 1,
+//   storage,
+// };
 
 const cartPersistConfig = {
   key: 'cart',
@@ -65,7 +65,8 @@ const reducer = combineReducers({
   order: orderSlice,
   reviews: reviewsSlice,
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
-  filter: persistReducer(filterPersistConfig, filterSlice),
+  // filter: persistReducer(filterPersistConfig, filterSlice),
+  filter: filterSlice,
   cart: persistReducer(cartPersistConfig, cartSlice),
   scrollAnchor: scrollAnchorSlice,
 });
