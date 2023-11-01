@@ -2,10 +2,11 @@ import React from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
+import PropTypes from 'prop-types';
 
-const CustomAlert = () => {
+const CustomAlert = ({ type }) => {
   return (
-    <Stack sx={{ width: '100%' }} spacing={2}>
+    <Stack sx={{ width: '50%' }} spacing={2}>
       <Alert severity="error">
         <AlertTitle>Error</AlertTitle>
         This is an error alert —
@@ -24,7 +25,13 @@ const CustomAlert = () => {
         {' '}
         <strong>check it out!</strong>
       </Alert>
-      <Alert severity="success">
+      <Alert onClose={() => {}} severity="success">
+        <AlertTitle>Success</AlertTitle>
+        This is a success alert —
+        {' '}
+        <strong>check it out!</strong>
+      </Alert>
+      <Alert onClose={() => {}} severity={type}>
         <AlertTitle>Success</AlertTitle>
         This is a success alert —
         {' '}
@@ -32,6 +39,14 @@ const CustomAlert = () => {
       </Alert>
     </Stack>
   );
+};
+
+CustomAlert.propTypes = {
+  type: PropTypes.string,
+};
+
+CustomAlert.defaultProps = {
+  type: 'success',
 };
 
 export default CustomAlert;

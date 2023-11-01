@@ -11,6 +11,7 @@ import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
 import { topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
+import useAlert from './customHooks/useAlert';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,8 @@ const App = () => {
     dispatch(getProducts());
     dispatch(getReviews());
   }, [dispatch]);
-
+  const aler = useAlert();
+  console.log(aler);
   return (
     <>
       <Modal disagree="Close" />

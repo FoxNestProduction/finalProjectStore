@@ -9,11 +9,13 @@ import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import CustomAlert from '../../components/Alert/Alert';
+import useAlert from '../../customHooks/useAlert';
 
 const HomePage = () => {
   const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
-
+  const aler = useAlert();
+  console.log(aler);
   return (
     <>
       <SectionGetStarted />
