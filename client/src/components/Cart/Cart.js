@@ -28,6 +28,7 @@ import {
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import { getCartItemsFromServer } from '../../redux/slices/cartSlice';
+import MiniCart from '../MiniCart/MiniCart';
 
 const Cart = () => {
   const dispatch = useDispatch();

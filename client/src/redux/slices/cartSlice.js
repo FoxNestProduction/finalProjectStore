@@ -106,7 +106,6 @@ const cartSlice = createSlice({
       if (state.cart.products.length) {
         const index = state.cart.products
           .findIndex((productObj) => productObj.product._id === action.payload.product._id);
-        console.log(index);
         if (index !== -1) {
           state.cart.products[index].cartQuantity += 1;
         }
@@ -131,7 +130,6 @@ export const getCartItemsFromServer = () => async (dispatch) => {
 
     const { data } = await instance.get('/cart');
 
-    // console.log(data.products);
     dispatch(setCart(data.products));
     dispatch(setIsCart(true));
     dispatch(setIsLoading(false));
@@ -186,10 +184,8 @@ export const deleteOrAddCartByItemId = (id, key) => (dispatch, getState) => {
 
 export const deleteOrAddFromCartByItemIdWithValueFromState = (id) => (state) => {
   const products = allProducts(state);
-  console.log(products);
   if (products.length !== 0) {
     const cartItem = products.find((product) => product._id === id);
-    console.log(cartItem);
     if (cartItem !== null && cartItem !== undefined) {
       return cartItem;
     }
