@@ -24,9 +24,12 @@ import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
 const Filter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const defaultSliderValue = useMemo(() => [0, 30], []);
+
   const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
   const filterParams = useSelector((state) => state.filter.filterParams);
+
   const getFilterParamsFromURL = () => {
     const queryParams = qs.parse(window.location.search, { ignoreQueryPrefix: true });
     return {
@@ -40,6 +43,7 @@ const Filter = () => {
       sort: queryParams.sort,
     };
   };
+
   useEffect(() => {
     const initialFilterParams = getFilterParamsFromURL();
     if (window.location.pathname !== '/menu') {
@@ -59,6 +63,7 @@ const Filter = () => {
       }),
     );
   };
+
   const marks = [
     {
       value: 0,
@@ -87,20 +92,25 @@ const Filter = () => {
       maxPrice: filterParams.maxPrice,
       sort: filterParams.sort,
     };
+
     if (filterParams.filterCategories.length !== 0) {
       filterParamsAp.filterCategories = filterParams.filterCategories.join(',');
     }
+
     if (filterParams.rating !== 0) {
       filterParamsAp.rating = filterParams.rating;
     }
+
     const filteredFilterParams = Object.fromEntries(
       Object.entries(filterParamsAp).filter(([key, value]) => {
         return value === 0 || !!value;
       }),
     );
+
     const queryString = qs.stringify(filteredFilterParams, { arrayFormat: 'comma', encode: false });
     navigate(`?${queryString}`);
     const newURL = `/products/filter?${queryString}`;
+
     (async () => {
       try {
         const response = await instance.get(newURL);
@@ -116,6 +126,7 @@ const Filter = () => {
         console.error('Error getting top products: ', err);
       }
     })();
+
     if (anchor) {
       anchor.scrollIntoView({
         block: 'start',
@@ -151,6 +162,7 @@ const Filter = () => {
             Reset
           </Button>
         </Stack>
+
         <Stack component="div" sx={stylesCategoryIconsWrap}>
           <Stack
             component="div"
@@ -159,6 +171,7 @@ const Filter = () => {
             justifyContent={{ mobile: 'space-between', tablet: 'space-around', lgTablet: 'space-between' }}
             sx={{ width: '100%' }}
           >
+
             <ToggleButton
               sx={stylesToggleButton}
               value="pizza"
@@ -171,6 +184,7 @@ const Filter = () => {
                 <Typography component="p">Pizza</Typography>
               </Stack>
             </ToggleButton>
+
             <ToggleButton
               sx={stylesToggleButton}
               value="burgers"
@@ -182,6 +196,7 @@ const Filter = () => {
                 <Typography component="p">Burgers</Typography>
               </Stack>
             </ToggleButton>
+
             <ToggleButton
               sx={stylesToggleButton}
               value="sushi"
@@ -193,6 +208,7 @@ const Filter = () => {
                 <Typography component="p">Sushi</Typography>
               </Stack>
             </ToggleButton>
+
             <ToggleButton
               sx={stylesToggleButton}
               value="salads"
@@ -205,6 +221,7 @@ const Filter = () => {
               </Stack>
             </ToggleButton>
           </Stack>
+
           <Stack
             component="div"
             direction="row"
@@ -212,6 +229,7 @@ const Filter = () => {
             justifyContent={{ mobile: 'space-between', tablet: 'space-around', lgTablet: 'space-between' }}
             sx={{ width: '100%' }}
           >
+
             <ToggleButton
               sx={stylesToggleButton}
               value="pasta"
@@ -223,6 +241,7 @@ const Filter = () => {
                 <Typography component="p">Pasta</Typography>
               </Stack>
             </ToggleButton>
+
             <ToggleButton
               sx={stylesToggleButton}
               value="sandwiches"
@@ -234,6 +253,7 @@ const Filter = () => {
                 <Typography component="p">Sandwich</Typography>
               </Stack>
             </ToggleButton>
+
             <ToggleButton
               sx={stylesToggleButton}
               value="bbqMeat"
@@ -245,6 +265,7 @@ const Filter = () => {
                 <Typography component="p">BBQ</Typography>
               </Stack>
             </ToggleButton>
+
             <ToggleButton
               sx={stylesToggleButton}
               value="drink"
@@ -256,12 +277,14 @@ const Filter = () => {
                 <Typography component="p">Drink</Typography>
               </Stack>
             </ToggleButton>
+
           </Stack>
         </Stack>
       </Stack>
       <Stack component="div" sx={{ mt: { mobile: '25px', tablet: '30px' } }}>
+
         <Typography component="h3" sx={stylesTitle}>
-          Sort By
+          Filter By
         </Typography>
         <Stack component="div" direction="column" spacing={0} alignItems="flex-start" sx={{ width: '100%' }}>
           <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>

@@ -18,10 +18,10 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setFilteredProducts(state, action) { // eslint-disable-line no-shadow
+    setFilteredProducts(state, action) {
       state.filteredProducts = action.payload;
     },
-    setFilterParams(state, action) { // eslint-disable-line no-shadow
+    setFilterParams(state, action) {
       state.filterParams.filterCategories = action.payload.filterCategories;
       state.filterParams.isTrending = action.payload.isTrending;
       state.filterParams.rating = action.payload.rating;

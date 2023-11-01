@@ -15,10 +15,12 @@ import { setFilterParams, setFilteredProducts } from '../../redux/slices/filterS
 const Search = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const products = useSelector((state) => state.products.products);
   const partners = useSelector((state) => state.partners.partners);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
   const filterParams = useSelector((state) => state.filter.filterParams);
+
   const [alignment, setAlignment] = useState('food');
   const labelForTextField = `Search  ${alignment}`;
 
@@ -29,6 +31,7 @@ const Search = () => {
       dispatch(setSearch([]));
     }
   };
+
   const handleInputChange = (event, newInputValue) => {
     dispatch(setInputSearchValue(newInputValue));
     if (newInputValue.length === 0) {
@@ -96,6 +99,7 @@ const Search = () => {
           )}
         />
       </Stack>
+
       <ToggleButtonGroup value={alignment} exclusive onChange={handleChangeButton} aria-label="Platform" ref={topProductsAnchor}>
         <ToggleButton value="food" sx={stylesBtn}>
           Food

@@ -12,9 +12,13 @@ import { setProducts } from '../../redux/slices/productsSlice';
 const Sorter = ({ type, itemsFrom }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const filterParams = useSelector((state) => state.filter.filterParams);
+
   const [selectedValueSortBy, setSelectedValueSortBy] = React.useState('Default');
+
   let currencies;
+
   if (type === 'partners') {
     currencies = [
       {
@@ -57,6 +61,7 @@ const Sorter = ({ type, itemsFrom }) => {
 
   const handleSelectChangeSortBy = (event) => {
     setSelectedValueSortBy(event.target.value);
+
     switch (event.target.value) {
       case 'Price UP':
         dispatch(
@@ -66,6 +71,7 @@ const Sorter = ({ type, itemsFrom }) => {
           }),
         );
         break;
+
       case 'Price DOWN':
         dispatch(
           setFilterParams({
@@ -74,6 +80,7 @@ const Sorter = ({ type, itemsFrom }) => {
           }),
         );
         break;
+
       case 'Rating UP':
         dispatch(
           setFilterParams({
@@ -82,6 +89,7 @@ const Sorter = ({ type, itemsFrom }) => {
           }),
         );
         break;
+
       case 'Rating DOWN':
         dispatch(
           setFilterParams({
@@ -90,6 +98,7 @@ const Sorter = ({ type, itemsFrom }) => {
           }),
         );
         break;
+
       default:
         dispatch(
           setFilterParams({
@@ -97,7 +106,6 @@ const Sorter = ({ type, itemsFrom }) => {
             sort: '',
           }),
         );
-        break;
     }
   };
 
@@ -111,20 +119,25 @@ const Sorter = ({ type, itemsFrom }) => {
         maxPrice: filterParams.maxPrice,
         sort: filterParams.sort,
       };
+
       if (filterParams.filterCategories.length !== 0) {
         filterParamsAp.filterCategories = filterParams.filterCategories.join(',');
       }
+
       if (filterParams.rating !== 0) {
         filterParamsAp.rating = filterParams.rating;
       }
+
       const filteredFilterParams = Object.fromEntries(
         Object.entries(filterParamsAp).filter(([key, value]) => {
           return value !== undefined && value !== false && value !== null && value !== '';
         }),
       );
+
       const queryString = qs.stringify(filteredFilterParams, { arrayFormat: 'comma', encode: false });
       navigate(`?${queryString}`);
       const newURL = `/products/filter?${queryString}`;
+
       (async () => {
         try {
           const response = await instance.get(newURL);
@@ -134,18 +147,22 @@ const Sorter = ({ type, itemsFrom }) => {
         }
       })();
     }
+
     if (itemsFrom === 'allDishes') {
       const filterParamsAp = {
         sort: filterParams.sort,
       };
+
       const filteredFilterParams = Object.fromEntries(
         Object.entries(filterParamsAp).filter(([key, value]) => {
           return !!value;
         }),
       );
+
       const queryString = qs.stringify(filteredFilterParams, { arrayFormat: 'comma', encode: false });
       navigate(`?${queryString}`);
       const newURL = `/products/filter?${queryString}`;
+
       (async () => {
         try {
           const response = await instance.get(newURL);
