@@ -70,7 +70,12 @@ export const buttonsWrapper = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  mr: '5px',
+  pr: {
+    mobile: '5px',
+    tablet: '10px',
+    lgTablet: '13px',
+    desktop: '18px',
+  },
   position: {
     mobile: 'relative',
   },
