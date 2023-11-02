@@ -24,13 +24,14 @@ import {
   setNothingFound,
 } from '../../redux/slices/filterSlice';
 import getFilterParamsFromURL from '../../utils/filter/getFilterParamsFromURL';
-import getFilterQueryString from '../../utils/filter/getFilterQueryString';
+import getQueryStringFromFilterParams from '../../utils/filter/getQueryStringFromFilterParams';
 import { fetchSortedProducts } from '../../redux/slices/productsSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  // const queryString = location.search;
 
   const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
   const filterParams = useSelector((state) => state.filter.filterParams);
@@ -98,10 +99,9 @@ const Filter = () => {
   ];
 
   const handleApplyFilter = async () => {
-    const queryString = getFilterQueryString(filterParams);
+    const queryString = getQueryStringFromFilterParams(filterParams);
     navigate(queryString);
     dispatch(fetchFilteredProducts(queryString));
-
     // if (anchor) {
     //   anchor.scrollIntoView({
     //     block: 'start',

@@ -12,7 +12,8 @@ export const fetchFilteredProducts = createAsyncThunk(
         dispatch(setSearch([]));
         dispatch(setInputSearchValue(''));
       }
-      return response.data.products;
+      console.log(response.data);
+      return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -21,6 +22,7 @@ export const fetchFilteredProducts = createAsyncThunk(
 
 const initialState = {
   filteredProducts: [],
+  productsQuantity: null,
   loading: false,
   error: null,
   nothingFound: false,
@@ -33,6 +35,8 @@ const initialState = {
     minPrice: 0,
     maxPrice: 30,
     sort: '',
+    startPage: 1,
+    perPage: 10,
   },
 };
 
@@ -61,7 +65,8 @@ const filterSlice = createSlice({
           state.filteredProducts = [];
           state.nothingFound = true;
         } else {
-          state.filteredProducts = action.payload;
+          state.filteredProducts = action.payload.products;
+          state.productsQuantity = action.payload.productsQuantity;
           state.nothingFound = false;
         }
         state.loading = false;
@@ -70,6 +75,7 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setFilteredProducts, setFilterParams, setNothingFound } = filterSlice.actions;
+export const { setFilteredProducts, setFilterParams,
+  setNothingFound, setUrl } = filterSlice.actions;
 
 export default filterSlice.reducer;

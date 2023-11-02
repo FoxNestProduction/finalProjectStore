@@ -1,6 +1,6 @@
 import qs from 'qs';
 
-const getFilterQueryString = (filterParams) => {
+const getQueryStringFromFilterParams = (filterParams) => {
   const filteredFilterParams = Object.fromEntries(
     Object.entries(filterParams).filter(([key, value]) => {
       return key === 'filterCategories'
@@ -16,4 +16,4 @@ const getFilterQueryString = (filterParams) => {
   return queryString;
 };
 
-export default getFilterQueryString;
+export default getQueryStringFromFilterParams;

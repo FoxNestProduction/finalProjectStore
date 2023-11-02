@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,7 +21,14 @@ const Search = () => {
   const partners = useSelector((state) => state.partners.partners);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
   const filterParams = useSelector((state) => state.filter.filterParams);
-
+  // const products = [
+  //   'pizza',
+  //   'salads',
+  // ];
+  // const partners = [
+  //   'bob',
+  //   'ben',
+  // ];
   const [alignment, setAlignment] = useState('food');
   const labelForTextField = `Search  ${alignment}`;
 
@@ -80,6 +88,7 @@ const Search = () => {
           id="search"
           disableClearable
           options={alignment === 'food' ? products.map((option) => option.name) : partners.map((option) => option.name)}
+          // options={alignment === 'food' ? products : partners}
           renderInput={(params) => (
             <TextField
               sx={stylesBorder}

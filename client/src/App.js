@@ -40,7 +40,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getPartners());
     dispatch(getProducts());
-    dispatch(getReviews());
+    // dispatch(getReviews());
   }, [dispatch]);
 
   return (
