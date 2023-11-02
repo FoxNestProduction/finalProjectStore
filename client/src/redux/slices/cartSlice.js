@@ -111,6 +111,15 @@ const cartSlice = createSlice({
         }
       }
     },
+    deleteFullProduct(state, action) {
+      if (state.cart.products.length) {
+        const index = state.cart.products
+          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
+        if (index !== -1) {
+          state.cart.products.splice(index, 1);
+        }
+      }
+    },
   },
 });
 
@@ -122,6 +131,7 @@ export const {
   setIsCart,
   addOneMore,
   resetCart,
+  deleteFullProduct,
 } = cartSlice.actions;
 
 export const getCartItemsFromServer = () => async (dispatch) => {

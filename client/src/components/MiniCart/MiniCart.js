@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react';
 import { Popover, Box, IconButton, Badge, Button, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import MiniCartItem from '../MiniCartItem/MiniCartItem';
 import {
   stylesBadge,
@@ -16,6 +16,7 @@ const MiniCart = () => {
   const matches = useMediaQuery('(min-width:690px)');
   const [anchorEl, setAnchorEl] = useState(null);
   const cartProducts = useSelector((state) => state.cart.cart.products);
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -32,6 +33,9 @@ const MiniCart = () => {
   }
 
   const handleClick = (event) => {
+    if (!cartProducts.length && matches && location.pathname !== '/cart') {
+      navigate('/cart');
+    }
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
