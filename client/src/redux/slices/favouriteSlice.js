@@ -33,13 +33,14 @@ const favouriteSlice = createSlice({
     },
     addFavourite(state, action) {
       const newProduct = action.payload[action.payload.length - 1];
-      state.cardStates[newProduct._id] = true;
       state.favourites.push(newProduct);
+    },
+    setIsFavourite(state, action) {
+      state.cardStates[action.payload] = !state.cardStates[action.payload];
     },
     removeFavourite(state, action) {
     // eslint-disable-next-line no-underscore-dangle
       const id = action.payload;
-      state.cardStates[id] = false;
       state.favourites = state.favourites.filter((item) => item._id !== id);
     },
     resetCardStates(state) {
@@ -62,6 +63,7 @@ const favouriteSlice = createSlice({
 
 export const {
   addFavourite,
+  setIsFavourite,
   removeFavourite,
   setFavourite,
   resetCardStates,

@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
-import { addToFavourites, deleteFromFavourites } from '../../redux/slices/favouriteSlice';
+import { addToFavourites, deleteFromFavourites, setIsFavourite } from '../../redux/slices/favouriteSlice';
 
 const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const dispatch = useDispatch();
@@ -14,6 +13,7 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
 
   const toggleFavourite = () => {
     if (token && !ishovered) {
+      dispatch(setIsFavourite(id));
       if (isFavourite) {
         dispatch(deleteFromFavourites({ id }));
       } else {
