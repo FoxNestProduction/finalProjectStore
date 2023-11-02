@@ -10,6 +10,7 @@ const initialState = {
     _id: '',
   },
   search: '',
+  indexSearch: null,
 };
 
 /* eslint-disable no-param-reassign */
@@ -24,6 +25,9 @@ const reviewsSlice = createSlice({
     searchReviews(state, action) {
       state.search = action.payload;
     },
+    setIndexSearchReview(state, action) {
+      state.indexSearch = action.payload;
+    },
     resetReviewState(state) {
       state.newReview.rating = null;
       state.newReview.content = '';
@@ -34,6 +38,7 @@ const reviewsSlice = createSlice({
 export const {
   setNewReview,
   searchReviews,
+  setIndexSearchReview,
   resetReviewState,
 } = reviewsSlice.actions;
 

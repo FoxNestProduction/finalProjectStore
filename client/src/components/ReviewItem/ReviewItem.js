@@ -13,11 +13,11 @@ import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Box } from '@mui/material';
-import { searchReviews } from '../../redux/slices/reviewsSlice';
+import { searchReviews, setIndexSearchReview } from '../../redux/slices/reviewsSlice';
 
 import { stylesCardReview, stylesQuoteIcon, stylesActionCard, stylesContent, stylesText, stylesFullText } from './styles';
 
-const ReviewItem = ({ review }) => {
+const ReviewItem = ({ review, index }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,6 +38,7 @@ const ReviewItem = ({ review }) => {
     if (location.pathname !== '/reviews') {
       navigate('/reviews');
       dispatch(searchReviews(id));
+      dispatch(setIndexSearchReview(index));
     }
   };
 
@@ -80,9 +81,11 @@ const ReviewItem = ({ review }) => {
 
 ReviewItem.propTypes = {
   review: PropTypes.object,
+  index: PropTypes.number,
 };
 ReviewItem.defaultProps = {
   review: {},
+  index: null,
 };
 
 export default ReviewItem;
