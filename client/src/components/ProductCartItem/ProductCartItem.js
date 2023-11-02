@@ -24,6 +24,10 @@ import {
   quantityStyle,
   textTitle,
   roundedIcons,
+  buttonsWrapper,
+  imageWrapper,
+  closeBtn,
+  closeIcon,
 } from './styles';
 
 const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageUrl }) => {
@@ -53,13 +57,7 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
     <Card sx={cartIconContainer}>
       <Box sx={linkContainer}>
         <Box
-          sx={{
-            width: {
-              mobile: '40%',
-              tablet: '40%',
-              desktop: '35%',
-            },
-          }}
+          sx={imageWrapper}
         >
           <Link component={RouterLink} to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
             <CardMedia
@@ -81,27 +79,7 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
         </Box>
       </Box>
       <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          mr: '5px',
-          position: {
-            mobile: 'relative',
-          },
-          bottom: {
-            mobile: '-12px',
-            // tablet: '2px',
-            lgTablet: '0px',
-            // desktop: '0px',
-          },
-          right: {
-            mobile: '2px',
-            // tablet: '4px',
-            lgTablet: '0px',
-            // desktop: '4px',
-          },
-        }}
+        sx={buttonsWrapper}
       >
         <ButtonGroup variant="outlined" aria-label="small button group">
           <Button sx={buttonStyles} onClick={handleDeleteOne}>
@@ -120,37 +98,11 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
         aria-label="CloseRoundedIcon"
         size="small"
         color="secondary"
-        sx={{
-          p: {
-            mobile: '1px',
-            lgTablet: '2px',
-            desktop: '4px',
-          },
-          position: 'absolute',
-          top: {
-            mobile: '3px',
-            tablet: '3px',
-            lgTablet: '4px',
-            desktop: '3px',
-          },
-          right: {
-            mobile: '4px',
-            tablet: '4px',
-            lgTablet: '4px',
-            desktop: '4px',
-          },
-        }}
+        sx={closeBtn}
       >
         <CloseRoundedIcon
           fontSize="small"
-          sx={{
-            fontSize: {
-              mobile: '16px',
-              tablet: '18px',
-              lgTablet: '22px',
-              desktop: '26px',
-            },
-          }}
+          sx={closeIcon}
         />
       </IconButton>
     </Card>
