@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
 import { addToFavourites, deleteFromFavourites } from '../../redux/slices/favouriteSlice';
 
 const FavouriteIcon = ({ id, ishovered, isactive }) => {
@@ -32,10 +33,9 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
               color: isactive ? 'primary.main' : (ishovered ? 'text.primaryLight' : 'text.header'),
               width: '24px',
               height: '24px',
-              transitionDelay: 'color 0.3s ease',
+              transition: 'color 0.3s ease',
               '&:hover': { color: 'secondary.main' },
               '&:active': { color: 'secondary.hover' },
-
             }}
           />
         )

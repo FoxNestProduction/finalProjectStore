@@ -134,7 +134,8 @@ exports.getCommentsFilterParams = async (req, res, next) => {
   try {
     const comments = await Comment.find(mongooseQuery)
       .populate("customer")
-      .skip(startPage * perPage - perPage)
+      // .skip(startPage * perPage - perPage)
+      .skip((startPage - 1) * perPage)
       .limit(perPage)
       .sort(sort);
 

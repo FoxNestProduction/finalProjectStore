@@ -14,33 +14,6 @@ export const fetchFavourites = createAsyncThunk(
   },
 );
 
-// export const addToFavourites = createAsyncThunk(
-//   'favourites/addToFavourites',
-//   async ({ id }, { rejectWithValue, dispatch }) => {
-//     try {
-//       const response = await instance.put(`/wishlist/${id}`);
-//       console.log(response);
-//       dispatch(addFavourite(response.data.products));
-//       return response;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   },
-// );
-
-// export const deleteFromFavourites = createAsyncThunk(
-//   'favourites/deleteFromFavourites',
-//   async ({ id }, { rejectWithValue }) => {
-//     try {
-//       const response = await instance.delete(`/wishlist/${id}`);
-//       console.log(response);
-//       return response;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   },
-// );
-
 const initialState = {
   favourites: [],
   cardStates: {},

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -11,13 +11,11 @@ import LinearProgress from '@mui/material/LinearProgress';
 import FavouriteItem from '../FavouriteItem/FavouriteItem';
 import ListItems from '../ListItems/ListItem';
 import ProductCardItem from '../ProductCardItem/ProductCardItem';
+import buttonBackToMenu from './styles';
 
 const Favourites = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLgTablet = useMediaQuery('(min-width: 690px)');
-  // const products = useSelector((state) => state.products.products, shallowEqual);
-  // const favourite = useSelector((state) => state.favourites.favourites);
 
   const handlMenuClick = () => {
     navigate('/menu');
@@ -63,20 +61,7 @@ const Favourites = () => {
             <Button
               variant="contained"
               onClick={handlMenuClick}
-              sx={{
-                transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
-                '&:hover': {
-                  backgroundColor: 'primary.hover',
-                  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
-                  color: 'text.primaryLight',
-                },
-                '&:active': {
-                  backgroundColor: 'common.white',
-                  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
-                  color: 'primary.main',
-                  border: '1px solid',
-                },
-              }}
+              sx={buttonBackToMenu}
             >
               Back to menu
             </Button>

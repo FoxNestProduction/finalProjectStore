@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, createRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Container, Box, Typography, IconButton } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -7,7 +7,7 @@ import ReviewItem from '../ReviewItem/ReviewItem';
 import useGetAPI from '../../customHooks/useGetAPI';
 
 const SwiperReview = () => {
-  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
+  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=8&sort=-date');
   const [currentIndex, setCurrentIndex] = useState(1);
   const [widthStep, setWidthStep] = useState(0);
   const lengthReviews = lastReviewsData && lastReviewsData.comments.length - 1;
@@ -80,13 +80,13 @@ const SwiperReview = () => {
               className={styles.card}
               ref={cardRef}
             >
-              <ReviewItem review={item} />
+              <ReviewItem review={item} index={index} />
             </Box>
           ))}
           <Box sx={{ display: { mobile: 'none', lgTablet: 'block' } }}>
             <IconButton
               aria-label="prev"
-              sx={{ position: 'absolute', bottom: '23%', left: '30px', backgroundColor: 'background.quote' }}
+              sx={{ position: 'absolute', bottom: '25%', left: '30px', backgroundColor: 'background.quote' }}
               disabled={currentIndex < 0}
               onClick={handlePrevClick}
             >
@@ -94,7 +94,7 @@ const SwiperReview = () => {
             </IconButton>
             <IconButton
               aria-label="next"
-              sx={{ position: 'absolute', bottom: '23%', right: '30px', backgroundColor: 'background.quote' }}
+              sx={{ position: 'absolute', bottom: '25%', right: '30px', backgroundColor: 'background.quote' }}
               disabled={(currentIndex >= lengthReviews)}
               onClick={handleNextClick}
             >

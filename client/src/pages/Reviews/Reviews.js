@@ -7,42 +7,77 @@ import useGetAPI from '../../customHooks/useGetAPI';
 import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
-import { addNewReview, resetReviewState, searchReviews } from '../../redux/slices/reviewsSlice';
+import { addNewReview, resetReviewState, searchReviews, setNewReview } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 
 const ReviewsPage = () => {
-  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
+  const searchReview = useSelector((state) => state.reviews.search);
+  const indexSearchReview = useSelector((state) => state.reviews.indexSearch);
+  const [perPage, setPerPage] = useState(!searchReview ? 3 : indexSearchReview + 1);
+  const [startPage, setStartPage] = useState(1);
+  const [data, loading, error] = useGetAPI(`/comments/filter?startPage=${startPage}&perPage=${perPage}&sort=-date`);
   const [reviews, setReviews] = useState([]);
   const [isRendered, setIsRendered] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [loadMore, setLoadMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const newReview = useSelector((state) => state.reviews.newReview);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  const searchReview = useSelector((state) => state.reviews.search);
   const isLgTablet = useMediaQuery('(min-width: 690px)');
 
   const containerRef = useRef(null);
   const cardRef = useRef([]);
-
+  const prevDataRef = useRef();
+  // прослуховування скрола для дозавантаження відгуків
   useEffect(() => {
-    if (lastReviewsData?.comments) {
-      cardRef.current = lastReviewsData.comments.map(() => createRef());
+    const handleScroll = () => {
+      const screenHeight = window.innerHeight;
+      const containerRect = containerRef.current?.getBoundingClientRect();
+      if (containerRect && containerRect.bottom - 330 < screenHeight && !isLoading) {
+        setIsLoading(true);
+        setPerPage(3);
+        setStartPage(searchReview !== ''
+          ? startPage + Math.ceil((indexSearchReview + perPage) / perPage) + 1
+          : startPage + 1);
+      }
+    };
+    if (!loadMore) {
+      window.removeEventListener('scroll', handleScroll);
+    } else {
+      window.addEventListener('scroll', handleScroll);
     }
-    setReviews(lastReviewsData?.comments);// eslint-disable-line no-use-before-define
-    setIsRendered(true);
-  }, [lastReviewsData?.comments, error]);
+  }, [isLoading, startPage, loadMore, searchReview, indexSearchReview, perPage]);
+
+  // додавання і рендеринг нових відгуків, якщо виконуються умови
+  useEffect(() => {
+    if (prevDataRef.current !== data && !loading) {
+      setIsLoading(false);
+      if (data?.comments && loadMore) {
+        if (reviews.length > 0) {
+          setReviews([...reviews, ...data.comments]);
+        } else {
+          setReviews(data.comments);
+        }
+        cardRef.current = data?.comments.map(() => createRef());
+        setIsLoading(false);
+        setIsRendered(true);
+        prevDataRef.current = data;
+      }
+    }
+    if (reviews.length >= data?.commentsQuantity) {
+      setLoadMore(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.comments, startPage, loading, loadMore]);
 
   const handleSendFeedback = () => {
     dispatch(addNewReview());
     dispatch(resetReviewState());
     dispatch(closeModal());
   };
-
-  useEffect(() => {
-    setReviews([newReview, ...reviews]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newReview.customer]);
-
+  // якщо відгук пустий кнопка Send  неактивна
   useEffect(() => {
     if (newReview.content && newReview.content !== '') {
       dispatch(setButtonAgree({
@@ -79,6 +114,17 @@ const ReviewsPage = () => {
     }
   };
 
+  // Додавання нового відгуку
+  useEffect(() => {
+    if (newReview && reviews.length > 0) {
+      setReviews([newReview, ...reviews]);
+    } else {
+      setNewReview(newReview);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newReview.customer]);
+
+  // скрол екрана до searchReview
   useEffect(() => {
     if (searchReview && cardRef.current.length > 0) {
       const element = containerRef.current.querySelector(`[data="${searchReview}"]`);
@@ -112,11 +158,10 @@ const ReviewsPage = () => {
         )}
       </Box>
       <Box ref={containerRef} sx={commentList}>
-        {lastReviewsData && reviews.map((item, index) => (
+        {reviews && reviews.map((item, index) => (
           <Box
             key={item._id}
             data={item._id}
-            // eslint-disable-next-line
             ref={cardRef.current[index]}
             sx={commentItem}
           >
