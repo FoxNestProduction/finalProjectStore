@@ -59,7 +59,7 @@ const Search = () => {
           );
           navigate('');
         } catch (err) {
-          console.error('Error getting pizza: ', err);
+          console.error(`Error getting ${newInputValue}: `, err);
         }
       })();
     }

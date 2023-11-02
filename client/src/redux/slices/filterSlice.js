@@ -30,8 +30,8 @@ const initialState = {
     rating: null, // mostPopular
     isHealthy: false,
     isSupreme: false,
-    minPrice: 0, // задала дефолтні значення, так як при першому
-    maxPrice: 30, // завантаженні обидва бігунка на позиції 0
+    minPrice: 0,
+    maxPrice: 30,
     sort: '',
   },
 };
@@ -47,15 +47,10 @@ const filterSlice = createSlice({
       console.log('action.payload', action.payload);
       const newState = { ...state.filterParams, ...action.payload };
       console.log('newState', newState);
-      // state.filterParams.filterCategories = action.payload.filterCategories;
-      // state.filterParams.isTrending = action.payload.isTrending;
-      // state.filterParams.rating = action.payload.rating;
-      // state.filterParams.isHealthy = action.payload.isHealthy;
-      // state.filterParams.isSupreme = action.payload.isSupreme;
-      // state.filterParams.minPrice = action.payload.minPrice;
-      // state.filterParams.maxPrice = action.payload.maxPrice;
-      // state.filterParams.sort = action.payload.sort;
       state.filterParams = newState;
+    },
+    setNothingFound(state, action) {
+      state.nothingFound = action.payload;
     },
   },
   extraReducers: (builder) => {

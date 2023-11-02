@@ -1,30 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { shallowEqual, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import PartnersCard from '../../components/PartnersCard/PartnersCard';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
 import ListItems from '../../components/ListItems/ListItem';
-import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import getChangedString from '../../utils/getChangedString';
+import { instance } from '../../API/instance';
+import useGetAPI from '../../customHooks/useGetAPI';
 
 const PartnersPage = () => {
+  const { customId } = useParams();
   const { partnersName } = useParams();
 
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const nameOfPartners = fixedDecodeURIComponent(partnersName);
+  const [products, setProducts] = useState([]);
 
-  const allProductsOfRest = products.filter((item) => {
-    return item.restaurant_name.toLowerCase() === nameOfPartners;
-  });
+  const [partner, loading, error] = useGetAPI(`/partners/${customId}`);
 
-  const title = getChangedString(nameOfPartners);
+  const title = partner ? partner.name : '';
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const { data } = await instance.get(`/products/filter?restaurant_name=${title}`);
+        setProducts(data.products);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProducts();
+  }, [title]);
 
   return (
     <Box>
-      <PartnersCard partnersName={partnersName} />
-      <ListItems title={`${title} Dishes`} items={allProductsOfRest} itemComponent={ProductCardItem} actions={null} />
+      <PartnersCard partner={partner} />
+      <ListItems title={`${title} Dishes`} items={products} itemComponent={ProductCardItem} actions={null} />
       <QuestionsList />
     </Box>
   );
