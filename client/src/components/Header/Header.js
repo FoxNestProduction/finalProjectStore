@@ -49,7 +49,7 @@ const Header = () => {
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user);
   // const { cart } = user; // під питанням чи потрібне це значення
-  const favourite = useSelector((state) => state.favourites.favourites);
+  const favourite = useSelector((state) => state.favourites.cardStates);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -60,7 +60,7 @@ const Header = () => {
   }, [breakpoint, dispatch]);
 
   // const cartAmount = cartIconCounterFunction(cartProducts);
-  const favouritesAmount = isUserAuthorized ? favourite.length : null;
+  const favouritesAmount = isUserAuthorized ? Object.keys(favourite).length : null;
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);

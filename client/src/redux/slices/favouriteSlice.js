@@ -36,12 +36,14 @@ const favouriteSlice = createSlice({
       state.favourites.push(newProduct);
     },
     setIsFavourite(state, action) {
-      state.cardStates[action.payload] = !state.cardStates[action.payload];
+      state.cardStates[action.payload] = true;
     },
     removeFavourite(state, action) {
     // eslint-disable-next-line no-underscore-dangle
       const id = action.payload;
       state.favourites = state.favourites.filter((item) => item._id !== id);
+      state.cardStates[id] = false;
+      delete state.cardStates[id];
     },
     resetCardStates(state) {
       state.cardStates = {};

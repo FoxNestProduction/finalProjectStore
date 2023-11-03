@@ -47,10 +47,10 @@ const ProductCard = () => {
 
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const toggleFavourite = () => {
-    dispatch(setIsFavourite(id));
     if (isFavourite) {
       dispatch(deleteFromFavourites({ id }));
     } else {
+      dispatch(setIsFavourite(id));
       dispatch(addToFavourites({ id }));
     }
   };
