@@ -19,14 +19,18 @@ const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    setSearch(state, action) { // eslint-disable-line no-shadow
+    setSearch(state, action) {
       state.search = action.payload;
     },
-    setKey(state, action) { // eslint-disable-line no-shadow
+    setKey(state, action) {
       state.key = action.payload;
     },
-    setInputSearchValue(state, action) { // eslint-disable-line no-shadow
+    setInputSearchValue(state, action) {
       state.inputSearchValue = action.payload;
+    },
+    resetSearch(state) {
+      state.search = [];
+      state.inputSearchValue = '';
     },
   },
   extraReducers: (builder) => {
@@ -37,6 +41,6 @@ const searchSlice = createSlice({
   },
 });
 
-export const { setSearch, setKey, setInputSearchValue } = searchSlice.actions;
+export const { setSearch, setKey, setInputSearchValue, resetSearch } = searchSlice.actions;
 
 export default searchSlice.reducer;

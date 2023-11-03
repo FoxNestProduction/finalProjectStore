@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
-import { setInputSearchValue, setSearch } from './searchSlice';
+import { resetSearch, setInputSearchValue, setSearch } from './searchSlice';
 import { setError, setLoading } from '../extraReducersHelpers';
 
 export const fetchFilteredProducts = createAsyncThunk(
@@ -9,8 +9,9 @@ export const fetchFilteredProducts = createAsyncThunk(
     try {
       const response = await instance.get(`/products/filter${queryString}`);
       if (response.data.products.length > 0) {
-        dispatch(setSearch([]));
-        dispatch(setInputSearchValue(''));
+        // dispatch(setSearch([]));
+        // dispatch(setInputSearchValue(''));
+        dispatch(resetSearch());
       }
       console.log(response.data);
       return response.data;
@@ -50,15 +51,20 @@ const filterSlice = createSlice({
     setProductsQuantity(state, action) {
       state.productsQuantity = action.payload;
     },
-    setFilterParams(state, action) {
-      // console.log('action.payload', action.payload);
-      // const newState = { ...state.filterParams, ...action.payload };
-      // console.log('newState', newState);
-      // state.filterParams = newState;
-      state.filterParams = { ...state.filterParams, ...action.payload };
-    },
     setNothingFound(state, action) {
       state.nothingFound = action.payload;
+    },
+    setFilterParams(state, action) {
+      console.log('action.payload', action.payload);
+      const newState = { ...state.filterParams, ...action.payload };
+      console.log('newState', newState);
+      state.filterParams = newState;
+      // state.filterParams = { ...state.filterParams, ...action.payload };
+    },
+    resetFilter(state) {
+      state.filteredProducts = [];
+      state.productsQuantity = null;
+      state.nothingFound = false;
     },
   },
   extraReducers: (builder) => {
@@ -80,6 +86,6 @@ const filterSlice = createSlice({
 });
 
 export const { setFilteredProducts, setFilterParams,
-  setNothingFound, setProductsQuantity } = filterSlice.actions;
+  setNothingFound, setProductsQuantity, resetFilter } = filterSlice.actions;
 
 export default filterSlice.reducer;

@@ -18,7 +18,7 @@ import {
   stylesToggleButton,
 } from './styles';
 import {
-  fetchFilteredProducts,
+  fetchFilteredProducts, resetFilter,
   setFilteredProducts,
   setFilterParams,
   setNothingFound, setProductsQuantity,
@@ -112,9 +112,10 @@ const Filter = () => {
 
   const handleResetFilter = () => {
     navigate('');
-    dispatch(setFilteredProducts([]));
-    dispatch(setProductsQuantity(null));
-    dispatch(setNothingFound(false));
+    // dispatch(setFilteredProducts([]));
+    // dispatch(setProductsQuantity(null));
+    // dispatch(setNothingFound(false));
+    dispatch(resetFilter());
     const resetFilterParams = {
       ...filterParams,
       filterCategories: [],
@@ -125,6 +126,7 @@ const Filter = () => {
       minPrice: 0,
       maxPrice: 30,
       startPage: 1,
+      sort: '',
     };
     dispatch(setFilterParams(resetFilterParams));
     // console.log(resetFilterParams);
