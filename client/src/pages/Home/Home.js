@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
@@ -14,8 +14,9 @@ import useAlert from '../../customHooks/useAlert';
 const HomePage = () => {
   const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
-  const aler = useAlert();
-  console.log(aler);
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  console.log(alert);
+
   return (
     <>
       <SectionGetStarted />
@@ -39,7 +40,7 @@ const HomePage = () => {
       />
       ) }
       <SwiperReview />
-      <CustomAlert />
+      { alert && <CustomAlert type="error" handleCloseAlert={handleCloseAlert} /> }
     </>
   );
 };

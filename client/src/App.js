@@ -42,8 +42,6 @@ const App = () => {
     dispatch(getProducts());
     dispatch(getReviews());
   }, [dispatch]);
-  const aler = useAlert();
-  console.log(aler);
   return (
     <>
       <Modal disagree="Close" />
