@@ -47,11 +47,15 @@ const filterSlice = createSlice({
     setFilteredProducts(state, action) {
       state.filteredProducts = action.payload;
     },
+    setProductsQuantity(state, action) {
+      state.productsQuantity = action.payload;
+    },
     setFilterParams(state, action) {
-      console.log('action.payload', action.payload);
-      const newState = { ...state.filterParams, ...action.payload };
-      console.log('newState', newState);
-      state.filterParams = newState;
+      // console.log('action.payload', action.payload);
+      // const newState = { ...state.filterParams, ...action.payload };
+      // console.log('newState', newState);
+      // state.filterParams = newState;
+      state.filterParams = { ...state.filterParams, ...action.payload };
     },
     setNothingFound(state, action) {
       state.nothingFound = action.payload;
@@ -76,6 +80,6 @@ const filterSlice = createSlice({
 });
 
 export const { setFilteredProducts, setFilterParams,
-  setNothingFound, setUrl } = filterSlice.actions;
+  setNothingFound, setProductsQuantity } = filterSlice.actions;
 
 export default filterSlice.reducer;

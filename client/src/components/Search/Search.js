@@ -7,11 +7,15 @@ import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
-import { instance } from '../../API/instance';
 import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
-import { setSearch, setKey, setInputSearchValue } from '../../redux/slices/searchSlice';
+import {
+  setSearch,
+  setKey,
+  setInputSearchValue,
+  fetchSearchedProductsOrPartners,
+} from '../../redux/slices/searchSlice';
 import { setScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
-import { setFilterParams, setFilteredProducts } from '../../redux/slices/filterSlice';
+import { setFilterParams, setFilteredProducts, setProductsQuantity } from '../../redux/slices/filterSlice';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -40,36 +44,40 @@ const Search = () => {
     }
   };
 
-  const handleInputChange = (event, newInputValue) => {
+  const handleInputChange = async (event, newInputValue) => {
     dispatch(setInputSearchValue(newInputValue));
     if (newInputValue.length === 0) {
       dispatch(setSearch([]));
     }
     if (newInputValue.length !== 0) {
-      (async () => {
-        try {
-          const response = await instance.post((alignment === 'food' ? '/products/search' : '/partners/search'), { query: `${newInputValue}` });
-          dispatch(setSearch(response.data));
-          dispatch(setKey(alignment));
-          dispatch(setFilteredProducts([]));
-          dispatch(
-            setFilterParams({
-              ...filterParams,
-              filterCategories: [],
-              isTrending: false,
-              rating: 0,
-              isHealthy: false,
-              isSupreme: false,
-              minPrice: 0,
-              maxPrice: 30,
-              sort: '',
-            }),
-          );
-          navigate('');
-        } catch (err) {
-          console.error(`Error getting ${newInputValue}: `, err);
-        }
-      })();
+      const fetchData = {
+        url: alignment === 'food' ? '/products/search' : '/partners/search',
+        body: {
+          query: newInputValue,
+        },
+      };
+      try {
+        dispatch(fetchSearchedProductsOrPartners(fetchData));
+        dispatch(setKey(alignment));
+        dispatch(setFilteredProducts([]));
+        dispatch(setProductsQuantity(null));
+        dispatch(
+          setFilterParams({
+            ...filterParams,
+            filterCategories: [],
+            isTrending: false,
+            rating: 0,
+            isHealthy: false,
+            isSupreme: false,
+            minPrice: 0,
+            maxPrice: 30,
+            sort: '',
+          }),
+        );
+        navigate('');
+      } catch (err) {
+        console.error(`Error getting ${newInputValue}: `, err);
+      }
     }
   };
 

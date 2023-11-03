@@ -93,14 +93,14 @@ const Sorter = ({ type, itemsFrom }) => {
     dispatch(setFilterParams({ sort: currentSort }));
 
     if (itemsFrom === 'filter') {
-      console.log('get filtered products from sorter1');
+      console.log('fetchFilteredProducts in Sorter');
       const updatedFilterParams = { ...filterParams, sort: currentSort };
       const queryString = getQueryStringFromFilterParams(updatedFilterParams);
       navigate(queryString);
       dispatch(fetchFilteredProducts(queryString));
     }
     if (itemsFrom === 'allDishes') {
-      console.log('get filtered products from sorter2');
+      console.log('fetchSortedProducts in Sorter');
       const updatedFilterParams = { sort: currentSort };
       const queryString = getQueryStringFromFilterParams(updatedFilterParams);
       navigate(queryString);

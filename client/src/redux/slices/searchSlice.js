@@ -1,4 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { instance } from '../../API/instance';
+
+export const fetchSearchedProductsOrPartners = createAsyncThunk(
+  'search/fetchSearchedProductsOrPartners',
+  async ({ url, body }) => {
+    const response = await instance.post(url, body);
+    return response.data;
+  },
+);
 
 const initialState = {
   search: [],
@@ -19,6 +28,12 @@ const searchSlice = createSlice({
     setInputSearchValue(state, action) { // eslint-disable-line no-shadow
       state.inputSearchValue = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchSearchedProductsOrPartners.fulfilled, (state, action) => {
+        state.search = action.payload;
+      });
   },
 });
 

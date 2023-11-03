@@ -21,7 +21,7 @@ import {
   fetchFilteredProducts,
   setFilteredProducts,
   setFilterParams,
-  setNothingFound,
+  setNothingFound, setProductsQuantity,
 } from '../../redux/slices/filterSlice';
 import getFilterParamsFromURL from '../../utils/filter/getFilterParamsFromURL';
 import getQueryStringFromFilterParams from '../../utils/filter/getQueryStringFromFilterParams';
@@ -101,6 +101,7 @@ const Filter = () => {
   const handleApplyFilter = async () => {
     const queryString = getQueryStringFromFilterParams(filterParams);
     navigate(queryString);
+    console.log('fetchFilteredProducts by Apply');
     dispatch(fetchFilteredProducts(queryString));
     // if (anchor) {
     //   anchor.scrollIntoView({
@@ -112,6 +113,7 @@ const Filter = () => {
   const handleResetFilter = () => {
     navigate('');
     dispatch(setFilteredProducts([]));
+    dispatch(setProductsQuantity(null));
     dispatch(setNothingFound(false));
     const resetFilterParams = {
       ...filterParams,
@@ -122,11 +124,14 @@ const Filter = () => {
       isSupreme: false,
       minPrice: 0,
       maxPrice: 30,
+      startPage: 1,
     };
     dispatch(setFilterParams(resetFilterParams));
-
-    // const queryString = getFilterQueryString(resetFilterParams);
+    // console.log(resetFilterParams);
+    //
+    // const queryString = getQueryStringFromFilterParams(resetFilterParams);
     // navigate(queryString);
+    // console.log(queryString);
   };
 
   return (
