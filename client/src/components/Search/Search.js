@@ -68,7 +68,7 @@ const Search = () => {
             ...filterParams,
             filterCategories: [],
             isTrending: false,
-            rating: 0,
+            rating: null,
             isHealthy: false,
             isSupreme: false,
             minPrice: 0,

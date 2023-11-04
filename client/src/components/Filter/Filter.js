@@ -61,11 +61,12 @@ const Filter = () => {
       }
       // console.log('filteredParams: ', filteredParams);
 
-      if (Object.keys(filteredParams).length === 1 && filteredParams.sort) {
-        console.log('fetchSortedProducts in Filter UseEffect');
+      if ((Object.keys(filteredParams).length === 3 && filteredParams.sort)
+          || Object.keys(filteredParams).length === 2) {
+        console.log('💧💧💧fetchSortedProducts in Filter UseEffect');
         dispatch(fetchSortedProducts(queryString));
       } else {
-        console.log('fetchFilteredProducts in Filter UseEffect');
+        console.log('💦💦💦fetchFilteredProducts in Filter UseEffect');
         dispatch(fetchFilteredProducts(queryString));
       }
     }
@@ -99,9 +100,17 @@ const Filter = () => {
   ];
 
   const handleApplyFilter = async () => {
-    const queryString = getQueryStringFromFilterParams(filterParams);
+    const updatedFilterParams = {
+      ...filterParams,
+      startPage: 1,
+    };
+    dispatch(setFilterParams({
+      startPage: 1,
+    }));
+
+    const queryString = getQueryStringFromFilterParams(updatedFilterParams);
     navigate(queryString);
-    console.log('fetchFilteredProducts by Apply');
+    console.log('😈😈😈 fetchFilteredProducts by Apply');
     dispatch(fetchFilteredProducts(queryString));
     // if (anchor) {
     //   anchor.scrollIntoView({
@@ -111,7 +120,7 @@ const Filter = () => {
   };
 
   const handleResetFilter = () => {
-    navigate('');
+    // navigate('');
     // dispatch(setFilteredProducts([]));
     // dispatch(setProductsQuantity(null));
     // dispatch(setNothingFound(false));
@@ -126,14 +135,17 @@ const Filter = () => {
       minPrice: 0,
       maxPrice: 30,
       startPage: 1,
-      sort: '',
+      // sort: '',
     };
     dispatch(setFilterParams(resetFilterParams));
-    // console.log(resetFilterParams);
-    //
-    // const queryString = getQueryStringFromFilterParams(resetFilterParams);
-    // navigate(queryString);
-    // console.log(queryString);
+
+    delete resetFilterParams.minPrice;
+    delete resetFilterParams.maxPrice;
+
+    const queryString = getQueryStringFromFilterParams(resetFilterParams);
+    navigate(queryString);
+    console.log('❌❌❌ fetchSortedProducts by Reset');
+    dispatch(fetchSortedProducts(queryString));
   };
 
   return (

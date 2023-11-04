@@ -5,41 +5,52 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import Sorter from '../Sorter/Sorter';
 import { productsPerPageMap } from '../../constants/bpMapConstants';
+import { setFilterParams } from '../../redux/slices/filterSlice';
 
 const ListItems = ({ title, items, itemComponent, actions,
   pagination, anchor, type, itemsFrom, sorting }) => {
-  const breakpoint = useBreakpoint();
+  const dispatch = useDispatch();
 
-  const [pageProducts, setPageProducts] = useState([]);
-  const [productsPerPage, setProductsPerPage] = useState(productsPerPageMap[breakpoint]);
-  const [page, setPage] = useState(1);
+  const page = useSelector((state) => state.filter.filterParams.page);
+  const productsPerPage = useSelector((state) => state.filter.filterParams.perPage);
+  const filteredProductsQuantity = useSelector((state) => state.filter.productsQuantity);
+  const allProductsQuantity = useSelector((state) => state.products.productsQuantity);
+
   const [pageQty, setPageQty] = useState(1);
 
   useEffect(() => {
-    setPage(1);
-  }, [items]);
+    // if (itemsFrom === 'filter') {
+    //   setPageQty(Math.ceil(filteredProductsQuantity / productsPerPage));
+    // } else {
+    //   setPageQty(Math.ceil(allProductsQuantity / productsPerPage));
+    // }
+    //
+    // if (page > pageQty) {
+    //   dispatch(setFilterParams({ startPage: 1 }));
+    // }
 
-  useEffect(() => {
-    setProductsPerPage(productsPerPageMap[breakpoint]);
-  }, [breakpoint]);
-
-  useEffect(() => {
-    const from = (page - 1) * productsPerPage;
-    const to = page * productsPerPage;
-    setPageProducts(items.slice(from, to));
-
-    const currentPageQty = Math.ceil(items.length / productsPerPage);
+    let currentPageQty = 0;
+    if (itemsFrom === 'filter') {
+      currentPageQty = Math.ceil(filteredProductsQuantity / productsPerPage);
+    } else {
+      currentPageQty = Math.ceil(allProductsQuantity / productsPerPage);
+    }
     setPageQty(currentPageQty);
 
     if (page > currentPageQty) {
-      setPage(1);
+      dispatch(setFilterParams({ startPage: 1 }));
     }
-  }, [items, page, productsPerPage, breakpoint]);
+  }, [filteredProductsQuantity, allProductsQuantity, itemsFrom, productsPerPage, page, dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(setFilterParams({ startPage: 1 }));
+  // }, [dispatch, items]);
 
   return (
     <Container sx={{ mb: 13 }}>
@@ -60,7 +71,7 @@ const ListItems = ({ title, items, itemComponent, actions,
       )}
 
       <Grid container spacing={0} sx={gridStylesContainer}>
-        { pageProducts && pageProducts.map((item) => (
+        { items && items.map((item) => (
           // eslint-disable-next-line dot-notation
           <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
             {createElement(itemComponent, { ...item })}
@@ -71,10 +82,9 @@ const ListItems = ({ title, items, itemComponent, actions,
       {actions}
       {(pagination && pageQty > 1) && (
       <AppPagination
-        page={page}
-        setPage={setPage}
         pageQty={pageQty}
         anchor={anchor}
+        itemsFrom={itemsFrom}
       />
       )}
       <Divider sx={{ marginTop: '67px' }} />

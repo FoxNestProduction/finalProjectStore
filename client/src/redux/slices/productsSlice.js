@@ -20,7 +20,7 @@ export const fetchSortedProducts = createAsyncThunk(
   async (queryString, { rejectWithValue }) => {
     try {
       const response = await instance.get(`/products/filter${queryString}`);
-      return response.data.products;
+      return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -29,6 +29,7 @@ export const fetchSortedProducts = createAsyncThunk(
 
 const initialState = {
   products: [],
+  productsQuantity: null,
   topProducts: [],
   loading: false,
   error: null,
@@ -51,7 +52,11 @@ const productsSlice = createSlice({
       })
       .addCase(fetchTopProducts.rejected, setError)
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
-        state.products = action.payload;
+        state.products = action.payload.products;
+        state.productsQuantity = action.payload.productsQuantity;
+        // state.pagesQuantity = Math.ceil(
+        //   action.payload.productsQuantity / state.filterParams.perPage,
+        // );
       });
   },
 });

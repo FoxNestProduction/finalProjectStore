@@ -17,8 +17,8 @@ const getFilterParamsFromURL = (queryString) => {
     minPrice: queryParams.minPrice ? parseInt(queryParams.minPrice, 10) : 0,
     maxPrice: queryParams.maxPrice ? parseInt(queryParams.maxPrice, 10) : 30,
     sort: queryParams.sort,
-    // startPage: 1,
-    // perPage: 10,
+    startPage: Number(queryParams.startPage) || 1,
+    perPage: Number(queryParams.perPage) || 10,
   };
 };
 

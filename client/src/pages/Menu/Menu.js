@@ -11,7 +11,7 @@ import { resetSearch, setInputSearchValue, setSearch } from '../../redux/slices/
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
 import { fetchSortedProducts } from '../../redux/slices/productsSlice';
 import { productsPerPageMap } from '../../constants/bpMapConstants';
-import { setFilterParams } from '../../redux/slices/filterSlice';
+import { resetFilter, setFilterParams } from '../../redux/slices/filterSlice';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -24,35 +24,47 @@ const MenuPage = () => {
   const location = useLocation();
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
   const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
-  const breakpoint = useBreakpoint();
-
-  // useEffect(() => {
-  //   const queryString = location.search;
-  //   if (!queryString && !filterParams.sort) {
-  //     dispatch(fetchSortedProducts(`?perPage=${productsPerPageMap[breakpoint]}&startPage=${filterParams.startPage}`));
-  //   }
-  // }, [breakpoint]);// eslint-disable-line
-
-  console.log('location.search from menu: ', location.search);
 
   useEffect(() => {
     const queryString = location.search;
-    if (!queryString && !filterParams.sort) {
+    // console.log('!!!queryString from menu', queryString);
+
+    // itemsFromFilter.length === 0 - це перевірка при переході з іншої
+    // сторінки на сторінку меню чи є в сторі вже відфільтровані продукти
+    // щоб не кидати лишній запит на сервер
+    // if (!queryString && !filterParams.sort && itemsFromFilter.length === 0) {
+    //   console.log('🔥🔥🔥fetchSortedProducts from Menu');
+    //   dispatch(fetchSortedProducts(`?perPage=${filterParams.perPage}&startPage=${filterParams.startPage}`));
+    // }
+    if (!queryString) {
+      console.log('🔥🔥🔥fetchSortedProducts from Menu');
       dispatch(fetchSortedProducts(`?perPage=${filterParams.perPage}&startPage=${filterParams.startPage}`));
     }
-  }, [filterParams.perPage, filterParams.startPage]);// eslint-disable-line
-
-  useEffect(() => {
-    dispatch(setFilterParams({
-      perPage: productsPerPageMap[breakpoint],
-    }));
-  }, [breakpoint, dispatch]);
+  // }, [filterParams.perPage, filterParams.startPage]); // eslint-disable-line
+  }, [filterParams.perPage]); // eslint-disable-line
 
   useEffect(() => {
     // dispatch(setSearch([]));
     // dispatch(setInputSearchValue(''));
     dispatch(resetSearch());
-  }, [dispatch]);
+
+    return () => {
+      console.log('❗️❗️❗️ Reset state in return ');
+      dispatch(resetSearch());
+      dispatch(resetFilter());
+      dispatch(setFilterParams({
+        filterCategories: [],
+        isTrending: false,
+        rating: null,
+        isHealthy: false,
+        isSupreme: false,
+        minPrice: 0,
+        maxPrice: 30,
+        sort: '',
+        startPage: 1,
+      }));
+    };
+  }, [dispatch]); // eslint-disable-line
 
   return (
     <>
@@ -76,7 +88,7 @@ const MenuPage = () => {
           itemComponent={ProductCardItem}
           actions={null}
           type="food"
-          pagination
+          // pagination
           anchor={productsAnchor}
           itemsFrom="search"
         />

@@ -93,37 +93,49 @@ const Sorter = ({ type, itemsFrom }) => {
     dispatch(setFilterParams({ sort: currentSort }));
 
     if (itemsFrom === 'filter') {
-      console.log('fetchFilteredProducts in Sorter');
-      const updatedFilterParams = { ...filterParams, sort: currentSort };
+      console.log('🌻🌻🌻fetchFilteredProducts in Sorter');
+      dispatch(setFilterParams({
+        startPage: 1,
+      }));
+      const updatedFilterParams = { ...filterParams, sort: currentSort, startPage: 1 };
       const queryString = getQueryStringFromFilterParams(updatedFilterParams);
       navigate(queryString);
       dispatch(fetchFilteredProducts(queryString));
     }
     if (itemsFrom === 'allDishes') {
-      console.log('fetchSortedProducts in Sorter');
-      const updatedFilterParams = { sort: currentSort };
+      console.log('🌷🌷🌷fetchSortedProducts in Sorter');
+      dispatch(setFilterParams({
+        startPage: 1,
+      }));
+      const updatedFilterParams = {
+        sort: currentSort,
+        startPage: 1,
+        perPage: filterParams.perPage,
+      };
       const queryString = getQueryStringFromFilterParams(updatedFilterParams);
       navigate(queryString);
       dispatch(fetchSortedProducts(queryString));
     }
   };
 
-  useEffect(() => {
-    const str = location.search;
-    console.log('str', str);
-
-    if (!str && itemsFrom === 'filter') {
-      const queryString = getQueryStringFromFilterParams(filterParams);
-      navigate(queryString);
-    }
-    if (!str && itemsFrom === 'allDishes') {
-      const filterParamsAp = {
-        sort: filterParams.sort,
-      };
-      const queryString = getQueryStringFromFilterParams(filterParamsAp);
-      navigate(queryString);
-    }
-  }, []); // eslint-disable-line
+  // useEffect(() => {
+  //   const str = location.search;
+  //   console.log('str', str);
+  //
+  //   if (!str && itemsFrom === 'filter') {
+  //     const queryString = getQueryStringFromFilterParams(filterParams);
+  //     navigate(queryString);
+  //   }
+  //   if (!str && itemsFrom === 'allDishes') {
+  //     const filterParamsAp = {
+  //       sort: filterParams.sort,
+  //       startPage: filterParams.startPage,
+  //       perPage: filterParams.perPage,
+  //     };
+  //     const queryString = getQueryStringFromFilterParams(filterParamsAp);
+  //     navigate(queryString);
+  //   }
+  // }, []); // eslint-disable-line
 
   return (
     <Box sx={{ width: '100%', height: '40px', mb: '40px', paddingRight: '30px', textAlign: 'end' }}>
