@@ -29,13 +29,14 @@ const partnersSlice = createSlice({
       state.partners = action.payload;
     },
   },
-  extraReducers: {
-    [fetchTopPartners.pending]: setLoading,
-    [fetchTopPartners.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.topPartners = action.payload;
-    },
-    [fetchTopPartners.rejected]: setError,
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTopPartners.pending, setLoading)
+      .addCase(fetchTopPartners.fulfilled, (state, action) => {
+        state.loading = false;
+        state.topPartners = action.payload;
+      })
+      .addCase(fetchTopPartners.rejected, setError);
   },
 });
 
