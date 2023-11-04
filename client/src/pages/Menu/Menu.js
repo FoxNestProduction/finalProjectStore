@@ -1,39 +1,70 @@
-import React, { useEffect, useRef, useState } from 'react';
+/* eslint-disable max-len */
+import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import useBreakpoint from '../../customHooks/useBreakpoint';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
 import ListItems from '../../components/ListItems/ListItem';
-import { setSearch } from '../../redux/slices/searchSlice';
+import { resetSearch, setInputSearchValue, setSearch } from '../../redux/slices/searchSlice';
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
-import { instance } from '../../API/instance';
+import { fetchSortedProducts } from '../../redux/slices/productsSlice';
+import { productsPerPageMap } from '../../constants/bpMapConstants';
+import { resetFilter, setFilterParams } from '../../redux/slices/filterSlice';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
   const itemsFromSearch = useSelector((state) => state.search.search);
-  const itemsFromFilter = useSelector((state) => state.filter.filter);
+  const itemsFromFilter = useSelector((state) => state.filter.filteredProducts);
   const keyFromSearch = useSelector((state) => state.search.key);
+  const filterParams = useSelector((state) => state.filter.filterParams);
+  const filteredProductsQuantity = useSelector((state) => state.filter.productsQuantity);
   const products = useSelector((state) => state.products.products);
-
+  const location = useLocation();
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
-
   const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
 
   useEffect(() => {
-    dispatch(setSearch([]));
-  }, [dispatch]);
+    const queryString = location.search;
+    // console.log('!!!queryString from menu', queryString);
 
-  // приклад запиту за продуктами, які відповідають пошуку
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await instance.post('/products/search', { query: 'cheese' });
-  //       console.log(response);
-  //     } catch (err) {
-  //       console.error('Error getting searched products: ', err);
-  //     }
-  //   })();
-  // }, []);
+    // itemsFromFilter.length === 0 - це перевірка при переході з іншої
+    // сторінки на сторінку меню чи є в сторі вже відфільтровані продукти
+    // щоб не кидати лишній запит на сервер
+    // if (!queryString && !filterParams.sort && itemsFromFilter.length === 0) {
+    //   console.log('🔥🔥🔥fetchSortedProducts from Menu');
+    //   dispatch(fetchSortedProducts(`?perPage=${filterParams.perPage}&startPage=${filterParams.startPage}`));
+    // }
+    if (!queryString) {
+      console.log('🔥🔥🔥fetchSortedProducts from Menu');
+      dispatch(fetchSortedProducts(`?perPage=${filterParams.perPage}&startPage=${filterParams.startPage}`));
+    }
+  // }, [filterParams.perPage, filterParams.startPage]); // eslint-disable-line
+  }, [filterParams.perPage]); // eslint-disable-line
+
+  useEffect(() => {
+    // dispatch(setSearch([]));
+    // dispatch(setInputSearchValue(''));
+    dispatch(resetSearch());
+
+    return () => {
+      console.log('❗️❗️❗️ Reset state in return ');
+      dispatch(resetSearch());
+      dispatch(resetFilter());
+      dispatch(setFilterParams({
+        filterCategories: [],
+        isTrending: false,
+        rating: null,
+        isHealthy: false,
+        isSupreme: false,
+        minPrice: 0,
+        maxPrice: 30,
+        sort: '',
+        startPage: 1,
+      }));
+    };
+  }, [dispatch]); // eslint-disable-line
 
   return (
     <>
@@ -46,6 +77,7 @@ const MenuPage = () => {
           itemComponent={RestaurantItem}
           actions={null}
           type="partners"
+          itemsFrom="search"
         />
       )}
 
@@ -56,18 +88,21 @@ const MenuPage = () => {
           itemComponent={ProductCardItem}
           actions={null}
           type="food"
-          pagination
+          // pagination
           anchor={productsAnchor}
+          itemsFrom="search"
         />
       ) : itemsFromFilter.length !== 0 ? (
         <ListItems
-          title={`Filter Results (${itemsFromFilter.length})`}
+          title={`Filter Results (${filteredProductsQuantity})`}
           items={itemsFromFilter}
           itemComponent={ProductCardItem}
           actions={null}
           type="food"
           pagination
+          sorting
           anchor={productsAnchor}
+          itemsFrom="filter"
         />
       ) : (
         <ListItems
@@ -77,7 +112,9 @@ const MenuPage = () => {
           actions={null}
           type="food"
           pagination
+          sorting
           anchor={productsAnchor}
+          itemsFrom="allDishes"
         />
       )}
 
@@ -89,7 +126,7 @@ const MenuPage = () => {
           actions={<ListItemAction type="partners" />}
           type="partners"
         />
-      ) }
+      )}
     </>
   );
 };

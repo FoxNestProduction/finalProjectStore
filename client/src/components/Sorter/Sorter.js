@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, MenuItem, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { stylesSortSelect } from '../ListItems/styles';
+import { fetchFilteredProducts, setFilterParams } from '../../redux/slices/filterSlice';
+import { fetchSortedProducts } from '../../redux/slices/productsSlice';
+import getQueryStringFromFilterParams from '../../utils/filter/getQueryStringFromFilterParams';
 
-const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
+const Sorter = ({ type, itemsFrom }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const filterParams = useSelector((state) => state.filter.filterParams);
+
+  const setSelectedValue = (sort) => {
+    switch (sort) {
+      case '+currentPrice': return 'Price UP';
+      case '-currentPrice': return 'Price DOWN';
+      case '+rating': return 'Rating UP';
+      case '-rating': return 'Rating DOWN';
+      default: return 'Default';
+    }
+  };
+
   let currencies;
+
   if (type === 'partners') {
     currencies = [
       {
@@ -44,10 +66,76 @@ const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
       },
     ];
   }
-
   const handleSelectChangeSortBy = (event) => {
-    setSelectedValueSortBy(event.target.value);
+    let currentSort = '';
+
+    switch (event.target.value) {
+      case 'Price UP':
+        currentSort = '+currentPrice';
+        break;
+
+      case 'Price DOWN':
+        currentSort = '-currentPrice';
+        break;
+
+      case 'Rating UP':
+        currentSort = '+rating';
+        break;
+
+      case 'Rating DOWN':
+        currentSort = '-rating';
+        break;
+
+      default:
+        currentSort = '';
+    }
+
+    dispatch(setFilterParams({ sort: currentSort }));
+
+    if (itemsFrom === 'filter') {
+      console.log('🌻🌻🌻fetchFilteredProducts in Sorter');
+      dispatch(setFilterParams({
+        startPage: 1,
+      }));
+      const updatedFilterParams = { ...filterParams, sort: currentSort, startPage: 1 };
+      const queryString = getQueryStringFromFilterParams(updatedFilterParams);
+      navigate(queryString);
+      dispatch(fetchFilteredProducts(queryString));
+    }
+    if (itemsFrom === 'allDishes') {
+      console.log('🌷🌷🌷fetchSortedProducts in Sorter');
+      dispatch(setFilterParams({
+        startPage: 1,
+      }));
+      const updatedFilterParams = {
+        sort: currentSort,
+        startPage: 1,
+        perPage: filterParams.perPage,
+      };
+      const queryString = getQueryStringFromFilterParams(updatedFilterParams);
+      navigate(queryString);
+      dispatch(fetchSortedProducts(queryString));
+    }
   };
+
+  // useEffect(() => {
+  //   const str = location.search;
+  //   console.log('str', str);
+  //
+  //   if (!str && itemsFrom === 'filter') {
+  //     const queryString = getQueryStringFromFilterParams(filterParams);
+  //     navigate(queryString);
+  //   }
+  //   if (!str && itemsFrom === 'allDishes') {
+  //     const filterParamsAp = {
+  //       sort: filterParams.sort,
+  //       startPage: filterParams.startPage,
+  //       perPage: filterParams.perPage,
+  //     };
+  //     const queryString = getQueryStringFromFilterParams(filterParamsAp);
+  //     navigate(queryString);
+  //   }
+  // }, []); // eslint-disable-line
 
   return (
     <Box sx={{ width: '100%', height: '40px', mb: '40px', paddingRight: '30px', textAlign: 'end' }}>
@@ -57,9 +145,9 @@ const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
         size="small"
         select
         label="Sort by"
-        defaultValue="Default"
+        defaultValue=""
         variant="standard"
-        value={selectedValueSortBy}
+        value={setSelectedValue(filterParams.sort)}
         onChange={handleSelectChangeSortBy}
       >
         {currencies.map((option) => (
@@ -74,14 +162,12 @@ const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
 
 Sorter.propTypes = {
   type: PropTypes.string,
-  selectedValueSortBy: PropTypes.string,
-  setSelectedValueSortBy: PropTypes.func,
+  itemsFrom: PropTypes.string,
 };
 
 Sorter.defaultProps = {
   type: '',
-  selectedValueSortBy: '',
-  setSelectedValueSortBy: () => {},
+  itemsFrom: '',
 };
 
 export default Sorter;

@@ -22,7 +22,7 @@ const SectionSwipperFilterSearch = () => {
           <Filter />
         </Box>
         <Box component="div" sx={stylesSearch}>
-          <Search />
+          {/* <Search /> */}
         </Box>
       </Box>
     </Container>

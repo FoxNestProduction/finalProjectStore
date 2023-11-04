@@ -169,19 +169,26 @@ exports.searchProducts = async (req, res, next) => {
     res.status(400).json({ message: "Query string is empty" });
   }
 
-  //Taking the entered value from client in lower-case and trimed
+  //Taking the entered value from client in lower-case and trimmed
   let query = req.body.query
     .toLowerCase()
     .trim()
     .replace(/\s\s+/g, " ");
 
   // Creating the array of key-words from taken string
-  let queryArr = query.split(" ");
+  // let queryArr = query.split(" ");
+
+  // adding double quotes to search by the whole phrase
+  // const phraseQuery = `\"${query}\"`;
 
   // Finding ALL products, that have at least one match
-  let matchedProducts = await Product.find({
-    $text: { $search: query }
-  });
+  // let matchedProducts = await Product.find({
+  //   $text: { $search: query }
+  // });
+  let matchedProducts = await Product.find(
+    { $text: { $search: query } },
+    { score: { $meta: 'textScore' } }
+  ).sort({ score: { $meta: 'textScore' } });
 
   res.send(matchedProducts);
 };

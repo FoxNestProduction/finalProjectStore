@@ -5,65 +5,52 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import Sorter from '../Sorter/Sorter';
 import { productsPerPageMap } from '../../constants/bpMapConstants';
+import { setFilterParams } from '../../redux/slices/filterSlice';
 
-const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, type }) => {
-  const { pathname } = useLocation();
+const ListItems = ({ title, items, itemComponent, actions,
+  pagination, anchor, type, itemsFrom, sorting }) => {
+  const dispatch = useDispatch();
 
-  const [selectedValueSortBy, setSelectedValueSortBy] = React.useState('');
+  const page = useSelector((state) => state.filter.filterParams.page);
+  const productsPerPage = useSelector((state) => state.filter.filterParams.perPage);
+  const filteredProductsQuantity = useSelector((state) => state.filter.productsQuantity);
+  const allProductsQuantity = useSelector((state) => state.products.productsQuantity);
 
-  useEffect(() => {
-    setSelectedValueSortBy('Default');
-  }, [items]);
-
-  const itemsCopy = React.useMemo(() => {
-    const copy = [...items];
-    if (selectedValueSortBy === 'Price UP') {
-      return copy.sort((a, b) => a.currentPrice - b.currentPrice);
-    }
-    if (selectedValueSortBy === 'Price DOWN') {
-      return copy.sort((a, b) => b.currentPrice - a.currentPrice);
-    }
-    if (selectedValueSortBy === 'Rating UP') {
-      return copy.sort((a, b) => a.rating - b.rating);
-    }
-    if (selectedValueSortBy === 'Rating DOWN') {
-      return copy.sort((a, b) => b.rating - a.rating);
-    }
-    return copy;
-  }, [items, selectedValueSortBy]);
-
-  const breakpoint = useBreakpoint();
-
-  const [pageProducts, setPageProducts] = useState([]);
-  const [productsPerPage, setProductsPerPage] = useState(productsPerPageMap[breakpoint]);
-  const [page, setPage] = useState(1);
   const [pageQty, setPageQty] = useState(1);
 
   useEffect(() => {
-    setPage(1);
-  }, [itemsCopy]);
+    // if (itemsFrom === 'filter') {
+    //   setPageQty(Math.ceil(filteredProductsQuantity / productsPerPage));
+    // } else {
+    //   setPageQty(Math.ceil(allProductsQuantity / productsPerPage));
+    // }
+    //
+    // if (page > pageQty) {
+    //   dispatch(setFilterParams({ startPage: 1 }));
+    // }
 
-  useEffect(() => {
-    setProductsPerPage(productsPerPageMap[breakpoint]);
-  }, [breakpoint]);
-
-  useEffect(() => {
-    const from = (page - 1) * productsPerPage;
-    const to = page * productsPerPage;
-    setPageProducts(itemsCopy.slice(from, to));
-
-    const currentPageQty = Math.ceil(itemsCopy.length / productsPerPage);
+    let currentPageQty = 0;
+    if (itemsFrom === 'filter') {
+      currentPageQty = Math.ceil(filteredProductsQuantity / productsPerPage);
+    } else {
+      currentPageQty = Math.ceil(allProductsQuantity / productsPerPage);
+    }
     setPageQty(currentPageQty);
 
     if (page > currentPageQty) {
-      setPage(1);
+      dispatch(setFilterParams({ startPage: 1 }));
     }
-  }, [itemsCopy, page, productsPerPage, breakpoint]);
+  }, [filteredProductsQuantity, allProductsQuantity, itemsFrom, productsPerPage, page, dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(setFilterParams({ startPage: 1 }));
+  // }, [dispatch, items]);
 
   return (
     <Container sx={{ mb: 13 }}>
@@ -76,16 +63,15 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
         {title}
       </Typography>
 
-      { pathname === '/menu' && (
+      { sorting && (
       <Sorter
         type={type}
-        selectedValueSortBy={selectedValueSortBy}
-        setSelectedValueSortBy={setSelectedValueSortBy}
+        itemsFrom={itemsFrom}
       />
       )}
 
       <Grid container spacing={0} sx={gridStylesContainer}>
-        { pageProducts && pageProducts.map((item) => (
+        { items && items.map((item) => (
           // eslint-disable-next-line dot-notation
           <Grid key={item['_id']} item sx={type === 'partners' ? gridStylesItemPartners : gridStylesItemProducts}>
             {createElement(itemComponent, { ...item })}
@@ -96,10 +82,9 @@ const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, t
       {actions}
       {(pagination && pageQty > 1) && (
       <AppPagination
-        page={page}
-        setPage={setPage}
         pageQty={pageQty}
         anchor={anchor}
+        itemsFrom={itemsFrom}
       />
       )}
       <Divider sx={{ marginTop: '67px' }} />
@@ -111,20 +96,25 @@ ListItems.propTypes = {
   title: PropTypes.string,
   actions: PropTypes.object,
   pagination: PropTypes.bool,
+  sorting: PropTypes.bool,
   anchor: PropTypes.object,
   items: PropTypes.array,
   itemComponent: PropTypes.func,
   type: PropTypes.string,
+  itemsFrom: PropTypes.string,
 };
 
 ListItems.defaultProps = {
   title: '',
   actions: {},
   pagination: false,
+  sorting: false,
   anchor: {},
   items: [],
   itemComponent: () => {},
   type: '',
+  itemsFrom: '',
+
 };
 
 export default ListItems;

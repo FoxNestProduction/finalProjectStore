@@ -1,46 +1,85 @@
+/* eslint-disable max-len */
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
 import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
-import { setSearch, setKey, setInputSearchValue } from '../../redux/slices/searchSlice';
+import {
+  setSearch,
+  setKey,
+  setInputSearchValue,
+  fetchSearchedProductsOrPartners, resetSearch,
+} from '../../redux/slices/searchSlice';
 import { setScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
-import { setFilter } from '../../redux/slices/filterSlice';
+import { setFilterParams, setFilteredProducts, setProductsQuantity, resetFilter } from '../../redux/slices/filterSlice';
 
 const Search = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const products = useSelector((state) => state.products.products);
   const partners = useSelector((state) => state.partners.partners);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
+  const filterParams = useSelector((state) => state.filter.filterParams);
+  // const products = [
+  //   'pizza',
+  //   'salads',
+  // ];
+  // const partners = [
+  //   'bob',
+  //   'ben',
+  // ];
   const [alignment, setAlignment] = useState('food');
   const labelForTextField = `Search  ${alignment}`;
 
   const handleChangeButton = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
-      dispatch(setInputSearchValue(''));
-      dispatch(setSearch([]));
+      // dispatch(setInputSearchValue(''));
+      // dispatch(setSearch([]));
+      dispatch(resetSearch());
     }
   };
 
-  const filteredProductsOrRestaurants = (name) => {
-    return (alignment === 'food' ? products : partners).filter((el) => {
-      return el.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
-    });
-  };
-
-  const handleInputChange = (event, newInputValue) => {
+  const handleInputChange = async (event, newInputValue) => {
     dispatch(setInputSearchValue(newInputValue));
     if (newInputValue.length === 0) {
       dispatch(setSearch([]));
     }
     if (newInputValue.length !== 0) {
-      dispatch(setSearch(filteredProductsOrRestaurants(newInputValue)));
-      dispatch(setKey(alignment));
-      dispatch(setFilter([]));
+      const fetchData = {
+        url: alignment === 'food' ? '/products/search' : '/partners/search',
+        body: {
+          query: newInputValue,
+        },
+      };
+      try {
+        dispatch(fetchSearchedProductsOrPartners(fetchData));
+        dispatch(setKey(alignment));
+        // dispatch(setFilteredProducts([]));
+        // dispatch(setProductsQuantity(null));
+        dispatch(resetFilter());
+        dispatch(
+          setFilterParams({
+            ...filterParams,
+            filterCategories: [],
+            isTrending: false,
+            rating: null,
+            isHealthy: false,
+            isSupreme: false,
+            minPrice: 0,
+            maxPrice: 30,
+            sort: '',
+          }),
+        );
+        navigate('');
+      } catch (err) {
+        console.error(`Error getting ${newInputValue}: `, err);
+      }
     }
   };
 
@@ -59,6 +98,7 @@ const Search = () => {
           id="search"
           disableClearable
           options={alignment === 'food' ? products.map((option) => option.name) : partners.map((option) => option.name)}
+          // options={alignment === 'food' ? products : partners}
           renderInput={(params) => (
             <TextField
               sx={stylesBorder}
@@ -78,6 +118,7 @@ const Search = () => {
           )}
         />
       </Stack>
+
       <ToggleButtonGroup value={alignment} exclusive onChange={handleChangeButton} aria-label="Platform" ref={topProductsAnchor}>
         <ToggleButton value="food" sx={stylesBtn}>
           Food

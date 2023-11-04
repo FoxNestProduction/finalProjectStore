@@ -1,19 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { fetchFilteredProducts, setFilterParams } from '../../redux/slices/filterSlice';
+import getQueryStringFromFilterParams from '../../utils/filter/getQueryStringFromFilterParams';
+import { fetchSortedProducts } from '../../redux/slices/productsSlice';
 
-const AppPagination = ({ page, setPage, pageQty, anchor }) => {
+const AppPagination = ({ pageQty, anchor, itemsFrom }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const page = useSelector((state) => state.filter.filterParams.startPage);
+  const filterParams = useSelector((state) => state.filter.filterParams);
+
   const handlePageChange = (event, currentPage) => {
-    setPage(currentPage);
-    if (anchor) {
-      setTimeout(() => {
-        // eslint-disable-next-line react/prop-types
-        anchor.scrollIntoView({
-          block: 'start',
-        });
-      }, 200);
+    dispatch(setFilterParams({ startPage: currentPage }));
+
+    const updatedFilterParams = {
+      ...filterParams,
+      startPage: currentPage,
+    };
+
+    if (itemsFrom === 'filter') {
+      const queryString = getQueryStringFromFilterParams(updatedFilterParams);
+      navigate(queryString);
+      console.log('🧡🧡🧡 fetchFilteredProducts by Pagination');
+      dispatch(fetchFilteredProducts(queryString));
+    } else {
+      delete updatedFilterParams.minPrice;
+      delete updatedFilterParams.maxPrice;
+      const queryString = getQueryStringFromFilterParams(updatedFilterParams);
+      navigate(queryString);
+      console.log('🧡🧡🧡 fetchSortedProducts by Pagination');
+      dispatch(fetchSortedProducts(queryString));
     }
+
+    // if (anchor) {
+    //   setTimeout(() => {
+    //     // eslint-disable-next-line react/prop-types
+    //     anchor.scrollIntoView({
+    //       block: 'start',
+    //     });
+    //   }, 200);
+    // }
   };
 
   return (
@@ -47,8 +77,7 @@ const AppPagination = ({ page, setPage, pageQty, anchor }) => {
 };
 
 AppPagination.propTypes = {
-  page: PropTypes.number.isRequired,
-  setPage: PropTypes.func.isRequired,
+  itemsFrom: PropTypes.string.isRequired,
   pageQty: PropTypes.number.isRequired,
   anchor: PropTypes.object,
 };
