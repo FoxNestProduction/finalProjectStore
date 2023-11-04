@@ -1,14 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 import PropTypes from 'prop-types';
+import styles from './Alert.module.scss';
 
-const CustomAlert = ({ type, handleCloseAlert }) => {
-  // const [info, setInfo] = useState(true);
+const CustomAlert = ({ type, handleCloseAlert, content }) => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible((prev) => !prev);
+
+    // const timer = setTimeout(() => {
+    //   setVisible(false);
+    //   handleCloseAlert();
+    // }, 3000);
+
+    // return () => clearTimeout(timer);
+  }, []);
+
+  const alertStyle = {
+    width: '40%',
+    position: 'fixed',
+    bottom: '50px',
+    left: '50px',
+    zIndex: '3000',
+    transition: 'opacity 1s ease-in-out',
+    opacity: visible ? 1 : 0,
+  };
 
   return (
-    <Stack sx={{ width: '50%', position: 'absolute', bottom: '5px', left: '55px' }} spacing={2}>
+    <Stack sx={alertStyle} spacing={2}>
+      <Alert
+        onClose={handleCloseAlert}
+        severity={type}
+        // className={classNames(styles.customAlert, {
+        //   [styles.show]: visible,
+        // })}
+      >
+        <AlertTitle>{type}</AlertTitle>
+        {content}
+      </Alert>
       {/* <Alert severity="error">
         <AlertTitle>Error</AlertTitle>
         This is an error alert —
@@ -32,28 +65,20 @@ const CustomAlert = ({ type, handleCloseAlert }) => {
         This is a success alert —
         {' '}
         <strong>check it out!</strong>
-      </Alert> */}
-      <Alert onClose={handleCloseAlert} severity={type}>
-        <AlertTitle>{type}</AlertTitle>
-        This is a
-        {' '}
-        { type }
-        {' '}
-        alert —
-        {' '}
-        <strong>check it out!</strong>
-      </Alert>
+</Alert>  */}
     </Stack>
   );
 };
 
 CustomAlert.propTypes = {
   type: PropTypes.string,
+  content: PropTypes.string,
   handleCloseAlert: PropTypes.func,
 };
 
 CustomAlert.defaultProps = {
   type: 'success',
+  content: 'This is a Alert',
   handleCloseAlert: () => {},
 };
 

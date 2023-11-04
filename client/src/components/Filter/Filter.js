@@ -17,6 +17,8 @@ import {
 } from './styles';
 import { setFilter } from '../../redux/slices/filterSlice';
 import { setSearch, setInputSearchValue } from '../../redux/slices/searchSlice';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../Alert/Alert';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -36,6 +38,8 @@ const Filter = () => {
   const [isSupreme, setIsSupreme] = React.useState(sessionStorage.getItem('isSupreme') === 'true' || false);
   const defaultSliderValue = 15;
   const [valueSlider, setValueSlider] = React.useState(Number(sessionStorage.getItem('valueSlider')) || defaultSliderValue);
+
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   const saveFilterToSessionStorage = () => {
     sessionStorage.setItem('pizza', pizza.toString());
@@ -115,7 +119,10 @@ const Filter = () => {
   const handleApplyFilter = () => {
     if (filteredAndSortedItems.length === 0) {
       // eslint-disable-next-line no-undef,no-alert
-      alert('Nothing found :(');
+      // alert('Nothing found :(');
+      // console.log(e);
+      handleShowAlert(true);
+      dispatch(setFilter([]));
     } else {
       dispatch(setFilter(filteredAndSortedItems));
       dispatch(setSearch([]));
@@ -372,10 +379,11 @@ const Filter = () => {
       </Stack>
       <Button
         sx={stylesBtn}
-        onClick={handleApplyFilter}
+        onClick={(e) => handleShowAlert(e)}
       >
         Apply
       </Button>
+      { alert && <CustomAlert type="warning" handleCloseAlert={handleCloseAlert} content="Nothing found :(" /> }
     </Stack>
   );
 };

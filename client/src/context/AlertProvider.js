@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 export const AlertContext = createContext({});
 
 export const AlertContextProvider = memo(({ children }) => {
-  const [alert, setAlert] = useState(true);
+  const [alert, setAlert] = useState(false);
   const handleCloseAlert = () => {
     setAlert((prev) => !prev);
   };
-  const handleShowAlert = () => {
+  const handleShowAlert = (e) => {
+    e.preventDefault();
     setAlert(true);
     setTimeout(() => {
       setAlert(false);

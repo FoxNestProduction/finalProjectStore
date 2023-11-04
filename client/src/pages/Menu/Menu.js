@@ -7,6 +7,8 @@ import ListItems from '../../components/ListItems/ListItem';
 import { setSearch } from '../../redux/slices/searchSlice';
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
 import { instance } from '../../API/instance';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../../components/Alert/Alert';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -18,6 +20,8 @@ const MenuPage = () => {
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
 
   const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
+
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   useEffect(() => {
     dispatch(setSearch([]));
@@ -90,6 +94,7 @@ const MenuPage = () => {
           type="partners"
         />
       ) }
+      {/* { alert && <CustomAlert type="error" handleCloseAlert={handleCloseAlert} /> } */}
     </>
   );
 };
