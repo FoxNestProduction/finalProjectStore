@@ -84,7 +84,6 @@ export const addToFavourites = ({ id }) => async (dispatch) => {
 export const deleteFromFavourites = ({ id }) => async (dispatch) => {
   try {
     const response = await instance.delete(`/wishlist/${id}`);
-    dispatch(removeFavourite(id));
   } catch (error) {
     console.warn('Error loading favourites:', error);
   }
