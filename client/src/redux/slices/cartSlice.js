@@ -18,6 +18,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action) {
+      console.log(action.payload);
       // 1-ий варіант - коли нам в action.payload надходить повний об'єкт item
       if (state.cart.products.length === 0 && action.payload !== null) {
         action.payload.cartQuantity = 1;

@@ -17,6 +17,8 @@ import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import { addToCart } from '../../redux/slices/cartSlice';
+import { instance } from '../../API/instance';
+import { GetOneProduct, resetOneProduct } from '../../redux/slices/productsSlice';
 // eslint-disable-next-line no-underscore-dangle
 const ProductCardItem = ({
   currentPrice,
@@ -30,33 +32,38 @@ const ProductCardItem = ({
   itemNo,
 }) => {
   const breakPoint = useBreakpoint();
-  const products = useSelector((state) => state.products.products);
+  // const oneProduct = useSelector((state) => state.products.oneProduct);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
-
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
   };
 
-  let selectedItem;
   const handleAddToCart = (event) => {
     event.preventDefault();
-    const index = products.findIndex((product) => product._id === _id);
-    if (index !== -1) {
-      const foundObject = products[index];
-      selectedItem = {
-        product: {
-          _id: foundObject._id,
-          currentPrice: foundObject.currentPrice,
-          imageUrl: foundObject.imageUrl,
-          name: foundObject.name,
-        },
-        cartQuantity: 1,
-      };
-    }
-    (() => dispatch(addToCart(selectedItem)))();
+
+    const onGetOneProductComplete = (oneProduct) => {
+      if (Object.keys(oneProduct).length !== 0) {
+        const selectedItem = {
+          product: {
+            _id: oneProduct._id,
+            currentPrice: oneProduct.currentPrice,
+            imageUrl: oneProduct.imageUrl,
+            name: oneProduct.name,
+          },
+          cartQuantity: 1,
+        };
+        dispatch(addToCart(selectedItem));
+      }
+    };
+
+    dispatch(GetOneProduct(itemNo)).then((action) => {
+      if (GetOneProduct.fulfilled.match(action)) {
+        onGetOneProductComplete(action.payload);
+      }
+    });
   };
 
   return (

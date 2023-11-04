@@ -36,6 +36,7 @@ const App = () => {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint, dispatch]);
 
+  /* dead code */
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);

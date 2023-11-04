@@ -14,9 +14,23 @@ export const fetchTopProducts = createAsyncThunk(
   },
 );
 
+export const GetOneProduct = createAsyncThunk(
+  'products/GetOneProduct',
+  async (itemNo, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.get(`/products/${itemNo}`);
+      console.log(data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
 const initialState = {
   products: [],
   topProducts: [],
+  oneProduct: {},
   loading: false,
   error: null,
 };
@@ -28,6 +42,9 @@ const productsSlice = createSlice({
     setProducts(state, action) {
       state.products = action.payload;
     },
+    resetOneProduct(state, action = {}) {
+      state.products = action.payload;
+    },
   },
   extraReducers: {
     [fetchTopProducts.pending]: setLoading,
@@ -36,10 +53,15 @@ const productsSlice = createSlice({
       state.topProducts = action.payload;
     },
     [fetchTopProducts.rejected]: setError,
+    [GetOneProduct.pending]: setLoading,
+    [GetOneProduct.fulfilled]: (state, action) => {
+      state.oneProduct = action.payload;
+    },
+    [GetOneProduct.rejected]: setError,
   },
 });
 
-export const { setProducts } = productsSlice.actions;
+export const { setProducts, resetOneProduct } = productsSlice.actions;
 
 // todo: видалити, коли всі дані будуть завантажуватись через asyncThunk/локально в компонентах
 export const getProducts = () => async (dispatch) => {
