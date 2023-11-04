@@ -30,6 +30,7 @@ const ProductCard = () => {
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
 
+  const isLoading = useSelector((state) => state.favourites.loading);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   const {
@@ -47,12 +48,14 @@ const ProductCard = () => {
 
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const toggleFavourite = () => {
-    if (isFavourite) {
-      dispatch(removeFavourite(id));
-      dispatch(deleteFromFavourites({ id }));
-    } else {
-      dispatch(setIsFavourite(id));
-      dispatch(addToFavourites({ id }));
+    if (!isLoading) {
+      if (isFavourite) {
+        dispatch(removeFavourite(id));
+        dispatch(deleteFromFavourites({ id }));
+      } else {
+        dispatch(setIsFavourite(id));
+        dispatch(addToFavourites({ id }));
+      }
     }
   };
   const handleOpenModalLogin = () => {
