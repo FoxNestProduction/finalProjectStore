@@ -37,6 +37,10 @@ const favouriteSlice = createSlice({
     },
     setIsFavourite(state, action) {
       state.cardStates[action.payload] = true;
+      state.loading = true;
+    },
+    setIsLoading(state) {
+      state.loading = false;
     },
     removeFavourite(state, action) {
     // eslint-disable-next-line no-underscore-dangle
@@ -44,6 +48,7 @@ const favouriteSlice = createSlice({
       state.favourites = state.favourites.filter((item) => item._id !== id);
       state.cardStates[id] = false;
       delete state.cardStates[id];
+      state.loading = true;
     },
     resetCardStates(state) {
       state.cardStates = {};
@@ -68,12 +73,16 @@ export const {
   setIsFavourite,
   removeFavourite,
   setFavourite,
+  setIsLoading,
   resetCardStates,
 } = favouriteSlice.actions;
 
 export const addToFavourites = ({ id }) => async (dispatch) => {
   try {
     const { data } = await instance.put(`/wishlist/${id}`);
+    if (data) {
+      dispatch(setIsLoading());
+    }
     const { products } = data;
     dispatch(addFavourite(products));
   } catch (error) {
@@ -82,8 +91,12 @@ export const addToFavourites = ({ id }) => async (dispatch) => {
 };
 
 export const deleteFromFavourites = ({ id }) => async (dispatch) => {
+  dispatch(removeFavourite(id));
   try {
     const response = await instance.delete(`/wishlist/${id}`);
+    if (response) {
+      dispatch(setIsLoading());
+    }
   } catch (error) {
     console.warn('Error loading favourites:', error);
   }
