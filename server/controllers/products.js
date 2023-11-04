@@ -118,6 +118,18 @@ exports.getProducts = (req, res, next) => {
     );
 };
 
+exports.getProductsNames = async (req, res) => {
+  try {
+    const products = await Product.find();
+    const productsNames = products.map(product => product.name);
+    res.json(productsNames);
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
+    });
+  }
+};
+
 exports.getProductById = (req, res, next) => {
   Product.findOne({
     itemNo: req.params.itemNo

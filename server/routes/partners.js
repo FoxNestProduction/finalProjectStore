@@ -8,6 +8,7 @@ const {
   updatePartner,
   deletePartner,
   getPartners,
+  getPartnersNames,
   getPartnerById,
   getPartnersFilterParams,
   searchPartners
@@ -44,6 +45,11 @@ router.delete(
 // @desc    GET existing partners
 // @access  Public
 router.get("/", getPartners);
+
+// @route   GET /partners/names
+// @desc    GET existing partners names
+// @access  Public
+router.get("/names", getPartnersNames);
 
 // @route   GET /partners/filter
 // @desc    GET appropriate filtered partners
