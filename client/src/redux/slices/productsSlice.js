@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
-import { fetchFilteredProducts } from './filterSlice';
 
 export const fetchTopProducts = createAsyncThunk(
   'products/fetchTopProducts',
@@ -67,9 +66,6 @@ const productsSlice = createSlice({
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
         state.products = action.payload.products;
         state.productsQuantity = action.payload.productsQuantity;
-        // state.pagesQuantity = Math.ceil(
-        //   action.payload.productsQuantity / state.filterParams.perPage,
-        // );
       });
     // .addCase(fetchAllProductsNames.fulfilled, (state, action) => {
     //   state.allProductsNames = action.payload.allProductsNames;
