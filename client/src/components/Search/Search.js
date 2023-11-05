@@ -15,7 +15,7 @@ import {
   fetchSearchedProductsOrPartners, resetSearch,
 } from '../../redux/slices/searchSlice';
 import { setScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
-import { setFilterParams, setFilteredProducts, setProductsQuantity, resetFilter } from '../../redux/slices/filterSlice';
+import { resetFilterParams, deleteFilteredData } from '../../redux/slices/filterSlice';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -39,8 +39,6 @@ const Search = () => {
   const handleChangeButton = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
-      // dispatch(setInputSearchValue(''));
-      // dispatch(setSearch([]));
       dispatch(resetSearch());
     }
   };
@@ -60,22 +58,8 @@ const Search = () => {
       try {
         dispatch(fetchSearchedProductsOrPartners(fetchData));
         dispatch(setKey(alignment));
-        // dispatch(setFilteredProducts([]));
-        // dispatch(setProductsQuantity(null));
-        dispatch(resetFilter());
-        dispatch(
-          setFilterParams({
-            ...filterParams,
-            filterCategories: [],
-            isTrending: false,
-            rating: null,
-            isHealthy: false,
-            isSupreme: false,
-            minPrice: 0,
-            maxPrice: 30,
-            sort: '',
-          }),
-        );
+        dispatch(deleteFilteredData());
+        dispatch(resetFilterParams());
         navigate('');
       } catch (err) {
         console.error(`Error getting ${newInputValue}: `, err);

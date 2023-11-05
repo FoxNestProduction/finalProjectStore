@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -18,66 +18,95 @@ import {
   stylesToggleButton,
 } from './styles';
 import {
-  fetchFilteredProducts, resetFilter,
-  setFilteredProducts,
+  deleteFilteredData, resetFilterParams,
   setFilterParams,
-  setNothingFound, setProductsQuantity,
 } from '../../redux/slices/filterSlice';
-import getFilterParamsFromURL from '../../utils/filter/getFilterParamsFromURL';
-import getQueryStringFromFilterParams from '../../utils/filter/getQueryStringFromFilterParams';
 import { fetchSortedProducts } from '../../redux/slices/productsSlice';
+import { getParamsFromURL, getQueryStringFromParams } from '../../utils/filterHelpers';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
-  // const queryString = location.search;
 
   const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
-  const filterParams = useSelector((state) => state.filter.filterParams);
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
 
-  useEffect(() => {
-    const queryString = location.search;
-    console.log('queryString', queryString);
+  const getInitialFilters = () => {
+    const params = getParamsFromURL(location.search);
+    return params.filterCategories;
+  };
 
-    if (queryString) {
-      console.log('useEffect in Filter');
-      // navigate(queryString);
-      const initialFilterParams = getFilterParamsFromURL(queryString);
-      dispatch(setFilterParams(initialFilterParams));
+  const getInitialFilterBy = () => {
+    const params = getParamsFromURL(location.search);
+    return {
+      isTrending: params.isTrending,
+      rating: params.rating,
+      isHealthy: params.isHealthy,
+      isSupreme: params.isSupreme,
+    };
+  };
 
-      const filteredParams = Object.fromEntries(
-        Object.entries(initialFilterParams).filter(([key, value]) => {
-          return key === 'filterCategories'
-            ? value.length !== 0
-            : value === 0 || !!value;
-        }),
-      );
-      if (filteredParams.minPrice === 0 && filteredParams.maxPrice === 30) {
-        delete filteredParams.minPrice;
-        delete filteredParams.maxPrice;
-      }
-      // console.log('filteredParams: ', filteredParams);
+  const getInitialPriceRange = () => {
+    const params = getParamsFromURL(location.search);
+    return {
+      minPrice: params.minPrice,
+      maxPrice: params.maxPrice,
+    };
+  };
 
-      if ((Object.keys(filteredParams).length === 3 && filteredParams.sort)
-          || Object.keys(filteredParams).length === 2) {
-        console.log('💧💧💧fetchSortedProducts in Filter UseEffect');
-        dispatch(fetchSortedProducts(queryString));
-      } else {
-        console.log('💦💦💦fetchFilteredProducts in Filter UseEffect');
-        dispatch(fetchFilteredProducts(queryString));
-      }
-    }
-  }, []); // eslint-disable-line
+  const [filters, setFilters] = useState(getInitialFilters);
+  const [filterBy, setFilterBy] = useState(getInitialFilterBy);
+  const [priceRange, setPriceRange] = useState(getInitialPriceRange);
 
-  const handleChangeDishes = (dishes) => {
-    dispatch(setFilterParams({
-      filterCategories: filterParams.filterCategories.includes(`${dishes}`)
-        ? filterParams.filterCategories.filter((category) => category !== `${dishes}`)
-        : [...filterParams.filterCategories, `${dishes}`],
-    }));
+  // useEffect(() => {
+  //   const queryString = location.search;
+  //   if (queryString) {
+  //     // const initialFilterParams = getFilterParamsFromURL(queryString);
+  //     dispatch(setFilterParams(initialFilterParams));
+  //
+  //     const filteredParams = Object.fromEntries(
+  //       Object.entries(initialFilterParams).filter(([key, value]) => {
+  //         return key === 'filterCategories'
+  //           ? value.length !== 0
+  //           : value === 0 || !!value;
+  //       }),
+  //     );
+  //     if (filteredParams.minPrice === 0 && filteredParams.maxPrice === 30) {
+  //       delete filteredParams.minPrice;
+  //       delete filteredParams.maxPrice;
+  //     }
+  //
+  //     if ((Object.keys(filteredParams).length === 3 && filteredParams.sort)
+  //         || Object.keys(filteredParams).length === 2) {
+  //       console.log('💧💧💧fetchSortedProducts in Filter UseEffect');
+  //       dispatch(fetchSortedProducts(queryString));
+  //     } else {
+  //       console.log('💦💦💦fetchFilteredProducts in Filter UseEffect');
+  //       dispatch(fetchFilteredProducts(queryString));
+  //     }
+  //   }
+  // }, []); // eslint-disable-line
+
+  const handleChangeDishes = (dish) => {
+    setFilters((prev) => {
+      return prev.includes(dish)
+        ? prev.filter((category) => category !== dish)
+        : [...prev, dish];
+    });
+    // dispatch(setFilterParams({
+    //   filterCategories: filterParams.filterCategories.includes(`${dishes}`)
+    //     ? filterParams.filterCategories.filter((category) => category !== `${dishes}`)
+    //     : [...filterParams.filterCategories, `${dishes}`],
+    // }));
+  };
+
+  const handleChangeFilterBy = (type) => {
+    setFilterBy((prev) => {
+      return type === 'mostPopular'
+        ? { ...prev, rating: prev.rating === 5 ? null : 5 }
+        : { ...prev, [type]: !prev[type] };
+    });
   };
 
   const marks = [
@@ -100,18 +129,21 @@ const Filter = () => {
   ];
 
   const handleApplyFilter = async () => {
-    const updatedFilterParams = {
-      ...filterParams,
-      startPage: 1,
-    };
+    // const updatedFilterParams = {
+    //   ...filterParams,
+    //   startPage: 1,
+    // };
     dispatch(setFilterParams({
+      filterCategories: filters,
+      ...filterBy,
+      ...priceRange,
       startPage: 1,
     }));
 
-    const queryString = getQueryStringFromFilterParams(updatedFilterParams);
-    navigate(queryString);
-    console.log('😈😈😈 fetchFilteredProducts by Apply');
-    dispatch(fetchFilteredProducts(queryString));
+    // const queryString = getQueryStringFromParams(updatedFilterParams);
+    // navigate(queryString);
+    // console.log('😈😈😈 fetchFilteredProducts by Apply');
+    // dispatch(fetchFilteredProducts(queryString));
     // if (anchor) {
     //   anchor.scrollIntoView({
     //     block: 'start',
@@ -124,28 +156,27 @@ const Filter = () => {
     // dispatch(setFilteredProducts([]));
     // dispatch(setProductsQuantity(null));
     // dispatch(setNothingFound(false));
-    dispatch(resetFilter());
-    const resetFilterParams = {
-      ...filterParams,
-      filterCategories: [],
+    dispatch(deleteFilteredData());
+    dispatch(resetFilterParams('withoutSort'));
+    setFilters([]);
+    setFilterBy({
       isTrending: false,
       rating: null,
       isHealthy: false,
       isSupreme: false,
+    });
+    setPriceRange({
       minPrice: 0,
       maxPrice: 30,
-      startPage: 1,
-      // sort: '',
-    };
-    dispatch(setFilterParams(resetFilterParams));
+    });
 
-    delete resetFilterParams.minPrice;
-    delete resetFilterParams.maxPrice;
-
-    const queryString = getQueryStringFromFilterParams(resetFilterParams);
-    navigate(queryString);
-    console.log('❌❌❌ fetchSortedProducts by Reset');
-    dispatch(fetchSortedProducts(queryString));
+    // delete resetFilterParams.minPrice;
+    // delete resetFilterParams.maxPrice;
+    //
+    // const queryString = getQueryStringFromParams(resetFilterParams);
+    // navigate(queryString);
+    // console.log('❌❌❌ fetchSortedProducts by Reset');
+    // dispatch(fetchSortedProducts(queryString));
   };
 
   return (
@@ -172,7 +203,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="pizza"
-              selected={filterParams.filterCategories.includes('pizza')}
+              selected={filters.includes('pizza')}
               onChange={() => handleChangeDishes('pizza')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -184,7 +215,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="burgers"
-              selected={filterParams.filterCategories.includes('burgers')}
+              selected={filters.includes('burgers')}
               onChange={() => handleChangeDishes('burgers')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -196,7 +227,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="sushi"
-              selected={filterParams.filterCategories.includes('sushi')}
+              selected={filters.includes('sushi')}
               onChange={() => handleChangeDishes('sushi')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -208,7 +239,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="salads"
-              selected={filterParams.filterCategories.includes('salads')}
+              selected={filters.includes('salads')}
               onChange={() => handleChangeDishes('salads')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -229,7 +260,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="pasta"
-              selected={filterParams.filterCategories.includes('pasta')}
+              selected={filters.includes('pasta')}
               onChange={() => handleChangeDishes('pasta')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -241,7 +272,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="sandwiches"
-              selected={filterParams.filterCategories.includes('sandwiches')}
+              selected={filters.includes('sandwiches')}
               onChange={() => handleChangeDishes('sandwiches')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -253,7 +284,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="bbqMeat"
-              selected={filterParams.filterCategories.includes('bbqMeat')}
+              selected={filters.includes('bbqMeat')}
               onChange={() => handleChangeDishes('bbqMeat')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -265,7 +296,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="drink"
-              selected={filterParams.filterCategories.includes('drink')}
+              selected={filters.includes('drink')}
               onChange={() => handleChangeDishes('drink')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -287,24 +318,16 @@ const Filter = () => {
             <ToggleButton
               sx={stylesSortBtn}
               value="isTrending"
-              selected={filterParams.isTrending}
-              onChange={() => {
-                dispatch(setFilterParams({
-                  isTrending: !filterParams.isTrending,
-                }));
-              }}
+              selected={filterBy.isTrending}
+              onChange={() => handleChangeFilterBy('isTrending')}
             >
               Trending
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
               value="isHealthy"
-              selected={filterParams.isHealthy}
-              onChange={() => {
-                dispatch(setFilterParams({
-                  isHealthy: !filterParams.isHealthy,
-                }));
-              }}
+              selected={filterBy.isHealthy}
+              onChange={() => handleChangeFilterBy('isHealthy')}
             >
               Healthy
             </ToggleButton>
@@ -314,24 +337,16 @@ const Filter = () => {
             <ToggleButton
               sx={stylesSortBtn}
               value="isSupreme"
-              selected={filterParams.isSupreme}
-              onChange={() => {
-                dispatch(setFilterParams({
-                  isSupreme: !filterParams.isSupreme,
-                }));
-              }}
+              selected={filterBy.isSupreme}
+              onChange={() => handleChangeFilterBy('isSupreme')}
             >
               Supreme
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
               value="mostPopular"
-              selected={filterParams.rating === 5}
-              onChange={() => {
-                dispatch(setFilterParams({
-                  rating: filterParams.rating === 5 ? null : 5,
-                }));
-              }}
+              selected={filterBy.rating === 5}
+              onChange={() => handleChangeFilterBy('mostPopular')}
             >
               Most Popular
             </ToggleButton>
@@ -348,15 +363,15 @@ const Filter = () => {
             sx={stylesSlider}
             max={30}
             getAriaLabel={() => 'Always visible'}
-            value={[filterParams.minPrice, filterParams.maxPrice]}
+            value={[priceRange.minPrice, priceRange.maxPrice]}
             step={1}
             marks={marks}
             valueLabelDisplay="on"
             onChange={(event, newValue) => {
-              dispatch(setFilterParams({
+              setPriceRange({
                 minPrice: newValue[0],
                 maxPrice: newValue[1],
-              }));
+              });
             }}
           />
         </Box>

@@ -13,7 +13,7 @@ export const fetchFilteredProducts = createAsyncThunk(
         // dispatch(setInputSearchValue(''));
         dispatch(resetSearch());
       }
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -51,20 +51,31 @@ const filterSlice = createSlice({
     setProductsQuantity(state, action) {
       state.productsQuantity = action.payload;
     },
-    setNothingFound(state, action) {
-      state.nothingFound = action.payload;
-    },
     setFilterParams(state, action) {
-      console.log('action.payload', action.payload);
-      const newState = { ...state.filterParams, ...action.payload };
-      console.log('newState', newState);
-      state.filterParams = newState;
-      // state.filterParams = { ...state.filterParams, ...action.payload };
+      // console.log('action.payload', action.payload);
+      // const newState = { ...state.filterParams, ...action.payload };
+      // console.log('newState', newState);
+      // state.filterParams = newState;
+      state.filterParams = { ...state.filterParams, ...action.payload };
     },
-    resetFilter(state) {
+    deleteFilteredData(state) {
       state.filteredProducts = [];
       state.productsQuantity = null;
       state.nothingFound = false;
+    },
+    resetFilterParams(state, action) {
+      state.filterParams = {
+        filterCategories: [],
+        isTrending: false,
+        rating: null,
+        isHealthy: false,
+        isSupreme: false,
+        minPrice: 0,
+        maxPrice: 30,
+        sort: action.payload === 'withoutSort' ? state.filterParams.sort : '',
+        startPage: 1,
+        perPage: state.filterParams.perPage,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -85,7 +96,8 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setFilteredProducts, setFilterParams,
-  setNothingFound, setProductsQuantity, resetFilter } = filterSlice.actions;
+export const { setFilteredProducts,
+  setFilterParams, setProductsQuantity,
+  deleteFilteredData, resetFilterParams } = filterSlice.actions;
 
 export default filterSlice.reducer;

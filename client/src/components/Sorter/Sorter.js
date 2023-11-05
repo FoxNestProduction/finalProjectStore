@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { stylesSortSelect } from '../ListItems/styles';
 import { fetchFilteredProducts, setFilterParams } from '../../redux/slices/filterSlice';
 import { fetchSortedProducts } from '../../redux/slices/productsSlice';
-import getQueryStringFromFilterParams from '../../utils/filter/getQueryStringFromFilterParams';
+import { getQueryStringFromParams } from '../../utils/filterHelpers';
 
 const Sorter = ({ type, itemsFrom }) => {
   const dispatch = useDispatch();
@@ -67,55 +67,64 @@ const Sorter = ({ type, itemsFrom }) => {
     ];
   }
   const handleSelectChangeSortBy = (event) => {
-    let currentSort = '';
+    // let currentSort = '';
 
     switch (event.target.value) {
       case 'Price UP':
-        currentSort = '+currentPrice';
+        dispatch(setFilterParams({ sort: '+currentPrice' }));
+        // currentSort = '+currentPrice';
         break;
 
       case 'Price DOWN':
-        currentSort = '-currentPrice';
+        dispatch(setFilterParams({ sort: '-currentPrice' }));
+        // currentSort = '-currentPrice';
         break;
 
       case 'Rating UP':
-        currentSort = '+rating';
+        dispatch(setFilterParams({ sort: '+rating' }));
+        // currentSort = '+rating';
         break;
 
       case 'Rating DOWN':
-        currentSort = '-rating';
+        dispatch(setFilterParams({ sort: '-rating' }));
+        // currentSort = '-rating';
         break;
 
       default:
-        currentSort = '';
+        dispatch(setFilterParams({ sort: '' }));
+        // currentSort = '';
     }
 
-    dispatch(setFilterParams({ sort: currentSort }));
+    dispatch(setFilterParams({
+      startPage: 1,
+    }));
 
-    if (itemsFrom === 'filter') {
-      console.log('🌻🌻🌻fetchFilteredProducts in Sorter');
-      dispatch(setFilterParams({
-        startPage: 1,
-      }));
-      const updatedFilterParams = { ...filterParams, sort: currentSort, startPage: 1 };
-      const queryString = getQueryStringFromFilterParams(updatedFilterParams);
-      navigate(queryString);
-      dispatch(fetchFilteredProducts(queryString));
-    }
-    if (itemsFrom === 'allDishes') {
-      console.log('🌷🌷🌷fetchSortedProducts in Sorter');
-      dispatch(setFilterParams({
-        startPage: 1,
-      }));
-      const updatedFilterParams = {
-        sort: currentSort,
-        startPage: 1,
-        perPage: filterParams.perPage,
-      };
-      const queryString = getQueryStringFromFilterParams(updatedFilterParams);
-      navigate(queryString);
-      dispatch(fetchSortedProducts(queryString));
-    }
+    // dispatch(setFilterParams({ sort: currentSort }));
+
+    // if (itemsFrom === 'filter') {
+    //   console.log('🌻🌻🌻fetchFilteredProducts in Sorter');
+    //   dispatch(setFilterParams({
+    //     startPage: 1,
+    //   }));
+    //   const updatedFilterParams = { ...filterParams, sort: currentSort, startPage: 1 };
+    //   const queryString = getQueryStringFromParams(updatedFilterParams);
+    //   navigate(queryString);
+    //   dispatch(fetchFilteredProducts(queryString));
+    // }
+    // if (itemsFrom === 'allDishes') {
+    //   console.log('🌷🌷🌷fetchSortedProducts in Sorter');
+    //   dispatch(setFilterParams({
+    //     startPage: 1,
+    //   }));
+    //   const updatedFilterParams = {
+    //     sort: currentSort,
+    //     startPage: 1,
+    //     perPage: filterParams.perPage,
+    //   };
+    //   const queryString = getQueryStringFromParams(updatedFilterParams);
+    //   navigate(queryString);
+    //   dispatch(fetchSortedProducts(queryString));
+    // }
   };
 
   // useEffect(() => {

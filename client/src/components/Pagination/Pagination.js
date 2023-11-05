@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { fetchFilteredProducts, setFilterParams } from '../../redux/slices/filterSlice';
-import getQueryStringFromFilterParams from '../../utils/filter/getQueryStringFromFilterParams';
 import { fetchSortedProducts } from '../../redux/slices/productsSlice';
+import { getQueryStringFromParams } from '../../utils/filterHelpers';
 
 const AppPagination = ({ pageQty, anchor, itemsFrom }) => {
   const dispatch = useDispatch();
@@ -17,24 +17,24 @@ const AppPagination = ({ pageQty, anchor, itemsFrom }) => {
   const handlePageChange = (event, currentPage) => {
     dispatch(setFilterParams({ startPage: currentPage }));
 
-    const updatedFilterParams = {
-      ...filterParams,
-      startPage: currentPage,
-    };
-
-    if (itemsFrom === 'filter') {
-      const queryString = getQueryStringFromFilterParams(updatedFilterParams);
-      navigate(queryString);
-      console.log('🧡🧡🧡 fetchFilteredProducts by Pagination');
-      dispatch(fetchFilteredProducts(queryString));
-    } else {
-      delete updatedFilterParams.minPrice;
-      delete updatedFilterParams.maxPrice;
-      const queryString = getQueryStringFromFilterParams(updatedFilterParams);
-      navigate(queryString);
-      console.log('🧡🧡🧡 fetchSortedProducts by Pagination');
-      dispatch(fetchSortedProducts(queryString));
-    }
+    // const updatedFilterParams = {
+    //   ...filterParams,
+    //   startPage: currentPage,
+    // };
+    //
+    // if (itemsFrom === 'filter') {
+    //   const queryString = getQueryStringFromParams(updatedFilterParams);
+    //   navigate(queryString);
+    //   console.log('🧡🧡🧡 fetchFilteredProducts by Pagination');
+    //   dispatch(fetchFilteredProducts(queryString));
+    // } else {
+    //   delete updatedFilterParams.minPrice;
+    //   delete updatedFilterParams.maxPrice;
+    //   const queryString = getQueryStringFromParams(updatedFilterParams);
+    //   navigate(queryString);
+    //   console.log('🧡🧡🧡 fetchSortedProducts by Pagination');
+    //   dispatch(fetchSortedProducts(queryString));
+    // }
 
     // if (anchor) {
     //   setTimeout(() => {
