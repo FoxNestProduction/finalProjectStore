@@ -5,8 +5,10 @@ import { useLocation } from 'react-router';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
-import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
-import { fetchTopPartners, getPartners } from './redux/slices/partnersSlice';
+// import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
+import { fetchTopProducts } from './redux/slices/productsSlice';
+// import { fetchTopPartners, getPartners } from './redux/slices/partnersSlice';
+import { fetchTopPartners } from './redux/slices/partnersSlice';
 import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
@@ -41,8 +43,8 @@ const App = () => {
   }, [breakpoint, dispatch]);
 
   useEffect(() => {
-    dispatch(getPartners());
-    dispatch(getProducts());
+    // dispatch(getPartners());
+    // dispatch(getProducts());
     // dispatch(getReviews());
   }, [dispatch]);
 

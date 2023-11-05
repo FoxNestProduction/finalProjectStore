@@ -14,9 +14,19 @@ export const fetchTopPartners = createAsyncThunk(
   },
 );
 
+export const getAllPartnersNames = () => async (dispatch) => {
+  try {
+    const { data } = await instance.get('/partners/names');
+    dispatch(setAllPartnersNames(data)); // eslint-disable-line
+  } catch (error) {
+    console.log('%cError loading allPartnersNames:', 'color: red; font-weight: bold;', error);
+  }
+};
+
 const initialState = {
   partners: [],
   topPartners: [],
+  allPartnersNames: [],
   loading: false,
   error: null,
 };
@@ -27,6 +37,9 @@ const partnersSlice = createSlice({
   reducers: {
     setPartners(state, action) {
       state.partners = action.payload;
+    },
+    setAllPartnersNames(state, action) {
+      state.allPartnersNames = action.payload;
     },
   },
   extraReducers: {
@@ -39,16 +52,16 @@ const partnersSlice = createSlice({
   },
 });
 
-export const { setPartners } = partnersSlice.actions;
+export const { setPartners, setAllPartnersNames } = partnersSlice.actions;
 
 // todo: видалити, коли всі дані будуть завантажуватись через asyncThunk/локально в компонентах
-export const getPartners = () => async (dispatch) => {
-  try {
-    const { data } = await instance.get('/partners');
-    dispatch(setPartners(data));
-  } catch (err) {
-    console.log('%cError loading products:', 'color: red; font-weight: bold;', err);
-  }
-};
+// export const getPartners = () => async (dispatch) => {
+//   try {
+//     const { data } = await instance.get('/partners');
+//     dispatch(setPartners(data));
+//   } catch (err) {
+//     console.log('%cError loading products:', 'color: red; font-weight: bold;', err);
+//   }
+// };
 
 export default partnersSlice.reducer;

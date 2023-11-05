@@ -27,10 +27,20 @@ export const fetchSortedProducts = createAsyncThunk(
   },
 );
 
+export const getAllProductsNames = () => async (dispatch) => {
+  try {
+    const { data } = await instance.get('/products/names');
+    dispatch(setAllProductsNames(data)); // eslint-disable-line
+  } catch (error) {
+    console.log('%cError loading allProductsNames:', 'color: red; font-weight: bold;', error);
+  }
+};
+
 const initialState = {
   products: [],
   productsQuantity: null,
   topProducts: [],
+  allProductsNames: [],
   loading: false,
   error: null,
 };
@@ -41,6 +51,9 @@ const productsSlice = createSlice({
   reducers: {
     setProducts(state, action) {
       state.products = action.payload;
+    },
+    setAllProductsNames(state, action) {
+      state.allProductsNames = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -58,10 +71,13 @@ const productsSlice = createSlice({
         //   action.payload.productsQuantity / state.filterParams.perPage,
         // );
       });
+    // .addCase(fetchAllProductsNames.fulfilled, (state, action) => {
+    //   state.allProductsNames = action.payload.allProductsNames;
+    // });
   },
 });
 
-export const { setProducts } = productsSlice.actions;
+export const { setProducts, setAllProductsNames } = productsSlice.actions;
 
 // todo: видалити, коли всі дані будуть завантажуватись через asyncThunk/локально в компонентах
 export const getProducts = () => async (dispatch) => {
