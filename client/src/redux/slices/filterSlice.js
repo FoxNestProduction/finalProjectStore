@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
-import { resetSearch, setInputSearchValue, setSearch } from './searchSlice';
+import { resetSearch } from './searchSlice';
 import { setError, setLoading } from '../extraReducersHelpers';
 
 export const fetchFilteredProducts = createAsyncThunk(
@@ -9,11 +9,8 @@ export const fetchFilteredProducts = createAsyncThunk(
     try {
       const response = await instance.get(`/products/filter${queryString}`);
       if (response.data.products.length > 0) {
-        // dispatch(setSearch([]));
-        // dispatch(setInputSearchValue(''));
         dispatch(resetSearch());
       }
-      // console.log(response.data);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -52,10 +49,6 @@ const filterSlice = createSlice({
       state.productsQuantity = action.payload;
     },
     setFilterParams(state, action) {
-      // console.log('action.payload', action.payload);
-      // const newState = { ...state.filterParams, ...action.payload };
-      // console.log('newState', newState);
-      // state.filterParams = newState;
       state.filterParams = { ...state.filterParams, ...action.payload };
     },
     deleteFilteredData(state) {
@@ -96,8 +89,10 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setFilteredProducts,
-  setFilterParams, setProductsQuantity,
-  deleteFilteredData, resetFilterParams } = filterSlice.actions;
+export const {
+  setFilterParams,
+  deleteFilteredData,
+  resetFilterParams,
+} = filterSlice.actions;
 
 export default filterSlice.reducer;

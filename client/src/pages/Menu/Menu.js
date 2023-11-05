@@ -61,10 +61,8 @@ const MenuPage = () => {
 
     if (!isQuery.current) {
       if (hasFilters) {
-        console.log('🔴 fetchFilteredProducts');
         dispatch(fetchFilteredProducts(queryString));
       } else {
-        console.log('🟢 fetchSortedProducts');
         dispatch(fetchSortedProducts(queryString));
       }
     }

@@ -1,38 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
-import { fetchFilteredProducts, setFilterParams } from '../../redux/slices/filterSlice';
-import { fetchSortedProducts } from '../../redux/slices/productsSlice';
-import { getQueryStringFromParams } from '../../utils/filterHelpers';
+import { setFilterParams } from '../../redux/slices/filterSlice';
 
-const AppPagination = ({ pageQty, anchor, itemsFrom }) => {
+const AppPagination = ({ pageQty, anchor }) => {
   const dispatch = useDispatch();
   const page = useSelector((state) => state.filter.filterParams.startPage);
 
   const handlePageChange = (event, currentPage) => {
     dispatch(setFilterParams({ startPage: currentPage }));
-
-    // const updatedFilterParams = {
-    //   ...filterParams,
-    //   startPage: currentPage,
-    // };
-    //
-    // if (itemsFrom === 'filter') {
-    //   const queryString = getQueryStringFromParams(updatedFilterParams);
-    //   navigate(queryString);
-    //   console.log('🧡🧡🧡 fetchFilteredProducts by Pagination');
-    //   dispatch(fetchFilteredProducts(queryString));
-    // } else {
-    //   delete updatedFilterParams.minPrice;
-    //   delete updatedFilterParams.maxPrice;
-    //   const queryString = getQueryStringFromParams(updatedFilterParams);
-    //   navigate(queryString);
-    //   console.log('🧡🧡🧡 fetchSortedProducts by Pagination');
-    //   dispatch(fetchSortedProducts(queryString));
-    // }
 
     // if (anchor) {
     //   setTimeout(() => {
@@ -75,7 +53,6 @@ const AppPagination = ({ pageQty, anchor, itemsFrom }) => {
 };
 
 AppPagination.propTypes = {
-  itemsFrom: PropTypes.string.isRequired,
   pageQty: PropTypes.number.isRequired,
   anchor: PropTypes.object,
 };
