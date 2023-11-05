@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { debounce } from '@mui/material/utils';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -11,53 +12,68 @@ import {
   setSearch,
   setKey,
   setInputSearchValue,
-  fetchSearchedProductsOrPartners, resetSearch,
+  fetchSearchedProductsOrPartners,
+  resetSearch,
 } from '../../redux/slices/searchSlice';
 import { setScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
 import { resetFilterParams, deleteFilteredData } from '../../redux/slices/filterSlice';
+import { fetchAllProductsNames } from '../../redux/slices/productsSlice';
+import { fetchAllPartnersNames } from '../../redux/slices/partnersSlice';
 
 const Search = ({ resetFiltersLocalState }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const products = useSelector((state) => state.products.products);
-  const partners = useSelector((state) => state.partners.partners);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
 
-  const [alignment, setAlignment] = useState('food');
-  const labelForTextField = `Search  ${alignment}`;
+  useEffect(() => {
+    dispatch(fetchAllProductsNames());
+    dispatch(fetchAllPartnersNames());
+  }, [dispatch]); // eslint-disable-line
 
-  const handleChangeButton = (event, newAlignment) => {
-    if (newAlignment !== null) {
-      setAlignment(newAlignment);
+  const key = useSelector((state) => state.search.key);
+  const allProductsNames = useSelector((state) => state.products.allProductsNames);
+  const allPartnersNames = useSelector((state) => state.partners.allPartnersNames);
+  const labelForTextField = `Search  ${key}`;
+
+  const handleChangeButton = (event, keyBtn) => {
+    if (keyBtn !== null) {
+      dispatch(setKey(keyBtn));
+      dispatch(setInputSearchValue(''));
+      dispatch(setSearch([]));
       dispatch(resetSearch());
     }
   };
 
   const handleInputChange = async (event, newInputValue) => {
     dispatch(setInputSearchValue(newInputValue));
-    if (newInputValue.length === 0) {
-      dispatch(setSearch([]));
-    }
-    if (newInputValue.length !== 0) {
-      const fetchData = {
-        url: alignment === 'food' ? '/products/search' : '/partners/search',
-        body: {
-          query: newInputValue,
-        },
-      };
-      try {
-        dispatch(fetchSearchedProductsOrPartners(fetchData));
-        dispatch(setKey(alignment));
-        dispatch(deleteFilteredData());
-        dispatch(resetFilterParams());
-        resetFiltersLocalState();
-        navigate('');
-      } catch (err) {
-        console.error(`Error getting ${newInputValue}: `, err);
-      }
-    }
   };
+  const debounceSearch = useRef(
+    debounce((inputValue, keyBtn) => {
+      if (inputValue.length === 0) {
+        dispatch(setSearch([]));
+      } else {
+        const fetchData = {
+          url: keyBtn === 'food' ? '/products/search' : '/partners/search',
+          body: {
+            query: inputValue,
+          },
+        };
+        try {
+          dispatch(fetchSearchedProductsOrPartners(fetchData));
+          dispatch(deleteFilteredData());
+          dispatch(resetFilterParams());
+          resetFiltersLocalState();
+          navigate('');
+        } catch (err) {
+          console.error(`Error getting ${inputValue}: `, err);
+        }
+      }
+    }, 1000),
+  );
+
+  useEffect(() => {
+    debounceSearch.current(inputSearchValue, key);
+  }, [inputSearchValue, key]); // eslint-disable-line
 
   const topProductsAnchor = useRef();
   useEffect(() => {
@@ -73,8 +89,7 @@ const Search = ({ resetFiltersLocalState }) => {
           freeSolo
           id="search"
           disableClearable
-          options={alignment === 'food' ? products.map((option) => option.name) : partners.map((option) => option.name)}
-          // options={alignment === 'food' ? products : partners}
+          options={key === 'food' ? allProductsNames : allPartnersNames}
           renderInput={(params) => (
             <TextField
               sx={stylesBorder}
@@ -95,7 +110,7 @@ const Search = ({ resetFiltersLocalState }) => {
         />
       </Stack>
 
-      <ToggleButtonGroup value={alignment} exclusive onChange={handleChangeButton} aria-label="Platform" ref={topProductsAnchor}>
+      <ToggleButtonGroup value={key} exclusive onChange={handleChangeButton} aria-label="Platform" ref={topProductsAnchor}>
         <ToggleButton value="food" sx={stylesBtn}>
           Food
         </ToggleButton>

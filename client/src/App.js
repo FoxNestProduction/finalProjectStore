@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
-import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
+import { fetchTopProducts } from './redux/slices/productsSlice';
 import { fetchTopPartners } from './redux/slices/partnersSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
@@ -39,9 +39,9 @@ const App = () => {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint, dispatch]);
 
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getProducts());
+  // }, [dispatch]);
 
   return (
     <>
