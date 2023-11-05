@@ -55,16 +55,17 @@ const favouriteSlice = createSlice({
       state.favourites = [];
     },
   },
-  extraReducers: {
-    [fetchFavourites.pending]: setLoading,
-    [fetchFavourites.rejected]: setError,
-    [fetchFavourites.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.favourites = action.payload;
-      action.payload.forEach(({ _id }) => {
-        state.cardStates[_id] = true;
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchFavourites.pending, setLoading)
+      .addCase(fetchFavourites.rejected, setError)
+      .addCase(fetchFavourites.fulfilled, (state, action) => {
+        state.loading = false;
+        state.favourites = action.payload;
+        action.payload.forEach(({ _id }) => {
+          state.cardStates[_id] = true;
+        });
       });
-    },
   },
 });
 
