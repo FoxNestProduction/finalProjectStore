@@ -44,6 +44,7 @@ const updateCart = async (cartProducts) => {
   }
 };
 
+/* dead code */
 const updateCartAfterCloseWindow = (cartProducts) => {
   const handleUnload = () => {
     updateCart(cartProducts);

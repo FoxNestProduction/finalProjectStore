@@ -36,7 +36,6 @@ const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
-  console.log(cartProducts);
   const totalSum = totalSumFromCart(cartProducts);
 
   const getCart = () => {

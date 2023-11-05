@@ -47,12 +47,7 @@ const ProductCardItem = ({
     const onGetOneProductComplete = (oneProduct) => {
       if (Object.keys(oneProduct).length !== 0) {
         const selectedItem = {
-          product: {
-            _id: oneProduct._id,
-            currentPrice: oneProduct.currentPrice,
-            imageUrl: oneProduct.imageUrl,
-            name: oneProduct.name,
-          },
+          product: { ...oneProduct },
           cartQuantity: 1,
         };
         dispatch(addToCart(selectedItem));
