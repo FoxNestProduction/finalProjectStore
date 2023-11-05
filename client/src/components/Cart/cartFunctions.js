@@ -4,7 +4,7 @@ const createCart = async (cartProducts) => {
   const cartProductsFromServer = cartProducts.map((cartProduct) => {
     const newCartProductObj = {
       // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.id,
+      product: cartProduct.product._id,
       cartQuantity: cartProduct.cartQuantity,
     };
     return newCartProductObj;
@@ -20,6 +20,23 @@ const createCart = async (cartProducts) => {
   } catch (err) {
     console.warn(err);
   }
+};
+
+const createCartObjectFromServer = (cartProducts) => {
+  const cartProductsFromServer = cartProducts.map((cartProduct) => {
+    const newCartProductObj = {
+      // eslint-disable-next-line no-underscore-dangle
+      product: cartProduct.product._id,
+      cartQuantity: cartProduct.cartQuantity,
+    };
+    return newCartProductObj;
+  });
+  const cart = {
+    products: [
+      ...cartProductsFromServer,
+    ],
+  };
+  return cart;
 };
 
 const updateCart = async (cartProducts) => {
@@ -98,4 +115,5 @@ export {
   cartIconCounterFunction,
   totalSumFromCart,
   totalSumFromCartProduct,
+  createCartObjectFromServer,
 };

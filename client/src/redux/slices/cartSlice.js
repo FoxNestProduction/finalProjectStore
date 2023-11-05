@@ -1,17 +1,35 @@
 /* eslint-disable no-underscore-dangle */
-import { createSlice } from '@reduxjs/toolkit';
-import { allProducts } from './productsSlice';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+// import { allProducts } from './productsSlice';
 import { instance } from '../../API/instance';
+import { createCartObjectFromServer } from '../../components/Cart/cartFunctions';
+import { setLoading, setError } from '../extraReducersHelpers';
 
 const initialState = {
   cart: {
     products: [],
   },
-  isLoading: false,
+  loading: false,
   isCart: true,
+  error: null,
 };
 
 /* eslint-disable no-param-reassign */
+
+export const createCart = createAsyncThunk(
+  'users/createCart',
+  async (_, { rejectWithValue, dispatch, getState }) => {
+    const cartProducts = getState().cart.cart.products;
+    const cart = createCartObjectFromServer(cartProducts);
+    try {
+      const response = await instance.post('/cart', cart);
+      console.log(response);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -69,9 +87,9 @@ const cartSlice = createSlice({
     resetCart(state) {
       state.cart.products = [];
     },
-    setIsLoading(state, action) {
-      state.isLoading = action.payload;
-    },
+    // setLoading(state, action) {
+    //   state.loading = action.payload;
+    // },
     setIsCart(state, action) {
       state.isCart = action.payload;
     },
@@ -107,12 +125,21 @@ const cartSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createCart.pending, setLoading)
+      .addCase(createCart.fulfilled, (state, action) => {
+        console.log(state.cart.product);
+        console.log(action.payload);
+      })
+      .addCase(createCart.rejected, setError);
+  },
 });
 
 export const {
   addToCart,
   setCart,
-  setIsLoading,
+  // setLoading,
   deleteFromCart,
   setIsCart,
   addOneMore,
@@ -123,16 +150,16 @@ export const {
 /* change on CreatAsyncThuk */
 export const getCartItemsFromServer = () => async (dispatch) => {
   try {
-    dispatch(setIsLoading(true));
+    dispatch(setLoading(true));
 
     const { data } = await instance.get('/cart');
 
     dispatch(setCart(data.products));
     dispatch(setIsCart(true));
-    dispatch(setIsLoading(false));
+    dispatch(setLoading(false));
   } catch (error) {
     console.warn('Error loading cart:', error);
-    dispatch(setIsLoading(false));
+    dispatch(setLoading(false));
     // dispatch(setIsCart(false));
   }
 };

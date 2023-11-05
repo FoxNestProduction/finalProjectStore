@@ -22,13 +22,13 @@ import {
   continueBtn,
 } from './styles';
 import {
-  createCart,
+  // createCart,
   updateCart,
   updateCartAfterCloseWindow,
   totalSumFromCart,
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
-import { getCartItemsFromServer } from '../../redux/slices/cartSlice';
+import { getCartItemsFromServer, createCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -57,7 +57,8 @@ const Cart = () => {
       if (userIsHasCart) {
         updateCart(cartProducts);
       } else {
-        createCart(cartProducts);
+        // createCart(cartProducts);
+        createCart();
       }
     } else {
       navigate('/checkout');
