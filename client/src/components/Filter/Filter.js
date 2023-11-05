@@ -19,9 +19,7 @@ import {
 } from './styles';
 import {
   fetchFilteredProducts, resetFilter,
-  setFilteredProducts,
   setFilterParams,
-  setNothingFound, setProductsQuantity,
 } from '../../redux/slices/filterSlice';
 import getFilterParamsFromURL from '../../utils/filter/getFilterParamsFromURL';
 import getQueryStringFromFilterParams from '../../utils/filter/getQueryStringFromFilterParams';
@@ -31,8 +29,6 @@ const Filter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  // const queryString = location.search;
-
   const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
   const filterParams = useSelector((state) => state.filter.filterParams);
   const loading = useSelector((state) => state.filter.loading);
@@ -44,7 +40,6 @@ const Filter = () => {
 
     if (queryString) {
       console.log('useEffect in Filter');
-      // navigate(queryString);
       const initialFilterParams = getFilterParamsFromURL(queryString);
       dispatch(setFilterParams(initialFilterParams));
 
@@ -59,8 +54,6 @@ const Filter = () => {
         delete filteredParams.minPrice;
         delete filteredParams.maxPrice;
       }
-      // console.log('filteredParams: ', filteredParams);
-
       if ((Object.keys(filteredParams).length === 3 && filteredParams.sort)
           || Object.keys(filteredParams).length === 2) {
         console.log('💧💧💧fetchSortedProducts in Filter UseEffect');

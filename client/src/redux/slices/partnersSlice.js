@@ -2,26 +2,23 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
 import { setError, setLoading } from '../extraReducersHelpers';
 
-export const fetchTopPartners = createAsyncThunk(
-  'partners/fetchTopPartners',
-  async (count, { rejectWithValue }) => {
-    try {
-      const response = await instance.get(`/partners/filter?perPage=${count}&sort=-rating`);
-      return response.data.partners;
-    } catch (err) {
-      return rejectWithValue(err.response.data);
-    }
-  },
-);
-
-export const getAllPartnersNames = () => async (dispatch) => {
+export const fetchTopPartners = createAsyncThunk('partners/fetchTopPartners', async (count, { rejectWithValue }) => {
   try {
-    const { data } = await instance.get('/partners/names');
-    dispatch(setAllPartnersNames(data)); // eslint-disable-line
-  } catch (error) {
-    console.log('%cError loading allPartnersNames:', 'color: red; font-weight: bold;', error);
+    const response = await instance.get(`/partners/filter?perPage=${count}&sort=-rating`);
+    return response.data.partners;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
   }
-};
+});
+
+export const fetchAllPartnersNames = createAsyncThunk('partners/fetchAllPartnersNames', async (_, { rejectWithValue }) => {
+  try {
+    const response = await instance.get('/partners/names');
+    return response.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
+  }
+});
 
 const initialState = {
   partners: [],
@@ -38,9 +35,6 @@ const partnersSlice = createSlice({
     setPartners(state, action) {
       state.partners = action.payload;
     },
-    setAllPartnersNames(state, action) {
-      state.allPartnersNames = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -49,20 +43,13 @@ const partnersSlice = createSlice({
         state.loading = false;
         state.topPartners = action.payload;
       })
-      .addCase(fetchTopPartners.rejected, setError);
+      .addCase(fetchTopPartners.rejected, setError)
+      .addCase(fetchAllPartnersNames.fulfilled, (state, action) => {
+        state.allPartnersNames = action.payload;
+      });
   },
 });
 
-export const { setPartners, setAllPartnersNames } = partnersSlice.actions;
-
-// todo: видалити, коли всі дані будуть завантажуватись через asyncThunk/локально в компонентах
-// export const getPartners = () => async (dispatch) => {
-//   try {
-//     const { data } = await instance.get('/partners');
-//     dispatch(setPartners(data));
-//   } catch (err) {
-//     console.log('%cError loading products:', 'color: red; font-weight: bold;', err);
-//   }
-// };
+export const { setPartners } = partnersSlice.actions;
 
 export default partnersSlice.reducer;

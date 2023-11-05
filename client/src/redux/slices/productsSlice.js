@@ -2,38 +2,32 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
 
-export const fetchTopProducts = createAsyncThunk(
-  'products/fetchTopProducts',
-  async (count, { rejectWithValue }) => {
-    try {
-      const response = await instance.get(`/products/filter?perPage=${count}&sort=-rating`);
-      return response.data.products;
-    } catch (err) {
-      return rejectWithValue(err.response.data);
-    }
-  },
-);
-
-export const fetchSortedProducts = createAsyncThunk(
-  'products/fetchSortedProducts',
-  async (queryString, { rejectWithValue }) => {
-    try {
-      const response = await instance.get(`/products/filter${queryString}`);
-      return response.data;
-    } catch (err) {
-      return rejectWithValue(err.response.data);
-    }
-  },
-);
-
-export const getAllProductsNames = () => async (dispatch) => {
+export const fetchTopProducts = createAsyncThunk('products/fetchTopProducts', async (count, { rejectWithValue }) => {
   try {
-    const { data } = await instance.get('/products/names');
-    dispatch(setAllProductsNames(data)); // eslint-disable-line
-  } catch (error) {
-    console.log('%cError loading allProductsNames:', 'color: red; font-weight: bold;', error);
+    const response = await instance.get(`/products/filter?perPage=${count}&sort=-rating`);
+    return response.data.products;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
   }
-};
+});
+
+export const fetchSortedProducts = createAsyncThunk('products/fetchSortedProducts', async (queryString, { rejectWithValue }) => {
+  try {
+    const response = await instance.get(`/products/filter${queryString}`);
+    return response.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
+  }
+});
+
+export const fetchAllProductsNames = createAsyncThunk('products/fetchAllProductsNames', async (_, { rejectWithValue }) => {
+  try {
+    const response = await instance.get('/products/names');
+    return response.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
+  }
+});
 
 const initialState = {
   products: [],
@@ -51,9 +45,6 @@ const productsSlice = createSlice({
     setProducts(state, action) {
       state.products = action.payload;
     },
-    setAllProductsNames(state, action) {
-      state.allProductsNames = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -66,14 +57,14 @@ const productsSlice = createSlice({
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
         state.products = action.payload.products;
         state.productsQuantity = action.payload.productsQuantity;
+      })
+      .addCase(fetchAllProductsNames.fulfilled, (state, action) => {
+        state.allProductsNames = action.payload;
       });
-    // .addCase(fetchAllProductsNames.fulfilled, (state, action) => {
-    //   state.allProductsNames = action.payload.allProductsNames;
-    // });
   },
 });
 
-export const { setProducts, setAllProductsNames } = productsSlice.actions;
+export const { setProducts } = productsSlice.actions;
 
 // todo: видалити, коли всі дані будуть завантажуватись через asyncThunk/локально в компонентах
 export const getProducts = () => async (dispatch) => {
