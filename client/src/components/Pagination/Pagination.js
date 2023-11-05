@@ -10,9 +10,7 @@ import { getQueryStringFromParams } from '../../utils/filterHelpers';
 
 const AppPagination = ({ pageQty, anchor, itemsFrom }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const page = useSelector((state) => state.filter.filterParams.startPage);
-  const filterParams = useSelector((state) => state.filter.filterParams);
 
   const handlePageChange = (event, currentPage) => {
     dispatch(setFilterParams({ startPage: currentPage }));

@@ -1,7 +1,6 @@
-/* eslint-disable max-len */
+/* eslint-disable */
+import React from 'react';
 import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,93 +20,14 @@ import {
   deleteFilteredData, resetFilterParams,
   setFilterParams,
 } from '../../redux/slices/filterSlice';
-import { fetchSortedProducts } from '../../redux/slices/productsSlice';
-import { getParamsFromURL, getQueryStringFromParams } from '../../utils/filterHelpers';
+import PropTypes from "prop-types";
 
-const Filter = () => {
+const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   const dispatch = useDispatch();
-  const location = useLocation();
 
   const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
-
-  const getInitialFilters = () => {
-    const params = getParamsFromURL(location.search);
-    return params.filterCategories;
-  };
-
-  const getInitialFilterBy = () => {
-    const params = getParamsFromURL(location.search);
-    return {
-      isTrending: params.isTrending,
-      rating: params.rating,
-      isHealthy: params.isHealthy,
-      isSupreme: params.isSupreme,
-    };
-  };
-
-  const getInitialPriceRange = () => {
-    const params = getParamsFromURL(location.search);
-    return {
-      minPrice: params.minPrice,
-      maxPrice: params.maxPrice,
-    };
-  };
-
-  const [filters, setFilters] = useState(getInitialFilters);
-  const [filterBy, setFilterBy] = useState(getInitialFilterBy);
-  const [priceRange, setPriceRange] = useState(getInitialPriceRange);
-
-  // useEffect(() => {
-  //   const queryString = location.search;
-  //   if (queryString) {
-  //     // const initialFilterParams = getFilterParamsFromURL(queryString);
-  //     dispatch(setFilterParams(initialFilterParams));
-  //
-  //     const filteredParams = Object.fromEntries(
-  //       Object.entries(initialFilterParams).filter(([key, value]) => {
-  //         return key === 'filterCategories'
-  //           ? value.length !== 0
-  //           : value === 0 || !!value;
-  //       }),
-  //     );
-  //     if (filteredParams.minPrice === 0 && filteredParams.maxPrice === 30) {
-  //       delete filteredParams.minPrice;
-  //       delete filteredParams.maxPrice;
-  //     }
-  //
-  //     if ((Object.keys(filteredParams).length === 3 && filteredParams.sort)
-  //         || Object.keys(filteredParams).length === 2) {
-  //       console.log('💧💧💧fetchSortedProducts in Filter UseEffect');
-  //       dispatch(fetchSortedProducts(queryString));
-  //     } else {
-  //       console.log('💦💦💦fetchFilteredProducts in Filter UseEffect');
-  //       dispatch(fetchFilteredProducts(queryString));
-  //     }
-  //   }
-  // }, []); // eslint-disable-line
-
-  const handleChangeDishes = (dish) => {
-    setFilters((prev) => {
-      return prev.includes(dish)
-        ? prev.filter((category) => category !== dish)
-        : [...prev, dish];
-    });
-    // dispatch(setFilterParams({
-    //   filterCategories: filterParams.filterCategories.includes(`${dishes}`)
-    //     ? filterParams.filterCategories.filter((category) => category !== `${dishes}`)
-    //     : [...filterParams.filterCategories, `${dishes}`],
-    // }));
-  };
-
-  const handleChangeFilterBy = (type) => {
-    setFilterBy((prev) => {
-      return type === 'mostPopular'
-        ? { ...prev, rating: prev.rating === 5 ? null : 5 }
-        : { ...prev, [type]: !prev[type] };
-    });
-  };
 
   const marks = [
     {
@@ -128,55 +48,26 @@ const Filter = () => {
     },
   ];
 
+  const handleChangeDishes = (dish) => {
+    setFilters((prev) => ({
+      ...prev,
+      filterCategories: prev.filterCategories.includes(dish)
+          ? prev.filterCategories.filter((category) => category !== dish)
+          : [...prev.filterCategories, dish],
+    }));
+  };
+
   const handleApplyFilter = async () => {
-    // const updatedFilterParams = {
-    //   ...filterParams,
-    //   startPage: 1,
-    // };
     dispatch(setFilterParams({
-      filterCategories: filters,
-      ...filterBy,
-      ...priceRange,
+      ...filters,
       startPage: 1,
     }));
-
-    // const queryString = getQueryStringFromParams(updatedFilterParams);
-    // navigate(queryString);
-    // console.log('😈😈😈 fetchFilteredProducts by Apply');
-    // dispatch(fetchFilteredProducts(queryString));
-    // if (anchor) {
-    //   anchor.scrollIntoView({
-    //     block: 'start',
-    //   });
-    // }
   };
 
   const handleResetFilter = () => {
-    // navigate('');
-    // dispatch(setFilteredProducts([]));
-    // dispatch(setProductsQuantity(null));
-    // dispatch(setNothingFound(false));
     dispatch(deleteFilteredData());
     dispatch(resetFilterParams('withoutSort'));
-    setFilters([]);
-    setFilterBy({
-      isTrending: false,
-      rating: null,
-      isHealthy: false,
-      isSupreme: false,
-    });
-    setPriceRange({
-      minPrice: 0,
-      maxPrice: 30,
-    });
-
-    // delete resetFilterParams.minPrice;
-    // delete resetFilterParams.maxPrice;
-    //
-    // const queryString = getQueryStringFromParams(resetFilterParams);
-    // navigate(queryString);
-    // console.log('❌❌❌ fetchSortedProducts by Reset');
-    // dispatch(fetchSortedProducts(queryString));
+    resetFiltersLocalState();
   };
 
   return (
@@ -203,7 +94,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="pizza"
-              selected={filters.includes('pizza')}
+              selected={filters.filterCategories.includes('pizza')}
               onChange={() => handleChangeDishes('pizza')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -215,7 +106,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="burgers"
-              selected={filters.includes('burgers')}
+              selected={filters.filterCategories.includes('burgers')}
               onChange={() => handleChangeDishes('burgers')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -227,7 +118,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="sushi"
-              selected={filters.includes('sushi')}
+              selected={filters.filterCategories.includes('sushi')}
               onChange={() => handleChangeDishes('sushi')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -239,7 +130,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="salads"
-              selected={filters.includes('salads')}
+              selected={filters.filterCategories.includes('salads')}
               onChange={() => handleChangeDishes('salads')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -260,7 +151,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="pasta"
-              selected={filters.includes('pasta')}
+              selected={filters.filterCategories.includes('pasta')}
               onChange={() => handleChangeDishes('pasta')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -272,7 +163,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="sandwiches"
-              selected={filters.includes('sandwiches')}
+              selected={filters.filterCategories.includes('sandwiches')}
               onChange={() => handleChangeDishes('sandwiches')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -284,7 +175,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="bbqMeat"
-              selected={filters.includes('bbqMeat')}
+              selected={filters.filterCategories.includes('bbqMeat')}
               onChange={() => handleChangeDishes('bbqMeat')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -296,7 +187,7 @@ const Filter = () => {
             <ToggleButton
               sx={stylesToggleButton}
               value="drink"
-              selected={filters.includes('drink')}
+              selected={filters.filterCategories.includes('drink')}
               onChange={() => handleChangeDishes('drink')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
@@ -318,16 +209,26 @@ const Filter = () => {
             <ToggleButton
               sx={stylesSortBtn}
               value="isTrending"
-              selected={filterBy.isTrending}
-              onChange={() => handleChangeFilterBy('isTrending')}
+              selected={filters.isTrending}
+              onChange={() => {
+                setFilters(prev => ({
+                  ...prev,
+                  isTrending: !prev.isTrending,
+                }))
+              }}
             >
               Trending
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
               value="isHealthy"
-              selected={filterBy.isHealthy}
-              onChange={() => handleChangeFilterBy('isHealthy')}
+              selected={filters.isHealthy}
+              onChange={() => {
+                setFilters(prev => ({
+                  ...prev,
+                  isHealthy: !prev.isHealthy,
+                }))
+              }}
             >
               Healthy
             </ToggleButton>
@@ -337,16 +238,26 @@ const Filter = () => {
             <ToggleButton
               sx={stylesSortBtn}
               value="isSupreme"
-              selected={filterBy.isSupreme}
-              onChange={() => handleChangeFilterBy('isSupreme')}
+              selected={filters.isSupreme}
+              onChange={() => {
+                setFilters(prev => ({
+                  ...prev,
+                  isSupreme: !prev.isSupreme,
+                }))
+              }}
             >
               Supreme
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
               value="mostPopular"
-              selected={filterBy.rating === 5}
-              onChange={() => handleChangeFilterBy('mostPopular')}
+              selected={filters.rating === 5}
+              onChange={() => {
+                setFilters(prev => ({
+                  ...prev,
+                  rating: prev.rating === 5 ? null : 5,
+                }))
+              }}
             >
               Most Popular
             </ToggleButton>
@@ -363,15 +274,16 @@ const Filter = () => {
             sx={stylesSlider}
             max={30}
             getAriaLabel={() => 'Always visible'}
-            value={[priceRange.minPrice, priceRange.maxPrice]}
+            value={[filters.minPrice, filters.maxPrice]}
             step={1}
             marks={marks}
             valueLabelDisplay="on"
             onChange={(event, newValue) => {
-              setPriceRange({
+              setFilters((prev) => ({
+                ...prev,
                 minPrice: newValue[0],
                 maxPrice: newValue[1],
-              });
+              }));
             }}
           />
         </Box>
@@ -396,6 +308,18 @@ const Filter = () => {
 
     </Stack>
   );
+};
+
+Filter.propTypes = {
+  filters: PropTypes.object,
+  setFilters: PropTypes.func,
+  resetFiltersLocalState: PropTypes.func,
+};
+
+Filter.defaultProps = {
+  filters: {},
+  setFilters: () => {},
+  resetFiltersLocalState: () => {},
 };
 
 export default Filter;

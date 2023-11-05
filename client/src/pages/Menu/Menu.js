@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
@@ -35,14 +35,6 @@ const MenuPage = () => {
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
   const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
 
-  // useEffect(() => {
-  //   if (isMounted.current) {
-  //     const queryString = getQueryStringFromFilterParams(filterParams);
-  //     navigate(queryString);
-  //   }
-  //   isMounted.current = true;
-  // }, [filterParams]); // eslint-disable-line
-
   useEffect(() => {
     if (location.search) {
       const initialFilterParams = getParamsFromURL(location.search);
@@ -51,7 +43,6 @@ const MenuPage = () => {
     }
 
     return () => {
-      // console.log('❗️❗️❗️ Reset state in return ');
       dispatch(resetSearch());
       dispatch(deleteFilteredData());
       dispatch(resetFilterParams());
@@ -62,7 +53,6 @@ const MenuPage = () => {
     const params = getParamsFilteredFromDefaultValues(filterParams);
     const hasFilters = checkFiltersInParams(params);
     const queryString = getQueryStringFromParams(params);
-    // console.log(queryString);
 
     if (isMounted.current) {
       navigate(queryString);
@@ -71,10 +61,10 @@ const MenuPage = () => {
 
     if (!isQuery.current) {
       if (hasFilters) {
-        // console.log('😈😈😈 fetchFilteredProducts');
+        console.log('🔴 fetchFilteredProducts');
         dispatch(fetchFilteredProducts(queryString));
       } else {
-        // console.log('💦💦💦 fetchSortedProducts');
+        console.log('🟢 fetchSortedProducts');
         dispatch(fetchSortedProducts(queryString));
       }
     }

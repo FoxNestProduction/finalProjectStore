@@ -1,12 +1,11 @@
-/* eslint-disable max-len */
-import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
+import PropTypes from 'prop-types';
 import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
 import {
   setSearch,
@@ -17,22 +16,14 @@ import {
 import { setScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
 import { resetFilterParams, deleteFilteredData } from '../../redux/slices/filterSlice';
 
-const Search = () => {
+const Search = ({ resetFiltersLocalState }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const products = useSelector((state) => state.products.products);
   const partners = useSelector((state) => state.partners.partners);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
-  const filterParams = useSelector((state) => state.filter.filterParams);
-  // const products = [
-  //   'pizza',
-  //   'salads',
-  // ];
-  // const partners = [
-  //   'bob',
-  //   'ben',
-  // ];
+
   const [alignment, setAlignment] = useState('food');
   const labelForTextField = `Search  ${alignment}`;
 
@@ -60,6 +51,7 @@ const Search = () => {
         dispatch(setKey(alignment));
         dispatch(deleteFilteredData());
         dispatch(resetFilterParams());
+        resetFiltersLocalState();
         navigate('');
       } catch (err) {
         console.error(`Error getting ${newInputValue}: `, err);
@@ -113,6 +105,14 @@ const Search = () => {
       </ToggleButtonGroup>
     </Stack>
   );
+};
+
+Search.propTypes = {
+  resetFiltersLocalState: PropTypes.func,
+};
+
+Search.defaultProps = {
+  resetFiltersLocalState: () => {},
 };
 
 export default Search;

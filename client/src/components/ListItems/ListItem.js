@@ -4,13 +4,10 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
-import useBreakpoint from '../../customHooks/useBreakpoint';
 import Sorter from '../Sorter/Sorter';
-import { productsPerPageMap } from '../../constants/bpMapConstants';
 import { setFilterParams } from '../../redux/slices/filterSlice';
 
 const ListItems = ({ title, items, itemComponent, actions,
@@ -25,17 +22,7 @@ const ListItems = ({ title, items, itemComponent, actions,
   const [pageQty, setPageQty] = useState(1);
 
   useEffect(() => {
-    // if (itemsFrom === 'filter') {
-    //   setPageQty(Math.ceil(filteredProductsQuantity / productsPerPage));
-    // } else {
-    //   setPageQty(Math.ceil(allProductsQuantity / productsPerPage));
-    // }
-    //
-    // if (page > pageQty) {
-    //   dispatch(setFilterParams({ startPage: 1 }));
-    // }
-
-    let currentPageQty = 0;
+    let currentPageQty;
     if (itemsFrom === 'filter') {
       currentPageQty = Math.ceil(filteredProductsQuantity / productsPerPage);
     } else {
@@ -47,10 +34,6 @@ const ListItems = ({ title, items, itemComponent, actions,
       dispatch(setFilterParams({ startPage: 1 }));
     }
   }, [filteredProductsQuantity, allProductsQuantity, itemsFrom, productsPerPage, page, dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(setFilterParams({ startPage: 1 }));
-  // }, [dispatch, items]);
 
   return (
     <Container sx={{ mb: 13 }}>
@@ -114,7 +97,6 @@ ListItems.defaultProps = {
   itemComponent: () => {},
   type: '',
   itemsFrom: '',
-
 };
 
 export default ListItems;
