@@ -78,6 +78,13 @@ const LoginForm = () => {
     }
   };
 
+  const googleAuth = () => {
+    window.open(
+      `${process.env.REACT_APP_API_URL}/auth/google/callback`,
+      '_self',
+    );
+  };
+
   return (
     <Box
       component="section"
@@ -109,10 +116,11 @@ const LoginForm = () => {
         }}
       >
         <Button
-          disabled
+          // disabled
           disableRipple
           variant="contained"
           sx={googleAppleBtn}
+          onClick={googleAuth}
         >
           <GoogleSvgComponent />
         </Button>
