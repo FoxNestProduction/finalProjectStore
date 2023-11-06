@@ -1,4 +1,4 @@
-import React, { createContext, useState, useMemo, memo } from 'react';
+import React, { createContext, useEffect, useRef, useState, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 
 export const AlertContext = createContext({});
@@ -8,12 +8,13 @@ export const AlertContextProvider = memo(({ children }) => {
   const handleCloseAlert = () => {
     setAlert((prev) => !prev);
   };
+
   const handleShowAlert = (e) => {
     e.preventDefault();
     setAlert(true);
     setTimeout(() => {
       setAlert(false);
-    }, 3000);
+    }, 4000);
   };
 
   const value = useMemo(() => {

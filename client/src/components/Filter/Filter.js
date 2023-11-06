@@ -121,7 +121,7 @@ const Filter = () => {
       // eslint-disable-next-line no-undef,no-alert
       // alert('Nothing found :(');
       // console.log(e);
-      handleShowAlert(true);
+      handleShowAlert();
       dispatch(setFilter([]));
     } else {
       dispatch(setFilter(filteredAndSortedItems));
@@ -383,7 +383,7 @@ const Filter = () => {
       >
         Apply
       </Button>
-      { alert && <CustomAlert type="warning" handleCloseAlert={handleCloseAlert} content="Nothing found :(" /> }
+      { alert && <CustomAlert type="error" handleCloseAlert={handleCloseAlert} content="Nothing found :(" /> }
     </Stack>
   );
 };

@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 import PropTypes from 'prop-types';
 import styles from './Alert.module.scss';
+import useAlert from '../../customHooks/useAlert';
 
-const CustomAlert = ({ type, handleCloseAlert, content }) => {
+const CustomAlert = ({ type, content, handleCloseAlert }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setVisible((prev) => !prev);
-
-    // const timer = setTimeout(() => {
-    //   setVisible(false);
-    //   handleCloseAlert();
-    // }, 3000);
-
-    // return () => clearTimeout(timer);
-  }, []);
+    setVisible(true);
+    setTimeout(() => {
+      setVisible(false);
+    }, 3000);
+  }, [handleCloseAlert]);
 
   const alertStyle = {
     width: '40%',
@@ -38,6 +35,7 @@ const CustomAlert = ({ type, handleCloseAlert, content }) => {
         // className={classNames(styles.customAlert, {
         //   [styles.show]: visible,
         // })}
+
       >
         <AlertTitle>{type}</AlertTitle>
         {content}
@@ -74,12 +72,14 @@ CustomAlert.propTypes = {
   type: PropTypes.string,
   content: PropTypes.string,
   handleCloseAlert: PropTypes.func,
+  // alert: PropTypes.bool,
 };
 
 CustomAlert.defaultProps = {
   type: 'success',
   content: 'This is a Alert',
   handleCloseAlert: () => {},
+  // alert: false,
 };
 
 export default CustomAlert;
