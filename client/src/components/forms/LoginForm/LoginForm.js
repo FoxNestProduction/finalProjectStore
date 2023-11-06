@@ -30,7 +30,7 @@ import {
 } from './styles';
 // eslint-disable-next-line import/no-cycle
 import RegisterForm from '../RegisterForm/RegisterForm';
-import ChangedPasswordForm from '../ChangedPasswordForm/ChangedPasswordForm';
+import VerifyEmailForm from '../VerifyEmailForm/VerifyEmailForm';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../inputs/Input/Input';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
@@ -57,7 +57,7 @@ const LoginForm = () => {
   };
 
   const handleFogetPassword = () => {
-    dispatch(setContent(<ChangedPasswordForm />));
+    dispatch(setContent(<VerifyEmailForm />));
   };
 
   const handleSubmit = async (values, actions) => {

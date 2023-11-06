@@ -2,6 +2,7 @@ export const flexcenter = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  gap: 2,
 };
 
 export const mainTitle = {
@@ -23,50 +24,9 @@ export const mainTitle = {
   },
 };
 
-export const legend = {
-  color: 'text.secondary',
-  fontSize: {
-    mobile: '12px',
-    tablet: '14px',
-    desktop: '16px',
-  },
-  mb: {
-    mobile: '24px',
-    tablet: '28px',
-    desktop: '26px',
-  },
-  fontWeight: {
-    mobile: 'fontWeightMedium',
-  },
-  lineHeight: '1.5em',
-};
-
-export const inputsWrapper = {
-  gap: {
-    mobile: '20px;',
-    tablet: '17px',
-    desktop: '24px',
-  },
-  mb: {
-    mobile: '10px;',
-    tablet: '9px',
-    desktop: '24px',
-  },
-  width: {
-    mobile: '100%;',
-    tablet: '350px',
-    desktop: '493px',
-  },
-};
-
 export const signInBtn = {
   width: '100%',
   color: 'text.primaryLight',
-  mb: {
-    mobile: '19px',
-    tablet: '16px',
-    desktop: '24px',
-  },
   height: {
     mobile: '60px',
     tablet: '53px',
@@ -81,7 +41,7 @@ export const signInBtn = {
     boxShadow: '0px -1px 4px rgba(0, 0, 0, 0.5)',
     transform: 'translateY(1px)',
     backgroundColor: 'common.white',
-    color: '#1C186C',
+    color: 'primary.main',
     boxSizing: 'border-box',
     border: '1px solid',
     borderColor: 'primary.main',

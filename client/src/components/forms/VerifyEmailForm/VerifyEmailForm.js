@@ -9,12 +9,11 @@ import validationSchema from './validationSchema';
 import Input from '../../inputs/Input/Input';
 import { flexcenter, mainTitle, legend, inputsWrapper, signInBtn } from './styles';
 
-const LoginForm = () => {
+const VerifyEmailForm = () => {
   const authError = useSelector((state) => state.error.authorization);
 
   const initialValues = {
     email: '',
-    password: '',
   };
 
   const handleSubmit = () => {
@@ -25,17 +24,9 @@ const LoginForm = () => {
     <Box
       component="section"
       sx={{
-        pt: 0,
         ...flexcenter,
-        width: {
-          mobile: '100%',
-          tablet: 350,
-          desktop: 526,
-        },
+        width: '100%',
         bgcolor: 'common.white',
-        p: {
-          desktop: 2,
-        },
       }}
     >
       <Typography
@@ -77,16 +68,7 @@ const LoginForm = () => {
                   icon={<EmailIcon />}
                 />
               </Box>
-              {/* <Link
-                component={NavLink}
-                to="/forget-password"
-                underline="none"
-                sx={forgetPassword}
-              >
-                Forget Password ?
-              </Link> */}
               <Button
-                disableRipple
                 variant="contained"
                 sx={signInBtn}
                 type="submit"
@@ -102,4 +84,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default VerifyEmailForm;
