@@ -27,7 +27,7 @@ const Favourites = () => {
   const error = useSelector((state) => state.favourites.error);
 
   return (
-    <Box>
+    <Box position="relative">
       {favouritesList.length !== 0 ? (
         <Box sx={{ mb: '300px', pt: { mobile: '40px', lgTablet: '60px' } }}>
           { isLgTablet && favouritesList
@@ -70,7 +70,7 @@ const Favourites = () => {
       )}
       {loading
       && (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', position: 'absolute', top: 0 }}>
           <LinearProgress />
         </Box>
       )}
