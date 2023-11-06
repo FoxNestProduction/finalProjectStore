@@ -45,10 +45,10 @@ const favouriteSlice = createSlice({
     removeFavourite(state, action) {
     // eslint-disable-next-line no-underscore-dangle
       const id = action.payload;
+      state.loading = true;
       state.favourites = state.favourites.filter((item) => item._id !== id);
       state.cardStates[id] = false;
       delete state.cardStates[id];
-      state.loading = true;
     },
     resetCardStates(state) {
       state.cardStates = {};
