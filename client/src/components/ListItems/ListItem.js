@@ -1,4 +1,4 @@
-import React, { createElement, useEffect, useState } from 'react';
+import React, { createElement, useEffect, useRef, useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
@@ -11,7 +11,7 @@ import Sorter from '../Sorter/Sorter';
 import { setFilterParams } from '../../redux/slices/filterSlice';
 
 const ListItems = ({ title, items, itemComponent, actions,
-  pagination, anchor, type, itemsFrom, sorting }) => {
+  pagination, type, itemsFrom, sorting }) => {
   const dispatch = useDispatch();
 
   const page = useSelector((state) => state.filter.filterParams.page);
@@ -66,7 +66,6 @@ const ListItems = ({ title, items, itemComponent, actions,
       {(pagination && pageQty > 1) && (
       <AppPagination
         pageQty={pageQty}
-        anchor={anchor}
         itemsFrom={itemsFrom}
       />
       )}
@@ -80,7 +79,6 @@ ListItems.propTypes = {
   actions: PropTypes.object,
   pagination: PropTypes.bool,
   sorting: PropTypes.bool,
-  anchor: PropTypes.object,
   items: PropTypes.array,
   itemComponent: PropTypes.func,
   type: PropTypes.string,
@@ -92,7 +90,6 @@ ListItems.defaultProps = {
   actions: {},
   pagination: false,
   sorting: false,
-  anchor: {},
   items: [],
   itemComponent: () => {},
   type: '',

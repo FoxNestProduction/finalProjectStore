@@ -15,7 +15,6 @@ import {
   fetchSearchedProductsOrPartners,
   resetSearch,
 } from '../../redux/slices/searchSlice';
-import { setScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
 import { resetFilterParams, deleteFilteredData } from '../../redux/slices/filterSlice';
 import { fetchAllProductsNames } from '../../redux/slices/productsSlice';
 import { fetchAllPartnersNames } from '../../redux/slices/partnersSlice';
@@ -75,11 +74,6 @@ const Search = ({ resetFiltersLocalState }) => {
     debounceSearch.current(inputSearchValue, key);
   }, [inputSearchValue, key]); // eslint-disable-line
 
-  const topProductsAnchor = useRef();
-  useEffect(() => {
-    dispatch(setScrollAnchor(topProductsAnchor.current));
-  }, [dispatch]);
-
   return (
     <Stack sx={stylesWrap}>
       <Stack spacing={2} sx={{ stylesSearch }}>
@@ -110,7 +104,7 @@ const Search = ({ resetFiltersLocalState }) => {
         />
       </Stack>
 
-      <ToggleButtonGroup value={key} exclusive onChange={handleChangeButton} aria-label="Platform" ref={topProductsAnchor}>
+      <ToggleButtonGroup value={key} exclusive onChange={handleChangeButton} aria-label="Platform">
         <ToggleButton value="food" sx={stylesBtn}>
           Food
         </ToggleButton>

@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
@@ -17,6 +18,7 @@ import {
   setFilterParams,
 } from '../../redux/slices/filterSlice';
 import { getParamsFromURL, checkFiltersInParams, getParamsFilteredFromDefaultValues, getQueryStringFromParams } from '../../utils/filterHelpers';
+import { setProductsScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -25,6 +27,7 @@ const MenuPage = () => {
 
   const isQuery = useRef(false);
   const isMounted = useRef(false);
+  const productsScrollRef = useRef(null);
 
   const itemsFromSearch = useSelector((state) => state.search.search);
   const itemsFromFilter = useSelector((state) => state.filter.filteredProducts);
@@ -33,7 +36,6 @@ const MenuPage = () => {
   const filteredProductsQuantity = useSelector((state) => state.filter.productsQuantity);
   const products = useSelector((state) => state.products.products);
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
-  const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
 
   useEffect(() => {
     if (location.search) {
@@ -69,6 +71,14 @@ const MenuPage = () => {
     isQuery.current = false;
   }, [filterParams]); // eslint-disable-line
 
+  useEffect(() => {
+    console.log(productsScrollRef.current);
+    if (productsScrollRef.current) {
+      console.log('hello');
+      dispatch(setProductsScrollAnchor(productsScrollRef.current));
+    }
+  }, [dispatch]);
+
   return (
     <>
       <SectionSwipperFilterSearch />
@@ -84,42 +94,40 @@ const MenuPage = () => {
         />
       )}
 
-      {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
-        <ListItems
-          title={`Search Results (${itemsFromSearch.length})`}
-          items={itemsFromSearch}
-          itemComponent={ProductCardItem}
-          actions={null}
-          type="food"
-          // pagination
-          anchor={productsAnchor}
-          itemsFrom="search"
-        />
-      ) : itemsFromFilter.length !== 0 ? (
-        <ListItems
-          title={`Filter Results (${filteredProductsQuantity})`}
-          items={itemsFromFilter}
-          itemComponent={ProductCardItem}
-          actions={null}
-          type="food"
-          pagination
-          sorting
-          anchor={productsAnchor}
-          itemsFrom="filter"
-        />
-      ) : (
-        <ListItems
-          title="All Dishes"
-          items={products}
-          itemComponent={ProductCardItem}
-          actions={null}
-          type="food"
-          pagination
-          sorting
-          anchor={productsAnchor}
-          itemsFrom="allDishes"
-        />
-      )}
+      <Box ref={productsScrollRef}>
+        {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
+          <ListItems
+            title={`Search Results (${itemsFromSearch.length})`}
+            items={itemsFromSearch}
+            itemComponent={ProductCardItem}
+            actions={null}
+            type="food"
+            itemsFrom="search"
+          />
+        ) : itemsFromFilter.length !== 0 ? (
+          <ListItems
+            title={`Filter Results (${filteredProductsQuantity})`}
+            items={itemsFromFilter}
+            itemComponent={ProductCardItem}
+            actions={null}
+            type="food"
+            pagination
+            sorting
+            itemsFrom="filter"
+          />
+        ) : (
+          <ListItems
+            title="All Dishes"
+            items={products}
+            itemComponent={ProductCardItem}
+            actions={null}
+            type="food"
+            pagination
+            sorting
+            itemsFrom="allDishes"
+          />
+        )}
+      </Box>
 
       {topPartners.length > 0 && (
         <ListItems

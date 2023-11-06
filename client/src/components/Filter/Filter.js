@@ -1,9 +1,9 @@
-/* eslint-disable */
 import React from 'react';
 import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   stylesWrap,
   stylesTitle,
@@ -20,12 +20,12 @@ import {
   deleteFilteredData, resetFilterParams,
   setFilterParams,
 } from '../../redux/slices/filterSlice';
-import PropTypes from "prop-types";
+import scrollToElementTop from '../../utils/scrollToElementTop';
 
 const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   const dispatch = useDispatch();
 
-  const anchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
+  const anchor = useSelector((state) => state.scrollAnchor.productsScrollAnchor);
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
 
@@ -52,16 +52,22 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
     setFilters((prev) => ({
       ...prev,
       filterCategories: prev.filterCategories.includes(dish)
-          ? prev.filterCategories.filter((category) => category !== dish)
-          : [...prev.filterCategories, dish],
+        ? prev.filterCategories.filter((category) => category !== dish)
+        : [...prev.filterCategories, dish],
     }));
   };
 
-  const handleApplyFilter = async () => {
+  const handleApplyFilter = () => {
     dispatch(setFilterParams({
       ...filters,
       startPage: 1,
     }));
+
+    if (anchor) {
+      setTimeout(() => {
+        scrollToElementTop(anchor);
+      }, 200);
+    }
   };
 
   const handleResetFilter = () => {
@@ -211,10 +217,10 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               value="isTrending"
               selected={filters.isTrending}
               onChange={() => {
-                setFilters(prev => ({
+                setFilters((prev) => ({
                   ...prev,
                   isTrending: !prev.isTrending,
-                }))
+                }));
               }}
             >
               Trending
@@ -224,10 +230,10 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               value="isHealthy"
               selected={filters.isHealthy}
               onChange={() => {
-                setFilters(prev => ({
+                setFilters((prev) => ({
                   ...prev,
                   isHealthy: !prev.isHealthy,
-                }))
+                }));
               }}
             >
               Healthy
@@ -240,10 +246,10 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               value="isSupreme"
               selected={filters.isSupreme}
               onChange={() => {
-                setFilters(prev => ({
+                setFilters((prev) => ({
                   ...prev,
                   isSupreme: !prev.isSupreme,
-                }))
+                }));
               }}
             >
               Supreme
@@ -253,10 +259,10 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               value="mostPopular"
               selected={filters.rating === 5}
               onChange={() => {
-                setFilters(prev => ({
+                setFilters((prev) => ({
                   ...prev,
                   rating: prev.rating === 5 ? null : 5,
-                }))
+                }));
               }}
             >
               Most Popular
