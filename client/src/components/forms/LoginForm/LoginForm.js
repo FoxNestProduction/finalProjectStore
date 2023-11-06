@@ -78,11 +78,22 @@ const LoginForm = () => {
     }
   };
 
+  // const getUserById =
+
+  // eslint-disable-next-line no-undef
+  const googleClient = google.accounts.oauth2.initCodeClient({
+    client_id: process.env.REACT_APP_CLIENT_ID,
+    scope: ['profile', 'email', 'openid'].join(' '),
+    ux_mode: 'popup',
+    callback: (response) => {
+      instance.post(`${process.env.REACT_APP_API_URL}/auth/googleAuth`, { code: response.code })
+        .then((res) => console.log(res));
+    },
+  });
+
   const googleAuth = () => {
-    window.open(
-      `${process.env.REACT_APP_API_URL}/auth/google/callback`,
-      '_self',
-    );
+    googleClient.requestCode();
+    dispatch(closeModal());
   };
 
   return (

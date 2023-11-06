@@ -85,10 +85,10 @@ const Header = () => {
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     dispatch(resetCardStates());
 
-    await window.open(
-      `${process.env.REACT_APP_API_URL}/auth/logout`,
-      '_self',
-    );
+    // await window.open(
+    //   `${process.env.REACT_APP_API_URL}/auth/logout`,
+    //   '_self',
+    // );
   };
 
   const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
