@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -7,9 +8,12 @@ import Button from '@mui/material/Button';
 import EmailIcon from '@mui/icons-material/Email';
 import validationSchema from './validationSchema';
 import Input from '../../inputs/Input/Input';
+import { closeModal } from '../../../redux/slices/modalSlice';
 import { flexcenter, mainTitle, legend, inputsWrapper, signInBtn } from './styles';
 
 const VerifyEmailForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
 
   const initialValues = {
@@ -17,7 +21,8 @@ const VerifyEmailForm = () => {
   };
 
   const handleSubmit = () => {
-    console.log('hello');
+    navigate('/recovery-password/:token');
+    dispatch(closeModal());
   };
 
   return (
