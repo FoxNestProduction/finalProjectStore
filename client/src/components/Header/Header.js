@@ -37,7 +37,7 @@ import { setAuthorization, setToken } from '../../redux/slices/authorizationSlic
 import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
-import { resetCardStates } from '../../redux/slices/favouriteSlice';
+import { resetCardStates, fetchFavourites } from '../../redux/slices/favouriteSlice';
 import { updateCart } from '../Cart/cartFunctions';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
@@ -49,7 +49,7 @@ const Header = () => {
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user);
   // const { cart } = user; // під питанням чи потрібне це значення
-  const favourite = useSelector((state) => state.favourites.favourites);
+  const favourite = useSelector((state) => state.favourites.cardStates);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -57,10 +57,10 @@ const Header = () => {
     if (breakpoint === 'lgTablet' || breakpoint === 'desktop') {
       setIsMobileMenuOpen(false);
     }
-  }, [breakpoint]);
+  }, [breakpoint, dispatch]);
 
   // const cartAmount = cartIconCounterFunction(cartProducts);
-  const favouritesAmount = isUserAuthorized ? favourite.length : null;
+  const favouritesAmount = isUserAuthorized ? Object.keys(favourite).length : null;
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);
