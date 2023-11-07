@@ -56,9 +56,11 @@ const Cart = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
         updateCart(cartProducts);
+        console.log('Відбувається update');
       } else {
         // createCart(cartProducts);
-        createCart();
+        dispatch(createCart());
+        console.log('Відбувається create');
       }
     } else {
       navigate('/checkout');

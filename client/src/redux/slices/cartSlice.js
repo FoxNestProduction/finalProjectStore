@@ -10,17 +10,18 @@ const initialState = {
     products: [],
   },
   loading: false,
-  isCart: true,
+  isCart: false,
   error: null,
 };
 
 /* eslint-disable no-param-reassign */
 
 export const createCart = createAsyncThunk(
-  'users/createCart',
-  async (_, { rejectWithValue, dispatch, getState }) => {
+  'cart/createCart',
+  async (_, { rejectWithValue, getState }) => {
     const cartProducts = getState().cart.cart.products;
     const cart = createCartObjectFromServer(cartProducts);
+    console.log('Ми в функції createCart');
     try {
       const response = await instance.post('/cart', cart);
       console.log(response);
@@ -132,13 +133,22 @@ const cartSlice = createSlice({
         console.log(state.cart.products);
         console.log(action.payload);
         state.isCart = true;
+        state.loading = false;
       })
       // .addCase(createCart.rejected, setError);
       .addCase(createCart.rejected, (state, action) => {
+        console.log('Помилка');
         state.isCart = true;
+        state.loading = false;
+        state.error = action.payload; // подивитись що приходить сюди в помилку
       }); // тут може бути помилка 2-х типів: або помилка запита
     // або кошик вже існує - цю помилку потрібно обробити разом
     // із властивістю isCart!!!
+    // Кошик не створюється, якщо надсилається запит з порожнім масивом
+    // Логіка така, при додаванні товара - перевіряти state isCart,
+    // якщо false - то спочатку створювати кошик з цим item-ом, а вже потім
+    // коли після першого додавання товара кошик створився вже йти за логікою
+    // просто додавання товара
   },
 });
 
@@ -156,16 +166,16 @@ export const {
 /* change on CreatAsyncThuk */
 export const getCartItemsFromServer = () => async (dispatch) => {
   try {
-    dispatch(setLoading(true));
+    // dispatch(setLoading(true));
 
     const { data } = await instance.get('/cart');
 
     dispatch(setCart(data.products));
     dispatch(setIsCart(true));
-    dispatch(setLoading(false));
+    // dispatch(setLoading(false));
   } catch (error) {
     console.warn('Error loading cart:', error);
-    dispatch(setLoading(false));
+    // dispatch(setLoading(false));
     // dispatch(setIsCart(false));
   }
 };
