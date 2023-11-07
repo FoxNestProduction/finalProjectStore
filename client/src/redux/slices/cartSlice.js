@@ -129,10 +129,16 @@ const cartSlice = createSlice({
     builder
       .addCase(createCart.pending, setLoading)
       .addCase(createCart.fulfilled, (state, action) => {
-        console.log(state.cart.product);
+        console.log(state.cart.products);
         console.log(action.payload);
+        state.isCart = true;
       })
-      .addCase(createCart.rejected, setError);
+      // .addCase(createCart.rejected, setError);
+      .addCase(createCart.rejected, (state, action) => {
+        state.isCart = true;
+      }); // тут може бути помилка 2-х типів: або помилка запита
+    // або кошик вже існує - цю помилку потрібно обробити разом 
+    // із властивістю isCart!!!
   },
 });
 
