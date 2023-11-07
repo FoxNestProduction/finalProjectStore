@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
@@ -33,6 +33,7 @@ const MenuPage = () => {
   const keyFromSearch = useSelector((state) => state.search.key);
   const filterParams = useSelector((state) => state.filter.filterParams);
   const filteredProductsQuantity = useSelector((state) => state.filter.productsQuantity);
+  const nothingFound = useSelector((state) => state.filter.nothingFound);
   const products = useSelector((state) => state.products.products);
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
 
@@ -113,7 +114,7 @@ const MenuPage = () => {
             itemsFrom="filter"
             isScrolling
           />
-        ) : (
+        ) : (!nothingFound) ? (
           <ListItems
             title="All Dishes"
             items={products}
@@ -124,7 +125,7 @@ const MenuPage = () => {
             sorting
             itemsFrom="allDishes"
           />
-        )}
+        ) : <Typography>Sorry, nothing was found with your filter settings...🤷‍♀️</Typography>}
       </Box>
 
       {topPartners.length > 0 && (

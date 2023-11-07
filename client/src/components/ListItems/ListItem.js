@@ -42,10 +42,7 @@ const ListItems = ({ title, items, itemComponent, actions,
   }, [filteredProductsQuantity, allProductsQuantity, itemsFrom, productsPerPage, page, dispatch]);
 
   useEffect(() => {
-    console.log('nothingFound', nothingFound);
-    console.log('isScrolling', isScrolling);
     if (anchor && isScrolling && isApplyClicked && !nothingFound) {
-      console.log('Scroll!!!!!');
       setTimeout(() => {
         scrollToElementTop(anchor);
       }, 200);
@@ -67,7 +64,6 @@ const ListItems = ({ title, items, itemComponent, actions,
       { sorting && (
       <Sorter
         type={type}
-        itemsFrom={itemsFrom}
       />
       )}
 
@@ -84,7 +80,6 @@ const ListItems = ({ title, items, itemComponent, actions,
       {(pagination && pageQty > 1) && (
       <AppPagination
         pageQty={pageQty}
-        itemsFrom={itemsFrom}
       />
       )}
       <Divider sx={{ marginTop: '67px' }} />
