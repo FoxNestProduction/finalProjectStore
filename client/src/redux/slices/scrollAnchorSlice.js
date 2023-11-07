@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  productsScrollAnchor: {},
+  productsScrollAnchor: null,
 };
 
 const scrollAnchorSlice = createSlice({

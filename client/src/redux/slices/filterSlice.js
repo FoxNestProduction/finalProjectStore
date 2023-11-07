@@ -75,7 +75,7 @@ const filterSlice = createSlice({
     builder
       .addCase(fetchFilteredProducts.pending, setLoading)
       .addCase(fetchFilteredProducts.fulfilled, (state, action) => {
-        if (action.payload.length === 0) {
+        if (action.payload.products.length === 0) {
           state.filteredProducts = [];
           state.nothingFound = true;
         } else {
