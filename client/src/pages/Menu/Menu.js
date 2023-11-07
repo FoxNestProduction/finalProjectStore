@@ -3,6 +3,9 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
@@ -18,6 +21,7 @@ import {
 } from '../../redux/slices/filterSlice';
 import { getParamsFromURL, checkFiltersInParams, getParamsFilteredFromDefaultValues, getQueryStringFromParams } from '../../utils/filterHelpers';
 import { setProductsScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
+import buttonBackToMenu from '../../components/Favourites/styles';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -125,7 +129,21 @@ const MenuPage = () => {
             sorting
             itemsFrom="allDishes"
           />
-        ) : <Typography>Sorry, nothing was found with your filter settings...🤷‍♀️</Typography>}
+        ) : (
+          <Container sx={{ pb: '60px' }}>
+            <Typography
+              variant="h3"
+              component="p"
+              color="primary.main"
+              sx={{ textAlign: 'center',
+                fontSize: { mobile: '22px', tablet: '26px', desktop: '34px' },
+                px: '10px',
+                fontWeight: 'fontWeightMedium' }}
+            >
+              Sorry, no results match your current filter settings...🤷‍♀️
+            </Typography>
+          </Container>
+        )}
       </Box>
 
       {topPartners.length > 0 && (
