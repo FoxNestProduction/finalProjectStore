@@ -18,11 +18,13 @@ import {
 import { resetFilterParams, deleteFilteredData } from '../../redux/slices/filterSlice';
 import { fetchAllProductsNames } from '../../redux/slices/productsSlice';
 import { fetchAllPartnersNames } from '../../redux/slices/partnersSlice';
+import scrollToElementTop from '../../utils/scrollToElementTop';
 
 const Search = ({ resetFiltersLocalState }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
+  const anchor = useSelector((state) => state.scrollAnchor.productsScrollAnchor);
 
   useEffect(() => {
     dispatch(fetchAllProductsNames());
@@ -45,6 +47,11 @@ const Search = ({ resetFiltersLocalState }) => {
 
   const handleInputChange = async (event, newInputValue) => {
     dispatch(setInputSearchValue(newInputValue));
+    if (anchor) {
+      setTimeout(() => {
+        scrollToElementTop(anchor);
+      }, 900);
+    }
   };
   const debounceSearch = useRef(
     debounce((inputValue, keyBtn) => {
