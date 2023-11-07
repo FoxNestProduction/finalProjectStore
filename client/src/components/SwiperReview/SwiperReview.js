@@ -8,7 +8,7 @@ import useGetAPI from '../../customHooks/useGetAPI';
 import Skeleton from '../Skeleton/Skeleton';
 
 const SwiperReview = () => {
-  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=9&sort=-date');
+  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=8&sort=-date');
   const [currentIndex, setCurrentIndex] = useState(1);
   const [widthStep, setWidthStep] = useState(0);
   const lengthReviews = lastReviewsData && lastReviewsData.comments.length - 1;
@@ -20,7 +20,6 @@ const SwiperReview = () => {
     if (lastReviewsData?.comments) {
       cardRef.current = lastReviewsData.comments
         .map((item, index) => scrollingWrapperRef.current.children[index]);
-      // console.log(cardRef.current[0].current);
       const step = cardRef.current[0].offsetWidth;
       setWidthStep(step);
     }
@@ -32,8 +31,6 @@ const SwiperReview = () => {
     if (scrollingWrapperRef.current && currentIndex < (lastReviewsData.comments.length - 1)) {
       scrollingWrapperRef.current.scrollLeft += scrollStep;
       setCurrentIndex(currentIndex + 1);
-      console.log(currentIndex);
-      console.log(widthStep);
     }
     if (currentIndex === lastReviewsData.comments.length - 1) {
       scrollingWrapperRef.current.scrollLeft = scrollStep * currentIndex;
@@ -44,10 +41,8 @@ const SwiperReview = () => {
     if (scrollingWrapperRef.current && currentIndex > 0) {
       scrollingWrapperRef.current.scrollLeft -= scrollStep;
       setCurrentIndex(currentIndex - 1);
-      console.log(currentIndex);
-      console.log(scrollStep);
     }
-    if (currentIndex === 1) {
+    if (currentIndex === 1 || currentIndex === 0) {
       scrollingWrapperRef.current.scrollLeft = 0;
     }
   };
@@ -101,13 +96,13 @@ const SwiperReview = () => {
               className={styles.card}
               ref={cardRef}
             >
-              <ReviewItem review={item} />
+              <ReviewItem review={item} index={index} />
             </Box>
           ))}
           <Box sx={{ display: { mobile: 'none', lgTablet: 'block' } }}>
             <IconButton
               aria-label="prev"
-              sx={{ position: 'absolute', bottom: '23%', left: '30px', backgroundColor: 'background.quote' }}
+              sx={{ position: 'absolute', bottom: '25%', left: '30px', backgroundColor: 'background.quote' }}
               disabled={currentIndex < 0}
               onClick={handlePrevClick}
             >
@@ -115,7 +110,7 @@ const SwiperReview = () => {
             </IconButton>
             <IconButton
               aria-label="next"
-              sx={{ position: 'absolute', bottom: '23%', right: '30px', backgroundColor: 'background.quote' }}
+              sx={{ position: 'absolute', bottom: '25%', right: '30px', backgroundColor: 'background.quote' }}
               disabled={(currentIndex >= lengthReviews)}
               onClick={handleNextClick}
             >

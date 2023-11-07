@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography, useMediaQuery } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
@@ -23,6 +23,9 @@ const MenuPage = () => {
   const loadingPartners = useSelector((state) => state.partners.loading);
 
   const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
+
+  const isLgTablet = useMediaQuery('(min-width: 690px)');
+  const isDesktop = useMediaQuery('(min-width: 993px)');
 
   useEffect(() => {
     dispatch(setSearch([]));
@@ -55,33 +58,78 @@ const MenuPage = () => {
       )}
       {loadingProducts && (
         <>
+          <Typography
+            variant="h2"
+            component="h2"
+            color="text.primary"
+            sx={{ textAlign: 'center', mb: 3 }}
+          >
+            All Dishes
+          </Typography>
           <Container sx={{ mb: 13 }}>
             <Box sx={gridStylesContainer}>
               <Skeleton skeletonType="product" />
               <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
+              {isLgTablet && (
+                <Skeleton skeletonType="product" />
+              )}
+              {isDesktop && (
+                <>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </>
+              )}
             </Box>
           </Container>
           <Container sx={{ mb: 13 }}>
             <Box sx={gridStylesContainer}>
               <Skeleton skeletonType="product" />
               <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
+              {isLgTablet && (
+                <Skeleton skeletonType="product" />
+              )}
+              {isDesktop && (
+                <>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </>
+              )}
             </Box>
           </Container>
           <Container sx={{ mb: 13 }}>
             <Box sx={gridStylesContainer}>
               <Skeleton skeletonType="product" />
               <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
+              {isLgTablet && (
+                <Skeleton skeletonType="product" />
+              )}
+              {isDesktop && (
+                <>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </>
+              )}
             </Box>
           </Container>
+          {!isLgTablet && !isDesktop ? (
+            <>
+              <Container sx={{ mb: 13 }}>
+                <Box sx={gridStylesContainer}>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </Box>
+              </Container>
+              <Container sx={{ mb: 13 }}>
+                <Box sx={gridStylesContainer}>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </Box>
+              </Container>
+            </>
+          ) : null}
         </>
       )}
       {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
@@ -118,6 +166,14 @@ const MenuPage = () => {
 
       {loadingPartners ? (
         <Container sx={{ mb: 13 }}>
+          <Typography
+            variant="h2"
+            component="h2"
+            color="text.primary"
+            sx={{ textAlign: 'center', mb: 3 }}
+          >
+            Our Top Restaurants
+          </Typography>
           <Box sx={gridStylesContainer}>
             <Skeleton skeletonType="restaurant" />
             <Skeleton skeletonType="restaurant" />

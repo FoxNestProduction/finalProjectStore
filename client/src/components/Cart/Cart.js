@@ -4,6 +4,7 @@ import {
   Container,
   Box,
   Button,
+  Stack,
 } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -82,6 +83,12 @@ const Cart = () => {
           {cartProducts.map(({ product, cartQuantity }) => (
             <ProductCartItem key={product._id} cartQuantity={cartQuantity} {...product} />
           ))}
+          {!cartProducts.length && (
+            <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, my: 10 }}>
+              <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>Oops! your cart is empty</Typography>
+              <Typography variant="h3" color="text.secondary">Fill it with orders</Typography>
+            </Stack>
+          )}
         </Box>
         <Button
           LinkComponent={NavLink}

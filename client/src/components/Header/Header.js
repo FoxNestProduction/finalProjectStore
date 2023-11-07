@@ -37,9 +37,10 @@ import { setAuthorization, setToken } from '../../redux/slices/authorizationSlic
 import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
-import { resetCardStates } from '../../redux/slices/favouriteSlice';
-import { updateCart, cartIconCounterFunction } from '../Cart/cartFunctions';
+import { resetCardStates, fetchFavourites } from '../../redux/slices/favouriteSlice';
+import { updateCart } from '../Cart/cartFunctions';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
+import MiniCart from '../MiniCart/MiniCart';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -47,20 +48,19 @@ const Header = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user);
-  const { cart } = user; // під питанням чи потрібне це значення
-  const favourite = useSelector((state) => state.favourites.favourites);
+  // const { cart } = user; // під питанням чи потрібне це значення
+  const favourite = useSelector((state) => state.favourites.cardStates);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
-  // console.log(cartProducts);
   useEffect(() => {
     if (breakpoint === 'lgTablet' || breakpoint === 'desktop') {
       setIsMobileMenuOpen(false);
     }
-  }, [breakpoint]);
+  }, [breakpoint, dispatch]);
 
-  const cartAmount = cartIconCounterFunction(cartProducts);
-  const favouritesAmount = isUserAuthorized ? favourite.length : null;
+  // const cartAmount = cartIconCounterFunction(cartProducts);
+  const favouritesAmount = isUserAuthorized ? Object.keys(favourite).length : null;
 
   const handleOpenDrawer = () => {
     setIsMobileMenuOpen(true);
@@ -139,11 +139,7 @@ const Header = () => {
                   </IconButton>
                 )}
 
-                <IconButton aria-label="cart" edge="end" size="small" component={NavLink} to="/cart">
-                  <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
-                    <ShoppingCartOutlinedIcon sx={stylesIcon} />
-                  </Badge>
-                </IconButton>
+                <MiniCart />
 
                 {(isUserAuthorized) ? (
                   <IconButton aria-label="logout" edge="end" size="small" onClick={handleLogOut}>
