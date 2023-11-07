@@ -7,6 +7,7 @@ export const stylesButton = {
     backgroundColor: 'primary.hover',
     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
     color: 'text.primaryLight',
+    border: '1px solid #664FFF',
   },
   '&:active': {
     backgroundColor: 'common.white',
@@ -20,6 +21,8 @@ export const stylesButtonCardOutline = {
   ...stylesButton,
   border: '1px solid',
   color: 'text.header',
+  display: 'flex',
+  gap: 1,
 };
 
 export const stylesButtonCard = {

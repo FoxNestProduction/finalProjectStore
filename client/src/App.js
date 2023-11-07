@@ -7,7 +7,6 @@ import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
 import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
-import { getReviews } from './redux/slices/reviewsSlice';
 import { fetchTopPartners } from './redux/slices/partnersSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
@@ -45,7 +44,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-    dispatch(getReviews());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
