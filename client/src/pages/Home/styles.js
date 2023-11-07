@@ -1,8 +1,10 @@
 export const partnersSkeletonStylesContainer = {
-  display: 'flex',
-  flexDirection: {
-    mobile: 'column',
-    lgTablet: 'row',
+  width: '100%',
+  display: 'grid',
+  gridTemplateColumns: {
+    mobile: 'repeat(1, 1fr)',
+    lgTablet: 'repeat(2, 1fr)',
+    desktop: 'repeat(3, 1fr)',
   },
   rowGap: '40px',
   columnGap: '20px',

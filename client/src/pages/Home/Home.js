@@ -9,8 +9,6 @@ import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import { instance } from '../../API/instance';
-import SwiperBanner from '../../components/SwiperBanner/SwiperBanner';
 import Skeleton from '../../components/Skeleton/Skeleton';
 import { partnersSkeletonStylesContainer, productSkeletonStylesContainer } from './styles';
 
