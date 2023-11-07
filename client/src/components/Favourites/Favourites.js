@@ -55,7 +55,7 @@ const Favourites = () => {
         </Box>
       ) : (
         <Container>
-          <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, mb: 10, pt: 5 }}>
+          <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, mb: 10, py: 10 }}>
             <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>Oops! your wishlist is empty</Typography>
             <Typography variant="h3" color="text.secondary">Fill it with dishes</Typography>
             <Button
