@@ -9,10 +9,16 @@ import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, st
 import AppPagination from '../Pagination/Pagination';
 import Sorter from '../Sorter/Sorter';
 import { setFilterParams } from '../../redux/slices/filterSlice';
+import scrollToElementTop from '../../utils/scrollToElementTop';
+import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
 
 const ListItems = ({ title, items, itemComponent, actions,
-  pagination, type, itemsFrom, sorting }) => {
+  pagination, type, itemsFrom, sorting, isScrolling }) => {
   const dispatch = useDispatch();
+
+  const anchor = useSelector((state) => state.scrollAnchor.productsScrollAnchor);
+  const isApplyClicked = useSelector((state) => state.scrollAnchor.isApplyClicked);
+  const nothingFound = useSelector((state) => state.filter.nothingFound);
 
   const page = useSelector((state) => state.filter.filterParams.page);
   const productsPerPage = useSelector((state) => state.filter.filterParams.perPage);
@@ -34,6 +40,18 @@ const ListItems = ({ title, items, itemComponent, actions,
       dispatch(setFilterParams({ startPage: 1 }));
     }
   }, [filteredProductsQuantity, allProductsQuantity, itemsFrom, productsPerPage, page, dispatch]);
+
+  useEffect(() => {
+    console.log('nothingFound', nothingFound);
+    console.log('isScrolling', isScrolling);
+    if (anchor && isScrolling && isApplyClicked && !nothingFound) {
+      console.log('Scroll!!!!!');
+      setTimeout(() => {
+        scrollToElementTop(anchor);
+      }, 200);
+      dispatch(setIsApplyClicked(false));
+    }
+  }, [items, nothingFound]); // eslint-disable-line
 
   return (
     <Container sx={{ mb: 13 }}>
@@ -83,6 +101,7 @@ ListItems.propTypes = {
   itemComponent: PropTypes.func,
   type: PropTypes.string,
   itemsFrom: PropTypes.string,
+  isScrolling: PropTypes.bool,
 };
 
 ListItems.defaultProps = {
@@ -94,6 +113,7 @@ ListItems.defaultProps = {
   itemComponent: () => {},
   type: '',
   itemsFrom: '',
+  isScrolling: false,
 };
 
 export default ListItems;

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
@@ -72,9 +71,7 @@ const MenuPage = () => {
   }, [filterParams]); // eslint-disable-line
 
   useEffect(() => {
-    console.log(productsScrollRef.current);
     if (productsScrollRef.current) {
-      console.log('hello');
       dispatch(setProductsScrollAnchor(productsScrollRef.current));
     }
   }, [dispatch]);
@@ -114,6 +111,7 @@ const MenuPage = () => {
             pagination
             sorting
             itemsFrom="filter"
+            isScrolling
           />
         ) : (
           <ListItems

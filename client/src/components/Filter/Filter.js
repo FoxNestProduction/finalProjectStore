@@ -20,12 +20,11 @@ import {
   deleteFilteredData, resetFilterParams,
   setFilterParams,
 } from '../../redux/slices/filterSlice';
-import scrollToElementTop from '../../utils/scrollToElementTop';
+import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
 
 const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   const dispatch = useDispatch();
 
-  const anchor = useSelector((state) => state.scrollAnchor.productsScrollAnchor);
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
 
@@ -62,12 +61,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       ...filters,
       startPage: 1,
     }));
-
-    if (anchor) {
-      setTimeout(() => {
-        scrollToElementTop(anchor);
-      }, 200);
-    }
+    dispatch(setIsApplyClicked(true));
   };
 
   const handleResetFilter = () => {
