@@ -35,7 +35,7 @@ const ReviewsPage = () => {
     const handleScroll = () => {
       const screenHeight = window.innerHeight;
       const containerRect = containerRef.current?.getBoundingClientRect();
-      if (containerRect && containerRect.bottom < screenHeight && !isLoading) {
+      if (containerRect && containerRect.bottom - 330 < screenHeight && !isLoading) {
         setIsLoading(true);
         setPerPage(3);
         setStartPage(searchReview !== ''
