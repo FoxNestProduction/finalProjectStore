@@ -50,7 +50,7 @@ const Search = ({ resetFiltersLocalState }) => {
     if (anchor) {
       setTimeout(() => {
         scrollToElementTop(anchor);
-      }, 900);
+      }, 90);
     }
   };
   const debounceSearch = useRef(
