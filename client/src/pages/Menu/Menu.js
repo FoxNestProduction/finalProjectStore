@@ -153,12 +153,7 @@ const MenuPage = () => {
           actions={<ListItemAction type="partners" />}
           type="partners"
         />
-<<<<<<< HEAD
-      ) }
-      {/* { alert && <CustomAlert type="error" handleCloseAlert={handleCloseAlert} /> } */}
-=======
       )}
->>>>>>> dev
     </>
   );
 };

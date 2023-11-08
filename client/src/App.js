@@ -9,13 +9,8 @@ import { fetchTopProducts } from './redux/slices/productsSlice';
 import { fetchTopPartners } from './redux/slices/partnersSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
-<<<<<<< HEAD
-import { topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
-import useAlert from './customHooks/useAlert';
-=======
 import { productsPerPageMap, topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
 import { setFilterParams } from './redux/slices/filterSlice';
->>>>>>> dev
 
 const App = () => {
   const dispatch = useDispatch();
