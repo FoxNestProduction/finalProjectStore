@@ -9,7 +9,9 @@ const {
   getCustomer,
   editCustomerInfo,
   updatePassword,
-  fogotPassword,
+  forgotPassword,
+  resetPassword,
+  // verifyPasswordResetToken,
 } = require("../controllers/customers");
 
 // @route   POST /customers
@@ -51,12 +53,12 @@ router.put(
 
 router.post(
   "/forgot-password",
-  fogotPassword
+  forgotPassword
 );
 
-// router.post(
-//   "/reset-password",
-//   resetPassword
-// );
+router.post(
+  "/reset-password",
+  resetPassword
+);
 
 module.exports = router;

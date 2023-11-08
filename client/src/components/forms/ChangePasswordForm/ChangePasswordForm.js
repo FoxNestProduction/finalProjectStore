@@ -15,18 +15,16 @@ import { instance } from '../../../API/instance';
 const ChangePasswordForm = () => {
   const { userId } = useParams();
   const { token } = useParams();
-  console.log(userId);
-  console.log(token);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await instance.get('/');
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await instance.get('/');
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   })();
+  // }, []);
 
   const authError = useSelector((state) => state.error.authorization);
 
@@ -35,8 +33,13 @@ const ChangePasswordForm = () => {
     passwordConfirmation: '',
   };
 
-  const handleSubmit = () => {
-    console.log('hello');
+  const handleSubmit = async (values) => {
+    console.log(values);
+    try {
+      const response = await instance.post('/customers/reset-password', { id: userId, token, password: values.password });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
