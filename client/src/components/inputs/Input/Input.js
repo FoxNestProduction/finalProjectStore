@@ -11,6 +11,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
 
 const Input = ({ type, label, icon, id, error, bgColor, styles, ...props }) => {
+  console.log('error', error);
   const [field, meta] = useField(props.name);
   const [showPassword, setShowPassword] = useState(false);
 

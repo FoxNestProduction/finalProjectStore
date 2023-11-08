@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
@@ -14,22 +14,24 @@ import { flexcenter, mainTitle, legend, inputsWrapper, signInBtn } from './style
 
 const VerifyEmailForm = () => {
   const dispatch = useDispatch();
-  const authError = useSelector((state) => state.error.authorization);
 
   const initialValues = {
     email: '',
   };
 
+  const [error, setError] = useState('');
+
   const handleSubmit = async (email) => {
     try {
-      const { request } = await instance.post('/customers/forgot-password', email);
-      dispatch(closeModal());
-      if (request.status === 200) {
+      setError('');
+      const response = await instance.post('/customers/forgot-password', email);
+      if (response.status === 200) {
         dispatch(setIsSendMail(true));
+        dispatch(closeModal());
       }
-      console.log(request);
-    } catch (error) {
-      console.warn('Error sending mail:', error);
+    } catch (err) {
+      console.log('Error sending mail: ', err);
+      setError(err.response.data.message);
     }
   };
 
@@ -72,7 +74,7 @@ const VerifyEmailForm = () => {
                 }}
               >
                 <Input
-                  error={authError.email}
+                  error={error}
                   type="email"
                   name="email"
                   id="loginEmail"

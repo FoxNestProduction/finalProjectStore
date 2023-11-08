@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
@@ -6,11 +6,28 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import LockIcon from '@mui/icons-material/Lock';
+import { useParams } from 'react-router';
 import validationSchema from './validationShema';
 import Input from '../../inputs/Input/Input';
 import { flexcenter, mainTitle, signInBtn } from './styles';
+import { instance } from '../../../API/instance';
 
-const CangePasswordForm = () => {
+const ChangePasswordForm = () => {
+  const { userId } = useParams();
+  const { token } = useParams();
+  console.log(userId);
+  console.log(token);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await instance.get('/');
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
+
   const authError = useSelector((state) => state.error.authorization);
 
   const initialValues = {
@@ -95,4 +112,4 @@ const CangePasswordForm = () => {
   );
 };
 
-export default CangePasswordForm;
+export default ChangePasswordForm;
