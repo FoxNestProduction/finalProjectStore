@@ -40,7 +40,7 @@ const Filter = () => {
   const [valueSlider, setValueSlider] = React.useState(Number(sessionStorage.getItem('valueSlider')) || defaultSliderValue);
 
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
-
+  console.log(alert);
   const saveFilterToSessionStorage = () => {
     sessionStorage.setItem('pizza', pizza.toString());
     sessionStorage.setItem('burgers', burgers.toString());
@@ -379,11 +379,14 @@ const Filter = () => {
       </Stack>
       <Button
         sx={stylesBtn}
-        onClick={(e) => handleShowAlert(e)}
+        // eslint-disable-next-line max-len
+        onClick={(e) => (filteredAndSortedItems.length === 0 ? handleShowAlert(e) : console.log(filteredAndSortedItems.length))}
+
+        // onClick={(e) => handleShowAlert(e)}
       >
         Apply
       </Button>
-      { alert && <CustomAlert type="error" handleCloseAlert={handleCloseAlert} content="Nothing found :(" /> }
+      { alert && <CustomAlert type="warning" handleCloseAlert={handleCloseAlert} content="Nothing found :(" /> }
     </Stack>
   );
 };
