@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
@@ -18,8 +18,8 @@ const CangePasswordForm = () => {
     passwordConfirmation: '',
   };
 
-  const handleSubmit = () => {
-    console.log('hello');
+  const handleSubmit = (value) => {
+    console.log(value);
   };
 
   return (
