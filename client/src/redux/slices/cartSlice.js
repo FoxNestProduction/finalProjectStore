@@ -3,24 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import { allProducts } from './productsSlice';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
-import { updateCartObjFromServer } from '../../components/Cart/cartFunctions';
-
-export const updateCart = createAsyncThunk(
-  'cart/updateCart',
-  async (cartProducts, { rejectWithValue }) => {
-    const updatedCart = updateCartObjFromServer(cartProducts);
-    // console.log(updatedCart);
-    try {
-      const responce = await instance.put('/cart', updatedCart);
-      console.log(responce);
-      return responce;
-    } catch (err) {
-      return rejectWithValue(err.response);
-    }
-  },
-);
-import { createCartObjectFromServer } from '../../components/Cart/cartFunctions';
-import { setLoading, setError } from '../extraReducersHelpers';
+import { updateCartObjFromServer, createCartObjectFromServer } from '../../components/Cart/cartFunctions';
 
 const initialState = {
   cart: {
@@ -45,6 +28,21 @@ export const createCart = createAsyncThunk(
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const updateCart = createAsyncThunk(
+  'cart/updateCart',
+  async (cartProducts, { rejectWithValue }) => {
+    const updatedCart = updateCartObjFromServer(cartProducts);
+    // console.log(updatedCart);
+    try {
+      const responce = await instance.put('/cart', updatedCart);
+      console.log(responce);
+      return responce;
+    } catch (err) {
+      return rejectWithValue(err.response);
     }
   },
 );
