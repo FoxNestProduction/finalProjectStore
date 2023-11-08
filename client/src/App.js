@@ -5,17 +5,22 @@ import { useLocation } from 'react-router';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
-import { fetchTopProducts, getProducts } from './redux/slices/productsSlice';
+import { fetchTopProducts } from './redux/slices/productsSlice';
 import { fetchTopPartners } from './redux/slices/partnersSlice';
-import { getReviews } from './redux/slices/reviewsSlice';
 import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
+<<<<<<< HEAD
 import { topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
 import useAlert from './customHooks/useAlert';
+=======
+import { productsPerPageMap, topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
+import { setFilterParams } from './redux/slices/filterSlice';
+>>>>>>> dev
 
 const App = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const breakpoint = useBreakpoint();
 
   const user = useSelector((state) => state.user.user, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
@@ -30,18 +35,15 @@ const App = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const breakpoint = useBreakpoint();
-
   useEffect(() => {
     dispatch(fetchTopProducts(topProductsQtyMap[breakpoint]));
     dispatch(fetchTopPartners(topPartnersQtyMap[breakpoint]));
+    dispatch(setFilterParams({
+      perPage: productsPerPageMap[breakpoint],
+    }));
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint, dispatch]);
 
-  useEffect(() => {
-    dispatch(getProducts());
-    dispatch(getReviews());
-  }, [dispatch]);
   return (
     <>
       <Modal disagree="Close" />

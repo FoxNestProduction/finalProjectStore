@@ -10,7 +10,7 @@ exports.addComment = (req, res, next) => {
   const newComment = new Comment(queryCreator(commentData));
 
   newComment
-    .populate("product")
+    // .populate("product")
     .populate("category")
     .populate("customer")
     .execPopulate();
@@ -41,7 +41,7 @@ exports.updateComment = (req, res, next) => {
           { $set: updatedComment },
           { new: true }
         )
-          .populate("product")
+          // .populate("product")
           .populate("category")
           .populate("customer")
           .then(comment => res.json(comment))
@@ -88,7 +88,7 @@ exports.deleteComment = (req, res, next) => {
 
 exports.getComments = (req, res, next) => {
   Comment.find()
-    .populate("product")
+    // .populate("product")
     .populate("category")
     .populate("customer")
     .then(comments => res.status(200).json(comments))
@@ -101,7 +101,7 @@ exports.getComments = (req, res, next) => {
 
 exports.getCustomerComments = (req, res, next) => {
   Comment.find({ customer: req.params.customerId })
-    .populate("product")
+    // .populate("product")
     .populate("category")
     .populate("customer")
     .then(comments => res.status(200).json(comments))
@@ -114,7 +114,7 @@ exports.getCustomerComments = (req, res, next) => {
 
 exports.getProductComments = (req, res, next) => {
   Comment.find({ product: req.params.productId })
-    .populate("product")
+    // .populate("product")
     .populate("category")
     .populate("customer")
     .then(comments => res.status(200).json(comments))
@@ -134,7 +134,8 @@ exports.getCommentsFilterParams = async (req, res, next) => {
   try {
     const comments = await Comment.find(mongooseQuery)
       .populate("customer")
-      .skip(startPage * perPage - perPage)
+      // .skip(startPage * perPage - perPage)
+      .skip((startPage - 1) * perPage)
       .limit(perPage)
       .sort(sort);
 

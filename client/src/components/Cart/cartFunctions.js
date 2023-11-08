@@ -78,10 +78,23 @@ const totalSumFromCart = (cartProducts) => {
   return 0;
 };
 
+const totalSumFromCartProduct = (currentPrice, cartQuantity = 1) => {
+  const totalSum = currentPrice * cartQuantity;
+  if (totalSum) {
+    return (totalSum < 100
+      ? +totalSum.toString().slice(0, 5)
+      : totalSum < 1000
+        ? +totalSum.toString().slice(0, 6)
+        : +totalSum.toString().slice(0, 7));
+  }
+  return 0;
+};
+
 export {
   createCart,
   updateCart,
   updateCartAfterCloseWindow,
   cartIconCounterFunction,
   totalSumFromCart,
+  totalSumFromCartProduct,
 };

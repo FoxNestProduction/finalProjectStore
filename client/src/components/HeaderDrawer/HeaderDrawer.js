@@ -18,6 +18,7 @@ import Badge from '@mui/material/Badge';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import MiniCart from '../MiniCart/MiniCart';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem, stylesBadge } from './styles';
@@ -26,7 +27,7 @@ import RegisterForm from '../forms/RegisterForm/RegisterForm';
 import { cartIconCounterFunction } from '../Cart/cartFunctions';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
-  handleCloseDrawer, handleOpenModalLogin, handleLogOut }) => {
+  handleCloseDrawer, handleOpenModalLogin, handleLogOut, setNavigateTo }) => {
   const dispatch = useDispatch();
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
@@ -75,7 +76,8 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
                   // },
                 }}
                 component={NavLink}
-                to={`/${page.toLowerCase()}`}
+                // to={`/${page.toLowerCase()}`}
+                to={setNavigateTo(page)}
               >
                 <ListItemText
                   primary={page}
@@ -93,23 +95,21 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
             navLink
             page="Cart"
             icon={(
-              <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
-                <ShoppingCartOutlinedIcon sx={stylesIcon} />
-              </Badge>
+              <MiniCart />
             )}
           />
           {isUserAuthorized && (
-          <MenuItemWithIcon
-            navLink
-            page="Favourites"
-            icon={
-              (
-                <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
-                  <FavoriteBorderOutlinedIcon sx={stylesIcon} />
-                </Badge>
-              )
-            }
-          />
+            <MenuItemWithIcon
+              navLink
+              page="Favourites"
+              icon={
+                (
+                  <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                    <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                  </Badge>
+                )
+              }
+            />
           )}
         </List>
 
@@ -149,6 +149,7 @@ HeaderDrawer.propTypes = {
   handleOpenModalLogin: PropTypes.func,
   navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   handleLogOut: PropTypes.func,
+  setNavigateTo: PropTypes.func,
 };
 
 HeaderDrawer.defaultProps = {
@@ -157,6 +158,7 @@ HeaderDrawer.defaultProps = {
   handleOpenModalLogin: () => {},
   navItems: [],
   handleLogOut: () => {},
+  setNavigateTo: () => {},
 };
 
 export default HeaderDrawer;
