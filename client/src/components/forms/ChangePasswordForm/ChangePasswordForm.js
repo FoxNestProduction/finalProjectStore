@@ -11,14 +11,18 @@ import validationSchema from './validationShema';
 import Input from '../../inputs/Input/Input';
 import { flexcenter, mainTitle, signInBtn } from './styles';
 import { instance } from '../../../API/instance';
+import useAlert from '../../../customHooks/useAlert';
+import CustomAlert from '../../Alert/Alert';
 
 const ChangePasswordForm = () => {
   const { userId } = useParams();
   const { token } = useParams();
   const navigate = useNavigate();
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const initialValues = {
     password: '',
@@ -34,13 +38,13 @@ const ChangePasswordForm = () => {
         token,
         password: values.password,
       });
-      // if (response.status === 200) {
-      //   navigate('/');
-      // }
-      console.log(response.data.message);
-      setTimeout(() => {
-        navigate('/');
-      }, 5000);
+      if (response.status === 200) {
+        setSuccess(true);
+        handleShowAlert();
+        setTimeout(() => {
+          navigate('/');
+        }, 5000);
+      }
     } catch (err) {
       console.error('Error changing password: ', err);
       if (err.response?.data?.message) {
@@ -52,85 +56,94 @@ const ChangePasswordForm = () => {
   };
 
   return (
-    <Container
-      component="section"
-      sx={{
-        ...flexcenter,
-        py: 10,
-        textAlign: 'center',
-        bgcolor: 'background.default',
-        width: '100%',
-      }}
-    >
-      <Typography
-        variant="h2"
-        component="h1"
-        sx={mainTitle}
-      >
-        Create new password
-      </Typography>
-      {error && (
-      <Typography
-        variant="body1"
+    <>
+      {success && alert && (
+        <CustomAlert
+          type="success"
+          handleCloseAlert={handleCloseAlert}
+          content="Password was successfully changed!"
+        />
+      )}
+      <Container
+        component="section"
         sx={{
-          pb: '20px',
-          mt: '-20px',
-          color: 'text.error',
+          ...flexcenter,
+          py: 10,
+          textAlign: 'center',
+          bgcolor: 'background.default',
+          width: '100%',
         }}
       >
-        {error}
-      </Typography>
-      )}
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        {({ isValid }) => (
-          <Form>
-            <Box
-              sx={flexcenter}
-            >
-              <Box
-                sx={{
-                  ...flexcenter,
-                  width: {
-                    mobile: '100%;',
-                    tablet: '350px',
-                    desktop: '493px',
-                  },
-                }}
-              >
-                <Input
-                  type="password"
-                  name="password"
-                  id="resetPassword"
-                  placeholder="Enter new password"
-                  label="Password"
-                  icon={<LockIcon />}
-                />
-                <Input
-                  type="password"
-                  name="passwordConfirmation"
-                  id="resetPasswordConfirmation"
-                  placeholder="Confirm your password"
-                  label="Password confirmation"
-                  icon={<LockIcon />}
-                />
-              </Box>
-              <Button
-                variant="contained"
-                sx={signInBtn}
-                type="submit"
-                disabled={!isValid || loading}
-              >
-                Create Password
-              </Button>
-            </Box>
-          </Form>
+        <Typography
+          variant="h2"
+          component="h1"
+          sx={mainTitle}
+        >
+          Create new password
+        </Typography>
+        {error && (
+        <Typography
+          variant="body1"
+          sx={{
+            pb: '20px',
+            mt: '-20px',
+            color: 'text.error',
+          }}
+        >
+          {error}
+        </Typography>
         )}
-      </Formik>
-    </Container>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          {({ isValid }) => (
+            <Form>
+              <Box
+                sx={flexcenter}
+              >
+                <Box
+                  sx={{
+                    ...flexcenter,
+                    width: {
+                      mobile: '100%;',
+                      tablet: '350px',
+                      desktop: '493px',
+                    },
+                  }}
+                >
+                  <Input
+                    type="password"
+                    name="password"
+                    id="resetPassword"
+                    placeholder="Enter new password"
+                    label="Password"
+                    icon={<LockIcon />}
+                  />
+                  <Input
+                    type="password"
+                    name="passwordConfirmation"
+                    id="resetPasswordConfirmation"
+                    placeholder="Confirm your password"
+                    label="Password confirmation"
+                    icon={<LockIcon />}
+                  />
+                </Box>
+                <Button
+                  variant="contained"
+                  sx={signInBtn}
+                  type="submit"
+                  disabled={!isValid || loading}
+                >
+                  Create Password
+                </Button>
+              </Box>
+            </Form>
+          )}
+        </Formik>
+      </Container>
+    </>
   );
 };
 
