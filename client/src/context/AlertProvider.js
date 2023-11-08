@@ -10,7 +10,7 @@ export const AlertContextProvider = memo(({ children }) => {
   };
 
   const handleShowAlert = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setAlert(true);
     setTimeout(() => {
       setAlert(false);

@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import classNames from 'classnames';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 import PropTypes from 'prop-types';
-import styles from './Alert.module.scss';
-import useAlert from '../../customHooks/useAlert';
 
 const CustomAlert = ({ type, content, handleCloseAlert }) => {
   const [visible, setVisible] = useState(false);
@@ -32,10 +29,6 @@ const CustomAlert = ({ type, content, handleCloseAlert }) => {
       <Alert
         onClose={handleCloseAlert}
         severity={type}
-        // className={classNames(styles.customAlert, {
-        //   [styles.show]: visible,
-        // })}
-
       >
         <AlertTitle>{type}</AlertTitle>
         {content}

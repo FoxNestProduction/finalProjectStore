@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -22,12 +22,16 @@ import {
 } from '../../redux/slices/filterSlice';
 import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
 import { resetSearch } from '../../redux/slices/searchSlice';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../Alert/Alert';
 
 const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   const dispatch = useDispatch();
 
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  console.log(alert);
 
   const marks = [
     {
@@ -47,6 +51,13 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       label: '30$',
     },
   ];
+
+  useEffect(() => {
+    if (nothingFound) {
+      handleShowAlert();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nothingFound]);
 
   const handleChangeDishes = (dish) => {
     setFilters((prev) => ({
@@ -295,17 +306,18 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       </Button>
 
       {/* Заглушка, переробити!!!!!!! */}
-      {nothingFound && (
-      <Alert
-        sx={{
-          position: 'absolute',
-          top: '170px',
-        }}
-        severity="info"
-        variant="filled"
-      >
-        Nothing found!
-      </Alert>
+      {nothingFound && alert && (
+      // <Alert
+      //   sx={{
+      //     position: 'absolute',
+      //     top: '170px',
+      //   }}
+      //   severity="info"
+      //   variant="filled"
+      // >
+      //   Nothing found!
+      // </Alert>
+      <CustomAlert type="info" handleCloseAlert={handleCloseAlert} content="Nothing found!" />
       )}
 
     </Stack>
