@@ -9,7 +9,6 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import Badge from '@mui/material/Badge';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -18,6 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
+import { Alert } from '@mui/material';
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
 import {
@@ -35,9 +35,9 @@ import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 import { setUser } from '../../redux/slices/userSlice';
-import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
+import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
-import { resetCardStates, fetchFavourites } from '../../redux/slices/favouriteSlice';
+import { resetCardStates } from '../../redux/slices/favouriteSlice';
 import { updateCart } from '../Cart/cartFunctions';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
@@ -51,6 +51,7 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
+  const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -101,6 +102,20 @@ const Header = () => {
 
   return (
     <>
+      {isRegistered && (
+      <Alert
+        sx={{
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          zIndex: '1200',
+        }}
+        severity="success"
+        variant="filled"
+      >
+        Thank you! Your registration was successful!
+      </Alert>
+      )}
       <ElevationScroll>
         <AppBar
           position="sticky"
