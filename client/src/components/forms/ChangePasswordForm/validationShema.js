@@ -1,4 +1,4 @@
-import { object, string } from 'yup';
+import { object, string, ref } from 'yup';
 
 const validationSchema = object({
   password: string()
@@ -7,13 +7,7 @@ const validationSchema = object({
   passwordConfirmation: string()
     .required('This field is required')
     .min(8, 'The password is incorrect, please try again')
-    .test(
-      'password-match',
-      'Passwords do not match',
-      function (value) {
-        return value === this.parent.password;
-      },
-    ),
+    .oneOf([ref('password')], 'Your passwords do not match.'),
 });
 
 export default validationSchema;
