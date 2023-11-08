@@ -52,7 +52,7 @@ const MenuPage = () => {
     };
   }, []); // eslint-disable-line
 
-  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  // const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   useEffect(() => {
     const params = getParamsFilteredFromDefaultValues(filterParams);
