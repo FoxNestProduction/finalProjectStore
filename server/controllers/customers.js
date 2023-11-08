@@ -328,7 +328,7 @@ exports.forgotPassword = async (req, res) => {
     const letterSubject = 'Reset password';
     const letterHtml = `<div style="text-align: left; margin: 20px; font-size: 20px">
                           <p>Your email has been confirmed.</p>
-                          <p>Follow the link to reset your password: <strong>${recoveryPasswordLink}</strong></p>
+                          <p>Follow the link to reset your password: <a href=${recoveryPasswordLink}><strong>Reset Password</strong></a></p>
                         </div>`;
 
     const mailResult = await sendMail(
@@ -349,53 +349,51 @@ exports.forgotPassword = async (req, res) => {
 
 
 exports.resetPassword = async (req, res) => {
-  const { id, token, password } = req.body;
+  const { id, token } = req.body;
   let newPassword = req.body.password;
 
   try {
     const customer = await Customer.findOne({ _id: id });
     if (!customer) {
-      return res.status(404).json({ message: "Oops...This link seems to be crashed. Try to use forget password form again." });
+      return res.status(404).json({ message: "User is not found" });
     }
 
     try {
       const secret = keys.secretOrKey + customer.password;
       const verify = jwt.verify(token, secret);
-      console.log('!!!!!!!!!!!!!!!!!!', verify);
-      res.send('Verified!');
-    } catch (err) {
-      // res.status(400).json({
-      //   message: `Invalid or expired password reset link. Use the password recovery form again.`
-      // });
-      res.status(400).json(err);
-    }
 
-    // bcrypt.genSalt(10, (err, salt) => {
-    //   bcrypt.hash(newPassword, salt, (err, hash) => {
-    //     if (err) throw err;
-    //     newPassword = hash;
-    //     Customer.findOneAndUpdate(
-    //       { _id: id },
-    //       {
-    //         $set: {
-    //           password: newPassword
-    //         }
-    //       },
-    //       { new: true }
-    //     )
-    //       .then(customer => {
-    //         res.json({
-    //           message: "Password successfully changed",
-    //           customer: customer
-    //         });
-    //       })
-    //       .catch(err =>
-    //         res.status(400).json({
-    //           message: `Error happened on server: "${err}" `
-    //         })
-    //       );
-    //   });
-    // });
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newPassword, salt, (err, hash) => {
+          if (err) throw err;
+          newPassword = hash;
+          Customer.findOneAndUpdate(
+            { _id: id },
+            {
+              $set: {
+                password: newPassword
+              }
+            },
+            { new: true }
+          )
+            .then(customer => {
+              res.json({
+                message: "Password was successfully changed",
+                customer: customer
+              });
+            })
+            .catch(err =>
+              res.status(400).json({
+                message: `Error happened on server: "${err}" `
+              })
+            );
+        });
+      });
+
+    } catch (err) {
+      res.status(400).json({
+        message: 'Invalid or expired password reset token'
+      });
+    }
 
   } catch (err) {
     res.status(400).json({

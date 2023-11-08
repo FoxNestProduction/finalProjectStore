@@ -19,10 +19,12 @@ const VerifyEmailForm = () => {
     email: '',
   };
 
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (email) => {
     try {
+      setLoading(true);
       setError('');
       const response = await instance.post('/customers/forgot-password', email);
       if (response.status === 200) {
@@ -32,6 +34,8 @@ const VerifyEmailForm = () => {
     } catch (err) {
       console.log('Error sending mail: ', err);
       setError(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,13 +53,13 @@ const VerifyEmailForm = () => {
         component="h1"
         sx={mainTitle}
       >
-        Forget Password
+        Forgot Password
       </Typography>
       <Typography
         variant="body1"
         sx={legend}
       >
-        Enter Your Mail To Reset
+        Enter Your Email To Reset The Password
       </Typography>
       <Formik
         initialValues={initialValues}
@@ -87,9 +91,9 @@ const VerifyEmailForm = () => {
                 variant="contained"
                 sx={signInBtn}
                 type="submit"
-                disabled={!isValid}
+                disabled={!isValid || loading}
               >
-                Verify
+                Continue
               </Button>
             </Box>
           </Form>
