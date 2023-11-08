@@ -1,4 +1,6 @@
+import { useDispatch } from 'react-redux';
 import { instance } from '../../API/instance';
+// import { updateCart } from '../../redux/slices/cartSlice';
 
 const createCart = async (cartProducts) => {
   const cartProductsFromServer = cartProducts.map((cartProduct) => {
@@ -39,7 +41,25 @@ const createCartObjectFromServer = (cartProducts) => {
   return cart;
 };
 
-const updateCart = async (cartProducts) => {
+const createCartObjectFromServer = (cartProducts) => {
+  const cartProductsFromServer = cartProducts.map((cartProduct) => {
+    const newCartProductObj = {
+      // eslint-disable-next-line no-underscore-dangle
+      product: cartProduct.product._id,
+      cartQuantity: cartProduct.cartQuantity,
+    };
+    return newCartProductObj;
+  });
+  const cart = {
+    products: [
+      ...cartProductsFromServer,
+    ],
+  };
+  return cart;
+};
+
+// const updateCart = async (cartProducts) => {
+const updateCartObjFromServer = (cartProducts) => {
   const cartProductsFromServer = cartProducts.map((cartProduct) => {
     const newCartProductObj = {
       // eslint-disable-next-line no-underscore-dangle
@@ -53,23 +73,7 @@ const updateCart = async (cartProducts) => {
       ...cartProductsFromServer,
     ],
   };
-  try {
-    const { data } = await instance.put('/cart', updatedCart);
-    console.log(data);
-  } catch (err) {
-    console.warn(err);
-  }
-};
-
-/* dead code */
-const updateCartAfterCloseWindow = (cartProducts) => {
-  const handleUnload = () => {
-    updateCart(cartProducts);
-  };
-  window.addEventListener('beforeunload', handleUnload);
-  return () => {
-    window.removeEventListener('beforeunload', handleUnload);
-  };
+  return updatedCart;
 };
 
 const cartIconCounterFunction = (cartProducts) => {
@@ -110,8 +114,7 @@ const totalSumFromCartProduct = (currentPrice, cartQuantity = 1) => {
 
 export {
   createCart,
-  updateCart,
-  updateCartAfterCloseWindow,
+  updateCartObjFromServer,
   cartIconCounterFunction,
   totalSumFromCart,
   totalSumFromCartProduct,

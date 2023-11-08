@@ -1,7 +1,24 @@
 /* eslint-disable no-underscore-dangle */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import { allProducts } from './productsSlice';
 import { instance } from '../../API/instance';
+import { setLoading, setError } from '../extraReducersHelpers';
+import { updateCartObjFromServer } from '../../components/Cart/cartFunctions';
+
+export const updateCart = createAsyncThunk(
+  'cart/updateCart',
+  async (cartProducts, { rejectWithValue }) => {
+    const updatedCart = updateCartObjFromServer(cartProducts);
+    // console.log(updatedCart);
+    try {
+      const responce = await instance.put('/cart', updatedCart);
+      console.log(responce);
+      return responce;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
 import { createCartObjectFromServer } from '../../components/Cart/cartFunctions';
 import { setLoading, setError } from '../extraReducersHelpers';
 
@@ -149,6 +166,15 @@ const cartSlice = createSlice({
     // якщо false - то спочатку створювати кошик з цим item-ом, а вже потім
     // коли після першого додавання товара кошик створився вже йти за логікою
     // просто додавання товара
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(updateCart.pending, setLoading)
+      .addCase(updateCart.fulfilled, (state, action) => {
+        console.log(state.cart.product);
+        console.log(action.payload);
+      })
+      .addCase(updateCart.rejected, setError);
   },
 });
 
