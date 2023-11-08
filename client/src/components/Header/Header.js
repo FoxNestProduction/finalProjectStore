@@ -38,8 +38,7 @@ import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
-import { updateCart } from '../Cart/cartFunctions';
-import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
+import { resetCart, setIsCart, updateCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
 
 const Header = () => {
@@ -76,7 +75,7 @@ const Header = () => {
   };
 
   const handleLogOut = async () => {
-    await updateCart(cartProducts);
+    await updateCart();
     dispatch(setIsCart(false));
     dispatch(resetCart());
     dispatch(setToken(null));

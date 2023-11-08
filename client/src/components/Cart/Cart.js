@@ -23,12 +23,11 @@ import {
 } from './styles';
 import {
   createCart,
-  updateCart,
-  updateCartAfterCloseWindow,
+  // updateCartObj,
   totalSumFromCart,
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
-import { getCartItemsFromServer } from '../../redux/slices/cartSlice';
+import { getCartItemsFromServer, updateCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -37,13 +36,23 @@ const Cart = () => {
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
   const totalSum = totalSumFromCart(cartProducts);
-
+  console.log(cartProducts);
   const getCart = () => {
     if (isUserAuthorization) {
       dispatch(getCartItemsFromServer());
     } else {
       console.log('user need to autorise');
     }
+  };
+
+  const updateCartAfterCloseWindow = () => {
+    const handleUnload = () => {
+      updateCart(cartProducts);
+    };
+    window.addEventListener('beforeunload', handleUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+    };
   };
 
   useEffect(() => {

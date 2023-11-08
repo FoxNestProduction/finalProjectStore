@@ -1,7 +1,24 @@
 /* eslint-disable no-underscore-dangle */
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { allProducts } from './productsSlice';
 import { instance } from '../../API/instance';
+import { setLoading, setError } from '../extraReducersHelpers';
+import { updateCartObjFromServer } from '../../components/Cart/cartFunctions';
+
+export const updateCart = createAsyncThunk(
+  'cart/updateCart',
+  async (cartProducts, { rejectWithValue }) => {
+    const updatedCart = updateCartObjFromServer(cartProducts);
+    // console.log(updatedCart);
+    try {
+      const responce = await instance.put('/cart', updatedCart);
+      console.log(responce);
+      return responce;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
 
 const initialState = {
   cart: {
@@ -69,6 +86,7 @@ const cartSlice = createSlice({
     resetCart(state) {
       state.cart.products = [];
     },
+    /* deadth code because we have aextrareduceers helpers setLoading & SetError */
     setIsLoading(state, action) {
       state.isLoading = action.payload;
     },
@@ -106,6 +124,15 @@ const cartSlice = createSlice({
         }
       }
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(updateCart.pending, setLoading)
+      .addCase(updateCart.fulfilled, (state, action) => {
+        console.log(state.cart.product);
+        console.log(action.payload);
+      })
+      .addCase(updateCart.rejected, setError);
   },
 });
 
