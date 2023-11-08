@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
@@ -8,11 +8,14 @@ import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import { instance } from '../../API/instance';
+import CustomAlert from '../../components/Alert/Alert';
+import useAlert from '../../customHooks/useAlert';
 
 const HomePage = () => {
   const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  console.log(alert);
 
   return (
     <>
@@ -37,6 +40,7 @@ const HomePage = () => {
       />
       ) }
       <SwiperReview />
+      { alert && <CustomAlert type="error" handleCloseAlert={handleCloseAlert} /> }
     </>
   );
 };

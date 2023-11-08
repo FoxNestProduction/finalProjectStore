@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,7 +9,6 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import Badge from '@mui/material/Badge';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -17,7 +16,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Alert from '@mui/material/Alert';
 
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
@@ -36,23 +34,28 @@ import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
 import { setAuthorization, setToken, setIsSendMail } from '../../redux/slices/authorizationSlice';
 import { setUser } from '../../redux/slices/userSlice';
-import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
+import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
 import { updateCart } from '../Cart/cartFunctions';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
+import CustomAlert from '../Alert/Alert';
+import useAlert from '../../customHooks/useAlert';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [alertTimer, setAlertTimer] = useState(null);
   // const [showAlert, setShowAlert] = useState(false);
+  const location = useLocation();
 
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   // const isSendMail = useSelector((state) => state.authorization.isSendMail);
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
+  const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -108,10 +111,23 @@ const Header = () => {
     dispatch(resetCardStates());
   };
 
+  const setNavigateTo = (page) => {
+    if (page === 'Menu') {
+      if (location.pathname === '/menu' && location.search) {
+        return `/menu${location.search}`;
+      }
+      return '/menu';
+    }
+    return `/${page.toLowerCase()}`;
+  };
+
   const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
 
   return (
     <>
+      {isRegistered && alert && (
+      <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
+      )}
       <ElevationScroll>
         <AppBar
           position="sticky"
@@ -128,7 +144,8 @@ const Header = () => {
                   <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                     <Button
                       component={NavLink}
-                      to={`/${page.toLowerCase()}`}
+                      // to={`/${page.toLowerCase()}`}
+                      to={setNavigateTo(page)}
                       sx={stylesNavMenuItem}
                     >
                       {page}
@@ -180,6 +197,7 @@ const Header = () => {
           handleOpenModalLogin={handleOpenModalLogin}
           navItems={navItems}
           handleLogOut={handleLogOut}
+          setNavigateTo={setNavigateTo}
         />
       </nav>
       {/* {isSendMail && showAlert && (
