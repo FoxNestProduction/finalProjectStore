@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
+import { Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux';
@@ -30,7 +30,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
 
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
-  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  const { alert, handleCloseAlert } = useAlert();
   console.log(alert);
 
   const marks = [
@@ -54,11 +54,10 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   const [filterAlert, setFilterAlert] = useState(false);
   useEffect(() => {
     if (nothingFound) {
-      handleShowAlert();
       setFilterAlert(true);
       setTimeout(() => {
         setFilterAlert(false);
-      }, 5000);
+      }, 4000);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nothingFound]);
@@ -313,19 +312,8 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
         Apply
       </Button>
 
-      {/* Заглушка, переробити!!!!!!! */}
       {nothingFound && filterAlert && (
-      // <Alert
-      //   sx={{
-      //     position: 'absolute',
-      //     top: '170px',
-      //   }}
-      //   severity="info"
-      //   variant="filled"
-      // >
-      //   Nothing found!
-      // </Alert>
-      <CustomAlert type="info" handleCloseAlert={handleCloseAlert} content="Nothing found!" />
+        <CustomAlert type="info" handleCloseAlert={handleCloseAlert} content="Nothing found!" />
       )}
 
     </Stack>

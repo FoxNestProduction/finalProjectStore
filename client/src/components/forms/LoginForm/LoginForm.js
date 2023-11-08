@@ -41,10 +41,14 @@ import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionSt
 import { instance } from '../../../API/instance';
 import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
+import useAlert from '../../../customHooks/useAlert';
+import CustomAlert from '../../Alert/Alert';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
+  const { handleShowAlert } = useAlert();
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   const initialValues = {
     email: '',
@@ -71,6 +75,7 @@ const LoginForm = () => {
         saveUserInfoToSessionStorage(user);
         dispatch(getCartItemsFromServer());
         dispatch(fetchFavourites());
+        handleShowAlert();
       }
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));

@@ -9,6 +9,8 @@ import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
 import { addNewReview, resetReviewState, searchReviews, setNewReview } from '../../redux/slices/reviewsSlice';
 import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../../components/Alert/Alert';
 
 const ReviewsPage = () => {
   const searchReview = useSelector((state) => state.reviews.search);
@@ -21,11 +23,13 @@ const ReviewsPage = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [loadMore, setLoadMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [reviewAlert, setReviewAlert] = useState(false);
 
   const dispatch = useDispatch();
   const newReview = useSelector((state) => state.reviews.newReview);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const isLgTablet = useMediaQuery('(min-width: 690px)');
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   const containerRef = useRef(null);
   const cardRef = useRef([]);
@@ -76,6 +80,11 @@ const ReviewsPage = () => {
     dispatch(addNewReview());
     dispatch(resetReviewState());
     dispatch(closeModal());
+    handleShowAlert();
+    setReviewAlert(true);
+    setTimeout(() => {
+      setReviewAlert(false);
+    }, 4000);
   };
   // якщо відгук пустий кнопка Send  неактивна
   useEffect(() => {
@@ -148,6 +157,9 @@ const ReviewsPage = () => {
 
   return (
     <Container component="section" sx={{ ...flexCenter, ...container }}>
+      {reviewAlert && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your comment is added" />
+      )}
       <Box sx={titleContainer}>
         <Typography variant="h2" sx={{ justifySelf: 'center' }}>Customers Say</Typography>
         {isUserAuthorized && (

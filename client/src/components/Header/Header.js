@@ -53,7 +53,7 @@ const Header = () => {
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
-  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  const { alert, handleCloseAlert } = useAlert();
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -105,19 +105,10 @@ const Header = () => {
   return (
     <>
       {isRegistered && alert && (
-      // <Alert
-      //   sx={{
-      //     position: 'absolute',
-      //     top: '0',
-      //     left: '0',
-      //     zIndex: '1200',
-      //   }}
-      //   severity="success"
-      //   variant="filled"
-      // >
-      //   Thank you! Your registration was successful!
-      // </Alert>
       <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
+      )}
+      {isUserAuthorized && alert && (
+      <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Welcome back!" />
       )}
       <ElevationScroll>
         <AppBar

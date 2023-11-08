@@ -47,7 +47,7 @@ export const initialValues = {
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const registerError = useSelector((state) => state.error.registration);
-  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  const { handleShowAlert } = useAlert();
 
   const handleSubmit = async (values) => {
     const newCustomer = {
