@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -8,11 +7,12 @@ import Button from '@mui/material/Button';
 import EmailIcon from '@mui/icons-material/Email';
 import validationSchema from './validationSchema';
 import Input from '../../inputs/Input/Input';
+import { instance } from '../../../API/instance';
 import { closeModal } from '../../../redux/slices/modalSlice';
+import { setIsSendMail } from '../../../redux/slices/authorizationSlice';
 import { flexcenter, mainTitle, legend, inputsWrapper, signInBtn } from './styles';
 
 const VerifyEmailForm = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
 
@@ -20,9 +20,17 @@ const VerifyEmailForm = () => {
     email: '',
   };
 
-  const handleSubmit = () => {
-    navigate('/recovery-password/:token');
-    dispatch(closeModal());
+  const handleSubmit = async (email) => {
+    try {
+      const { request } = await instance.post('/customers/forgot-password', email);
+      dispatch(closeModal());
+      if (request.status === 200) {
+        dispatch(setIsSendMail(true));
+      }
+      console.log(request);
+    } catch (error) {
+      console.warn('Error sending mail:', error);
+    }
   };
 
   return (

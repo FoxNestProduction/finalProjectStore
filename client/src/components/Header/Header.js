@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import Alert from '@mui/material/Alert';
 
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
@@ -33,21 +34,23 @@ import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
-import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
+import { setAuthorization, setToken, setIsSendMail } from '../../redux/slices/authorizationSlice';
 import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
-import { resetCardStates, fetchFavourites } from '../../redux/slices/favouriteSlice';
+import { resetCardStates } from '../../redux/slices/favouriteSlice';
 import { updateCart } from '../Cart/cartFunctions';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [alertTimer, setAlertTimer] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
 
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  const user = useSelector((state) => state.user.user);
+  const isSendMail = useSelector((state) => state.authorization.isSendMail);
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
 
@@ -58,6 +61,25 @@ const Header = () => {
       setIsMobileMenuOpen(false);
     }
   }, [breakpoint, dispatch]);
+
+  useEffect(() => {
+    if (isSendMail) {
+      setShowAlert(true);
+    }
+    const timer = setTimeout(() => {
+      setShowAlert(false);
+      dispatch(setIsSendMail(false));
+    }, 10000);
+    setAlertTimer(timer);
+  }, [isSendMail, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      if (alertTimer) {
+        clearTimeout(alertTimer);
+      }
+    };
+  }, [alertTimer]);
 
   // const cartAmount = cartIconCounterFunction(cartProducts);
   const favouritesAmount = isUserAuthorized ? Object.keys(favourite).length : null;
@@ -160,6 +182,11 @@ const Header = () => {
           handleLogOut={handleLogOut}
         />
       </nav>
+      {isSendMail && showAlert && (
+        <Alert severity="success" color="info">
+          You have received an email with a link to reset your password
+        </Alert>
+      )}
     </>
   );
 };
