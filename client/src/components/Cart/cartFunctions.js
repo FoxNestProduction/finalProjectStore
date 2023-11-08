@@ -41,23 +41,6 @@ const createCartObjectFromServer = (cartProducts) => {
   return cart;
 };
 
-const createCartObjectFromServer = (cartProducts) => {
-  const cartProductsFromServer = cartProducts.map((cartProduct) => {
-    const newCartProductObj = {
-      // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.product._id,
-      cartQuantity: cartProduct.cartQuantity,
-    };
-    return newCartProductObj;
-  });
-  const cart = {
-    products: [
-      ...cartProductsFromServer,
-    ],
-  };
-  return cart;
-};
-
 // const updateCart = async (cartProducts) => {
 const updateCartObjFromServer = (cartProducts) => {
   const cartProductsFromServer = cartProducts.map((cartProduct) => {
