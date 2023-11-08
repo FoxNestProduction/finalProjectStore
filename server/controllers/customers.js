@@ -4,11 +4,15 @@ const _ = require("lodash");
 const keys = require("../config/keys");
 const getConfigs = require("../config/getConfigs");
 const passport = require("passport");
+const sendMail = require("../commonHelpers/mailSender");
 const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(10000000, 99999999);
+const crypto = require("crypto");
 
 // Load Customer model
 const Customer = require("../models/Customer");
+const Letter = require("../models/Letter");
+const validateLetterForm = require("../validation/validationHelper");
 
 // Load validation helper to validate all received fields
 const validateRegistrationForm = require("../validation/validationHelper");
@@ -268,40 +272,113 @@ exports.updatePassword = (req, res) => {
   Customer.findOne({ _id: req.user.id }, (err, customer) => {
     let oldPassword = req.body.password;
 
-    customer.comparePassword(oldPassword, function(err, isMatch) {
-      if (!isMatch) {
-        errors.password = "Password does not match";
-        res.json(errors);
-      } else {
-        let newPassword = req.body.newPassword;
+    // customer.comparePassword(newPassword, function(err, isMatch) {
+      // if (!isMatch) {
+      //   errors.password = "Password does not match";
+      //   res.json(errors);
+      // } else {
+    let newPassword = req.body.newPassword;
 
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newPassword, salt, (err, hash) => {
-            if (err) throw err;
-            newPassword = hash;
-            Customer.findOneAndUpdate(
-              { _id: req.user.id },
-              {
-                $set: {
-                  password: newPassword
-                }
-              },
-              { new: true }
-            )
-              .then(customer => {
-                res.json({
-                  message: "Password successfully changed",
-                  customer: customer
-                });
-              })
-              .catch(err =>
-                res.status(400).json({
-                  message: `Error happened on server: "${err}" `
-                })
-              );
-          });
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newPassword, salt, (err, hash) => {
+        if (err) throw err;
+        newPassword = hash;
+        Customer.findOneAndUpdate(
+          { _id: req.user.id },
+          {
+            $set: {
+              password: newPassword
+            }
+          },
+          { new: true }
+        )
+          .then(customer => {
+            res.json({
+              message: "Password successfully changed",
+              customer: customer
+            });
+          })
+          .catch(err =>
+            res.status(400).json({
+              message: `Error happened on server: "${err}" `
+            })
+          );
+        });
+      });
+      // }
+    // });
+  });
+};
+
+exports.fogotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    const customer = await Customer.findOne({ email });
+    if (!customer) {
+      return res.status(404).json({ message: "No user found" });
+    }
+
+    const token = crypto.randomBytes(20).toString("hex"); // створення токену
+
+    await Letter.create({ email, resetPasswordToken: token }); // збереження токену
+    const recoveryPasswordLink = "http://localhost:3000/recovery-password/:token";
+
+    const letterHtml = `<div style="text-align: left; margin: 20px; font-size: 20px">
+                          <p>Your email has been confirmed, follow the link to reset your password: <strong>${recoveryPasswordLink}</strong></p>
+                        </div>`;
+    
+    const letterSubject = `<p>Reset password</p>`;
+
+      const subscriberMail = req.body.email;
+
+      const { errors, isValid } = validateLetterForm(req.body);
+
+      // Check Validation
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+
+      if (!letterSubject) {
+        return res.status(400).json({
+          message:
+            "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
         });
       }
+
+      if (!letterHtml) {
+        return res.status(400).json({
+          message:
+            "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
+        });
+      }
+
+      const newLetter = new Letter({
+        email: subscriberMail,
+        subject: letterSubject,
+        html: letterHtml
+      });
+
+      newLetter
+        .save()
+        .then(async letter => {
+          const mailResult = await sendMail(
+            subscriberMail,
+            letterSubject,
+            letterHtml,
+            res
+          );
+
+          res.json({ letter, mailResult });
+        })
+        .catch(err =>
+          res.status(400).json({
+            message: `Error happened on server: "${err}" `
+          })
+        );
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
     });
-  });
+  };
 };
