@@ -21,6 +21,7 @@ import {
   setFilterParams,
 } from '../../redux/slices/filterSlice';
 import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
+import { resetSearch } from '../../redux/slices/searchSlice';
 
 const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       startPage: 1,
     }));
     dispatch(setIsApplyClicked(true));
+    dispatch(resetSearch());
   };
 
   const handleResetFilter = () => {

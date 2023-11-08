@@ -134,13 +134,15 @@ const MenuPage = () => {
             <Typography
               variant="h3"
               component="p"
+              // color="text.secondaryGray"
               color="primary.main"
               sx={{ textAlign: 'center',
                 fontSize: { mobile: '22px', tablet: '26px', desktop: '34px' },
                 px: '10px',
-                fontWeight: 'fontWeightMedium' }}
+                fontWeight: 'fontWeightLight' }}
             >
               Sorry, no results match your current filter settings...🤷‍♀️
+              {/* Sorry, no results match your current filter settings... */}
             </Typography>
           </Container>
         )}
