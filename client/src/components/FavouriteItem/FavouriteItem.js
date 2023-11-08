@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { CardActions, CardContent, CardMedia, Rating, Button, Box, Card } from '@mui/material';
@@ -14,13 +14,7 @@ import { addToCart } from '../../redux/slices/cartSlice';
 
 const FavouriteItem = ({ product }) => {
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-underscore-dangle
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  // eslint-disable-next-line no-underscore-dangle
-  const dish = products.find((item) => (item._id) === product);
-  if (!dish) {
-    return null;
-  }
+
   const {
     name,
     itemNo,
@@ -31,9 +25,10 @@ const FavouriteItem = ({ product }) => {
     isSupreme,
     isHealthy,
     _id,
-  } = dish;
+  } = product;
 
-  // let selectedItem;
+  const isFavourite = useSelector((state) => state.favourites.cardStates[_id]);
+
   const handleAddToCart = () => {
     const selectedItem = {
       product: {
@@ -96,16 +91,17 @@ const FavouriteItem = ({ product }) => {
       </CardActions>
       <CardActions sx={{ position: 'absolute', top: '0', right: '0' }}>
         <FavouriteIcon id={_id} />
+        {/* <FavouriteIcon product={product} /> */}
       </CardActions>
     </Card>
   );
 };
 
 FavouriteItem.propTypes = {
-  product: PropTypes.string,
+  product: PropTypes.object,
 };
 FavouriteItem.defaultProps = {
-  product: '',
+  product: {},
 };
 
 export default FavouriteItem;

@@ -118,6 +118,7 @@ export const forgetPassword = {
   lineHeight: '1.5em',
   transition: 'color 0.3s ease',
   opacity: '0.7',
+  cursor: 'pointer',
   alignSelf: {
     mobile: 'flex-end',
     desktop: 'center',
