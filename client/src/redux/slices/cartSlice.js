@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import { allProducts } from './productsSlice';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
-import { updateCartObjFromServer, createCartObjectFromServer } from '../../components/Cart/cartFunctions';
+import { changeCartObjectFromServer } from '../../components/Cart/cartFunctions';
 
 const initialState = {
   cart: {
@@ -20,7 +20,7 @@ export const createCart = createAsyncThunk(
   'cart/createCart',
   async (_, { rejectWithValue, getState }) => {
     const cartProducts = getState().cart.cart.products;
-    const cart = createCartObjectFromServer(cartProducts);
+    const cart = changeCartObjectFromServer(cartProducts);
     console.log('Ми в функції createCart');
     try {
       const response = await instance.post('/cart', cart);
@@ -35,8 +35,8 @@ export const createCart = createAsyncThunk(
 export const updateCart = createAsyncThunk(
   'cart/updateCart',
   async (cartProducts, { rejectWithValue }) => {
-    const updatedCart = updateCartObjFromServer(cartProducts);
-    // console.log(updatedCart);
+    const updatedCart = changeCartObjectFromServer(cartProducts);
+    console.log(updatedCart);
     try {
       const responce = await instance.put('/cart', updatedCart);
       console.log(responce);

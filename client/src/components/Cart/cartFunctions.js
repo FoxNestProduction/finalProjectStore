@@ -24,7 +24,7 @@ const createCart = async (cartProducts) => {
   }
 };
 
-const createCartObjectFromServer = (cartProducts) => {
+const changeCartObjectFromServer = (cartProducts) => {
   const cartProductsFromServer = cartProducts.map((cartProduct) => {
     const newCartProductObj = {
       // eslint-disable-next-line no-underscore-dangle
@@ -34,29 +34,13 @@ const createCartObjectFromServer = (cartProducts) => {
     return newCartProductObj;
   });
   const cart = {
-    products: [
-      ...cartProductsFromServer,
-    ],
+    products: [],
   };
+  if (!cartProductsFromServer.length) {
+    return cart;
+  }
+  cart.products = [...cartProductsFromServer];
   return cart;
-};
-
-// const updateCart = async (cartProducts) => {
-const updateCartObjFromServer = (cartProducts) => {
-  const cartProductsFromServer = cartProducts.map((cartProduct) => {
-    const newCartProductObj = {
-      // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.product._id,
-      cartQuantity: cartProduct.cartQuantity,
-    };
-    return newCartProductObj;
-  });
-  const updatedCart = {
-    products: [
-      ...cartProductsFromServer,
-    ],
-  };
-  return updatedCart;
 };
 
 const cartIconCounterFunction = (cartProducts) => {
@@ -97,9 +81,8 @@ const totalSumFromCartProduct = (currentPrice, cartQuantity = 1) => {
 
 export {
   createCart,
-  updateCartObjFromServer,
+  changeCartObjectFromServer,
   cartIconCounterFunction,
   totalSumFromCart,
   totalSumFromCartProduct,
-  createCartObjectFromServer,
 };

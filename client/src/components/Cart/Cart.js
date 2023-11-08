@@ -64,7 +64,7 @@ const Cart = () => {
   const continueFn = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
-        updateCart(cartProducts);
+        dispatch(updateCart(cartProducts));
         console.log('Відбувається update');
       } else {
         // createCart(cartProducts);
@@ -143,7 +143,7 @@ const Cart = () => {
             variant="contained"
             onClick={continueFn}
             sx={continueBtn}
-            disabled={cartProducts.length === 0}
+          // disabled={cartProducts.length === 0}
           >
             Continue
           </Button>

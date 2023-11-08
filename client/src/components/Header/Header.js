@@ -47,8 +47,7 @@ const Header = () => {
 
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  const user = useSelector((state) => state.user.user);
-  // const { cart } = user; // під питанням чи потрібне це значення
+  // const user = useSelector((state) => state.user.user);
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
 
@@ -60,7 +59,6 @@ const Header = () => {
     }
   }, [breakpoint, dispatch]);
 
-  // const cartAmount = cartIconCounterFunction(cartProducts);
   const favouritesAmount = isUserAuthorized ? Object.keys(favourite).length : null;
 
   const handleOpenDrawer = () => {
@@ -76,8 +74,8 @@ const Header = () => {
     dispatch(setContent(<LoginForm />));
   };
 
-  const handleLogOut = async () => {
-    await updateCart();
+  const handleLogOut = () => {
+    dispatch(updateCart(cartProducts));
     dispatch(setIsCart(false));
     dispatch(resetCart());
     dispatch(setToken(null));

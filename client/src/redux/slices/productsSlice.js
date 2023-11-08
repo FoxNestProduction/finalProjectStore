@@ -33,7 +33,7 @@ export const GetOneProduct = createAsyncThunk(
   'products/GetOneProduct',
   async (itemNo, { rejectWithValue }) => {
     try {
-      const { data } = await instance.put(`/products/${itemNo}`);
+      const { data } = await instance.get(`/products/${itemNo}`);
       return data;
     } catch (err) {
       return rejectWithValue(err.response);
