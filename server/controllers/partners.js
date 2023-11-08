@@ -94,6 +94,18 @@ exports.getPartners = (req, res, next) => {
     );
 };
 
+exports.getPartnersNames = async (req, res) => {
+  try {
+    const partners = await Partner.find();
+    const partnersNames = partners.map(partner => partner.name);
+    res.json(partnersNames);
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
+    });
+  }
+};
+
 exports.getPartnerById = (req, res, next) => {
   Partner.findOne({
     customId: req.params.customId

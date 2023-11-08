@@ -16,6 +16,7 @@
     "classnames": "^2.3.2",
     "formik": "^2.4.4",
     "prop-types": "^15.8.1",
+    "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-input-mask": "^3.0.0-alpha.2",
@@ -62,7 +63,14 @@
       "no-nested-ternary": "off",
       "no-console": "off",
       "no-plusplus": "off",
-      "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+      "no-underscore-dangle": [
+        "error",
+        {
+          "allow": [
+            "_id"
+          ]
+        }
+      ],
       "react/function-component-definition": [
         2,
         {
