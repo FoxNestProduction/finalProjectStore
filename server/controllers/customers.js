@@ -133,7 +133,7 @@ exports.loginCustomer = async (req, res, next) => {
       if (!customer) {
           console.log(customer);
 
-          errors.email = "Customer not found";
+          errors.email = "Customer is not found";
         return res.status(404).json(errors);
       }
 
@@ -166,7 +166,7 @@ exports.loginCustomer = async (req, res, next) => {
             }
           );
         } else {
-          errors.password = "Password incorrect";
+          errors.password = "Password is incorrect";
           return res.status(400).json(errors);
         }
       });
@@ -198,7 +198,7 @@ exports.editCustomerInfo = (req, res) => {
   Customer.findOne({ _id: req.user.id })
     .then(customer => {
       if (!customer) {
-        errors.id = "Customer not found";
+        errors.id = "Customer is not found";
         return res.status(404).json(errors);
       }
 
@@ -358,35 +358,44 @@ exports.resetPassword = async (req, res) => {
       return res.status(404).json({ message: "Oops...This link seems to be crashed. Try to use forget password form again." });
     }
 
-    // const secret = keys.secretOrKey + customer.password;
-    // const verify = jwt.verify(token, secret);
+    try {
+      const secret = keys.secretOrKey + customer.password;
+      const verify = jwt.verify(token, secret);
+      console.log('!!!!!!!!!!!!!!!!!!', verify);
+      res.send('Verified!');
+    } catch (err) {
+      // res.status(400).json({
+      //   message: `Invalid or expired password reset link. Use the password recovery form again.`
+      // });
+      res.status(400).json(err);
+    }
 
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newPassword, salt, (err, hash) => {
-        if (err) throw err;
-        newPassword = hash;
-        Customer.findOneAndUpdate(
-          { _id: id },
-          {
-            $set: {
-              password: newPassword
-            }
-          },
-          { new: true }
-        )
-          .then(customer => {
-            res.json({
-              message: "Password successfully changed",
-              customer: customer
-            });
-          })
-          .catch(err =>
-            res.status(400).json({
-              message: `Error happened on server: "${err}" `
-            })
-          );
-      });
-    });
+    // bcrypt.genSalt(10, (err, salt) => {
+    //   bcrypt.hash(newPassword, salt, (err, hash) => {
+    //     if (err) throw err;
+    //     newPassword = hash;
+    //     Customer.findOneAndUpdate(
+    //       { _id: id },
+    //       {
+    //         $set: {
+    //           password: newPassword
+    //         }
+    //       },
+    //       { new: true }
+    //     )
+    //       .then(customer => {
+    //         res.json({
+    //           message: "Password successfully changed",
+    //           customer: customer
+    //         });
+    //       })
+    //       .catch(err =>
+    //         res.status(400).json({
+    //           message: `Error happened on server: "${err}" `
+    //         })
+    //       );
+    //   });
+    // });
 
   } catch (err) {
     res.status(400).json({
