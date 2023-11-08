@@ -17,7 +17,6 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
-import { Alert } from '@mui/material';
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
 import {
@@ -41,6 +40,8 @@ import { resetCardStates } from '../../redux/slices/favouriteSlice';
 import { updateCart } from '../Cart/cartFunctions';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
+import CustomAlert from '../Alert/Alert';
+import useAlert from '../../customHooks/useAlert';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -52,6 +53,7 @@ const Header = () => {
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -102,19 +104,20 @@ const Header = () => {
 
   return (
     <>
-      {isRegistered && (
-      <Alert
-        sx={{
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          zIndex: '1200',
-        }}
-        severity="success"
-        variant="filled"
-      >
-        Thank you! Your registration was successful!
-      </Alert>
+      {isRegistered && alert && (
+      // <Alert
+      //   sx={{
+      //     position: 'absolute',
+      //     top: '0',
+      //     left: '0',
+      //     zIndex: '1200',
+      //   }}
+      //   severity="success"
+      //   variant="filled"
+      // >
+      //   Thank you! Your registration was successful!
+      // </Alert>
+      <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
       )}
       <ElevationScroll>
         <AppBar

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -51,10 +51,14 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       label: '30$',
     },
   ];
-
+  const [filterAlert, setFilterAlert] = useState(false);
   useEffect(() => {
     if (nothingFound) {
       handleShowAlert();
+      setFilterAlert(true);
+      setTimeout(() => {
+        setFilterAlert(false);
+      }, 5000);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nothingFound]);
@@ -69,6 +73,10 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   };
 
   const handleApplyFilter = () => {
+    setFilterAlert(true);
+    setTimeout(() => {
+      setFilterAlert(false);
+    }, 5000);
     dispatch(setFilterParams({
       ...filters,
       startPage: 1,
@@ -306,7 +314,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       </Button>
 
       {/* Заглушка, переробити!!!!!!! */}
-      {nothingFound && alert && (
+      {nothingFound && filterAlert && (
       // <Alert
       //   sx={{
       //     position: 'absolute',
