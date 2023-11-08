@@ -8,9 +8,10 @@ import EmailIcon from '@mui/icons-material/Email';
 import validationSchema from './validationSchema';
 import Input from '../../inputs/Input/Input';
 import { instance } from '../../../API/instance';
-import { closeModal } from '../../../redux/slices/modalSlice';
+import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import { setIsSendMail } from '../../../redux/slices/authorizationSlice';
 import { flexcenter, mainTitle, legend, inputsWrapper, signInBtn } from './styles';
+import SuccessfulLetter from '../../SuccessfulLetter/SuccessfulLetter';
 
 const VerifyEmailForm = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const VerifyEmailForm = () => {
       const response = await instance.post('/customers/forgot-password', email);
       if (response.status === 200) {
         dispatch(setIsSendMail(true));
-        dispatch(closeModal());
+        dispatch(setContent(<SuccessfulLetter />));
       }
     } catch (err) {
       console.log('Error sending mail: ', err);
@@ -59,7 +60,7 @@ const VerifyEmailForm = () => {
         variant="body1"
         sx={legend}
       >
-        Enter Your Email To Reset The Password
+        Enter your e-mail to reset password
       </Typography>
       <Formik
         initialValues={initialValues}

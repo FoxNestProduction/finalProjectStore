@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import LockIcon from '@mui/icons-material/Lock';
-import { useParams } from 'react-router';
-import { useNavigate } from 'react-router-dom';
 import validationSchema from './validationShema';
 import Input from '../../inputs/Input/Input';
 import { flexcenter, mainTitle, signInBtn } from './styles';
@@ -27,7 +26,6 @@ const ChangePasswordForm = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
     try {
       setLoading(true);
       setError('');
@@ -36,6 +34,9 @@ const ChangePasswordForm = () => {
         token,
         password: values.password,
       });
+      // if (response.status === 200) {
+      //   navigate('/');
+      // }
       console.log(response.data.message);
       setTimeout(() => {
         navigate('/');
@@ -57,7 +58,7 @@ const ChangePasswordForm = () => {
         ...flexcenter,
         py: 10,
         textAlign: 'center',
-        bgcolor: 'common.white',
+        bgcolor: 'background.default',
         width: '100%',
       }}
     >
