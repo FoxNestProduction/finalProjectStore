@@ -4,13 +4,13 @@ import { Container, Typography, Grid, Paper } from '@mui/material';
 
 const AboutUs = () => {
   return (
-    <Container xs={{ pb: '20px' }}>
-      <Typography variant="h3" sx={{ mt: '30px', pl: '10px' }} gutterBottom>
+    <Container sx={{ paddingBottom: '30px' }}>
+      <Typography variant="h3" sx={{ marginTop: '30px', paddingLeft: '10px' }} gutterBottom>
         About Us
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
+          <Paper elevation={3} sx={{ padding: '20px' }}>
             <Typography variant="h4" gutterBottom>
               Our Story
             </Typography>
@@ -23,7 +23,7 @@ const AboutUs = () => {
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
+          <Paper elevation={3} sx={{ padding: '20px' }}>
             <Typography variant="h4" gutterBottom>
               Our Mission
             </Typography>
@@ -36,7 +36,7 @@ const AboutUs = () => {
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
+          <Paper elevation={3} sx={{ padding: '20px' }}>
             <Typography variant="h4" gutterBottom>
               Our Team
             </Typography>
@@ -49,13 +49,25 @@ const AboutUs = () => {
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
+          <Paper elevation={3} sx={{ padding: '20px' }}>
             <Typography variant="h4" gutterBottom>
               Contact Us
             </Typography>
             <Typography>
               If you have any questions, feedback, or inquiries, don&apos;t hesitate to reach out to us. We&apos;d love to hear
-              from you and assist with any requests. You can contact us at info@eatly.com or through our customer support page.
+              from you and assist with any requests. You can contact us at
+              <a href="mailto:info@eatly.com" style={{ fontWeight: 'bold', color: '#6C5FBC' }}>
+                {' '}
+                info@eatly.com
+                {' '}
+              </a>
+              or through our
+              <a href="/contact" style={{ fontWeight: 'bold', color: '#6C5FBC' }}>
+                {' '}
+                customer support page
+                {' '}
+              </a>
+              .
             </Typography>
           </Paper>
         </Grid>
