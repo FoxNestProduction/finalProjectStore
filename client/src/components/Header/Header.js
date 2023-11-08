@@ -53,8 +53,6 @@ const Header = () => {
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
 
-  console.log(isRegistered);
-
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
   useEffect(() => {
