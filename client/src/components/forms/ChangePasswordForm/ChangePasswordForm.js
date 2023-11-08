@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
@@ -9,17 +10,29 @@ import LockIcon from '@mui/icons-material/Lock';
 import validationSchema from './validationShema';
 import Input from '../../inputs/Input/Input';
 import { flexcenter, mainTitle, signInBtn } from './styles';
+import { instance } from '../../../API/instance';
 
-const CangePasswordForm = () => {
+const ChangePasswordForm = () => {
+  const { userId } = useParams();
+  const { token } = useParams();
+  const navigate = useNavigate();
+
   const authError = useSelector((state) => state.error.authorization);
 
   const initialValues = {
     password: '',
     passwordConfirmation: '',
   };
-
-  const handleSubmit = (value) => {
-    console.log(value);
+  console.log(token);
+  const handleSubmit = async (values) => {
+    try {
+      const { status } = await instance.post('/customers/reset-password', { id: userId, token, password: values.password });
+      if (status === 200) {
+        navigate('/');
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -29,7 +42,7 @@ const CangePasswordForm = () => {
         ...flexcenter,
         py: 10,
         textAlign: 'center',
-        bgcolor: 'common.white',
+        bgcolor: 'background.default',
         width: '100%',
       }}
     >
@@ -74,7 +87,7 @@ const CangePasswordForm = () => {
                   type="password"
                   name="passwordConfirmation"
                   id="passwordConfirmation"
-                  placeholder="Confirmation your password"
+                  placeholder="Confirm your password"
                   label="Password confirmation"
                   icon={<LockIcon />}
                 />
@@ -85,7 +98,7 @@ const CangePasswordForm = () => {
                 type="submit"
                 disabled={!isValid}
               >
-                Restore
+                Confirm
               </Button>
             </Box>
           </Form>
@@ -95,4 +108,4 @@ const CangePasswordForm = () => {
   );
 };
 
-export default CangePasswordForm;
+export default ChangePasswordForm;

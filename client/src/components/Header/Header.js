@@ -46,11 +46,11 @@ import MiniCart from '../MiniCart/MiniCart';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [alertTimer, setAlertTimer] = useState(null);
-  const [showAlert, setShowAlert] = useState(false);
+  // const [showAlert, setShowAlert] = useState(false);
 
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  const isSendMail = useSelector((state) => state.authorization.isSendMail);
+  // const isSendMail = useSelector((state) => state.authorization.isSendMail);
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
 
@@ -62,24 +62,24 @@ const Header = () => {
     }
   }, [breakpoint, dispatch]);
 
-  useEffect(() => {
-    if (isSendMail) {
-      setShowAlert(true);
-    }
-    const timer = setTimeout(() => {
-      setShowAlert(false);
-      dispatch(setIsSendMail(false));
-    }, 10000);
-    setAlertTimer(timer);
-  }, [isSendMail, dispatch]);
+  // useEffect(() => {
+  //   if (isSendMail) {
+  //     setShowAlert(true);
+  //   }
+  //   const timer = setTimeout(() => {
+  //     setShowAlert(false);
+  //     dispatch(setIsSendMail(false));
+  //   }, 10000);
+  //   setAlertTimer(timer);
+  // }, [isSendMail, dispatch]);
 
-  useEffect(() => {
-    return () => {
-      if (alertTimer) {
-        clearTimeout(alertTimer);
-      }
-    };
-  }, [alertTimer]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (alertTimer) {
+  //       clearTimeout(alertTimer);
+  //     }
+  //   };
+  // }, [alertTimer]);
 
   // const cartAmount = cartIconCounterFunction(cartProducts);
   const favouritesAmount = isUserAuthorized ? Object.keys(favourite).length : null;
@@ -182,11 +182,11 @@ const Header = () => {
           handleLogOut={handleLogOut}
         />
       </nav>
-      {isSendMail && showAlert && (
+      {/* {isSendMail && showAlert && (
         <Alert severity="success" color="info">
           You have received an email with a link to reset your password
         </Alert>
-      )}
+      )} */}
     </>
   );
 };

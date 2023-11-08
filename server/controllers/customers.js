@@ -11,8 +11,6 @@ const crypto = require("crypto");
 
 // Load Customer model
 const Customer = require("../models/Customer");
-const Letter = require("../models/Letter");
-const validateLetterForm = require("../validation/validationHelper");
 
 // Load validation helper to validate all received fields
 const validateRegistrationForm = require("../validation/validationHelper");
@@ -272,11 +270,11 @@ exports.updatePassword = (req, res) => {
   Customer.findOne({ _id: req.user.id }, (err, customer) => {
     let oldPassword = req.body.password;
 
-    // customer.comparePassword(newPassword, function(err, isMatch) {
-      // if (!isMatch) {
-      //   errors.password = "Password does not match";
-      //   res.json(errors);
-      // } else {
+    customer.comparePassword(oldPassword, function(err, isMatch) {
+      if (!isMatch) {
+        errors.password = "Password does not match";
+        res.json(errors);
+      } else {
     let newPassword = req.body.newPassword;
 
     bcrypt.genSalt(10, (err, salt) => {
@@ -305,80 +303,94 @@ exports.updatePassword = (req, res) => {
           );
         });
       });
-      // }
-    // });
+      }
+    });
   });
 };
 
-exports.fogotPassword = async (req, res, next) => {
+exports.forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
 
     const customer = await Customer.findOne({ email });
     if (!customer) {
-      return res.status(404).json({ message: "No user found" });
+      return res.status(404).json({ message: 'This email is not registered. Check your email and try again.' });
     }
 
-    const token = crypto.randomBytes(20).toString("hex"); // створення токену
+    const secret = keys.secretOrKey + customer.password;
+    const token = jwt.sign({ email: customer.email, id: customer._id }, secret, {
+      expiresIn: 900, // 15хв
+    });
 
-    await Letter.create({ email, resetPasswordToken: token }); // збереження токену
-    const recoveryPasswordLink = "http://localhost:3000/recovery-password/:token";
+    const recoveryPasswordLink = `http://localhost:3000/recovery-password/${customer._id}/${token}`;
 
+    const subscriberMail = req.body.email;
+    const letterSubject = 'Reset password';
     const letterHtml = `<div style="text-align: left; margin: 20px; font-size: 20px">
-                          <p>Your email has been confirmed, follow the link to reset your password: <strong>${recoveryPasswordLink}</strong></p>
+                          <p>Your email has been confirmed.</p>
+                          <p>Follow the link to reset your password: <strong>${recoveryPasswordLink}</strong></p>
                         </div>`;
-    
-    const letterSubject = `<p>Reset password</p>`;
 
-      const subscriberMail = req.body.email;
+    const mailResult = await sendMail(
+      subscriberMail,
+      letterSubject,
+      letterHtml,
+      res
+    );
 
-      const { errors, isValid } = validateLetterForm(req.body);
+    res.json({ mailResult });
 
-      // Check Validation
-      if (!isValid) {
-        return res.status(400).json(errors);
-      }
-
-      if (!letterSubject) {
-        return res.status(400).json({
-          message:
-            "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
-        });
-      }
-
-      if (!letterHtml) {
-        return res.status(400).json({
-          message:
-            "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
-        });
-      }
-
-      const newLetter = new Letter({
-        email: subscriberMail,
-        subject: letterSubject,
-        html: letterHtml
-      });
-
-      newLetter
-        .save()
-        .then(async letter => {
-          const mailResult = await sendMail(
-            subscriberMail,
-            letterSubject,
-            letterHtml,
-            res
-          );
-
-          res.json({ letter, mailResult });
-        })
-        .catch(err =>
-          res.status(400).json({
-            message: `Error happened on server: "${err}" `
-          })
-        );
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `
     });
-  };
+  }
+};
+
+
+exports.resetPassword = async (req, res) => {
+  const { id, token, password } = req.body;
+  let newPassword = req.body.password;
+
+  try {
+    const customer = await Customer.findOne({ _id: id });
+    if (!customer) {
+      return res.status(404).json({ message: "Oops...This link seems to be crashed. Try to use forget password form again." });
+    }
+
+    // const secret = keys.secretOrKey + customer.password;
+    // const verify = jwt.verify(token, secret);
+
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newPassword, salt, (err, hash) => {
+        if (err) throw err;
+        newPassword = hash;
+        Customer.findOneAndUpdate(
+          { _id: id },
+          {
+            $set: {
+              password: newPassword
+            }
+          },
+          { new: true }
+        )
+          .then(customer => {
+            res.json({
+              message: "Password successfully changed",
+              customer: customer
+            });
+          })
+          .catch(err =>
+            res.status(400).json({
+              message: `Error happened on server: "${err}" `
+            })
+          );
+      });
+    });
+
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
+    });
+  }
 };
