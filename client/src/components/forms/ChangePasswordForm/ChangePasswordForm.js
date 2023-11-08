@@ -16,18 +16,6 @@ const ChangePasswordForm = () => {
   const { userId } = useParams();
   const { token } = useParams();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await instance.get('/');
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   })();
-  // }, []);
-
-  const authError = useSelector((state) => state.error.authorization);
-
   const initialValues = {
     password: '',
     passwordConfirmation: '',
@@ -36,7 +24,11 @@ const ChangePasswordForm = () => {
   const handleSubmit = async (values) => {
     console.log(values);
     try {
-      const response = await instance.post('/customers/reset-password', { id: userId, token, password: values.password });
+      const response = await instance.post('/customers/reset-password', {
+        id: userId,
+        token,
+        password: values.password,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -81,7 +73,6 @@ const ChangePasswordForm = () => {
                 }}
               >
                 <Input
-                  error={authError.password}
                   type="password"
                   name="password"
                   id="password"
@@ -90,7 +81,6 @@ const ChangePasswordForm = () => {
                   icon={<LockIcon />}
                 />
                 <Input
-                  error={authError.password}
                   type="password"
                   name="passwordConfirmation"
                   id="passwordConfirmation"
