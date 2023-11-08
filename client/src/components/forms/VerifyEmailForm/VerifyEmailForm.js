@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -8,7 +8,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import validationSchema from './validationSchema';
 import Input from '../../inputs/Input/Input';
 import { instance } from '../../../API/instance';
-import { closeModal, setContent } from '../../../redux/slices/modalSlice';
+import { setContent } from '../../../redux/slices/modalSlice';
 import { setIsSendMail } from '../../../redux/slices/authorizationSlice';
 import { flexcenter, mainTitle, legend, inputsWrapper, signInBtn } from './styles';
 import SuccessfulLetter from '../../SuccessfulLetter/SuccessfulLetter';
@@ -34,7 +34,7 @@ const VerifyEmailForm = () => {
       }
     } catch (err) {
       console.log('Error sending mail: ', err);
-      setError(err.response.data.message);
+      setError(err.response?.data?.message);
     } finally {
       setLoading(false);
     }
