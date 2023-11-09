@@ -40,7 +40,7 @@ const ChangePasswordForm = () => {
       console.log(response.data.message);
       setTimeout(() => {
         navigate('/');
-      }, 5000);
+      }, 2000);
     } catch (err) {
       console.error('Error changing password: ', err);
       if (err.response?.data?.message) {
