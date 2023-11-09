@@ -9,7 +9,6 @@ import validationSchema from './validationSchema';
 import Input from '../../inputs/Input/Input';
 import { instance } from '../../../API/instance';
 import { setContent } from '../../../redux/slices/modalSlice';
-import { setIsSendMail } from '../../../redux/slices/authorizationSlice';
 import { flexcenter, mainTitle, legend, inputsWrapper, signInBtn } from './styles';
 import SuccessfulLetter from '../../SuccessfulLetter/SuccessfulLetter';
 
@@ -29,7 +28,6 @@ const VerifyEmailForm = () => {
       setError('');
       const response = await instance.post('/customers/forgot-password', email);
       if (response.status === 200) {
-        dispatch(setIsSendMail(true));
         dispatch(setContent(<SuccessfulLetter />));
       }
     } catch (err) {
