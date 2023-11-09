@@ -33,7 +33,7 @@ export const GetOneProduct = createAsyncThunk(
   'products/GetOneProduct',
   async (itemNo, { rejectWithValue }) => {
     try {
-      const { data } = await instance.put(`/products/${itemNo}`);
+      const { data } = await instance.get(`/products/${itemNo}`);
       return data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -74,7 +74,7 @@ const productsSlice = createSlice({
       .addCase(GetOneProduct.fulfilled, (state, action) => {
         state.oneProduct = action.payload;
       })
-      .addCase(GetOneProduct.rejected, setError);
+      .addCase(GetOneProduct.rejected, setError)
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
         state.products = action.payload.products;
         state.productsQuantity = action.payload.productsQuantity;
@@ -96,7 +96,5 @@ export const getProducts = () => async (dispatch) => {
     console.log('Error loading products:', error);
   }
 };
-
-export const allProducts = (state) => state.products.products;
 
 export default productsSlice.reducer;

@@ -22,12 +22,12 @@ import {
   continueBtn,
 } from './styles';
 import {
-  createCart,
+  // createCart,
   // updateCartObj,
   totalSumFromCart,
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
-import { getCartItemsFromServer, updateCart } from '../../redux/slices/cartSlice';
+import { updateCart, createCart, fetchCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -39,7 +39,8 @@ const Cart = () => {
   console.log(cartProducts);
   const getCart = () => {
     if (isUserAuthorization) {
-      dispatch(getCartItemsFromServer());
+      // dispatch(getCartItemsFromServer());
+      dispatch(fetchCart());
     } else {
       console.log('user need to autorise');
     }
@@ -56,7 +57,7 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    // getCart();
+    getCart();
     updateCartAfterCloseWindow(cartProducts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuthorization]);
@@ -64,9 +65,13 @@ const Cart = () => {
   const continueFn = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
-        updateCart(cartProducts);
+        dispatch(updateCart(cartProducts));
+        // dispatch(createCart());
+        console.log('Відбувається update');
       } else {
-        createCart(cartProducts);
+        // createCart(cartProducts);
+        dispatch(createCart());
+        console.log('Відбувається create');
       }
     } else {
       navigate('/checkout');
@@ -140,7 +145,7 @@ const Cart = () => {
             variant="contained"
             onClick={continueFn}
             sx={continueBtn}
-            disabled={cartProducts.length === 0}
+          // disabled={cartProducts.length === 0}
           >
             Continue
           </Button>

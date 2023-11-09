@@ -18,7 +18,7 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { addToFavourites, deleteFromFavourites, setIsFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
-import { addToCart } from '../../redux/slices/cartSlice';
+import { addProductToCart, addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import useGetAPI from '../../customHooks/useGetAPI';
 
@@ -64,18 +64,16 @@ const ProductCard = () => {
   };
 
   const handleAddToCart = () => {
-    const selectedItem = {
-      product: {
-        _id: id,
-        currentPrice,
-        imageUrl,
-        name,
-      },
-      cartQuantity: 1,
-    };
-    dispatch(addToCart(selectedItem));
+    if (isUserAuthorized) {
+      dispatch(addProductToCart(id));
+    } else {
+      const selectedItem = {
+        product: { ...dish },
+        cartQuantity: 1,
+      };
+      dispatch(addToCart(selectedItem));
+    }
   };
-
   return (
     <Container
       component="section"

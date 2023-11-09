@@ -16,8 +16,8 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
-import { addToCart } from '../../redux/slices/cartSlice';
-import { instance } from '../../API/instance';
+import { addToCart, addProductToCart } from '../../redux/slices/cartSlice';
+// import { instance } from '../../API/instance';
 import { GetOneProduct, resetOneProduct } from '../../redux/slices/productsSlice';
 // eslint-disable-next-line no-underscore-dangle
 const ProductCardItem = ({
@@ -50,7 +50,11 @@ const ProductCardItem = ({
           product: { ...oneProduct },
           cartQuantity: 1,
         };
-        dispatch(addToCart(selectedItem));
+        if (isUserAuthorized) {
+          dispatch(addProductToCart(selectedItem.product._id));
+        } else {
+          dispatch(addToCart(selectedItem));
+        }
       }
     };
 

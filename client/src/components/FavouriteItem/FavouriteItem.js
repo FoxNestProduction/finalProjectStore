@@ -10,7 +10,7 @@ import { chipForFavourite } from '../Chip/styles';
 import { stylesButton, styleCardFavourite, styleMediaFavourite, styleContentFavourite } from './styles';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
-import { addToCart } from '../../redux/slices/cartSlice';
+import { addProductToCart } from '../../redux/slices/cartSlice';
 
 const FavouriteItem = ({ product }) => {
   const dispatch = useDispatch();
@@ -30,16 +30,7 @@ const FavouriteItem = ({ product }) => {
   const isFavourite = useSelector((state) => state.favourites.cardStates[_id]);
 
   const handleAddToCart = () => {
-    const selectedItem = {
-      product: {
-        _id,
-        currentPrice,
-        imageUrl,
-        name,
-      },
-      cartQuantity: 1,
-    };
-    dispatch(addToCart(selectedItem));
+    dispatch(addProductToCart(_id));
   };
 
   return (

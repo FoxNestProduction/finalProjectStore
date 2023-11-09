@@ -1,30 +1,4 @@
-import { useDispatch } from 'react-redux';
-import { instance } from '../../API/instance';
-// import { updateCart } from '../../redux/slices/cartSlice';
-
-const createCart = async (cartProducts) => {
-  const cartProductsFromServer = cartProducts.map((cartProduct) => {
-    const newCartProductObj = {
-      // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.id,
-      cartQuantity: cartProduct.cartQuantity,
-    };
-    return newCartProductObj;
-  });
-  const cart = {
-    products: [
-      ...cartProductsFromServer,
-    ],
-  };
-  try {
-    const { data } = await instance.post('/cart', cart);
-    console.log(data);
-  } catch (err) {
-    console.warn(err);
-  }
-};
-
-const updateCartObjFromServer = (cartProducts) => {
+const changeCartObjectFromServer = (cartProducts) => {
   const cartProductsFromServer = cartProducts.map((cartProduct) => {
     const newCartProductObj = {
       // eslint-disable-next-line no-underscore-dangle
@@ -33,12 +7,14 @@ const updateCartObjFromServer = (cartProducts) => {
     };
     return newCartProductObj;
   });
-  const updatedCart = {
-    products: [
-      ...cartProductsFromServer,
-    ],
+  const cart = {
+    products: [],
   };
-  return updatedCart;
+  if (!cartProductsFromServer.length) {
+    return cart;
+  }
+  cart.products = [...cartProductsFromServer];
+  return cart;
 };
 
 const cartIconCounterFunction = (cartProducts) => {
@@ -78,8 +54,7 @@ const totalSumFromCartProduct = (currentPrice, cartQuantity = 1) => {
 };
 
 export {
-  createCart,
-  updateCartObjFromServer,
+  changeCartObjectFromServer,
   cartIconCounterFunction,
   totalSumFromCart,
   totalSumFromCartProduct,
