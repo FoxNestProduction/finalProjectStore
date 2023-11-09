@@ -8,7 +8,7 @@ const sendMail = require("../commonHelpers/mailSender");
 const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(10000000, 99999999);
 const crypto = require("crypto");
-const generatePasswordResetEmail = require('../emails/emailForPasswordReset');
+const generatePasswordResetEmail = require('../views/emailForPasswordReset');
 
 // Load Customer model
 const Customer = require("../models/Customer");

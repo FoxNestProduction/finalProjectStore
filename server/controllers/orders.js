@@ -7,6 +7,7 @@ const queryCreator = require("../commonHelpers/queryCreator");
 const productAvailibilityChecker = require("../commonHelpers/productAvailibilityChecker");
 const subtractProductsFromCart = require("../commonHelpers/subtractProductsFromCart");
 const _ = require("lodash");
+const generateOrderEmail = require('../views/emailForOrder');
 
 const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(1000000, 9999999);
@@ -53,8 +54,14 @@ exports.placeOrder = async (req, res, next) => {
       0
     );
 
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    const monthsAbbreviations = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const dateStr = `${monthsAbbreviations[month]} ${day}, ${year}`;
+
     if (req.body.letterHtml) {
-      // order.letterHtml = `<h1>Your order is placed. OrderNo is ${order.orderNo}.</h1>`;
       order.letterHtml = `<h1>Dear ${req.body.name}, thank you for ordering!</h1>
     <div style="text-align: left; margin: 20px; font-size: 20px">
         <p>Order Number: <strong>${order.orderNo}</strong></p>
@@ -64,7 +71,7 @@ exports.placeOrder = async (req, res, next) => {
 
       const subscriberMail = req.body.email;
       const letterSubject = req.body.letterSubject;
-      const letterHtml = order.letterHtml;
+      const letterHtml = generateOrderEmail(order, dateStr);
 
       const { errors, isValid } = validateOrderForm(req.body);
 

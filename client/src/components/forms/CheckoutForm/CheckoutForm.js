@@ -123,6 +123,7 @@ const CheckoutForm = () => {
     } else {
       try {
         const response = await instance.post('/orders', newOrder);
+        console.log(response);
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());
