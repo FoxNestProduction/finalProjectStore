@@ -25,17 +25,35 @@ import {
   buttonsWrapper,
   roundedIcons,
 } from './styles';
-import { addProductToCart, decreaseProductQuantity } from '../../redux/slices/cartSlice';
+import {
+  addProductToCart,
+  decreaseProductQuantity,
+  addToCart,
+  deleteFromCart,
+} from '../../redux/slices/cartSlice';
 import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
 const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
   const dispatch = useDispatch();
+  const cartProducts = useSelector((state) => state.cart.cart.products);
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const index = cartProducts.findIndex(({ product }) => product._id === _id);
   const relevantPrice = totalSumFromCartProduct(currentPrice, cartQuantity);
   const handleDeleteOne = () => {
-    dispatch(decreaseProductQuantity(_id));
+    if (isUserAuthorized) {
+      dispatch(decreaseProductQuantity(_id));
+    } else if (index !== -1) {
+      const foundObject = cartProducts[index];
+      dispatch(deleteFromCart(foundObject));
+    }
   };
   const handleAddOne = () => {
-    dispatch(addProductToCart(_id));
+    if (isUserAuthorized) {
+      dispatch(addProductToCart(_id));
+    } else if (index !== -1) {
+      const foundObject = cartProducts[index];
+      dispatch(addToCart(foundObject));
+    }
   };
   return (
     <Card

@@ -27,7 +27,7 @@ import {
   totalSumFromCart,
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
-import { getCartItemsFromServer, updateCart, createCart, fetchCart } from '../../redux/slices/cartSlice';
+import { updateCart, createCart, fetchCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
