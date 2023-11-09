@@ -15,7 +15,6 @@ const HomePage = () => {
   const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
-  console.log(alert);
 
   return (
     <>
