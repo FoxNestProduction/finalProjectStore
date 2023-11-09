@@ -11,7 +11,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
-import { deleteFromCart, addOneMore, deleteFullProduct } from '../../redux/slices/cartSlice';
+import { deleteFromCart, deleteFullProduct, addProductToCart } from '../../redux/slices/cartSlice';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
@@ -44,7 +44,7 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
   const handleAddOne = () => {
     if (index !== -1) {
       const foundObject = cartProducts[index];
-      (() => dispatch(addOneMore(foundObject)))();
+      dispatch(addProductToCart(_id));
     }
   };
   const handleDeleteFullProduct = () => {

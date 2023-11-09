@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { NavLink } from 'react-router-dom';
@@ -39,7 +39,7 @@ import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
+import { fetchCart } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
 
 const LoginForm = () => {
@@ -69,7 +69,8 @@ const LoginForm = () => {
 
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         saveUserInfoToSessionStorage(user);
-        dispatch(getCartItemsFromServer());
+        dispatch(fetchCart());
+
         dispatch(fetchFavourites());
       }
     } catch (error) {

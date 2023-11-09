@@ -21,13 +21,11 @@ export const createCart = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     const cartProducts = getState().cart.cart.products;
     const cart = changeCartObjectFromServer(cartProducts);
-    console.log('Ми в функції createCart');
     try {
-      const response = await instance.post('/cart', cart);
-      console.log(response);
-      return response;
+      const { data } = await instance.post('/cart', cart);
+      return data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response);
     }
   },
 );
@@ -38,10 +36,53 @@ export const updateCart = createAsyncThunk(
     const updatedCart = changeCartObjectFromServer(cartProducts);
     console.log(updatedCart);
     try {
-      const responce = await instance.put('/cart', updatedCart);
-      console.log(responce);
-      return responce;
+      const response = await instance.put('/cart', updatedCart);
+      console.log(response);
+      return response;
     } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const fetchCart = createAsyncThunk(
+  'caer/fetchCart',
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      const { data, status } = await instance.get('/cart');
+      if (status === 200 && data === null) {
+        dispatch(createCart());
+      }
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const addProductToCart = createAsyncThunk(
+  'cart/addProductToCart',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.put(`/cart/${id}`);
+      console.log(data.products);
+      return data.products;
+    } catch (err) {
+      console.warn(err.response);
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const decreaseProductQuantity = createAsyncThunk(
+  'cart/addProductToCart',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.put(`/cart/${id}`);
+      console.log(data.products);
+      return data.products;
+    } catch (err) {
+      console.warn(err.response);
       return rejectWithValue(err.response);
     }
   },
@@ -52,14 +93,13 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action) {
+      console.log(action.payload);
       if (state.cart.products.length === 0 && action.payload !== null) {
-        action.payload.cartQuantity = 1;
         state.cart.products.push(action.payload);
       } else {
         const index = state.cart.products
           .findIndex((productObj) => productObj.product._id === action.payload.product._id);
         if (index === -1) {
-          action.payload.cartQuantity = 1;
           state.cart.products.push(action.payload);
         } else {
           state.cart.products[index].cartQuantity += 1;
@@ -145,31 +185,45 @@ const cartSlice = createSlice({
     builder
       .addCase(createCart.pending, setLoading)
       .addCase(createCart.fulfilled, (state, action) => {
-        console.log(state.cart.products);
+        state.isCart = true;
+        state.loading = false;
+        console.log('Кошик створено!');
         console.log(action.payload);
-        state.isCart = true;
-        state.loading = false;
       })
-      // .addCase(createCart.rejected, setError);
       .addCase(createCart.rejected, (state, action) => {
-        console.log('Помилка');
-        state.isCart = true;
+        if (action.payload.status === 400) {
+          state.isCart = true;
+        } else {
+          state.isCart = false;
+        }
         state.loading = false;
-        state.error = action.payload; // подивитись що приходить сюди в помилку
-      }) // тут може бути помилка 2-х типів: або помилка запита
-      // або кошик вже існує - цю помилку потрібно обробити разом
-      // із властивістю isCart!!!
-      // Кошик не створюється, якщо надсилається запит з порожнім масивом
-      // Логіка така, при додаванні товара - перевіряти state isCart,
-      // якщо false - то спочатку створювати кошик з цим item-ом, а вже потім
-      // коли після першого додавання товара кошик створився вже йти за логікою
-      // просто додавання товара
+        state.error = action.payload;
+      })
       .addCase(updateCart.pending, setLoading)
       .addCase(updateCart.fulfilled, (state, action) => {
-        console.log(state.cart.product);
+        state.loading = false;
+        console.log(state.cart.products);
         console.log(action.payload);
       })
-      .addCase(updateCart.rejected, setError);
+      .addCase(updateCart.rejected, setError)
+      .addCase(fetchCart.pending, setLoading)
+      .addCase(fetchCart.fulfilled, (state, action) => {
+        state.loading = false;
+        if (action.payload !== null) {
+          state.cart.products = action.payload.products;
+        }
+      })
+      .addCase(fetchCart.rejected, (state, action) => {
+        state.isCart = false;
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(addProductToCart.pending, setLoading)
+      .addCase(addProductToCart.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cart.products = action.payload;
+      })
+      .addCase(addProductToCart.rejected, setError);
   },
 });
 
@@ -190,12 +244,13 @@ export const getCartItemsFromServer = () => async (dispatch) => {
     // dispatch(setLoading(true));
 
     const { data } = await instance.get('/cart');
-
-    dispatch(setCart(data.products));
+    console.log(data);
+    // dispatch(setCart(data.products));
     dispatch(setIsCart(true));
     // dispatch(setLoading(false));
   } catch (error) {
     console.warn('Error loading cart:', error);
+    console.log(error);
     // dispatch(setLoading(false));
     // dispatch(setIsCart(false));
   }
