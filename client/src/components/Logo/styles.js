@@ -21,12 +21,12 @@ export const stylesIconFooter = {
   ...stylesIcon,
   width: {
     mobile: '40px',
-    lgTablet: '44px',
+    tablet: '44px',
     desktop: '62px',
   },
   height: {
     mobile: '37px',
-    lgTablet: '40px',
+    tablet: '40px',
     desktop: '57px',
   },
 };
@@ -40,17 +40,17 @@ export const stylesTitle = {
 export const stylesTitleHeader = {
   ...stylesTitle,
   fontSize: {
-    mobile: 21,
-    lgTablet: 15,
-    desktop: 21,
+    mobile: '21px',
+    lgTablet: '15px',
+    desktop: '21px',
   },
 };
 
 export const stylesTitleFooter = {
   ...stylesTitle,
   fontSize: {
-    mobile: 18,
-    tablet: 20,
-    desktop: 29,
+    mobile: '18px',
+    tablet: '20px',
+    desktop: '29px',
   },
 };

@@ -4,7 +4,7 @@ import { Container, Typography, Grid, Paper } from '@mui/material';
 
 const AboutUs = () => {
   return (
-    <Container sx={{ paddingBottom: '30px' }}>
+    <Container sx={{ paddingBottom: '30px', color: 'text.primary' }}>
       <Typography variant="h3" sx={{ marginTop: '30px', paddingLeft: '10px' }} gutterBottom>
         About Us
       </Typography>
