@@ -6,28 +6,28 @@ export const stylesIcon = {
 export const stylesIconHeader = {
   ...stylesIcon,
   width: {
-    mobile: 45,
-    lgTablet: 32,
-    desktop: 45,
+    mobile: '45px',
+    lgTablet: '32px',
+    desktop: '45px',
   },
   height: {
-    mobile: 42,
-    lgTablet: 30,
-    desktop: 42,
+    mobile: '42px',
+    lgTablet: '30px',
+    desktop: '42px',
   },
 };
 
 export const stylesIconFooter = {
   ...stylesIcon,
   width: {
-    mobile: 40,
-    tablet: 44,
-    desktop: 62,
+    mobile: '40px',
+    tablet: '44px',
+    desktop: '62px',
   },
   height: {
-    mobile: 37,
-    tablet: 40,
-    desktop: 57,
+    mobile: '37px',
+    tablet: '40px',
+    desktop: '57px',
   },
 };
 
@@ -40,17 +40,17 @@ export const stylesTitle = {
 export const stylesTitleHeader = {
   ...stylesTitle,
   fontSize: {
-    mobile: 21,
-    lgTablet: 15,
-    desktop: 21,
+    mobile: '21px',
+    lgTablet: '15px',
+    desktop: '21px',
   },
 };
 
 export const stylesTitleFooter = {
   ...stylesTitle,
   fontSize: {
-    mobile: 18,
-    tablet: 20,
-    desktop: 29,
+    mobile: '18px',
+    tablet: '20px',
+    desktop: '29px',
   },
 };
