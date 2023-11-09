@@ -32,7 +32,7 @@ import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import ElevationScroll from '../ElevationScroll/ElevationScroll';
-import { setAuthorization, setToken, setIsSendMail } from '../../redux/slices/authorizationSlice';
+import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
@@ -46,12 +46,10 @@ import useAlert from '../../customHooks/useAlert';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [alertTimer, setAlertTimer] = useState(null);
-  // const [showAlert, setShowAlert] = useState(false);
   const location = useLocation();
 
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  // const isSendMail = useSelector((state) => state.authorization.isSendMail);
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
@@ -64,25 +62,6 @@ const Header = () => {
       setIsMobileMenuOpen(false);
     }
   }, [breakpoint, dispatch]);
-
-  // useEffect(() => {
-  //   if (isSendMail) {
-  //     setShowAlert(true);
-  //   }
-  //   const timer = setTimeout(() => {
-  //     setShowAlert(false);
-  //     dispatch(setIsSendMail(false));
-  //   }, 10000);
-  //   setAlertTimer(timer);
-  // }, [isSendMail, dispatch]);
-
-  // useEffect(() => {
-  //   return () => {
-  //     if (alertTimer) {
-  //       clearTimeout(alertTimer);
-  //     }
-  //   };
-  // }, [alertTimer]);
 
   // const cartAmount = cartIconCounterFunction(cartProducts);
   const favouritesAmount = isUserAuthorized ? Object.keys(favourite).length : null;
@@ -200,11 +179,6 @@ const Header = () => {
           setNavigateTo={setNavigateTo}
         />
       </nav>
-      {/* {isSendMail && showAlert && (
-        <Alert severity="success" color="info">
-          You have received an email with a link to reset your password
-        </Alert>
-      )} */}
     </>
   );
 };

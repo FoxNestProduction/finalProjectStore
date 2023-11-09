@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isUserAuthorized: false,
   token: null,
-  isSendMail: false,
 };
 
 const authorizationSlice = createSlice({
@@ -16,16 +15,12 @@ const authorizationSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
-    setIsSendMail(state, action) {
-      state.isSendMail = action.payload;
-    },
   },
 });
 
 export const {
   setAuthorization,
   setToken,
-  setIsSendMail,
 } = authorizationSlice.actions;
 
 export default authorizationSlice.reducer;
