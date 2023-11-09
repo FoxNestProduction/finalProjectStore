@@ -1,6 +1,8 @@
 const router = require('express').Router();
+const jwt = require("jsonwebtoken");
 const { google } = require('googleapis');
 const { verifyIdToken } = require('../controllers/googleAuth');
+const keys = require("../config/keys");
 
 // Load Customer model
 const Customer = require("../models/Customer");
@@ -21,20 +23,43 @@ router.post(
 
         // Find customer by email
         Customer.findOne({
-            $or: [{ email: result.email }, { login: result.email }]
+            $or: [{ email: result.email }]
         })
             .then(customer => {
-                console.log(customer._id)
+                console.log(customer)
 
                 // Check for customer
                 if (!customer) {
-                    console.log(customer);
-
-                    errors.email = "Customer not found";
-                    return res.status(404).json(errors);
+                    // errors.email = "Customer not found";
+                    // return res.status(404).json(errors);
+                    return res.status(206).json(result);
                 }
-                return res.status(200).json(customer);
 
+                const payload = {
+                    id: customer.id,
+                    firstName: customer.firstName,
+                    lastName: customer.lastName,
+                    isAdmin: customer.isAdmin
+                }; 
+                // Create JWT Payload
+                // видалення поля пароля
+                const userWithoutPassword = JSON.parse(JSON.stringify(customer));
+                delete userWithoutPassword.password;
+    
+                // Sign Token
+                jwt.sign(
+                    payload,
+                    keys.secretOrKey,
+                    { expiresIn: 36000 },
+                    (err, token) => {
+                        //todo: шото придумать з токеном
+                        res.json({
+                        success: true,
+                        token: "Bearer " + token,
+                        user: userWithoutPassword,
+                        });
+                    }
+                );
             })
             .catch(err =>
             res.status(400).json({
