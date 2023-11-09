@@ -154,7 +154,7 @@ const MenuPage = () => {
         />
       ) : (
         <ListItems
-          title="All Dishes"
+          title={!loadingProducts && 'All Dishes'}
           items={products}
           itemComponent={ProductCardItem}
           actions={null}
