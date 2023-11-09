@@ -65,7 +65,6 @@ export const addProductToCart = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await instance.put(`/cart/${id}`);
-      console.log(data.products);
       return data.products;
     } catch (err) {
       console.warn(err.response);
@@ -75,11 +74,23 @@ export const addProductToCart = createAsyncThunk(
 );
 
 export const decreaseProductQuantity = createAsyncThunk(
-  'cart/addProductToCart',
+  'cart/decreaseProductQuantity',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await instance.put(`/cart/${id}`);
-      console.log(data.products);
+      const { data } = await instance.delete(`/cart/product/${id}`);
+      return data.products;
+    } catch (err) {
+      console.warn(err.response);
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const deleteProductFromCart = createAsyncThunk(
+  'cart/deleteProductFromCart',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.delete(`/cart/${id}`);
       return data.products;
     } catch (err) {
       console.warn(err.response);
@@ -143,9 +154,6 @@ const cartSlice = createSlice({
     resetCart(state) {
       state.cart.products = [];
     },
-    // setLoading(state, action) {
-    //   state.loading = action.payload;
-    // },
     setIsCart(state, action) {
       state.isCart = action.payload;
     },
@@ -223,14 +231,25 @@ const cartSlice = createSlice({
         state.loading = false;
         state.cart.products = action.payload;
       })
-      .addCase(addProductToCart.rejected, setError);
+      .addCase(addProductToCart.rejected, setError)
+      .addCase(decreaseProductQuantity.pending, setLoading)
+      .addCase(decreaseProductQuantity.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cart.products = action.payload;
+      })
+      .addCase(decreaseProductQuantity.rejected, setError)
+      .addCase(deleteProductFromCart.pending, setLoading)
+      .addCase(deleteProductFromCart.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cart.products = action.payload;
+      })
+      .addCase(deleteProductFromCart.rejected, setError);
   },
 });
 
 export const {
   addToCart,
   setCart,
-  // setLoading,
   deleteFromCart,
   setIsCart,
   addOneMore,
@@ -238,22 +257,11 @@ export const {
   deleteFullProduct,
 } = cartSlice.actions;
 
-/* change on CreatAsyncThuk */
-export const getCartItemsFromServer = () => async (dispatch) => {
-  try {
-    // dispatch(setLoading(true));
-
-    const { data } = await instance.get('/cart');
-    console.log(data);
-    // dispatch(setCart(data.products));
-    dispatch(setIsCart(true));
-    // dispatch(setLoading(false));
-  } catch (error) {
-    console.warn('Error loading cart:', error);
-    console.log(error);
-    // dispatch(setLoading(false));
-    // dispatch(setIsCart(false));
-  }
-};
-
 export default cartSlice.reducer;
+
+/*
+1. Вирішити щось з reducers які ми не використовуємо
+2. Вирішити як буде проходити зляття кошику коли неавторизований користувач
+
+3. Прописати логіку додавання в кошик коли користувач не авторизований
+*/

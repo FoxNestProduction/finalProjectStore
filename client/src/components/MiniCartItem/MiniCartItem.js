@@ -25,25 +25,17 @@ import {
   buttonsWrapper,
   roundedIcons,
 } from './styles';
-import { deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
+import { addProductToCart, decreaseProductQuantity } from '../../redux/slices/cartSlice';
 import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
 const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
   const dispatch = useDispatch();
-  const cartProducts = useSelector((state) => state.cart.cart.products);
-  const index = cartProducts.findIndex(({ product }) => product._id === _id);
   const relevantPrice = totalSumFromCartProduct(currentPrice, cartQuantity);
   const handleDeleteOne = () => {
-    if (index !== -1) {
-      const foundObject = cartProducts[index];
-      dispatch(deleteFromCart(foundObject));
-    }
+    dispatch(decreaseProductQuantity(_id));
   };
   const handleAddOne = () => {
-    if (index !== -1) {
-      const foundObject = cartProducts[index];
-      dispatch(addOneMore(foundObject));
-    }
+    dispatch(addProductToCart(_id));
   };
   return (
     <Card

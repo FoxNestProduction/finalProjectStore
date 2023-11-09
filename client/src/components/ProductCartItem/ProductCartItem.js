@@ -11,7 +11,14 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
-import { deleteFromCart, deleteFullProduct, addProductToCart } from '../../redux/slices/cartSlice';
+import {
+  addProductToCart,
+  decreaseProductQuantity,
+  deleteProductFromCart,
+  deleteFromCart,
+  addOneMore,
+  deleteFullProduct,
+} from '../../redux/slices/cartSlice';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
@@ -32,23 +39,30 @@ import {
 
 const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageUrl }) => {
   const cartProducts = useSelector((state) => state.cart.cart.products);
+  const authorization = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const index = cartProducts.findIndex(({ product }) => product._id === _id);
   const finallySumOfCartProduct = totalSumFromCartProduct(currentPrice, cartQuantity);
   const handleDeleteOne = () => {
-    if (index !== -1) {
+    if (authorization) {
+      dispatch(decreaseProductQuantity(_id));
+    } else if (index !== -1) {
       const foundObject = cartProducts[index];
-      (() => dispatch(deleteFromCart(foundObject)))();
+      dispatch(deleteFromCart(foundObject));
     }
   };
   const handleAddOne = () => {
-    if (index !== -1) {
-      const foundObject = cartProducts[index];
+    if (authorization) {
       dispatch(addProductToCart(_id));
+    } else if (index !== -1) {
+      const foundObject = cartProducts[index];
+      dispatch(addOneMore(foundObject));
     }
   };
   const handleDeleteFullProduct = () => {
-    if (index !== -1) {
+    if (authorization) {
+      dispatch(deleteProductFromCart(_id));
+    } else if (index !== -1) {
       const foundObject = cartProducts[index];
       dispatch(deleteFullProduct(foundObject));
     }
