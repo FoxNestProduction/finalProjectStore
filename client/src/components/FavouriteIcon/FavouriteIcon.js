@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
@@ -12,7 +12,7 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const isLoading = useSelector((state) => state.favourites.loading);
   const token = useSelector((state) => state.authorization.token);
 
-  const toggleFavourite = () => {
+  const toggleFavourite = useCallback(() => {
     if (token && !ishovered && !isLoading) {
       if (isFavourite) {
         dispatch(deleteFromFavourites({ id }));
@@ -21,7 +21,7 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
         dispatch(addToFavourites({ id }));
       }
     }
-  };
+  }, [dispatch, id, isFavourite, isLoading, ishovered, token]);
 
   return (
     <IconButton onClick={() => toggleFavourite()} sx={{ m: 0, p: 0 }}>
@@ -57,4 +57,4 @@ FavouriteIcon.defaultProps = {
   isactive: false,
 };
 
-export default FavouriteIcon;
+export default memo(FavouriteIcon);

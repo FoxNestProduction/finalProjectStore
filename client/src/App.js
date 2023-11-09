@@ -16,20 +16,16 @@ const App = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const breakpoint = useBreakpoint();
-
   const user = useSelector((state) => state.user.user, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-
   useEffect(() => {
     if (isUserAuthorized && user) {
       saveUserInfoToSessionStorage(user);
     }
   }, [isUserAuthorized, user]);
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
   useEffect(() => {
     dispatch(fetchTopProducts(topProductsQtyMap[breakpoint]));
     dispatch(fetchTopPartners(topPartnersQtyMap[breakpoint]));
@@ -38,11 +34,6 @@ const App = () => {
     }));
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint, dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(getProducts());
-  // }, [dispatch]);
-
   return (
     <>
       <Modal disagree="Close" />
@@ -51,5 +42,4 @@ const App = () => {
     </>
   );
 };
-
 export default App;

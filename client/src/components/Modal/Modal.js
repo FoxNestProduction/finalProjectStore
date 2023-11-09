@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -31,15 +31,15 @@ const Modal = () => {
   const buttonAgree = useSelector((state) => state.modal.buttonAgree);
   const buttonBox = useSelector((state) => state.modal.buttonBox);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     dispatch(closeModal());
     dispatch(setAuthorizationError(''));
     dispatch(setRegistrationError(''));
-  };
+  }, [dispatch]);
 
-  const handleRemoveItemCart = () => {
+  const handleRemoveItemCart = useCallback(() => {
     dispatch(closeModal());
-  };
+  }, [dispatch]);
 
   const handleOpenModalWarning = () => {
     dispatch(openModal());
@@ -123,4 +123,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default memo(Modal);

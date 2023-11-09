@@ -1,5 +1,4 @@
-import React from 'react';
-import axios from 'axios';
+import React, { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { NavLink } from 'react-router-dom';
@@ -51,11 +50,11 @@ const LoginForm = () => {
     password: '',
   };
 
-  const handleOpenSignUpForm = () => {
+  const handleOpenSignUpForm = useCallback(() => {
     dispatch(setContent(<RegisterForm />));
-  };
+  }, [dispatch]);
 
-  const handleSubmit = async (values, actions) => {
+  const handleSubmit = useCallback(async (values, actions) => {
     try {
       const response = await instance.post('/customers/login', values);
       const { token } = response.data;
@@ -76,7 +75,7 @@ const LoginForm = () => {
       dispatch(setAuthorizationError(error.response.data));
       console.error('Помилка авторизації:', error);
     }
-  };
+  }, [dispatch]);
 
   return (
     <Box
@@ -202,4 +201,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default memo(LoginForm);

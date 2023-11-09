@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState, useRef, createRef } from 'react';
+import React, { useEffect, useState, useRef, createRef, useCallback, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Button, Box, Container, useMediaQuery } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -72,11 +72,11 @@ const ReviewsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.comments, startPage, loading, loadMore]);
 
-  const handleSendFeedback = () => {
+  const handleSendFeedback = useCallback(() => {
     dispatch(addNewReview());
     dispatch(resetReviewState());
     dispatch(closeModal());
-  };
+  }, [dispatch]);
   // якщо відгук пустий кнопка Send  неактивна
   useEffect(() => {
     if (newReview.content && newReview.content !== '') {
@@ -97,7 +97,7 @@ const ReviewsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newReview]);
 
-  const handleOpenModalReview = () => {
+  const handleOpenModalReview = useCallback(() => {
     if (isRendered) {
       dispatch(openModal());
       dispatch(setTitle('Feedback about the service will help us work even better:'));
@@ -112,7 +112,7 @@ const ReviewsPage = () => {
       }));
       dispatch(addButtonBox(true));
     }
-  };
+  }, [dispatch, isRendered, newReview.content]);
 
   // Додавання нового відгуку
   useEffect(() => {
@@ -175,4 +175,4 @@ const ReviewsPage = () => {
   );
 };
 
-export default ReviewsPage;
+export default memo(ReviewsPage);

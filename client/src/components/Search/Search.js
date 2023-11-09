@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { debounce } from '@mui/material/utils';
@@ -34,18 +34,18 @@ const Search = ({ resetFiltersLocalState }) => {
   const allPartnersNames = useSelector((state) => state.partners.allPartnersNames);
   const labelForTextField = `Search  ${key}`;
 
-  const handleChangeButton = (event, keyBtn) => {
+  const handleChangeButton = useCallback((event, keyBtn) => {
     if (keyBtn !== null) {
       dispatch(setKey(keyBtn));
       dispatch(setInputSearchValue(''));
       dispatch(setSearch([]));
       dispatch(resetSearch());
     }
-  };
+  }, [dispatch]);
 
-  const handleInputChange = async (event, newInputValue) => {
+  const handleInputChange = useCallback(async (event, newInputValue) => {
     dispatch(setInputSearchValue(newInputValue));
-  };
+  }, [dispatch]);
 
   const debounceSearch = useRef(
     debounce((inputValue, keyBtn) => {
@@ -125,4 +125,4 @@ Search.defaultProps = {
   resetFiltersLocalState: () => {},
 };
 
-export default Search;
+export default memo(Search);

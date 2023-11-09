@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -34,13 +34,13 @@ const ReviewItem = ({ review, index }) => {
   const year = dateReview.getFullYear();
   const formattedDate = `${day}.${month}.${year}`;
 
-  const handleReviewClick = () => {
+  const handleReviewClick = useCallback(() => {
     if (location.pathname !== '/reviews') {
       navigate('/reviews');
       dispatch(searchReviews(id));
       dispatch(setIndexSearchReview(index));
     }
-  };
+  }, [dispatch, id, index, location.pathname, navigate]);
 
   return (
     <Card sx={{ ...stylesCardReview, width: widthWrapper }} onClick={() => handleReviewClick(id)}>
@@ -88,4 +88,4 @@ ReviewItem.defaultProps = {
   index: null,
 };
 
-export default ReviewItem;
+export default memo(ReviewItem);

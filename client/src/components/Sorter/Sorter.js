@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { Box, MenuItem, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ const Sorter = ({ type }) => {
 
   const filterParams = useSelector((state) => state.filter.filterParams);
 
-  const setSelectedValue = (sort) => {
+  const setSelectedValue = useCallback((sort) => {
     switch (sort) {
       case '+currentPrice': return 'Price UP';
       case '-currentPrice': return 'Price DOWN';
@@ -18,7 +18,7 @@ const Sorter = ({ type }) => {
       case '-rating': return 'Rating DOWN';
       default: return 'Default';
     }
-  };
+  }, []);
 
   let currencies;
 
@@ -61,7 +61,7 @@ const Sorter = ({ type }) => {
       },
     ];
   }
-  const handleSelectChangeSortBy = (event) => {
+  const handleSelectChangeSortBy = useCallback((event) => {
     switch (event.target.value) {
       case 'Price UP':
         dispatch(setFilterParams({ sort: '+currentPrice' }));
@@ -86,7 +86,7 @@ const Sorter = ({ type }) => {
     dispatch(setFilterParams({
       startPage: 1,
     }));
-  };
+  }, [dispatch]);
 
   return (
     <Box sx={{ width: '100%', height: '40px', mb: '40px', paddingRight: '30px', textAlign: 'end' }}>
@@ -119,4 +119,4 @@ Sorter.defaultProps = {
   type: '',
 };
 
-export default Sorter;
+export default memo(Sorter);

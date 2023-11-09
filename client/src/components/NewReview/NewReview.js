@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Rating from '@mui/material/Rating';
@@ -10,10 +10,10 @@ const NewReview = () => {
   const dispatch = useDispatch();
   const rating = useSelector((state) => state.reviews.newReview.rating);
 
-  const handleReviewTextChange = (event) => {
+  const handleReviewTextChange = useCallback((event) => {
     const newReviewText = event.target.value;
     dispatch(setNewReview({ field: 'content', value: `${newReviewText}` }));
-  };
+  }, [dispatch]);
 
   return (
     <>
@@ -44,4 +44,4 @@ const NewReview = () => {
   );
 };
 
-export default NewReview;
+export default memo(NewReview);

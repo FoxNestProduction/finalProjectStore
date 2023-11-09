@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -17,9 +17,9 @@ const Favourites = () => {
   const navigate = useNavigate();
   const isLgTablet = useMediaQuery('(min-width: 690px)');
 
-  const handlMenuClick = () => {
+  const handlMenuClick = useCallback(() => {
     navigate('/menu');
-  };
+  }, [navigate]);
 
   // eslint-disable-next-line no-underscore-dangle
   const favouritesList = useSelector((state) => state.favourites.favourites, shallowEqual);
@@ -79,4 +79,4 @@ const Favourites = () => {
   );
 };
 
-export default Favourites;
+export default memo(Favourites);

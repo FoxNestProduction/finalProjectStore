@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -48,29 +48,29 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
     },
   ];
 
-  const handleChangeDishes = (dish) => {
+  const handleChangeDishes = useCallback((dish) => {
     setFilters((prev) => ({
       ...prev,
       filterCategories: prev.filterCategories.includes(dish)
         ? prev.filterCategories.filter((category) => category !== dish)
         : [...prev.filterCategories, dish],
     }));
-  };
+  }, [setFilters]);
 
-  const handleApplyFilter = () => {
+  const handleApplyFilter = useCallback(() => {
     dispatch(setFilterParams({
       ...filters,
       startPage: 1,
     }));
     dispatch(setIsApplyClicked(true));
     dispatch(resetSearch());
-  };
+  }, [dispatch, filters]);
 
-  const handleResetFilter = () => {
+  const handleResetFilter = useCallback(() => {
     dispatch(deleteFilteredData());
     dispatch(resetFilterParams('withoutSort'));
     resetFiltersLocalState();
-  };
+  }, [dispatch, resetFiltersLocalState]);
 
   return (
     <Stack component="section" sx={stylesWrap}>
@@ -324,4 +324,4 @@ Filter.defaultProps = {
   resetFiltersLocalState: () => {},
 };
 
-export default Filter;
+export default memo(Filter);

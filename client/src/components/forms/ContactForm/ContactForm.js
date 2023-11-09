@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -22,10 +22,10 @@ const ContactForm = () => {
     message: '',
   };
 
-  const handleSubmit = (values, actions) => {
+  const handleSubmit = useCallback((values, actions) => {
     console.log(values);
     // actions.resetForm();
-  };
+  }, []);
 
   return (
     <Box sx={formWrapper}>
@@ -79,4 +79,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default memo(ContactForm);

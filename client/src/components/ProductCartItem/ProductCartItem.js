@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
-import { CardMedia, IconButton, Typography } from '@mui/material';
-import Button from '@mui/material/Button';
+import { Button, CardMedia, IconButton, Typography } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
@@ -35,24 +34,24 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
   const dispatch = useDispatch();
   const index = cartProducts.findIndex(({ product }) => product._id === _id);
   const finallySumOfCartProduct = totalSumFromCartProduct(currentPrice, cartQuantity);
-  const handleDeleteOne = () => {
+  const handleDeleteOne = useCallback(() => {
     if (index !== -1) {
       const foundObject = cartProducts[index];
       (() => dispatch(deleteFromCart(foundObject)))();
     }
-  };
-  const handleAddOne = () => {
+  }, [cartProducts, dispatch, index]);
+  const handleAddOne = useCallback(() => {
     if (index !== -1) {
       const foundObject = cartProducts[index];
       (() => dispatch(addOneMore(foundObject)))();
     }
-  };
-  const handleDeleteFullProduct = () => {
+  }, [cartProducts, dispatch, index]);
+  const handleDeleteFullProduct = useCallback(() => {
     if (index !== -1) {
       const foundObject = cartProducts[index];
       dispatch(deleteFullProduct(foundObject));
     }
-  };
+  }, [cartProducts, dispatch, index]);
   return (
     <Card sx={cartIconContainer}>
       <Box sx={linkContainer}>
@@ -127,4 +126,4 @@ ProductCartItem.defaultProps = {
   itemNo: '',
 };
 
-export default ProductCartItem;
+export default memo(ProductCartItem);

@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import { Popover, Box, IconButton, Badge, Button, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -32,15 +32,15 @@ const MiniCart = () => {
     setAnchorEl(null);
   }
 
-  const handleClick = (event) => {
+  const handleClick = useCallback((event) => {
     if (!cartProducts.length && matches && location.pathname !== '/cart') {
       navigate('/cart');
     }
     setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
+  }, [cartProducts.length, location.pathname, matches, navigate]);
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
   const cartAmount = cartIconCounterFunction(cartProducts);

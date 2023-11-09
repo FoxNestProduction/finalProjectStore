@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { useField } from 'formik';
 import PropTypes from 'prop-types';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -13,11 +13,12 @@ import FormHelperText from '@mui/material/FormHelperText';
 const Input = ({ type, label, icon, id, error, bgColor, styles, ...props }) => {
   const [field, meta] = useField(props.name);
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
+  const handleClickShowPassword = useCallback(() => {
+    setShowPassword((show) => !show);
+  }, []);
+  const handleMouseDownPassword = useCallback((event) => {
     event.preventDefault();
-  };
+  }, []);
 
   return (
     <FormControl
@@ -96,4 +97,4 @@ Input.defaultProps = {
   styles: {},
 };
 
-export default Input;
+export default memo(Input);

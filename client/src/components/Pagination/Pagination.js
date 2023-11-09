@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PropTypes from 'prop-types';
@@ -11,7 +11,7 @@ const AppPagination = ({ pageQty }) => {
   const page = useSelector((state) => state.filter.filterParams.startPage);
   const anchor = useSelector((state) => state.scrollAnchor.productsScrollAnchor);
 
-  const handlePageChange = (event, currentPage) => {
+  const handlePageChange = useCallback((event, currentPage) => {
     dispatch(setFilterParams({ startPage: currentPage }));
 
     if (anchor) {
@@ -19,7 +19,7 @@ const AppPagination = ({ pageQty }) => {
         scrollToElementTop(anchor);
       }, 200);
     }
-  };
+  }, [anchor, dispatch]);
 
   return (
     <Box sx={{
@@ -55,4 +55,4 @@ AppPagination.propTypes = {
   pageQty: PropTypes.number.isRequired,
 };
 
-export default AppPagination;
+export default memo(AppPagination);

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -33,18 +33,18 @@ const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
   const cartProducts = useSelector((state) => state.cart.cart.products);
   const index = cartProducts.findIndex(({ product }) => product._id === _id);
   const relevantPrice = totalSumFromCartProduct(currentPrice, cartQuantity);
-  const handleDeleteOne = () => {
+  const handleDeleteOne = useCallback(() => {
     if (index !== -1) {
       const foundObject = cartProducts[index];
       dispatch(deleteFromCart(foundObject));
     }
-  };
-  const handleAddOne = () => {
+  }, [cartProducts, dispatch, index]);
+  const handleAddOne = useCallback(() => {
     if (index !== -1) {
       const foundObject = cartProducts[index];
       dispatch(addOneMore(foundObject));
     }
-  };
+  }, [cartProducts, dispatch, index]);
   return (
     <Card
       sx={MiniCartItemContainer}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo, useCallback } from 'react';
 import {
   Typography,
   Container,
@@ -53,7 +53,7 @@ const Cart = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuthorization]);
 
-  const continueFn = () => {
+  const continueFn = useCallback(() => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
         updateCart(cartProducts);
@@ -64,7 +64,7 @@ const Cart = () => {
       navigate('/checkout');
     }
     navigate('/checkout');
-  };
+  }, [isUserAuthorization, userIsHasCart, cartProducts, navigate]);
 
   return (
     <Container>
@@ -142,4 +142,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default memo(Cart);

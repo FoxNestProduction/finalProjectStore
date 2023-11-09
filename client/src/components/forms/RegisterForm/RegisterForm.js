@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-
 import AppleIcon from '@mui/icons-material/Apple';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
@@ -47,7 +46,7 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const registerError = useSelector((state) => state.error.registration);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = useCallback(async (values) => {
     const newCustomer = {
       ...values,
       login: values.firstName + values.lastName,
@@ -76,11 +75,11 @@ const RegisterForm = () => {
       dispatch(setRegistrationError(error.response.data));
       console.error('Помилка реєстрації:', error.response.data);
     }
-  };
+  }, [dispatch]);
 
-  const handleOpenLogInForm = () => {
+  const handleOpenLogInForm = useCallback(() => {
     dispatch(setContent(<LoginForm />));
-  };
+  }, [dispatch]);
 
   return (
     <Box
@@ -197,4 +196,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default memo(RegisterForm);

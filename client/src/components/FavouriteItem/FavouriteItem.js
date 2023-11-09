@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -29,7 +29,7 @@ const FavouriteItem = ({ product }) => {
 
   const isFavourite = useSelector((state) => state.favourites.cardStates[_id]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = useCallback(() => {
     const selectedItem = {
       product: {
         _id,
@@ -40,7 +40,7 @@ const FavouriteItem = ({ product }) => {
       cartQuantity: 1,
     };
     dispatch(addToCart(selectedItem));
-  };
+  }, [_id, currentPrice, dispatch, imageUrl, name]);
 
   return (
     <Card sx={styleCardFavourite}>
@@ -104,4 +104,4 @@ FavouriteItem.defaultProps = {
   product: {},
 };
 
-export default FavouriteItem;
+export default memo(FavouriteItem);

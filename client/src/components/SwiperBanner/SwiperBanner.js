@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectCube, Pagination } from 'swiper/modules';
 import classNames from 'classnames';
@@ -19,14 +19,14 @@ const SwiperBanner = () => {
     { url: './img/Banner3_1.jpg', index: 2 },
   ];
 
-  const handleSlideChange = (swiper) => {
+  const handleSlideChange = useCallback((swiper) => {
     setActiveSlideIndex(swiper.realIndex);
-  };
+  }, []);
 
-  const handlePaginationClick = (index) => {
+  const handlePaginationClick = useCallback((index) => {
     setActiveSlideIndex(index);
     swiperInstance.slideToLoop(index);
-  };
+  }, [swiperInstance]);
 
   return (
     <>
@@ -77,4 +77,4 @@ const SwiperBanner = () => {
   );
 };
 
-export default SwiperBanner;
+export default memo(SwiperBanner);

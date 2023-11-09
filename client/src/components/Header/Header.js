@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -16,7 +16,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-
 import { Alert } from '@mui/material';
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
@@ -45,7 +44,6 @@ import MiniCart from '../MiniCart/MiniCart';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user);
@@ -64,20 +62,20 @@ const Header = () => {
   // const cartAmount = cartIconCounterFunction(cartProducts);
   const favouritesAmount = isUserAuthorized ? Object.keys(favourite).length : null;
 
-  const handleOpenDrawer = () => {
+  const handleOpenDrawer = useCallback(() => {
     setIsMobileMenuOpen(true);
-  };
+  }, []);
 
-  const handleCloseDrawer = () => {
+  const handleCloseDrawer = useCallback(() => {
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
-  const handleOpenModalLogin = () => {
+  const handleOpenModalLogin = useCallback(() => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
-  };
+  }, [dispatch]);
 
-  const handleLogOut = async () => {
+  const handleLogOut = useCallback(async () => {
     await updateCart(cartProducts);
     dispatch(setIsCart(false));
     dispatch(resetCart());
@@ -86,9 +84,9 @@ const Header = () => {
     dispatch(setUser({}));
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     dispatch(resetCardStates());
-  };
+  }, [cartProducts, dispatch]);
 
-  const setNavigateTo = (page) => {
+  const setNavigateTo = useCallback((page) => {
     if (page === 'Menu') {
       if (location.pathname === '/menu' && location.search) {
         return `/menu${location.search}`;
@@ -96,7 +94,7 @@ const Header = () => {
       return '/menu';
     }
     return `/${page.toLowerCase()}`;
-  };
+  }, [location.pathname, location.search]);
 
   const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
 
@@ -192,4 +190,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

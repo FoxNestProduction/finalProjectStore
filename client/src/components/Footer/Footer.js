@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { AppBar, Box, Container, IconButton, Stack, Toolbar, Typography, Link } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -80,4 +80,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { useScrollTrigger } from '@mui/material';
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
@@ -10,11 +10,9 @@ const ScrollTop = () => {
     disableHysteresis: true,
     threshold: 200,
   });
-
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     window.scrollTo(0, 0);
-  };
-
+  }, []);
   return (
     <Fade in={trigger}>
       <Box
@@ -40,4 +38,4 @@ const ScrollTop = () => {
   );
 };
 
-export default ScrollTop;
+export default memo(ScrollTop);

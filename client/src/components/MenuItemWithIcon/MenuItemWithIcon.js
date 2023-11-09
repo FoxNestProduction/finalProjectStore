@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -66,4 +66,4 @@ MenuItemWithIcon.defaultProps = {
   onClick: () => {},
 };
 
-export default MenuItemWithIcon;
+export default memo(MenuItemWithIcon);

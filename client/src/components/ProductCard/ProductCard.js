@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
@@ -47,7 +47,7 @@ const ProductCard = () => {
   } = dish || {};
 
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
-  const toggleFavourite = () => {
+  const toggleFavourite = useCallback(() => {
     if (!isLoading) {
       if (isFavourite) {
         dispatch(removeFavourite(id));
@@ -57,13 +57,13 @@ const ProductCard = () => {
         dispatch(addToFavourites({ id }));
       }
     }
-  };
-  const handleOpenModalLogin = () => {
+  }, [dispatch, id, isFavourite, isLoading]);
+  const handleOpenModalLogin = useCallback(() => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
-  };
+  }, [dispatch]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = useCallback(() => {
     const selectedItem = {
       product: {
         _id: id,
@@ -74,7 +74,7 @@ const ProductCard = () => {
       cartQuantity: 1,
     };
     dispatch(addToCart(selectedItem));
-  };
+  }, [currentPrice, dispatch, id, imageUrl, name]);
 
   return (
     <Container
@@ -190,4 +190,4 @@ const ProductCard = () => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

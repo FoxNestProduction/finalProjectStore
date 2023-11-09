@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
@@ -74,12 +74,12 @@ const CheckoutForm = () => {
     setInitialValues(newValues);
   }, [isUserAuthorized]);
 
-  const handleFieldBlur = (e, handleBlur) => {
+  const handleFieldBlur = useCallback((e, handleBlur) => {
     handleBlur(e);
     updateSessionStorageValues(CHECKOUT_SS_KEY, { [e.target.name]: e.target.value });
-  };
+  }, []);
 
-  const handleContinue = async (values) => {
+  const handleContinue = useCallback(async (values) => {
     // updating user info in DB and user slice
     if (isUserAuthorized && token) {
       const updatedCustomer = {
@@ -134,9 +134,9 @@ const CheckoutForm = () => {
         console.log('Error placing new order: ', err);
       }
     }
-  };
+  }, [cart, dispatch, isUserAuthorized, navigate, token, user]);
 
-  const setInitialTouched = () => {
+  const setInitialTouched = useCallback(() => {
     const values = getDataFromSessionStorage(CHECKOUT_SS_KEY);
 
     if (values) {
@@ -149,11 +149,11 @@ const CheckoutForm = () => {
       };
     }
     return null;
-  };
+  }, []);
 
-  const setIsValid = (touched, errors) => {
+  const setIsValid = useCallback((touched, errors) => {
     return !Object.keys(errors).some((key) => touched[key] === true);
-  };
+  }, []);
 
   return (
     <Formik
@@ -269,4 +269,4 @@ const CheckoutForm = () => {
   );
 };
 
-export default CheckoutForm;
+export default memo(CheckoutForm);

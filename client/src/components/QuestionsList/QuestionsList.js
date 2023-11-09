@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -14,9 +14,9 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 const QuestionsList = () => {
   const [isOpen, setIsOpen] = useState({});
 
-  const getAnswer = (elem) => {
+  const getAnswer = useCallback((elem) => {
     setIsOpen((prev) => ({ ...prev, [elem]: !prev[elem] }));
-  };
+  }, []);
 
   const questions = [
     {
@@ -83,4 +83,4 @@ const QuestionsList = () => {
   );
 };
 
-export default QuestionsList;
+export default memo(QuestionsList);

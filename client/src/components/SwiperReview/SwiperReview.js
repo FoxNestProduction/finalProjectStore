@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Container, Box, Typography, IconButton } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -36,7 +36,7 @@ const SwiperReview = () => {
     }
   };
 
-  const handlePrevClick = () => {
+  const handlePrevClick = useCallback(() => {
     if (scrollingWrapperRef.current && currentIndex > 0) {
       scrollingWrapperRef.current.scrollLeft -= scrollStep;
       setCurrentIndex(currentIndex - 1);
@@ -44,7 +44,7 @@ const SwiperReview = () => {
     if (currentIndex === 1 || currentIndex === 0) {
       scrollingWrapperRef.current.scrollLeft = 0;
     }
-  };
+  }, [currentIndex, scrollStep]);
 
   useEffect(() => {
     const scrollingWrapper = scrollingWrapperRef.current;
@@ -107,4 +107,4 @@ const SwiperReview = () => {
   );
 };
 
-export default SwiperReview;
+export default memo(SwiperReview);

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { Form, Formik } from 'formik';
 import Stack from '@mui/material/Stack';
 import {
@@ -36,7 +36,7 @@ const PaymentForm = () => {
     cvv: '123',
   };
 
-  const handleContinue = async (values, actions) => {
+  const handleContinue = useCallback(async (values, actions) => {
     try {
       const response = await instance.post('/orders', orderInfo);
       console.log(response);
@@ -50,7 +50,7 @@ const PaymentForm = () => {
     } catch (err) {
       console.log('Error placing new order: ', err);
     }
-  };
+  }, [dispatch, isUserAuthorized, navigate, orderInfo, user]);
 
   return (
     <Formik
@@ -179,4 +179,4 @@ const PaymentForm = () => {
   );
 };
 
-export default PaymentForm;
+export default memo(PaymentForm);
