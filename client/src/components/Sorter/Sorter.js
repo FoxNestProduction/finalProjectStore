@@ -1,10 +1,27 @@
 import React from 'react';
 import { Box, MenuItem, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { stylesSortSelect } from '../ListItems/styles';
+import { setFilterParams } from '../../redux/slices/filterSlice';
 
-const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
+const Sorter = ({ type }) => {
+  const dispatch = useDispatch();
+
+  const filterParams = useSelector((state) => state.filter.filterParams);
+
+  const setSelectedValue = (sort) => {
+    switch (sort) {
+      case '+currentPrice': return 'Price UP';
+      case '-currentPrice': return 'Price DOWN';
+      case '+rating': return 'Rating UP';
+      case '-rating': return 'Rating DOWN';
+      default: return 'Default';
+    }
+  };
+
   let currencies;
+
   if (type === 'partners') {
     currencies = [
       {
@@ -44,9 +61,31 @@ const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
       },
     ];
   }
-
   const handleSelectChangeSortBy = (event) => {
-    setSelectedValueSortBy(event.target.value);
+    switch (event.target.value) {
+      case 'Price UP':
+        dispatch(setFilterParams({ sort: '+currentPrice' }));
+        break;
+
+      case 'Price DOWN':
+        dispatch(setFilterParams({ sort: '-currentPrice' }));
+        break;
+
+      case 'Rating UP':
+        dispatch(setFilterParams({ sort: '+rating' }));
+        break;
+
+      case 'Rating DOWN':
+        dispatch(setFilterParams({ sort: '-rating' }));
+        break;
+
+      default:
+        dispatch(setFilterParams({ sort: '' }));
+    }
+
+    dispatch(setFilterParams({
+      startPage: 1,
+    }));
   };
 
   return (
@@ -57,9 +96,9 @@ const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
         size="small"
         select
         label="Sort by"
-        defaultValue="Default"
+        defaultValue=""
         variant="standard"
-        value={selectedValueSortBy}
+        value={setSelectedValue(filterParams.sort)}
         onChange={handleSelectChangeSortBy}
       >
         {currencies.map((option) => (
@@ -74,14 +113,10 @@ const Sorter = ({ type, selectedValueSortBy, setSelectedValueSortBy }) => {
 
 Sorter.propTypes = {
   type: PropTypes.string,
-  selectedValueSortBy: PropTypes.string,
-  setSelectedValueSortBy: PropTypes.func,
 };
 
 Sorter.defaultProps = {
   type: '',
-  selectedValueSortBy: '',
-  setSelectedValueSortBy: () => {},
 };
 
 export default Sorter;

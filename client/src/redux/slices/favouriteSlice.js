@@ -1,10 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
+import { setLoading, setError } from '../extraReducersHelpers';
+
+export const fetchFavourites = createAsyncThunk(
+  'favourites/fetchFavourites',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.get('/wishlist');
+      return data.products;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
 
 const initialState = {
   favourites: [],
   cardStates: {},
+  loading: false,
+  error: null,
 };
 
 const favouriteSlice = createSlice({
@@ -13,47 +27,79 @@ const favouriteSlice = createSlice({
   reducers: {
     setFavourite(state, action) {
       state.favourites = action.payload;
-      action.payload.forEach((id) => {
+      action.payload.forEach(({ id }) => {
         state.cardStates[id] = true;
       });
     },
     addFavourite(state, action) {
-      const { id } = action.payload;
-      state.favourites.push(action.payload.id);
-      state.cardStates[id] = true;
+      const newProduct = action.payload[action.payload.length - 1];
+      state.favourites.push(newProduct);
+    },
+    setIsFavourite(state, action) {
+      state.cardStates[action.payload] = true;
+      state.loading = true;
+    },
+    setIsLoading(state) {
+      state.loading = false;
     },
     removeFavourite(state, action) {
     // eslint-disable-next-line no-underscore-dangle
-      const { id } = action.payload;
-      const newStateFavourites = state.favourites.filter((item) => item !== action.payload.id);
-      state.favourites = newStateFavourites;
+      const id = action.payload;
+      state.loading = true;
+      state.favourites = state.favourites.filter((item) => item._id !== id);
       state.cardStates[id] = false;
+      delete state.cardStates[id];
     },
     resetCardStates(state) {
       state.cardStates = {};
       state.favourites = [];
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchFavourites.pending, setLoading)
+      .addCase(fetchFavourites.rejected, setError)
+      .addCase(fetchFavourites.fulfilled, (state, action) => {
+        state.loading = false;
+        state.favourites = action.payload;
+        action.payload.forEach(({ _id }) => {
+          state.cardStates[_id] = true;
+        });
+      });
+  },
 });
 
 export const {
   addFavourite,
+  setIsFavourite,
   removeFavourite,
   setFavourite,
+  setIsLoading,
   resetCardStates,
 } = favouriteSlice.actions;
 
-export const updateFavourites = (favourites) => async (dispatch, getState) => {
+export const addToFavourites = ({ id }) => async (dispatch) => {
   try {
-    const state = getState();
-    const { authorization } = state;
-    if (authorization && authorization.token) {
-      const { data } = await instance.put('/customers', { favourite: state.favourites.favourites });
-      const { favourite } = data;
-      setFavourite(data.favourite);// eslint-disable-line no-use-before-define
+    const { data } = await instance.put(`/wishlist/${id}`);
+    if (data) {
+      dispatch(setIsLoading());
+    }
+    const { products } = data;
+    dispatch(addFavourite(products));
+  } catch (error) {
+    console.warn('Error loading favourites:', error);
+  }
+};
+
+export const deleteFromFavourites = ({ id }) => async (dispatch) => {
+  dispatch(removeFavourite(id));
+  try {
+    const response = await instance.delete(`/wishlist/${id}`);
+    if (response) {
+      dispatch(setIsLoading());
     }
   } catch (error) {
-    console.log('%cError push review:', 'color: red; font-weight: bold;', error);
+    console.warn('Error loading favourites:', error);
   }
 };
 

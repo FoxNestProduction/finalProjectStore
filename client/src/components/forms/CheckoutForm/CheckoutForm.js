@@ -110,7 +110,6 @@ const CheckoutForm = () => {
       letterHtml: '<h1>Your order is placed.</h1>',
     };
 
-    // todo: uncomment when user will have a cart
     if (isUserAuthorized && user) {
       const { _id: id } = user;
       newOrder.customerId = id;
@@ -124,7 +123,6 @@ const CheckoutForm = () => {
     } else {
       try {
         const response = await instance.post('/orders', newOrder);
-        console.log(response);
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());
