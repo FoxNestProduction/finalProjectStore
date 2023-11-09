@@ -137,14 +137,6 @@ const RegisterForm = () => {
                 ...inputsWrapper,
               }}
             >
-              {/* <Input */}
-              {/*  type="text" */}
-              {/*  name="fullName" */}
-              {/*  id="registerFullName" */}
-              {/*  label="Full name" */}
-              {/*  placeholder="Enter your full name" */}
-              {/*  icon={<PersonSvg />} */}
-              {/* /> */}
               <Input
                 type="text"
                 name="firstName"
