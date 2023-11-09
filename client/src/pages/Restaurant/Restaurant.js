@@ -37,7 +37,7 @@ const RestaurantPage = () => {
           color="text.primary"
           sx={{ textAlign: 'center', mb: 6 }}
         >
-          Our All Restaurants
+          All Restaurants
         </Typography>
         {partners && partners.map(({ rating, name, imageUrl, description, customId }) => (
           <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}>

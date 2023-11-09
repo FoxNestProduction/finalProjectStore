@@ -8,6 +8,7 @@ const sendMail = require("../commonHelpers/mailSender");
 const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(10000000, 99999999);
 const crypto = require("crypto");
+const generatePasswordResetEmail = require('../emails/emailForPasswordReset');
 
 // Load Customer model
 const Customer = require("../models/Customer");
@@ -326,10 +327,7 @@ exports.forgotPassword = async (req, res) => {
 
     const subscriberMail = req.body.email;
     const letterSubject = 'Reset password';
-    const letterHtml = `<div style="text-align: left; margin: 20px; font-size: 20px">
-                          <p>Your email has been confirmed.</p>
-                          <p>Follow the link to reset your password: <a href=${recoveryPasswordLink}><strong>Reset Password</strong></a></p>
-                        </div>`;
+    const letterHtml = generatePasswordResetEmail(customer.firstName, recoveryPasswordLink);
 
     const mailResult = await sendMail(
       subscriberMail,

@@ -1,38 +1,47 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
-import { setLoading, setError } from '../extraReducersHelpers';
+import { setError, setLoading } from '../extraReducersHelpers';
+
+export const fetchTopPartners = createAsyncThunk('partners/fetchTopPartners', async (count, { rejectWithValue }) => {
+  try {
+    const response = await instance.get(`/partners/filter?perPage=${count}&sort=-rating`);
+    return response.data.partners;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
+  }
+});
+
+export const fetchAllPartnersNames = createAsyncThunk('partners/fetchAllPartnersNames', async (_, { rejectWithValue }) => {
+  try {
+    const response = await instance.get('/partners/names');
+    return response.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
+  }
+});
 
 const initialState = {
   topPartners: [],
+  allPartnersNames: [],
   loading: false,
   error: null,
 };
 
-export const fetchTopPartners = createAsyncThunk(
-  'partners/fetchTopPartners',
-  async (count, { rejectWithValue }) => {
-    try {
-      const response = await instance.get(`/partners/filter?perPage=${count}&sort=-rating`);
-      return response.data.partners;
-    } catch (err) {
-      return rejectWithValue(err.response.data);
-    }
-  },
-);
-
 const partnersSlice = createSlice({
   name: 'partners',
   initialState,
-  extraReducers: {
-    [fetchTopPartners.pending]: setLoading,
-    [fetchTopPartners.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.topPartners = action.payload;
-    },
-    [fetchTopPartners.rejected]: setError,
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTopPartners.pending, setLoading)
+      .addCase(fetchTopPartners.fulfilled, (state, action) => {
+        state.loading = false;
+        state.topPartners = action.payload;
+      })
+      .addCase(fetchTopPartners.rejected, setError)
+      .addCase(fetchAllPartnersNames.fulfilled, (state, action) => {
+        state.allPartnersNames = action.payload;
+      });
   },
 });
-
-export const { setPartners } = partnersSlice.actions;
 
 export default partnersSlice.reducer;

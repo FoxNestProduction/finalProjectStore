@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: {},
+  isRegistrationSuccessful: false,
 };
 
 const userSlice = createSlice({
@@ -11,11 +12,15 @@ const userSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
     },
+    setIsRegistrationSuccessful(state, action) {
+      state.isRegistrationSuccessful = action.payload;
+    },
   },
 });
 
 export const {
   setUser,
+  setIsRegistrationSuccessful,
 } = userSlice.actions;
 
 export default userSlice.reducer;
