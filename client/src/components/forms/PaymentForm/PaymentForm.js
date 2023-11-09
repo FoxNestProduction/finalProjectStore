@@ -20,7 +20,7 @@ import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpe
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { resetCart } from '../../../redux/slices/cartSlice';
+import { resetCart, deleteCart } from '../../../redux/slices/cartSlice';
 
 const PaymentForm = () => {
   const navigate = useNavigate();
@@ -42,7 +42,8 @@ const PaymentForm = () => {
       console.log(response);
       dispatch(setConfirmedOrder(response.data.order));
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-      dispatch(resetCart());
+      // dispatch(resetCart());
+      dispatch(deleteCart());
       if (isUserAuthorized && user) {
         saveUserInfoToSessionStorage(user);
       }

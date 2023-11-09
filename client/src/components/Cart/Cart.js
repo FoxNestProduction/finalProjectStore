@@ -36,7 +36,6 @@ const Cart = () => {
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
   const totalSum = totalSumFromCart(cartProducts);
-  console.log(cartProducts);
   const getCart = () => {
     if (isUserAuthorization) {
       // dispatch(getCartItemsFromServer());
@@ -45,7 +44,7 @@ const Cart = () => {
       console.log('user need to autorise');
     }
   };
-
+  console.log(cartProducts);
   const updateCartAfterCloseWindow = () => {
     const handleUnload = () => {
       updateCart(cartProducts);
@@ -66,12 +65,8 @@ const Cart = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
         dispatch(updateCart(cartProducts));
-        // dispatch(createCart());
-        console.log('Відбувається update');
       } else {
-        // createCart(cartProducts);
         dispatch(createCart());
-        console.log('Відбувається create');
       }
     } else {
       navigate('/checkout');

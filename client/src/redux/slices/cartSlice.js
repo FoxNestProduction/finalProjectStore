@@ -34,10 +34,8 @@ export const updateCart = createAsyncThunk(
   'cart/updateCart',
   async (cartProducts, { rejectWithValue }) => {
     const updatedCart = changeCartObjectFromServer(cartProducts);
-    console.log(updatedCart);
     try {
       const response = await instance.put('/cart', updatedCart);
-      console.log(response);
       return response;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -47,8 +45,12 @@ export const updateCart = createAsyncThunk(
 
 export const fetchCart = createAsyncThunk(
   'caer/fetchCart',
-  async (_, { rejectWithValue, dispatch }) => {
+  async (_, { rejectWithValue, dispatch, getState }) => {
+    const cartProducts = getState().cart.cart.products;
     try {
+      if (cartProducts.length !== 0) {
+        dispatch(updateCart(cartProducts));
+      }
       const { data, status } = await instance.get('/cart');
       if (status === 200 && data === null) {
         dispatch(createCart());
@@ -67,7 +69,6 @@ export const addProductToCart = createAsyncThunk(
       const { data } = await instance.put(`/cart/${id}`);
       return data.products;
     } catch (err) {
-      console.warn(err.response);
       return rejectWithValue(err.response);
     }
   },
@@ -80,7 +81,6 @@ export const decreaseProductQuantity = createAsyncThunk(
       const { data } = await instance.delete(`/cart/product/${id}`);
       return data.products;
     } catch (err) {
-      console.warn(err.response);
       return rejectWithValue(err.response);
     }
   },
@@ -93,7 +93,18 @@ export const deleteProductFromCart = createAsyncThunk(
       const { data } = await instance.delete(`/cart/${id}`);
       return data.products;
     } catch (err) {
-      console.warn(err.response);
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const deleteCart = createAsyncThunk(
+  'cart/deleteCart',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.delete('/cart');
+      return data;
+    } catch (err) {
       return rejectWithValue(err.response);
     }
   },
@@ -104,7 +115,6 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action) {
-      console.log(action.payload);
       if (state.cart.products.length === 0 && action.payload !== null) {
         state.cart.products.push(action.payload);
       } else {
@@ -195,8 +205,6 @@ const cartSlice = createSlice({
       .addCase(createCart.fulfilled, (state, action) => {
         state.isCart = true;
         state.loading = false;
-        console.log('Кошик створено!');
-        console.log(action.payload);
       })
       .addCase(createCart.rejected, (state, action) => {
         if (action.payload.status === 400) {
@@ -210,8 +218,6 @@ const cartSlice = createSlice({
       .addCase(updateCart.pending, setLoading)
       .addCase(updateCart.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(state.cart.products);
-        console.log(action.payload);
       })
       .addCase(updateCart.rejected, setError)
       .addCase(fetchCart.pending, setLoading)
@@ -243,7 +249,13 @@ const cartSlice = createSlice({
         state.loading = false;
         state.cart.products = action.payload;
       })
-      .addCase(deleteProductFromCart.rejected, setError);
+      .addCase(deleteProductFromCart.rejected, setError)
+      .addCase(deleteCart.pending, setLoading)
+      .addCase(deleteCart.fulfilled, (state) => {
+        state.loading = false;
+        state.cart.products = [];
+      })
+      .addCase(deleteCart.rejected, setError);
   },
 });
 

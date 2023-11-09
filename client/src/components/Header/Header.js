@@ -75,7 +75,6 @@ const Header = () => {
   };
 
   const handleLogOut = () => {
-    // dispatch(updateCart(cartProducts)); // після logout ця функція нам буде не потрібна
     dispatch(setIsCart(false));
     dispatch(resetCart());
     dispatch(setToken(null));

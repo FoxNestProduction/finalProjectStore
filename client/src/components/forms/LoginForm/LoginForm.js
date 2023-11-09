@@ -39,12 +39,13 @@ import { removeDataFromSessionStorage, setDataToSessionStorage } from '../../../
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { fetchCart } from '../../../redux/slices/cartSlice';
+import { fetchCart, updateCart } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
+  const cartProducts = useSelector((state) => state.cart.cart.products);
 
   const initialValues = {
     email: '',
@@ -66,11 +67,9 @@ const LoginForm = () => {
         dispatch(setUser(user));
         dispatch(closeModal());
         dispatch(setAuthorizationError(''));
-
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         saveUserInfoToSessionStorage(user);
         dispatch(fetchCart());
-
         dispatch(fetchFavourites());
       }
     } catch (error) {
