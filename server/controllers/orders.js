@@ -8,6 +8,7 @@ const productAvailibilityChecker = require("../commonHelpers/productAvailibility
 const subtractProductsFromCart = require("../commonHelpers/subtractProductsFromCart");
 const _ = require("lodash");
 const generateOrderEmail = require('../views/emailForOrder');
+const getDateStr = require("../commonHelpers/getDateStr");
 
 const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(1000000, 9999999);
@@ -48,75 +49,69 @@ exports.placeOrder = async (req, res, next) => {
       order.products = req.body.products;
     }
 
-    order.totalSum = order.products.reduce(
+    const totalSum = order.products.reduce(
       (sum, cartItem) =>
         sum + cartItem.product.currentPrice * cartItem.cartQuantity,
       0
     );
 
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate();
-    const monthsAbbreviations = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const dateStr = `${monthsAbbreviations[month]} ${day}, ${year}`;
+    order.totalSum = Number(totalSum.toFixed(2));
 
     if (req.body.letterHtml) {
-      order.letterHtml = `<h1>Dear ${req.body.name}, thank you for ordering!</h1>
-    <div style="text-align: left; margin: 20px; font-size: 20px">
-        <p>Order Number: <strong>${order.orderNo}</strong></p>
-        <p>Total: <strong>${order.totalSum}$</strong></p>
-    </div>`;
+      order.letterHtml = req.body.letterHtml;
     }
 
-      const subscriberMail = req.body.email;
-      const letterSubject = req.body.letterSubject;
-      const letterHtml = generateOrderEmail(order, dateStr);
+    const productsForLetter = req.body.products;
+    const dateStr = getDateStr();
 
-      const { errors, isValid } = validateOrderForm(req.body);
+    const subscriberMail = req.body.email;
+    const letterSubject = req.body.letterSubject;
+    const letterHtml = generateOrderEmail(order, productsForLetter, dateStr);
 
-      // Check Validation
-      if (!isValid) {
-        return res.status(400).json(errors);
-      }
+    const { errors, isValid } = validateOrderForm(req.body);
 
-      if (!letterSubject) {
-        return res.status(400).json({
-          message:
-            "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
-        });
-      }
+    // Check Validation
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
 
-      if (!letterHtml) {
-        return res.status(400).json({
-          message:
-            "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
-        });
-      }
+    if (!letterSubject) {
+      return res.status(400).json({
+        message:
+          "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
+      });
+    }
 
-      const newOrder = new Order(order);
+    if (!letterHtml) {
+      return res.status(400).json({
+        message:
+          "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
+      });
+    }
 
-      if (order.customerId) {
-        newOrder.populate("customerId").execPopulate();
-      }
+    const newOrder = new Order(order);
 
-      newOrder
-        .save()
-        .then(async order => {
-          const mailResult = await sendMail(
-            subscriberMail,
-            letterSubject,
-            letterHtml,
-            res
-          );
+    if (order.customerId) {
+      newOrder.populate("customerId").execPopulate();
+    }
 
-          res.json({ order, mailResult });
-        })
-        .catch(err =>
-          res.status(400).json({
-            message: `Error happened on server: "${err}" `
-          })
+    newOrder
+      .save()
+      .then(async order => {
+        const mailResult = await sendMail(
+          subscriberMail,
+          letterSubject,
+          letterHtml,
+          res
         );
+
+        res.json({ order, mailResult });
+      })
+      .catch(err =>
+        res.status(400).json({
+          message: `Error happened on server: "${err}" `
+        })
+      );
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `

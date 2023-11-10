@@ -96,6 +96,7 @@ const CheckoutForm = () => {
     const { name, email, tel, city, street, house, apartment, payment } = values;
     const newOrder = {
       status: 'new order',
+      products: cart,
       name,
       email,
       mobile: tel,
@@ -113,8 +114,6 @@ const CheckoutForm = () => {
     if (isUserAuthorized && user) {
       const { _id: id } = user;
       newOrder.customerId = id;
-    } else {
-      newOrder.products = cart;
     }
 
     if (values.payment === 'Card') {
