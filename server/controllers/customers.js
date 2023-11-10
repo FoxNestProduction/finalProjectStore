@@ -336,7 +336,7 @@ exports.forgotPassword = async (req, res) => {
       res
     );
 
-    res.json({ mailResult });
+    res.json({ mailResult, message: 'success' });
 
   } catch (err) {
     res.status(400).json({

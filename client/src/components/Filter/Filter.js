@@ -30,8 +30,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
 
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
-  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
-  console.log(alert);
+  const { handleCloseAlert } = useAlert();
 
   const marks = [
     {
@@ -54,7 +53,6 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   const [filterAlert, setFilterAlert] = useState(false);
   useEffect(() => {
     if (nothingFound) {
-      handleShowAlert();
       setFilterAlert(true);
       setTimeout(() => {
         setFilterAlert(false);
@@ -313,18 +311,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
         Apply
       </Button>
 
-      {/* Заглушка, переробити!!!!!!! */}
       {nothingFound && filterAlert && (
-      // <Alert
-      //   sx={{
-      //     position: 'absolute',
-      //     top: '170px',
-      //   }}
-      //   severity="info"
-      //   variant="filled"
-      // >
-      //   Nothing found!
-      // </Alert>
       <CustomAlert type="info" handleCloseAlert={handleCloseAlert} content="Nothing found!" />
       )}
 
