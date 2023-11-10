@@ -107,8 +107,6 @@ const CheckoutForm = () => {
         apartment,
       },
       paymentInfo: payment,
-      letterSubject: 'Thank you for your order!',
-      letterHtml: '<h1>Your order is placed.</h1>',
     };
 
     if (isUserAuthorized && user) {
@@ -122,7 +120,6 @@ const CheckoutForm = () => {
     } else {
       try {
         const response = await instance.post('/orders', newOrder);
-        console.log(response);
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());

@@ -54,18 +54,13 @@ exports.placeOrder = async (req, res, next) => {
         sum + cartItem.product.currentPrice * cartItem.cartQuantity,
       0
     );
-
     order.totalSum = Number(totalSum.toFixed(2));
-
-    if (req.body.letterHtml) {
-      order.letterHtml = req.body.letterHtml;
-    }
 
     const productsForLetter = req.body.products;
     const dateStr = getDateStr();
 
     const subscriberMail = req.body.email;
-    const letterSubject = req.body.letterSubject;
+    const letterSubject = 'Thank you for your order!';
     const letterHtml = generateOrderEmail(order, productsForLetter, dateStr);
 
     const { errors, isValid } = validateOrderForm(req.body);
@@ -73,20 +68,6 @@ exports.placeOrder = async (req, res, next) => {
     // Check Validation
     if (!isValid) {
       return res.status(400).json(errors);
-    }
-
-    if (!letterSubject) {
-      return res.status(400).json({
-        message:
-          "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
-      });
-    }
-
-    if (!letterHtml) {
-      return res.status(400).json({
-        message:
-          "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
-      });
     }
 
     const newOrder = new Order(order);

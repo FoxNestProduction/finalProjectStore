@@ -312,27 +312,34 @@ module.exports = (order, products, date) => {
                    ${productsHtmlArr.join('')}
                    
                    <tr style="border-collapse:collapse">
-                    <td align="left" style="Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;padding-bottom:25px"><!--[if mso]><table style="width:560px" cellpadding="0" cellspacing="0"><tr><td style="width:407px" valign="top"><![endif]-->
-                     <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                    <td class="esdev-adapt-off" align="left" style="Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;padding-bottom:30px">
+                     <table cellpadding="0" cellspacing="0" class="esdev-mso-table" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:560px">
                        <tr style="border-collapse:collapse">
-                        <td class="es-m-p0r es-m-p20b" valign="top" align="center" style="padding:0;Margin:0;width:407px">
-                         <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                        <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                         <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
                            <tr style="border-collapse:collapse">
-                            <td align="right" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#333333;font-size:18px"><strong>Order Total:</strong></p></td>
+                            <td align="left" style="padding:0;Margin:0;width:409px">
+                             <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                               <tr style="border-collapse:collapse">
+                                <td align="right" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#333333;font-size:18px"><strong>Order Total:</strong></p></td>
+                               </tr>
+                             </table></td>
+                           </tr>
+                         </table></td>
+                        <td style="padding:0;Margin:0;width:20px"></td>
+                        <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                         <table cellpadding="0" cellspacing="0" class="es-right" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                           <tr style="border-collapse:collapse">
+                            <td align="left" style="padding:0;Margin:0;width:131px">
+                             <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                               <tr style="border-collapse:collapse">
+                                <td align="right" style="padding:0;Margin:0;padding-right:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#ff9140;font-size:18px"><strong>$${totalSum}</strong></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#ff9140;font-size:14px;display:none"><br></p></td>
+                               </tr>
+                             </table></td>
                            </tr>
                          </table></td>
                        </tr>
-                     </table><!--[if mso]></td><td style="width:20px"></td><td style="width:133px" valign="top"><![endif]-->
-                     <table class="es-right" cellpadding="0" cellspacing="0" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
-                       <tr style="border-collapse:collapse">
-                        <td align="left" style="padding:0;Margin:0;width:133px">
-                         <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                           <tr style="border-collapse:collapse">
-                            <td align="right" style="padding:0;Margin:0;padding-right:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#ff9140;font-size:18px"><strong>$${totalSum}</strong></p></td>
-                           </tr>
-                         </table></td>
-                       </tr>
-                     </table><!--[if mso]></td></tr></table><![endif]--></td>
+                     </table></td>
                    </tr>
                  </table></td>
                </tr>
