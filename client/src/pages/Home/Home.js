@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
@@ -8,7 +8,6 @@ import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import { instance } from '../../API/instance';
 
 const HomePage = () => {
   const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
@@ -20,22 +19,22 @@ const HomePage = () => {
       <Features />
       <MobileApp />
       {topPartners.length > 0 && (
-      <ListItems
-        title="Our Top Restaurants"
-        items={topPartners}
-        itemComponent={RestaurantItem}
-        actions={<ListItemAction type="partners" />}
-        type="partners"
-      />
-      ) }
+        <ListItems
+          title="Our Top Restaurants"
+          items={topPartners}
+          itemComponent={RestaurantItem}
+          actions={<ListItemAction type="partners" />}
+          type="partners"
+        />
+      )}
       {topProducts.length > 0 && (
-      <ListItems
-        title="Our Top Dishes"
-        items={topProducts}
-        itemComponent={ProductCardItem}
-        actions={<ListItemAction />}
-      />
-      ) }
+        <ListItems
+          title="Our Top Dishes"
+          items={topProducts}
+          itemComponent={ProductCardItem}
+          actions={<ListItemAction />}
+        />
+      )}
       <SwiperReview />
     </>
   );

@@ -39,10 +39,6 @@ const App = () => {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint, dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(getProducts());
-  // }, [dispatch]);
-
   return (
     <>
       <Modal disagree="Close" />
