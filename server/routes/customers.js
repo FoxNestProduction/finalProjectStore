@@ -9,7 +9,8 @@ const {
   getCustomer,
   editCustomerInfo,
   updatePassword,
-  fogotPassword,
+  forgotPassword,
+  resetPassword,
 } = require("../controllers/customers");
 
 // @route   POST /customers
@@ -49,14 +50,20 @@ router.put(
   updatePassword
 );
 
+// @route   POST /customers/forgot-password
+// @desc    Return mailResult and success or error message
+// @access  Public
 router.post(
   "/forgot-password",
-  fogotPassword
+  forgotPassword
 );
 
-// router.post(
-//   "/reset-password",
-//   resetPassword
-// );
+// @route   POST /customers/reset-password
+// @desc    Return current customer and success or error message
+// @access  Public
+router.post(
+  "/reset-password",
+  resetPassword
+);
 
 module.exports = router;
