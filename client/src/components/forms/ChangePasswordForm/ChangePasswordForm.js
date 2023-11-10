@@ -43,7 +43,7 @@ const ChangePasswordForm = () => {
         handleShowAlert();
         setTimeout(() => {
           navigate('/');
-        }, 3800);
+        }, 2500);
       }
     } catch (err) {
       console.error('Error changing password: ', err);
