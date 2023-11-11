@@ -14,6 +14,7 @@ import {
 import Input from '../../inputs/Input/Input';
 import Textarea from '../../inputs/Textarea/Textarea';
 import OneLoopArrowSvg from '../../../assets/svgComponents/OneLoopArrowSvg';
+import { instance } from '../../../API/instance';
 
 const ContactForm = () => {
   const initialValues = {
@@ -22,8 +23,14 @@ const ContactForm = () => {
     message: '',
   };
 
-  const handleSubmit = (values, actions) => {
+  const handleSubmit = async (values, actions) => {
     console.log(values);
+    try {
+      const response = await instance.post('/customer/contact', values);
+      console.log(response);
+    } catch (err) {
+      console.error('Error sending customer support request: ', err);
+    }
     // actions.resetForm();
   };
 
