@@ -11,7 +11,6 @@ const {
   updatePassword,
   forgotPassword,
   resetPassword,
-  // verifyPasswordResetToken,
 } = require("../controllers/customers");
 
 // @route   POST /customers
@@ -51,11 +50,17 @@ router.put(
   updatePassword
 );
 
+// @route   POST /customers/forgot-password
+// @desc    Return mailResult and success or error message
+// @access  Public
 router.post(
   "/forgot-password",
   forgotPassword
 );
 
+// @route   POST /customers/reset-password
+// @desc    Return current customer and success or error message
+// @access  Public
 router.post(
   "/reset-password",
   resetPassword
