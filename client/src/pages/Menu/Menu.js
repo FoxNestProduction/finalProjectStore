@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
-import Container from '@mui/material/Container';
 import { Box, Container, Typography, useMediaQuery } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';

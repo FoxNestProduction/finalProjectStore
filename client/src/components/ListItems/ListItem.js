@@ -5,14 +5,12 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import Sorter from '../Sorter/Sorter';
 import { setFilterParams } from '../../redux/slices/filterSlice';
 import scrollToElementTop from '../../utils/scrollToElementTop';
 import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
-import Skeleton from '../Skeleton/Skeleton';
 
 const ListItems = ({ title, items, itemComponent, actions,
   pagination, type, itemsFrom, sorting, isScrolling }) => {

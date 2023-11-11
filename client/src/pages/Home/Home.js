@@ -42,13 +42,13 @@ const HomePage = () => {
           </Box>
         </Container>
       ) : (topPartners.length > 0 && (
-          <ListItems
-            title="Our Top Restaurants"
-            items={topPartners}
-            itemComponent={RestaurantItem}
-            actions={<ListItemAction type="partners" />}
-            type="partners"
-          />
+        <ListItems
+          title="Our Top Restaurants"
+          items={topPartners}
+          itemComponent={RestaurantItem}
+          actions={<ListItemAction type="partners" />}
+          type="partners"
+        />
       ))}
 
       {loadingProducts ? (
