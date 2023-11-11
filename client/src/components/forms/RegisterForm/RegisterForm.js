@@ -35,6 +35,7 @@ import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
 import { createCart } from '../../../redux/slices/cartSlice';
+import useAlert from '../../../customHooks/useAlert';
 
 export const initialValues = {
   firstName: '',
@@ -46,6 +47,7 @@ export const initialValues = {
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const registerError = useSelector((state) => state.error.registration);
+  const { handleShowAlert } = useAlert();
 
   const handleSubmit = async (values) => {
     const newCustomer = {
@@ -59,9 +61,10 @@ const RegisterForm = () => {
       const { user, token } = response.data;
 
       dispatch(setIsRegistrationSuccessful(true));
+      handleShowAlert();
       setTimeout(() => {
         dispatch(setIsRegistrationSuccessful(false));
-      }, 5500);
+      }, 4000);
 
       dispatch(setToken(token));
       dispatch(setAuthorization(true));

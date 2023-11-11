@@ -10,6 +10,7 @@ import App from './App';
 import store from './redux/store';
 import globalTheme from './muiTheme/globalTheme';
 import { injectStore } from './API/instance';
+import { AlertContextProvider } from './context/AlertProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // eslint-disable-line no-undef
 const persistor = persistStore(store);
@@ -17,12 +18,14 @@ injectStore(store);
 
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <ThemeProvider theme={globalTheme}>
-        <PersistGate persistor={persistor}>
-          <App />
-        </PersistGate>
-      </ThemeProvider>
-    </BrowserRouter>
+    <AlertContextProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={globalTheme}>
+          <PersistGate persistor={persistor}>
+            <App />
+          </PersistGate>
+        </ThemeProvider>
+      </BrowserRouter>
+    </AlertContextProvider>
   </Provider>,
 );
