@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import React from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,15 +22,15 @@ import {
   signUpLink,
   appleIcon,
 } from './styles';
-// eslint-disable-next-line import/no-cycle
 import RegisterForm from '../RegisterForm/RegisterForm';
+import CreatePasswordForm from '../CreatePassword/CreatePasswordForm';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../inputs/Input/Input';
 import {
   setAuthorization,
   setToken,
 } from '../../../redux/slices/authorizationSlice';
-import { setNewUser, setUser } from '../../../redux/slices/userSlice';
+import { setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
@@ -37,6 +38,7 @@ import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionSt
 import { instance } from '../../../API/instance';
 import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
+import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -89,12 +91,17 @@ const LoginForm = () => {
           code: response.code,
         })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             authFunc(res);
           }
-          dispatch(setNewUser(res.data));
-          dispatch(setContent(<RegisterForm />));
+          const { data } = res;
+          console.log(data);
+          dispatch(setNewGoogleUser({
+            email: data.email,
+            firstName: data.given_name ? data.given_name : 'New',
+            lastName: data.family_name ? data.family_name : 'User',
+          }));
+          dispatch(setContent(<CreatePasswordForm />));
         });
     },
   });
@@ -130,7 +137,6 @@ const LoginForm = () => {
         }}
       >
         <Button
-          // disabled
           disableRipple
           variant="contained"
           sx={googleAppleBtn}
@@ -138,9 +144,9 @@ const LoginForm = () => {
         >
           <GoogleSvgComponent />
         </Button>
-        <Button disabled disableRipple variant="contained" sx={googleAppleBtn}>
+        {/* <Button disabled disableRipple variant="contained" sx={googleAppleBtn}>
           <AppleIcon sx={appleIcon} />
-        </Button>
+        </Button> */}
       </Box>
       <Typography variant="body1" sx={legend}>
         OR
