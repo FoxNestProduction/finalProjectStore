@@ -34,7 +34,7 @@ import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpe
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { createCart, getCartItemsFromServer } from '../../../redux/slices/cartSlice';
+import { createCart } from '../../../redux/slices/cartSlice';
 
 import useAlert from '../../../customHooks/useAlert';
 
