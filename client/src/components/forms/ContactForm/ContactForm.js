@@ -26,12 +26,12 @@ const ContactForm = () => {
   const handleSubmit = async (values, actions) => {
     console.log(values);
     try {
-      const response = await instance.post('/customer/contact', values);
+      const response = await instance.post('/support', values);
       console.log(response);
     } catch (err) {
       console.error('Error sending customer support request: ', err);
     }
-    // actions.resetForm();
+    actions.resetForm();
   };
 
   return (

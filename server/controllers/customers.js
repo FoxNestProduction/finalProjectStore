@@ -32,23 +32,6 @@ exports.createCustomer = (req, res, next) => {
     return res.status(400).json(errors);
   }
 
-  // Customer.findOne({
-  //   $or: [{ email: req.body.email }, { login: req.body.login }]
-  // })
-  //   .then(customer => {
-  //     if (customer) {
-  //       if (customer.email === req.body.email) {
-  //         return res
-  //           .status(400)
-  //           .json({ message: `Email ${customer.email} already exists"` });
-  //       }
-  //
-  //       if (customer.login === req.body.login) {
-  //         return res
-  //           .status(400)
-  //           .json({ message: `Login ${customer.login} already exists` });
-  //       }
-  //     }
   Customer.findOne({ email: req.body.email })
     .then(customer => {
       if (customer) {
@@ -119,7 +102,7 @@ exports.loginCustomer = async (req, res, next) => {
       // console.log(isValid);
       return res.status(400).json(errors);
   }
-    // todo:  need to refactor email
+
   const email = req.body.email;
   const password = req.body.password;
   const configs = await getConfigs();
