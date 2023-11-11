@@ -19,6 +19,8 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import { addToCart, addProductToCart } from '../../redux/slices/cartSlice';
 // import { instance } from '../../API/instance';
 import { GetOneProduct, resetOneProduct } from '../../redux/slices/productsSlice';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../Alert/Alert';
 // eslint-disable-next-line no-underscore-dangle
 const ProductCardItem = ({
   currentPrice,
@@ -36,6 +38,8 @@ const ProductCardItem = ({
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+  const { alert, handleCloseAlert, handleShowAlert } = useAlert();
+
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
@@ -116,6 +120,7 @@ const ProductCardItem = ({
         {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
+      <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
     </>
   );
 };

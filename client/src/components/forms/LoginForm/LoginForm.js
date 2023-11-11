@@ -30,6 +30,7 @@ import {
 } from './styles';
 // eslint-disable-next-line import/no-cycle
 import RegisterForm from '../RegisterForm/RegisterForm';
+import VerifyEmailForm from '../VerifyEmailForm/VerifyEmailForm';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../inputs/Input/Input';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
@@ -41,11 +42,15 @@ import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionSt
 import { instance } from '../../../API/instance';
 import { fetchCart, updateCart } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
+import useAlert from '../../../customHooks/useAlert';
+import CustomAlert from '../../Alert/Alert';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
   const cartProducts = useSelector((state) => state.cart.cart.products);
+  const { handleShowAlert } = useAlert();
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   const initialValues = {
     email: '',
@@ -54,6 +59,10 @@ const LoginForm = () => {
 
   const handleOpenSignUpForm = () => {
     dispatch(setContent(<RegisterForm />));
+  };
+
+  const handleFogetPassword = () => {
+    dispatch(setContent(<VerifyEmailForm />));
   };
 
   const handleSubmit = async (values, actions) => {
@@ -71,6 +80,7 @@ const LoginForm = () => {
         saveUserInfoToSessionStorage(user);
         dispatch(fetchCart());
         dispatch(fetchFavourites());
+        handleShowAlert();
       }
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));
@@ -166,14 +176,20 @@ const LoginForm = () => {
                   icon={<LockIcon />}
                 />
               </Box>
-              <Link
+              {/* <Link
                 component={NavLink}
                 to="/forget-password"
                 underline="none"
                 sx={forgetPassword}
               >
                 Forget Password ?
-              </Link>
+              </Link> */}
+              <Typography
+                sx={forgetPassword}
+                onClick={handleFogetPassword}
+              >
+                Forget Password ?
+              </Typography>
               <Button
                 disableRipple
                 variant="contained"
