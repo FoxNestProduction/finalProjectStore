@@ -26,12 +26,10 @@ router.post(
             $or: [{ email: result.email }]
         })
             .then(customer => {
-                console.log(customer)
 
                 // Check for customer
                 if (!customer) {
-                    // errors.email = "Customer not found";
-                    // return res.status(404).json(errors);
+                    console.log(result);
                     return res.status(206).json(result);
                 }
 
