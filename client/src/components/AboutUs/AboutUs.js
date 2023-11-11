@@ -5,13 +5,13 @@ import { Container, Typography, Grid, Paper } from '@mui/material';
 const AboutUs = () => {
   return (
     <Container sx={{ paddingBottom: '30px', color: 'text.primary' }}>
-      <Typography variant="h3" sx={{ marginTop: '30px', paddingLeft: '10px' }} gutterBottom>
+      <Typography variant="h2" component="h2" sx={{ marginTop: '30px', paddingLeft: '10px' }} gutterBottom>
         About Us
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: '20px' }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               Our Story
             </Typography>
             <Typography>
@@ -24,7 +24,7 @@ const AboutUs = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: '20px' }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" component="h3" gutterBottom>
               Our Mission
             </Typography>
             <Typography>
@@ -37,7 +37,7 @@ const AboutUs = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: '20px' }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" component="h3" gutterBottom>
               Our Team
             </Typography>
             <Typography>
@@ -50,7 +50,7 @@ const AboutUs = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: '20px' }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" component="h3" gutterBottom>
               Contact Us
             </Typography>
             <Typography>
