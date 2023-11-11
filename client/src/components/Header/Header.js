@@ -45,11 +45,11 @@ import useAlert from '../../customHooks/useAlert';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [alertTimer, setAlertTimer] = useState(null);
   const location = useLocation();
 
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  const user = useSelector((state) => state.user.user);
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);

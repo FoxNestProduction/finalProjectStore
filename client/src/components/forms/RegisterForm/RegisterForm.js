@@ -64,7 +64,7 @@ const RegisterForm = () => {
       handleShowAlert();
       setTimeout(() => {
         dispatch(setIsRegistrationSuccessful(false));
-      }, 5500);
+      }, 4000);
 
       dispatch(setToken(token));
       dispatch(setAuthorization(true));

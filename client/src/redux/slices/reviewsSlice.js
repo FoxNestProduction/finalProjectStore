@@ -31,6 +31,7 @@ const reviewsSlice = createSlice({
     resetReviewState(state) {
       state.newReview.rating = null;
       state.newReview.content = '';
+      state.newReview._id = '';
     },
   },
 });
