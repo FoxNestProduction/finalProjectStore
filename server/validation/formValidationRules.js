@@ -141,20 +141,20 @@ const formValidationRules = [
     validWhen: true,
     message: "isAdmin field must be true or false"
   },
-  {
-    field: "letterSubject",
-    method: FormValidator.isEmpty,
-    validWhen: false,
-    message:
-      "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
-  },
-  {
-    field: "letterHtml",
-    method: FormValidator.isEmpty,
-    validWhen: false,
-    message:
-      "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
-  }
+  // {
+  //   field: "letterSubject",
+  //   method: FormValidator.isEmpty,
+  //   validWhen: false,
+  //   message:
+  //     "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
+  // },
+  // {
+  //   field: "letterHtml",
+  //   method: FormValidator.isEmpty,
+  //   validWhen: false,
+  //   message:
+  //     "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
+  // }
 ];
 
 module.exports = formValidationRules;

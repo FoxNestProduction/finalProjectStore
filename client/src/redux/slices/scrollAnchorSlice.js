@@ -1,21 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  scrollAnchor: {},
+  productsScrollAnchor: null,
+  isApplyClicked: false,
 };
 
 const scrollAnchorSlice = createSlice({
   name: 'scrollAnchor',
   initialState,
   reducers: {
-    setScrollAnchor(state, action) {
-      state.scrollAnchor = action.payload;
+    setProductsScrollAnchor(state, action) {
+      state.productsScrollAnchor = action.payload;
+    },
+    setIsApplyClicked(state, action) {
+      state.isApplyClicked = action.payload;
     },
   },
 });
 
 export const {
-  setScrollAnchor,
+  setProductsScrollAnchor,
+  setIsApplyClicked,
 } = scrollAnchorSlice.actions;
 
 export default scrollAnchorSlice.reducer;

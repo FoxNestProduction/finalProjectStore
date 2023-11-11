@@ -1,47 +1,90 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import { Box, Typography } from '@mui/material';
+import Container from '@mui/material/Container';
 import { Box, Container, Typography, useMediaQuery } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
 import ListItems from '../../components/ListItems/ListItem';
-import { setSearch } from '../../redux/slices/searchSlice';
+import { resetSearch } from '../../redux/slices/searchSlice';
 import SectionSwipperFilterSearch from '../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
-import { instance } from '../../API/instance';
+import { fetchSortedProducts } from '../../redux/slices/productsSlice';
+import {
+  deleteFilteredData,
+  fetchFilteredProducts,
+  resetFilterParams,
+  setFilterParams,
+} from '../../redux/slices/filterSlice';
+import { getParamsFromURL, checkFiltersInParams, getParamsFilteredFromDefaultValues, getQueryStringFromParams } from '../../utils/filterHelpers';
+import { setProductsScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
 import { gridStylesContainer } from '../../components/ListItems/styles';
 import Skeleton from '../../components/Skeleton/Skeleton';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isQuery = useRef(false);
+  const isMounted = useRef(false);
+  const productsScrollRef = useRef(null);
+
   const itemsFromSearch = useSelector((state) => state.search.search);
-  const itemsFromFilter = useSelector((state) => state.filter.filter);
+  const itemsFromFilter = useSelector((state) => state.filter.filteredProducts);
   const keyFromSearch = useSelector((state) => state.search.key);
+  const filterParams = useSelector((state) => state.filter.filterParams);
+  const filteredProductsQuantity = useSelector((state) => state.filter.productsQuantity);
+  const nothingFound = useSelector((state) => state.filter.nothingFound);
   const products = useSelector((state) => state.products.products);
   const loadingProducts = useSelector((state) => state.products.loading);
-
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
   const loadingPartners = useSelector((state) => state.partners.loading);
 
-  const productsAnchor = useSelector((state) => state.scrollAnchor.scrollAnchor);
+  useEffect(() => {
+    if (location.search) {
+      const initialFilterParams = getParamsFromURL(location.search);
+      dispatch(setFilterParams(initialFilterParams));
+      isQuery.current = true;
+    }
+
+    return () => {
+      dispatch(resetSearch());
+      dispatch(deleteFilteredData());
+      dispatch(resetFilterParams());
+    };
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
+    const params = getParamsFilteredFromDefaultValues(filterParams);
+    const hasFilters = checkFiltersInParams(params);
+    const queryString = getQueryStringFromParams(params);
+
+    if (isMounted.current) {
+      navigate(queryString);
+    }
+    isMounted.current = true;
+
+    if (!isQuery.current) {
+      if (hasFilters) {
+        dispatch(fetchFilteredProducts(queryString));
+      } else {
+        dispatch(fetchSortedProducts(queryString));
+      }
+    }
+    isQuery.current = false;
+  }, [filterParams]); // eslint-disable-line
 
   const isLgTablet = useMediaQuery('(min-width: 690px)');
   const isDesktop = useMediaQuery('(min-width: 993px)');
 
   useEffect(() => {
-    dispatch(setSearch([]));
+    if (productsScrollRef.current) {
+      dispatch(setProductsScrollAnchor(productsScrollRef.current));
+    }
   }, [dispatch]);
-
-  // приклад запиту за продуктами, які відповідають пошуку
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await instance.post('/products/search', { query: 'cheese' });
-  //       console.log(response);
-  //     } catch (err) {
-  //       console.error('Error getting searched products: ', err);
-  //     }
-  //   })();
-  // }, []);
 
   return (
     <>
@@ -54,6 +97,7 @@ const MenuPage = () => {
           itemComponent={RestaurantItem}
           actions={null}
           type="partners"
+          itemsFrom="search"
         />
       )}
       {loadingProducts && (
@@ -132,37 +176,55 @@ const MenuPage = () => {
           ) : null}
         </>
       )}
-      {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
-        <ListItems
-          title={`Search Results (${itemsFromSearch.length})`}
-          items={itemsFromSearch}
-          itemComponent={ProductCardItem}
-          actions={null}
-          type="food"
-          pagination
-          anchor={productsAnchor}
-        />
-      ) : itemsFromFilter.length !== 0 ? (
-        <ListItems
-          title={`Filter Results (${itemsFromFilter.length})`}
-          items={itemsFromFilter}
-          itemComponent={ProductCardItem}
-          actions={null}
-          type="food"
-          pagination
-          anchor={productsAnchor}
-        />
-      ) : (
-        <ListItems
-          title="All Dishes"
-          items={products}
-          itemComponent={ProductCardItem}
-          actions={null}
-          type="food"
-          pagination
-          anchor={productsAnchor}
-        />
-      )}
+      <Box ref={productsScrollRef}>
+        {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
+          <ListItems
+            title={`Search Results (${itemsFromSearch.length})`}
+            items={itemsFromSearch}
+            itemComponent={ProductCardItem}
+            actions={null}
+            type="food"
+            itemsFrom="search"
+          />
+        ) : itemsFromFilter.length !== 0 ? (
+          <ListItems
+            title={`Filter Results (${filteredProductsQuantity})`}
+            items={itemsFromFilter}
+            itemComponent={ProductCardItem}
+            actions={null}
+            type="food"
+            pagination
+            sorting
+            itemsFrom="filter"
+            isScrolling
+          />
+        ) : (!nothingFound) ? (
+          <ListItems
+            title="All Dishes"
+            items={products}
+            itemComponent={ProductCardItem}
+            actions={null}
+            type="food"
+            pagination
+            sorting
+            itemsFrom="allDishes"
+          />
+        ) : (
+          <Container sx={{ pb: '60px' }}>
+            <Typography
+              variant="h3"
+              component="p"
+              color="primary.main"
+              sx={{ textAlign: 'center',
+                fontSize: { mobile: '22px', tablet: '26px', desktop: '32px' },
+                px: '10px',
+                fontWeight: 'fontWeightLight' }}
+            >
+              Sorry, no results match your current filter settings...🤷‍♀️
+            </Typography>
+          </Container>
+        )}
+      </Box>
 
       {loadingPartners ? (
         <Container sx={{ mb: 13 }}>

@@ -96,6 +96,7 @@ const CheckoutForm = () => {
     const { name, email, tel, city, street, house, apartment, payment } = values;
     const newOrder = {
       status: 'new order',
+      products: cart,
       name,
       email,
       mobile: tel,
@@ -106,16 +107,11 @@ const CheckoutForm = () => {
         apartment,
       },
       paymentInfo: payment,
-      letterSubject: 'Thank you for your order!',
-      letterHtml: '<h1>Your order is placed.</h1>',
     };
 
-    // todo: uncomment when user will have a cart
     if (isUserAuthorized && user) {
       const { _id: id } = user;
       newOrder.customerId = id;
-    } else {
-      newOrder.products = cart;
     }
 
     if (values.payment === 'Card') {
@@ -124,7 +120,6 @@ const CheckoutForm = () => {
     } else {
       try {
         const response = await instance.post('/orders', newOrder);
-        console.log(response);
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());

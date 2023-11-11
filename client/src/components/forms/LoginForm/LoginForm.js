@@ -23,6 +23,7 @@ import {
   appleIcon,
 } from './styles';
 import RegisterForm from '../RegisterForm/RegisterForm';
+import VerifyEmailForm from '../VerifyEmailForm/VerifyEmailForm';
 import CreatePasswordForm from '../CreatePassword/CreatePasswordForm';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 import Input from '../../inputs/Input/Input';
@@ -51,6 +52,10 @@ const LoginForm = () => {
 
   const handleOpenSignUpForm = () => {
     dispatch(setContent(<RegisterForm />));
+  };
+
+  const handleFogetPassword = () => {
+    dispatch(setContent(<VerifyEmailForm />));
   };
 
   const authFunc = (value) => {
@@ -184,14 +189,20 @@ const LoginForm = () => {
                   icon={<LockIcon />}
                 />
               </Box>
-              <Link
+              {/* <Link
                 component={NavLink}
                 to="/forget-password"
                 underline="none"
                 sx={forgetPassword}
               >
                 Forget Password ?
-              </Link>
+              </Link> */}
+              <Typography
+                sx={forgetPassword}
+                onClick={handleFogetPassword}
+              >
+                Forget Password ?
+              </Typography>
               <Button
                 disableRipple
                 variant="contained"

@@ -31,22 +31,17 @@ const userPersistConfig = {
   storage,
 };
 
-const searchPersistConfig = {
-  key: 'search',
-  version: 1,
-  storage,
-};
 const favouritePersistConfig = {
   key: 'favorites',
   version: 1,
   storage,
 };
-
-const filterPersistConfig = {
-  key: 'filter',
-  version: 1,
-  storage,
-};
+//
+// const filterPersistConfig = {
+//   key: 'filter',
+//   version: 1,
+//   storage,
+// };
 
 const cartPersistConfig = {
   key: 'cart',
@@ -69,11 +64,12 @@ const reducer = combineReducers({
   user: persistReducer(userPersistConfig, userSlice),
   newGoogleUser: newGoogleUserSlice,
   products: productsSlice,
-  search: persistReducer(searchPersistConfig, searchSlice),
+  search: searchSlice,
   order: orderSlice,
   reviews: reviewsSlice,
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
-  filter: persistReducer(filterPersistConfig, filterSlice),
+  // filter: persistReducer(filterPersistConfig, filterSlice),
+  filter: filterSlice,
   cart: persistReducer(cartPersistConfig, cartSlice),
   scrollAnchor: scrollAnchorSlice,
 });

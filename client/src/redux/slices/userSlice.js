@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: {},
-  newUser: {},
+  isRegistrationSuccessful: false,
 };
 
 const userSlice = createSlice({
@@ -12,15 +12,15 @@ const userSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
     },
-    setNewUser(state, action) {
-      state.newUser = action.payload;
+    setIsRegistrationSuccessful(state, action) {
+      state.isRegistrationSuccessful = action.payload;
     },
   },
 });
 
 export const {
   setUser,
-  setNewUser,
+  setIsRegistrationSuccessful,
 } = userSlice.actions;
 
 export default userSlice.reducer;

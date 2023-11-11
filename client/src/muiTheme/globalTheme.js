@@ -28,6 +28,7 @@ const globalTheme = createTheme({
       trending: '#FB471D',
       supreme: '#0b4c25',
       secondaryGray: '#ACADB9',
+      error: '#d32f2f',
     },
     background: {
       paper: '#FFF',
