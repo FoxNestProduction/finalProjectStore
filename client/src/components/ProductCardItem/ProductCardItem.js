@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
@@ -19,6 +19,8 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import { addToCart, addProductToCart } from '../../redux/slices/cartSlice';
 // import { instance } from '../../API/instance';
 import { GetOneProduct, resetOneProduct } from '../../redux/slices/productsSlice';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../Alert/Alert';
 // eslint-disable-next-line no-underscore-dangle
 const ProductCardItem = ({
   currentPrice,
@@ -32,10 +34,10 @@ const ProductCardItem = ({
   itemNo,
 }) => {
   const breakPoint = useBreakpoint();
-  // const oneProduct = useSelector((state) => state.products.oneProduct);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+  const { alert, handleCloseAlert, handleShowAlert } = useAlert();
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
@@ -43,7 +45,6 @@ const ProductCardItem = ({
 
   const handleAddToCart = (event) => {
     event.preventDefault();
-
     const onGetOneProductComplete = (oneProduct) => {
       if (Object.keys(oneProduct).length !== 0) {
         const selectedItem = {
@@ -116,6 +117,9 @@ const ProductCardItem = ({
         {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
+      { alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
+      )}
     </>
   );
 };

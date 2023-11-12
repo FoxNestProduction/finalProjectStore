@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
+import { Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux';
@@ -30,7 +30,8 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
 
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
-  const { handleCloseAlert } = useAlert();
+  const { alert, handleCloseAlert } = useAlert();
+  console.log(alert);
 
   const marks = [
     {
@@ -56,7 +57,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       setFilterAlert(true);
       setTimeout(() => {
         setFilterAlert(false);
-      }, 5000);
+      }, 4000);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nothingFound]);
@@ -312,7 +313,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       </Button>
 
       {nothingFound && filterAlert && (
-      <CustomAlert type="info" handleCloseAlert={handleCloseAlert} content="Nothing found!" />
+        <CustomAlert type="info" handleCloseAlert={handleCloseAlert} content="Nothing found!" />
       )}
 
     </Stack>

@@ -48,9 +48,14 @@ const Header = () => {
   const location = useLocation();
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+<<<<<<<< < Temporary merge branch 1
+// const user = useSelector((state) => state.user.user);
+=========
+  // const { cart } = user; // під питанням чи потрібне це значення
+>>>>>>>>> Temporary merge branch 2
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
-  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  const { alert, handleCloseAlert } = useAlert();
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -100,7 +105,10 @@ const Header = () => {
   return (
     <>
       {isRegistered && alert && (
-        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
+      <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
+      )}
+      {isUserAuthorized && alert && (
+      <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Welcome back!" />
       )}
       <ElevationScroll>
         <AppBar
