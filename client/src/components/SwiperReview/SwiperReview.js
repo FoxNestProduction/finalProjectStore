@@ -65,24 +65,23 @@ const SwiperReview = () => {
     <Container component="section">
       <Typography variant="h2" component="h2" color="text.primary" sx={{ textAlign: 'center', mb: 2 }}>Customer Say</Typography>
       <Box sx={{ pb: '150px', position: 'relative' }}>
+
         <Box
           className={styles.scrollingWrapper}
           ref={scrollingWrapperRef}
         >
-          {/* todo: render skeleton here! */}
-          {/* {loading && <p>Loading...</p>} */}
           {loading ? (
             <>
-              <Box className={styles.card}>
+              <Box className={styles.skeletonCard}>
                 <Skeleton />
               </Box>
-              <Box className={styles.card}>
+              <Box className={styles.skeletonCard}>
                 <Skeleton />
               </Box>
-              <Box className={styles.card}>
+              <Box className={styles.skeletonCard}>
                 <Skeleton />
               </Box>
-              <Box className={styles.card}>
+              <Box className={styles.skeletonCard}>
                 <Skeleton />
               </Box>
             </>
