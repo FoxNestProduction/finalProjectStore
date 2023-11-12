@@ -12,7 +12,7 @@ router.post(
     async (req, res) => {
         const googleAuthCode = req.body.code;
 
-        const oauth2Client = new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, 'http://localhost:3000')
+        const oauth2Client = new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, process.env.REDIRECT_URL)
         const tokens = (await oauth2Client.getToken(googleAuthCode)).tokens
 
         oauth2Client.setCredentials(tokens)
