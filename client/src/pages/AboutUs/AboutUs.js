@@ -1,8 +1,9 @@
 import React from 'react';
+import AboutUs from '../../components/AboutUs/AboutUs';
 
 const AboutUsPage = () => {
   return (
-    <h1>AboutUs</h1>
+    <AboutUs />
   );
 };
 
