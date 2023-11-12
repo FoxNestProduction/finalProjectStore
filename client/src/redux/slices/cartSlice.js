@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import isEqualWith from 'lodash.isequalwith';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
@@ -30,20 +31,6 @@ export const createCart = createAsyncThunk(
     }
   },
 );
-
-// export const updateCart = createAsyncThunk(
-//   'cart/updateCart',
-//   async (_, { rejectWithValue, getState }) => {
-//     const cartProducts = getState().cart.cart.products;
-//     const updatedCart = changeCartObjectFromServer(cartProducts);
-//     try {
-//       const response = await instance.put('/cart', updatedCart);
-//       return response.data;
-//     } catch (err) {
-//       return rejectWithValue(err.response);
-//     }
-//   },
-// );
 
 export const fetchCart = createAsyncThunk(
   'caer/fetchCart',
@@ -244,14 +231,6 @@ const cartSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // .addCase(updateCart.pending, setLoading)
-      // .addCase(updateCart.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   if (action.payload !== null) {
-      //     state.cart.products = action.payload.products;
-      //   }
-      // })
-      // .addCase(updateCart.rejected, setError)
       .addCase(fetchCart.pending, setLoading)
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
