@@ -1,6 +1,7 @@
+import React from 'react';
 import { render } from '@testing-library/react';
-import Footer from '../Footer/Footer';
 import { MemoryRouter } from 'react-router';
+import Footer from './Footer';
 
 const Component = (props) => {
   return (
