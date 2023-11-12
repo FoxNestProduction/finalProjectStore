@@ -23,19 +23,19 @@ describe('Snapshot test', () => {
 describe('Sorter Component', () => {
   test('Sorter handles select change and dispatches actions', async () => {
     const { findByLabelText, getByText } = render(<Component type="partners" />);
-    const sortSelect = await findByLabelText('Sort by');
+    const sortSelect = await screen.findByLabelText('Sort by');
 
     // Відкриваємо випадаючий список
     fireEvent.mouseDown(sortSelect);
 
     // Вибираємо значення
-    const optionRatingUp = getByText('Rating UP');
+    const optionRatingUp = screen.getByText('Rating UP');
     fireEvent.click(optionRatingUp);
 
-    const optionRatingDown = getByText('Rating DOWN');
+    const optionRatingDown = screen.getByText('Rating DOWN');
     fireEvent.click(optionRatingDown);
 
-    const optionDefault = getByText('Default');
+    const optionDefault = screen.getByText('Default');
     fireEvent.click(optionDefault);
   });
 });
@@ -48,19 +48,19 @@ describe('Sorter Component', () => {
     fireEvent.mouseDown(sortSelect);
 
     // Вибираємо значення
-    const optionRatingUp = getByText('Rating UP');
+    const optionRatingUp = screen.getByText('Rating UP');
     fireEvent.click(optionRatingUp);
 
-    const optionRatingDown = getByText('Rating DOWN');
+    const optionRatingDown = screen.getByText('Rating DOWN');
     fireEvent.click(optionRatingDown);
 
-    const optionPriceUp = getByText('Price UP');
+    const optionPriceUp = screen.getByText('Price UP');
     fireEvent.click(optionPriceUp);
 
-    const optionPriceDown = getByText('Price DOWN');
+    const optionPriceDown = screen.getByText('Price DOWN');
     fireEvent.click(optionPriceDown);
 
-    const optionDefault = getByText('Default');
+    const optionDefault = screen.getByText('Default');
     fireEvent.click(optionDefault);
   });
 });
