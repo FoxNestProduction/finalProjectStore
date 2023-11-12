@@ -123,9 +123,9 @@ const CheckoutForm = () => {
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());
-        dispatch(deleteCart());
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
+          dispatch(deleteCart());
         }
         navigate('/order-confirmation');
       } catch (err) {

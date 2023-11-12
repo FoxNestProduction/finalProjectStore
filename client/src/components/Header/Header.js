@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, shallowEqual, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
@@ -47,9 +47,7 @@ const Header = () => {
   const [alertTimer, setAlertTimer] = useState(null);
   const location = useLocation();
 
-  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
