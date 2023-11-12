@@ -22,8 +22,6 @@ import {
   continueBtn,
 } from './styles';
 import {
-  // createCart,
-  // updateCartObj,
   totalSumFromCart,
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
@@ -38,12 +36,10 @@ const Cart = () => {
   const totalSum = totalSumFromCart(cartProducts);
   const getCart = () => {
     if (isUserAuthorization) {
-      // dispatch(getCartItemsFromServer());
       dispatch(fetchCart());
-    } else {
-      console.log('user need to autorise');
     }
   };
+  console.log('Check rerender cart component');
   console.log(cartProducts);
   const updateCartAfterCloseWindow = () => {
     const handleUnload = () => {
@@ -58,6 +54,7 @@ const Cart = () => {
   useEffect(() => {
     getCart();
     updateCartAfterCloseWindow(cartProducts);
+    console.log('Функція запущена');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuthorization]);
 
