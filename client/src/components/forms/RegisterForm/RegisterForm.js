@@ -94,7 +94,7 @@ const RegisterForm = () => {
   // eslint-disable-next-line no-undef
   const googleClient = google.accounts.oauth2.initCodeClient({
     client_id: process.env.REACT_APP_CLIENT_ID,
-    scope: ['email', 'openid'].join(' '),
+    scope: ['profile', 'email', 'openid'].join(' '),
     ux_mode: 'popup',
     callback: (response) => {
       instance
@@ -108,8 +108,8 @@ const RegisterForm = () => {
           const { data } = res;
           dispatch(setNewGoogleUser({
             email: data.email,
-            // firstName: data:,
-            // lastName,
+            firstName: data.given_name ? data.given_name : 'New',
+            lastName: data.family_name ? data.family_name : 'User',
           }));
           dispatch(setContent(<CreatePasswordForm />));
         });
