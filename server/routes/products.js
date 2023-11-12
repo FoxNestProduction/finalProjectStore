@@ -10,6 +10,7 @@ const {
   addProduct,
   updateProduct,
   getProducts,
+  getProductsNames,
   getProductById,
   getProductsFilterParams,
   searchProducts
@@ -83,6 +84,11 @@ router.put(
 // @desc    GET existing products
 // @access  Public
 router.get("/", getProducts);
+
+// @route   GET /products/names
+// @desc    GET existing products names
+// @access  Public
+router.get("/names", getProductsNames);
 
 // @route   GET /products/filter
 // @desc    GET appropriate filtered products

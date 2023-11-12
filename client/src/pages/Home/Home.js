@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { Box, Container, Grid, Typography, useMediaQuery } from '@mui/material';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
@@ -49,7 +49,7 @@ const HomePage = () => {
           actions={<ListItemAction type="partners" />}
           type="partners"
         />
-      )) }
+      ))}
 
       {loadingProducts ? (
         <Container sx={{ mb: 13 }}>
@@ -90,13 +90,13 @@ const HomePage = () => {
           </Grid>
         </Container>
       ) : (topProducts.length > 0 && (
-      <ListItems
-        title="Our Top Dishes"
-        items={topProducts}
-        itemComponent={ProductCardItem}
-        actions={<ListItemAction />}
-      />
-      )) }
+        <ListItems
+          title="Our Top Dishes"
+          items={topProducts}
+          itemComponent={ProductCardItem}
+          actions={<ListItemAction />}
+        />
+      ))}
       <SwiperReview />
     </>
   );

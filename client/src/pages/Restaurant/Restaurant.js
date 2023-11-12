@@ -40,7 +40,7 @@ const RestaurantPage = () => {
           color="text.primary"
           sx={{ textAlign: 'center', mb: 6 }}
         >
-          Our All Restaurants
+          All Restaurants
         </Typography>
 
         {loading ? (
