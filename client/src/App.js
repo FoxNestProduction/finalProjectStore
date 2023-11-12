@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import './App.scss';
 import { useLocation } from 'react-router';
+import { Box } from '@mui/material';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
@@ -12,12 +13,17 @@ import useBreakpoint from './customHooks/useBreakpoint';
 import { productsPerPageMap, topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
 import { setFilterParams } from './redux/slices/filterSlice';
 
+import styles from './styles.module.scss';
+
 const App = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const breakpoint = useBreakpoint();
 
   const user = useSelector((state) => state.user.user, shallowEqual);
+  const partners = useSelector((state) => state.partners.partners);
+  const products = useSelector((state) => state.products.products, shallowEqual);
+  const reviews = useSelector((state) => state.reviews.reviews, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   useEffect(() => {
@@ -40,11 +46,23 @@ const App = () => {
   }, [breakpoint, dispatch]);
 
   return (
-    <>
+    <Box className={styles.mainBackground}>
+      <ul>
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+      </ul>
       <Modal disagree="Close" />
       <AppRoutes />
       <ScrollTop />
-    </>
+    </Box>
   );
 };
 

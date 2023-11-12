@@ -1,0 +1,222 @@
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Restaurant skeleton
+
+.restaurantCardSkeleton {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: 20px;
+    box-shadow: 6px 71px 35px 0px rgba(229, 229, 229, 0.70);
+    border-radius: 16px;
+    background-color: #DADADA;
+}
+
+.restaurantImageSkeleton {
+    width: 100%;
+    height: 160px;
+    margin-bottom: 10px;
+    border-radius: 16px 16px 0 0;
+}
+
+.restaurantChipsTitleRatingSkeleton {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 70%;
+    height: 20px;
+    border-radius: 16px;
+
+    @media (min-width: 481px) {
+        margin-left: 20px;
+    };
+    @media (min-width: 993px) {
+        margin-left: 32px;
+    };
+}
+
+
+// Restaurants Page Skeleton
+
+.restaurantsPageCardSkeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 315px;
+    padding-bottom: 50px;
+    margin: 0 auto 50px auto;
+    box-shadow: 6px 71px 35px 0px rgba(229, 229, 229, 0.70);
+    border-radius: 16px;
+    background-color: #DADADA;
+
+    @media (min-width: 481px) {
+        max-width: 420px;
+    };
+    @media (min-width: 690px) {
+        max-width: 500px;
+    };
+    @media (min-width: 993px) {
+        max-width: 800px;
+    };
+}
+
+.restaurantsPageImageSkeleton {
+    width: 100%;
+    height: 220px;
+    margin-bottom: 10px;
+    border-radius: 16px 16px 0 0;
+
+    @media (min-width: 690px) {
+        margin-bottom: 20px;
+        height: 268px;
+    };
+    @media (min-width: 993px) {
+        margin-bottom: 40px;
+        height: 378px;
+    };
+}
+
+.restaurantsPageChipsTitleRatingSkeleton {
+    margin-top: 10px;
+    margin-left: 15px;
+    width: 70%;
+    height: 30px;
+    border-radius: 16px;
+    
+    @media (min-width: 481px) {
+        margin-left: 20px;
+    };
+    @media (min-width: 993px) {
+        margin-left: 32px;
+    };
+}
+
+
+// Product skeleton
+
+.productCardSkeleton {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: 20px;
+    box-shadow: 0 20px 20px 0px rgba(229, 229, 229, 1);
+    border-radius: 16px;
+    background-color: #DADADA;
+}
+
+.productImageSkeleton {
+    width: 100%;
+    height: 162px;
+    margin-bottom: 10px;
+    border-radius: 16px 16px 0 0;
+}
+
+.productChipsTitleRatingSkeleton {
+    height: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    max-width: 46%;
+    @media (min-width: 481px) {
+        margin-left: 20px;
+        max-width: 44%;
+    };
+    @media (min-width: 690px) {
+        max-width: 26%;
+    };
+    @media (min-width: 993px) {
+        margin-left: 32px;
+        max-width: 17%;
+    };
+}
+
+.productRaitingSkeleton {
+    width: 55%;
+    height: 25px;
+    margin-top: 20px;
+    margin-left: 10px;
+    @media (min-width: 481px) {
+        margin-left: 20px;
+    };
+    @media (min-width: 993px) {
+        margin-left: 32px;
+    };
+}
+
+.productPriceSkeleton {
+    width: 35%;
+    height: 25px;
+    margin-top: 30px;
+    margin-left: 10px;
+    @media (min-width: 481px) {
+        margin-left: 20px;
+    };
+    @media (min-width: 993px) {
+        margin-left: 32px;
+    };
+}
+
+
+// Reviews skeleton
+
+.reviewCardSkeleton {
+    width: 100%;
+    height: 240px;
+    border-radius: 16px;
+    background: #DADADA;
+    box-shadow: 0px 0px 25px #0000001A;
+    padding-top: 35px;
+    padding-left: 35px;
+}
+
+.userContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #DADADA;
+}
+
+.username {
+    margin-left: 20px;
+    width: 60%;
+    max-width: 300px;
+    height: 25px;
+}
+
+.reviewText {
+    margin-top: 25px;
+    height: 60px;
+    width: calc(100% - 20px - 33px);
+}
+
+.rating {
+    width: calc(80% + 5px);
+    max-width: 360px;
+    height: 30px;
+    margin-top: 20px;
+}
+
+
+.loading {
+    background: linear-gradient(-75deg, transparent 50%, rgba(92, 78, 174, 1), transparent 80%) 200% 100% / 200% 100%, #EAEAEA;
+    animation: loading 4s infinite linear;
+    background-attachment: fixed;
+}
+
+@keyframes loading {
+    to {
+        background-position: -200% 0;
+    }
+}
