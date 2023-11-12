@@ -42,7 +42,7 @@ describe('Sorter Component', () => {
 describe('Sorter Component', () => {
   test('Sorter handles select change and dispatches actions', async () => {
     const { findByLabelText, getByText } = render(<Component type="products" />);
-    const sortSelect = await findByLabelText('Sort by');
+    const sortSelect = await screen.findByLabelText('Sort by');
 
     // Відкриваємо випадаючий список
     fireEvent.mouseDown(sortSelect);
