@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
-import Container from '@mui/material/Container';
+import { Box, Container, Typography, useMediaQuery } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
@@ -19,6 +18,8 @@ import {
 } from '../../redux/slices/filterSlice';
 import { getParamsFromURL, checkFiltersInParams, getParamsFilteredFromDefaultValues, getQueryStringFromParams } from '../../utils/filterHelpers';
 import { setProductsScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
+import { gridStylesContainer } from '../../components/ListItems/styles';
+import Skeleton from '../../components/Skeleton/Skeleton';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,9 @@ const MenuPage = () => {
   const filteredProductsQuantity = useSelector((state) => state.filter.productsQuantity);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
   const products = useSelector((state) => state.products.products);
+  const loadingProducts = useSelector((state) => state.products.loading);
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
+  const loadingPartners = useSelector((state) => state.partners.loading);
 
   useEffect(() => {
     if (location.search) {
@@ -72,6 +75,9 @@ const MenuPage = () => {
     isQuery.current = false;
   }, [filterParams]); // eslint-disable-line
 
+  const isLgTablet = useMediaQuery('(min-width: 690px)');
+  const isDesktop = useMediaQuery('(min-width: 993px)');
+
   useEffect(() => {
     if (productsScrollRef.current) {
       dispatch(setProductsScrollAnchor(productsScrollRef.current));
@@ -92,7 +98,82 @@ const MenuPage = () => {
           itemsFrom="search"
         />
       )}
-
+      {loadingProducts && (
+        <>
+          <Typography
+            variant="h2"
+            component="h2"
+            color="text.primary"
+            sx={{ textAlign: 'center', mb: 3 }}
+          >
+            All Dishes
+          </Typography>
+          <Container sx={{ mb: 13 }}>
+            <Box sx={gridStylesContainer}>
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              {isLgTablet && (
+                <Skeleton skeletonType="product" />
+              )}
+              {isDesktop && (
+                <>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </>
+              )}
+            </Box>
+          </Container>
+          <Container sx={{ mb: 13 }}>
+            <Box sx={gridStylesContainer}>
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              {isLgTablet && (
+                <Skeleton skeletonType="product" />
+              )}
+              {isDesktop && (
+                <>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </>
+              )}
+            </Box>
+          </Container>
+          <Container sx={{ mb: 13 }}>
+            <Box sx={gridStylesContainer}>
+              <Skeleton skeletonType="product" />
+              <Skeleton skeletonType="product" />
+              {isLgTablet && (
+                <Skeleton skeletonType="product" />
+              )}
+              {isDesktop && (
+                <>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </>
+              )}
+            </Box>
+          </Container>
+          {!isLgTablet && !isDesktop ? (
+            <>
+              <Container sx={{ mb: 13 }}>
+                <Box sx={gridStylesContainer}>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </Box>
+              </Container>
+              <Container sx={{ mb: 13 }}>
+                <Box sx={gridStylesContainer}>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </Box>
+              </Container>
+            </>
+          ) : null}
+        </>
+      )}
       <Box ref={productsScrollRef}>
         {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
           <ListItems
@@ -143,7 +224,23 @@ const MenuPage = () => {
         )}
       </Box>
 
-      {topPartners.length > 0 && (
+      {loadingPartners ? (
+        <Container sx={{ mb: 13 }}>
+          <Typography
+            variant="h2"
+            component="h2"
+            color="text.primary"
+            sx={{ textAlign: 'center', mb: 3 }}
+          >
+            Our Top Restaurants
+          </Typography>
+          <Box sx={gridStylesContainer}>
+            <Skeleton skeletonType="restaurant" />
+            <Skeleton skeletonType="restaurant" />
+            <Skeleton skeletonType="restaurant" />
+          </Box>
+        </Container>
+      ) : (topPartners.length > 0 && (
         <ListItems
           title="Our Top Restaurants"
           items={topPartners}
@@ -151,7 +248,7 @@ const MenuPage = () => {
           actions={<ListItemAction type="partners" />}
           type="partners"
         />
-      )}
+      )) }
     </>
   );
 };

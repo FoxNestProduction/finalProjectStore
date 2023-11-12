@@ -6,8 +6,8 @@ export const flexCenter = {
 
 export const featuresBG = {
   backgroundImage: {
-    mobile: `url(${process.env.PUBLIC_URL}/img/FeaturesMobileBG.png)`,
-    tablet: `url(${process.env.PUBLIC_URL}/img/FeaturesTabletBG.png)`,
+    mobile: 'url(./img/FeaturesMobileBG.png)',
+    tablet: 'url(./img/FeaturesTabletBG.png)',
   },
   backgroundSize: 'cover',
   width: '100%',

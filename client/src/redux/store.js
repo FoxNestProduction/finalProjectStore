@@ -17,6 +17,7 @@ import cartSlice from './slices/cartSlice';
 import orderSlice from './slices/orderSlice';
 import filterSlice from './slices/filterSlice';
 import scrollAnchorSlice from './slices/scrollAnchorSlice';
+import newGoogleUserSlice from './slices/newGoogleUserSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -59,7 +60,9 @@ const reducer = combineReducers({
   modal: modalSlice,
   partners: partnersSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
+  // user: persistReducer(userPersistConfig, userSlice),
   user: persistReducer(userPersistConfig, userSlice),
+  newGoogleUser: newGoogleUserSlice,
   products: productsSlice,
   search: searchSlice,
   order: orderSlice,
