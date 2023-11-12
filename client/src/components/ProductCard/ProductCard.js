@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -20,12 +20,9 @@ import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHea
 import { addToFavourites, deleteFromFavourites, setIsFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
-import useGetAPI from '../../customHooks/useGetAPI';
 
-const ProductCard = () => {
-  const { itemNo } = useParams();
+const ProductCard = ({ dish }) => {
   const dispatch = useDispatch();
-  const [dish, loading, error] = useGetAPI(`/products/${itemNo}`);
 
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
@@ -188,6 +185,14 @@ const ProductCard = () => {
       </Card>
     </Container>
   );
+};
+
+ProductCard.propTypes = {
+  dish: PropTypes.object,
+};
+
+ProductCard.defaultProps = {
+  dish: {},
 };
 
 export default ProductCard;

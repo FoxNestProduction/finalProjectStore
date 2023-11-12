@@ -11,7 +11,6 @@ import AppPagination from '../Pagination/Pagination';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import Sorter from '../Sorter/Sorter';
 import { productsPerPageMap } from '../../constants/bpMapConstants';
-import Skeleton from '../Skeleton/Skeleton';
 
 const ListItems = ({ title, items, itemComponent, actions, pagination, anchor, type }) => {
   const { pathname } = useLocation();
