@@ -25,7 +25,7 @@ import {
   totalSumFromCart,
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
-import { updateCart, createCart, fetchCart } from '../../redux/slices/cartSlice';
+import { createCart, fetchCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -33,35 +33,33 @@ const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
+  const authorizationMark = useSelector((state) => state.cart.authorizationReqInProgress);
   const totalSum = totalSumFromCart(cartProducts);
   const getCart = () => {
-    if (isUserAuthorization) {
+    if (isUserAuthorization && !authorizationMark) {
       dispatch(fetchCart());
     }
   };
-  console.log('Check rerender cart component');
-  console.log(cartProducts);
-  const updateCartAfterCloseWindow = () => {
-    const handleUnload = () => {
-      updateCart(cartProducts);
-    };
-    window.addEventListener('beforeunload', handleUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-    };
-  };
+  // const updateCartAfterCloseWindow = () => {
+  //   const handleUnload = () => {
+  //     updateCart(cartProducts);
+  //   };
+  //   window.addEventListener('beforeunload', handleUnload);
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleUnload);
+  //   };
+  // };
 
   useEffect(() => {
     getCart();
-    updateCartAfterCloseWindow(cartProducts);
-    console.log('Функція запущена');
+    // updateCartAfterCloseWindow(cartProducts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUserAuthorization]);
+  }, [isUserAuthorization, authorizationMark]);
 
   const continueFn = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
-        dispatch(updateCart(cartProducts));
+        // dispatch(updateCart(cartProducts));
       } else {
         dispatch(createCart());
       }

@@ -35,7 +35,7 @@ import {
 import { setConfirmedOrder, setOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { resetCart } from '../../../redux/slices/cartSlice';
+import { deleteCart, resetCart } from '../../../redux/slices/cartSlice';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -123,6 +123,7 @@ const CheckoutForm = () => {
         dispatch(setConfirmedOrder(response.data.order));
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());
+        dispatch(deleteCart());
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
         }

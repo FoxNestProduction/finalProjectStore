@@ -42,7 +42,7 @@ const PaymentForm = () => {
       console.log(response);
       dispatch(setConfirmedOrder(response.data.order));
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-      // dispatch(resetCart());
+      dispatch(resetCart());
       dispatch(deleteCart());
       if (isUserAuthorized && user) {
         saveUserInfoToSessionStorage(user);
