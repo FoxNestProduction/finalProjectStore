@@ -88,7 +88,7 @@ const LoginForm = () => {
   // eslint-disable-next-line no-undef
   const googleClient = google.accounts.oauth2.initCodeClient({
     client_id: process.env.REACT_APP_CLIENT_ID,
-    scope: ['email', 'openid'].join(' '),
+    scope: ['profile', 'email', 'openid'].join(' '),
     ux_mode: 'popup',
     callback: (response) => {
       instance
