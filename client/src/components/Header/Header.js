@@ -37,7 +37,7 @@ import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
-import { resetCart, setIsCart, updateCart } from '../../redux/slices/cartSlice';
+import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
 import CustomAlert from '../Alert/Alert';
 import useAlert from '../../customHooks/useAlert';
