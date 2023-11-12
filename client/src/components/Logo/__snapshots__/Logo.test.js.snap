@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test should Logo in Footer render 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-1d9cypr-MuiStack-root"
+  >
+    <div
+      aria-label="logo"
+      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-sb6o63-MuiButtonBase-root-MuiIconButton-root"
+      role="button"
+      tabindex="0"
+    >
+      <svg>
+        logo.svg
+      </svg>
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </div>
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-1n20qe9-MuiTypography-root"
+    >
+      eatly
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Snapshot test should Logo in Header render 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-1d9cypr-MuiStack-root"
+  >
+    <div
+      aria-label="logo"
+      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-sb6o63-MuiButtonBase-root-MuiIconButton-root"
+      role="button"
+      tabindex="0"
+    >
+      <svg>
+        logo.svg
+      </svg>
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </div>
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-1n20qe9-MuiTypography-root"
+    >
+      eatly
+    </p>
+  </div>
+</DocumentFragment>
+`;
