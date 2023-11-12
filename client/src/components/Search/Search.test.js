@@ -1,13 +1,12 @@
 import React from 'react';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import Search from './Search';
-import store from '../../redux/store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import configureStore from 'redux-mock-store'; // Можливо, вам доведеться встановити цей пакет
+import Search from './Search';
+import store from '../../redux/store';
 import { fetchAllPartnersNames } from '../../redux/slices/partnersSlice'; // Замініть шлях на ваш фактичний шлях
-import { fetchAllProductssNames } from '../../redux/slices/productsSlice'; // Замініть шлях на ваш фактичний шлях
-
+import { fetchAllProductsNames } from '../../redux/slices/productsSlice'; // Замініть шлях на ваш фактичний шлях
 
 const mockStore = configureStore();
 
@@ -83,47 +82,46 @@ describe('Snapshot test', () => {
 
 // });
 
-  // it('handles input change', async () => {
-  //   render (
-  //     <Provider store={storeNew}>
-  //       <Search />
-  //     </Provider>
-  //   );
+// it('handles input change', async () => {
+//   render (
+//     <Provider store={storeNew}>
+//       <Search />
+//     </Provider>
+//   );
 
-  //   const input = screen.getByLabelText(/search food/i);
+//   const input = screen.getByLabelText(/search food/i);
 
-  //   fireEvent.change(input, { target: { value: 'NewInputValue' } });
+//   fireEvent.change(input, { target: { value: 'NewInputValue' } });
 
-  //   // Можливо, вам доведеться зачекати, щоб функція затримки виконалася
-  //   await waitFor(() => {
-  //     // Додайте перевірки на основі поведінки вашого компонента
-  //     expect(store.getActions()).toContainEqual({
-  //       type: 'search/setInputSearchValue',
-  //       payload: 'NewInputValue',
-  //     });
-  //     // Додайте більше перевірок за необхідності
-  //   });
-  // });
+//   // Можливо, вам доведеться зачекати, щоб функція затримки виконалася
+//   await waitFor(() => {
+//     // Додайте перевірки на основі поведінки вашого компонента
+//     expect(store.getActions()).toContainEqual({
+//       type: 'search/setInputSearchValue',
+//       payload: 'NewInputValue',
+//     });
+//     // Додайте більше перевірок за необхідності
+//   });
+// });
 
-  // Додайте більше випадків тестів на основі поведінки вашого компонента
+// Додайте більше випадків тестів на основі поведінки вашого компонента
 
-  // Приклад тесту для кліку по кнопці
-  // it('handles button click', () => {
-  //   render (
-  //     <Provider store={storeNew}>
-  //       <Search />
-  //     </Provider>
-  //   );
+// Приклад тесту для кліку по кнопці
+// it('handles button click', () => {
+//   render (
+//     <Provider store={storeNew}>
+//       <Search />
+//     </Provider>
+//   );
 
-  //   const foodButton = screen.getByRole('button', { name: 'Food' });
+//   const foodButton = screen.getByRole('button', { name: 'Food' });
 
-  //   fireEvent.click(foodButton);
+//   fireEvent.click(foodButton);
 
-  //   // Додайте перевірки на основі поведінки вашого компонента
-  //   expect(store.getActions()).toContainEqual({
-  //     type: 'search/setKey',
-  //     payload: 'food',
-  //   });
-  //   // Додайте більше перевірок за необхідності
-  // });
-
+//   // Додайте перевірки на основі поведінки вашого компонента
+//   expect(store.getActions()).toContainEqual({
+//     type: 'search/setKey',
+//     payload: 'food',
+//   });
+//   // Додайте більше перевірок за необхідності
+// });
