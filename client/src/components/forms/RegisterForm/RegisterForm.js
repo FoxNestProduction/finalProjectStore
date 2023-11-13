@@ -37,6 +37,8 @@ import { instance } from '../../../API/instance';
 import { createCart } from '../../../redux/slices/cartSlice';
 
 import useAlert from '../../../customHooks/useAlert';
+import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
+import CreatePasswordForm from '../CreatePassword/CreatePasswordForm';
 
 export const initialValues = {
   firstName: '',
@@ -50,6 +52,30 @@ const RegisterForm = () => {
   const registerError = useSelector((state) => state.error.registration);
   const { handleShowAlert } = useAlert();
 
+  const handleOpenLogInForm = () => {
+    dispatch(setContent(<LoginForm />));
+  };
+
+  const authFunc = (value) => {
+    const { user, token } = value;
+
+    dispatch(setIsRegistrationSuccessful(true));
+    handleShowAlert();
+    setTimeout(() => {
+      dispatch(setIsRegistrationSuccessful(false));
+    }, 4000);
+
+    dispatch(setToken(token));
+    dispatch(setAuthorization(true));
+    dispatch(setUser(user));
+    dispatch(closeModal());
+    dispatch(setRegistrationError(''));
+
+    removeDataFromSessionStorage(CHECKOUT_SS_KEY);
+    saveUserInfoToSessionStorage(user);
+    dispatch(getCartItemsFromServer());
+  };
+
   const handleSubmit = async (values) => {
     const newCustomer = {
       ...values,
@@ -59,6 +85,7 @@ const RegisterForm = () => {
 
     try {
       const response = await instance.post('/customers', newCustomer);
+<<<<<<< HEAD
       const { user, token } = response.data;
 
       dispatch(setIsRegistrationSuccessful(true));
@@ -76,14 +103,42 @@ const RegisterForm = () => {
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
       dispatch(createCart());
+=======
+      authFunc(response.data);
+>>>>>>> dev
     } catch (error) {
       dispatch(setRegistrationError(error.response.data));
       console.error('Помилка реєстрації:', error.response.data);
     }
   };
 
-  const handleOpenLogInForm = () => {
-    dispatch(setContent(<LoginForm />));
+  // eslint-disable-next-line no-undef
+  const googleClient = google.accounts.oauth2.initCodeClient({
+    client_id: process.env.REACT_APP_CLIENT_ID,
+    scope: ['profile', 'email', 'openid'].join(' '),
+    ux_mode: 'popup',
+    callback: (response) => {
+      instance
+        .post(`${process.env.REACT_APP_API_URL}/auth/googleAuth`, {
+          code: response.code,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            authFunc(res);
+          }
+          const { data } = res;
+          dispatch(setNewGoogleUser({
+            email: data.email,
+            firstName: data.given_name ? data.given_name : 'New',
+            lastName: data.family_name ? data.family_name : 'User',
+          }));
+          dispatch(setContent(<CreatePasswordForm />));
+        });
+    },
+  });
+
+  const googleAuth = () => {
+    googleClient.requestCode();
   };
 
   return (
@@ -109,20 +164,20 @@ const RegisterForm = () => {
       >
         <Button
           disableRipple
-          disabled
           variant="contained"
+          onClick={googleAuth}
           sx={googleAppleBtn}
         >
           <GoogleSvgComponent />
         </Button>
-        <Button
+        {/* <Button
           disableRipple
           disabled
           variant="contained"
           sx={googleAppleBtn}
         >
           <AppleIcon sx={appleIcon} />
-        </Button>
+        </Button> */}
       </Box>
       <Typography
         variant="body1"

@@ -1,9 +1,6 @@
 import { object, string } from 'yup';
 
 const validationSchema = object({
-  // fullName: string()
-  //   .required('Enter your Full name')
-  //   .matches('^[A-Z][a-z]+ [A-Z][a-z]+$', 'Enter Name and Last Name'),
   firstName: string()
     .required('Enter your first name')
     .matches('^[A-Z][a-z]+$', 'The first name must be capitalized and contain only Latin letters'),

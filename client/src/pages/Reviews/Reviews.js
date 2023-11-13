@@ -173,14 +173,16 @@ const ReviewsPage = () => {
       </Box>
       <Box ref={containerRef} sx={commentList}>
         {reviews && reviews.map((item, index) => (
-          <Box
-            key={item._id}
-            data={item._id}
-            ref={cardRef.current[index]}
-            sx={commentItem}
-          >
-            <ReviewItem review={item} />
-          </Box>
+          item.customer && (
+            <Box
+              key={item._id}
+              data={item._id}
+              ref={cardRef.current[index]}
+              sx={commentItem}
+            >
+              <ReviewItem review={item} />
+            </Box>
+          )
         ))}
       </Box>
       {loading && <div>Loading...</div>}

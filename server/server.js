@@ -4,7 +4,10 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 const cors = require('cors');
+const cookieSession = require('cookie-session');
 require('dotenv').config();
+
+const googleUser = require('./config/googleUser');
 
 const globalConfigs = require('./routes/globalConfigs');
 const customers = require('./routes/customers');
@@ -24,6 +27,7 @@ const comments = require('./routes/comments');
 const shippingMethods = require('./routes/shippingMethods');
 const paymentMethods = require('./routes/paymentMethods');
 const partners = require('./routes/partners');
+const googleAuth = require('./routes/googleAuth');
 // const mainRoute = require('./routes/index');
 
 const app = express();
@@ -48,8 +52,26 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log(err));
 
+  // Google auth
+  app.use(
+    cookieSession({
+      name: "session",
+      keys: ["cyberwolve"],
+      maxAge: 24 * 60 * 60 * 100,
+    })
+  )
+
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      methods: "GET,POST,PUT,DELETE",
+      credentials: true,
+    })
+  )
+
 // Passport middleware
 app.use(passport.initialize());
+app.use(passport.session());
 
 // Passport Config
 require('./config/passport')(passport);
@@ -73,6 +95,7 @@ app.use('/api/comments', comments);
 app.use('/api/shipping-methods', shippingMethods);
 app.use('/api/payment-methods', paymentMethods);
 app.use('/api/partners', partners);
+app.use('/api/auth', googleAuth);
 // app.use('/', mainRoute);
 
 // Server static assets if in production
