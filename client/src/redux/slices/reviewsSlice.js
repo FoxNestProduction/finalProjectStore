@@ -1,11 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { instance } from '../../API/instance';
 
 const initialState = {
+  reviews: [],
   newReview: {
     user_id: '',
-    customer: {},
     rating: null,
+    avatarUrl: '',
     content: '',
     _id: '',
   },
@@ -18,6 +20,17 @@ const reviewsSlice = createSlice({
   name: 'reviews',
   initialState,
   reducers: {
+    setReviews(state, action) { // eslint-disable-line no-shadow
+      state.reviews = action.payload;
+    },
+    addReview(state) {
+      state.reviews.push(state.newReview);
+    },
+    removeReview(state, action) {
+      const itemToRemove = action.payload;
+      /* eslint-disable-next-line no-underscore-dangle */
+      state.reviews = state.reviews.filter((review) => review._id !== itemToRemove);
+    },
     setNewReview(state, action) {
       const { field, value } = action.payload;
       state.newReview[field] = value;
@@ -37,11 +50,23 @@ const reviewsSlice = createSlice({
 });
 
 export const {
+  setReviews,
+  addReview,
+  removeReview,
   setNewReview,
   searchReviews,
   setIndexSearchReview,
   resetReviewState,
 } = reviewsSlice.actions;
+
+export const getReviews = () => async (dispatch) => {
+  try {
+    const { data } = await instance.get('/comments');
+    dispatch(setReviews(data));
+  } catch (error) {
+    console.log('%cError loading reviews:', 'color: red; font-weight: bold;', error);
+  }
+};
 
 export const addNewReview = (review) => async (dispatch, getState) => {
   try {
@@ -59,6 +84,13 @@ export const addNewReview = (review) => async (dispatch, getState) => {
   }
 };
 
-/* eslint-enable no-param-reassign */
+export const removeReviewId = (_id) => async (dispatch) => {
+  try {
+    await instance.delete('/comments/_id');
+    dispatch(removeReview(_id));
+  } catch (error) {
+    console.log('%cError delete review:', 'color: red; font-weight: bold;', error);
+  }
+};
 
 export default reviewsSlice.reducer;
