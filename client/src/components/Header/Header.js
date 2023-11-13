@@ -54,6 +54,25 @@ const Header = () => {
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
   const { alert, handleCloseAlert } = useAlert();
+  const [registered, setRegistered] = useState(false);
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    if (isRegistered) {
+      setRegistered(true);
+      setTimeout(() => {
+        setRegistered(false);
+      }, 4000);
+    }
+
+    if (isUserAuthorized) {
+      setAuthorized(true);
+      setTimeout(() => {
+        setAuthorized(false);
+      }, 4000);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUserAuthorized, isRegistered]);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -107,10 +126,10 @@ const Header = () => {
 
   return (
     <>
-      {isRegistered && alert && (
+      {registered && isRegistered && alert && (
       <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
       )}
-      {isUserAuthorized && alert && (
+      {authorized && isUserAuthorized && alert && (
       <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Welcome back!" />
       )}
       <ElevationScroll>

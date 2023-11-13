@@ -45,44 +45,40 @@ const ProductCardItem = ({
     dispatch(setContent(<LoginForm />));
   };
 
+  useEffect(() => {
+    console.log(clickedAdd);
+    if (clickedAdd) {
+      handleShowAlert();
+      setTimeout(() => {
+        setClickedAdd(false);
+      }, 4000);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickedAdd]);
+
   const handleAddToCart = (event) => {
     event.preventDefault();
-    setClickedAdd(true);
-    console.log(clickedAdd);
-    const onGetOneProductComplete = async (oneProduct) => {
+    const onGetOneProductComplete = (oneProduct) => {
       if (Object.keys(oneProduct).length !== 0) {
         const selectedItem = {
           product: { ...oneProduct },
           cartQuantity: 1,
         };
         if (isUserAuthorized) {
-          await dispatch(addProductToCart(selectedItem.product._id));
+          dispatch(addProductToCart(selectedItem.product._id));
         } else {
-          await dispatch(addToCart(selectedItem));
+          dispatch(addToCart(selectedItem));
         }
-        // handleShowAlert();
-        // setClickedAdd(false);
-
-        setClickedAdd(true);
-        console.log(clickedAdd);
       }
     };
 
     dispatch(GetOneProduct(itemNo)).then((action) => {
       if (GetOneProduct.fulfilled.match(action)) {
         onGetOneProductComplete(action.payload);
+        setClickedAdd(true);
       }
     });
   };
-
-  useEffect(() => {
-    // Відслідковуємо зміни у стані clickedAdd
-    if (clickedAdd) {
-      handleShowAlert();
-      setClickedAdd(false); // Оновлюємо стан після використання
-    }
-  }, [clickedAdd, handleShowAlert]);
-
   return (
     <>
       <CardActions
