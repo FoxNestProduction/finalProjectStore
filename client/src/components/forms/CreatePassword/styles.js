@@ -37,71 +37,6 @@ export const mainTitle = {
   },
 };
 
-export const googleAppleBtnWrapper = {
-  width: '100%',
-  gap: {
-    mobile: '17px',
-    tablet: '15px',
-    desktop: '21px',
-  },
-  mb: {
-    mobile: '24px',
-    desktop: '35px',
-  },
-  flexDirection: 'row',
-};
-
-export const googleAppleBtn = {
-  backgroundColor: '#EAEAEA',
-  height: {
-    mobile: '51px',
-    tablet: '56px',
-    desktop: '62px',
-  },
-  width: '100%',
-  // width: {
-  //   mobile: '50%',
-  //   tablet: '160px',
-  //   desktop: '183px',
-  // },
-  transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
-  '&:hover': {
-    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.3)',
-    backgroundColor: 'common.white',
-  },
-  '&:active': {
-    boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.2)',
-    transform: 'translateY(1px)',
-  },
-};
-
-export const appleIcon = {
-  color: '#323142',
-  fontSize: {
-    mobile: '35px',
-    tablet: '38px',
-    desktop: '45px',
-  },
-};
-
-export const legend = {
-  color: 'text.secondary',
-  fontSize: {
-    mobile: '12px',
-    tablet: '14px',
-    desktop: '16px',
-  },
-  mb: {
-    mobile: '24px',
-    tablet: '28px',
-    desktop: '26px',
-  },
-  fontWeight: {
-    mobile: 'fontWeightMedium',
-  },
-  lineHeight: '1.5em',
-};
-
 export const inputsWrapper = {
   gap: {
     mobile: '20px;',
@@ -157,21 +92,5 @@ export const signUpBtn = {
   },
   textTransform: {
     mobile: 'capitalize',
-  },
-};
-
-export const signInLink = {
-  fontWeight: {
-    mobile: 'fontWeightBold',
-    desktop: 'fontWeightRegular',
-  },
-  fontSize: {
-    mobile: '13px',
-    tablet: '14px',
-    desktop: '16px',
-  },
-  transition: 'color 0.3s ease',
-  '&:hover': {
-    color: 'primary.hover',
   },
 };

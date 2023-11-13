@@ -47,11 +47,12 @@ export const googleAppleBtn = {
     tablet: '56px',
     desktop: '62px',
   },
-  width: {
-    mobile: '50%',
-    tablet: '160px',
-    desktop: '183px',
-  },
+  width: '100%',
+  // width: {
+  //   mobile: '50%',
+  //   tablet: '160px',
+  //   desktop: '183px',
+  // },
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
   '&:hover': {
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.3)',
