@@ -35,6 +35,7 @@ const ReviewsPage = () => {
   const prevDataRef = useRef();
   // прослуховування скрола для дозавантаження відгуків
   useEffect(() => {
+    console.log(reviews);
     const handleScroll = () => {
       const screenHeight = window.innerHeight;
       const containerRect = containerRef.current?.getBoundingClientRect();
@@ -51,7 +52,7 @@ const ReviewsPage = () => {
     } else {
       window.addEventListener('scroll', handleScroll);
     }
-  }, [isLoading, startPage, loadMore, searchReview, perPage, counScrollReview]);
+  }, [isLoading, startPage, loadMore, searchReview, perPage, counScrollReview, reviews]);
 
   // додавання і рендеринг нових відгуків, якщо виконуються умови
   useEffect(() => {
@@ -172,7 +173,7 @@ const ReviewsPage = () => {
           </Box>
         ))}
       </Box>
-      {loading && (
+      {/* {loading && (
         <>
           <Box
             sx={commentItemSkeleton}
@@ -190,7 +191,7 @@ const ReviewsPage = () => {
             <Skeleton />
           </Box>
         </>
-      )}
+      )} */}
       {error && <div>{error.statusText}</div>}
     </Container>
   );
