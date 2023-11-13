@@ -75,7 +75,7 @@ const LoginForm = () => {
 
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
-      dispatch(getCartItemsFromServer());
+      // dispatch(getCartItemsFromServer());
       dispatch(fetchFavourites());
     }
   };
