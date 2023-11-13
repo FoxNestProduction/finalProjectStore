@@ -72,72 +72,68 @@ const RegisterForm = () => {
 
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     saveUserInfoToSessionStorage(user);
-    dispatch(getCartItemsFromServer());
-  } catch (error) {
-    dispatch(setRegistrationError(error.response.data));
-    console.error('Помилка реєстрації:', error.response.data);
-  }
-};
+    dispatch(createCart());
+  };
 
-// eslint-disable-next-line no-undef
-const googleClient = google.accounts.oauth2.initCodeClient({
-  client_id: process.env.REACT_APP_CLIENT_ID,
-  scope: ['profile', 'email', 'openid'].join(' '),
-  ux_mode: 'popup',
-  callback: (response) => {
-    instance
-      .post(`${process.env.REACT_APP_API_URL}/auth/googleAuth`, {
-        code: response.code,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          authFunc(res);
-        }
-        const { data } = res;
-        dispatch(setNewGoogleUser({
-          email: data.email,
-          firstName: data.given_name ? data.given_name : 'New',
-          lastName: data.family_name ? data.family_name : 'User',
-        }));
-        dispatch(setContent(<CreatePasswordForm />));
-      });
-  },
-});
+  // eslint-disable-next-line no-undef
+  const googleClient = google.accounts.oauth2.initCodeClient({
+    client_id: process.env.REACT_APP_CLIENT_ID,
+    scope: ['profile', 'email', 'openid'].join(' '),
+    ux_mode: 'popup',
+    callback: (response) => {
+      instance
+        .post(`${process.env.REACT_APP_API_URL}/auth/googleAuth`, {
+          code: response.code,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            authFunc(res);
+          }
+          const { data } = res;
+          dispatch(setNewGoogleUser({
+            email: data.email,
+            firstName: data.given_name ? data.given_name : 'New',
+            lastName: data.family_name ? data.family_name : 'User',
+          }));
+          dispatch(setContent(<CreatePasswordForm />));
+        });
+    },
+  });
 
-const googleAuth = () => {
-  googleClient.requestCode();
-};
+  const googleAuth = () => {
+    googleClient.requestCode();
+  };
 
-return (
-  <Box
-    component="section"
-    sx={{
-      ...flexcenter,
-      ...container,
-    }}
-  >
-    <Typography
-      component="h1"
-      variant="h2"
-      sx={mainTitle}
-    >
-      Sign Up To eatly
-    </Typography>
+  return (
     <Box
+      component="section"
       sx={{
         ...flexcenter,
-        ...googleAppleBtnWrapper,
+        ...container,
       }}
     >
-      <Button
-        disableRipple
-        variant="contained"
-        onClick={googleAuth}
-        sx={googleAppleBtn}
+      <Typography
+        component="h1"
+        variant="h2"
+        sx={mainTitle}
       >
-        <GoogleSvgComponent />
-      </Button>
-      {/* <Button
+        Sign Up To eatly
+      </Typography>
+      <Box
+        sx={{
+          ...flexcenter,
+          ...googleAppleBtnWrapper,
+        }}
+      >
+        <Button
+          disableRipple
+          variant="contained"
+          onClick={googleAuth}
+          sx={googleAppleBtn}
+        >
+          <GoogleSvgComponent />
+        </Button>
+        {/* <Button
           disableRipple
           disabled
           variant="contained"
@@ -145,82 +141,82 @@ return (
         >
           <AppleIcon sx={appleIcon} />
         </Button> */}
-    </Box>
-    <Typography
-      variant="body1"
-      sx={legend}
-    >
-      OR
-    </Typography>
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
-    >
-      {({ isValid }) => (
-        <Form>
-          <Box
-            sx={{
-              ...flexcenter,
-              flexDirection: 'column',
-              ...inputsWrapper,
-            }}
-          >
-            <Input
-              type="text"
-              name="firstName"
-              id="registerFirstName"
-              label="First name"
-              placeholder="Enter your first name"
-              icon={<PersonSvg />}
-            />
-            <Input
-              type="text"
-              name="lastName"
-              id="registerLastName"
-              label="Last name"
-              placeholder="Enter your last name"
-              icon={<PersonSvg />}
-            />
-            <Input
-              error={registerError.message}
-              type="text"
-              name="email"
-              id="registerEmail"
-              label="E-mail"
-              placeholder="Enter your e-mail"
-              icon={<EmailIcon />}
-            />
-            <Input
-              error={registerError.password}
-              type="password"
-              name="password"
-              id="registerPassword"
-              label="Password"
-              placeholder="Сome up with a password"
-              icon={<LockIcon />}
-            />
-            <Button
-              disableRipple
-              variant="contained"
-              sx={signUpBtn}
-              type="submit"
-              disabled={!isValid}
+      </Box>
+      <Typography
+        variant="body1"
+        sx={legend}
+      >
+        OR
+      </Typography>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        {({ isValid }) => (
+          <Form>
+            <Box
+              sx={{
+                ...flexcenter,
+                flexDirection: 'column',
+                ...inputsWrapper,
+              }}
             >
-              Sign up
-            </Button>
-          </Box>
-          <Typography
-            sx={flexcenter}
-          >
-            Already Have An Account?
-            <Button onClick={handleOpenLogInForm} sx={signInLink}> Log In</Button>
-          </Typography>
-        </Form>
-      )}
-    </Formik>
-  </Box>
-);
+              <Input
+                type="text"
+                name="firstName"
+                id="registerFirstName"
+                label="First name"
+                placeholder="Enter your first name"
+                icon={<PersonSvg />}
+              />
+              <Input
+                type="text"
+                name="lastName"
+                id="registerLastName"
+                label="Last name"
+                placeholder="Enter your last name"
+                icon={<PersonSvg />}
+              />
+              <Input
+                error={registerError.message}
+                type="text"
+                name="email"
+                id="registerEmail"
+                label="E-mail"
+                placeholder="Enter your e-mail"
+                icon={<EmailIcon />}
+              />
+              <Input
+                error={registerError.password}
+                type="password"
+                name="password"
+                id="registerPassword"
+                label="Password"
+                placeholder="Сome up with a password"
+                icon={<LockIcon />}
+              />
+              <Button
+                disableRipple
+                variant="contained"
+                sx={signUpBtn}
+                type="submit"
+                disabled={!isValid}
+              >
+                Sign up
+              </Button>
+            </Box>
+            <Typography
+              sx={flexcenter}
+            >
+              Already Have An Account?
+              <Button onClick={handleOpenLogInForm} sx={signInLink}> Log In</Button>
+            </Typography>
+          </Form>
+        )}
+      </Formik>
+    </Box>
+  );
 };
 
 export default RegisterForm;
