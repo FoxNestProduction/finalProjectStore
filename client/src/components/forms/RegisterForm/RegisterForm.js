@@ -120,7 +120,6 @@ const RegisterForm = () => {
     googleClient.requestCode();
   };
 
-
   return (
     <Box
       component="section"

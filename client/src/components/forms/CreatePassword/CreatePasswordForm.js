@@ -54,7 +54,7 @@ const CreatePasswordForm = () => {
 
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
-      dispatch(getCartItemsFromServer());
+      dispatch(fetchCart());
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));
       console.error('Помилка реєстрації:', error);
