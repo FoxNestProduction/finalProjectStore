@@ -8,8 +8,7 @@ import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
 import { addNewReview, resetReviewState, searchReviews, setNewReview } from '../../redux/slices/reviewsSlice';
-import { TitleBtn, commentItem, commentItemSkeleton, commentList, container, flexCenter, titleContainer } from './styles';
-import Skeleton from '../../components/Skeleton/Skeleton';
+import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 
 const ReviewsPage = () => {
   const searchReview = useSelector((state) => state.reviews.search);
@@ -35,7 +34,6 @@ const ReviewsPage = () => {
   const prevDataRef = useRef();
   // прослуховування скрола для дозавантаження відгуків
   useEffect(() => {
-    console.log(reviews);
     const handleScroll = () => {
       const screenHeight = window.innerHeight;
       const containerRect = containerRef.current?.getBoundingClientRect();
@@ -52,7 +50,7 @@ const ReviewsPage = () => {
     } else {
       window.addEventListener('scroll', handleScroll);
     }
-  }, [isLoading, startPage, loadMore, searchReview, perPage, counScrollReview, reviews]);
+  }, [isLoading, startPage, loadMore, searchReview, perPage, counScrollReview]);
 
   // додавання і рендеринг нових відгуків, якщо виконуються умови
   useEffect(() => {
@@ -173,25 +171,7 @@ const ReviewsPage = () => {
           </Box>
         ))}
       </Box>
-      {/* {loading && (
-        <>
-          <Box
-            sx={commentItemSkeleton}
-          >
-            <Skeleton />
-          </Box>
-          <Box
-            sx={commentItemSkeleton}
-          >
-            <Skeleton />
-          </Box>
-          <Box
-            sx={commentItemSkeleton}
-          >
-            <Skeleton />
-          </Box>
-        </>
-      )} */}
+      {loading && <div>Loading...</div>}
       {error && <div>{error.statusText}</div>}
     </Container>
   );
