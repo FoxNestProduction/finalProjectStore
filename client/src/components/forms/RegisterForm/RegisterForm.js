@@ -75,6 +75,22 @@ const RegisterForm = () => {
     dispatch(createCart());
   };
 
+  const handleSubmit = async (values) => {
+    const newCustomer = {
+      ...values,
+      login: values.firstName + values.lastName,
+      isAdmin: false,
+    };
+
+    try {
+      const response = await instance.post('/customers', newCustomer);
+      authFunc(response.data);
+    } catch (error) {
+      dispatch(setRegistrationError(error.response.data));
+      console.error('Помилка реєстрації:', error.response.data);
+    }
+  };
+
   // eslint-disable-next-line no-undef
   const googleClient = google.accounts.oauth2.initCodeClient({
     client_id: process.env.REACT_APP_CLIENT_ID,
@@ -103,6 +119,7 @@ const RegisterForm = () => {
   const googleAuth = () => {
     googleClient.requestCode();
   };
+
 
   return (
     <Box
