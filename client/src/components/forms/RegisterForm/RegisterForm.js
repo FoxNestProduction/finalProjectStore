@@ -73,7 +73,7 @@ const RegisterForm = () => {
 
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     saveUserInfoToSessionStorage(user);
-    dispatch(getCartItemsFromServer());
+    // dispatch(getCartItemsFromServer());
   };
 
   const handleSubmit = async (values) => {

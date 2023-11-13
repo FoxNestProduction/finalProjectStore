@@ -83,7 +83,6 @@ const LoginForm = () => {
   const handleSubmit = async (values, actions) => {
     try {
       const response = await instance.post('/customers/login', values);
-<<<<<<< HEAD
       const { token } = response.data;
       const { user } = response.data;
       if (token) {
@@ -98,9 +97,7 @@ const LoginForm = () => {
         dispatch(fetchFavourites());
         handleShowAlert();
       }
-=======
       authFunc(response);
->>>>>>> dev
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));
       console.error('Помилка авторизації:', error);
