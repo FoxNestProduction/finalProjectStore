@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
@@ -38,6 +38,8 @@ const ProductCardItem = ({
   const dispatch = useDispatch();
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
   const { alert, handleCloseAlert, handleShowAlert } = useAlert();
+  const [clickedAdd, setClickedAdd] = useState(false);
+
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
@@ -45,17 +47,24 @@ const ProductCardItem = ({
 
   const handleAddToCart = (event) => {
     event.preventDefault();
-    const onGetOneProductComplete = (oneProduct) => {
+    setClickedAdd(true);
+    console.log(clickedAdd);
+    const onGetOneProductComplete = async (oneProduct) => {
       if (Object.keys(oneProduct).length !== 0) {
         const selectedItem = {
           product: { ...oneProduct },
           cartQuantity: 1,
         };
         if (isUserAuthorized) {
-          dispatch(addProductToCart(selectedItem.product._id));
+          await dispatch(addProductToCart(selectedItem.product._id));
         } else {
-          dispatch(addToCart(selectedItem));
+          await dispatch(addToCart(selectedItem));
         }
+        // handleShowAlert();
+        // setClickedAdd(false);
+
+        setClickedAdd(true);
+        console.log(clickedAdd);
       }
     };
 
@@ -65,6 +74,14 @@ const ProductCardItem = ({
       }
     });
   };
+
+  useEffect(() => {
+    // Відслідковуємо зміни у стані clickedAdd
+    if (clickedAdd) {
+      handleShowAlert();
+      setClickedAdd(false); // Оновлюємо стан після використання
+    }
+  }, [clickedAdd, handleShowAlert]);
 
   return (
     <>
@@ -117,7 +134,7 @@ const ProductCardItem = ({
         {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
-      { alert && (
+      { clickedAdd && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}
     </>
