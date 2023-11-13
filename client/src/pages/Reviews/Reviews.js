@@ -8,8 +8,7 @@ import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
 import { addNewReview, resetReviewState, searchReviews, setNewReview } from '../../redux/slices/reviewsSlice';
-import { TitleBtn, commentItem, commentItemSkeleton, commentList, container, flexCenter, titleContainer } from './styles';
-import Skeleton from '../../components/Skeleton/Skeleton';
+import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
 
 const ReviewsPage = () => {
   const searchReview = useSelector((state) => state.reviews.search);
@@ -162,35 +161,19 @@ const ReviewsPage = () => {
       </Box>
       <Box ref={containerRef} sx={commentList}>
         {reviews && reviews.map((item, index) => (
-          <Box
-            key={item._id}
-            data={item._id}
-            ref={cardRef.current[index]}
-            sx={commentItem}
-          >
-            <ReviewItem review={item} />
-          </Box>
+          item.customer && (
+            <Box
+              key={item._id}
+              data={item._id}
+              ref={cardRef.current[index]}
+              sx={commentItem}
+            >
+              <ReviewItem review={item} />
+            </Box>
+          )
         ))}
       </Box>
-      {loading && (
-        <>
-          <Box
-            sx={commentItemSkeleton}
-          >
-            <Skeleton />
-          </Box>
-          <Box
-            sx={commentItemSkeleton}
-          >
-            <Skeleton />
-          </Box>
-          <Box
-            sx={commentItemSkeleton}
-          >
-            <Skeleton />
-          </Box>
-        </>
-      )}
+      {loading && <div>Loading...</div>}
       {error && <div>{error.statusText}</div>}
     </Container>
   );

@@ -7,7 +7,7 @@ const cors = require('cors');
 const cookieSession = require('cookie-session');
 require('dotenv').config();
 
-const googleUser = require('./config/googleUser')
+const googleUser = require('./config/googleUser');
 
 const globalConfigs = require('./routes/globalConfigs');
 const customers = require('./routes/customers');
