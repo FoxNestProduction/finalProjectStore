@@ -39,12 +39,9 @@ import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionSt
 import { instance } from '../../../API/instance';
 import { fetchCart, updateCart } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
-<<<<<<< HEAD
 import useAlert from '../../../customHooks/useAlert';
 import CustomAlert from '../../Alert/Alert';
-=======
 import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
->>>>>>> dev
 
 const LoginForm = () => {
   const dispatch = useDispatch();

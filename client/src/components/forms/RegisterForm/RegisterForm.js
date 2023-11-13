@@ -85,7 +85,6 @@ const RegisterForm = () => {
 
     try {
       const response = await instance.post('/customers', newCustomer);
-<<<<<<< HEAD
       const { user, token } = response.data;
 
       dispatch(setIsRegistrationSuccessful(true));
@@ -103,9 +102,7 @@ const RegisterForm = () => {
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
       dispatch(createCart());
-=======
       authFunc(response.data);
->>>>>>> dev
     } catch (error) {
       dispatch(setRegistrationError(error.response.data));
       console.error('Помилка реєстрації:', error.response.data);
