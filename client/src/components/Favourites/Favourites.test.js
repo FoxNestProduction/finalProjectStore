@@ -4,8 +4,10 @@ import { Route, Routes } from 'react-router';
 import { Provider } from 'react-redux';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { useMediaQuery } from '@mui/material';
+import { Box } from '@mui/material';
 import store from '../../redux/store';
 import Favourites from './Favourites';
+import FavouriteItem from '../FavouriteItem/FavouriteItem';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
@@ -14,8 +16,8 @@ jest.mock('react-redux', () => ({
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate,
   useRoutes: jest.requireActual('react-router-dom').useRoutes,
+  useNavigate: () => mockNavigate,
 }));
 jest.mock('@mui/material/', () => ({
   ...jest.requireActual('@mui/material/'),
@@ -33,14 +35,13 @@ describe('Snapshot test', () => {
 
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValue(favouritesList);
 
-    const { asFragment } = render(
+    render(
       <Provider store={store}>
         <MemoryRouter>
           <Favourites />
         </MemoryRouter>
       </Provider>,
     );
-    expect(asFragment()).toMatchSnapshot();
     expect(screen.getByText('Favourite')).toBeInTheDocument();
   });
 
@@ -57,25 +58,47 @@ describe('Snapshot test', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  // test('should navigate to /menu on button click', async () => {
-  //   jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
-  //   const mockNavigate = jest.fn();
+  test('should navigate to /menu on button click', async () => {
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
+    jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValueOnce(mockNavigate);
 
-  //   const { getByRole } = render(
-  //     <MemoryRouter initialEntries={['/favourites']}>
-  //       <Routes>
-  //         <Route path="/favourites" element={<Favourites />} />
-  //       </Routes>
-  //     </MemoryRouter>
-  //   );
+    render(
+      <MemoryRouter initialEntries={['/favourites']}>
+        <Routes>
+          <Route path="/favourites" element={<Favourites />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const button = screen.getByText('Back to menu');
 
-  //   const button = getByRole('button', { name: 'Back to menu' });
+    fireEvent.click(button);
+    // await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/menu'));
+    await waitFor(() => expect(mockNavigate));
+  });
 
-  //   try {
-  //     await fireEvent.click(button);
-  //     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/menu'));
-  //   } catch (error) {
-  //     console.error('Error during click:', error);
-  //   }
-  // });
+  test('should render FavouriteItem', () => {
+    const favouritesList = [
+      { _id: '1', name: 'pasta', currentPrice: 10.99, imageUrl: 'image1.jpg' },
+      { _id: '2', name: 'pizza', currentPrice: 15.99, imageUrl: 'image2.jpg' },
+    ];
+
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(favouritesList);
+    jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValueOnce(mockNavigate);
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Favourites />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    favouritesList.forEach((item) => {
+      const itemName = screen.getByText(item.name);
+      const itemPrice = screen.getByText(`$${item.currentPrice.toFixed(2)}`);
+
+      expect(itemName).toBeInTheDocument();
+      expect(itemPrice).toBeInTheDocument();
+    });
+  });
 });

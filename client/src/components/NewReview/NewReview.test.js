@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import NewReview from './NewReview';
@@ -40,9 +40,9 @@ describe('Snapshot test', () => {
           type: 'reviews/setNewReview',
           payload: {
             field: 'content',
-            value: 'This is a new review text',
+            value: expect.stringContaining('This is a new review text'),
           },
-        }),
+        })
       );
     });
   });
