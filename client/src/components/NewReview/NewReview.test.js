@@ -62,8 +62,6 @@ describe('Snapshot test', () => {
     const valueRating = inputElement.value;
 
     userEvent.click(inputElement);
-    console.log(valueRating);
-    console.log(textField.value);
   
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledWith({

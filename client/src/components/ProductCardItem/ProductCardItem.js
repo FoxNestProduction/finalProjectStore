@@ -130,7 +130,7 @@ ProductCardItem.defaultProps = {
   currentPrice: '',
   imageUrl: '',
   name: '',
-  rating: '',
+  rating: null,
   _id: '',
   isHealthy: null,
   isTrending: null,
