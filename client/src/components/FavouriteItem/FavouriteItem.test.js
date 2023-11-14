@@ -27,7 +27,7 @@ describe('Snapshot test', () => {
     const { asFragment } = render(
       <MemoryRouter>
         <FavouriteItem product={product} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -39,9 +39,9 @@ describe('Snapshot test', () => {
     render(
       <MemoryRouter>
         <FavouriteItem product={product} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-      
+
     const activeButton = screen.getByRole('button', { name: 'Add To Cart' });
     fireEvent.click(activeButton);
     expect(mockDispatch).toHaveBeenCalledWith({

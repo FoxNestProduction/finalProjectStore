@@ -57,9 +57,8 @@ describe('Snapshot test', () => {
     userEvent.type(textField, 'This is a new review text');
 
     const ratingLabel = screen.getByText('1 Star');
-    const ratingInput = ratingLabel.closest('label');
+    const ratingInput = ratingLabel.parentNode;
     const inputElement = ratingInput.nextElementSibling;
-    const valueRating = inputElement.value;
 
     userEvent.click(inputElement);
 

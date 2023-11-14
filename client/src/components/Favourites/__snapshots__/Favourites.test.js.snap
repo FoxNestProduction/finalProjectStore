@@ -118,7 +118,7 @@ exports[`Snapshot test should Favourites render, when arr not empty 1`] = `
                 <p
                   class="MuiTypography-root MuiTypography-body1 css-yzrrk5-MuiTypography-root"
                 >
-                  42min
+                  32min
                 </p>
                 <svg
                   aria-hidden="true"
@@ -239,7 +239,7 @@ exports[`Snapshot test should Favourites render, when arr not empty 1`] = `
                 <p
                   class="MuiTypography-root MuiTypography-body1 css-yzrrk5-MuiTypography-root"
                 >
-                  49min
+                  29min
                 </p>
                 <svg
                   aria-hidden="true"
