@@ -1,10 +1,10 @@
 import React from 'react';
-import { MemoryRouter }  from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { Route, Routes } from 'react-router';
 import { Provider } from 'react-redux';
-import store from '../../redux/store';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { useMediaQuery } from '@mui/material';
+import store from '../../redux/store';
 import Favourites from './Favourites';
 
 jest.mock('react-redux', () => ({
@@ -23,7 +23,7 @@ jest.mock('@mui/material/', () => ({
 
 describe('Snapshot test', () => {
   test('should Favourites render, when arr not empty', () => {
-    useMediaQuery.mockReturnValue(true); 
+    useMediaQuery.mockReturnValue(true);
 
     const favouritesList = [
       { _id: '1', name: 'pasta', currentPrice: 10.99, imageUrl: 'image1.jpg' },
@@ -37,7 +37,7 @@ describe('Snapshot test', () => {
         <MemoryRouter>
           <Favourites />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(asFragment()).toMatchSnapshot();
     expect(getByText('Favourite')).toBeInTheDocument();
@@ -51,7 +51,7 @@ describe('Snapshot test', () => {
         <Routes>
           <Route path="/favourites" element={<Favourites />} />
         </Routes>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(asFragment()).toMatchSnapshot();
   });

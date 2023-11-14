@@ -1,13 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { render, fireEvent, waitFor  } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import FavouriteIcon from './FavouriteIcon';
 import { setIsFavourite, addToFavourites, deleteFromFavourites } from '../../redux/slices/favouriteSlice';
 
-
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
-  useDispatch: jest.fn()
+  useDispatch: jest.fn(),
 }));
 
 describe('Snapshot test', () => {
@@ -23,13 +22,13 @@ describe('Snapshot test', () => {
 
   test('should FavouriteIcon render when not favourite', () => {
     useSelector.mockReturnValueOnce(false);
-    const { asFragment } = render(<FavouriteIcon id={'1'} ishovered={false} isactive={false} />);
+    const { asFragment } = render(<FavouriteIcon id="1" ishovered={false} isactive={false} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('renders FavoriteIcon when favourite', () => {
     useSelector.mockReturnValueOnce(true);
-    const { asFragment }  = render(<FavouriteIcon id={'1'} ishovered={false} isactive={false} />);
+    const { asFragment } = render(<FavouriteIcon id="1" ishovered={false} isactive={false} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -37,7 +36,7 @@ describe('Snapshot test', () => {
     const mockDispatch = jest.fn();
     useDispatch.mockReturnValue(mockDispatch);
 
-    const { getByRole } = render(<FavouriteIcon id={'1'} ishovered={false} isactive={false} />);
+    const { getByRole } = render(<FavouriteIcon id="1" ishovered={false} isactive={false} />);
     const favouriteIcon = getByRole('button');
 
     fireEvent.click(favouriteIcon);
@@ -49,7 +48,7 @@ describe('Snapshot test', () => {
     const dispatchMock = jest.fn();
     useDispatchMock.mockReturnValueOnce(dispatchMock);
 
-    const { getByRole } = render(<FavouriteIcon id={'1'} ishovered={true} isactive={true} />);
+    const { getByRole } = render(<FavouriteIcon id="1" ishovered isactive />);
     const favouriteIcon = getByRole('button');
 
     fireEvent.click(favouriteIcon);

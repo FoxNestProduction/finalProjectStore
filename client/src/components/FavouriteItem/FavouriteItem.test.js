@@ -52,5 +52,5 @@ describe('Snapshot test', () => {
         cartQuantity: 1,
       },
     });
-  })
+  });
 });

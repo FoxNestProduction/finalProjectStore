@@ -4,7 +4,6 @@ import SuccessfulLetter from './SuccessfulLetter';
 
 describe('Snapshot test', () => {
   test('should SuccessfulLetter render', () => {
-
     const { asFragment } = render(<SuccessfulLetter />);
     expect(asFragment()).toMatchSnapshot();
   });

@@ -6,7 +6,7 @@ import NewReview from './NewReview';
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
-  useDispatch: jest.fn()
+  useDispatch: jest.fn(),
 }));
 
 describe('Snapshot test', () => {
@@ -31,8 +31,8 @@ describe('Snapshot test', () => {
 
     const { getByLabelText } = render(<NewReview />);
 
-  const textField = getByLabelText('leave your feedback about the service');
-  userEvent.type(textField, 'This is a new review text');
+    const textField = getByLabelText('leave your feedback about the service');
+    userEvent.type(textField, 'This is a new review text');
 
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledWith(
@@ -42,7 +42,7 @@ describe('Snapshot test', () => {
             field: 'content',
             value: 'This is a new review text',
           },
-        })
+        }),
       );
     });
   });
@@ -50,7 +50,7 @@ describe('Snapshot test', () => {
   test('should update state on rating change', async () => {
     const mockDispatch = jest.fn();
     useDispatch.mockReturnValue(mockDispatch);
-  
+
     const { getByText, getByLabelText } = render(<NewReview />);
 
     const textField = getByLabelText('leave your feedback about the service');
@@ -62,7 +62,7 @@ describe('Snapshot test', () => {
     const valueRating = inputElement.value;
 
     userEvent.click(inputElement);
-  
+
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledWith({
         type: 'reviews/setNewReview',
