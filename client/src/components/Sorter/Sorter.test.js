@@ -38,7 +38,7 @@ describe('Snapshot test', () => {
   });
 
   test('Sorter handles select change and dispatches actions', async () => {
-    const { findByLabelText, getByText } = render(<Component type="products" />);
+    render(<Component type="products" />);
     const sortSelect = await screen.findByLabelText('Sort by');
 
     // Відкриваємо випадаючий список
