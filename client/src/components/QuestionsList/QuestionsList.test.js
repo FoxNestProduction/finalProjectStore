@@ -11,7 +11,9 @@ describe('QuestionsList Component', () => {
   test('toggles answer visibility when clicking on question', () => {
     render(<QuestionsList />);
     const questionElement = screen.getByText('How does your food delivery service work?');
+    /* eslint-disable testing-library/no-node-access */
     const ulElement = questionElement.parentNode;
+    /* eslint-disable testing-library/no-node-access */
     const buttonElement = ulElement.nextSibling;
 
     fireEvent.click(buttonElement);

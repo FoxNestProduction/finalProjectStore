@@ -57,7 +57,9 @@ describe('Snapshot test', () => {
     userEvent.type(textField, 'This is a new review text');
 
     const ratingLabel = screen.getByText('1 Star');
+    /* eslint-disable testing-library/no-node-access */
     const ratingInput = ratingLabel.parentNode;
+    /* eslint-disable testing-library/no-node-access */
     const inputElement = ratingInput.nextElementSibling;
 
     userEvent.click(inputElement);
