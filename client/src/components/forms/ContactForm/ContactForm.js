@@ -16,7 +16,6 @@ import Input from '../../inputs/Input/Input';
 import Textarea from '../../inputs/Textarea/Textarea';
 import OneLoopArrowSvg from '../../../assets/svgComponents/OneLoopArrowSvg';
 import { instance } from '../../../API/instance';
-import useGetAPI from '../../../customHooks/useGetAPI';
 
 const ContactForm = () => {
   const [messageReceived, setMessageReceived] = useState(false);

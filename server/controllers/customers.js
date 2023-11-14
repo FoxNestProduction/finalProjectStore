@@ -227,7 +227,11 @@ exports.editCustomerInfo = (req, res) => {
         { $set: updatedCustomer },
         { new: true }
       )
-        .then(customer => res.json(customer))
+        .then(customer => {
+          const userWithoutPassword = JSON.parse(JSON.stringify(customer));
+          delete userWithoutPassword.password;
+          res.json(userWithoutPassword);
+        })
         .catch(err =>
           res.status(400).json({
             message: `Error happened on server: "${err}" `

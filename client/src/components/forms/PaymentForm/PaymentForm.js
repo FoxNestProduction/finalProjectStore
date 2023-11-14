@@ -15,7 +15,6 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Input from '../../inputs/Input/Input';
 import { subtitle, input, paymentSystemsWrapper, imgVisa } from './styles';
 import CheckoutActions from '../CheckoutForm/CheckoutActions';
-import { setConfirmedOrder } from '../../../redux/slices/orderSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
@@ -26,30 +25,30 @@ const PaymentForm = () => {
   const navigate = useNavigate();
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user, shallowEqual);
-  const orderInfo = useSelector((state) => state.order.orderInfo, shallowEqual);
+  const order = useSelector((state) => state.order.order, shallowEqual);
   const dispatch = useDispatch();
 
   const initialValues = {
-    name: isUserAuthorized ? `${user.firstName} ${user.lastName}` : `${orderInfo.name}`,
+    name: isUserAuthorized ? `${user.firstName} ${user.lastName}` : `${order.name}`,
     cardNumber: '0000 0000 0000 0000',
     expiryDate: '03/25',
     cvv: '123',
   };
 
   const handleContinue = async (values, actions) => {
-    try {
-      const response = await instance.post('/orders', orderInfo);
-      console.log(response);
-      dispatch(setConfirmedOrder(response.data.order));
-      removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-      dispatch(resetCart());
-      if (isUserAuthorized && user) {
-        saveUserInfoToSessionStorage(user);
-      }
-      navigate('/order-confirmation');
-    } catch (err) {
-      console.log('Error placing new order: ', err);
-    }
+    // try {
+    //   const response = await instance.post('/orders', orderInfo);
+    //   console.log(response);
+    //   dispatch(setConfirmedOrder(response.data.order));
+    //   removeDataFromSessionStorage(CHECKOUT_SS_KEY);
+    //   dispatch(resetCart());
+    //   if (isUserAuthorized && user) {
+    //     saveUserInfoToSessionStorage(user);
+    //   }
+    navigate('/order-confirmation');
+    // } catch (err) {
+    //   console.log('Error placing new order: ', err);
+    // }
   };
 
   return (
