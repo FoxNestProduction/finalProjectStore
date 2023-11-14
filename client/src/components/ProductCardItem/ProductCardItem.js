@@ -46,7 +46,6 @@ const ProductCardItem = ({
   };
 
   useEffect(() => {
-    console.log(clickedAdd);
     if (clickedAdd) {
       handleShowAlert();
       setTimeout(() => {

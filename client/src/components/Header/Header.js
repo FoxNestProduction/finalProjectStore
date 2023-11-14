@@ -53,25 +53,20 @@ const Header = () => {
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
-  const { alert, handleCloseAlert } = useAlert();
-  const [registered, setRegistered] = useState(false);
-  const [authorized, setAuthorized] = useState(false);
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+
+  const [authorizedAlert, setAuthorizedAlert] = useState(false);
+  const [logOutdAlert, setLogOutdAlert] = useState(false);
 
   useEffect(() => {
-    if (isRegistered) {
-      setRegistered(true);
-      setTimeout(() => {
-        setRegistered(false);
-      }, 4000);
-    }
-
     if (isUserAuthorized) {
-      setAuthorized(true);
-      setTimeout(() => {
-        setAuthorized(false);
-      }, 4000);
+      if (!isRegistered) {
+        setAuthorizedAlert(true);
+        setTimeout(() => {
+          setAuthorizedAlert(false);
+        }, 4000);
+      }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuthorized, isRegistered]);
 
   const dispatch = useDispatch();
@@ -106,6 +101,13 @@ const Header = () => {
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     dispatch(resetCardStates());
 
+    handleShowAlert();
+    setLogOutdAlert(true);
+    setTimeout(() => {
+      handleCloseAlert();
+      setLogOutdAlert(false);
+    }, 4000);
+
     // await window.open(
     //   `${process.env.REACT_APP_API_URL}/auth/logout`,
     //   '_self',
@@ -126,12 +128,13 @@ const Header = () => {
 
   return (
     <>
-      {registered && isRegistered && alert && (
-      <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
-      )}
-      {authorized && isUserAuthorized && alert && (
-      <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Welcome back!" />
-      )}
+      {(isRegistered || authorizedAlert || logOutdAlert) && alert ? (
+        <CustomAlert
+          type="success"
+          handleCloseAlert={handleCloseAlert}
+          content={isRegistered ? 'Your registration was successful!' : (logOutdAlert ? 'See you soon!' : 'Welcome back!')}
+        />
+      ) : null}
       <ElevationScroll>
         <AppBar
           position="sticky"
