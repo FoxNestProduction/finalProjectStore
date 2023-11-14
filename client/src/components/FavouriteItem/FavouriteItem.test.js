@@ -1,16 +1,11 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { screen, render, fireEvent } from '@testing-library/react';
 import FavouriteItem from './FavouriteItem';
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
   useSelector: jest.fn(),
-}));
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: jest.fn(),
-  Link: ({ to, children }) => <a href={to}>{children}</a>,
 }));
 
 describe('Snapshot test', () => {
@@ -29,7 +24,11 @@ describe('Snapshot test', () => {
   };
 
   test('should FavouriteItem render', () => {
-    const { asFragment } = render(<FavouriteItem product={product} />);
+    const { asFragment } = render(
+      <MemoryRouter>
+        <FavouriteItem product={product} />
+      </MemoryRouter>
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -37,7 +36,12 @@ describe('Snapshot test', () => {
     const useDispatchMock = jest.spyOn(require('react-redux'), 'useDispatch');
     useDispatchMock.mockReturnValue(mockDispatch);
 
-    render(<FavouriteItem product={product} />);
+    render(
+      <MemoryRouter>
+        <FavouriteItem product={product} />
+      </MemoryRouter>
+    );
+      
     const activeButton = screen.getByRole('button', { name: 'Add To Cart' });
     fireEvent.click(activeButton);
     expect(mockDispatch).toHaveBeenCalledWith({

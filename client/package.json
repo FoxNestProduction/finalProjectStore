@@ -67,6 +67,7 @@
       "no-nested-ternary": "off",
       "no-console": "off",
       "no-plusplus": "off",
+      "global-require": 0,
       "no-underscore-dangle": [
         "error",
         {

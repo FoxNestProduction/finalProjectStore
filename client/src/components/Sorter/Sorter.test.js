@@ -18,7 +18,7 @@ describe('Snapshot test', () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
-  
+
   test('Sorter handles select change and dispatches actions', async () => {
     const { findByLabelText, getByText } = render(<Component type="partners" />);
     const sortSelect = await screen.findByLabelText('Sort by');
