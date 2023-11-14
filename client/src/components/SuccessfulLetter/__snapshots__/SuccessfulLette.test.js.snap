@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test should SuccessfulLetter render 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-5nl6tb"
+  >
+    <div
+      class="MuiBox-root css-0"
+    >
+      <img
+        alt="send mail"
+        src="./img/sendMail.svg"
+      />
+    </div>
+    <h3
+      class="MuiTypography-root MuiTypography-h3 css-1biy274-MuiTypography-root"
+    >
+      An email with a link has been sent to your email
+    </h3>
+    <span
+      class="MuiTypography-root MuiTypography-body3 css-37jdci-MuiTypography-root"
+    >
+      Open this email and click on the link to change your password
+    </span>
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-7jadwd-MuiTypography-root"
+    >
+      If you did not receive the message, check the spam folder and whether the email address is correct and try to send the request again.
+    </p>
+    <span
+      class="MuiTypography-root MuiTypography-body5 css-1kbbegv-MuiTypography-root"
+    >
+      The link will only be active for 15 minutes ...
+    </span>
+  </div>
+</DocumentFragment>
+`;

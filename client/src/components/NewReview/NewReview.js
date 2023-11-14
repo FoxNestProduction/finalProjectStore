@@ -33,7 +33,7 @@ const NewReview = () => {
         <Typography component="legend">You can rate the service</Typography>
         <Rating
           name="simple-controlled"
-          label="You can rate the service"
+          label="You can rate our service"
           value={rating}
           onChange={(event, newValue) => {
             dispatch(setNewReview({ field: 'rating', value: newValue }));
