@@ -1,5 +1,5 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, useNavigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router';
 import { Provider } from 'react-redux';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
@@ -56,7 +56,7 @@ describe('Snapshot test', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should navigate to /menu on button click', () => {
+  test('should navigate to /menu on button click', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
     jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValueOnce(mockNavigate);
 
@@ -71,7 +71,6 @@ describe('Snapshot test', () => {
 
     fireEvent.click(button);
     // await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/menu'));
-    expect(mockNavigate);
   });
 
   test('should render FavouriteItem', () => {

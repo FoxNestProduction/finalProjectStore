@@ -1,8 +1,8 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+
 import configureStore from 'redux-mock-store';
 import ReviewItem from './ReviewItem';
 
@@ -22,26 +22,24 @@ describe('ReviewItem component', () => {
   const store = mockStore();
 
   test('should render ReviewItem', () => {
-
     const { asFragment } = render(
       <Provider store={store}>
         <MemoryRouter>
           <ReviewItem review={review} index={0} />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render ReviewItem with correct data', () => {
-    
     render(
       <Provider store={store}>
         <MemoryRouter>
           <ReviewItem review={review} index={0} />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText('Doe John')).toBeInTheDocument();
