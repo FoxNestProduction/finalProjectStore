@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import Modal from './Modal';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import Modal from './Modal';
 
 const mockStore = configureStore([]);
 
@@ -22,11 +22,10 @@ describe('Modal Component', () => {
     const { asFragment } = render(
       <Provider store={store}>
         <Modal />
-      </Provider>
+      </Provider>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
-
 
   // test('handles button click', async () => {
   //   render(
@@ -34,7 +33,7 @@ describe('Modal Component', () => {
   //       <Modal open={true} />
   //     </Provider>
   //   );
-    
+
   //   const closeButton = screen.getByText('Close');
   //   fireEvent.click(closeButton);
   //   await waitFor(() => {
@@ -43,5 +42,3 @@ describe('Modal Component', () => {
   //   });
   // });
 });
-
-
