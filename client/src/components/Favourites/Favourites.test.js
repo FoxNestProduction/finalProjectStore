@@ -3,11 +3,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { Route, Routes } from 'react-router';
 import { Provider } from 'react-redux';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
-import { useMediaQuery } from '@mui/material';
-import { Box } from '@mui/material';
+import { useMediaQuery, Box } from '@mui/material';
 import store from '../../redux/store';
 import Favourites from './Favourites';
-import FavouriteItem from '../FavouriteItem/FavouriteItem';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
@@ -58,7 +56,7 @@ describe('Snapshot test', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should navigate to /menu on button click', async () => {
+  test('should navigate to /menu on button click', () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
     jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValueOnce(mockNavigate);
 
@@ -67,13 +65,13 @@ describe('Snapshot test', () => {
         <Routes>
           <Route path="/favourites" element={<Favourites />} />
         </Routes>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     const button = screen.getByText('Back to menu');
 
     fireEvent.click(button);
     // await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/menu'));
-    await waitFor(() => expect(mockNavigate));
+    expect(mockNavigate);
   });
 
   test('should render FavouriteItem', () => {

@@ -42,7 +42,7 @@ describe('Snapshot test', () => {
             field: 'content',
             value: expect.stringContaining('This is a new review text'),
           },
-        })
+        }),
       );
     });
   });
