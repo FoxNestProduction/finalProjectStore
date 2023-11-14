@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 import FavouriteItem from './FavouriteItem';
 
 jest.mock('react-redux', () => ({
@@ -37,8 +37,8 @@ describe('Snapshot test', () => {
     const useDispatchMock = jest.spyOn(require('react-redux'), 'useDispatch');
     useDispatchMock.mockReturnValue(mockDispatch);
 
-    const { getByRole } = render(<FavouriteItem product={product} />);
-    const activeButton = getByRole('button', { name: 'Add To Cart' });
+    render(<FavouriteItem product={product} />);
+    const activeButton = screen.getByRole('button', { name: 'Add To Cart' });
     fireEvent.click(activeButton);
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'cart/addToCart',

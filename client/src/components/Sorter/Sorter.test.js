@@ -18,9 +18,7 @@ describe('Snapshot test', () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
-});
-
-describe('Sorter Component by partners', () => {
+  
   test('Sorter handles select change and dispatches actions', async () => {
     const { findByLabelText, getByText } = render(<Component type="partners" />);
     const sortSelect = await screen.findByLabelText('Sort by');
@@ -38,8 +36,7 @@ describe('Sorter Component by partners', () => {
     const optionDefault = screen.getByText('Default');
     fireEvent.click(optionDefault);
   });
-});
-describe('Sorter Component by products', () => {
+
   test('Sorter handles select change and dispatches actions', async () => {
     const { findByLabelText, getByText } = render(<Component type="products" />);
     const sortSelect = await screen.findByLabelText('Sort by');

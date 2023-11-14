@@ -29,9 +29,9 @@ describe('Snapshot test', () => {
     const mockDispatch = jest.fn();
     useDispatch.mockReturnValue(mockDispatch);
 
-    const { getByLabelText } = render(<NewReview />);
+    render(<NewReview />);
 
-    const textField = getByLabelText('leave your feedback about the service');
+    const textField = screen.getByLabelText('leave your feedback about the service');
     userEvent.type(textField, 'This is a new review text');
 
     await waitFor(() => {
@@ -51,9 +51,9 @@ describe('Snapshot test', () => {
     const mockDispatch = jest.fn();
     useDispatch.mockReturnValue(mockDispatch);
 
-    const { getByText, getByLabelText } = render(<NewReview />);
+    render(<NewReview />);
 
-    const textField = getByLabelText('leave your feedback about the service');
+    const textField = screen.getByLabelText('leave your feedback about the service');
     userEvent.type(textField, 'This is a new review text');
 
     const ratingLabel = screen.getByText('1 Star');

@@ -2,7 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { Route, Routes } from 'react-router';
 import { Provider } from 'react-redux';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { useMediaQuery } from '@mui/material';
 import store from '../../redux/store';
 import Favourites from './Favourites';
@@ -32,7 +32,7 @@ describe('Snapshot test', () => {
 
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValue(favouritesList);
 
-    const { asFragment, getByText } = render(
+    const { asFragment } = render(
       <Provider store={store}>
         <MemoryRouter>
           <Favourites />
@@ -40,13 +40,13 @@ describe('Snapshot test', () => {
       </Provider>,
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(getByText('Favourite')).toBeInTheDocument();
+    expect(screen.getByText('Favourite')).toBeInTheDocument();
   });
 
   test('should Favourites render, when arr is empty', () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
 
-    const { asFragment, getByText } = render(
+    const { asFragment } = render(
       <MemoryRouter initialEntries={['/favourites']}>
         <Routes>
           <Route path="/favourites" element={<Favourites />} />

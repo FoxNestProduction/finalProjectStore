@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import FavouriteIcon from './FavouriteIcon';
 import { setIsFavourite, addToFavourites, deleteFromFavourites } from '../../redux/slices/favouriteSlice';
 
@@ -36,8 +36,8 @@ describe('Snapshot test', () => {
     const mockDispatch = jest.fn();
     useDispatch.mockReturnValue(mockDispatch);
 
-    const { getByRole } = render(<FavouriteIcon id="1" ishovered={false} isactive={false} />);
-    const favouriteIcon = getByRole('button');
+    render(<FavouriteIcon id="1" ishovered={false} isactive={false} />);
+    const favouriteIcon = screen.getByRole('button');
 
     fireEvent.click(favouriteIcon);
 
@@ -48,8 +48,8 @@ describe('Snapshot test', () => {
     const dispatchMock = jest.fn();
     useDispatchMock.mockReturnValueOnce(dispatchMock);
 
-    const { getByRole } = render(<FavouriteIcon id="1" ishovered isactive />);
-    const favouriteIcon = getByRole('button');
+    render(<FavouriteIcon id="1" ishovered isactive />);
+    const favouriteIcon = screen.getByRole('button');
 
     fireEvent.click(favouriteIcon);
 
