@@ -8,6 +8,11 @@ jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
 }));
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+  useRoutes: jest.requireActual('react-router-dom').useRoutes,
+}));
 
 describe('Snapshot test', () => {
   // test('should Favourites render, when arr not empty', () => {
@@ -43,36 +48,25 @@ describe('Snapshot test', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  // test('should navigate to /menu on button click', async () => {
-  //   jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
-  //   const mockNavigate = jest.fn();
-  //   jest.mock('react-router-dom', () => ({
-  //     ...jest.requireActual('react-router-dom'),
-  //     useNavigate: () => mockNavigate,
-  //     useRoutes: jest.requireActual('react-router-dom').useRoutes,
-  //   }));
+  test('should navigate to /menu on button click', async () => {
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
+    const mockNavigate = jest.fn();
 
-  //   const { getByRole } = render(
-  //     <Router>
-  //       <Routes>
-  //         <Route
-  //           path="/"
-  //           element={<Favourites navigate={mockNavigate} />}
-  //         />
-  //       </Routes>
-  //     </Router>
-  //   );
+    const { getByRole } = render(
+      <MemoryRouter initialEntries={['/favourites']}>
+        <Routes>
+          <Route path="/favourites" element={<Favourites />} />
+        </Routes>
+      </MemoryRouter>
+    );
 
-  //   const button = getByRole('button', { name: 'Back to menu' });
-  //   console.log('Button:', button);
+    const button = getByRole('button', { name: 'Back to menu' });
 
-  //   try {
-  //     await fireEvent.click(button);
-  //     await waitFor(() => {
-  //       expect(mockNavigate).toHaveBeenCalledWith('/menu');
-  //     });
-  //   } catch (error) {
-  //     console.error('Error during click:', error);
-  //   }
-  // });
+    try {
+      await fireEvent.click(button);
+      await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/menu'));
+    } catch (error) {
+      console.error('Error during click:', error);
+    }
+  });
 });
