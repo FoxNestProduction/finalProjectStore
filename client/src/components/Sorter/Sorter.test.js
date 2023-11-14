@@ -19,8 +19,8 @@ describe('Snapshot test', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('Sorter handles select change and dispatches actions', async () => {
-    const { findByLabelText, getByText } = render(<Component type="partners" />);
+  test('Sorter handles select change and dispatches actions for partners', async () => {
+    render(<Component type="partners" />);
     const sortSelect = await screen.findByLabelText('Sort by');
 
     // Відкриваємо випадаючий список
@@ -37,7 +37,7 @@ describe('Snapshot test', () => {
     fireEvent.click(optionDefault);
   });
 
-  test('Sorter handles select change and dispatches actions', async () => {
+  test('Sorter handles select change and dispatches actions for products', async () => {
     render(<Component type="products" />);
     const sortSelect = await screen.findByLabelText('Sort by');
 
