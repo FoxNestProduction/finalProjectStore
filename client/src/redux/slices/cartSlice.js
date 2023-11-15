@@ -67,13 +67,12 @@ export const fetchCartAfterAuthorization = createAsyncThunk(
   'caer/fetchCartAfterAuthorization',
   async (_, { rejectWithValue, dispatch, getState }) => {
     const cartProducts = getState().cart.cart.products;
-    const mark = getState().cart.authorizationReqInProgress;
     try {
       const { data, status } = await instance.get('/cart');
       if (status === 200 && data === null) {
         dispatch(createCart());
       }
-      if (cartProducts.length) {
+      if (cartProducts.length && data !== null) {
         // eslint-disable-next-line no-use-before-define
         dispatch(setCart(data.products));
         const newCartProducts = getState().cart.cart.products;
