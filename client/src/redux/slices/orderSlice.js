@@ -8,7 +8,7 @@ export const putNewOrder = createAsyncThunk(
     try {
       const response = await instance.post('/orders', newOrder);
       console.log(response.data.order);
-      return response.data.order;
+      return response;
     } catch (err) {
       console.log(err);
       return rejectWithValue("Oops! We couldn't process your order. Please check your details and try again. If the issue persists, contact support.");
@@ -18,6 +18,7 @@ export const putNewOrder = createAsyncThunk(
 
 const initialState = {
   order: {},
+  pendingOrderInfo: {},
   loading: false,
   error: null,
 };
@@ -25,15 +26,22 @@ const initialState = {
 const orderSlice = createSlice({
   name: 'order',
   initialState,
+  reducers: {
+    setPendingOrderInfo(state, { payload }) {
+      state.pendingOrderInfo = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(putNewOrder.pending, setLoading)
-      .addCase(putNewOrder.fulfilled, (state, action) => {
+      .addCase(putNewOrder.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.order = action.payload;
+        state.order = payload.data.order;
       })
       .addCase(putNewOrder.rejected, setError);
   },
 });
+
+export const { setPendingOrderInfo } = orderSlice.actions;
 
 export default orderSlice.reducer;

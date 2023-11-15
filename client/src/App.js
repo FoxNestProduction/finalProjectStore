@@ -14,6 +14,8 @@ import { productsPerPageMap, topPartnersQtyMap, topProductsQtyMap } from './cons
 import { setFilterParams } from './redux/slices/filterSlice';
 
 import styles from './styles.module.scss';
+import { getDataFromSessionStorage } from './utils/sessionStorageHelpers';
+import { CHECKOUT_SS_KEY } from './constants/constants';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,7 +29,8 @@ const App = () => {
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   useEffect(() => {
-    if (isUserAuthorized && user) {
+    const checkoutValues = getDataFromSessionStorage(CHECKOUT_SS_KEY);
+    if (isUserAuthorized && user && !checkoutValues) {
       saveUserInfoToSessionStorage(user);
     }
   }, [isUserAuthorized, user]);

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable no-undef */
 import React from 'react';
 import { Form, Formik } from 'formik';
@@ -12,43 +11,50 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { useLocation } from 'react-router-dom';
 import Input from '../../inputs/Input/Input';
 import { subtitle, input, paymentSystemsWrapper, imgVisa } from './styles';
 import CheckoutActions from '../CheckoutForm/CheckoutActions';
+import { putNewOrder } from '../../../redux/slices/orderSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
-import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
-import { instance } from '../../../API/instance';
 import { resetCart } from '../../../redux/slices/cartSlice';
+import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 
 const PaymentForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  console.log(location);
+
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user, shallowEqual);
-  const order = useSelector((state) => state.order.order, shallowEqual);
-  const dispatch = useDispatch();
+  const pendingOrderInfo = useSelector((state) => state.order.pendingOrderInfo, shallowEqual);
+  const orderLoading = useSelector((state) => state.order.loading);
+  const orderError = useSelector((state) => state.order.error);
 
   const initialValues = {
-    name: isUserAuthorized ? `${user.firstName} ${user.lastName}` : `${order.name}`,
+    name: isUserAuthorized ? `${user.firstName} ${user.lastName}` : `${pendingOrderInfo.name}`,
     cardNumber: '0000 0000 0000 0000',
     expiryDate: '03/25',
     cvv: '123',
   };
 
-  const handleContinue = async (values, actions) => {
-    // try {
-    //   const response = await instance.post('/orders', orderInfo);
-    //   console.log(response);
-    //   dispatch(setConfirmedOrder(response.data.order));
-    //   removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-    //   dispatch(resetCart());
-    //   if (isUserAuthorized && user) {
-    //     saveUserInfoToSessionStorage(user);
-    //   }
-    navigate('/order-confirmation');
-    // } catch (err) {
-    //   console.log('Error placing new order: ', err);
-    // }
+  const handleContinue = async (values) => {
+    const newOrder = {
+      ...pendingOrderInfo,
+      status: 'new_order/paid',
+    };
+    const response = await dispatch(putNewOrder(newOrder)).unwrap();
+    if (response.status === 200) {
+      removeDataFromSessionStorage(CHECKOUT_SS_KEY);
+      dispatch(resetCart());
+      if (isUserAuthorized && user) {
+        saveUserInfoToSessionStorage(user);
+      }
+      navigate('/order-confirmation');
+    }
   };
 
   return (
@@ -171,7 +177,15 @@ const PaymentForm = () => {
             </Box>
 
           </Stack>
-          <CheckoutActions isValid={isValid} />
+          {orderError && (
+            <Box>
+              <Typography variant="body1" component="p" sx={{ color: 'text.error', mt: '15px', mb: '-15px' }}>
+                {orderError}
+              </Typography>
+            </Box>
+          )}
+
+          <CheckoutActions isValid={isValid} loading={orderLoading} />
         </Form>
       )}
     </Formik>

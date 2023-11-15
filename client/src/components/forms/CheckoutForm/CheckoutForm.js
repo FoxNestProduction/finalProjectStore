@@ -30,7 +30,7 @@ import {
   removeDataFromSessionStorage,
   updateSessionStorageValues,
 } from '../../../utils/sessionStorageHelpers';
-import { putNewOrder } from '../../../redux/slices/orderSlice';
+import { putNewOrder, setPendingOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { resetCart } from '../../../redux/slices/cartSlice';
 
@@ -57,7 +57,7 @@ const CheckoutForm = () => {
   const cart = useSelector((state) => state.cart.cart.products, shallowEqual);
 
   const updateCustomerLoading = useSelector((state) => state.user.loading.updatedCustomer);
-  const putOrderLoading = useSelector((state) => state.order.loading);
+  const orderLoading = useSelector((state) => state.order.loading);
   const orderError = useSelector((state) => state.order.error);
 
   useEffect(() => {
@@ -85,18 +85,11 @@ const CheckoutForm = () => {
       const customerUpdates = {
         telephone: values.tel,
       };
-      dispatch(updateCustomer(customerUpdates));
-      // try {
-      //   const response = await instance.put('/customers', updatedCustomer);
-      //   dispatch(setUser(response.data));
-      // } catch (err) {
-      //   console.log('Error updating user: ', err);
-      // }
+      await dispatch(updateCustomer(customerUpdates));
     }
 
     const { name, email, tel, city, street, house, apartment, payment } = values;
     const newOrder = {
-      // status: 'new order',
       products: cart,
       name,
       email,
@@ -115,19 +108,21 @@ const CheckoutForm = () => {
       newOrder.customerId = id;
     }
 
-    newOrder.status = values.payment === 'Card'
-      ? 'new_order/pending_card_payment'
-      : 'new_order/cash';
-
-    await dispatch(putNewOrder(newOrder));
-    removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-    dispatch(resetCart());
-    if (isUserAuthorized && user) {
-      saveUserInfoToSessionStorage(user);
+    if (values.payment === 'Cash') {
+      newOrder.status = 'new_order/cash';
+      const response = await dispatch(putNewOrder(newOrder)).unwrap();
+      if (response.status === 200) {
+        removeDataFromSessionStorage(CHECKOUT_SS_KEY);
+        dispatch(resetCart());
+        if (isUserAuthorized && user) {
+          saveUserInfoToSessionStorage(user);
+        }
+        navigate('/order-confirmation');
+      }
+    } else {
+      dispatch(setPendingOrderInfo(newOrder));
+      navigate('/checkout/payment');
     }
-    navigate(values.payment === 'Card'
-      ? '/checkout/payment'
-      : '/order-confirmation');
   };
 
   const setInitialTouched = () => {
@@ -255,7 +250,17 @@ const CheckoutForm = () => {
             </Field>
 
           </Stack>
-          <CheckoutActions isValid={setIsValid(touched, errors)} />
+          {orderError && (
+          <Box>
+            <Typography variant="body1" component="p" sx={{ color: 'text.error', mt: '15px', mb: '-15px' }}>
+              {orderError}
+            </Typography>
+          </Box>
+          )}
+          <CheckoutActions
+            isValid={setIsValid(touched, errors)}
+            loading={(orderLoading || updateCustomerLoading) && !orderError}
+          />
         </Form>
       )}
     </Formik>
