@@ -1,95 +1,100 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { Provider, useSelector, useDispatch } from 'react-redux';
-import configureStore from 'redux-mock-store';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import Modal from './Modal';
 import { closeModal } from '../../redux/slices/modalSlice';
-import { setAuthorizationError, setRegistrationError } from '../../redux/slices/errorSlice';
 
-const mockStore = configureStore([]);
-// jest.mock('react-redux');
-// jest.spyOn(require('react-redux'), 'useSelector');
-// const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: jest.fn(),
+  useSelector: jest.fn(),
+}));
+jest.mock('../../redux/slices/modalSlice', () => ({
+  ...jest.requireActual('../../redux/slices/modalSlice'),
+  closeModal: jest.fn(),
+}));
+const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
 describe('Modal Component', () => {
-  let store;
-  // const useSelectorMock = jest.spyOn(require('react-redux'), 'useSelector');
-  // const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
   beforeEach(() => {
-    // useSelectorMock.mockReturnValueOnce(true);
-    // useSelectorMock.mockReturnValueOnce('Title');
-    // useSelectorMock.mockReturnValueOnce('Content');
-    // useSelectorMock.mockReturnValueOnce({});
-    // useSelectorMock.mockReturnValueOnce(false);
+    jest.clearAllMocks();
+  });
 
-    store = mockStore({
-      modal: {
-        isOpen: true,
-        title: 'Title',
-        content: 'Content',
-        buttonAgree: {},
-        buttonBox: false,
-      },
+  test('should renders Modal component with provided data', async () => {
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Title');
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Content');
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce({});
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);   
+
+    const component = render(
+      <Modal />
+    );
+
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    expect(component).toMatchSnapshot();
+  });
+
+  test('should handles button click', async () => {
+    const dispatch = jest.fn();
+    mockDispatch.mockReturnValueOnce(dispatch);
+      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
+      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Title');
+      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Content');
+      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce({});
+      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);   
+  
+      const component = render(
+        <Modal />
+      );
+  
+      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+     
+      const modal = screen.getByTestId('CloseIcon');
+      fireEvent.click(modal);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledTimes(3);
+      expect(closeModal).toHaveBeenCalled();
     });
   });
 
-  test('renders Modal component', () => {
-    jest.clearAllMocks();
+  test('should renders buttons and handles clicks', async () => {
+    const dispatch = jest.fn();
+    mockDispatch.mockReturnValueOnce(dispatch);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Title');
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Content');
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce({});
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce({
+      endIcon: true,
+      startIcon: false,
+      onClick: jest.fn(),
+      disabled: false,
+      text: 'Agree',
+    });
 
-    const { asFragment } = render(
-      <Provider store={store}>
-        <Modal isOpen={true} />
-      </Provider>,
-    );
-    expect(asFragment()).toMatchSnapshot();
+    const component = render(<Modal />);
+    expect(component).toMatchSnapshot();
 
-    // jest.clearAllMocks();
-  });
+    const closeButton = screen.getByText('Close');
+    expect(closeButton).toBeInTheDocument();
 
-  // test('handles button click', async () => {
-  //   mockDispatch.mockReturnValue(jest.fn());
+    fireEvent.click(closeButton);
+    await waitFor(() => {
+    expect(closeModal).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledTimes(3);
+    });
 
-  //   const { container } = render(
-  //     <Provider store={store}>
-  //       <Modal isOpen={true} />
-  //     </Provider>
-  //   );
-  //  /* eslint-disable testing-library/no-node-access */
-  //   // const buttonClose = getByRole('button');
-  //   fireEvent.click(container);
+    const agreeButton = screen.getByRole('buttonAgree');
+    expect(agreeButton).toBeInTheDocument();
 
-  //   await waitFor(() => {
-  //     expect(screen.getByText('Title')).toBeNull();
-  //     expect(screen.getByText('Content')).toBeNull();
-  //   });
-    
-  //   jest.clearAllMocks();
-  // });
+    fireEvent.click(agreeButton);
 
-  // test('closes modal and resets states on handleClose', async () => {
-  //   const dispatch = jest.fn();
-  //   mockDispatch.mockReturnValue(dispatch);
-  
-  //   const { getByRole } = render(
-  //     <Provider store={store}>
-  //       <Modal isOpen={true} />
-  //     </Provider>
-  //   );
- 
-  //   const find = screen.getByText(/Close/);
-  //   console.log(find);
-    // expect(screen.queryByRole('button')).toBeInTheDocument();
-    /* eslint-disable testing-library/no-node-access */
-  //   const buttonClose = screen.getByRole(/dialog/);
-
-  //   fireEvent.click(buttonClose);
-  //   await waitFor(() => {
-  //   expect(dispatch).toHaveBeenCalledTimes(3);
-  //   // expect(dispatch).toHaveBeenCalledWith({ type: 'closeModal' });
-  //   // expect(dispatch).toHaveBeenCalledWith({ type: 'setAuthorizationError', payload: '' });
-  //   // expect(dispatch).toHaveBeenCalledWith({ type: 'setRegistrationError', payload: '' });
-  //   });
-  //   jest.clearAllMocks();
-  // });
+    await waitFor(() => {
+      expect(closeModal).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledTimes(3);
+    });
+  })
 });

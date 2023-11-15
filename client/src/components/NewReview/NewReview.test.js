@@ -10,7 +10,6 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('Snapshot test', () => {
-
   const useSelectorMock = jest.fn();
   const useDispatchMock = jest.fn();
 
@@ -46,7 +45,7 @@ describe('Snapshot test', () => {
           },
         }),
       );
-    },  { timeout: 3000 });
+    }, { timeout: 3000 });
 
     jest.clearAllMocks();
   });
