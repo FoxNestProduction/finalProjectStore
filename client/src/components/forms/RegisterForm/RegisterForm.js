@@ -84,7 +84,6 @@ const RegisterForm = () => {
 
     try {
       const response = await instance.post('/customers', newCustomer);
-<<<<<<<< < Temporary merge branch 1
       const { user, token } = response.data;
 
       dispatch(setIsRegistrationSuccessful(true));
@@ -102,7 +101,6 @@ const RegisterForm = () => {
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
       dispatch(createCart());
-=========
       authFunc(response.data);
     } catch (error) {
       dispatch(setRegistrationError(error.response.data));
