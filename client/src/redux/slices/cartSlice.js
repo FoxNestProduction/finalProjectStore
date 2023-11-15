@@ -34,7 +34,7 @@ export const createCart = createAsyncThunk(
 );
 
 export const fetchCart = createAsyncThunk(
-  'caer/fetchCart',
+  'cart/fetchCart',
   async (_, { rejectWithValue, dispatch, getState }) => {
     const cartProducts = getState().cart.cart.products;
     try {
@@ -50,12 +50,14 @@ export const fetchCart = createAsyncThunk(
           return undefined;
         });
         if (result) {
+          // eslint-disable-next-line no-use-before-define
+          dispatch(setRestaurants(data.products));
           // return null;
         }
       }
       console.log(data);
       // eslint-disable-next-line no-use-before-define
-      dispatch(setRestaurants(data));
+      dispatch(setRestaurants(data.products));
       return data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -64,7 +66,7 @@ export const fetchCart = createAsyncThunk(
 );
 
 export const fetchCartAfterAuthorization = createAsyncThunk(
-  'caer/fetchCartAfterAuthorization',
+  'cart/fetchCartAfterAuthorization',
   async (_, { rejectWithValue, dispatch, getState }) => {
     const cartProducts = getState().cart.cart.products;
     try {
@@ -258,7 +260,7 @@ const cartSlice = createSlice({
         }
       })
       .addCase(fetchCart.rejected, (state, action) => {
-        state.isCart = false;
+        console.log(action.payload);
         state.loading = false;
         state.error = action.payload;
       })
