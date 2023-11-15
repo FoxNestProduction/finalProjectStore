@@ -2,6 +2,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import isEqualWith from 'lodash.isequalwith';
+import uniq from 'lodash.uniq';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
 import { changeCartObjectFromServer } from '../../components/Cart/cartFunctions';
@@ -51,7 +52,6 @@ export const fetchCart = createAsyncThunk(
         });
         if (result) {
           // eslint-disable-next-line no-use-before-define
-          dispatch(setRestaurants(data.products));
           // return null;
         }
       }
@@ -60,7 +60,8 @@ export const fetchCart = createAsyncThunk(
       dispatch(setRestaurants(data.products));
       return data;
     } catch (err) {
-      return rejectWithValue(err.response);
+      console.log(err);
+      return rejectWithValue(err);
     }
   },
 );
@@ -223,11 +224,14 @@ const cartSlice = createSlice({
     },
     setRestaurants(state, action) {
       // Варіант 1
+      console.log(action.payload);
       if (action.payload.length) {
-        const restaurants = action.payload.products.map((prodactObj) => {
+        const restaurants = action.payload.map((prodactObj) => {
           return prodactObj.product.restaurant_name;
         });
-        state.restaurants = restaurants;
+        const uniqValue = uniq(restaurants);
+        console.log(uniqValue);
+        state.restaurants = uniqValue;
       }
       // Варіант 1: виписати суто назви ресторанів, прокинути їх в в масив та
       // відсортовувати всі продукти по назві ресторана в кожному блоці ресторана
@@ -254,6 +258,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.pending, setLoading)
       .addCase(fetchCart.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.loading = false;
         if (action.payload !== null) {
           state.cart.products = action.payload.products;

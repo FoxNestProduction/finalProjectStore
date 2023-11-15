@@ -26,6 +26,7 @@ import {
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import { fetchCart } from '../../redux/slices/cartSlice';
+import RestaurantCartItem from '../RestaurantCartItem/RestaurantCartItem';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
   const authorizationMark = useSelector((state) => state.cart.authorizationReqInProgress);
+  const restaurants = useSelector((state) => state.cart.restaurants);
   const totalSum = totalSumFromCart(cartProducts);
   const getCart = () => {
     if (isUserAuthorization && !authorizationMark) {
@@ -72,6 +74,9 @@ const Cart = () => {
               <Typography variant="h3" color="text.secondary">Fill it with orders</Typography>
             </Stack>
           )}
+          {restaurants.map((restaurantName, index) => (
+            <RestaurantCartItem restaurantName={restaurantName} key={restaurantName} />
+          ))}
         </Box>
         <Button
           LinkComponent={NavLink}
