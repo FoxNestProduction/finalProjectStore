@@ -33,7 +33,7 @@ export const createCart = createAsyncThunk(
 );
 
 export const fetchCart = createAsyncThunk(
-  'caer/fetchCart',
+  'cart/fetchCart',
   async (_, { rejectWithValue, dispatch, getState }) => {
     const cartProducts = getState().cart.cart.products;
     try {
@@ -60,7 +60,7 @@ export const fetchCart = createAsyncThunk(
 );
 
 export const fetchCartAfterAuthorization = createAsyncThunk(
-  'caer/fetchCartAfterAuthorization',
+  'cart/fetchCartAfterAuthorization',
   async (_, { rejectWithValue, dispatch, getState }) => {
     const cartProducts = getState().cart.cart.products;
     try {
