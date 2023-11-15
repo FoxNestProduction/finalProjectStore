@@ -51,7 +51,7 @@ const Header = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   // const { cart } = user; // під питанням чи потрібне це значення
-  const favourite = useSelector((state) => state.favourites.cardStates);
+  const favourite = useSelector((state) => state.favourites.cardStates, shallowEqual);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 

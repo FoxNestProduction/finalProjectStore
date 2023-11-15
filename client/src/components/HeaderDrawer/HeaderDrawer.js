@@ -36,7 +36,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
     dispatch(openModal());
     dispatch(setContent(<RegisterForm />));
   };
-  const favourite = useSelector((state) => state.favourites.favourites);
+  const favourite = useSelector((state) => state.favourites.favourites, shallowEqual);
   const favouritesAmount = isUserAuthorized ? favourite.length : null;
   const cartAmount = cartIconCounterFunction(cartProducts);
 

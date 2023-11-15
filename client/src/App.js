@@ -23,9 +23,6 @@ const App = () => {
   const breakpoint = useBreakpoint();
 
   const user = useSelector((state) => state.user.user, shallowEqual);
-  const partners = useSelector((state) => state.partners.partners);
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const reviews = useSelector((state) => state.reviews.reviews, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   useEffect(() => {
