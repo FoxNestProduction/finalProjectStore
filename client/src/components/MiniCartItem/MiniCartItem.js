@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRounded from '@mui/icons-material/AddRounded';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {
   cartProductImg,
   MiniCartItemContainer,
@@ -35,7 +35,7 @@ import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
 const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
   const dispatch = useDispatch();
-  const cartProducts = useSelector((state) => state.cart.cart.products);
+  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const index = cartProducts.findIndex(({ product }) => product._id === _id);
   const relevantPrice = totalSumFromCartProduct(currentPrice, cartQuantity);
