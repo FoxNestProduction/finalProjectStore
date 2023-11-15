@@ -37,23 +37,36 @@ import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
-import { updateCart } from '../Cart/cartFunctions';
-import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
+import { resetCart, setIsCart, updateCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
 import CustomAlert from '../Alert/Alert';
 import useAlert from '../../customHooks/useAlert';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [alertTimer, setAlertTimer] = useState(null);
   const location = useLocation();
 
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  // const user = useSelector((state) => state.user.user);
   // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates, shallowEqual);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+
+  const [authorizedAlert, setAuthorizedAlert] = useState(false);
+  const [logOutdAlert, setLogOutdAlert] = useState(false);
+
+  useEffect(() => {
+    if (isUserAuthorized) {
+      if (!isRegistered) {
+        setAuthorizedAlert(true);
+        setTimeout(() => {
+          setAuthorizedAlert(false);
+        }, 4000);
+      }
+    }
+  }, [isUserAuthorized, isRegistered]);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -63,7 +76,6 @@ const Header = () => {
     }
   }, [breakpoint, dispatch]);
 
-  // const cartAmount = cartIconCounterFunction(cartProducts);
   const favouritesAmount = isUserAuthorized ? Object.keys(favourite).length : null;
 
   const handleOpenDrawer = () => {
@@ -79,8 +91,7 @@ const Header = () => {
     dispatch(setContent(<LoginForm />));
   };
 
-  const handleLogOut = async () => {
-    await updateCart(cartProducts);
+  const handleLogOut = () => {
     dispatch(setIsCart(false));
     dispatch(resetCart());
     dispatch(setToken(null));
@@ -88,6 +99,13 @@ const Header = () => {
     dispatch(setUser({}));
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     dispatch(resetCardStates());
+
+    handleShowAlert();
+    setLogOutdAlert(true);
+    setTimeout(() => {
+      handleCloseAlert();
+      setLogOutdAlert(false);
+    }, 4000);
 
     // await window.open(
     //   `${process.env.REACT_APP_API_URL}/auth/logout`,
@@ -109,9 +127,13 @@ const Header = () => {
 
   return (
     <>
-      {isRegistered && alert && (
-      <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
-      )}
+      {(isRegistered || authorizedAlert || logOutdAlert) && alert ? (
+        <CustomAlert
+          type="success"
+          handleCloseAlert={handleCloseAlert}
+          content={isRegistered ? 'Your registration was successful!' : (logOutdAlert ? 'See you soon!' : 'Welcome back!')}
+        />
+      ) : null}
       <ElevationScroll>
         <AppBar
           position="sticky"

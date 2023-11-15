@@ -15,7 +15,6 @@ import Skeleton from '../../components/Skeleton/Skeleton';
 const RestaurantPage = () => {
   const [partners, loading, error] = useGetAPI('/partners');
 
-  const loadingPartners = useSelector((state) => state.partners.loading);
   const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
   const loadingProducts = useSelector((state) => state.products.loading);
 
@@ -44,7 +43,7 @@ const RestaurantPage = () => {
           All Restaurants
         </Typography>
 
-        {loadingPartners ? (
+        {loading ? (
           <>
             <Skeleton skeletonType="restaurantsPage" />
             <Skeleton skeletonType="restaurantsPage" />

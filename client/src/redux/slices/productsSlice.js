@@ -38,10 +38,23 @@ export const fetchAllProductsNames = createAsyncThunk(
   },
 );
 
+export const GetOneProduct = createAsyncThunk(
+  'products/GetOneProduct',
+  async (itemNo, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.get(`/products/${itemNo}`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
 const initialState = {
   products: [],
   productsQuantity: null,
   topProducts: [],
+  oneProduct: {},
   allProductsNames: [],
   loading: false,
   error: null,
@@ -50,6 +63,11 @@ const initialState = {
 const productsSlice = createSlice({
   name: 'products',
   initialState,
+  reducers: {
+    resetOneProduct(state, action = {}) {
+      state.products = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTopProducts.pending, setLoading)
@@ -58,6 +76,11 @@ const productsSlice = createSlice({
         state.topProducts = action.payload;
       })
       .addCase(fetchTopProducts.rejected, setError)
+      // .addCase(GetOneProduct.pending, setLoading)
+      .addCase(GetOneProduct.fulfilled, (state, action) => {
+        state.oneProduct = action.payload;
+      })
+      .addCase(GetOneProduct.rejected, setError)
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
         state.products = action.payload.products;
         state.productsQuantity = action.payload.productsQuantity;
@@ -68,6 +91,6 @@ const productsSlice = createSlice({
   },
 });
 
-export const allProducts = (state) => state.products.products;
+export const { resetOneProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

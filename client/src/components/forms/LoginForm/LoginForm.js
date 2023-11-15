@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -37,13 +37,18 @@ import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpe
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
+import { fetchCart, updateCart } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
+import useAlert from '../../../customHooks/useAlert';
+import CustomAlert from '../../Alert/Alert';
 import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
+  const cartProducts = useSelector((state) => state.cart.cart.products);
+  const { handleShowAlert } = useAlert();
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   const initialValues = {
     email: '',
@@ -67,11 +72,11 @@ const LoginForm = () => {
       dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setAuthorizationError(''));
-
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
-      dispatch(getCartItemsFromServer());
+      dispatch(fetchCart());
       dispatch(fetchFavourites());
+      handleShowAlert();
     }
   };
 

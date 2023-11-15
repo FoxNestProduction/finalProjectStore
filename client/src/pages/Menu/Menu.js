@@ -98,7 +98,7 @@ const MenuPage = () => {
           itemsFrom="search"
         />
       )}
-      {loadingProducts && (
+      {loadingProducts ? (
         <>
           <Typography
             variant="h2"
@@ -173,57 +173,57 @@ const MenuPage = () => {
             </>
           ) : null}
         </>
+      ) : (
+        <Box ref={productsScrollRef}>
+          {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
+            <ListItems
+              title={`Search Results (${itemsFromSearch.length})`}
+              items={itemsFromSearch}
+              itemComponent={ProductCardItem}
+              actions={null}
+              type="food"
+              itemsFrom="search"
+            />
+          ) : itemsFromFilter.length !== 0 ? (
+            <ListItems
+              title={`Filter Results (${filteredProductsQuantity})`}
+              items={itemsFromFilter}
+              itemComponent={ProductCardItem}
+              actions={null}
+              type="food"
+              pagination
+              sorting
+              itemsFrom="filter"
+              isScrolling
+            />
+          ) : (!nothingFound) ? (
+            <ListItems
+              title="All Dishes"
+              items={products}
+              itemComponent={ProductCardItem}
+              actions={null}
+              type="food"
+              pagination
+              sorting
+              itemsFrom="allDishes"
+            />
+          ) : (
+            <Container sx={{ pb: '60px' }}>
+              <Typography
+                variant="h3"
+                component="p"
+                color="primary.main"
+                sx={{ textAlign: 'center',
+                  fontSize: { mobile: '22px', tablet: '26px', desktop: '32px' },
+                  px: '10px',
+                  fontWeight: 'fontWeightLight' }}
+              >
+                Sorry, no results match your current filter settings...🤷‍♀️
+              </Typography>
+            </Container>
+          )}
+        </Box>
       )}
-      <Box ref={productsScrollRef}>
-        {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
-          <ListItems
-            title={`Search Results (${itemsFromSearch.length})`}
-            items={itemsFromSearch}
-            itemComponent={ProductCardItem}
-            actions={null}
-            type="food"
-            itemsFrom="search"
-          />
-        ) : itemsFromFilter.length !== 0 ? (
-          <ListItems
-            title={`Filter Results (${filteredProductsQuantity})`}
-            items={itemsFromFilter}
-            itemComponent={ProductCardItem}
-            actions={null}
-            type="food"
-            pagination
-            sorting
-            itemsFrom="filter"
-            isScrolling
-          />
-        ) : (!nothingFound) ? (
-          <ListItems
-            title="All Dishes"
-            items={products}
-            itemComponent={ProductCardItem}
-            actions={null}
-            type="food"
-            pagination
-            sorting
-            itemsFrom="allDishes"
-          />
-        ) : (
-          <Container sx={{ pb: '60px' }}>
-            <Typography
-              variant="h3"
-              component="p"
-              color="primary.main"
-              sx={{ textAlign: 'center',
-                fontSize: { mobile: '22px', tablet: '26px', desktop: '32px' },
-                px: '10px',
-                fontWeight: 'fontWeightLight' }}
-            >
-              Sorry, no results match your current filter settings...🤷‍♀️
-            </Typography>
-          </Container>
-        )}
-      </Box>
-
       {loadingPartners ? (
         <Container sx={{ mb: 13 }}>
           <Typography

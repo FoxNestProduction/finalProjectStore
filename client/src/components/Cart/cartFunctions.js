@@ -1,28 +1,4 @@
-import { instance } from '../../API/instance';
-
-const createCart = async (cartProducts) => {
-  const cartProductsFromServer = cartProducts.map((cartProduct) => {
-    const newCartProductObj = {
-      // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.id,
-      cartQuantity: cartProduct.cartQuantity,
-    };
-    return newCartProductObj;
-  });
-  const cart = {
-    products: [
-      ...cartProductsFromServer,
-    ],
-  };
-  try {
-    const { data } = await instance.post('/cart', cart);
-    console.log(data);
-  } catch (err) {
-    console.warn(err);
-  }
-};
-
-const updateCart = async (cartProducts) => {
+const changeCartObjectFromServer = (cartProducts) => {
   const cartProductsFromServer = cartProducts.map((cartProduct) => {
     const newCartProductObj = {
       // eslint-disable-next-line no-underscore-dangle
@@ -31,27 +7,14 @@ const updateCart = async (cartProducts) => {
     };
     return newCartProductObj;
   });
-  const updatedCart = {
-    products: [
-      ...cartProductsFromServer,
-    ],
+  const cart = {
+    products: [],
   };
-  try {
-    const { data } = await instance.put('/cart', updatedCart);
-    console.log(data);
-  } catch (err) {
-    console.warn(err);
+  if (!cartProductsFromServer.length) {
+    return cart;
   }
-};
-
-const updateCartAfterCloseWindow = (cartProducts) => {
-  const handleUnload = () => {
-    updateCart(cartProducts);
-  };
-  window.addEventListener('beforeunload', handleUnload);
-  return () => {
-    window.removeEventListener('beforeunload', handleUnload);
-  };
+  cart.products = [...cartProductsFromServer];
+  return cart;
 };
 
 const cartIconCounterFunction = (cartProducts) => {
@@ -91,9 +54,7 @@ const totalSumFromCartProduct = (currentPrice, cartQuantity = 1) => {
 };
 
 export {
-  createCart,
-  updateCart,
-  updateCartAfterCloseWindow,
+  changeCartObjectFromServer,
   cartIconCounterFunction,
   totalSumFromCart,
   totalSumFromCartProduct,
