@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState, useRef, createRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Typography, Button, Box, Container, useMediaQuery } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import useGetAPI from '../../customHooks/useGetAPI';
@@ -28,7 +28,7 @@ const ReviewsPage = () => {
   const [reviewAlert, setReviewAlert] = useState(false);
 
   const dispatch = useDispatch();
-  const newReview = useSelector((state) => state.reviews.newReview);
+  const newReview = useSelector((state) => state.reviews.newReview, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const isLgTablet = useMediaQuery('(min-width: 690px)');
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();

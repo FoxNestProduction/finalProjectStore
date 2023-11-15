@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import LockIcon from '@mui/icons-material/Lock';
+import { CircularProgress } from '@mui/material';
 import validationSchema from './validationShema';
 import Input from '../../inputs/Input/Input';
 import { flexcenter, mainTitle, signInBtn } from './styles';
@@ -136,7 +137,9 @@ const ChangePasswordForm = () => {
                   type="submit"
                   disabled={!isValid || loading}
                 >
-                  Create Password
+                  {!loading
+                    ? 'Create Password'
+                    : <CircularProgress color="primary" />}
                 </Button>
               </Box>
             </Form>

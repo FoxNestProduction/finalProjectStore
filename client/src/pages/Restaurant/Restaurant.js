@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { Container, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
@@ -15,7 +15,7 @@ import Skeleton from '../../components/Skeleton/Skeleton';
 const RestaurantPage = () => {
   const [partners, loading, error] = useGetAPI('/partners');
 
-  const topProducts = useSelector((state) => state.products.topProducts);
+  const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
   const loadingProducts = useSelector((state) => state.products.loading);
 
   const styleRestaurant = {

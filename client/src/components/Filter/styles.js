@@ -46,6 +46,7 @@ export const stylesBtnReset = {
     tablet: '10px',
     desktop: '12px',
   },
+  transition: '0.3s ease',
   maxWidth: '50px',
   '.MuiButton-root': {},
   '&:hover': {
@@ -60,6 +61,7 @@ export const stylesSortBtn = {
   fontWeight: '500',
   fontFamily: 'fontPoppins',
   whiteSpace: 'nowrap',
+  transition: 'background-color 0.3s ease',
   fontSize: {
     mobile: '13px',
     tablet: '11px',
@@ -118,6 +120,7 @@ export const stylesToggleButton = {
       // border: '4px solid rgba(251, 71, 29, 0.50)',
     },
   },
+  transition: 'background-color 0.3s ease, border 0.1s ease',
 };
 
 export const stylesCategoryItem = {
