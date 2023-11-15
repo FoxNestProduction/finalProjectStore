@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
@@ -266,4 +266,4 @@ const CheckoutForm = () => {
   );
 };
 
-export default CheckoutForm;
+export default memo(CheckoutForm);

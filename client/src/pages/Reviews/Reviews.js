@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState, useRef, createRef } from 'react';
+import React, { useEffect, useState, useRef, createRef, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Button, Box, Container, useMediaQuery } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -191,4 +191,4 @@ const ReviewsPage = () => {
   );
 };
 
-export default ReviewsPage;
+export default memo(ReviewsPage);

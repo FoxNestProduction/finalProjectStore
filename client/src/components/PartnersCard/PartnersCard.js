@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Container from '@mui/material/Container';
 import RestaurantCard from '../RestaurantCard/RestaurantCard';
@@ -33,4 +33,4 @@ PartnersCard.defaultProps = {
   partner: {},
 };
 
-export default PartnersCard;
+export default memo(PartnersCard);

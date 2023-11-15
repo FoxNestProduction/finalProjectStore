@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { debounce } from '@mui/material/utils';
@@ -125,4 +125,4 @@ Search.defaultProps = {
   resetFiltersLocalState: () => {},
 };
 
-export default Search;
+export default memo(Search);

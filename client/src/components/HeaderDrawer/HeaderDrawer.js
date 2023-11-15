@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -161,4 +161,4 @@ HeaderDrawer.defaultProps = {
   setNavigateTo: () => {},
 };
 
-export default HeaderDrawer;
+export default memo(HeaderDrawer);

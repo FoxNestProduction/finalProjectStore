@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
@@ -25,4 +25,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default memo(ProductPage);

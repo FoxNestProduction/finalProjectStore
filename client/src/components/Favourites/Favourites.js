@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -79,4 +79,4 @@ const Favourites = () => {
   );
 };
 
-export default Favourites;
+export default memo(Favourites);

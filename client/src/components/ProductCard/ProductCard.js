@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
@@ -199,4 +199,4 @@ const ProductCard = () => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

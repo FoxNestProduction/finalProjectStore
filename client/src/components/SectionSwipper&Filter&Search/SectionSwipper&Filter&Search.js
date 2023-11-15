@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import SwiperBanner from '../SwiperBanner/SwiperBanner';
 import Filter from '../Filter/Filter';
@@ -64,4 +64,4 @@ const SectionSwipperFilterSearch = () => {
   );
 };
 
-export default SectionSwipperFilterSearch;
+export default memo(SectionSwipperFilterSearch);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
@@ -102,4 +102,4 @@ const VerifyEmailForm = () => {
   );
 };
 
-export default VerifyEmailForm;
+export default memo(VerifyEmailForm);

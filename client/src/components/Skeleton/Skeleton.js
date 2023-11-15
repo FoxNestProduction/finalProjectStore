@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './skeleton.module.scss';
@@ -51,7 +51,7 @@ const Skeleton = ({ skeletonType }) => {
   );
 };
 
-export default Skeleton;
+export default memo(Skeleton);
 
 Skeleton.propTypes = {
   skeletonType: PropTypes.string.isRequired,

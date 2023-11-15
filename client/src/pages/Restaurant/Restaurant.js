@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Container, Box } from '@mui/material';
@@ -88,4 +88,4 @@ const RestaurantPage = () => {
   );
 };
 
-export default RestaurantPage;
+export default memo(RestaurantPage);

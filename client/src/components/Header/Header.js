@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -210,4 +210,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

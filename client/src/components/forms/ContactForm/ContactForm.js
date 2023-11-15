@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Formik, Form } from 'formik';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -79,4 +79,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default memo(ContactForm);

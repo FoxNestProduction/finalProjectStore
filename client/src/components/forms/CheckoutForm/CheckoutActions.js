@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router';
@@ -31,4 +31,4 @@ CheckoutActions.defaultProps = {
   isValid: true,
 };
 
-export default CheckoutActions;
+export default memo(CheckoutActions);

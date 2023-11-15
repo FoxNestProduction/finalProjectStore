@@ -1,4 +1,4 @@
-import React, { createElement, useEffect, useRef, useState } from 'react';
+import React, { createElement, memo, useEffect, useRef, useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
@@ -111,4 +111,4 @@ ListItems.defaultProps = {
   isScrolling: false,
 };
 
-export default ListItems;
+export default memo(ListItems);
