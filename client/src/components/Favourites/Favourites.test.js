@@ -54,6 +54,7 @@ describe('Snapshot test', () => {
       </MemoryRouter>,
     );
     expect(asFragment()).toMatchSnapshot();
+    expect(screen.queryByRole('list')).toBeNull();
   });
 
   test('should navigate to /menu on button click', async () => {
@@ -70,7 +71,10 @@ describe('Snapshot test', () => {
     const button = screen.getByText('Back to menu');
 
     fireEvent.click(button);
+    await waitFor(() => expect(screen.queryByRole('button')).toBeNull(), { timeout: 3000 });
     // await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/menu'));
+
+    jest.clearAllMocks();
   });
 
   test('should render FavouriteItem', () => {
@@ -98,4 +102,6 @@ describe('Snapshot test', () => {
       expect(itemPrice).toBeInTheDocument();
     });
   });
+
+  jest.clearAllMocks();
 });

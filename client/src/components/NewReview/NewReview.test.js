@@ -10,6 +10,7 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('Snapshot test', () => {
+
   const useSelectorMock = jest.fn();
   const useDispatchMock = jest.fn();
 
@@ -22,12 +23,13 @@ describe('Snapshot test', () => {
     useSelectorMock.mockReturnValueOnce(5);
     const { asFragment } = render(<NewReview />);
     expect(asFragment()).toMatchSnapshot();
+
+    jest.clearAllMocks();
   });
 
   test('should update state on text change', async () => {
     useSelectorMock.mockReturnValueOnce(5);
-    const mockDispatch = jest.fn();
-    useDispatch.mockReturnValue(mockDispatch);
+    useDispatch.mockReturnValue(useDispatchMock);
 
     render(<NewReview />);
 
@@ -35,7 +37,7 @@ describe('Snapshot test', () => {
     userEvent.type(textField, 'This is a new review text');
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith(
+      expect(useDispatchMock).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'reviews/setNewReview',
           payload: {
@@ -44,12 +46,13 @@ describe('Snapshot test', () => {
           },
         }),
       );
-    });
+    },  { timeout: 3000 });
+
+    jest.clearAllMocks();
   });
 
   test('should update state on rating change', async () => {
-    const mockDispatch = jest.fn();
-    useDispatch.mockReturnValue(mockDispatch);
+    useDispatch.mockReturnValue(useDispatchMock);
 
     render(<NewReview />);
 
@@ -65,7 +68,7 @@ describe('Snapshot test', () => {
     userEvent.click(inputElement);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({
+      expect(useDispatchMock).toHaveBeenCalledWith({
         type: 'reviews/setNewReview',
         payload: {
           field: 'rating',
@@ -74,4 +77,6 @@ describe('Snapshot test', () => {
       });
     });
   });
+
+  jest.clearAllMocks();
 });

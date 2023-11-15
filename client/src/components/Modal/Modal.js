@@ -19,9 +19,7 @@ import {
   setButtonAgree,
   addButtonBox,
 } from '../../redux/slices/modalSlice';
-import LoginForm from '../forms/LoginForm/LoginForm';
 import { setAuthorizationError, setRegistrationError } from '../../redux/slices/errorSlice';
-import { setNewReview } from '../../redux/slices/reviewsSlice';
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -38,83 +36,58 @@ const Modal = () => {
     dispatch(setRegistrationError(''));
   };
 
-  const handleRemoveItemCart = () => {
-    dispatch(closeModal());
-  };
-
-  const handleOpenModalWarning = () => {
-    dispatch(openModal());
-    dispatch(setTitle('Are you sure you want to remove the product?'));
-    dispatch(addButtonBox(true));
-    dispatch(setContent(
-      <DialogContentText>
-        Do you confirm that the selected item will be removed from the order?
-      </DialogContentText>,
-    ));
-    dispatch(setButtonAgree({
-      text: 'Delete',
-      startIcon: true,
-      onClick: handleRemoveItemCart,
-    }));
-  };
-
   return (
-    <>
-      {/* <Button variant="outlined" onClick={handleOpenModalWarning}> */}
-      {/*  Open modal with warning text */}
-      {/* </Button> */}
-      <Dialog
-        open={isOpen}
-        onClose={handleClose}
+    <Dialog
+      open={isOpen}
+      onClose={handleClose}
+    >
+      <IconButton
+        sx={{
+          ml: 'auto',
+          color: 'primary.main',
+        }}
+        onClick={handleClose}
       >
-        <IconButton
-          sx={{
-            ml: 'auto',
-            color: 'primary.main',
-          }}
+        <CloseIcon />
+      </IconButton>
+      {title && (
+      <DialogTitle
+        sx={{
+          textAlign: 'center',
+          bgcolor: 'primary.main',
+          color: 'text.primaryLight',
+          mb: 5,
+        }}
+      >
+        {title}
+      </DialogTitle>
+      )}
+      <DialogContent sx={{ textAlign: 'center', minHeight: '12vh' }}>
+        {content}
+      </DialogContent>
+      {buttonBox && (
+      <DialogActions>
+        <Button
+          sx={{ px: 1 }}
+          variant="outlined"
           onClick={handleClose}
         >
-          <CloseIcon />
-        </IconButton>
-        {title && (
-        <DialogTitle
-          sx={{
-            textAlign: 'center',
-            bgcolor: 'primary.main',
-            color: 'text.primaryLight',
-            mb: 5,
-          }}
+          Close
+        </Button>
+        <Button
+          sx={{ px: 1 }}
+          variant="contained"
+          endIcon={buttonAgree.endIcon && <SendIcon />}
+          startIcon={buttonAgree.startIcon && <DeleteIcon />}
+          onClick={buttonAgree.onClick}
+          disabled={buttonAgree.disabled}
+          autoFocus
         >
-          {title}
-        </DialogTitle>
-        )}
-        <DialogContent sx={{ textAlign: 'center', minHeight: '12vh' }}>
-          {content}
-        </DialogContent>
-        {buttonBox && (
-        <DialogActions>
-          <Button
-            sx={{ px: 1 }}
-            variant="outlined"
-            onClick={handleClose}
-          >
-            Close
-          </Button>
-          <Button
-            sx={{ px: 1 }}
-            variant="contained"
-            endIcon={buttonAgree.endIcon && <SendIcon />}
-            startIcon={buttonAgree.startIcon && <DeleteIcon />}
-            onClick={buttonAgree.onClick}
-            disabled={buttonAgree.disabled}
-            autoFocus
-          >
-            {buttonAgree.text}
-          </Button>
-        </DialogActions>
-        )}
-      </Dialog>
-    </>
+          {buttonAgree.text}
+        </Button>
+      </DialogActions>
+      )}
+    </Dialog>
   );
 };
 
