@@ -56,7 +56,7 @@ const RegisterForm = () => {
   };
 
   const authFunc = (value) => {
-    const { user, token } = value;
+    const { user, token } = value.data;
 
     dispatch(setIsRegistrationSuccessful(true));
     handleShowAlert();
@@ -84,23 +84,6 @@ const RegisterForm = () => {
 
     try {
       const response = await instance.post('/customers', newCustomer);
-      const { user, token } = response.data;
-
-      dispatch(setIsRegistrationSuccessful(true));
-      handleShowAlert();
-      setTimeout(() => {
-        dispatch(setIsRegistrationSuccessful(false));
-      }, 4000);
-
-      dispatch(setToken(token));
-      dispatch(setAuthorization(true));
-      dispatch(setUser(user));
-      dispatch(closeModal());
-      dispatch(setRegistrationError(''));
-
-      removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-      saveUserInfoToSessionStorage(user);
-      dispatch(createCart());
       authFunc(response.data);
     } catch (error) {
       dispatch(setRegistrationError(error.response.data));
