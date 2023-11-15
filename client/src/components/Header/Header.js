@@ -44,13 +44,26 @@ import useAlert from '../../customHooks/useAlert';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [alertTimer, setAlertTimer] = useState(null);
   const location = useLocation();
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const favourite = useSelector((state) => state.favourites.cardStates);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
-  const { alert, handleCloseAlert } = useAlert();
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+
+  const [authorizedAlert, setAuthorizedAlert] = useState(false);
+  const [logOutdAlert, setLogOutdAlert] = useState(false);
+
+  useEffect(() => {
+    if (isUserAuthorized) {
+      if (!isRegistered) {
+        setAuthorizedAlert(true);
+        setTimeout(() => {
+          setAuthorizedAlert(false);
+        }, 4000);
+      }
+    }
+  }, [isUserAuthorized, isRegistered]);
 
   const dispatch = useDispatch();
   const breakpoint = useBreakpoint();
@@ -84,6 +97,13 @@ const Header = () => {
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     dispatch(resetCardStates());
 
+    handleShowAlert();
+    setLogOutdAlert(true);
+    setTimeout(() => {
+      handleCloseAlert();
+      setLogOutdAlert(false);
+    }, 4000);
+
     // await window.open(
     //   `${process.env.REACT_APP_API_URL}/auth/logout`,
     //   '_self',
@@ -110,6 +130,13 @@ const Header = () => {
       {isUserAuthorized && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Welcome back!" />
       )}
+      {(isRegistered || authorizedAlert || logOutdAlert) && alert ? (
+        <CustomAlert
+          type="success"
+          handleCloseAlert={handleCloseAlert}
+          content={isRegistered ? 'Your registration was successful!' : (logOutdAlert ? 'See you soon!' : 'Welcome back!')}
+        />
+      ) : null}
       <ElevationScroll>
         <AppBar
           position="sticky"

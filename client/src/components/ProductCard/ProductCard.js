@@ -21,11 +21,15 @@ import { addToFavourites, deleteFromFavourites, setIsFavourite, removeFavourite 
 import { addProductToCart, addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import useGetAPI from '../../customHooks/useGetAPI';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../Alert/Alert';
 
 const ProductCard = () => {
   const { itemNo } = useParams();
   const dispatch = useDispatch();
   const [dish, loading, error] = useGetAPI(`/products/${itemNo}`);
+
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
@@ -64,6 +68,10 @@ const ProductCard = () => {
   };
 
   const handleAddToCart = () => {
+    handleShowAlert();
+    setTimeout(() => {
+      handleCloseAlert();
+    }, 4000);
     if (isUserAuthorized) {
       dispatch(addProductToCart(id));
     } else {
@@ -184,6 +192,9 @@ const ProductCard = () => {
           </Stack>
         </Stack>
       </Card>
+      { alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
+      )}
     </Container>
   );
 };

@@ -31,7 +31,6 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
   const { alert, handleCloseAlert } = useAlert();
-  console.log(alert);
 
   const marks = [
     {

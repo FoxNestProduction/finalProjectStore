@@ -24,7 +24,7 @@ export const AlertContextProvider = memo(({ children }) => {
     };
   }, [alert]);
 
-  console.log(value);
+  // console.log(value);
 
   return <AlertContext.Provider value={value}>{children}</AlertContext.Provider>;
 });

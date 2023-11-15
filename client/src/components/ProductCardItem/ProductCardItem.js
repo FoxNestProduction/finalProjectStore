@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
@@ -38,10 +38,22 @@ const ProductCardItem = ({
   const dispatch = useDispatch();
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
   const { alert, handleCloseAlert, handleShowAlert } = useAlert();
+  const [clickedAdd, setClickedAdd] = useState(false);
+
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
   };
+
+  useEffect(() => {
+    if (clickedAdd) {
+      handleShowAlert();
+      setTimeout(() => {
+        setClickedAdd(false);
+      }, 3000);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickedAdd]);
 
   const handleAddToCart = (event) => {
     event.preventDefault();
@@ -62,10 +74,10 @@ const ProductCardItem = ({
     dispatch(GetOneProduct(itemNo)).then((action) => {
       if (GetOneProduct.fulfilled.match(action)) {
         onGetOneProductComplete(action.payload);
+        setClickedAdd(true);
       }
     });
   };
-
   return (
     <>
       <CardActions
@@ -117,7 +129,7 @@ const ProductCardItem = ({
         {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
-      { alert && (
+      { clickedAdd && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}
     </>

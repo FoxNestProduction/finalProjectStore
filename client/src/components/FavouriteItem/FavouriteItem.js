@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,6 +11,8 @@ import { stylesButton, styleCardFavourite, styleMediaFavourite, styleContentFavo
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { addProductToCart } from '../../redux/slices/cartSlice';
+import CustomAlert from '../Alert/Alert';
+import useAlert from '../../customHooks/useAlert';
 
 const FavouriteItem = ({ product }) => {
   const dispatch = useDispatch();
@@ -28,9 +30,17 @@ const FavouriteItem = ({ product }) => {
   } = product;
 
   const isFavourite = useSelector((state) => state.favourites.cardStates[_id]);
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  const [favAlert, setFavAlert] = useState(false);
 
   const handleAddToCart = () => {
     dispatch(addProductToCart(_id));
+    handleShowAlert();
+    setFavAlert(true);
+    setTimeout(() => {
+      handleCloseAlert();
+      setFavAlert(false);
+    }, 4000);
   };
 
   return (
@@ -84,6 +94,9 @@ const FavouriteItem = ({ product }) => {
         <FavouriteIcon id={_id} />
         {/* <FavouriteIcon product={product} /> */}
       </CardActions>
+      {favAlert && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
+      )}
     </Card>
   );
 };
