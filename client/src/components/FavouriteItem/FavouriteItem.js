@@ -95,7 +95,7 @@ const FavouriteItem = ({ product }) => {
         {/* <FavouriteIcon product={product} /> */}
       </CardActions>
       {favAlert && alert && (
-        <CustomAlert type="info" handleCloseAlert={handleCloseAlert} content="Nothing found!" />
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}
     </Card>
   );
