@@ -83,7 +83,6 @@ const LoginForm = () => {
   const handleSubmit = async (values, actions) => {
     try {
       const response = await instance.post('/customers/login', values);
-<<<<<<<< < Temporary merge branch 1
       const { token } = response.data;
       const { user } = response.data;
       if (token) {
@@ -94,11 +93,10 @@ const LoginForm = () => {
         dispatch(setAuthorizationError(''));
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         saveUserInfoToSessionStorage(user);
-        dispatch(fetchCart());
+        dispatch(fetchCartAfterAuthorization());
         dispatch(fetchFavourites());
         handleShowAlert();
       }
-=========
       authFunc(response);
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));
