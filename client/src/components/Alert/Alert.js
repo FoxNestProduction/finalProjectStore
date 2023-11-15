@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 
 const CustomAlert = ({ type, content, handleCloseAlert }) => {
@@ -14,8 +16,14 @@ const CustomAlert = ({ type, content, handleCloseAlert }) => {
     }, 3000);
   }, [handleCloseAlert]);
 
+  const closeFunction = () => {
+    handleCloseAlert();
+    setVisible(false);
+  };
+
   const alertStyle = {
-    width: '40%',
+    display: { mobile: 'none', lgTablet: 'block' },
+    width: { mobile: '0', lgTablet: '325px', desktop: '425px' },
     position: 'fixed',
     bottom: '50px',
     left: '50px',
@@ -26,12 +34,17 @@ const CustomAlert = ({ type, content, handleCloseAlert }) => {
 
   return (
     <Stack sx={alertStyle} spacing={2}>
-      <Alert
-        onClose={handleCloseAlert}
-        severity={type}
-      >
+      <Alert severity={type}>
         <AlertTitle>{type}</AlertTitle>
-        {content}
+        <div style={{ overflow: 'hidden' }}>{content}</div>
+        <IconButton
+          color="inherit"
+          size="small"
+          onClick={closeFunction}
+          sx={{ position: 'absolute', top: '8px', right: '8px', cursor: 'pointer' }}
+        >
+          <CloseIcon />
+        </IconButton>
       </Alert>
     </Stack>
   );
@@ -41,14 +54,12 @@ CustomAlert.propTypes = {
   type: PropTypes.string,
   content: PropTypes.string,
   handleCloseAlert: PropTypes.func,
-  // alert: PropTypes.bool,
 };
 
 CustomAlert.defaultProps = {
-  type: 'success',
-  content: 'This is a Alert',
+  type: '',
+  content: '',
   handleCloseAlert: () => {},
-  // alert: false,
 };
 
 export default CustomAlert;
