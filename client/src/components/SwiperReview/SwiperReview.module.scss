@@ -54,3 +54,15 @@
     z-index: -1;
   }
 }
+
+.skeletonCard {
+  height: 100%;
+  cursor: pointer;
+  min-width: 280px;
+  @media (min-width: 481px) {
+    min-width: 345px;
+  } 
+  @media (min-width: 993px) {
+    min-width: 485px;
+  } 
+}

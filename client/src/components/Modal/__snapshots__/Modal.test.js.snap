@@ -208,7 +208,7 @@ Object {
             </button>
             <button
               class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-focusVisible MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1b8eh7w-MuiButtonBase-root-MuiButton-root"
-              role="buttonAgree"
+              role="roletype"
               tabindex="0"
               type="button"
             >

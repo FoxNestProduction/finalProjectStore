@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,7 +10,9 @@ import { chipForFavourite } from '../Chip/styles';
 import { stylesButton, styleCardFavourite, styleMediaFavourite, styleContentFavourite } from './styles';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
-import { addToCart } from '../../redux/slices/cartSlice';
+import { addProductToCart } from '../../redux/slices/cartSlice';
+import CustomAlert from '../Alert/Alert';
+import useAlert from '../../customHooks/useAlert';
 
 const FavouriteItem = ({ product }) => {
   const dispatch = useDispatch();
@@ -27,17 +29,18 @@ const FavouriteItem = ({ product }) => {
     _id,
   } = product;
 
+
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  const [favAlert, setFavAlert] = useState(false);
+
   const handleAddToCart = () => {
-    const selectedItem = {
-      product: {
-        _id,
-        currentPrice,
-        imageUrl,
-        name,
-      },
-      cartQuantity: 1,
-    };
-    dispatch(addToCart(selectedItem));
+    dispatch(addProductToCart(_id));
+    handleShowAlert();
+    setFavAlert(true);
+    setTimeout(() => {
+      handleCloseAlert();
+      setFavAlert(false);
+    }, 4000);
   };
 
   return (
@@ -90,6 +93,9 @@ const FavouriteItem = ({ product }) => {
       <CardActions sx={{ position: 'absolute', top: '0', right: '0' }}>
         <FavouriteIcon id={_id} />
       </CardActions>
+      {favAlert && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
+      )}
     </Card>
   );
 };
