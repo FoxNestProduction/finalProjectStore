@@ -10,6 +10,7 @@ const initialState = {
   cart: {
     products: [],
   },
+  restaurants: [],
   loading: false,
   isCart: false,
   error: null,
@@ -49,9 +50,12 @@ export const fetchCart = createAsyncThunk(
           return undefined;
         });
         if (result) {
-          return null;
+          // return null;
         }
       }
+      console.log(data);
+      // eslint-disable-next-line no-use-before-define
+      dispatch(setRestaurants(data));
       return data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -75,8 +79,10 @@ export const fetchCartAfterAuthorization = createAsyncThunk(
         const newCartProducts = getState().cart.cart.products;
         const updatedCart = changeCartObjectFromServer(newCartProducts);
         const response = await instance.put('/cart', updatedCart);
+        console.log(response.data);
         return response.data;
       }
+      console.log(data);
       return data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -214,6 +220,20 @@ const cartSlice = createSlice({
         }
       }
     },
+    setRestaurants(state, action) {
+      // Варіант 1
+      if (action.payload.length) {
+        const restaurants = action.payload.products.map((prodactObj) => {
+          return prodactObj.product.restaurant_name;
+        });
+        state.restaurants = restaurants;
+      }
+      // Варіант 1: виписати суто назви ресторанів, прокинути їх в в масив та
+      // відсортовувати всі продукти по назві ресторана в кожному блоці ресторана
+      // Варіант 2: написати логіку, де в state будуть створюватись об'єкти
+      // кожного ресторана, в якому будуть знаходитись об'єкти товара, і таким чином
+      // ми будемо просто мапити кожний об'єкт ресторана окремо.
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -295,6 +315,7 @@ export const {
   addOneMore,
   resetCart,
   deleteFullProduct,
+  setRestaurants,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
