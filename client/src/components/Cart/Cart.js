@@ -22,13 +22,12 @@ import {
   continueBtn,
 } from './styles';
 import {
-  createCart,
-  updateCart,
-  updateCartAfterCloseWindow,
+  // createCart,
+  // updateCartObj,
   totalSumFromCart,
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
-import { getCartItemsFromServer } from '../../redux/slices/cartSlice';
+import { updateCart, createCart, fetchCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -36,19 +35,28 @@ const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
-
   const totalSum = totalSumFromCart(cartProducts);
-
   const getCart = () => {
     if (isUserAuthorization) {
-      dispatch(getCartItemsFromServer());
+      // dispatch(getCartItemsFromServer());
+      dispatch(fetchCart());
     } else {
       console.log('user need to autorise');
     }
   };
+  console.log(cartProducts);
+  const updateCartAfterCloseWindow = () => {
+    const handleUnload = () => {
+      updateCart(cartProducts);
+    };
+    window.addEventListener('beforeunload', handleUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+    };
+  };
 
   useEffect(() => {
-    // getCart();
+    getCart();
     updateCartAfterCloseWindow(cartProducts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuthorization]);
@@ -56,9 +64,9 @@ const Cart = () => {
   const continueFn = () => {
     if (isUserAuthorization) {
       if (userIsHasCart) {
-        updateCart(cartProducts);
+        dispatch(updateCart(cartProducts));
       } else {
-        createCart(cartProducts);
+        dispatch(createCart());
       }
     } else {
       navigate('/checkout');
@@ -132,7 +140,7 @@ const Cart = () => {
             variant="contained"
             onClick={continueFn}
             sx={continueBtn}
-            disabled={cartProducts.length === 0}
+          // disabled={cartProducts.length === 0}
           >
             Continue
           </Button>

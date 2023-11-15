@@ -34,7 +34,8 @@ import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpe
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
+import { createCart } from '../../../redux/slices/cartSlice';
+
 import useAlert from '../../../customHooks/useAlert';
 import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
 import CreatePasswordForm from '../CreatePassword/CreatePasswordForm';
@@ -72,7 +73,7 @@ const RegisterForm = () => {
 
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     saveUserInfoToSessionStorage(user);
-    dispatch(getCartItemsFromServer());
+    // dispatch(getCartItemsFromServer());
   };
 
   const handleSubmit = async (values) => {
@@ -84,6 +85,23 @@ const RegisterForm = () => {
 
     try {
       const response = await instance.post('/customers', newCustomer);
+      const { user, token } = response.data;
+
+      dispatch(setIsRegistrationSuccessful(true));
+      handleShowAlert();
+      setTimeout(() => {
+        dispatch(setIsRegistrationSuccessful(false));
+      }, 4000);
+
+      dispatch(setToken(token));
+      dispatch(setAuthorization(true));
+      dispatch(setUser(user));
+      dispatch(closeModal());
+      dispatch(setRegistrationError(''));
+
+      removeDataFromSessionStorage(CHECKOUT_SS_KEY);
+      saveUserInfoToSessionStorage(user);
+      dispatch(createCart());
       authFunc(response.data);
     } catch (error) {
       dispatch(setRegistrationError(error.response.data));

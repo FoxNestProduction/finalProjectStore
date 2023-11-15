@@ -5,7 +5,6 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import styles from './SwiperReview.module.scss';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import useGetAPI from '../../customHooks/useGetAPI';
-import Skeleton from '../Skeleton/Skeleton';
 
 const SwiperReview = () => {
   const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=8&sort=-date');
@@ -70,33 +69,22 @@ const SwiperReview = () => {
           className={styles.scrollingWrapper}
           ref={scrollingWrapperRef}
         >
-          {loading ? (
-            <>
-              <Box className={styles.skeletonCard}>
-                <Skeleton />
-              </Box>
-              <Box className={styles.skeletonCard}>
-                <Skeleton />
-              </Box>
-              <Box className={styles.skeletonCard}>
-                <Skeleton />
-              </Box>
-              <Box className={styles.skeletonCard}>
-                <Skeleton />
-              </Box>
-            </>
-          ) : lastReviewsData && lastReviewsData?.comments.map((item, index) => (
-            <Box
-            // eslint-disable-next-line no-underscore-dangle
-              key={item._id}
+          {/* todo: render skeleton here! */}
+          {/* {loading && <p>Loading...</p>} */}
+          {lastReviewsData && lastReviewsData?.comments.map((item, index) => (
+            item.customer && (
+              <Box
               // eslint-disable-next-line no-underscore-dangle
-              data={item._id}
-              // eslint-disable-next-line
-              className={styles.card}
-              ref={cardRef}
-            >
-              <ReviewItem review={item} index={index} />
-            </Box>
+                key={item._id}
+                // eslint-disable-next-line no-underscore-dangle
+                data={item._id}
+                // eslint-disable-next-line
+                className={styles.card}
+                ref={cardRef}
+              >
+                <ReviewItem review={item} index={index} />
+              </Box>
+            )
           ))}
           <Box sx={{ display: { mobile: 'none', lgTablet: 'block' } }}>
             <IconButton

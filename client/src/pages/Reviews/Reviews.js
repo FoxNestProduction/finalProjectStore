@@ -8,8 +8,9 @@ import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
 import { addNewReview, resetReviewState, searchReviews, setNewReview } from '../../redux/slices/reviewsSlice';
-import { TitleBtn, commentItem, commentItemSkeleton, commentList, container, flexCenter, titleContainer } from './styles';
-import Skeleton from '../../components/Skeleton/Skeleton';
+import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../../components/Alert/Alert';
 
 const ReviewsPage = () => {
   const searchReview = useSelector((state) => state.reviews.search);
@@ -24,11 +25,13 @@ const ReviewsPage = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [loadMore, setLoadMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [reviewAlert, setReviewAlert] = useState(false);
 
   const dispatch = useDispatch();
   const newReview = useSelector((state) => state.reviews.newReview);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const isLgTablet = useMediaQuery('(min-width: 690px)');
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   const containerRef = useRef(null);
   const cardRef = useRef([]);
@@ -79,6 +82,11 @@ const ReviewsPage = () => {
     dispatch(addNewReview());
     dispatch(resetReviewState());
     dispatch(closeModal());
+    handleShowAlert();
+    setReviewAlert(true);
+    setTimeout(() => {
+      setReviewAlert(false);
+    }, 4000);
   };
   // якщо відгук пустий кнопка Send  неактивна
   useEffect(() => {
@@ -151,6 +159,9 @@ const ReviewsPage = () => {
 
   return (
     <Container component="section" sx={{ ...flexCenter, ...container }}>
+      {reviewAlert && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your comment is added" />
+      )}
       <Box sx={titleContainer}>
         <Typography variant="h2" sx={{ justifySelf: 'center' }}>Customers Say</Typography>
         {isUserAuthorized && (
@@ -162,35 +173,19 @@ const ReviewsPage = () => {
       </Box>
       <Box ref={containerRef} sx={commentList}>
         {reviews && reviews.map((item, index) => (
-          <Box
-            key={item._id}
-            data={item._id}
-            ref={cardRef.current[index]}
-            sx={commentItem}
-          >
-            <ReviewItem review={item} />
-          </Box>
+          item.customer && (
+            <Box
+              key={item._id}
+              data={item._id}
+              ref={cardRef.current[index]}
+              sx={commentItem}
+            >
+              <ReviewItem review={item} />
+            </Box>
+          )
         ))}
       </Box>
-      {loading && (
-        <>
-          <Box
-            sx={commentItemSkeleton}
-          >
-            <Skeleton />
-          </Box>
-          <Box
-            sx={commentItemSkeleton}
-          >
-            <Skeleton />
-          </Box>
-          <Box
-            sx={commentItemSkeleton}
-          >
-            <Skeleton />
-          </Box>
-        </>
-      )}
+      {loading && <div>Loading...</div>}
       {error && <div>{error.statusText}</div>}
     </Container>
   );
