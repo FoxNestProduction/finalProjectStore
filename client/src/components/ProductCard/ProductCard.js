@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -24,10 +24,8 @@ import useGetAPI from '../../customHooks/useGetAPI';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
 
-const ProductCard = () => {
-  const { itemNo } = useParams();
+const ProductCard = ({ dish }) => {
   const dispatch = useDispatch();
-  const [dish, loading, error] = useGetAPI(`/products/${itemNo}`);
 
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
@@ -197,6 +195,14 @@ const ProductCard = () => {
       )}
     </Container>
   );
+};
+
+ProductCard.propTypes = {
+  dish: PropTypes.object,
+};
+
+ProductCard.defaultProps = {
+  dish: {},
 };
 
 export default ProductCard;

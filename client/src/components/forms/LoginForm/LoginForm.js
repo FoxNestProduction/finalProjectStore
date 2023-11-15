@@ -72,31 +72,17 @@ const LoginForm = () => {
       dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setAuthorizationError(''));
-
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
-      // dispatch(getCartItemsFromServer());
+      dispatch(fetchCart());
       dispatch(fetchFavourites());
+      handleShowAlert();
     }
   };
 
   const handleSubmit = async (values, actions) => {
     try {
       const response = await instance.post('/customers/login', values);
-      const { token } = response.data;
-      const { user } = response.data;
-      if (token) {
-        dispatch(setToken(token));
-        dispatch(setAuthorization(true));
-        dispatch(setUser(user));
-        dispatch(closeModal());
-        dispatch(setAuthorizationError(''));
-        removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-        saveUserInfoToSessionStorage(user);
-        dispatch(fetchCart());
-        dispatch(fetchFavourites());
-        handleShowAlert();
-      }
       authFunc(response);
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));
