@@ -44,7 +44,6 @@ import useAlert from '../../customHooks/useAlert';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [alertTimer, setAlertTimer] = useState(null);
   const location = useLocation();
 
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);

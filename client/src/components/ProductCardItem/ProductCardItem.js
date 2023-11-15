@@ -50,7 +50,7 @@ const ProductCardItem = ({
       handleShowAlert();
       setTimeout(() => {
         setClickedAdd(false);
-      }, 4000);
+      }, 1000);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickedAdd]);
