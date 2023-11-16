@@ -75,6 +75,18 @@ export const googleAppleBtn = {
   },
 };
 
+export const googleText = {
+  color: 'text.secondaryLightGrey',
+  ml: '12px',
+  fontWeight: 'fontWeightMedium',
+  fontSize: {
+    mobile: '18px',
+    tablet: '20px',
+    lgTablet: '22px',
+    desktop: '24px',
+  },
+};
+
 export const appleIcon = {
   color: '#323142',
   fontSize: {

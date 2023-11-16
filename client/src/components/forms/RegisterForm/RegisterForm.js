@@ -23,7 +23,7 @@ import {
   legend,
   inputsWrapper,
   signUpBtn,
-  signInLink,
+  signInLink, googleText,
 } from './styles';
 import Input from '../../inputs/Input/Input';
 import { closeModal, setContent } from '../../../redux/slices/modalSlice';
@@ -153,17 +153,7 @@ const RegisterForm = () => {
           <GoogleSvgComponent />
           <Box
             component="span"
-            sx={{
-              color: 'text.secondaryLightGrey',
-              ml: '12px',
-              fontWeight: 'fontWeightSemiBold',
-              fontSize: {
-                mobile: '18px',
-                tablet: '20px',
-                lgTablet: '22px',
-                desktop: '24px',
-              },
-            }}
+            sx={googleText}
           >
             Google
           </Box>
