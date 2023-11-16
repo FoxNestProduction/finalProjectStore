@@ -26,6 +26,7 @@ describe('Modal Component', () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce({});
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
 
+    // eslint-disable-next-line testing-library/render-result-naming-convention
     const component = render(
       <Modal />,
     );
@@ -43,6 +44,7 @@ describe('Modal Component', () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce({});
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
 
+    // eslint-disable-next-line testing-library/render-result-naming-convention
     const component = render(
       <Modal />,
     );
@@ -52,8 +54,8 @@ describe('Modal Component', () => {
     const modal = screen.getByTestId('CloseIcon');
     fireEvent.click(modal);
 
-      expect(dispatch).toHaveBeenCalledTimes(3);
-      expect(closeModal).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledTimes(3);
+    expect(closeModal).toHaveBeenCalled();
   });
 
   test('should renders buttons and handles clicks', () => {
@@ -72,6 +74,7 @@ describe('Modal Component', () => {
       text: 'Agree',
     });
 
+    // eslint-disable-next-line testing-library/render-result-naming-convention
     const component = render(<Modal />);
     expect(component).toMatchSnapshot();
 
@@ -80,15 +83,15 @@ describe('Modal Component', () => {
 
     fireEvent.click(closeButton);
 
-      expect(closeModal).toHaveBeenCalled();
-      expect(dispatch).toHaveBeenCalledTimes(3);
+    expect(closeModal).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledTimes(3);
 
     const agreeButton = screen.getByRole('radio');
     expect(agreeButton).toBeInTheDocument();
 
     fireEvent.click(agreeButton);
 
-      expect(closeModal).toHaveBeenCalled();
-      expect(dispatch).toHaveBeenCalledTimes(3);
+    expect(closeModal).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledTimes(3);
   });
 });

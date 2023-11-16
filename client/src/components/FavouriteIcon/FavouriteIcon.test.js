@@ -55,7 +55,6 @@ describe('Snapshot test', () => {
 
     fireEvent.click(favouriteIconTrue);
 
-    
     expect(favouriteIconTrue).toBeInTheDocument();
     expect(dispatch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
@@ -110,7 +109,7 @@ describe('Snapshot test', () => {
     const favouriteIconFalse = screen.getByTestId('FavoriteBorderOutlinedIcon');
 
     // await act(async () => {
-      fireEvent.click(favouriteIconFalse);
+    fireEvent.click(favouriteIconFalse);
     // });
 
     await waitFor(() => {
