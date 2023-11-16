@@ -17,7 +17,6 @@ jest.mock('../../redux/slices/favouriteSlice', () => ({
 const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
 describe('Snapshot test', () => {
-
   test('should FavouriteIcon render when not favourite', async () => {
     const dispatch = jest.fn();
     mockDispatch.mockReturnValueOnce(dispatch);
@@ -30,16 +29,13 @@ describe('Snapshot test', () => {
 
     const favouriteIconFalse = screen.getByTestId('FavoriteBorderOutlinedIcon');
 
-    await act(async () => {
-      fireEvent.click(favouriteIconFalse);
-    });
+    fireEvent.click(favouriteIconFalse);
 
+    expect(favouriteIconFalse).toBeInTheDocument();
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(setIsFavourite).toHaveBeenCalled();
     await waitFor(() => {
-      expect(favouriteIconFalse).toBeInTheDocument();
-      expect(dispatch).toHaveBeenCalledTimes(2);
       expect(addToFavourites).toHaveBeenCalledWith({ id: '1' });
-      expect(setIsFavourite).toHaveBeenCalled();
-
     });
 
     jest.clearAllMocks();
@@ -59,10 +55,11 @@ describe('Snapshot test', () => {
 
     fireEvent.click(favouriteIconTrue);
 
+    
+    expect(favouriteIconTrue).toBeInTheDocument();
+    expect(dispatch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
-      expect(favouriteIconTrue).toBeInTheDocument();
-      expect(dispatch).toHaveBeenCalledTimes(1);
-      expect(deleteFromFavourites).toHaveBeenCalledWith({ id: "1" });
+      expect(deleteFromFavourites).toHaveBeenCalledWith({ id: '1' });
     });
 
     jest.clearAllMocks();
@@ -73,12 +70,12 @@ describe('Snapshot test', () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('token');
     render(
-      <FavouriteIcon id="1" ishovered={true} isactive={false} />,
+      <FavouriteIcon id="1" ishovered isactive={false} />,
     );
 
     const button = screen.getByTestId('FavoriteBorderOutlinedIcon');
     expect(button).toHaveStyle({
-      color: 'rgb(156, 39, 176)'
+      color: 'rgb(156, 39, 176)',
     });
 
     jest.clearAllMocks();
@@ -89,12 +86,12 @@ describe('Snapshot test', () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('token');
     render(
-      <FavouriteIcon id="1" ishovered={false} isactive={true} />,
+      <FavouriteIcon id="1" ishovered={false} isactive />,
     );
 
     const button = screen.getByTestId('FavoriteBorderOutlinedIcon');
     expect(button).toHaveStyle({
-      color: 'rgb(156, 39, 176)'
+      color: 'rgb(156, 39, 176)',
     });
 
     jest.clearAllMocks();
@@ -112,9 +109,9 @@ describe('Snapshot test', () => {
 
     const favouriteIconFalse = screen.getByTestId('FavoriteBorderOutlinedIcon');
 
-    await act(async () => {
+    // await act(async () => {
       fireEvent.click(favouriteIconFalse);
-    });
+    // });
 
     await waitFor(() => {
       expect(dispatch).not.toHaveBeenCalled();

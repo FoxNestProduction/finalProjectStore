@@ -15,51 +15,48 @@ jest.mock('../../redux/slices/modalSlice', () => ({
 const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
 describe('Modal Component', () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  test('should renders Modal component with provided data', async () => {
+  test('should renders Modal component with provided data', () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Title');
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Content');
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce({});
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);   
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
 
     const component = render(
-      <Modal />
+      <Modal />,
     );
 
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     expect(component).toMatchSnapshot();
   });
 
-  test('should handles button click', async () => {
+  test('should handles button click', () => {
     const dispatch = jest.fn();
     mockDispatch.mockReturnValueOnce(dispatch);
-      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
-      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Title');
-      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Content');
-      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce({});
-      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);   
-  
-      const component = render(
-        <Modal />
-      );
-  
-      jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
-     
-      const modal = screen.getByTestId('CloseIcon');
-      fireEvent.click(modal);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Title');
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('Content');
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce({});
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
 
-    await waitFor(() => {
+    const component = render(
+      <Modal />,
+    );
+
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+
+    const modal = screen.getByTestId('CloseIcon');
+    fireEvent.click(modal);
+
       expect(dispatch).toHaveBeenCalledTimes(3);
       expect(closeModal).toHaveBeenCalled();
-    });
   });
 
-  test('should renders buttons and handles clicks', async () => {
+  test('should renders buttons and handles clicks', () => {
     const dispatch = jest.fn();
     mockDispatch.mockReturnValueOnce(dispatch);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
@@ -82,20 +79,16 @@ describe('Modal Component', () => {
     expect(closeButton).toBeInTheDocument();
 
     fireEvent.click(closeButton);
-    await waitFor(() => {
-    expect(closeModal).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledTimes(3);
-    });
 
-    // const agreeButton = screen.getByRole('roletype');
+      expect(closeModal).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledTimes(3);
+
     const agreeButton = screen.getByRole('radio');
     expect(agreeButton).toBeInTheDocument();
 
     fireEvent.click(agreeButton);
 
-    await waitFor(() => {
       expect(closeModal).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledTimes(3);
-    });
-  })
+  });
 });
