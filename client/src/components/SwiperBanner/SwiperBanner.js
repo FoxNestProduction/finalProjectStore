@@ -17,9 +17,9 @@ const SwiperBanner = () => {
     // { url: './img/Banner.jpg', index: 0 },
     // { url: './img/Banner2_1.jpg', index: 1 },
     // { url: './img/Banner3_1.jpg', index: 2 },
-    { url: './img/forBanner1.jpg', index: 0 },
-    { url: './img/forBanner2.jpg', index: 1 },
-    { url: './img/forBanner3.jpg', index: 2 },
+    { url: './img/forBanner0.jpg', index: 0 },
+    { url: './img/forBanner1.jpg', index: 1 },
+    { url: './img/forBanner2.jpg', index: 2 },
   ];
 
   const handleSlideChange = (swiper) => {
