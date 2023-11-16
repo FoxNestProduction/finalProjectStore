@@ -149,6 +149,22 @@ const RegisterForm = () => {
           sx={googleAppleBtn}
         >
           <GoogleSvgComponent />
+          <Box
+            component="span"
+            sx={{
+              color: 'text.secondaryLightGrey',
+              ml: '12px',
+              fontWeight: 'fontWeightSemiBold',
+              fontSize: {
+                mobile: '18px',
+                tablet: '20px',
+                lgTablet: '22px',
+                desktop: '24px',
+              },
+            }}
+          >
+            Google
+          </Box>
         </Button>
         {/* <Button
           disableRipple
