@@ -1,14 +1,14 @@
 import React from 'react';
 import { Box, MenuItem, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { stylesSortSelect } from '../ListItems/styles';
 import { setFilterParams } from '../../redux/slices/filterSlice';
 
 const Sorter = ({ type }) => {
   const dispatch = useDispatch();
 
-  const filterParams = useSelector((state) => state.filter.filterParams);
+  const filterParams = useSelector((state) => state.filter.filterParams, shallowEqual);
 
   const setSelectedValue = (sort) => {
     switch (sort) {

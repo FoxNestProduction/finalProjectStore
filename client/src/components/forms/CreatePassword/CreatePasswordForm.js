@@ -22,7 +22,7 @@ import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpe
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
+// import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
 
 export const initialValues = {
   password: '',
@@ -54,7 +54,7 @@ const CreatePasswordForm = () => {
 
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
-      dispatch(getCartItemsFromServer());
+      // dispatch(getCartItemsFromServer());
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));
       console.error('Помилка реєстрації:', error);

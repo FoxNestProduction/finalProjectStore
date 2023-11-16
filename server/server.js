@@ -7,7 +7,7 @@ const cors = require('cors');
 const cookieSession = require('cookie-session');
 require('dotenv').config();
 
-const googleUser = require('./config/googleUser')
+const googleUser = require('./config/googleUser');
 
 const globalConfigs = require('./routes/globalConfigs');
 const customers = require('./routes/customers');
@@ -27,6 +27,7 @@ const comments = require('./routes/comments');
 const shippingMethods = require('./routes/shippingMethods');
 const paymentMethods = require('./routes/paymentMethods');
 const partners = require('./routes/partners');
+const support = require('./routes/support');
 const googleAuth = require('./routes/googleAuth');
 // const mainRoute = require('./routes/index');
 
@@ -96,6 +97,7 @@ app.use('/api/shipping-methods', shippingMethods);
 app.use('/api/payment-methods', paymentMethods);
 app.use('/api/partners', partners);
 app.use('/api/auth', googleAuth);
+app.use('/api/support', support);
 // app.use('/', mainRoute);
 
 // Server static assets if in production

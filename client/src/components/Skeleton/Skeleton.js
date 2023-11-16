@@ -19,14 +19,17 @@ const Skeleton = ({ skeletonType }) => {
             className={classNames(styles.restaurantChipsTitleRatingSkeleton, styles.loading)}
           />
         </div>
-      ) : skeletonType === 'restaurantsPage' ? (
-        <div className={styles.restaurantsPageCardSkeleton}>
+      ) : skeletonType === 'restaurantsPage' || skeletonType === 'oneRestaurantPage' ? (
+        <div className={skeletonType !== 'oneRestaurantPage' ? styles.restaurantsPageCardSkeleton : styles.oneRestaurantPageCardSkeleton}>
           <div className={classNames(styles.restaurantsPageImageSkeleton, styles.loading)} />
           <div
             className={classNames(styles.restaurantsPageChipsTitleRatingSkeleton, styles.loading)}
           />
           <div
             className={classNames(styles.restaurantsPageChipsTitleRatingSkeleton, styles.loading)}
+          />
+          <div
+            className={classNames(styles.restaurantsPageShowMoreSkeleton, styles.loading)}
           />
         </div>
       ) : skeletonType === 'product' ? (
@@ -36,6 +39,24 @@ const Skeleton = ({ skeletonType }) => {
           <div className={classNames(styles.productChipsTitleRatingSkeleton, styles.loading)} />
           <div className={classNames(styles.productRaitingSkeleton, styles.loading)} />
           <div className={classNames(styles.productPriceSkeleton, styles.loading)} />
+        </div>
+      ) : skeletonType === 'oneProductPage' ? (
+        <div className={styles.oneProductPageCardSkeleton}>
+          <div className={classNames(styles.oneProductPageImageSkeleton, styles.loading)} />
+          <div className={styles.oneProductPageDescriptionWrapper}>
+            <div className={classNames(
+              styles.oneProductPageRaitingSkeleton,
+              styles.loading,
+            )}
+            />
+            <div className={classNames(
+              styles.oneProductPageRaitingSkeleton,
+              styles.loading,
+            )}
+            />
+            <div className={classNames(styles.oneProductPageDescription, styles.loading)} />
+            <div className={classNames(styles.oneProductPagePriceSkeleton, styles.loading)} />
+          </div>
         </div>
       ) : (
         <div className={styles.reviewCardSkeleton}>
@@ -54,5 +75,9 @@ const Skeleton = ({ skeletonType }) => {
 export default Skeleton;
 
 Skeleton.propTypes = {
-  skeletonType: PropTypes.string.isRequired,
+  skeletonType: PropTypes.string,
+};
+
+Skeleton.defaultProps = {
+  skeletonType: '',
 };
