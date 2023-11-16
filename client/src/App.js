@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import './App.scss';
 import { useLocation } from 'react-router';
@@ -21,6 +21,16 @@ const App = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const breakpoint = useBreakpoint();
+
+  // для тестування errorBoundary
+  const [throwError, setThrowError] = useState(false);
+  const causeError = () => {
+    setThrowError(true);
+  };
+  if (throwError) {
+    throw new Error('Manually triggered error');
+  }
+  // -----------------------------
 
   const user = useSelector((state) => state.user.user, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
@@ -59,6 +69,13 @@ const App = () => {
         <li />
         <li />
       </ul>
+
+      {/* // для тестування errorBoundary */}
+      <div>
+        <button type="button" onClick={causeError}>Cause Error</button>
+      </div>
+      {/* // ----------------------------*/}
+
       <Modal disagree="Close" />
       <AppRoutes />
       <ScrollTop />
