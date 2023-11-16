@@ -83,10 +83,10 @@ exports[`Snapshot test should render AboutUs 1`] = `
           >
             If you have any questions, feedback, or inquiries, don't hesitate to reach out to us. We'd love to hear from you and assist with any requests. You can contact us at
             <a
-              href="mailto:info@eatly.com"
+              href="mailto:eatly.supp@gmail.com"
               style="font-weight: bold; color: rgb(108, 95, 188);"
             >
-               info@eatly.com 
+               eatly.supp@gmail.com 
             </a>
             or through our
             <a

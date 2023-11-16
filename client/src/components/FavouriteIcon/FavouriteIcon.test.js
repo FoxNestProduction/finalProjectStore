@@ -1,60 +1,125 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { screen, render, fireEvent, waitFor } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor, act } from '@testing-library/react';
 import FavouriteIcon from './FavouriteIcon';
 import { setIsFavourite, addToFavourites, deleteFromFavourites } from '../../redux/slices/favouriteSlice';
 
 jest.mock('react-redux', () => ({
-  useSelector: jest.fn(),
+  ...jest.requireActual('react-redux'),
   useDispatch: jest.fn(),
+  useSelector: jest.fn(),
 }));
+jest.mock('../../redux/slices/favouriteSlice', () => ({
+  ...jest.requireActual('../../redux/slices/favouriteSlice'),
+  setIsFavourite: jest.fn(),
+  addToFavourites: jest.fn(),
+  deleteFromFavourites: jest.fn(),
+}));
+const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
 describe('Snapshot test', () => {
-  const useSelectorMock = jest.fn();
-  const useDispatchMock = jest.fn();
 
-  beforeEach(() => {
+  test('should FavouriteIcon render when not favourite', async () => {
+    const dispatch = jest.fn();
+    mockDispatch.mockReturnValueOnce(dispatch);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('token');
+
+    const { asFragment } = render(<FavouriteIcon id="1" />);
+    expect(asFragment()).toMatchSnapshot();
+
+    const favouriteIconFalse = screen.getByTestId('FavoriteBorderOutlinedIcon');
+
+    await act(async () => {
+      fireEvent.click(favouriteIconFalse);
+    });
+
+    await waitFor(() => {
+      expect(favouriteIconFalse).toBeInTheDocument();
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(addToFavourites).toHaveBeenCalledWith({ id: '1' });
+      expect(setIsFavourite).toHaveBeenCalled();
+
+    });
+
     jest.clearAllMocks();
-    useSelectorMock.mockReturnValueOnce(false);
-    useSelectorMock.mockReturnValueOnce(false);
-    useSelectorMock.mockReturnValueOnce('token');
   });
 
-  test('should FavouriteIcon render when not favourite', () => {
-    useSelector.mockReturnValueOnce(false);
-    const { asFragment } = render(<FavouriteIcon id="1" ishovered={false} isactive={false} />);
+  test('renders FavoriteIcon when favourite', async () => {
+    const dispatch = jest.fn();
+    mockDispatch.mockReturnValueOnce(dispatch);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('token');
+
+    const { asFragment } = render(<FavouriteIcon id="1" isactive={false} ishovered={false} />);
     expect(asFragment()).toMatchSnapshot();
+
+    const favouriteIconTrue = screen.getByTestId('FavoriteIcon');
+
+    fireEvent.click(favouriteIconTrue);
+
+    await waitFor(() => {
+      expect(favouriteIconTrue).toBeInTheDocument();
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(deleteFromFavourites).toHaveBeenCalledWith({ id: "1" });
+    });
+
+    jest.clearAllMocks();
   });
 
-  test('renders FavoriteIcon when favourite', () => {
-    useSelector.mockReturnValueOnce(true);
-    const { asFragment } = render(<FavouriteIcon id="1" ishovered={false} isactive={false} />);
-    expect(asFragment()).toMatchSnapshot();
+  test('styles button isHovered', () => {
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('token');
+    render(
+      <FavouriteIcon id="1" ishovered={true} isactive={false} />,
+    );
+
+    const button = screen.getByTestId('FavoriteBorderOutlinedIcon');
+    expect(button).toHaveStyle({
+      color: 'rgb(156, 39, 176)'
+    });
+
+    jest.clearAllMocks();
   });
 
-  test('dispatches deleteFromFavourites when already favourite and clicked', () => {
-    const mockDispatch = jest.fn();
-    useDispatch.mockReturnValue(mockDispatch);
+  test('sstyles button isActive', () => {
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('token');
+    render(
+      <FavouriteIcon id="1" ishovered={false} isactive={true} />,
+    );
 
-    render(<FavouriteIcon id="1" ishovered={false} isactive={false} />);
-    const favouriteIcon = screen.getByRole('button');
+    const button = screen.getByTestId('FavoriteBorderOutlinedIcon');
+    expect(button).toHaveStyle({
+      color: 'rgb(156, 39, 176)'
+    });
 
-    fireEvent.click(favouriteIcon);
-
-    // expect(mockDispatch).toHaveBeenCalledWith(deleteFromFavourites({ id: '1' }));
+    jest.clearAllMocks();
   });
 
-  test('should dispatch actions correctly when clicked (not favourite)', () => {
-    const dispatchMock = jest.fn();
-    useDispatchMock.mockReturnValueOnce(dispatchMock);
+  test('sstyles button is not authorizaite', async () => {
+    const dispatch = jest.fn();
+    mockDispatch.mockReturnValueOnce(dispatch);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('');
+    render(
+      <FavouriteIcon id="1" ishovered={false} isactive={false} />,
+    );
 
-    render(<FavouriteIcon id="1" ishovered isactive />);
-    const favouriteIcon = screen.getByRole('button');
+    const favouriteIconFalse = screen.getByTestId('FavoriteBorderOutlinedIcon');
 
-    fireEvent.click(favouriteIcon);
+    await act(async () => {
+      fireEvent.click(favouriteIconFalse);
+    });
 
-    // expect(dispatchMock).toHaveBeenCalledTimes(2);
-    // expect(dispatchMock).toHaveBeenCalledWith(setIsFavourite('1'));
-    // expect(dispatchMock).toHaveBeenCalledWith(addToFavourites({ id: '1' }));
+    await waitFor(() => {
+      expect(dispatch).not.toHaveBeenCalled();
+    });
+
+    jest.clearAllMocks();
   });
 });

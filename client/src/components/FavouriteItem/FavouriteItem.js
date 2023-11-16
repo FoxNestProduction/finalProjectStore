@@ -29,7 +29,6 @@ const FavouriteItem = ({ product }) => {
     _id,
   } = product;
 
-
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
   const [favAlert, setFavAlert] = useState(false);
 

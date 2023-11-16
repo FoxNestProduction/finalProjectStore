@@ -1,9 +1,9 @@
 import React from 'react';
-import { MemoryRouter, useNavigate } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { Route, Routes } from 'react-router';
 import { Provider } from 'react-redux';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
-import { useMediaQuery, Box } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import store from '../../redux/store';
 import Favourites from './Favourites';
 
@@ -72,7 +72,6 @@ describe('Snapshot test', () => {
 
     fireEvent.click(button);
     await waitFor(() => expect(screen.queryByRole('button')).toBeNull(), { timeout: 3000 });
-    // await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/menu'));
 
     jest.clearAllMocks();
   });

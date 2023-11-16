@@ -87,7 +87,8 @@ describe('Modal Component', () => {
     expect(dispatch).toHaveBeenCalledTimes(3);
     });
 
-    const agreeButton = screen.getByRole('roletype');
+    // const agreeButton = screen.getByRole('roletype');
+    const agreeButton = screen.getByRole('radio');
     expect(agreeButton).toBeInTheDocument();
 
     fireEvent.click(agreeButton);
