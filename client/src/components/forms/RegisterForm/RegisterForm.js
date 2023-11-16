@@ -57,7 +57,9 @@ const RegisterForm = () => {
   };
 
   const authFunc = (value) => {
-    const { user, token } = value.data;
+    const { user, token } = value;
+    console.log(user);
+    console.log(token);
 
     dispatch(setIsRegistrationSuccessful(true));
     handleShowAlert();
