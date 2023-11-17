@@ -33,7 +33,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+<<<<<<< HEAD
     "test": "react-scripts test  --watchAll=false",
+=======
+    "test": "react-scripts test  --watchAll=false --coverage",
+    "forms": "react-scripts test  --watchAll=false ./src/components/forms",
+>>>>>>> testForms
     "eject": "react-scripts eject",
     "e-lint": "npx eslint ./src/**/*.js --fix",
     "prepare": "cd .. && husky install client/.husky"
