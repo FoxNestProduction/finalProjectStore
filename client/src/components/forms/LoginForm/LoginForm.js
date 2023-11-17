@@ -34,7 +34,7 @@ import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpe
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { fetchCart, updateCart } from '../../../redux/slices/cartSlice';
+import { fetchCartAfterAuthorization } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
 import useAlert from '../../../customHooks/useAlert';
 import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
@@ -68,7 +68,7 @@ const LoginForm = () => {
       dispatch(setAuthorizationError(''));
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
-      dispatch(fetchCart());
+      dispatch(fetchCartAfterAuthorization());
       dispatch(fetchFavourites());
       handleShowAlert();
     }

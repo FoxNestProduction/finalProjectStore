@@ -35,7 +35,6 @@ import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
 import { createCart } from '../../../redux/slices/cartSlice';
-
 import useAlert from '../../../customHooks/useAlert';
 import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
 import CreatePasswordForm from '../CreatePassword/CreatePasswordForm';
