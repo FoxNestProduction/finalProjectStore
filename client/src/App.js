@@ -22,16 +22,6 @@ const App = () => {
   const { pathname } = useLocation();
   const breakpoint = useBreakpoint();
 
-  // для тестування errorBoundary
-  const [throwError, setThrowError] = useState(false);
-  const causeError = () => {
-    setThrowError(true);
-  };
-  if (throwError) {
-    throw new Error('Manually triggered error');
-  }
-  // -----------------------------
-
   const user = useSelector((state) => state.user.user, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
@@ -69,13 +59,6 @@ const App = () => {
         <li />
         <li />
       </ul>
-
-      {/* // для тестування errorBoundary */}
-      <div>
-        <button type="button" onClick={causeError}>Cause Error</button>
-      </div>
-      {/* // ----------------------------*/}
-
       <Modal disagree="Close" />
       <AppRoutes />
       <ScrollTop />
