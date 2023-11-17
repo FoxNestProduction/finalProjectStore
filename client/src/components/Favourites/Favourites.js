@@ -70,7 +70,7 @@ const Favourites = () => {
       )}
       {loading
       && (
-        <Box sx={{ width: '100%', position: 'fixed', zIndex: '1100', top: '87px' }}>
+        <Box sx={{ width: '100%', position: 'fixed', zIndex: '1100', top: '0' }}>
           <LinearProgress />
         </Box>
       )}
