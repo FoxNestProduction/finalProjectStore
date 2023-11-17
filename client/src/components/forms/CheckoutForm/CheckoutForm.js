@@ -32,7 +32,7 @@ import {
 } from '../../../utils/sessionStorageHelpers';
 import { putNewOrder, setPendingOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
-import { resetCart } from '../../../redux/slices/cartSlice';
+import { resetCart, deleteCart } from '../../../redux/slices/cartSlice';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
