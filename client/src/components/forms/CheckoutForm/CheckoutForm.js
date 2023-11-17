@@ -32,12 +32,7 @@ import {
 } from '../../../utils/sessionStorageHelpers';
 import { putNewOrder, setPendingOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
-<<<<<<<< < Temporary merge branch 1
-import { instance } from '../../../API/instance';
 import { deleteCart, resetCart } from '../../../redux/slices/cartSlice';
-=========
-import { resetCart } from '../../../redux/slices/cartSlice';
->>>>>>>>> Temporary merge branch 2
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
