@@ -3,11 +3,9 @@ import React, { memo } from 'react';
 // import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
-import { NavLink, useLocation } from 'react-router-dom';
 import { Typography, Box, Button, Link } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
-import AppleIcon from '@mui/icons-material/Apple';
 import { closeModal, openModal, setContent } from '../../../redux/slices/modalSlice';
 import validationSchema from './validationSchema';
 import {
@@ -20,7 +18,7 @@ import {
   forgetPassword,
   signInBtn,
   signUpLink,
-  appleIcon,
+  appleIcon, googleText,
 } from './styles';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import VerifyEmailForm from '../VerifyEmailForm/VerifyEmailForm';
@@ -40,15 +38,12 @@ import { instance } from '../../../API/instance';
 import { fetchCart, updateCart } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
 import useAlert from '../../../customHooks/useAlert';
-import CustomAlert from '../../Alert/Alert';
 import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
-  const cartProducts = useSelector((state) => state.cart.cart.products);
   const { handleShowAlert } = useAlert();
-  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   const initialValues = {
     email: '',
@@ -72,31 +67,17 @@ const LoginForm = () => {
       dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setAuthorizationError(''));
-
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
-      // dispatch(getCartItemsFromServer());
+      dispatch(fetchCart());
       dispatch(fetchFavourites());
+      handleShowAlert();
     }
   };
 
-  const handleSubmit = async (values, actions) => {
+  const handleSubmit = async (values) => {
     try {
       const response = await instance.post('/customers/login', values);
-      const { token } = response.data;
-      const { user } = response.data;
-      if (token) {
-        dispatch(setToken(token));
-        dispatch(setAuthorization(true));
-        dispatch(setUser(user));
-        dispatch(closeModal());
-        dispatch(setAuthorizationError(''));
-        removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-        saveUserInfoToSessionStorage(user);
-        dispatch(fetchCart());
-        dispatch(fetchFavourites());
-        handleShowAlert();
-      }
       authFunc(response);
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));
@@ -167,6 +148,12 @@ const LoginForm = () => {
           onClick={googleAuth}
         >
           <GoogleSvgComponent />
+          <Box
+            component="span"
+            sx={googleText}
+          >
+            Google
+          </Box>
         </Button>
         {/* <Button disabled disableRipple variant="contained" sx={googleAppleBtn}>
           <AppleIcon sx={appleIcon} />

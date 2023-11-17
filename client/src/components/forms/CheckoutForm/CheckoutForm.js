@@ -3,7 +3,6 @@ import React, { memo, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
-import axios from 'axios';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -25,20 +24,20 @@ import {
   subtitle,
   paymentRadioBtn, paymentWrapper,
 } from './styles';
-import { setUser } from '../../../redux/slices/userSlice';
+import { updateCustomer } from '../../../redux/slices/userSlice';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import {
   getDataFromSessionStorage,
-  removeDataFromSessionStorage, setDataToSessionStorage,
+  removeDataFromSessionStorage,
   updateSessionStorageValues,
 } from '../../../utils/sessionStorageHelpers';
-import { setConfirmedOrder, setOrderInfo } from '../../../redux/slices/orderSlice';
+import { putNewOrder, setPendingOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
-import { instance } from '../../../API/instance';
 import { resetCart } from '../../../redux/slices/cartSlice';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const getInitialValues = () => ({
     name: '',
@@ -56,9 +55,11 @@ const CheckoutForm = () => {
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user, shallowEqual);
   const token = useSelector((state) => state.authorization.token);
-  const cart = useSelector((state) => state.cart.cart.products);
+  const cart = useSelector((state) => state.cart.cart.products, shallowEqual);
 
-  const dispatch = useDispatch();
+  const updateCustomerLoading = useSelector((state) => state.user.loading.updatedCustomer);
+  const orderLoading = useSelector((state) => state.order.loading);
+  const orderError = useSelector((state) => state.order.error);
 
   useEffect(() => {
     const checkoutValues = getDataFromSessionStorage(CHECKOUT_SS_KEY);
@@ -82,20 +83,14 @@ const CheckoutForm = () => {
   const handleContinue = async (values) => {
     // updating user info in DB and user slice
     if (isUserAuthorized && token) {
-      const updatedCustomer = {
+      const customerUpdates = {
         telephone: values.tel,
       };
-      try {
-        const response = await instance.put('/customers', updatedCustomer);
-        dispatch(setUser(response.data));
-      } catch (err) {
-        console.log('Error updating user: ', err);
-      }
+      await dispatch(updateCustomer(customerUpdates));
     }
 
     const { name, email, tel, city, street, house, apartment, payment } = values;
     const newOrder = {
-      status: 'new order',
       products: cart,
       name,
       email,
@@ -114,28 +109,25 @@ const CheckoutForm = () => {
       newOrder.customerId = id;
     }
 
-    if (values.payment === 'Card') {
-      dispatch(setOrderInfo(newOrder));
-      navigate('/checkout/payment');
-    } else {
-      try {
-        const response = await instance.post('/orders', newOrder);
-        dispatch(setConfirmedOrder(response.data.order));
+    if (values.payment === 'Cash') {
+      newOrder.status = 'new_order/cash';
+      const response = await dispatch(putNewOrder(newOrder)).unwrap();
+      if (response.status === 200) {
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
         }
         navigate('/order-confirmation');
-      } catch (err) {
-        console.log('Error placing new order: ', err);
       }
+    } else {
+      dispatch(setPendingOrderInfo(newOrder));
+      navigate('/checkout/payment');
     }
   };
 
   const setInitialTouched = () => {
     const values = getDataFromSessionStorage(CHECKOUT_SS_KEY);
-
     if (values) {
       return {
         name: 'name' in values,
@@ -259,7 +251,17 @@ const CheckoutForm = () => {
             </Field>
 
           </Stack>
-          <CheckoutActions isValid={setIsValid(touched, errors)} />
+          {orderError && (
+          <Box>
+            <Typography variant="body1" component="p" sx={{ color: 'text.error', mt: '15px', mb: '-15px' }}>
+              {orderError}
+            </Typography>
+          </Box>
+          )}
+          <CheckoutActions
+            isValid={setIsValid(touched, errors)}
+            loading={(orderLoading || updateCustomerLoading) && !orderError}
+          />
         </Form>
       )}
     </Formik>

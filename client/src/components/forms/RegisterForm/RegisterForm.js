@@ -23,7 +23,7 @@ import {
   legend,
   inputsWrapper,
   signUpBtn,
-  signInLink,
+  signInLink, googleText,
 } from './styles';
 import Input from '../../inputs/Input/Input';
 import { closeModal, setContent } from '../../../redux/slices/modalSlice';
@@ -73,7 +73,7 @@ const RegisterForm = () => {
 
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     saveUserInfoToSessionStorage(user);
-    // dispatch(getCartItemsFromServer());
+    dispatch(createCart());
   };
 
   const handleSubmit = async (values) => {
@@ -85,23 +85,6 @@ const RegisterForm = () => {
 
     try {
       const response = await instance.post('/customers', newCustomer);
-      const { user, token } = response.data;
-
-      dispatch(setIsRegistrationSuccessful(true));
-      handleShowAlert();
-      setTimeout(() => {
-        dispatch(setIsRegistrationSuccessful(false));
-      }, 4000);
-
-      dispatch(setToken(token));
-      dispatch(setAuthorization(true));
-      dispatch(setUser(user));
-      dispatch(closeModal());
-      dispatch(setRegistrationError(''));
-
-      removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-      saveUserInfoToSessionStorage(user);
-      dispatch(createCart());
       authFunc(response.data);
     } catch (error) {
       dispatch(setRegistrationError(error.response.data));
@@ -166,6 +149,12 @@ const RegisterForm = () => {
           sx={googleAppleBtn}
         >
           <GoogleSvgComponent />
+          <Box
+            component="span"
+            sx={googleText}
+          >
+            Google
+          </Box>
         </Button>
         {/* <Button
           disableRipple

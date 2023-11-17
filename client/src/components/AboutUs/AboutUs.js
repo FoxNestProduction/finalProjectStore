@@ -56,9 +56,9 @@ const AboutUs = () => {
             <Typography>
               If you have any questions, feedback, or inquiries, don&apos;t hesitate to reach out to us. We&apos;d love to hear
               from you and assist with any requests. You can contact us at
-              <a href="mailto:info@eatly.com" style={{ fontWeight: 'bold', color: '#6C5FBC' }}>
+              <a href="mailto:eatly.supp@gmail.com" style={{ fontWeight: 'bold', color: '#6C5FBC' }}>
                 {' '}
-                info@eatly.com
+                eatly.supp@gmail.com
                 {' '}
               </a>
               or through our

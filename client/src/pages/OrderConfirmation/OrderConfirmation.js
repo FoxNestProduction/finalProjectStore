@@ -11,7 +11,7 @@ import { starsWrapper } from '../Chechout/styles';
 import GroupOfStarsSvg from '../../assets/svgComponents/GroupOfStarsSvg';
 
 const OrderConfirmationPage = () => {
-  const order = useSelector((state) => state.order.confirmedOrder, shallowEqual);
+  const order = useSelector((state) => state.order.order, shallowEqual);
   const navigate = useNavigate();
 
   return (

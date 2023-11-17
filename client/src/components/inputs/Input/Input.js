@@ -10,7 +10,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
 
-const Input = ({ type, label, icon, id, error, bgColor, styles, value, ...props }) => {
+const Input = ({ type, label, icon, id, error, bgColor, styles, ...props }) => {
   const [field, meta] = useField(props.name);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -66,7 +66,6 @@ const Input = ({ type, label, icon, id, error, bgColor, styles, value, ...props 
             </IconButton>
           </InputAdornment>
         )}
-        value={value}
         {...field}
         {...props}
       />
@@ -86,7 +85,6 @@ Input.propTypes = {
   id: PropTypes.string.isRequired,
   bgColor: PropTypes.string,
   styles: PropTypes.object,
-  value: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -96,7 +94,6 @@ Input.defaultProps = {
   label: '',
   bgColor: '#F9F9F9',
   styles: {},
-  value: '',
 };
 
 export default memo(Input);

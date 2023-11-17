@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import {
@@ -38,7 +38,7 @@ import {
 } from './styles';
 
 const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageUrl }) => {
-  const cartProducts = useSelector((state) => state.cart.cart.products);
+  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const authorization = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const index = cartProducts.findIndex(({ product }) => product._id === _id);

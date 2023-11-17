@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import EmailIcon from '@mui/icons-material/Email';
+import { CircularProgress } from '@mui/material';
 import validationSchema from './validationSchema';
 import Input from '../../inputs/Input/Input';
 import { instance } from '../../../API/instance';
@@ -92,7 +93,9 @@ const VerifyEmailForm = () => {
                 type="submit"
                 disabled={!isValid || loading}
               >
-                Continue
+                {!loading
+                  ? 'Continue'
+                  : <CircularProgress color="primary" />}
               </Button>
             </Box>
           </Form>
