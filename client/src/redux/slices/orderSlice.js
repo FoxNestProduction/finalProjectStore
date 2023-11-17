@@ -1,26 +1,47 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { instance } from '../../API/instance';
+import { setError, setLoading } from '../extraReducersHelpers';
+
+export const putNewOrder = createAsyncThunk(
+  'order/putNewOrder',
+  async (newOrder, { rejectWithValue }) => {
+    try {
+      const response = await instance.post('/orders', newOrder);
+      console.log(response.data.order);
+      return response;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue("Oops! We couldn't process your order. Please check your details and try again. If the issue persists, contact support.");
+    }
+  },
+);
 
 const initialState = {
-  orderInfo: {},
-  confirmedOrder: {},
+  order: {},
+  pendingOrderInfo: {},
+  loading: false,
+  error: null,
 };
 
 const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    setOrderInfo(state, action) {
-      state.orderInfo = action.payload;
+    setPendingOrderInfo(state, { payload }) {
+      state.pendingOrderInfo = payload;
     },
-    setConfirmedOrder(state, action) {
-      state.confirmedOrder = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(putNewOrder.pending, setLoading)
+      .addCase(putNewOrder.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.order = payload.data.order;
+      })
+      .addCase(putNewOrder.rejected, setError);
   },
 });
 
-export const {
-  setOrderInfo,
-  setConfirmedOrder,
-} = orderSlice.actions;
+export const { setPendingOrderInfo } = orderSlice.actions;
 
 export default orderSlice.reducer;

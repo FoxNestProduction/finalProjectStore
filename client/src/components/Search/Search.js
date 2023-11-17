@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { debounce } from '@mui/material/utils';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
@@ -30,8 +30,8 @@ const Search = ({ resetFiltersLocalState }) => {
   }, [dispatch]); // eslint-disable-line
 
   const key = useSelector((state) => state.search.key);
-  const allProductsNames = useSelector((state) => state.products.allProductsNames);
-  const allPartnersNames = useSelector((state) => state.partners.allPartnersNames);
+  const allProductsNames = useSelector((state) => state.products.allProductsNames, shallowEqual);
+  const allPartnersNames = useSelector((state) => state.partners.allPartnersNames, shallowEqual);
   const labelForTextField = `Search  ${key}`;
 
   const handleChangeButton = (event, keyBtn) => {

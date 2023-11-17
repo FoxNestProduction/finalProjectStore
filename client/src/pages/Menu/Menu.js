@@ -30,13 +30,13 @@ const MenuPage = () => {
   const isMounted = useRef(false);
   const productsScrollRef = useRef(null);
 
-  const itemsFromSearch = useSelector((state) => state.search.search);
-  const itemsFromFilter = useSelector((state) => state.filter.filteredProducts);
+  const itemsFromSearch = useSelector((state) => state.search.search, shallowEqual);
+  const itemsFromFilter = useSelector((state) => state.filter.filteredProducts, shallowEqual);
   const keyFromSearch = useSelector((state) => state.search.key);
-  const filterParams = useSelector((state) => state.filter.filterParams);
+  const filterParams = useSelector((state) => state.filter.filterParams, shallowEqual);
   const filteredProductsQuantity = useSelector((state) => state.filter.productsQuantity);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
-  const products = useSelector((state) => state.products.products);
+  const products = useSelector((state) => state.products.products, shallowEqual);
   const loadingProducts = useSelector((state) => state.products.loading);
   const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
   const loadingPartners = useSelector((state) => state.partners.loading);

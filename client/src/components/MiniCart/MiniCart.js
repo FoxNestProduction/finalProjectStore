@@ -1,6 +1,6 @@
 import React, { useState, memo } from 'react';
 import { Popover, Box, IconButton, Badge, Button, useMediaQuery } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import MiniCartItem from '../MiniCartItem/MiniCartItem';
@@ -15,7 +15,7 @@ import { cartIconCounterFunction } from '../Cart/cartFunctions';
 const MiniCart = () => {
   const matches = useMediaQuery('(min-width:690px)');
   const [anchorEl, setAnchorEl] = useState(null);
-  const cartProducts = useSelector((state) => state.cart.cart.products);
+  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const navigate = useNavigate();
 
   const location = useLocation();
