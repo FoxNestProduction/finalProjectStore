@@ -23,7 +23,7 @@ import {
   legend,
   inputsWrapper,
   signUpBtn,
-  signInLink,
+  signInLink, googleText,
 } from './styles';
 import Input from '../../inputs/Input/Input';
 import { closeModal, setContent } from '../../../redux/slices/modalSlice';
@@ -56,7 +56,7 @@ const RegisterForm = () => {
   };
 
   const authFunc = (value) => {
-    const { user, token } = value.data;
+    const { user, token } = value;
 
     dispatch(setIsRegistrationSuccessful(true));
     handleShowAlert();
@@ -148,6 +148,12 @@ const RegisterForm = () => {
           sx={googleAppleBtn}
         >
           <GoogleSvgComponent />
+          <Box
+            component="span"
+            sx={googleText}
+          >
+            Google
+          </Box>
         </Button>
         {/* <Button
           disableRipple
