@@ -41,7 +41,6 @@ jest.mock('../../redux/slices/favouriteSlice', () => ({
 const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
 describe('ProductCard Component', () => {
-
   const dish = {
     name: 'Product',
     description: 'About Product',
@@ -75,7 +74,7 @@ describe('ProductCard Component', () => {
         <AlertContextProvider>
           <ProductCard dish={dish} />
         </AlertContextProvider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -117,7 +116,7 @@ describe('ProductCard Component', () => {
         <AlertContextProvider>
           <ProductCard dish={dish} />
         </AlertContextProvider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const favouriteButton = screen.getByText('Favourite');
@@ -143,7 +142,7 @@ describe('ProductCard Component', () => {
         <AlertContextProvider>
           <ProductCard dish={dish} />
         </AlertContextProvider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const favouriteButton = screen.getByText('Favourite');
@@ -169,7 +168,7 @@ describe('ProductCard Component', () => {
         <AlertContextProvider>
           <ProductCard dish={dish} />
         </AlertContextProvider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const favouriteButton = screen.getByText('Favourite');
@@ -187,19 +186,19 @@ describe('ProductCard Component', () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
-  
+
     render(
       <MemoryRouter>
         <AlertContextProvider>
           <ProductCard dish={dish} />
         </AlertContextProvider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-  
+
     const activeButton = screen.getByText('Add to card');
-  
+
     fireEvent.click(activeButton);
-  
+
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(addToCart).toHaveBeenCalled();
     expect(useAlert().handleShowAlert).toHaveBeenCalledTimes(1);
@@ -214,15 +213,15 @@ describe('ProductCard Component', () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
-    
+
     render(
       <MemoryRouter>
         <AlertContextProvider>
           <ProductCard dish={dish} />
         </AlertContextProvider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-  
+
     const favouriteIcon = screen.getByTestId('FavoriteBorderOutlinedIcon');
     fireEvent.mouseEnter(favouriteIcon);
     await waitFor(() => {
@@ -237,15 +236,15 @@ describe('ProductCard Component', () => {
     mockDispatch.mockReturnValueOnce(dispatch);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
-    
+
     render(
       <MemoryRouter>
         <AlertContextProvider>
           <ProductCard dish={dish} />
         </AlertContextProvider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-  
+
     const ratingStar = screen.getAllByTestId('StarIcon');
     const rating = ratingStar.length;
     const expectedRating = dish.rating ?? 0;

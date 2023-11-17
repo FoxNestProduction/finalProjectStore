@@ -22,7 +22,6 @@ jest.mock('@mui/material', () => ({
 }));
 
 describe('ProductPage Component', () => {
-
   const dish = {
     // name: 'Product',
     // description: 'About Product',
