@@ -33,7 +33,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test  --watchAll=false",
+    "test": "react-scripts test  --watchAll=false ./src/components/SwiperBanner",
     "eject": "react-scripts eject",
     "e-lint": "npx eslint ./src/**/*.js --fix",
     "prepare": "cd .. && husky install client/.husky"
@@ -41,7 +41,10 @@
   "jest": {
     "transformIgnorePatterns": [
       "/node_modules/(?!axios)/"
-    ]
+    ],
+    "moduleNameMapper": {
+      "swiper/css": "swiper/swiper.min.css"
+    }
   },
   "eslintConfig": {
     "extends": [
