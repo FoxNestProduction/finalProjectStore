@@ -65,9 +65,9 @@ const Cart = () => {
         <Box
           sx={cartProductsContainer}
         >
-          {cartProducts.map(({ product, cartQuantity }) => (
+          {/* {cartProducts.map(({ product, cartQuantity }) => (
             <ProductCartItem key={product._id} cartQuantity={cartQuantity} {...product} />
-          ))}
+          ))} */}
           {!cartProducts.length && (
             <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, my: 10 }}>
               <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>Oops! your cart is empty</Typography>

@@ -55,7 +55,6 @@ export const fetchCart = createAsyncThunk(
           // return null;
         }
       }
-      console.log(data);
       // eslint-disable-next-line no-use-before-define
       dispatch(setRestaurants(data.products));
       return data;
@@ -81,10 +80,8 @@ export const fetchCartAfterAuthorization = createAsyncThunk(
         const newCartProducts = getState().cart.cart.products;
         const updatedCart = changeCartObjectFromServer(newCartProducts);
         const response = await instance.put('/cart', updatedCart);
-        console.log(response.data);
         return response.data;
       }
-      console.log(data);
       return data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -224,7 +221,6 @@ const cartSlice = createSlice({
     },
     setRestaurants(state, action) {
       // Варіант 1
-      console.log(action.payload);
       if (action.payload.length) {
         const restaurants = action.payload.map((prodactObj) => {
           return prodactObj.product.restaurant_name;
@@ -258,14 +254,13 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.pending, setLoading)
       .addCase(fetchCart.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // console.log(action.payload);
         state.loading = false;
         if (action.payload !== null) {
           state.cart.products = action.payload.products;
         }
       })
       .addCase(fetchCart.rejected, (state, action) => {
-        console.log(action.payload);
         state.loading = false;
         state.error = action.payload;
       })
