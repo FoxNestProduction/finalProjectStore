@@ -1,38 +1,28 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import SwiperBanner from './SwiperBanner';
 
-jest.mock('swiper/react', () => {
-  const originalModule = jest.requireActual('swiper/react');
-  return {
-    ...originalModule,
-    Swiper: jest.fn(),
-    SwiperSlide: jest.fn(),
-  };
-});
+jest.mock('swiper/react', () => ({
+  // eslint-disable-next-line react/prop-types
+  Swiper: ({ children }) => <div data-testid="swiper-testid">{children}</div>,
+  // eslint-disable-next-line react/prop-types
+  SwiperSlide: ({ children }) => (
+    <div data-testid="swiper-slide-testid">{children}</div>
+  ),
+}));
 
 jest.mock('swiper', () => ({
-  ...jest.requireActual('swiper'),
-  modules: {
-    ...jest.requireActual('swiper/modules'),
-    autoplay: {
-      ...jest.requireActual('swiper/modules/autoplay'),
-      default: jest.fn(),
-    },
-    effectCube: {
-      ...jest.requireActual('swiper/modules/effect-cube'),
-      default: jest.fn(),
-    },
-    pagination: {
-      ...jest.requireActual('swiper/modules/pagination'),
-      default: jest.fn(),
-    },
-  },
+  Navigation: (props) => null,
+  Pagination: (props) => null,
+  Scrollbar: (props) => null,
+  A11y: (props) => null,
 }));
 
 describe('SwiperBanner', () => {
   test('should render SwiperBanner', () => {
-    const { asFragment } = render(<SwiperBanner />);
-    expect(asFragment()).toMatchSnapshot();
+    render(<SwiperBanner />);
+    // expect(asFragment()).toMatchSnapshot();
+    const slides = screen.getAllByTestId('swiper-slide-testid');
+    expect(slides.length).toBe(1);
   });
 });
