@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import { CardMedia, IconButton, Typography } from '@mui/material';
@@ -141,4 +141,4 @@ ProductCartItem.defaultProps = {
   itemNo: '',
 };
 
-export default ProductCartItem;
+export default memo(ProductCartItem);

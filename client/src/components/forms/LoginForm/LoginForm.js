@@ -1,5 +1,6 @@
 /* eslint-disable import/no-cycle */
-import React from 'react';
+import React, { memo } from 'react';
+// import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { Typography, Box, Button, Link } from '@mui/material';
@@ -238,4 +239,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default memo(LoginForm);

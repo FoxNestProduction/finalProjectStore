@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectCube, Pagination } from 'swiper/modules';
 import classNames from 'classnames';
@@ -77,4 +77,4 @@ const SwiperBanner = () => {
   );
 };
 
-export default SwiperBanner;
+export default memo(SwiperBanner);

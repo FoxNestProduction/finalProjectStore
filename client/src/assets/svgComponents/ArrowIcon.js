@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 const ArrowIcon = ({ fill }) => {
@@ -17,4 +17,4 @@ ArrowIcon.propTypes = {
 ArrowIcon.defaultProps = {
   fill: '#FF9140',
 };
-export default ArrowIcon;
+export default memo(ArrowIcon);

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { Container, Box, Typography, IconButton } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -110,4 +110,4 @@ const SwiperReview = () => {
   );
 };
 
-export default SwiperReview;
+export default memo(SwiperReview);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Container, Box, useMediaQuery } from '@mui/material';
 import { shallowEqual, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -77,4 +77,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default memo(ProductPage);

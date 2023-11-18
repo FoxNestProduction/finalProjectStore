@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PropTypes from 'prop-types';
@@ -55,4 +55,4 @@ AppPagination.propTypes = {
   pageQty: PropTypes.number.isRequired,
 };
 
-export default AppPagination;
+export default memo(AppPagination);

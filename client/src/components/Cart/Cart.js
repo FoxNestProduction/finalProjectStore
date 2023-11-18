@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import {
   Typography,
   Container,
@@ -125,4 +125,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default memo(Cart);
