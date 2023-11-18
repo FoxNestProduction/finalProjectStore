@@ -33,7 +33,7 @@ import {
 } from '../../../utils/sessionStorageHelpers';
 import { putNewOrder, setPendingOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
-import { resetCart } from '../../../redux/slices/cartSlice';
+import { resetCart, deleteCart } from '../../../redux/slices/cartSlice';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -117,6 +117,7 @@ const CheckoutForm = () => {
         dispatch(resetCart());
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
+          dispatch(deleteCart());
         }
         navigate('/order-confirmation');
       }
@@ -252,11 +253,11 @@ const CheckoutForm = () => {
 
           </Stack>
           {orderError && (
-          <Box>
-            <Typography variant="body1" component="p" sx={{ color: 'text.error', mt: '15px', mb: '-15px' }}>
-              {orderError}
-            </Typography>
-          </Box>
+            <Box>
+              <Typography variant="body1" component="p" sx={{ color: 'text.error', mt: '15px', mb: '-15px' }}>
+                {orderError}
+              </Typography>
+            </Box>
           )}
           <CheckoutActions
             isValid={setIsValid(touched, errors)}

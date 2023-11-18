@@ -37,7 +37,7 @@ import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
-import { resetCart, setIsCart, updateCart } from '../../redux/slices/cartSlice';
+import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
 import CustomAlert from '../Alert/Alert';
 import useAlert from '../../customHooks/useAlert';
@@ -46,7 +46,6 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   // const user = useSelector((state) => state.user.user);
   // const { cart } = user; // під питанням чи потрібне це значення
@@ -127,6 +126,12 @@ const Header = () => {
 
   return (
     <>
+      {isRegistered && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
+      )}
+      {isUserAuthorized && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Welcome back!" />
+      )}
       {(isRegistered || authorizedAlert || logOutdAlert) && alert ? (
         <CustomAlert
           type="success"

@@ -45,10 +45,10 @@ const PaymentForm = () => {
     const response = await dispatch(putNewOrder(newOrder)).unwrap();
     if (response.status === 200) {
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-      // dispatch(resetCart());
-      dispatch(deleteCart());
+      dispatch(resetCart());
       if (isUserAuthorized && user) {
         saveUserInfoToSessionStorage(user);
+        dispatch(deleteCart());
       }
       navigate('/order-confirmation');
     }
