@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import SwiperReview from './SwiperReview';
 
@@ -9,12 +9,16 @@ jest.mock('../../customHooks/useGetAPI', () => ({
   useGetAPI: jest.fn(),
 }));
 
-jest.mock('react-router', () => ({
-  ...jest.requireActual('react-router'),
-  useParams: jest.fn(),
-  // useParams: () => ({
-  //   hash: '123',
-  // }),
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: jest.fn(),
+  Routes: ({ children }) => children,
+  Route: ({ element }) => element,
+}));
+
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: jest.fn(),
 }));
 
 jest.mock('../../customHooks/useGetAPI', () => () => [
@@ -35,20 +39,27 @@ const fakeData = {
   ],
 };
 
+const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
+
 describe('SwiperReview Component', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  // test('should renders SwiperReview component', () => {
-  
-  //   const { asFragment } = render(
-  //     <SwiperReview fakeData={fakeData} />
-  //   );
+  test('should renders SwiperReview component', () => {
+    mockDispatch.mockReturnValueOnce(jest.fn());
+    useLocation.mockReturnValue({ pathname: '/' });
+    const { asFragment } = render(
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<SwiperReview lastReviewsData={fakeData} />} />
+        </Routes>
+      </MemoryRouter>
+    );
 
-  //   expect(asFragment()).toMatchSnapshot();
-  // });
+    expect(asFragment()).toMatchSnapshot();
+  });
 
   // test('handles next button click', () => {
   //   render(<SwiperReview />);

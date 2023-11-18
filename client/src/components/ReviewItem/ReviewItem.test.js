@@ -1,10 +1,7 @@
 import React from 'react';
-import { Provider, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { searchReviews, setIndexSearchReview } from '../../redux/slices/reviewsSlice';
-
-import configureStore from 'redux-mock-store';
 import ReviewItem from './ReviewItem';
 
 jest.mock('react-router-dom', () => ({
@@ -19,11 +16,6 @@ jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useDispatch: jest.fn(),
   useSelector: jest.fn(),
-}));
-
-jest.mock('../../customHooks/useAlert', () => ({
-  __esModule: true,
-  default: jest.fn(),
 }));
 
 jest.mock('../../redux/slices/reviewsSlice', () => ({
@@ -124,6 +116,38 @@ describe('ReviewItem component', () => {
 
     expect(dispatch).not.toHaveBeenCalled();
     expect(navigateMock).not.toHaveBeenCalled();
+  });
 
+  test('should render ReviewItem, when location "/"', () => {
+    useLocation.mockReturnValue({ pathname: '/' });
+    const dispatch = jest.fn();
+    mockDispatch.mockReturnValueOnce(dispatch);
+    const navigateMock = jest.fn();
+    useNavigate.mockReturnValue(navigateMock);
+    const reviewLong = {
+      _id: '1',
+      rating: 4,
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. orem ipsum dolor sit amet, consectetur adipiscing elit. orem ipsum dolor sit amet, consectetur adipiscing elit.',
+      date: '2023-11-09T12:00:00Z',
+      customer: {
+        lastName: 'Doe',
+        firstName: 'John',
+      },
+    };
+    const { asFragment } = render(
+        <MemoryRouter initialEntries={['/']}>
+          <Routes>
+            <Route path="/" element={<ReviewItem review={reviewLong} index={0} />} />
+          </Routes>
+        </MemoryRouter>
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+    const reviewItem = screen.getByText(/Lorem ipsum/);
+    expect(reviewItem).toHaveStyle({
+      textOverflow: 'ellipsis',
+    });
+
+    console.log(reviewItem);
   });
 });

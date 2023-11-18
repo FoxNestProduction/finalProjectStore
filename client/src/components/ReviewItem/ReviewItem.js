@@ -23,7 +23,7 @@ const ReviewItem = ({ review, index }) => {
   const dispatch = useDispatch();
   const { rating, content, avatarUrl, date, _id: id, customer: { lastName, firstName } } = review;
 
-  const isMoreThreeLineText = (content.length >= 150) && (location.pathname !== '/reviews');
+  const isMoreThreeLineText = (content && content.length >= 150) && (location.pathname !== '/reviews');
   const styleComment = (location.pathname === '/reviews') ? stylesFullText : { ...stylesText };
   const widthWrapper = !(location.pathname === '/reviews') ? { mobile: '100%', tablet: '345px', desktop: '485px' } : '100%';
 
