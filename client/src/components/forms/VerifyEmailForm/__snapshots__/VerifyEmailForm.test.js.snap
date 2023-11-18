@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerifyEmailForm Component renders VerifyEmailForm correctly 1`] = `
+<DocumentFragment>
+  <section
+    class="MuiBox-root css-1snrlp5"
+  >
+    <h1
+      class="MuiTypography-root MuiTypography-h2 css-1tzbn0g-MuiTypography-root"
+    >
+      Forgot Password
+    </h1>
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-1g2715c-MuiTypography-root"
+    >
+      Enter your e-mail to reset password
+    </p>
+    <form
+      action="#"
+    >
+      <div
+        class="MuiBox-root css-dvxtzn"
+      >
+        <div
+          class="MuiBox-root css-lx50gm"
+        >
+          <div
+            class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="true"
+              for="loginEmail"
+            >
+              E-mail
+            </label>
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedStart css-1rmmbqq-MuiInputBase-root-MuiOutlinedInput-root"
+            >
+              <div
+                class="MuiInputAdornment-root MuiInputAdornment-positionStart MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1c8d5n4-MuiInputAdornment-root"
+              >
+                <span
+                  class="notranslate"
+                >
+                  ​
+                </span>
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                  data-testid="EmailIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"
+                  />
+                </svg>
+              </div>
+              <input
+                aria-describedby="helper-text"
+                aria-invalid="false"
+                class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedStart css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input"
+                id="loginEmail"
+                name="email"
+                placeholder="Enter your e-mail"
+                type="email"
+                value=""
+              />
+              <fieldset
+                aria-hidden="true"
+                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  class="css-14lo706"
+                >
+                  <span>
+                    E-mail
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+            <p
+              class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+              id="helper-text"
+            />
+          </div>
+        </div>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1bkqhcu-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="submit"
+        >
+          Continue
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </form>
+  </section>
+</DocumentFragment>
+`;
