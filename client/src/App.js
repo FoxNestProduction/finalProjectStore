@@ -16,6 +16,7 @@ import { setFilterParams } from './redux/slices/filterSlice';
 import styles from './styles.module.scss';
 import { getDataFromSessionStorage } from './utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from './constants/constants';
+import getMaxValue from './utils/getMaxValue';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -37,8 +38,11 @@ const App = () => {
   }, [pathname]);
 
   useEffect(() => {
-    dispatch(fetchTopProducts(topProductsQtyMap[breakpoint]));
-    dispatch(fetchTopPartners(topPartnersQtyMap[breakpoint]));
+    dispatch(fetchTopProducts(getMaxValue(topProductsQtyMap)));
+    dispatch(fetchTopPartners(getMaxValue(topPartnersQtyMap)));
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(setFilterParams({
       perPage: productsPerPageMap[breakpoint],
     }));
