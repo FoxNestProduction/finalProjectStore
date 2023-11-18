@@ -24,7 +24,6 @@ import {
 import {
   totalSumFromCart,
 } from './cartFunctions';
-import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import { fetchCart } from '../../redux/slices/cartSlice';
 import RestaurantCartItem from '../RestaurantCartItem/RestaurantCartItem';
 
@@ -74,9 +73,10 @@ const Cart = () => {
               <Typography variant="h3" color="text.secondary">Fill it with orders</Typography>
             </Stack>
           )}
-          {restaurants.map((restaurantName, index) => (
-            <RestaurantCartItem restaurantName={restaurantName} key={restaurantName} />
-          ))}
+          {cartProducts.length !== 0 && (
+            restaurants.map((restaurantName) => (
+              <RestaurantCartItem restaurantName={restaurantName} key={restaurantName} />
+            )))}
         </Box>
         <Button
           LinkComponent={NavLink}

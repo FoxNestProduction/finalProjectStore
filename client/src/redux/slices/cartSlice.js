@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -51,12 +52,13 @@ export const fetchCart = createAsyncThunk(
           return undefined;
         });
         if (result) {
-          // eslint-disable-next-line no-use-before-define
-          // return null;
+          console.log('Перерендер не відбудеться');
+          return null;
         }
       }
-      // eslint-disable-next-line no-use-before-define
-      dispatch(setRestaurants(data.products));
+      if (data !== null) {
+        dispatch(setRestaurants(data.products));
+      }
       return data;
     } catch (err) {
       console.log(err);
@@ -75,13 +77,14 @@ export const fetchCartAfterAuthorization = createAsyncThunk(
         dispatch(createCart());
       }
       if (cartProducts.length && data !== null) {
-        // eslint-disable-next-line no-use-before-define
         dispatch(setCart(data.products));
         const newCartProducts = getState().cart.cart.products;
         const updatedCart = changeCartObjectFromServer(newCartProducts);
         const response = await instance.put('/cart', updatedCart);
+        dispatch(setRestaurants(response.data.products));
         return response.data;
       }
+      dispatch(setRestaurants(data.products));
       return data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -91,9 +94,10 @@ export const fetchCartAfterAuthorization = createAsyncThunk(
 
 export const addProductToCart = createAsyncThunk(
   'cart/addProductToCart',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.put(`/cart/${id}`);
+      dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -103,9 +107,10 @@ export const addProductToCart = createAsyncThunk(
 
 export const decreaseProductQuantity = createAsyncThunk(
   'cart/decreaseProductQuantity',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.delete(`/cart/product/${id}`);
+      dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -115,9 +120,10 @@ export const decreaseProductQuantity = createAsyncThunk(
 
 export const deleteProductFromCart = createAsyncThunk(
   'cart/deleteProductFromCart',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.delete(`/cart/${id}`);
+      dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -127,9 +133,10 @@ export const deleteProductFromCart = createAsyncThunk(
 
 export const deleteCart = createAsyncThunk(
   'cart/deleteCart',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.delete('/cart');
+      dispatch(setRestaurants(data.products));
       return data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -228,12 +235,9 @@ const cartSlice = createSlice({
         const uniqValue = uniq(restaurants);
         console.log(uniqValue);
         state.restaurants = uniqValue;
+      } else {
+        state.restaurants = [];
       }
-      // Варіант 1: виписати суто назви ресторанів, прокинути їх в в масив та
-      // відсортовувати всі продукти по назві ресторана в кожному блоці ресторана
-      // Варіант 2: написати логіку, де в state будуть створюватись об'єкти
-      // кожного ресторана, в якому будуть знаходитись об'єкти товара, і таким чином
-      // ми будемо просто мапити кожний об'єкт ресторана окремо.
     },
   },
   extraReducers: (builder) => {
@@ -254,7 +258,6 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.pending, setLoading)
       .addCase(fetchCart.fulfilled, (state, action) => {
-        // console.log(action.payload);
         state.loading = false;
         if (action.payload !== null) {
           state.cart.products = action.payload.products;
