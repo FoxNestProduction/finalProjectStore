@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -122,7 +122,7 @@ const Header = () => {
     return `/${page.toLowerCase()}`;
   }, [location.pathname, location.search]);
 
-  const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
+  const navItems = useMemo(() => ['Menu', 'Restaurants', 'Reviews', 'Contact'], []);
 
   return (
     <>
