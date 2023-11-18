@@ -147,7 +147,5 @@ describe('ReviewItem component', () => {
     expect(reviewItem).toHaveStyle({
       textOverflow: 'ellipsis',
     });
-
-    console.log(reviewItem);
   });
 });

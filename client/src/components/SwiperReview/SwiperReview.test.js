@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import SwiperReview from './SwiperReview';
@@ -61,38 +61,46 @@ describe('SwiperReview Component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  // test('handles next button click', () => {
-  //   render(<SwiperReview />);
-  //   const nextButton = screen.getByLabelText('next');
+  test('handles next button click', async () => {
+    mockDispatch.mockReturnValueOnce(jest.fn());
+    useLocation.mockReturnValue({ pathname: '/' });
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<SwiperReview lastReviewsData={fakeData} />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const currentIndex = screen.getByText('Smit John');
+    expect(currentIndex).toBeInTheDocument();
 
-  //   fireEvent.click(nextButton);
+    const nextButton = screen.getByTestId('NavigateNextIcon');
 
-  //   expect()
+    fireEvent.click(nextButton);
+   
+    const currentIndexNextAfterClick = await screen.findByText('Roberts Jane');
+    expect(currentIndexNextAfterClick).toBeInTheDocument();
+  });
 
-  //   const currentIndex = screen.getByText('Current Index:').nextSibling;
-  //   expect(currentIndex.textContent).toBe('2');
-  // });
+  
+  test('handles prev button click', async () => {
+    mockDispatch.mockReturnValueOnce(jest.fn());
+    useLocation.mockReturnValue({ pathname: '/' });
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<SwiperReview lastReviewsData={fakeData} />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const currentIndex = screen.getByText('Roberts Jane');
+    expect(currentIndex).toBeInTheDocument();
 
-  // test('handles prev button click', () => {
-  //   render(<SwiperReview />);
-  //   const prevButton = screen.getByLabelText('prev');
+    const prevButton = screen.getByTestId('NavigateBeforeIcon');
 
-  //   const fakeData = {
-  //     comments: [
-  //       { _id: '1', customer: { name: 'John', review: 'Great product!' } },
-  //       { _id: '2', customer: { name: 'Jane', review: 'Awesome service!' } },
-  //     ],
-  //   };
-
-  //   // Можливо, вам потрібно симулювати результат useGetAPI
-  //   jest.mock('../../customHooks/useGetAPI', () => () => [fakeData, false, null]);
-
-  //   // Симулюйте клік на кнопку "Prev"
-  //   fireEvent.click(prevButton);
-
-  //   // Перевірте, чи відбулася очікувана зміна стану
-  //   // Наприклад, перевірте, чи відбулося зменшення currentIndex
-
-  //   // Зробіть необхідні перевірки щодо змін у компоненті
-  // });
+    fireEvent.click(prevButton);
+   
+    const currentIndexNextAfterClick = await screen.findByText('Smit John');
+    expect(currentIndexNextAfterClick).toBeInTheDocument();
+  });
 });

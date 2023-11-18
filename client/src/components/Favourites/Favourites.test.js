@@ -1,6 +1,7 @@
 import React from 'react';
+// import { MemoryRouter, Route, Routes, useLocation, useNavigate  } from 'react-router-dom';
 import { MemoryRouter } from 'react-router-dom';
-import { Route, Routes } from 'react-router';
+import { Route, Routes, useLocation, useNavigate } from 'react-router';
 import { Provider } from 'react-redux';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { useMediaQuery } from '@mui/material';
@@ -11,39 +12,27 @@ jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
 }));
-const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useRoutes: jest.requireActual('react-router-dom').useRoutes,
-  useNavigate: () => mockNavigate,
-}));
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useLocation: jest.fn(() => ({ pathname: '/favourites' })),
+  useNavigate: jest.fn(),
+  Routes: ({ children }) => children,
+  Route: ({ element }) => element,
+}));;
 jest.mock('@mui/material/', () => ({
   ...jest.requireActual('@mui/material/'),
   useMediaQuery: jest.fn(),
 }));
 
 describe('Snapshot test', () => {
-  test('should Favourites render, when arr not empty', () => {
-    useMediaQuery.mockReturnValue(true);
 
-    const favouritesList = [
-      { _id: '1', name: 'pasta', currentPrice: 10.99, imageUrl: 'image1.jpg' },
-      { _id: '2', name: 'pizza', currentPrice: 15.99, imageUrl: 'image2.jpg' },
-    ];
-
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValue(favouritesList);
-
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Favourites />
-        </MemoryRouter>
-      </Provider>,
-    );
-    expect(screen.getByText('Favourite')).toBeInTheDocument();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   test('should Favourites render, when arr is empty', () => {
+    const navigateMock = jest.fn();
+    useNavigate.mockReturnValue(navigateMock);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
 
     const { asFragment } = render(
@@ -55,25 +44,11 @@ describe('Snapshot test', () => {
     );
     expect(asFragment()).toMatchSnapshot();
     expect(screen.queryByRole('list')).toBeNull();
-  });
 
-  test('should navigate to /menu on button click', async () => {
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
-    jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValueOnce(mockNavigate);
-
-    render(
-      <MemoryRouter initialEntries={['/favourites']}>
-        <Routes>
-          <Route path="/favourites" element={<Favourites />} />
-        </Routes>
-      </MemoryRouter>,
-    );
     const button = screen.getByText('Back to menu');
 
     fireEvent.click(button);
-    await waitFor(() => expect(screen.queryByRole('button')).toBeNull(), { timeout: 3000 });
-
-    jest.clearAllMocks();
+    expect(navigateMock).toHaveBeenCalledWith('/menu');
   });
 
   test('should render FavouriteItem', () => {
@@ -83,15 +58,16 @@ describe('Snapshot test', () => {
     ];
 
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(favouritesList);
-    jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValueOnce(mockNavigate);
 
-    render(
+    const { asFragment } = render(
       <Provider store={store}>
         <MemoryRouter>
           <Favourites />
         </MemoryRouter>
       </Provider>,
     );
+
+    expect(asFragment()).toMatchSnapshot();
 
     favouritesList.forEach((item) => {
       const itemName = screen.getByText(item.name);
@@ -101,6 +77,4 @@ describe('Snapshot test', () => {
       expect(itemPrice).toBeInTheDocument();
     });
   });
-
-  jest.clearAllMocks();
 });

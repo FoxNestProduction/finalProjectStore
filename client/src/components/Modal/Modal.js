@@ -69,7 +69,6 @@ const Modal = () => {
           Close
         </Button>
         <Button
-          // role="roletype"
           role="radio"
           sx={{ px: 1 }}
           variant="contained"
