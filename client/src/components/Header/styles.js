@@ -4,7 +4,7 @@ export const stylesHeader = {
 
 export const stylesNav = {
   justifyContent: 'space-between',
-  gap: '4vw',
+  gap: '3vw',
   py: {
     mobile: '18px',
     desktop: '22px',
@@ -56,7 +56,7 @@ export const stylesBurgerButton = {
 
 export const stylesIconsWrapper = {
   display: 'flex',
-  gap: '2vw',
+  gap: '6%',
   flexGrow: 2,
   justifyContent: 'flex-end',
 };
