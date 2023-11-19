@@ -32,6 +32,7 @@ describe('ProductPage Component', () => {
     // imageUrl: 'image.jpg',
     // isSupreme: false,
     // isHealthy: true,
+    // randomNum: 25,
     _id: '123',
   };
 

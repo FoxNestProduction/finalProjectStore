@@ -1,4 +1,4 @@
-import React, { cloneElement } from 'react';
+import React, { cloneElement, memo } from 'react';
 import { useScrollTrigger } from '@mui/material';
 import PropTypes from 'prop-types';
 
@@ -20,4 +20,4 @@ ElevationScroll.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export default ElevationScroll;
+export default memo(ElevationScroll);

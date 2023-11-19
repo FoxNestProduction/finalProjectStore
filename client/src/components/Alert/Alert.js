@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
@@ -62,4 +62,4 @@ CustomAlert.defaultProps = {
   handleCloseAlert: () => {},
 };
 
-export default CustomAlert;
+export default memo(CustomAlert);

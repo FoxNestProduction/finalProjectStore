@@ -1,12 +1,13 @@
 import React from 'react';
-// import { MemoryRouter, Route, Routes, useLocation, useNavigate  } from 'react-router-dom';
 import { MemoryRouter } from 'react-router-dom';
-import { Route, Routes, useLocation, useNavigate } from 'react-router';
+import { Route, Routes, useNavigate } from 'react-router';
 import { Provider } from 'react-redux';
-import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { useMediaQuery } from '@mui/material';
+import { screen, render, fireEvent } from '@testing-library/react';
 import store from '../../redux/store';
 import Favourites from './Favourites';
+import ListItems from '../ListItems/ListItem';
+import ProductCardItem from '../ProductCardItem/ProductCardItem';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
@@ -24,7 +25,7 @@ jest.mock('@mui/material/', () => ({
   useMediaQuery: jest.fn(),
 }));
 
-describe('Snapshot test', () => {
+describe('Favourites test', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -53,11 +54,12 @@ describe('Snapshot test', () => {
 
   test('should render FavouriteItem', () => {
     const favouritesList = [
-      { _id: '1', name: 'pasta', currentPrice: 10.99, imageUrl: 'image1.jpg' },
-      { _id: '2', name: 'pizza', currentPrice: 15.99, imageUrl: 'image2.jpg' },
+      { _id: '1', name: 'pasta', currentPrice: 10.99, imageUrl: 'image1.jpg', randomNum: 42 },
+      { _id: '2', name: 'pizza', currentPrice: 15.99, imageUrl: 'image2.jpg', randomNum: 36 },
     ];
 
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(favouritesList);
+    useMediaQuery.mockReturnValue(true);
 
     const { asFragment } = render(
       <Provider store={store}>
@@ -77,4 +79,40 @@ describe('Snapshot test', () => {
       expect(itemPrice).toBeInTheDocument();
     });
   });
+
+  // test('should render FavouriteItem using ListItems', () => {
+  //   const navigateMock = jest.fn();
+  //   useNavigate.mockReturnValue(navigateMock);
+  //   // useMediaQuery.mockReturnValue(false);
+
+  //   const favouritesList = [
+  //     { _id: '1', name: 'pasta', currentPrice: '10.99', imageUrl: 'image1.jpg', randomNum: 42 },
+  //     { _id: '2', name: 'pizza', currentPrice: '15.99', imageUrl: 'image2.jpg', randomNum: 36 },
+  //   ];
+
+  //   jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(favouritesList);
+
+  //   const { asFragment } = render(
+  //     <Provider store={store}>
+  //       <MemoryRouter>
+  //         <ListItems
+  //           title="Favourite"
+  //           items={favouritesList}
+  //           itemComponent={() => <ProductCardItem />}
+  //           actions={null}
+  //         />
+  //       </MemoryRouter>
+  //     </Provider>,
+  //   );
+
+  //   expect(asFragment()).toMatchSnapshot();
+
+  //   favouritesList.forEach((item) => {
+  //     const itemName = screen.getByText(item.name);
+  //     // const itemPrice = screen.getByText(`$${item.currentPrice.toFixed(2)}`);
+
+  //     expect(itemName).toBeInTheDocument();
+  //     // expect(itemPrice).toBeInTheDocument();
+  //   });
+  // });
 });

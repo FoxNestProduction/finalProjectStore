@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { memo } from 'react';
 import { Form, Formik } from 'formik';
 import Stack from '@mui/material/Stack';
 import {
@@ -45,10 +45,10 @@ const PaymentForm = () => {
     const response = await dispatch(putNewOrder(newOrder)).unwrap();
     if (response.status === 200) {
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-      // dispatch(resetCart());
-      dispatch(deleteCart());
+      dispatch(resetCart());
       if (isUserAuthorized && user) {
         saveUserInfoToSessionStorage(user);
+        dispatch(deleteCart());
       }
       navigate('/order-confirmation');
     }
@@ -189,4 +189,4 @@ const PaymentForm = () => {
   );
 };
 
-export default PaymentForm;
+export default memo(PaymentForm);

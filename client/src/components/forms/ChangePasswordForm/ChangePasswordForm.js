@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
@@ -150,4 +150,4 @@ const ChangePasswordForm = () => {
   );
 };
 
-export default ChangePasswordForm;
+export default memo(ChangePasswordForm);

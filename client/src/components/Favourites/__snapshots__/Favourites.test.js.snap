@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test should Favourites render, when arr is empty 1`] = `
+exports[`Favourites test should Favourites render, when arr is empty 1`] = `
 <DocumentFragment>
   <div
     class="MuiBox-root css-79elbk"
@@ -37,7 +37,7 @@ exports[`Snapshot test should Favourites render, when arr is empty 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Snapshot test should render FavouriteItem 1`] = `
+exports[`Favourites test should render FavouriteItem 1`] = `
 <DocumentFragment>
   <div
     class="MuiBox-root css-79elbk"
@@ -105,7 +105,7 @@ exports[`Snapshot test should render FavouriteItem 1`] = `
                   class="MuiBox-root css-1oz0l0p"
                 >
                   <div
-                    class="MuiBox-root css-1ma6dsf"
+                    class="MuiBox-root css-1li2dnr"
                   />
                 </div>
                 <h6
@@ -120,7 +120,7 @@ exports[`Snapshot test should render FavouriteItem 1`] = `
                 <p
                   class="MuiTypography-root MuiTypography-body1 css-yzrrk5-MuiTypography-root"
                 >
-                  37min
+                  42min
                 </p>
                 <svg
                   aria-hidden="true"
@@ -228,7 +228,7 @@ exports[`Snapshot test should render FavouriteItem 1`] = `
                   class="MuiBox-root css-1oz0l0p"
                 >
                   <div
-                    class="MuiBox-root css-1ma6dsf"
+                    class="MuiBox-root css-1li2dnr"
                   />
                 </div>
                 <h6
@@ -243,7 +243,7 @@ exports[`Snapshot test should render FavouriteItem 1`] = `
                 <p
                   class="MuiTypography-root MuiTypography-body1 css-yzrrk5-MuiTypography-root"
                 >
-                  38min
+                  36min
                 </p>
                 <svg
                   aria-hidden="true"

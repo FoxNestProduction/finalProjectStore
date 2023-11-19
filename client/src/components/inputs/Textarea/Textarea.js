@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useField } from 'formik';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -25,4 +25,4 @@ Textarea.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default Textarea;
+export default memo(Textarea);

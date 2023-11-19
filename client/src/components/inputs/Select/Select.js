@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Select } from '@mui/material';
 
@@ -33,4 +33,4 @@ SelectForFormik.defaultProps = {
   bgColor: '#F9F9F9',
 };
 
-export default SelectForFormik;
+export default memo(SelectForFormik);

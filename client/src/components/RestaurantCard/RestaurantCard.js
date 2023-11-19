@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -189,4 +189,4 @@ RestaurantCard.defaultProps = {
   styleWidth: {},
 };
 
-export default RestaurantCard;
+export default memo(RestaurantCard);

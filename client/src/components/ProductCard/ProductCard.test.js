@@ -52,6 +52,7 @@ describe('ProductCard Component', () => {
     isSupreme: false,
     isHealthy: true,
     _id: '123',
+    randomNum: 25,
   };
 
   beforeEach(() => {
