@@ -127,12 +127,6 @@ const Header = () => {
 
   return (
     <>
-      {isRegistered && alert && (
-        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
-      )}
-      {isUserAuthorized && alert && (
-        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Welcome back!" />
-      )}
       {(isRegistered || authorizedAlert || logOutAlert) && alert ? (
         <CustomAlert
           type="success"
