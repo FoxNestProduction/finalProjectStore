@@ -52,7 +52,7 @@ jest.mock('../../redux/slices/searchSlice', () => ({
 
 describe('Filter component', () => {
   const filters = {
-    filterCategories: ['pizza', 'burgers', 'sushi', 'salads' ],
+    filterCategories: ['pizza', 'burgers', 'sushi', 'salads'],
     isTrending: false,
     rating: null,
     isHealthy: false,
@@ -63,7 +63,7 @@ describe('Filter component', () => {
 
   test('renders Filter component', () => {
     render(<Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />);
-    
+
     expect(screen.getByText('Category')).toBeInTheDocument();
     expect(screen.getByText('Filter By')).toBeInTheDocument();
     expect(screen.getByText('Price')).toBeInTheDocument();
