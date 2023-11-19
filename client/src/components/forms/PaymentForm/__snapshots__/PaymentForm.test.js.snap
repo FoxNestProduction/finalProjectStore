@@ -1,0 +1,312 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Payment form component Payment form snapshot 1`] = `
+<DocumentFragment>
+  <form
+    action="#"
+  >
+    <div
+      class="MuiStack-root css-8mcjw0-MuiStack-root"
+    >
+      <div
+        class="MuiBox-root css-1e53dx2"
+      >
+        <button
+          aria-label="checked"
+          class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-c9qrlw-MuiButtonBase-root-MuiIconButton-root"
+          disabled=""
+          tabindex="-1"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+            data-testid="CheckCircleOutlineIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 7.58 10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+            />
+          </svg>
+        </button>
+        <img
+          alt="visa"
+          class="MuiBox-root css-1j3jcp4"
+          src="/img/checkout/visa.png"
+        />
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1271keo-MuiTypography-root"
+        >
+          Credit / 
+          <span
+            class="MuiTypography-root MuiTypography-body1 css-rhzpb0-MuiTypography-root"
+          >
+            Debit card
+          </span>
+        </p>
+      </div>
+      <div
+        class="MuiBox-root css-1e53dx2"
+      >
+        <button
+          aria-label="checked"
+          class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-c9qrlw-MuiButtonBase-root-MuiIconButton-root"
+          disabled=""
+          tabindex="-1"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+            data-testid="RadioButtonUncheckedIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+            />
+          </svg>
+        </button>
+        <img
+          alt="visa"
+          class="MuiBox-root css-1j3jcp4"
+          src="/img/checkout/mastercard.png"
+        />
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1271keo-MuiTypography-root"
+        >
+          Credit / 
+          <span
+            class="MuiTypography-root MuiTypography-body1 css-rhzpb0-MuiTypography-root"
+          >
+            Debit card
+          </span>
+        </p>
+      </div>
+      <h2
+        class="MuiTypography-root MuiTypography-h3 MuiTypography-alignLeft css-1nzy6yt-MuiTypography-root"
+      >
+        Add new card
+      </h2>
+      <div
+        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+          data-shrink="true"
+          for="checkout-name"
+        >
+          Cardholder name*
+        </label>
+        <div
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl css-1wvatql-MuiInputBase-root-MuiOutlinedInput-root"
+        >
+          <input
+            aria-describedby="helper-text"
+            aria-invalid="false"
+            class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+            disabled=""
+            id="checkout-name"
+            name="name"
+            type="text"
+            value="undefined"
+          />
+          <fieldset
+            aria-hidden="true"
+            class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              class="css-14lo706"
+            >
+              <span>
+                Cardholder name*
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+        <p
+          class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-1wc848c-MuiFormHelperText-root"
+          id="helper-text"
+        />
+      </div>
+      <div
+        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+          data-shrink="true"
+          for="checkout-cardNumber"
+        >
+          Card number*
+        </label>
+        <div
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl css-1wvatql-MuiInputBase-root-MuiOutlinedInput-root"
+        >
+          <input
+            aria-describedby="helper-text"
+            aria-invalid="false"
+            class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+            disabled=""
+            id="checkout-cardNumber"
+            name="cardNumber"
+            type="text"
+            value="0000 0000 0000 0000"
+          />
+          <fieldset
+            aria-hidden="true"
+            class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              class="css-14lo706"
+            >
+              <span>
+                Card number*
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+        <p
+          class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-1wc848c-MuiFormHelperText-root"
+          id="helper-text"
+        />
+      </div>
+      <div
+        class="MuiBox-root css-l7qti"
+      >
+        <div
+          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+            data-shrink="true"
+            for="checkout-expiryDate"
+          >
+            Expiry date
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl css-1wvatql-MuiInputBase-root-MuiOutlinedInput-root"
+          >
+            <input
+              aria-describedby="helper-text"
+              aria-invalid="false"
+              class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+              disabled=""
+              id="checkout-expiryDate"
+              name="expiryDate"
+              type="text"
+              value="03/25"
+            />
+            <fieldset
+              aria-hidden="true"
+              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="css-14lo706"
+              >
+                <span>
+                  Expiry date
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+          <p
+            class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-1wc848c-MuiFormHelperText-root"
+            id="helper-text"
+          />
+        </div>
+        <div
+          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+            data-shrink="true"
+            for="checkout-cvv"
+          >
+            CVV
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-s942kh-MuiInputBase-root-MuiOutlinedInput-root"
+          >
+            <input
+              aria-describedby="helper-text"
+              aria-invalid="false"
+              class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+              disabled=""
+              id="checkout-cvv"
+              name="cvv"
+              type="password"
+              value="123"
+            />
+            <div
+              class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
+            >
+              <button
+                aria-label="toggle password visibility"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1afvcqy-MuiButtonBase-root-MuiIconButton-root"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                  data-testid="VisibilityIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+                  />
+                </svg>
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <fieldset
+              aria-hidden="true"
+              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="css-14lo706"
+              >
+                <span>
+                  CVV
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+          <p
+            class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-1wc848c-MuiFormHelperText-root"
+            id="helper-text"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiBox-root css-qga54k"
+    >
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium css-1x2zd9l-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        Back
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </button>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-r27lj0-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="submit"
+      >
+        Continue
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;

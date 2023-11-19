@@ -40,7 +40,6 @@ const CreatePasswordForm = () => {
       login,
       isAdmin: false,
     };
-    console.log(newCustomer);
 
     try {
       const response = await instance.post('/customers', newCustomer);

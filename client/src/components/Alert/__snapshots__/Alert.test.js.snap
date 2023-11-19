@@ -62,3 +62,52 @@ exports[`smoke test should CustomAlert render 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`smoke test should Alert render 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-5epdbl-MuiStack-root"
+  >
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standard MuiAlert-standard css-bx2o8w-MuiPaper-root-MuiAlert-root"
+      role="alert"
+    >
+      <div
+        class="MuiAlert-icon css-1ytlwq5-MuiAlert-icon"
+      />
+      <div
+        class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
+      >
+        <div
+          class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom MuiAlertTitle-root css-yslrua-MuiTypography-root-MuiAlertTitle-root"
+        />
+        <div
+          style="overflow: hidden;"
+        />
+        <button
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-st7lvs-MuiButtonBase-root-MuiIconButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+            data-testid="CloseIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            />
+          </svg>
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
