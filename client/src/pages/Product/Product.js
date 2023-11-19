@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Container, Box, useMediaQuery } from '@mui/material';
-import { shallowEqual, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
@@ -9,10 +9,12 @@ import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import Skeleton from '../../components/Skeleton/Skeleton';
 import useGetAPI from '../../customHooks/useGetAPI';
 import dishesWraper from '../Partners/styles';
+import useTopProducts from '../../customHooks/useTopProducts';
 
 const ProductPage = () => {
-  const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
+  const topProducts = useTopProducts();
   const loadingTopProducts = useSelector((state) => state.products.loading);
+
   const { itemNo } = useParams();
   const [dish, loading, error] = useGetAPI(`/products/${itemNo}`);
 

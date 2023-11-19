@@ -16,8 +16,8 @@ const MiniCart = () => {
   const matches = useMediaQuery('(min-width:690px)');
   const [anchorEl, setAnchorEl] = useState(null);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const location = useLocation();
 
   if (location.pathname === '/cart' && anchorEl !== null) {
@@ -34,6 +34,9 @@ const MiniCart = () => {
 
   const handleClick = (event) => {
     if (!cartProducts.length && matches && location.pathname !== '/cart') {
+      navigate('/cart');
+    }
+    if (!matches && location.pathname !== '/cart') {
       navigate('/cart');
     }
     setAnchorEl(event.currentTarget);

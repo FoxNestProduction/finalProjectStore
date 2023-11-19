@@ -38,7 +38,7 @@ export const gridStylesItemPartners = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  maxWidth: { lgTablet: '49%', desktop: '32%' },
+  maxWidth: { lgTablet: '48%', desktop: '31%' },
   cursor: 'pointer',
   mb: '40px',
 };

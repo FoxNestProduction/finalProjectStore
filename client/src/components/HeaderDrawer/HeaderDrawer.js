@@ -9,7 +9,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -18,7 +17,6 @@ import Badge from '@mui/material/Badge';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import MiniCart from '../MiniCart/MiniCart';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem, stylesBadge } from './styles';
@@ -71,12 +69,8 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
               <ListItemButton
                 sx={{
                   textAlign: 'center',
-                  // '&:hover': {
-                  //   bgcolor: 'primary.main',
-                  // },
                 }}
                 component={NavLink}
-                // to={`/${page.toLowerCase()}`}
                 to={setNavigateTo(page)}
               >
                 <ListItemText
@@ -88,17 +82,10 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
           ))}
         </List>
 
-        <Divider />
-
-        <List>
-          <MenuItemWithIcon
-            navLink
-            page="Cart"
-            icon={(
-              <MiniCart />
-            )}
-          />
-          {isUserAuthorized && (
+        {isUserAuthorized && (
+        <>
+          <Divider />
+          <List>
             <MenuItemWithIcon
               navLink
               page="Favourites"
@@ -110,8 +97,9 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
                 )
               }
             />
-          )}
-        </List>
+          </List>
+        </>
+        )}
 
         <Divider />
 
@@ -147,7 +135,7 @@ HeaderDrawer.propTypes = {
   isMobileMenuOpen: PropTypes.bool,
   handleCloseDrawer: PropTypes.func,
   handleOpenModalLogin: PropTypes.func,
-  navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  navItems: PropTypes.array,
   handleLogOut: PropTypes.func,
   setNavigateTo: PropTypes.func,
 };
