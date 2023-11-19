@@ -152,7 +152,7 @@ ProductCardItem.propTypes = {
 };
 
 ProductCardItem.defaultProps = {
-  currentPrice: '',
+  currentPrice: null,
   imageUrl: '',
   name: '',
   rating: null,

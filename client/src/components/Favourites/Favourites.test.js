@@ -52,18 +52,18 @@ describe('Favourites test', () => {
   });
 
   test('should render FavouriteItem', () => {
+    useMediaQuery.mockReturnValue(true);
     const favouritesList = [
       { _id: '1', name: 'pasta', currentPrice: 10.99, imageUrl: 'image1.jpg', randomNum: 42 },
       { _id: '2', name: 'pizza', currentPrice: 15.99, imageUrl: 'image2.jpg', randomNum: 36 },
     ];
 
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(favouritesList);
-    useMediaQuery.mockReturnValue(true);
 
     const { asFragment } = render(
       <Provider store={store}>
         <MemoryRouter>
-          <Favourites />
+          <Favourites product={favouritesList} />
         </MemoryRouter>
       </Provider>,
     );
@@ -79,39 +79,47 @@ describe('Favourites test', () => {
     });
   });
 
-  // test('should render FavouriteItem using ListItems', () => {
-  //   const navigateMock = jest.fn();
-  //   useNavigate.mockReturnValue(navigateMock);
-  //   // useMediaQuery.mockReturnValue(false);
+  test('should render FavouriteItem using ListItems', () => {
+    const navigateMock = jest.fn();
+    useNavigate.mockReturnValue(navigateMock);
+    useMediaQuery.mockReturnValue(false);
 
-  //   const favouritesList = [
-  //     { _id: '1', name: 'pasta', currentPrice: '10.99', imageUrl: 'image1.jpg', randomNum: 42 },
-  //     { _id: '2', name: 'pizza', currentPrice: '15.99', imageUrl: 'image2.jpg', randomNum: 36 },
-  //   ];
+    const favouritesList = [
+      { _id: '1', name: 'pasta', currentPrice: 10.99, imageUrl: 'image1.jpg', randomNum: 42 },
+      { _id: '2', name: 'pizza', currentPrice: 15.99, imageUrl: 'image2.jpg', randomNum: 36 },
+    ];
 
-  //   jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(favouritesList);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(favouritesList);
 
-  //   const { asFragment } = render(
-  //     <Provider store={store}>
-  //       <MemoryRouter>
-  //         <ListItems
-  //           title="Favourite"
-  //           items={favouritesList}
-  //           itemComponent={() => <ProductCardItem />}
-  //           actions={null}
-  //         />
-  //       </MemoryRouter>
-  //     </Provider>,
-  //   );
+    const { asFragment } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ListItems
+            title="Favourite"
+            items={favouritesList}
+            itemComponent={ProductCardItem}
+            // itemComponent={() => <ProductCardItem
+            //   name={'Product'}
+            //   description={'About Product'}
+            //   itemNo={'123'}
+            //   currentPrice={10.99}
+            //   isTrending={true}
+            //   rating={4}
+            //   imageUrl={'image.jpg'}
+            //   isSupreme={true}
+            //   isHealthy={true}
+            //   _id={'123'}
+            //   randomNum={36}
+            // />}
+            actions={null}
+          />
+        </MemoryRouter>
+      </Provider>,
+    );
 
-  //   expect(asFragment()).toMatchSnapshot();
-
-  //   favouritesList.forEach((item) => {
-  //     const itemName = screen.getByText(item.name);
-  //     // const itemPrice = screen.getByText(`$${item.currentPrice.toFixed(2)}`);
-
-  //     expect(itemName).toBeInTheDocument();
-  //     // expect(itemPrice).toBeInTheDocument();
-  //   });
-  // });
+    expect(asFragment()).toMatchSnapshot();
+    const addCardButtons = screen.getAllByTestId('ShoppingCartCheckoutIcon');
+    const addCardButton = addCardButtons[0];
+    expect(addCardButton).toBeInTheDocument();
+  });
 });
