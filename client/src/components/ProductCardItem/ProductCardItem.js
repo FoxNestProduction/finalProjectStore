@@ -161,7 +161,7 @@ ProductCardItem.defaultProps = {
   isTrending: null,
   isSupreme: null,
   itemNo: '',
-  randomNum: null,
+  randomNum: 24,
 };
 
 export default memo(ProductCardItem);
