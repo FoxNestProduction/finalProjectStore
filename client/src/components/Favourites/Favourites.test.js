@@ -98,19 +98,6 @@ describe('Favourites test', () => {
             title="Favourite"
             items={favouritesList}
             itemComponent={ProductCardItem}
-            // itemComponent={() => <ProductCardItem
-            //   name={'Product'}
-            //   description={'About Product'}
-            //   itemNo={'123'}
-            //   currentPrice={10.99}
-            //   isTrending={true}
-            //   rating={4}
-            //   imageUrl={'image.jpg'}
-            //   isSupreme={true}
-            //   isHealthy={true}
-            //   _id={'123'}
-            //   randomNum={36}
-            // />}
             actions={null}
           />
         </MemoryRouter>
