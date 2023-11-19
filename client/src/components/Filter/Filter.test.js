@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 import Filter from './Filter';
 import { setFilterParams } from '../../redux/slices/filterSlice';
 import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
 import { resetSearch } from '../../redux/slices/searchSlice';
-import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
 
 const mockStore = configureStore();
 const store = mockStore({
@@ -52,7 +52,7 @@ jest.mock('../../redux/slices/searchSlice', () => ({
 
 describe('Filter component', () => {
   const filters = {
-    filterCategories: ['pizza', 'burgers'],
+    filterCategories: ['pizza', 'burgers', 'sushi', 'salads' ],
     isTrending: false,
     rating: null,
     isHealthy: false,
@@ -63,20 +63,31 @@ describe('Filter component', () => {
 
   test('renders Filter component', () => {
     render(<Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />);
-    // Add assertions based on your component's expected initial state
+    
     expect(screen.getByText('Category')).toBeInTheDocument();
     expect(screen.getByText('Filter By')).toBeInTheDocument();
     expect(screen.getByText('Price')).toBeInTheDocument();
     expect(screen.getByText('Apply')).toBeInTheDocument();
   });
-  // });
+
   test('handles category toggle buttons correctly', () => {
     render(<Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />);
-    userEvent.click(screen.getByText('Pizza'));
-    userEvent.click(screen.getByText('Burgers'));
+    const optionPizza = screen.getByText('Pizza');
+    fireEvent.click(optionPizza);
 
-    expect(screen.getByText('Pizza').closest('button')).toHaveClass('Mui-selected');
-    expect(screen.getByText('Burgers').closest('button')).toHaveClass('Mui-selected');
+    const optionBurgers = screen.getByText('Burgers');
+    fireEvent.click(optionBurgers);
+
+    const optionSushi = screen.getByText('Sushi');
+    fireEvent.click(optionSushi);
+
+    const optionSalads = screen.getByText('Salads');
+    fireEvent.click(optionSalads);
+
+    expect(optionPizza.closest('button')).toHaveClass('Mui-selected');
+    expect(optionBurgers.closest('button')).toHaveClass('Mui-selected');
+    expect(optionSushi.closest('button')).toHaveClass('Mui-selected');
+    expect(optionSalads.closest('button')).toHaveClass('Mui-selected');
   });
 
   // test('handles "Apply Filter" button click correctly', async () => {
