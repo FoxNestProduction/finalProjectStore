@@ -83,10 +83,13 @@ describe('Filter component', () => {
 
     const optionSalads = screen.getByText('Salads');
     fireEvent.click(optionSalads);
-
+    // eslint-disable-next-line testing-library/no-node-access
     expect(optionPizza.closest('button')).toHaveClass('Mui-selected');
+    // eslint-disable-next-line testing-library/no-node-access
     expect(optionBurgers.closest('button')).toHaveClass('Mui-selected');
+    // eslint-disable-next-line testing-library/no-node-access
     expect(optionSushi.closest('button')).toHaveClass('Mui-selected');
+    // eslint-disable-next-line testing-library/no-node-access
     expect(optionSalads.closest('button')).toHaveClass('Mui-selected');
   });
 
