@@ -74,15 +74,12 @@ describe('VerifyEmailForm Component', () => {
       });
     });
     await waitFor(() => {
-      expect(useDispatch).toHaveBeenCalledTimes(1);
+      expect(useDispatch).toHaveBeenCalledTimes(2);
     });
   });
 
   //   Snapshot
   test('renders VerifyEmailForm correctly', async () => {
-    const mockDispatch = jest.fn();
-    useDispatch.mockReturnValue(mockDispatch);
-
     const { asFragment } = render(
       <Provider store={store}>
         <VerifyEmailForm />

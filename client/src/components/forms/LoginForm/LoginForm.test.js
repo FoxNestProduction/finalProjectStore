@@ -1,9 +1,8 @@
-/* eslint-disable testing-library/no-await-sync-query */
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider, useDispatch } from 'react-redux';
-import RegisterForm from './RegisterForm';
 import store from '../../../redux/store';
+import LoginForm from './LoginForm';
 import { instance } from '../../../API/instance';
 
 jest.mock('../../../redux/slices/modalSlice', () => ({
@@ -30,11 +29,11 @@ global.google = {
   },
 };
 
-describe('Register form component', () => {
-  test('Register form snapshot', () => {
+describe('Login form component', () => {
+  test('Login form snapshot', () => {
     const { asFragment } = render(
       <Provider store={store}>
-        <RegisterForm />
+        <LoginForm />
       </Provider>,
     );
 
@@ -47,11 +46,11 @@ describe('Register form component', () => {
 
     render(
       <Provider store={store}>
-        <RegisterForm />
+        <LoginForm />
       </Provider>,
     );
 
-    const logInBtn = screen.getByText('Log In');
+    const logInBtn = screen.getByText('Sing Up');
     fireEvent.click(logInBtn);
 
     await waitFor(() => {
@@ -62,45 +61,39 @@ describe('Register form component', () => {
   test('try to submit empty form', async () => {
     render(
       <Provider store={store}>
-        <RegisterForm />
+        <LoginForm />
       </Provider>,
     );
-    const firstNameInput = screen.getByPlaceholderText('Enter your first name');
-    const lastNameInput = screen.getByPlaceholderText('Enter your last name');
     const emailInput = screen.getByPlaceholderText('Enter your e-mail');
-    const passwordInput = screen.getByPlaceholderText('Сome up with a password');
-    const submitButton = screen.getByText('Sign up');
+    const passwordInput = screen.getByPlaceholderText('Enter your password');
+    const submitButton = screen.getByText('Sign in');
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByPlaceholderText('Enter your first name')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Enter your e-mail')).toBeInTheDocument();
     });
     await waitFor(() => {
-      expect(screen.getByPlaceholderText('Enter your last name')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Enter your password')).toBeInTheDocument();
     });
     await waitFor(() => {
       expect(screen.getByText('Email is required')).toBeInTheDocument();
     });
     await waitFor(() => {
-      expect(screen.getByText('Password is required')).toBeInTheDocument();
+      expect(screen.getByText('This field is required')).toBeInTheDocument();
     });
   });
 
   test('Submit correct form', async () => {
     render(
       <Provider store={store}>
-        <RegisterForm />
+        <LoginForm />
       </Provider>,
     );
 
-    const firstNameInput = screen.getByPlaceholderText('Enter your first name');
-    const lastNameInput = screen.getByPlaceholderText('Enter your last name');
     const emailInput = screen.getByPlaceholderText('Enter your e-mail');
-    const passwordInput = screen.getByPlaceholderText('Сome up with a password');
-    const submitButton = screen.getByText('Sign up');
+    const passwordInput = screen.getByPlaceholderText('Enter your password');
+    const submitButton = screen.getByText('Sign in');
 
-    fireEvent.change(firstNameInput, { target: { value: 'Yurii' } });
-    fireEvent.change(lastNameInput, { target: { value: 'Horodnii' } });
     fireEvent.change(emailInput, { target: { value: 'example@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
 
@@ -110,15 +103,30 @@ describe('Register form component', () => {
       expect(instance.post).toHaveBeenCalledTimes(1);
     });
     await waitFor(() => {
-      const newUser = {
-        firstName: 'Yurii',
-        lastName: 'Horodnii',
+      const user = {
         email: 'example@example.com',
         password: 'password123',
-        login: 'YuriiHorodnii',
-        isAdmin: false,
       };
-      expect(instance.post).toHaveBeenCalledWith('/customers', newUser);
+      expect(instance.post).toHaveBeenCalledWith('/customers/login', user);
+    });
+  });
+
+  test('forget password button', async () => {
+    const dispatch = jest.fn();
+    useDispatch.mockReturnValue(dispatch);
+
+    render(
+      <Provider store={store}>
+        <LoginForm />
+      </Provider>,
+    );
+
+    const forgetPassBtn = screen.getByText('Forget Password ?');
+
+    fireEvent.click(forgetPassBtn);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
     });
   });
 });
