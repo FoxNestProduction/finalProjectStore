@@ -32,6 +32,7 @@ const ProductCard = ({ dish }) => {
 
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
+  const [isShowAlert, setIsShowAlert] = useState(false);
 
   const isLoading = useSelector((state) => state.favourites.loading);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
@@ -68,8 +69,10 @@ const ProductCard = ({ dish }) => {
 
   const handleAddToCart = () => {
     handleShowAlert();
+    setIsShowAlert(true);
     setTimeout(() => {
       handleCloseAlert();
+      setIsShowAlert(false);
     }, 4000);
     if (isUserAuthorized) {
       dispatch(addProductToCart(id));
@@ -191,7 +194,7 @@ const ProductCard = ({ dish }) => {
           </Stack>
         </Stack>
       </Card>
-      { alert && (
+      {isShowAlert && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}
     </Container>
