@@ -17,6 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
+import { useMediaQuery } from '@mui/material';
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
 import {
@@ -47,14 +48,14 @@ const Header = () => {
   const location = useLocation();
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  // const user = useSelector((state) => state.user.user);
-  // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates, shallowEqual);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   const [authorizedAlert, setAuthorizedAlert] = useState(false);
-  const [logOutdAlert, setLogOutdAlert] = useState(false);
+  const [logOutAlert, setLogOutAlert] = useState(false);
+
+  const isLgTabletOrDesktop = useMediaQuery('(min-width:690px)');
 
   useEffect(() => {
     if (isUserAuthorized) {
@@ -100,10 +101,10 @@ const Header = () => {
     dispatch(resetCardStates());
 
     handleShowAlert();
-    setLogOutdAlert(true);
+    setLogOutAlert(true);
     setTimeout(() => {
       handleCloseAlert();
-      setLogOutdAlert(false);
+      setLogOutAlert(false);
     }, 4000);
 
     // await window.open(
@@ -132,11 +133,11 @@ const Header = () => {
       {isUserAuthorized && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Welcome back!" />
       )}
-      {(isRegistered || authorizedAlert || logOutdAlert) && alert ? (
+      {(isRegistered || authorizedAlert || logOutAlert) && alert ? (
         <CustomAlert
           type="success"
           handleCloseAlert={handleCloseAlert}
-          content={isRegistered ? 'Your registration was successful!' : (logOutdAlert ? 'See you soon!' : 'Welcome back!')}
+          content={isRegistered ? 'Your registration was successful!' : (logOutAlert ? 'See you soon!' : 'Welcome back!')}
         />
       ) : null}
       <ElevationScroll>
@@ -155,7 +156,6 @@ const Header = () => {
                   <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                     <Button
                       component={NavLink}
-                      // to={`/${page.toLowerCase()}`}
                       to={setNavigateTo(page)}
                       sx={stylesNavMenuItem}
                     >
@@ -164,6 +164,28 @@ const Header = () => {
                   </ListItem>
                 ))}
               </List>
+
+              <Box sx={stylesIconsWrapper}>
+                {isUserAuthorized && isLgTabletOrDesktop && (
+                  <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
+                    <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                      <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                    </Badge>
+                  </IconButton>
+                )}
+
+                <MiniCart />
+
+                {isLgTabletOrDesktop && (isUserAuthorized ? (
+                  <IconButton aria-label="logout" edge="end" size="small" onClick={handleLogOut}>
+                    <ExitToAppIcon sx={stylesIcon} />
+                  </IconButton>
+                ) : (
+                  <IconButton aria-label="login" edge="end" size="small" onClick={handleOpenModalLogin}>
+                    <PersonOutlineOutlinedIcon sx={stylesPersonIcon} />
+                  </IconButton>
+                ))}
+              </Box>
 
               <IconButton
                 aria-label="open drawer"
@@ -175,27 +197,6 @@ const Header = () => {
                 <MenuIcon sx={{ fontSize: 35 }} />
               </IconButton>
 
-              <Box sx={stylesIconsWrapper}>
-                {isUserAuthorized && (
-                  <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
-                    <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
-                      <FavoriteBorderOutlinedIcon sx={stylesIcon} />
-                    </Badge>
-                  </IconButton>
-                )}
-
-                <MiniCart />
-
-                {(isUserAuthorized) ? (
-                  <IconButton aria-label="logout" edge="end" size="small" onClick={handleLogOut}>
-                    <ExitToAppIcon sx={stylesIcon} />
-                  </IconButton>
-                ) : (
-                  <IconButton aria-label="login" edge="end" size="small" onClick={handleOpenModalLogin}>
-                    <PersonOutlineOutlinedIcon sx={stylesPersonIcon} />
-                  </IconButton>
-                )}
-              </Box>
             </Toolbar>
             <Divider />
           </Container>

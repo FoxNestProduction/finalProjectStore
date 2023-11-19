@@ -25,10 +25,13 @@ export const dropDownListWrapper = {
 
 export const stylesIcon = {
   width: {
+    mobile: '34px',
     lgTablet: '27px',
     desktop: '34px',
   },
   fontSize: {
+    mobile: 26,
+    lgTablet: 24,
     desktop: 30,
   },
 };

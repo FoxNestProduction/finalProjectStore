@@ -71,12 +71,8 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
               <ListItemButton
                 sx={{
                   textAlign: 'center',
-                  // '&:hover': {
-                  //   bgcolor: 'primary.main',
-                  // },
                 }}
                 component={NavLink}
-                // to={`/${page.toLowerCase()}`}
                 to={setNavigateTo(page)}
               >
                 <ListItemText
@@ -88,17 +84,10 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
           ))}
         </List>
 
-        <Divider />
-
-        <List>
-          <MenuItemWithIcon
-            navLink
-            page="Cart"
-            icon={(
-              <MiniCart />
-            )}
-          />
-          {isUserAuthorized && (
+        {isUserAuthorized && (
+        <>
+          <Divider />
+          <List>
             <MenuItemWithIcon
               navLink
               page="Favourites"
@@ -110,8 +99,9 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
                 )
               }
             />
-          )}
-        </List>
+          </List>
+        </>
+        )}
 
         <Divider />
 
@@ -147,7 +137,7 @@ HeaderDrawer.propTypes = {
   isMobileMenuOpen: PropTypes.bool,
   handleCloseDrawer: PropTypes.func,
   handleOpenModalLogin: PropTypes.func,
-  navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  navItems: PropTypes.array,
   handleLogOut: PropTypes.func,
   setNavigateTo: PropTypes.func,
 };

@@ -55,10 +55,7 @@ export const stylesBurgerButton = {
 };
 
 export const stylesIconsWrapper = {
-  display: {
-    mobile: 'none',
-    lgTablet: 'flex',
-  },
+  display: 'flex',
   gap: '2vw',
   flexGrow: 2,
   justifyContent: 'flex-end',
