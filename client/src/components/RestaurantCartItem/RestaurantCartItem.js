@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import { totalSumFromCart } from '../Cart/cartFunctions';
@@ -16,13 +16,11 @@ import {
 } from './styles';
 
 const RestaurantCartItem = ({ restaurantName }) => {
-  const restaurants = useSelector((state) => state.cart.restaurants);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const filteredProducts = cartProducts.filter((productObj) => (
     productObj.product.restaurant_name === restaurantName
   ));
   const totalSum = totalSumFromCart(filteredProducts);
-  console.log(filteredProducts);
   return (
     <Box
       sx={restaurantCartItemContainer}

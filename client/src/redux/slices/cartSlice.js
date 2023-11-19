@@ -52,7 +52,6 @@ export const fetchCart = createAsyncThunk(
           return undefined;
         });
         if (result) {
-          console.log('Перерендер не відбудеться');
           return null;
         }
       }
@@ -61,7 +60,6 @@ export const fetchCart = createAsyncThunk(
       }
       return data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err);
     }
   },
@@ -87,7 +85,7 @@ export const fetchCartAfterAuthorization = createAsyncThunk(
       dispatch(setRestaurants(data.products));
       return data;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -100,7 +98,7 @@ export const addProductToCart = createAsyncThunk(
       dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -113,7 +111,7 @@ export const decreaseProductQuantity = createAsyncThunk(
       dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -126,7 +124,7 @@ export const deleteProductFromCart = createAsyncThunk(
       dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -136,10 +134,10 @@ export const deleteCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.delete('/cart');
-      dispatch(setRestaurants(data.products));
+      dispatch(setRestaurants([]));
       return data;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -227,13 +225,11 @@ const cartSlice = createSlice({
       }
     },
     setRestaurants(state, action) {
-      // Варіант 1
       if (action.payload.length) {
         const restaurants = action.payload.map((prodactObj) => {
           return prodactObj.product.restaurant_name;
         });
         const uniqValue = uniq(restaurants);
-        console.log(uniqValue);
         state.restaurants = uniqValue;
       } else {
         state.restaurants = [];

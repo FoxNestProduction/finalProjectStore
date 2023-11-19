@@ -40,6 +40,7 @@ const Cart = () => {
       dispatch(fetchCart());
     }
   };
+  const delivery = restaurants.length * 2;
 
   useEffect(() => {
     getCart();
@@ -64,9 +65,6 @@ const Cart = () => {
         <Box
           sx={cartProductsContainer}
         >
-          {/* {cartProducts.map(({ product, cartQuantity }) => (
-            <ProductCartItem key={product._id} cartQuantity={cartQuantity} {...product} />
-          ))} */}
           {!cartProducts.length && (
             <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, my: 10 }}>
               <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>Oops! your cart is empty</Typography>
@@ -102,7 +100,7 @@ const Cart = () => {
               component="p"
               sx={freeTypography}
             >
-              Free
+              {delivery === 0 ? `$${delivery}` : `$${delivery}.00`}
             </Typography>
             <Box
               sx={priceWrapper}
