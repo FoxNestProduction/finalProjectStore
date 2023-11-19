@@ -42,7 +42,6 @@ const fakeData = {
 const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
 describe('SwiperReview Component', () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -55,7 +54,7 @@ describe('SwiperReview Component', () => {
         <Routes>
           <Route path="/" element={<SwiperReview lastReviewsData={fakeData} />} />
         </Routes>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -69,7 +68,7 @@ describe('SwiperReview Component', () => {
         <Routes>
           <Route path="/" element={<SwiperReview lastReviewsData={fakeData} />} />
         </Routes>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     const currentIndex = screen.getByText('Smit John');
     expect(currentIndex).toBeInTheDocument();
@@ -77,12 +76,11 @@ describe('SwiperReview Component', () => {
     const nextButton = screen.getByTestId('NavigateNextIcon');
 
     fireEvent.click(nextButton);
-   
+
     const currentIndexNextAfterClick = await screen.findByText('Roberts Jane');
     expect(currentIndexNextAfterClick).toBeInTheDocument();
   });
 
-  
   test('handles prev button click', async () => {
     mockDispatch.mockReturnValueOnce(jest.fn());
     useLocation.mockReturnValue({ pathname: '/' });
@@ -91,7 +89,7 @@ describe('SwiperReview Component', () => {
         <Routes>
           <Route path="/" element={<SwiperReview lastReviewsData={fakeData} />} />
         </Routes>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     const currentIndex = screen.getByText('Roberts Jane');
     expect(currentIndex).toBeInTheDocument();
@@ -99,7 +97,7 @@ describe('SwiperReview Component', () => {
     const prevButton = screen.getByTestId('NavigateBeforeIcon');
 
     fireEvent.click(prevButton);
-   
+
     const currentIndexNextAfterClick = await screen.findByText('Smit John');
     expect(currentIndexNextAfterClick).toBeInTheDocument();
   });

@@ -48,11 +48,11 @@ describe('ReviewItem component', () => {
     useLocation.mockReturnValue({ pathname: '/' });
 
     const { asFragment } = render(
-        <MemoryRouter initialEntries={['/reviews']}>
-          <Routes>
-            <Route path="/reviews" element={<ReviewItem review={review} index={0} />} />
-          </Routes>
-        </MemoryRouter>
+      <MemoryRouter initialEntries={['/reviews']}>
+        <Routes>
+          <Route path="/reviews" element={<ReviewItem review={review} index={0} />} />
+        </Routes>
+      </MemoryRouter>,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -62,11 +62,11 @@ describe('ReviewItem component', () => {
     useLocation.mockReturnValue({ pathname: '/' });
 
     render(
-        <MemoryRouter initialEntries={['/reviews']}>
-          <Routes>
-            <Route path="/reviews" element={<ReviewItem review={review} index={0} />} />
-          </Routes>
-        </MemoryRouter>
+      <MemoryRouter initialEntries={['/reviews']}>
+        <Routes>
+          <Route path="/reviews" element={<ReviewItem review={review} index={0} />} />
+        </Routes>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText('Doe John')).toBeInTheDocument();
@@ -81,11 +81,11 @@ describe('ReviewItem component', () => {
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
     render(
-        <MemoryRouter initialEntries={['/reviews']}>
-          <Routes>
-            <Route path="/reviews" element={<ReviewItem review={review} index={0} />} />
-          </Routes>
-        </MemoryRouter>
+      <MemoryRouter initialEntries={['/reviews']}>
+        <Routes>
+          <Route path="/reviews" element={<ReviewItem review={review} index={0} />} />
+        </Routes>
+      </MemoryRouter>,
     );
 
     const reviewItem = screen.getByText(/Lorem ipsum/);
@@ -104,11 +104,11 @@ describe('ReviewItem component', () => {
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
     render(
-        <MemoryRouter initialEntries={['/reviews']}>
-          <Routes>
-            <Route path="/reviews" element={<ReviewItem review={review} index={0} />} />
-          </Routes>
-        </MemoryRouter>
+      <MemoryRouter initialEntries={['/reviews']}>
+        <Routes>
+          <Route path="/reviews" element={<ReviewItem review={review} index={0} />} />
+        </Routes>
+      </MemoryRouter>,
     );
 
     const reviewItem = screen.getByText(/Lorem ipsum/);
@@ -135,11 +135,11 @@ describe('ReviewItem component', () => {
       },
     };
     const { asFragment } = render(
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route path="/" element={<ReviewItem review={reviewLong} index={0} />} />
-          </Routes>
-        </MemoryRouter>
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<ReviewItem review={reviewLong} index={0} />} />
+        </Routes>
+      </MemoryRouter>,
     );
 
     expect(asFragment()).toMatchSnapshot();

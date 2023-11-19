@@ -19,14 +19,13 @@ jest.mock('react-router', () => ({
   useNavigate: jest.fn(),
   Routes: ({ children }) => children,
   Route: ({ element }) => element,
-}));;
+}));
 jest.mock('@mui/material/', () => ({
   ...jest.requireActual('@mui/material/'),
   useMediaQuery: jest.fn(),
 }));
 
 describe('Favourites test', () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
