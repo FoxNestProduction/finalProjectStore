@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { render, fireEvent, screen, } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { AlertContextProvider } from '../../context/AlertProvider';
 import useAlert from '../../customHooks/useAlert';
 import ProductCardItem from './ProductCardItem';
@@ -61,17 +61,17 @@ describe('ProductCardItem Component', () => {
       <MemoryRouter>
         <AlertContextProvider>
           <ProductCardItem
-              name={'Product'}
-              description={'About Product'}
-              itemNo={'123'}
-              currentPrice={10.99}
-              isTrending={true}
-              rating={4}
-              imageUrl={'image.jpg'}
-              isSupreme={true}
-              isHealthy={true}
-              _id={'123'}
-              randomNum={36}
+            name="Product"
+            description="About Product"
+            itemNo="123"
+            currentPrice={10.99}
+            isTrending
+            rating={4}
+            imageUrl="image.jpg"
+            isSupreme
+            isHealthy
+            _id="123"
+            randomNum={36}
           />
         </AlertContextProvider>
       </MemoryRouter>,
