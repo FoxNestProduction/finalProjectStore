@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -66,4 +66,4 @@ const ContactPage = () => {
   );
 };
 
-export default ContactPage;
+export default memo(ContactPage);

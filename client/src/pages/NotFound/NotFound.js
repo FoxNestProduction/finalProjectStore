@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Button, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Container from '@mui/material/Container';
@@ -28,4 +28,4 @@ const NotFound = () => (
   </Container>
 );
 
-export default NotFound;
+export default memo(NotFound);

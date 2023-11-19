@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { Box, Container, Grid, Typography, useMediaQuery } from '@mui/material';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
@@ -102,4 +102,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default memo(HomePage);

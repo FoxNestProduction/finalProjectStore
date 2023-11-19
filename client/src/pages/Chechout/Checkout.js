@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Container, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
@@ -39,4 +39,4 @@ CheckoutPage.propTypes = {
   formComponent: PropTypes.elementType.isRequired,
 };
 
-export default CheckoutPage;
+export default memo(CheckoutPage);

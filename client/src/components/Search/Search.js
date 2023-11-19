@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useNavigate } from 'react-router';
+import React, { memo, useEffect, useRef } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { debounce } from '@mui/material/utils';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -125,4 +125,4 @@ Search.defaultProps = {
   resetFiltersLocalState: () => {},
 };
 
-export default Search;
+export default memo(Search);

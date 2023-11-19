@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
@@ -161,4 +161,4 @@ ProductCardItem.defaultProps = {
   itemNo: '',
 };
 
-export default ProductCardItem;
+export default memo(ProductCardItem);

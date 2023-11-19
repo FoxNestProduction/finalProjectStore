@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { memo } from 'react';
 import { Form, Formik } from 'formik';
 import Stack from '@mui/material/Stack';
 import {
@@ -189,4 +189,4 @@ const PaymentForm = () => {
   );
 };
 
-export default PaymentForm;
+export default memo(PaymentForm);

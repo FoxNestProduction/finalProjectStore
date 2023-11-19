@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -59,4 +59,4 @@ const OrderConfirmationPage = () => {
   );
 };
 
-export default OrderConfirmationPage;
+export default memo(OrderConfirmationPage);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const DoubleLoopArrowSvg = () => {
   return (
@@ -11,4 +11,4 @@ const DoubleLoopArrowSvg = () => {
   );
 };
 
-export default DoubleLoopArrowSvg;
+export default memo(DoubleLoopArrowSvg);

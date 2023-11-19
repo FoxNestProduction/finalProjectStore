@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import React from 'react';
+import React, { memo } from 'react';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import { googleSvgSizesMap } from '../../constants/bpMapConstants';
 
@@ -19,4 +19,4 @@ const GoogleSvgComponent = () => {
   );
 };
 
-export default GoogleSvgComponent;
+export default memo(GoogleSvgComponent);

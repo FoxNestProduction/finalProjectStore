@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
@@ -64,4 +64,4 @@ ColorChips.defaultProps = {
   customStyles: {},
 };
 
-export default ColorChips;
+export default memo(ColorChips);

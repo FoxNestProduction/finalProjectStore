@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
@@ -81,16 +81,16 @@ const Header = () => {
     setIsMobileMenuOpen(true);
   };
 
-  const handleCloseDrawer = () => {
+  const handleCloseDrawer = useCallback(() => {
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
-  const handleOpenModalLogin = () => {
+  const handleOpenModalLogin = useCallback(() => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
-  };
+  }, [dispatch]);
 
-  const handleLogOut = () => {
+  const handleLogOut = useCallback(() => {
     dispatch(setIsCart(false));
     dispatch(resetCart());
     dispatch(setToken(null));
@@ -110,9 +110,9 @@ const Header = () => {
     //   `${process.env.REACT_APP_API_URL}/auth/logout`,
     //   '_self',
     // );
-  };
+  }, [dispatch, handleCloseAlert, handleShowAlert]);
 
-  const setNavigateTo = (page) => {
+  const setNavigateTo = useCallback((page) => {
     if (page === 'Menu') {
       if (location.pathname === '/menu' && location.search) {
         return `/menu${location.search}`;
@@ -120,9 +120,9 @@ const Header = () => {
       return '/menu';
     }
     return `/${page.toLowerCase()}`;
-  };
+  }, [location.pathname, location.search]);
 
-  const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
+  const navItems = useMemo(() => ['Menu', 'Restaurants', 'Reviews', 'Contact'], []);
 
   return (
     <>
@@ -215,4 +215,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

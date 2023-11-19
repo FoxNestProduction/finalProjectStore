@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const BookmarkIcon = () => {
   return (
@@ -9,4 +9,4 @@ const BookmarkIcon = () => {
   );
 };
 
-export default BookmarkIcon;
+export default memo(BookmarkIcon);
