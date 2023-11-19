@@ -105,10 +105,6 @@ export const buttonStyles = {
 
 export const quantityStyle = {
   border: '1px solid rgba(108, 095, 188, 0.5)',
-  px: {
-    mobile: '0',
-    lgTablet: '10px',
-  },
   fontSize: {
     mobile: '14px',
     tablet: '16px',
@@ -116,9 +112,10 @@ export const quantityStyle = {
     desktop: '20px',
   },
   width: {
-    mobile: '2rem',
-    tablet: '2.5rem',
-    lgTablet: 'max-content',
+    mobile: '2.1rem',
+    tablet: '2.6rem',
+    lgTablet: '3rem',
+    desktop: '3.5rem',
   },
   textAlign: 'center',
 };
