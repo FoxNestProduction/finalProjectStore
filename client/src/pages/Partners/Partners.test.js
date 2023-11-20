@@ -53,26 +53,25 @@ describe('PartnersPage Component', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={['/partners/:321']}>
           <Routes>
-            <Route path="/restaurants/:name/:customId" element={
-              <PartnersPage>
-                <PartnersCard partner={partner} />
-              </PartnersPage>
-            } />
+            <Route
+              path="/restaurants/:name/:customId"
+              element={(
+                <PartnersPage>
+                  <PartnersCard partner={partner} />
+                </PartnersPage>
+            )}
+            />
           </Routes>
         </MemoryRouter>
       </Provider>,
     );
-    
+
     await waitFor(() => {
       expect(asFragment()).toMatchSnapshot();
     });
-    // await waitFor(() => {
-    //   const title = screen.getByText('PzzaDay');
-    //   expect(title).toBeInTheDocument();
-    // });
   });
 
-  test('should render skeleton while loading partner', async () => {
+  test('should render skeleton while loading partner', () => {
     useGetAPI.mockReturnValueOnce([null, true, null]);
     useGetAPI.mockReturnValueOnce([null, true, null]);
 
@@ -83,7 +82,7 @@ describe('PartnersPage Component', () => {
             <Route path="/restaurants/:customId" element={<PartnersPage />} />
           </Routes>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     expect(asFragment()).toMatchSnapshot();
