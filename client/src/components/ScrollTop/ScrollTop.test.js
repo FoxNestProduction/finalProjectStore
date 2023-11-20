@@ -1,6 +1,5 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
-import { useScrollTrigger } from '@mui/material';
 import ScrollTop from "./ScrollTop";
 
 describe('ScrollTop component', () => {
@@ -18,4 +17,4 @@ describe('ScrollTop component', () => {
   
     expect(window.scrollY).toBe(0);
   });
-})
+});
