@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -7,13 +8,12 @@ import CheckoutForm from '../../components/forms/CheckoutForm/CheckoutForm';
 
 describe('CheckoutPage', () => {
   test('should render CheckoutPage', () => {
-
     const { asFragment } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CheckoutPage titleText="Checkout" formComponent={CheckoutForm} />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(asFragment()).toMatchSnapshot();
 

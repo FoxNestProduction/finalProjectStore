@@ -13,9 +13,9 @@ describe('Contact Pages', () => {
     useMediaQuery.mockReturnValue(true);
     useMediaQuery.mockReturnValue(false);
     useMediaQuery.mockReturnValue(false);
-    
+
     const { asFragment } = render(
-        <Contact />
+      <Contact />,
     );
     expect(asFragment()).toMatchSnapshot();
 

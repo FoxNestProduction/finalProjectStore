@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '../../redux/store';
 import { useMediaQuery } from '@mui/material';
+import store from '../../redux/store';
 import ProductPage from './Product';
 
 jest.mock('react-redux', () => ({
@@ -13,7 +13,7 @@ jest.mock('react-redux', () => ({
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
-  useParams: () => ({ itemNo: '123' }), 
+  useParams: () => ({ itemNo: '123' }),
 }));
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
@@ -51,7 +51,7 @@ describe('ProductPage Component', () => {
             <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
           </Routes>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -67,7 +67,7 @@ describe('ProductPage Component', () => {
             <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
           </Routes>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     expect(asFragment()).toMatchSnapshot();

@@ -8,7 +8,7 @@ describe('NotFound Pages', () => {
     const { asFragment } = render(
       <MemoryRouter>
         <NotFound />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(asFragment()).toMatchSnapshot();
   });

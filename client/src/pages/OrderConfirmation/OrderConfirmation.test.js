@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -24,7 +25,7 @@ describe('OrderConfirmationPage', () => {
         <MemoryRouter>
           <OrderConfirmationPage />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(asFragment()).toMatchSnapshot();
 

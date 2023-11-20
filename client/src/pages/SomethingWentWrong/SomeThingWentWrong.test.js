@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, useNavigate, useLocation } from 'react-router-dom';
 import SomethingWentWrong from './SomethingWentWrong';
@@ -20,7 +21,7 @@ describe('SomethingWentWrong', () => {
     const { asFragment } = render(
       <MemoryRouter>
         <SomethingWentWrong />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(asFragment()).toMatchSnapshot();
 
