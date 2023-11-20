@@ -19,7 +19,7 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { addToFavourites, deleteFromFavourites, setIsFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
-import { addProductToCart, addToCart } from '../../redux/slices/cartSlice';
+import { addProductToCart, addToCart, setRestaurants } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import useGetAPI from '../../customHooks/useGetAPI';
 import useAlert from '../../customHooks/useAlert';
@@ -82,6 +82,7 @@ const ProductCard = ({ dish }) => {
         cartQuantity: 1,
       };
       dispatch(addToCart(selectedItem));
+      dispatch(setRestaurants());
     }
   };
   return (

@@ -17,7 +17,7 @@ import CheckoutActions from '../CheckoutForm/CheckoutActions';
 import { putNewOrder } from '../../../redux/slices/orderSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
-import { resetCart, deleteCart } from '../../../redux/slices/cartSlice';
+import { resetCart, deleteCart, setRestaurants } from '../../../redux/slices/cartSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 
 const PaymentForm = () => {
@@ -46,6 +46,7 @@ const PaymentForm = () => {
     if (response.status === 200) {
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       dispatch(resetCart());
+      dispatch(setRestaurants());
       if (isUserAuthorized && user) {
         saveUserInfoToSessionStorage(user);
         dispatch(deleteCart());

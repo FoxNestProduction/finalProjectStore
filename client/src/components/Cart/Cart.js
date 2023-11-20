@@ -24,8 +24,8 @@ import {
 import {
   totalSumFromCart,
 } from './cartFunctions';
-import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import { fetchCart } from '../../redux/slices/cartSlice';
+import RestaurantCartItem from '../RestaurantCartItem/RestaurantCartItem';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -33,12 +33,14 @@ const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
   const authorizationMark = useSelector((state) => state.cart.authorizationReqInProgress);
+  const restaurants = useSelector((state) => state.cart.restaurants);
   const totalSum = totalSumFromCart(cartProducts);
   const getCart = () => {
     if (isUserAuthorization && !authorizationMark) {
       dispatch(fetchCart());
     }
   };
+  const delivery = restaurants.length * 2;
 
   useEffect(() => {
     getCart();
@@ -63,15 +65,16 @@ const Cart = () => {
         <Box
           sx={cartProductsContainer}
         >
-          {cartProducts.map(({ product, cartQuantity }) => (
-            <ProductCartItem key={product._id} cartQuantity={cartQuantity} {...product} />
-          ))}
           {!cartProducts.length && (
             <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, my: 10 }}>
               <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>Oops! your cart is empty</Typography>
               <Typography variant="h3" color="text.secondary">Fill it with orders</Typography>
             </Stack>
           )}
+          {cartProducts.length !== 0 && (
+            restaurants.map((restaurantName) => (
+              <RestaurantCartItem restaurantName={restaurantName} key={restaurantName} />
+            )))}
         </Box>
         <Button
           LinkComponent={NavLink}
@@ -97,7 +100,7 @@ const Cart = () => {
               component="p"
               sx={freeTypography}
             >
-              Free
+              {delivery === 0 ? `$${delivery}` : `$${delivery}.00`}
             </Typography>
             <Box
               sx={priceWrapper}
