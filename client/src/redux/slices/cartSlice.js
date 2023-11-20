@@ -3,6 +3,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import isEqualWith from 'lodash.isequalwith';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import uniq from 'lodash.uniq';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
@@ -131,10 +132,9 @@ export const deleteProductFromCart = createAsyncThunk(
 
 export const deleteCart = createAsyncThunk(
   'cart/deleteCart',
-  async (_, { rejectWithValue, dispatch }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await instance.delete('/cart');
-      dispatch(setRestaurants([]));
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -225,12 +225,17 @@ const cartSlice = createSlice({
       }
     },
     setRestaurants(state, action) {
-      if (action.payload.length) {
-        const restaurants = action.payload.map((prodactObj) => {
+      let restaurants = [];
+      const { products } = state.cart;
+      if (action.payload && action.payload.length) {
+        restaurants = action.payload;
+      } else if (products.length) {
+        restaurants = products;
+      }
+      if (restaurants.length) {
+        state.restaurants = uniq(restaurants.map((prodactObj) => {
           return prodactObj.product.restaurant_name;
-        });
-        const uniqValue = uniq(restaurants);
-        state.restaurants = uniqValue;
+        }));
       } else {
         state.restaurants = [];
       }

@@ -33,7 +33,7 @@ import {
 } from '../../../utils/sessionStorageHelpers';
 import { putNewOrder, setPendingOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
-import { deleteCart, resetCart } from '../../../redux/slices/cartSlice';
+import { deleteCart, resetCart, setRestaurants } from '../../../redux/slices/cartSlice';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -115,6 +115,7 @@ const CheckoutForm = () => {
       if (response.status === 200) {
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());
+        dispatch(setRestaurants());
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
           dispatch(deleteCart());
