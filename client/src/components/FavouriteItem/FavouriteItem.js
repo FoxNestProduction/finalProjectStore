@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -106,4 +106,4 @@ FavouriteItem.defaultProps = {
   product: {},
 };
 
-export default FavouriteItem;
+export default memo(FavouriteItem);

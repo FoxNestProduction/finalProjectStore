@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
+import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
@@ -204,5 +205,4 @@ ProductCard.propTypes = {
 ProductCard.defaultProps = {
   dish: {},
 };
-
-export default ProductCard;
+export default memo(ProductCard);

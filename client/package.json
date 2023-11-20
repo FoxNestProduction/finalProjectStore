@@ -14,10 +14,13 @@
     "axios": "^1.5.0",
     "classnames": "^2.3.2",
     "formik": "^2.4.4",
+    "googleapis": "^128.0.0",
+    "lodash.isequalwith": "^4.4.0",
     "prop-types": "^15.8.1",
     "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.11",
     "react-input-mask": "^3.0.0-alpha.2",
     "react-redux": "^8.1.2",
     "react-router": "^6.16.0",
@@ -33,7 +36,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test  --watchAll=false ./src/components/SwiperBanner",
+    "test": "react-scripts test  --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "e-lint": "npx eslint ./src/**/*.js --fix",
     "prepare": "cd .. && husky install client/.husky"

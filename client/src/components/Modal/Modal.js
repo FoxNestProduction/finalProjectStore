@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -69,7 +69,6 @@ const Modal = () => {
           Close
         </Button>
         <Button
-          // role="roletype"
           role="radio"
           sx={{ px: 1 }}
           variant="contained"
@@ -87,4 +86,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default memo(Modal);

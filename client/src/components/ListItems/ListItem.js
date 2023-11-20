@@ -1,4 +1,4 @@
-import React, { createElement, useEffect, useRef, useState } from 'react';
+import React, { createElement, memo, useEffect, useRef, useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
@@ -93,7 +93,8 @@ ListItems.propTypes = {
   pagination: PropTypes.bool,
   sorting: PropTypes.bool,
   items: PropTypes.array,
-  itemComponent: PropTypes.func,
+  // itemComponent: PropTypes.func,
+  itemComponent: PropTypes.object,
   type: PropTypes.string,
   itemsFrom: PropTypes.string,
   isScrolling: PropTypes.bool,
@@ -105,10 +106,11 @@ ListItems.defaultProps = {
   pagination: false,
   sorting: false,
   items: [],
-  itemComponent: () => {},
+  // itemComponent: () => {},
+  itemComponent: {},
   type: '',
   itemsFrom: '',
   isScrolling: false,
 };
 
-export default ListItems;
+export default memo(ListItems);

@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Features component should render Features component 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-wgdcnq"
+  >
+    <section
+      class="MuiContainer-root MuiContainer-maxWidthLg css-u3wzei-MuiContainer-root"
+    >
+      <div
+        class="MuiBox-root css-1lx9wp3"
+      >
+        <h1
+          class="MuiTypography-root MuiTypography-body1 css-1t43y5d-MuiTypography-root"
+        >
+          10K+
+        </h1>
+        <div
+          class="MuiBox-root css-o909xz"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-1oyztqb-MuiTypography-root"
+          >
+            Satisfied Costumers
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-1oyztqb-MuiTypography-root"
+          >
+            All Great Over The World
+          </p>
+        </div>
+      </div>
+      <span
+        class="MuiTypography-root MuiTypography-body1 css-1yvp5mi-MuiTypography-root"
+      />
+      <div
+        class="MuiBox-root css-1lx9wp3"
+      >
+        <h1
+          class="MuiTypography-root MuiTypography-body1 css-1t43y5d-MuiTypography-root"
+        >
+          4M
+        </h1>
+        <div
+          class="MuiBox-root css-o909xz"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-1oyztqb-MuiTypography-root"
+          >
+            Healthy Dishes Sold
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-1oyztqb-MuiTypography-root"
+          >
+            Including Milk Shakes Smooth
+          </p>
+        </div>
+      </div>
+      <span
+        class="MuiTypography-root MuiTypography-body1 css-1yvp5mi-MuiTypography-root"
+      />
+      <div
+        class="MuiBox-root css-1lx9wp3"
+      >
+        <h1
+          class="MuiTypography-root MuiTypography-body1 css-1t43y5d-MuiTypography-root"
+        >
+          99.99%
+        </h1>
+        <div
+          class="MuiBox-root css-o909xz"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-1oyztqb-MuiTypography-root"
+          >
+            Reliable Customer Support
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-1oyztqb-MuiTypography-root"
+          >
+            We Provide Great Experiences
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;

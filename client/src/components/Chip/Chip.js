@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 
 const ColorChips = ({ isHealthy, isTrending, isSupreme, customStyles }) => {
+  const isLabelActive = !(isHealthy || isTrending || isSupreme);
   return (
     <Box
       sx={{
@@ -12,10 +13,7 @@ const ColorChips = ({ isHealthy, isTrending, isSupreme, customStyles }) => {
         gap: '3%',
         flexWrap: 'wrap',
         width: '100%',
-        marginBottom: {
-          mobile: 0,
-          desktop: 1,
-        },
+        marginBottom: isLabelActive ? { mobile: '29px', desktop: '37px' } : { mobile: 0, desktop: 1 },
       }}
     >
       { isHealthy && (
@@ -66,4 +64,4 @@ ColorChips.defaultProps = {
   customStyles: {},
 };
 
-export default ColorChips;
+export default memo(ColorChips);

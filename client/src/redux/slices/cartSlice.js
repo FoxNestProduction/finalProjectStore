@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-// import { allProducts } from './productsSlice';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import isEqualWith from 'lodash.isequalwith';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
 import { changeCartObjectFromServer } from '../../components/Cart/cartFunctions';
@@ -12,6 +13,7 @@ const initialState = {
   loading: false,
   isCart: false,
   error: null,
+  authorizationReqInProgress: false,
 };
 
 /* eslint-disable no-param-reassign */
@@ -30,30 +32,49 @@ export const createCart = createAsyncThunk(
   },
 );
 
-export const updateCart = createAsyncThunk(
-  'cart/updateCart',
-  async (cartProducts, { rejectWithValue }) => {
-    const updatedCart = changeCartObjectFromServer(cartProducts);
+export const fetchCart = createAsyncThunk(
+  'cart/fetchCart',
+  async (_, { rejectWithValue, dispatch, getState }) => {
+    const cartProducts = getState().cart.cart.products;
     try {
-      const response = await instance.put('/cart', updatedCart);
-      return response;
+      const { data, status } = await instance.get('/cart');
+      if (status === 200 && data === null) {
+        dispatch(createCart());
+      }
+      if (cartProducts.length) {
+        const result = isEqualWith(data.products, cartProducts, (serverObj, stateObj, key) => {
+          if (key === 'date') {
+            return true;
+          }
+          return undefined;
+        });
+        if (result) {
+          return null;
+        }
+      }
+      return data;
     } catch (err) {
       return rejectWithValue(err.response);
     }
   },
 );
 
-export const fetchCart = createAsyncThunk(
-  'caer/fetchCart',
+export const fetchCartAfterAuthorization = createAsyncThunk(
+  'cart/fetchCartAfterAuthorization',
   async (_, { rejectWithValue, dispatch, getState }) => {
     const cartProducts = getState().cart.cart.products;
     try {
-      if (cartProducts.length !== 0) {
-        dispatch(updateCart(cartProducts));
-      }
       const { data, status } = await instance.get('/cart');
       if (status === 200 && data === null) {
         dispatch(createCart());
+      }
+      if (cartProducts.length && data !== null) {
+        // eslint-disable-next-line no-use-before-define
+        dispatch(setCart(data.products));
+        const newCartProducts = getState().cart.cart.products;
+        const updatedCart = changeCartObjectFromServer(newCartProducts);
+        const response = await instance.put('/cart', updatedCart);
+        return response.data;
       }
       return data;
     } catch (err) {
@@ -128,36 +149,30 @@ const cartSlice = createSlice({
       }
     },
     setCart(state, action) {
-      if (state.cart.products.length === 0) {
+      const { products } = state.cart;
+      if (products.length === 0) {
         state.cart.products = action.payload;
       } else {
-        const uniqueFilteredProducts = action.payload.filter((cartProductObj) => {
-          const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.product._id !== cartProductObj.product._id);
-          const mark = matchedProduct !== undefined;
-          return mark;
-        });
-        const notUniqueFilteredProducts = action.payload.filter((cartProductObj) => {
-          const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
-          const mark = matchedProduct !== undefined;
-          return mark;
-        }).map((cartProductObj) => {
-          const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
-          cartProductObj.cartQuantity += matchedProduct.cartQuantity;
-          return cartProductObj;
-        });
-        const uniqueFilteredProductsFromStore = state.cart.products.filter((cartProductObj) => {
-          const uniqueStoreProducts = action.payload
-            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
-          const mark = uniqueStoreProducts === undefined;
-          return mark;
+        const uniqueProducts = action.payload.filter((objectFromServer) => (
+          !products.some((stateObj) => stateObj.product._id === objectFromServer.product._id)
+        ));
+        const notUniqueProducts = action.payload.filter((objectFromServer) => (
+          products.some((stateObj) => stateObj.product._id === objectFromServer.product._id)
+        ))
+          .map((objectFromServer) => {
+            const matchedProduct = state.cart.products
+              .find((cartProduct) => cartProduct.product._id === objectFromServer.product._id);
+            objectFromServer.cartQuantity += matchedProduct.cartQuantity;
+            return objectFromServer;
+          });
+        const newProducts = products.filter((stateObj) => {
+          return !action.payload.some((objectFromServer) => (
+            objectFromServer.product._id === stateObj.product._id));
         });
         state.cart.products = [
-          ...uniqueFilteredProducts,
-          ...notUniqueFilteredProducts,
-          ...uniqueFilteredProductsFromStore,
+          ...uniqueProducts,
+          ...notUniqueProducts,
+          ...newProducts,
         ];
       }
     },
@@ -202,7 +217,7 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createCart.pending, setLoading)
-      .addCase(createCart.fulfilled, (state, action) => {
+      .addCase(createCart.fulfilled, (state) => {
         state.isCart = true;
         state.loading = false;
       })
@@ -215,11 +230,6 @@ const cartSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(updateCart.pending, setLoading)
-      .addCase(updateCart.fulfilled, (state, action) => {
-        state.loading = false;
-      })
-      .addCase(updateCart.rejected, setError)
       .addCase(fetchCart.pending, setLoading)
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
@@ -255,7 +265,24 @@ const cartSlice = createSlice({
         state.loading = false;
         state.cart.products = [];
       })
-      .addCase(deleteCart.rejected, setError);
+      .addCase(deleteCart.rejected, setError)
+      .addCase(fetchCartAfterAuthorization.pending, (state, action) => {
+        state.authorizationReqInProgress = true;
+        state.loading = true;
+      })
+      .addCase(fetchCartAfterAuthorization.fulfilled, (state, action) => {
+        state.isCart = true;
+        state.loading = false;
+        if (action.payload !== null) {
+          state.cart.products = action.payload.products;
+        }
+        state.authorizationReqInProgress = false;
+      })
+      .addCase(fetchCartAfterAuthorization.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.authorizationReqInProgress = false;
+      });
   },
 });
 
@@ -270,10 +297,3 @@ export const {
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
-
-/*
-1. Вирішити щось з reducers які ми не використовуємо
-2. Вирішити як буде проходити зляття кошику коли неавторизований користувач
-
-3. Прописати логіку додавання в кошик коли користувач не авторизований
-*/

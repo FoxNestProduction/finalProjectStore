@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ const ReviewItem = ({ review, index }) => {
   const dispatch = useDispatch();
   const { rating, content, avatarUrl, date, _id: id, customer: { lastName, firstName } } = review;
 
-  const isMoreThreeLineText = (content.length >= 150) && (location.pathname !== '/reviews');
+  const isMoreThreeLineText = (content && content.length >= 150) && (location.pathname !== '/reviews');
   const styleComment = (location.pathname === '/reviews') ? stylesFullText : { ...stylesText };
   const widthWrapper = !(location.pathname === '/reviews') ? { mobile: '100%', tablet: '345px', desktop: '485px' } : '100%';
 
@@ -88,4 +88,4 @@ ReviewItem.defaultProps = {
   index: null,
 };
 
-export default ReviewItem;
+export default memo(ReviewItem);

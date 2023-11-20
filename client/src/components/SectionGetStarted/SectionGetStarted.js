@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Typography, Container, Box, Rating, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import useBreakpoint from '../../customHooks/useBreakpoint';
@@ -49,7 +49,7 @@ const SectionGetStarted = () => {
           <Button sx={stylesStartedBnt} component={RouterLink} to="/menu" variant="contained">
             Get Started
           </Button>
-          <Button sx={stylesProBnt} component={RouterLink} to="/pricing" variant="outlined">
+          <Button sx={stylesProBnt} component={RouterLink} to="/pricing" variant="outlined" disabled>
             Go Pro
           </Button>
         </Box>
@@ -78,4 +78,4 @@ const SectionGetStarted = () => {
   );
 };
 
-export default SectionGetStarted;
+export default memo(SectionGetStarted);

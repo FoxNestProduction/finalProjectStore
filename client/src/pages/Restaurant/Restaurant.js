@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { shallowEqual, useSelector } from 'react-redux';
 import { Container, Box } from '@mui/material';
@@ -66,7 +66,7 @@ const RestaurantPage = () => {
       </Container>
       {loadingProducts ? (
         <Container sx={{ mb: 13 }}>
-          <Box sx={gridStylesContainer}>
+          <Box role="listbox" sx={gridStylesContainer}>
             <Skeleton skeletonType="product" />
             <Skeleton skeletonType="product" />
             <Skeleton skeletonType="product" />
@@ -87,4 +87,4 @@ const RestaurantPage = () => {
   );
 };
 
-export default RestaurantPage;
+export default memo(RestaurantPage);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
@@ -32,12 +32,13 @@ const ProductCardItem = ({
   isSupreme,
   isHealthy,
   itemNo,
+  randomNum,
 }) => {
   const breakPoint = useBreakpoint();
   const products = useSelector((state) => state.products.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
-  const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+  // const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
   const { alert, handleCloseAlert, handleShowAlert } = useAlert();
   const [clickedAdd, setClickedAdd] = useState(false);
 
@@ -147,10 +148,11 @@ ProductCardItem.propTypes = {
   isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
   itemNo: PropTypes.string,
+  randomNum: PropTypes.number,
 };
 
 ProductCardItem.defaultProps = {
-  currentPrice: '',
+  currentPrice: null,
   imageUrl: '',
   name: '',
   rating: null,
@@ -159,6 +161,7 @@ ProductCardItem.defaultProps = {
   isTrending: null,
   isSupreme: null,
   itemNo: '',
+  randomNum: 24,
 };
 
-export default ProductCardItem;
+export default memo(ProductCardItem);
