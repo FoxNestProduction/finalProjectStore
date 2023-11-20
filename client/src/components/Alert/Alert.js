@@ -22,11 +22,13 @@ const CustomAlert = ({ type, content, handleCloseAlert }) => {
   };
 
   const alertStyle = {
-    display: { mobile: 'none', lgTablet: 'block' },
-    width: { mobile: '0', lgTablet: '325px', desktop: '425px' },
+    // display: { mobile: 'none', lgTablet: 'block' },
+    // width: { mobile: '0', lgTablet: '325px', desktop: '425px' },
+    width: { mobile: '270px', tablet: '325px', desktop: '425px' },
     position: 'fixed',
     bottom: '50px',
-    left: '50px',
+    // left: '50px',
+    left: { mobile: '25px', tablet: '50px' },
     zIndex: '3000',
     transition: 'opacity 1s ease-in-out',
     opacity: visible ? 1 : 0,
