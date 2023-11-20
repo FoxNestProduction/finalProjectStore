@@ -12,7 +12,9 @@ const validationSchema = object({
     .email('Invalid email format'),
   password: string()
     .required('Password is required')
-    .min(8, 'Password is too short - should be 8 chars minimum'),
+    .min(8, 'Password is too short - should be 8 chars minimum')
+    .matches('^[A-Z][a-z]+$', 'Password must contain only Latin letters')
+    .matches('[!@#$%^&*(),.?":{}|<>]'),
 });
 
 export default validationSchema;
