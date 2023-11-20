@@ -1,0 +1,238 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contact Pages should Contact Pages 1`] = `
+<DocumentFragment>
+  <section
+    class="MuiContainer-root MuiContainer-maxWidthLg css-xjqzr0-MuiContainer-root"
+  >
+    <div
+      class="MuiBox-root css-r0bbdu"
+    >
+      <div
+        class="MuiBox-root css-vhbp7w"
+      >
+        <div
+          class="MuiBox-root css-79elbk"
+        >
+          <h2
+            class="MuiTypography-root MuiTypography-h2 MuiTypography-alignCenter css-1dbfxae-MuiTypography-root"
+          >
+            Contact Us
+          </h2>
+          <div
+            class="MuiBox-root css-tomsl5"
+          >
+            <svg
+              fill="none"
+              height="128"
+              viewBox="0 0 336 128"
+              width="336"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.8125 45.7118C44.4649 40.0272 77.0795 37.1439 103.184 45.3865C109.795 47.4742 115.476 50.6439 119.696 54.3748M119.696 54.3748C126.124 60.0573 129.164 67.0415 126.947 73.4874C123.478 83.5719 112.507 92.9511 93.4197 93.9363C83.4709 94.4499 74.3908 92.415 71.3818 86.5938C66.7846 77.7004 80.8069 67.2682 92.6683 62.4925C100.869 59.1906 110.004 56.4742 119.696 54.3748ZM324.843 49.7574C298.645 43.427 266.279 39.7496 239.576 47.3469C232.812 49.2711 226.897 52.2992 222.399 55.9235M222.399 55.9235C215.548 61.4437 211.982 68.3472 213.71 74.8413C216.414 85.0013 226.665 94.6398 245.66 96.0904C255.561 96.8465 264.787 95.0353 268.233 89.293C273.498 80.5202 260.278 69.755 248.788 64.6939C240.844 61.1947 231.924 58.2578 222.399 55.9235ZM222.399 55.9235C188.931 47.7215 151.58 45.8736 119.357 54.3068"
+                stroke="#F9F9F9"
+                stroke-linecap="round"
+                stroke-width="4"
+              />
+              <path
+                d="M309.518 33.6357C314.695 37.1521 326.112 45.4525 330.361 50.5237"
+                stroke="#F9F9F9"
+                stroke-linecap="round"
+                stroke-width="4"
+              />
+              <path
+                d="M330.367 50.5244C322.934 52.3067 306.106 56.7228 298.249 60.1293"
+                stroke="#F9F9F9"
+                stroke-linecap="round"
+                stroke-width="4"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiBox-root css-c9nqko"
+      >
+        <svg
+          fill="none"
+          height="118"
+          viewBox="0 0 117 118"
+          width="117"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M57.9545 94.9949C47.2252 85.339 38.8069 73.1896 38.0046 58.5059C37.2806 45.2521 44.3231 35.2379 58.4214 41.1439C65.0953 43.9396 71.4587 51.6393 70.3128 59.0609C69.0362 67.3292 58.5027 63.3819 54.5536 59.1501C45.3299 49.2665 43.4373 32.8851 52.6569 22.5675C63.5751 10.3491 74.9329 24.3724 74.8255 24.4077"
+            stroke="#6C5FBC"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-miterlimit="1.5"
+            stroke-width="2.09329"
+          />
+          <path
+            d="M42.5719 95.8242C43.8782 95.0961 45.3767 95.0149 46.8626 94.8559C51.7416 94.3332 57.2693 95.3597 61.4869 98.4709C58.0966 93.8961 55.1476 86.9063 57.1738 81.6141"
+            stroke="#6C5FBC"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-miterlimit="1.5"
+            stroke-width="2.09329"
+          />
+        </svg>
+      </div>
+      <img
+        alt="mobile phone"
+        class="MuiBox-root css-1wl8t30"
+        src="./img/layout/mobile.png"
+      />
+    </div>
+    <div
+      class="MuiBox-root css-hn2bkr"
+    >
+      <h1
+        class="MuiTypography-root MuiTypography-h2 css-19nzqo3-MuiTypography-root"
+      >
+        Customer Support
+      </h1>
+      <form
+        action="#"
+      >
+        <div
+          class="MuiBox-root css-1snh8b2"
+        >
+          <div
+            class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="false"
+              for="contactName"
+            >
+              Name
+            </label>
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1dnlmzz-MuiInputBase-root-MuiOutlinedInput-root"
+            >
+              <input
+                aria-describedby="helper-text"
+                aria-invalid="false"
+                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                id="contactName"
+                name="name"
+                placeholder="Enter your name"
+                type="text"
+                value=""
+              />
+              <fieldset
+                aria-hidden="true"
+                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  class="css-yjsfm1"
+                >
+                  <span>
+                    Name
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+            <p
+              class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+              id="helper-text"
+            />
+          </div>
+          <div
+            class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="false"
+              for="contactEmail"
+            >
+              E-mail
+            </label>
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1dnlmzz-MuiInputBase-root-MuiOutlinedInput-root"
+            >
+              <input
+                aria-describedby="helper-text"
+                aria-invalid="false"
+                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                id="contactEmail"
+                name="email"
+                placeholder="Enter your e-mail"
+                type="email"
+                value=""
+              />
+              <fieldset
+                aria-hidden="true"
+                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  class="css-yjsfm1"
+                >
+                  <span>
+                    E-mail
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+            <p
+              class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+              id="helper-text"
+            />
+          </div>
+          <div
+            class="root"
+          >
+            <textarea
+              class="textarea"
+              name="message"
+              placeholder="Enter the problem or query..."
+              rows="6"
+            />
+          </div>
+        </div>
+        <div
+          class="MuiBox-root css-xi606m"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-xheoip-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="submit"
+          >
+            Send Now
+          </button>
+        </div>
+      </form>
+      <div
+        class="MuiBox-root css-18pdv8v"
+      >
+        <svg
+          fill="none"
+          height="118"
+          viewBox="0 0 117 118"
+          width="117"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M57.9545 94.9949C47.2252 85.339 38.8069 73.1896 38.0046 58.5059C37.2806 45.2521 44.3231 35.2379 58.4214 41.1439C65.0953 43.9396 71.4587 51.6393 70.3128 59.0609C69.0362 67.3292 58.5027 63.3819 54.5536 59.1501C45.3299 49.2665 43.4373 32.8851 52.6569 22.5675C63.5751 10.3491 74.9329 24.3724 74.8255 24.4077"
+            stroke="#6C5FBC"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-miterlimit="1.5"
+            stroke-width="2.09329"
+          />
+          <path
+            d="M42.5719 95.8242C43.8782 95.0961 45.3767 95.0149 46.8626 94.8559C51.7416 94.3332 57.2693 95.3597 61.4869 98.4709C58.0966 93.8961 55.1476 86.9063 57.1738 81.6141"
+            stroke="#6C5FBC"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-miterlimit="1.5"
+            stroke-width="2.09329"
+          />
+        </svg>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
