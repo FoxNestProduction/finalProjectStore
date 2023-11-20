@@ -48,7 +48,7 @@ const MobileApp = () => {
               <Box
                 component="img"
                 src={`${process.env.PUBLIC_URL}/img/app-store.png`}
-                alt="google play"
+                alt="app store"
                 sx={googleAppleBtn}
               />
             </Button>

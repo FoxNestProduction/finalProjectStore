@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileApp component should render MobileApp component 1`] = `
+<DocumentFragment>
+  <section
+    class="MuiContainer-root MuiContainer-maxWidthLg css-1osigg8-MuiContainer-root"
+  >
+    <div
+      class="MuiBox-root css-enz7jw"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h2 css-1ozfjgs-MuiTypography-root"
+      >
+        Premium Quality
+        <br />
+        For Your Health
+      </h2>
+      <ul
+        class="MuiList-root MuiList-padding css-1ejqyj9-MuiList-root"
+      >
+        <li
+          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-txxhdm-MuiListItem-root"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-subtitle1 css-331lyw-MuiTypography-root"
+          >
+            Premium quality food is made with ingredients that
+            <br />
+            are packed with essential vitamins, minerals.
+          </p>
+        </li>
+        <li
+          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-txxhdm-MuiListItem-root"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-subtitle1 css-331lyw-MuiTypography-root"
+          >
+            These foods promote overall wellness by
+            <br />
+            support healthy digestion and boosting immunity
+          </p>
+        </li>
+      </ul>
+      <div
+        class="MuiBox-root css-1jl7xfy"
+      >
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-16rr57b-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <img
+            alt="google play"
+            class="MuiBox-root css-77cvsc"
+            src="/img/google-play.png"
+          />
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-16rr57b-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <img
+            alt="app store"
+            class="MuiBox-root css-77cvsc"
+            src="/img/app-store.png"
+          />
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+    <img
+      alt="phone"
+      class="MuiBox-root css-1g2205e"
+      src="/img/layout/mobile.png"
+    />
+  </section>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+  >
+    <hr
+      class="MuiDivider-root MuiDivider-fullWidth css-5fx7t7-MuiDivider-root"
+    />
+  </div>
+</DocumentFragment>
+`;
