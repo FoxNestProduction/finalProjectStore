@@ -60,7 +60,7 @@ describe('modalSlice', () => {
   });
 
   test('should set buttonBox to true with "addButtonBox" action', () => {
-    const result = modalReducer(initialState, addButtonBox(true));
+    const result = modalReducer(initialState, addButtonBox());
     expect(result.buttonBox).toBe(true);
   });
 
