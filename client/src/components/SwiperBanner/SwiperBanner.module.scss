@@ -4,19 +4,13 @@
 }
 
 .swiperSlide {
-
-}
-
-.banner {
-  border-radius: 20px;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .swiperSlideItem {
   border-radius: 20px;
-
   overflow: hidden;
   margin-bottom: 20px;
 }
