@@ -70,8 +70,6 @@ const SwiperReview = () => {
           className={styles.scrollingWrapper}
           ref={scrollingWrapperRef}
         >
-          {/* todo: render skeleton here! */}
-          {/* {loading && <p>Loading...</p>} */}
           {loading ? (
             <>
               <Box className={styles.card}>
@@ -88,18 +86,19 @@ const SwiperReview = () => {
               </Box>
             </>
           ) : lastReviewsData && lastReviewsData?.comments.map((item, index) => (
-            <Box
+            item.customer && (
+              <Box
             // eslint-disable-next-line no-underscore-dangle
-              key={item._id}
+                key={item._id}
               // eslint-disable-next-line no-underscore-dangle
-              data={item._id}
+                data={item._id}
               // eslint-disable-next-line
               className={styles.card}
-              ref={cardRef}
-            >
-              <ReviewItem review={item} index={index} />
-            </Box>
-          ))}
+                ref={cardRef}
+              >
+                <ReviewItem review={item} index={index} />
+              </Box>
+            )))}
           <Box sx={{ display: { mobile: 'none', lgTablet: 'block' } }}>
             <IconButton
               aria-label="prev"
