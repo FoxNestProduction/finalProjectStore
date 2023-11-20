@@ -39,7 +39,7 @@ describe('PartnersPage Component', () => {
     jest.clearAllMocks();
   });
 
-  test('should renders PartnersPage component', async () => {
+  test('should renders PartnersPage component', () => {
     useGetAPI.mockReturnValueOnce([{
       rating: 5,
       name: 'PizzaDay',
@@ -66,9 +66,7 @@ describe('PartnersPage Component', () => {
       </Provider>,
     );
 
-    await waitFor(() => {
-      expect(asFragment()).toMatchSnapshot();
-    });
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render skeleton while loading partner', () => {
