@@ -3,9 +3,13 @@ import { instance } from '../../API/instance';
 
 export const fetchSearchedProductsOrPartners = createAsyncThunk(
   'search/fetchSearchedProductsOrPartners',
-  async ({ url, body }) => {
-    const response = await instance.post(url, body);
-    return response.data;
+  async ({ url, body }, { rejectWithValue }) => {
+    try {
+      const response = await instance.post(url, body);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   },
 );
 
