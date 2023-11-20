@@ -310,7 +310,7 @@ exports.forgotPassword = async (req, res) => {
       expiresIn: 900, // 15хв
     });
 
-    const recoveryPasswordLink = `http://localhost:3000/recovery-password/${customer._id}/${token}`;
+    const recoveryPasswordLink = `${process.env.REDIRECT_URL}/recovery-password/${customer._id}/${token}`;
 
     const subscriberMail = req.body.email;
     const letterSubject = 'Reset password';
