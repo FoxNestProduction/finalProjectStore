@@ -1,8 +1,10 @@
 // import React from 'react';
-// import { render } from '@testing-library/react';
+// import { Swiper, SwiperSlide } from 'swiper';
+// import { render, screen, fireEvent } from '@testing-library/react';
 // import SwiperBanner from './SwiperBanner';
+// import styles from './SwiperBanner.module.scss';
 
-// jest.mock('swiper/react', () => {
+// jest.mock('swiper', () => {
 //   const originalModule = jest.requireActual('swiper/react');
 //   return {
 //     ...originalModule,
@@ -30,9 +32,9 @@
 //   },
 // }));
 
-// describe('SwiperBanner', () => {
-//   test('should render SwiperBanner', () => {
+// describe('SwiperBanner component', () => {
+//   test('renders SwiperBanner component', () => {
 //     const { asFragment } = render(<SwiperBanner />);
-//     expect(asFragment()).toMatchSnapshot();
+//       expect(asFragment()).toMatchSnapshot();
 //   });
 // });
