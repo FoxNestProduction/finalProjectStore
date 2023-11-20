@@ -93,26 +93,26 @@ describe('Filter component', () => {
     expect(optionSalads.closest('button')).toHaveClass('Mui-selected');
   });
 
-  // test('handles "Apply Filter" button click correctly', async () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />
-  //     </Provider>
-  //   );
-  //   fireEvent.click(screen.getByText('Apply'));
-  //   await waitFor(() => {
-  //     expect(setFilterParams).toHaveBeenCalledWith({
-  //       filterCategories: ['pizza', 'burgers'],
-  //       isHealthy: false,
-  //       isSupreme: false,
-  //       isTrending: false,
-  //       maxPrice: 30,
-  //       minPrice: 0,
-  //       rating: null,
-  //       startPage: 1,
-  //     });
-  //     expect(setIsApplyClicked).toHaveBeenCalledWith(true);
-  //     expect(resetSearch).toHaveBeenCalled();
-  //   });
-  // });
+  test('handles "Apply Filter" button click correctly', async () => {
+    render(
+      <Provider store={store}>
+        <Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />
+      </Provider>
+    );
+    fireEvent.click(screen.getByText('Apply'));
+    await waitFor(() => {
+      expect(setFilterParams).toHaveBeenCalledWith({
+        filterCategories: ['pizza', 'burgers'],
+        isHealthy: false,
+        isSupreme: false,
+        isTrending: false,
+        maxPrice: 30,
+        minPrice: 0,
+        rating: null,
+        startPage: 1,
+      });
+      expect(setIsApplyClicked).toHaveBeenCalledWith(true);
+      expect(resetSearch).toHaveBeenCalled();
+    });
+  });
 });

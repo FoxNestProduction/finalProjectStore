@@ -27,3 +27,4 @@ describe('Snapshot test', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 });
+
