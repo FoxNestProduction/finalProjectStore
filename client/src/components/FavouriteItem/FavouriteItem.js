@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { CardActions, CardContent, CardMedia, Rating, Button, Box, Card } from '@mui/material';
@@ -10,36 +10,42 @@ import { chipForFavourite } from '../Chip/styles';
 import { stylesButton, styleCardFavourite, styleMediaFavourite, styleContentFavourite } from './styles';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
-import { addToCart } from '../../redux/slices/cartSlice';
+import { addProductToCart } from '../../redux/slices/cartSlice';
+import CustomAlert from '../Alert/Alert';
+import useAlert from '../../customHooks/useAlert';
 
 const FavouriteItem = ({ product }) => {
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-underscore-dangle
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  // eslint-disable-next-line no-underscore-dangle
-  const dish = products.find((item) => (item._id) === product);
-  if (!dish) {
-    return null;
-  }
-  const { name, currentPrice, isTranding, rating, imageUrl, isSupreme, isHealthy, _id } = dish;
 
-  // let selectedItem;
+  const {
+    name,
+    itemNo,
+    currentPrice,
+    isTrending,
+    rating,
+    imageUrl,
+    isSupreme,
+    isHealthy,
+    _id,
+  } = product;
+
+  const isFavourite = useSelector((state) => state.favourites.cardStates[_id]);
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  const [favAlert, setFavAlert] = useState(false);
+
   const handleAddToCart = () => {
-    const selectedItem = {
-      product: {
-        _id,
-        currentPrice,
-        imageUrl,
-        name,
-      },
-      cartQuantity: 1,
-    };
-    dispatch(addToCart(selectedItem));
+    dispatch(addProductToCart(_id));
+    handleShowAlert();
+    setFavAlert(true);
+    setTimeout(() => {
+      handleCloseAlert();
+      setFavAlert(false);
+    }, 4000);
   };
 
   return (
     <Card sx={styleCardFavourite}>
-      <Link to={`/menu/${fixedEncodeURIComponent(name)}`}>
+      <Link to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', maxWidth: '900px' }}>
           <CardMedia
             component="img"
@@ -52,7 +58,7 @@ const FavouriteItem = ({ product }) => {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
               <Typography variant="h3" sx={{ p: 0, mb: 1 }}>{name}</Typography>
               <ColorChips
-                isTranding={isTranding}
+                isTrending={isTrending}
                 isSupreme={isSupreme}
                 isHealthy={isHealthy}
                 customStyles={chipForFavourite}
@@ -86,16 +92,20 @@ const FavouriteItem = ({ product }) => {
       </CardActions>
       <CardActions sx={{ position: 'absolute', top: '0', right: '0' }}>
         <FavouriteIcon id={_id} />
+        {/* <FavouriteIcon product={product} /> */}
       </CardActions>
+      {favAlert && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
+      )}
     </Card>
   );
 };
 
 FavouriteItem.propTypes = {
-  product: PropTypes.string,
+  product: PropTypes.object,
 };
 FavouriteItem.defaultProps = {
-  product: '',
+  product: {},
 };
 
-export default FavouriteItem;
+export default memo(FavouriteItem);

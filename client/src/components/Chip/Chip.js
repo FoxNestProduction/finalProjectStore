@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 
-const ColorChips = ({ isHealthy, isTranding, isSupreme, customStyles }) => {
+const ColorChips = ({ isHealthy, isTrending, isSupreme, customStyles }) => {
+  const isLabelActive = !(isHealthy || isTrending || isSupreme);
   return (
     <Box
       sx={{
@@ -12,10 +13,7 @@ const ColorChips = ({ isHealthy, isTranding, isSupreme, customStyles }) => {
         gap: '3%',
         flexWrap: 'wrap',
         width: '100%',
-        marginBottom: {
-          mobile: 0,
-          desktop: 1,
-        },
+        marginBottom: isLabelActive ? { mobile: '29px', desktop: '37px' } : { mobile: 0, desktop: 1 },
       }}
     >
       { isHealthy && (
@@ -28,7 +26,7 @@ const ColorChips = ({ isHealthy, isTranding, isSupreme, customStyles }) => {
           }}
         />
       ) }
-      { isTranding && (
+      { isTrending && (
         <Chip
           label="Trending"
           sx={{
@@ -54,16 +52,16 @@ const ColorChips = ({ isHealthy, isTranding, isSupreme, customStyles }) => {
 
 ColorChips.propTypes = {
   isHealthy: PropTypes.bool,
-  isTranding: PropTypes.bool,
+  isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
   customStyles: PropTypes.object,
 };
 
 ColorChips.defaultProps = {
   isHealthy: false,
-  isTranding: false,
+  isTrending: false,
   isSupreme: false,
   customStyles: {},
 };
 
-export default ColorChips;
+export default memo(ColorChips);

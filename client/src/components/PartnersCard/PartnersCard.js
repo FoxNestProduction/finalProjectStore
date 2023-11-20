@@ -1,15 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { shallowEqual, useSelector } from 'react-redux';
 import Container from '@mui/material/Container';
-import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
 import RestaurantCard from '../RestaurantCard/RestaurantCard';
 
-const PartnersCard = ({ partnersName }) => {
-  const partners = useSelector((state) => state.partners.partners, shallowEqual);
-
-  const nameOfPartners = fixedDecodeURIComponent(partnersName);
-  const rest = partners.find((item) => item.name.toLowerCase() === nameOfPartners);
+const PartnersCard = ({ partner }) => {
   const styleRestaurantCard = {
     mobile: 315,
     lgTablet: 881,
@@ -26,13 +20,17 @@ const PartnersCard = ({ partnersName }) => {
       }}
     >
 
-      <RestaurantCard {...rest} styleWidth={styleRestaurantCard} />
+      <RestaurantCard {...partner} styleWidth={styleRestaurantCard} />
     </Container>
   );
 };
 
 PartnersCard.propTypes = {
-  partnersName: PropTypes.string.isRequired,
+  partner: PropTypes.object,
 };
 
-export default PartnersCard;
+PartnersCard.defaultProps = {
+  partner: {},
+};
+
+export default memo(PartnersCard);

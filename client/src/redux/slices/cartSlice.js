@@ -1,89 +1,188 @@
 /* eslint-disable no-underscore-dangle */
-import { createSlice } from '@reduxjs/toolkit';
-import { allProducts } from './productsSlice';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import isEqualWith from 'lodash.isequalwith';
 import { instance } from '../../API/instance';
+import { setLoading, setError } from '../extraReducersHelpers';
+import { changeCartObjectFromServer } from '../../components/Cart/cartFunctions';
 
 const initialState = {
   cart: {
     products: [],
   },
-  isLoading: false,
-  isCart: true,
+  loading: false,
+  isCart: false,
+  error: null,
+  authorizationReqInProgress: false,
 };
 
 /* eslint-disable no-param-reassign */
+
+export const createCart = createAsyncThunk(
+  'cart/createCart',
+  async (_, { rejectWithValue, getState }) => {
+    const cartProducts = getState().cart.cart.products;
+    const cart = changeCartObjectFromServer(cartProducts);
+    try {
+      const { data } = await instance.post('/cart', cart);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response);
+    }
+  },
+);
+
+export const fetchCart = createAsyncThunk(
+  'cart/fetchCart',
+  async (_, { rejectWithValue, dispatch, getState }) => {
+    const cartProducts = getState().cart.cart.products;
+    try {
+      const { data, status } = await instance.get('/cart');
+      if (status === 200 && data === null) {
+        dispatch(createCart());
+      }
+      if (cartProducts.length) {
+        const result = isEqualWith(data.products, cartProducts, (serverObj, stateObj, key) => {
+          if (key === 'date') {
+            return true;
+          }
+          return undefined;
+        });
+        if (result) {
+          return null;
+        }
+      }
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const fetchCartAfterAuthorization = createAsyncThunk(
+  'cart/fetchCartAfterAuthorization',
+  async (_, { rejectWithValue, dispatch, getState }) => {
+    const cartProducts = getState().cart.cart.products;
+    try {
+      const { data, status } = await instance.get('/cart');
+      if (status === 200 && data === null) {
+        dispatch(createCart());
+      }
+      if (cartProducts.length && data !== null) {
+        // eslint-disable-next-line no-use-before-define
+        dispatch(setCart(data.products));
+        const newCartProducts = getState().cart.cart.products;
+        const updatedCart = changeCartObjectFromServer(newCartProducts);
+        const response = await instance.put('/cart', updatedCart);
+        return response.data;
+      }
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const addProductToCart = createAsyncThunk(
+  'cart/addProductToCart',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.put(`/cart/${id}`);
+      return data.products;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const decreaseProductQuantity = createAsyncThunk(
+  'cart/decreaseProductQuantity',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.delete(`/cart/product/${id}`);
+      return data.products;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const deleteProductFromCart = createAsyncThunk(
+  'cart/deleteProductFromCart',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.delete(`/cart/${id}`);
+      return data.products;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
+
+export const deleteCart = createAsyncThunk(
+  'cart/deleteCart',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.delete('/cart');
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  },
+);
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
     addToCart(state, action) {
-      // 1-ий варіант - коли нам в action.payload надходить повний об'єкт item
       if (state.cart.products.length === 0 && action.payload !== null) {
-        action.payload.cartQuantity = 1;
         state.cart.products.push(action.payload);
       } else {
         const index = state.cart.products
           .findIndex((productObj) => productObj.product._id === action.payload.product._id);
         if (index === -1) {
-          action.payload.cartQuantity = 1;
           state.cart.products.push(action.payload);
         } else {
           state.cart.products[index].cartQuantity += 1;
         }
       }
-      /** 2-ий варіант, коли нам приходить суто id товара потрібно звернутись
-       * до однієї з двох написаних нижче функцій:
-       * - deleteOrAddCartByItemId , або
-       * - deleteOrAddFromCartByItemIdWithValueFromState
-       * Потрібно буде протестувати, який варіант зручніше, той і використовувати
-       */
     },
     setCart(state, action) {
-      if (state.cart.products.length === 0) {
+      const { products } = state.cart;
+      if (products.length === 0) {
         state.cart.products = action.payload;
       } else {
-        const uniqueFilteredProducts = action.payload.filter((cartProductObj) => {
-          const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.product._id !== cartProductObj.product._id);
-          const mark = matchedProduct !== undefined;
-          return mark;
-        });
-        const notUniqueFilteredProducts = action.payload.filter((cartProductObj) => {
-          const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
-          const mark = matchedProduct !== undefined;
-          return mark;
-        }).map((cartProductObj) => {
-          const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
-          cartProductObj.cartQuantity += matchedProduct.cartQuantity;
-          return cartProductObj;
-        });
-        const uniqueFilteredProductsFromStore = state.cart.products.filter((cartProductObj) => {
-          const uniqueStoreProducts = action.payload
-            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
-          const mark = uniqueStoreProducts === undefined;
-          return mark;
+        const uniqueProducts = action.payload.filter((objectFromServer) => (
+          !products.some((stateObj) => stateObj.product._id === objectFromServer.product._id)
+        ));
+        const notUniqueProducts = action.payload.filter((objectFromServer) => (
+          products.some((stateObj) => stateObj.product._id === objectFromServer.product._id)
+        ))
+          .map((objectFromServer) => {
+            const matchedProduct = state.cart.products
+              .find((cartProduct) => cartProduct.product._id === objectFromServer.product._id);
+            objectFromServer.cartQuantity += matchedProduct.cartQuantity;
+            return objectFromServer;
+          });
+        const newProducts = products.filter((stateObj) => {
+          return !action.payload.some((objectFromServer) => (
+            objectFromServer.product._id === stateObj.product._id));
         });
         state.cart.products = [
-          ...uniqueFilteredProducts,
-          ...notUniqueFilteredProducts,
-          ...uniqueFilteredProductsFromStore,
+          ...uniqueProducts,
+          ...notUniqueProducts,
+          ...newProducts,
         ];
       }
     },
     resetCart(state) {
       state.cart.products = [];
     },
-    setIsLoading(state, action) {
-      state.isLoading = action.payload;
-    },
     setIsCart(state, action) {
       state.isCart = action.payload;
     },
     deleteFromCart(state, action) {
-      // 1 - ий варіант - коли нам в action.payload надходить повний об'єкт item
       if (state.cart.products.length) {
         const index = state.cart.products
           .findIndex((productObj) => productObj.product._id === action.payload.product._id);
@@ -95,107 +194,106 @@ const cartSlice = createSlice({
           }
         }
       }
-      /** 2-ий варіант, коли нам приходить суто id товара потрібно звернутись
-         * до однієї з двох написаних нижче функцій:
-         * - deleteOrAddCartByItemId , або
-         * - deleteOrAddFromCartByItemIdWithValueFromState
-         * Потрібно буде протестувати, який варіант зручніше, той і використовувати
-         */
     },
     addOneMore(state, action) {
       if (state.cart.products.length) {
         const index = state.cart.products
           .findIndex((productObj) => productObj.product._id === action.payload.product._id);
-        console.log(index);
         if (index !== -1) {
           state.cart.products[index].cartQuantity += 1;
         }
       }
     },
+    deleteFullProduct(state, action) {
+      if (state.cart.products.length) {
+        const index = state.cart.products
+          .findIndex((productObj) => productObj.product._id === action.payload.product._id);
+        if (index !== -1) {
+          state.cart.products.splice(index, 1);
+        }
+      }
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createCart.pending, setLoading)
+      .addCase(createCart.fulfilled, (state) => {
+        state.isCart = true;
+        state.loading = false;
+      })
+      .addCase(createCart.rejected, (state, action) => {
+        if (action.payload.status === 400) {
+          state.isCart = true;
+        } else {
+          state.isCart = false;
+        }
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchCart.pending, setLoading)
+      .addCase(fetchCart.fulfilled, (state, action) => {
+        state.loading = false;
+        if (action.payload !== null) {
+          state.cart.products = action.payload.products;
+        }
+      })
+      .addCase(fetchCart.rejected, (state, action) => {
+        state.isCart = false;
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(addProductToCart.pending, setLoading)
+      .addCase(addProductToCart.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cart.products = action.payload;
+      })
+      .addCase(addProductToCart.rejected, setError)
+      .addCase(decreaseProductQuantity.pending, setLoading)
+      .addCase(decreaseProductQuantity.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cart.products = action.payload;
+      })
+      .addCase(decreaseProductQuantity.rejected, setError)
+      .addCase(deleteProductFromCart.pending, setLoading)
+      .addCase(deleteProductFromCart.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cart.products = action.payload;
+      })
+      .addCase(deleteProductFromCart.rejected, setError)
+      .addCase(deleteCart.pending, setLoading)
+      .addCase(deleteCart.fulfilled, (state) => {
+        state.loading = false;
+        state.cart.products = [];
+      })
+      .addCase(deleteCart.rejected, setError)
+      .addCase(fetchCartAfterAuthorization.pending, (state, action) => {
+        state.authorizationReqInProgress = true;
+        state.loading = true;
+      })
+      .addCase(fetchCartAfterAuthorization.fulfilled, (state, action) => {
+        state.isCart = true;
+        state.loading = false;
+        if (action.payload !== null) {
+          state.cart.products = action.payload.products;
+        }
+        state.authorizationReqInProgress = false;
+      })
+      .addCase(fetchCartAfterAuthorization.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.authorizationReqInProgress = false;
+      });
   },
 });
 
 export const {
   addToCart,
   setCart,
-  setIsLoading,
   deleteFromCart,
   setIsCart,
   addOneMore,
   resetCart,
+  deleteFullProduct,
 } = cartSlice.actions;
-
-export const getCartItemsFromServer = () => async (dispatch) => {
-  try {
-    dispatch(setIsLoading(true));
-
-    const { data } = await instance.get('/cart');
-
-    // console.log(data.products);
-    dispatch(setCart(data.products));
-    dispatch(setIsCart(true));
-    dispatch(setIsLoading(false));
-  } catch (error) {
-    console.warn('Error loading cart:', error);
-    dispatch(setIsLoading(false));
-    // dispatch(setIsCart(false));
-  }
-};
-
-/** 2 варіанти функції якщо ми додаємо або видаляємо товар в state cart через прокидування id:
- * TODO: варіант A:
- * ми робимо підписку на необхідний нам state всіх продуктів в самій функції.
- * Знаходимо по id необхідний нам об'єкт, та прокидуємо його в один з reducer-ов
- * за допомогою одного з ключів DELETE або ADD. Необхідний нам об'єкт падає
- * в визначений reducer та додається до кошику, або ж видаляється з нього.
- * Ця функція передається через dispatch. В неї прокидується id та key.
- * dispatch(deleteOrAddCartByItemId(id, key))
- */
-export const deleteOrAddCartByItemId = (id, key) => (dispatch, getState) => {
-  const state = getState();
-  const { products } = state.products;
-  if (products.length !== 0) {
-    const cartItem = products.find((product) => product._id === id);
-    if (cartItem !== null && cartItem !== undefined) {
-      if (key === 'ADD') {
-        dispatch(addToCart(cartItem));
-      }
-      if (key === 'DELETE') {
-        dispatch(deleteFromCart(cartItem));
-      }
-    }
-  }
-};
-
-/** 2 варіанти функції якщо ми додаємо або видаляємо товар в state cart через прокидування id:
- * TODO: варіант B:
- * всередині компонента товара ми робимо підписку через useSelector на цей самий об'єкт товара.
- * Якщо точніше, то це не зовсім підписка, а пошук через функціональний селектор необхідних нам
- * даних в останній версії store, завдяки функції useSelector. В самому компоненті потрібно буде
- * прописати такий код:
- * TODO: const fullItemObject = useSelector(deleteOrAddFromCartByItemIdWithValueFromState(id))
- * в константу fullItemObject прийде повний об'єкт цього товара, і при кліку на кнопку
- * "Додати до кошика" (в нашому випадку це знак +), або видалення з кошика
- * ми передаємо в onClick такий код:
- * додати до кошика
- * TODO: onClick={dispatch(addToCart(fullItemObject))}
- * або такий, якщо видалити з кошика
- * TODO: onClick={dispatch(deleteFromCart(fullItemObject))}
- * Попередньо імпортувавши dispatch та addToCart()/deleteFromCart()
- */
-
-export const deleteOrAddFromCartByItemIdWithValueFromState = (id) => (state) => {
-  const products = allProducts(state);
-  console.log(products);
-  if (products.length !== 0) {
-    const cartItem = products.find((product) => product._id === id);
-    console.log(cartItem);
-    if (cartItem !== null && cartItem !== undefined) {
-      return cartItem;
-    }
-    return null;
-  }
-  return null;
-};
 
 export default cartSlice.reducer;

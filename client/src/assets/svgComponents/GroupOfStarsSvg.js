@@ -1,30 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 import useBreakpoint from '../../customHooks/useBreakpoint';
+import { groupOfStarsSizesMap } from '../../constants/bpMapConstants';
 
 const GroupOfStarsSvg = () => {
-  const breackpoint = useBreakpoint();
-
-  const sizesMap = {
-    mobile: {
-      width: '188px',
-      height: '252px',
-    },
-    tablet: {
-      width: '188px',
-      height: '252px',
-    },
-    lgTablet: {
-      width: '188px',
-      height: '252px',
-    },
-    desktop: {
-      width: '240px',
-      height: '360px',
-    },
-  };
+  const breakpoint = useBreakpoint();
 
   return (
-    <svg width={sizesMap[breackpoint].width} height={sizesMap[breackpoint].height} viewBox="0 0 188 252" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={groupOfStarsSizesMap[breakpoint].width} height={groupOfStarsSizesMap[breakpoint].height} viewBox="0 0 188 252" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path fillRule="evenodd" clipRule="evenodd" d="M50.3065 74.1802C50.4985 68.4272 47.5444 62.69 41.067 59.2275C38.5588 57.8867 35.5874 57.3986 32.6611 56.9928C44.5493 56.6696 48.6765 46.8062 50.3307 39.1707C49.7562 46.0188 54.2728 53.4158 63.5029 54.0983C54.3146 58.3833 51.161 66.2464 50.3065 74.1802Z" stroke="#A597FF" strokeWidth="6.81286" strokeMiterlimit="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path fillRule="evenodd" clipRule="evenodd" d="M10.8227 151.317C10.9187 148.44 9.44166 145.572 6.20296 143.841C4.94883 143.17 3.46315 142.926 2 142.723C7.94411 142.562 10.0077 137.63 10.8348 133.812C10.5476 137.236 12.8059 140.935 17.4209 141.276C12.8268 143.419 11.25 147.35 10.8227 151.317Z" stroke="#A597FF" strokeWidth="3.40643" strokeMiterlimit="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path fillRule="evenodd" clipRule="evenodd" d="M152.836 249.418C152.932 246.542 151.455 243.673 148.217 241.942C146.962 241.271 145.477 241.027 144.014 240.824C149.958 240.663 152.021 235.731 152.848 231.913C152.561 235.337 154.82 239.036 159.435 239.377C154.84 241.52 153.264 245.451 152.836 249.418Z" stroke="#A597FF" strokeWidth="3.40643" strokeMiterlimit="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -34,4 +16,4 @@ const GroupOfStarsSvg = () => {
   );
 };
 
-export default GroupOfStarsSvg;
+export default memo(GroupOfStarsSvg);

@@ -1,30 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { addFavourite, removeFavourite, updateFavourites } from '../../redux/slices/favouriteSlice';
+import { addToFavourites, deleteFromFavourites, setIsFavourite } from '../../redux/slices/favouriteSlice';
 
 const FavouriteIcon = ({ id, ishovered, isactive }) => {
   const dispatch = useDispatch();
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
-  const wishlist = useSelector((state) => state.favourites.favourites);
+  const isLoading = useSelector((state) => state.favourites.loading);
   const token = useSelector((state) => state.authorization.token);
 
   const toggleFavourite = () => {
-    if (token && !ishovered) {
+    if (token && !ishovered && !isLoading) {
       if (isFavourite) {
-        dispatch(removeFavourite({ id }));
+        dispatch(deleteFromFavourites({ id }));
       } else {
-        dispatch(addFavourite({ id }));
+        dispatch(setIsFavourite(id));
+        dispatch(addToFavourites({ id }));
       }
     }
   };
-
-  useEffect(() => {
-    dispatch(updateFavourites(wishlist));
-  }, [dispatch, wishlist]);
 
   return (
     <IconButton onClick={() => toggleFavourite()} sx={{ m: 0, p: 0 }}>
@@ -37,9 +34,9 @@ const FavouriteIcon = ({ id, ishovered, isactive }) => {
               color: isactive ? 'primary.main' : (ishovered ? 'text.primaryLight' : 'text.header'),
               width: '24px',
               height: '24px',
+              transition: 'color 0.3s ease',
               '&:hover': { color: 'secondary.main' },
               '&:active': { color: 'secondary.hover' },
-
             }}
           />
         )
@@ -60,4 +57,4 @@ FavouriteIcon.defaultProps = {
   isactive: false,
 };
 
-export default FavouriteIcon;
+export default memo(FavouriteIcon);

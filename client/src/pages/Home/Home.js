@@ -1,38 +1,109 @@
-import React, { useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
+import { Box, Container, Grid, Typography, useMediaQuery } from '@mui/material';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
-import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import ListItemAction from '../../components/ListItems/ListItemAction';
-import { partnersCardWidth, productsCardWidth } from '../../components/ListItems/styles';
-import useSortedItems from '../../customHooks/useSortedItems';
 import Features from '../../components/Features/Features';
 import MobileApp from '../../components/MobileApp/MobileApp';
 import SwiperReview from '../../components/SwiperReview/SwiperReview';
+import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
+import Skeleton from '../../components/Skeleton/Skeleton';
+import { partnersSkeletonStylesContainer, productSkeletonStylesContainer } from './styles';
+import useTopProducts from '../../customHooks/useTopProducts';
+import useTopPartners from '../../customHooks/useTopPartners';
 
 const HomePage = () => {
-  const partners = useSelector((state) => state.partners.partners, shallowEqual);
-  const sortedPartners = useSortedItems(partners, partnersCardWidth);
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const sortedProducts = useSortedItems(products, productsCardWidth);
+  const topPartners = useTopPartners();
+  const loadingPartners = useSelector((state) => state.partners.loading);
+
+  const topProducts = useTopProducts();
+  const loadingProducts = useSelector((state) => state.products.loading);
+
+  const isLgTablet = useMediaQuery('(min-width: 690px)');
+  const isDesktop = useMediaQuery('(min-width: 993px)');
 
   return (
     <>
       <SectionGetStarted />
       <Features />
       <MobileApp />
-      <ListItems
-        title="Our Top Restaurants"
-        items={sortedPartners}
-        itemComponent={RestaurantItem}
-        actions={<ListItemAction type="partners" />}
-        type="partners"
-      />
-      <ListItems title="Our Top Dishes" topDish items={sortedProducts} itemComponent={ProductCardItem} actions={<ListItemAction />} />
+      {loadingPartners ? (
+        <Container sx={{ mb: 13 }}>
+          <Typography
+            variant="h2"
+            component="h2"
+            color="text.primary"
+            sx={{ textAlign: 'center', mb: 3 }}
+          >
+            Our Top Restaurants
+          </Typography>
+          <Box sx={partnersSkeletonStylesContainer}>
+            <Skeleton skeletonType="restaurant" />
+            <Skeleton skeletonType="restaurant" />
+            {!isLgTablet || isDesktop ? <Skeleton skeletonType="restaurant" /> : null}
+          </Box>
+        </Container>
+      ) : (topPartners.length > 0 && (
+        <ListItems
+          title="Our Top Restaurants"
+          items={topPartners}
+          itemComponent={RestaurantItem}
+          actions={<ListItemAction type="partners" />}
+          type="partners"
+        />
+      ))}
+
+      {loadingProducts ? (
+        <Container sx={{ mb: 13 }}>
+          <Typography
+            variant="h2"
+            component="h2"
+            color="text.primary"
+            sx={{ textAlign: 'center', mb: 3 }}
+          >
+            Our Top Dishes
+          </Typography>
+          <Grid sx={productSkeletonStylesContainer}>
+            <Grid>
+              <Skeleton skeletonType="product" />
+            </Grid>
+            <Grid>
+              <Skeleton skeletonType="product" />
+            </Grid>
+            <Grid>
+              <Skeleton skeletonType="product" />
+            </Grid>
+            {!isLgTablet && (
+              <Grid>
+                <Skeleton skeletonType="product" />
+              </Grid>
+            )}
+            {isDesktop && (
+              <>
+                <Grid>
+                  <Skeleton skeletonType="product" />
+                </Grid>
+                <Grid>
+                  <Skeleton skeletonType="product" />
+                </Grid>
+              </>
+            )}
+
+          </Grid>
+        </Container>
+      ) : (topProducts.length > 0 && (
+        <ListItems
+          title="Our Top Dishes"
+          items={topProducts}
+          itemComponent={ProductCardItem}
+          actions={<ListItemAction />}
+        />
+      ))}
       <SwiperReview />
     </>
   );
 };
 
-export default HomePage;
+export default memo(HomePage);

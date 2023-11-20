@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import {
   Typography,
   Container,
   Box,
   Button,
+  Stack,
 } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -21,47 +22,30 @@ import {
   continueBtn,
 } from './styles';
 import {
-  createCart,
-  updateCart,
-  updateCartAfterCloseWindow,
   totalSumFromCart,
 } from './cartFunctions';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
-import { getCartItemsFromServer } from '../../redux/slices/cartSlice';
+import { fetchCart } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
-  const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
-
+  const authorizationMark = useSelector((state) => state.cart.authorizationReqInProgress);
   const totalSum = totalSumFromCart(cartProducts);
-
   const getCart = () => {
-    if (isUserAuthorization) {
-      dispatch(getCartItemsFromServer());
-    } else {
-      console.log('user need to autorise');
+    if (isUserAuthorization && !authorizationMark) {
+      dispatch(fetchCart());
     }
   };
 
   useEffect(() => {
-    // getCart();
-    updateCartAfterCloseWindow(cartProducts);
+    getCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUserAuthorization]);
+  }, [isUserAuthorization, authorizationMark]);
 
   const continueFn = () => {
-    if (isUserAuthorization) {
-      if (userIsHasCart) {
-        updateCart(cartProducts);
-      } else {
-        createCart(cartProducts);
-      }
-    } else {
-      navigate('/checkout');
-    }
     navigate('/checkout');
   };
 
@@ -82,6 +66,12 @@ const Cart = () => {
           {cartProducts.map(({ product, cartQuantity }) => (
             <ProductCartItem key={product._id} cartQuantity={cartQuantity} {...product} />
           ))}
+          {!cartProducts.length && (
+            <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, my: 10 }}>
+              <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>Oops! your cart is empty</Typography>
+              <Typography variant="h3" color="text.secondary">Fill it with orders</Typography>
+            </Stack>
+          )}
         </Box>
         <Button
           LinkComponent={NavLink}
@@ -135,4 +125,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default memo(Cart);

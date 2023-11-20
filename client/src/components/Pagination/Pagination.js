@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilterParams } from '../../redux/slices/filterSlice';
+import scrollToElementTop from '../../utils/scrollToElementTop';
 
-const AppPagination = ({ page, setPage, pageQty, anchor }) => {
+const AppPagination = ({ pageQty }) => {
+  const dispatch = useDispatch();
+  const page = useSelector((state) => state.filter.filterParams.startPage);
+  const anchor = useSelector((state) => state.scrollAnchor.productsScrollAnchor);
+
   const handlePageChange = (event, currentPage) => {
-    setPage(currentPage);
+    dispatch(setFilterParams({ startPage: currentPage }));
+
     if (anchor) {
       setTimeout(() => {
-        // eslint-disable-next-line react/prop-types
-        anchor.scrollIntoView({
-          block: 'start',
-        });
+        scrollToElementTop(anchor);
       }, 200);
     }
   };
@@ -47,14 +52,7 @@ const AppPagination = ({ page, setPage, pageQty, anchor }) => {
 };
 
 AppPagination.propTypes = {
-  page: PropTypes.number.isRequired,
-  setPage: PropTypes.func.isRequired,
   pageQty: PropTypes.number.isRequired,
-  anchor: PropTypes.object,
 };
 
-AppPagination.defaultProps = {
-  anchor: null,
-};
-
-export default AppPagination;
+export default memo(AppPagination);

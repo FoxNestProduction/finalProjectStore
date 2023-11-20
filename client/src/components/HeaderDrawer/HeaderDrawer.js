@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -9,7 +9,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -26,16 +25,16 @@ import RegisterForm from '../forms/RegisterForm/RegisterForm';
 import { cartIconCounterFunction } from '../Cart/cartFunctions';
 
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
-  handleCloseDrawer, handleOpenModalLogin, handleLogOut }) => {
+  handleCloseDrawer, handleOpenModalLogin, handleLogOut, setNavigateTo }) => {
   const dispatch = useDispatch();
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
 
-  const handleOpenModalRegister = () => {
+  const handleOpenModalRegister = useCallback(() => {
     dispatch(openModal());
     dispatch(setContent(<RegisterForm />));
-  };
-  const favourite = useSelector((state) => state.favourites.favourites);
+  }, [dispatch]);
+  const favourite = useSelector((state) => state.favourites.favourites, shallowEqual);
   const favouritesAmount = isUserAuthorized ? favourite.length : null;
   const cartAmount = cartIconCounterFunction(cartProducts);
 
@@ -70,12 +69,9 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
               <ListItemButton
                 sx={{
                   textAlign: 'center',
-                  // '&:hover': {
-                  //   bgcolor: 'primary.main',
-                  // },
                 }}
                 component={NavLink}
-                to={`/${page.toLowerCase()}`}
+                to={setNavigateTo(page)}
               >
                 <ListItemText
                   primary={page}
@@ -86,32 +82,24 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
           ))}
         </List>
 
-        <Divider />
-
-        <List>
-          <MenuItemWithIcon
-            navLink
-            page="Cart"
-            icon={(
-              <Badge badgeContent={cartAmount} color="primary" sx={stylesBadge}>
-                <ShoppingCartOutlinedIcon sx={stylesIcon} />
-              </Badge>
-            )}
-          />
-          {isUserAuthorized && (
-          <MenuItemWithIcon
-            navLink
-            page="Favourites"
-            icon={
-              (
-                <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
-                  <FavoriteBorderOutlinedIcon sx={stylesIcon} />
-                </Badge>
-              )
-            }
-          />
-          )}
-        </List>
+        {isUserAuthorized && (
+        <>
+          <Divider />
+          <List>
+            <MenuItemWithIcon
+              navLink
+              page="Favourites"
+              icon={
+                (
+                  <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                    <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                  </Badge>
+                )
+              }
+            />
+          </List>
+        </>
+        )}
 
         <Divider />
 
@@ -147,8 +135,9 @@ HeaderDrawer.propTypes = {
   isMobileMenuOpen: PropTypes.bool,
   handleCloseDrawer: PropTypes.func,
   handleOpenModalLogin: PropTypes.func,
-  navItems: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  navItems: PropTypes.array,
   handleLogOut: PropTypes.func,
+  setNavigateTo: PropTypes.func,
 };
 
 HeaderDrawer.defaultProps = {
@@ -157,6 +146,7 @@ HeaderDrawer.defaultProps = {
   handleOpenModalLogin: () => {},
   navItems: [],
   handleLogOut: () => {},
+  setNavigateTo: () => {},
 };
 
-export default HeaderDrawer;
+export default memo(HeaderDrawer);

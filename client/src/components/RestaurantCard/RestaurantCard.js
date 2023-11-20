@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -183,10 +183,10 @@ RestaurantCard.propTypes = {
 
 RestaurantCard.defaultProps = {
   rating: 3,
-  name: 'The Chicken King',
-  imageUrl: './img/restaurants/Resturent01.jpg',
+  name: '',
+  imageUrl: '',
   description: '',
   styleWidth: {},
 };
 
-export default RestaurantCard;
+export default memo(RestaurantCard);

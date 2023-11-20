@@ -4,8 +4,11 @@ const _ = require("lodash");
 const keys = require("../config/keys");
 const getConfigs = require("../config/getConfigs");
 const passport = require("passport");
+const sendMail = require("../commonHelpers/mailSender");
 const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(10000000, 99999999);
+const crypto = require("crypto");
+const generatePasswordResetEmail = require('../views/emailForPasswordReset');
 
 // Load Customer model
 const Customer = require("../models/Customer");
@@ -29,23 +32,6 @@ exports.createCustomer = (req, res, next) => {
     return res.status(400).json(errors);
   }
 
-  // Customer.findOne({
-  //   $or: [{ email: req.body.email }, { login: req.body.login }]
-  // })
-  //   .then(customer => {
-  //     if (customer) {
-  //       if (customer.email === req.body.email) {
-  //         return res
-  //           .status(400)
-  //           .json({ message: `Email ${customer.email} already exists"` });
-  //       }
-  //
-  //       if (customer.login === req.body.login) {
-  //         return res
-  //           .status(400)
-  //           .json({ message: `Login ${customer.login} already exists` });
-  //       }
-  //     }
   Customer.findOne({ email: req.body.email })
     .then(customer => {
       if (customer) {
@@ -116,7 +102,7 @@ exports.loginCustomer = async (req, res, next) => {
       // console.log(isValid);
       return res.status(400).json(errors);
   }
-    // todo:  need to refactor email
+
   const email = req.body.email;
   const password = req.body.password;
   const configs = await getConfigs();
@@ -131,7 +117,7 @@ exports.loginCustomer = async (req, res, next) => {
       if (!customer) {
           console.log(customer);
 
-          errors.email = "Customer not found";
+          errors.email = "Customer is not found";
         return res.status(404).json(errors);
       }
 
@@ -164,7 +150,7 @@ exports.loginCustomer = async (req, res, next) => {
             }
           );
         } else {
-          errors.password = "Password incorrect";
+          errors.password = "Password is incorrect";
           return res.status(400).json(errors);
         }
       });
@@ -196,7 +182,7 @@ exports.editCustomerInfo = (req, res) => {
   Customer.findOne({ _id: req.user.id })
     .then(customer => {
       if (!customer) {
-        errors.id = "Customer not found";
+        errors.id = "Customer is not found";
         return res.status(404).json(errors);
       }
 
@@ -241,7 +227,11 @@ exports.editCustomerInfo = (req, res) => {
         { $set: updatedCustomer },
         { new: true }
       )
-        .then(customer => res.json(customer))
+        .then(customer => {
+          const userWithoutPassword = JSON.parse(JSON.stringify(customer));
+          delete userWithoutPassword.password;
+          res.json(userWithoutPassword);
+        })
         .catch(err =>
           res.status(400).json({
             message: `Error happened on server: "${err}" `
@@ -273,35 +263,126 @@ exports.updatePassword = (req, res) => {
         errors.password = "Password does not match";
         res.json(errors);
       } else {
-        let newPassword = req.body.newPassword;
+    let newPassword = req.body.newPassword;
 
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newPassword, salt, (err, hash) => {
-            if (err) throw err;
-            newPassword = hash;
-            Customer.findOneAndUpdate(
-              { _id: req.user.id },
-              {
-                $set: {
-                  password: newPassword
-                }
-              },
-              { new: true }
-            )
-              .then(customer => {
-                res.json({
-                  message: "Password successfully changed",
-                  customer: customer
-                });
-              })
-              .catch(err =>
-                res.status(400).json({
-                  message: `Error happened on server: "${err}" `
-                })
-              );
-          });
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newPassword, salt, (err, hash) => {
+        if (err) throw err;
+        newPassword = hash;
+        Customer.findOneAndUpdate(
+          { _id: req.user.id },
+          {
+            $set: {
+              password: newPassword
+            }
+          },
+          { new: true }
+        )
+          .then(customer => {
+            res.json({
+              message: "Password successfully changed",
+              customer: customer
+            });
+          })
+          .catch(err =>
+            res.status(400).json({
+              message: `Error happened on server: "${err}" `
+            })
+          );
         });
+      });
       }
     });
   });
+};
+
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const customer = await Customer.findOne({ email });
+    if (!customer) {
+      return res.status(404).json({ message: 'This email is not registered. Check your email and try again.' });
+    }
+
+    const secret = keys.secretOrKey + customer.password;
+    const token = jwt.sign({ email: customer.email, id: customer._id }, secret, {
+      expiresIn: 900, // 15хв
+    });
+
+    const recoveryPasswordLink = `http://localhost:3000/recovery-password/${customer._id}/${token}`;
+
+    const subscriberMail = req.body.email;
+    const letterSubject = 'Reset password';
+    const letterHtml = generatePasswordResetEmail(customer.firstName, recoveryPasswordLink);
+
+    const mailResult = await sendMail(
+      subscriberMail,
+      letterSubject,
+      letterHtml,
+      res
+    );
+
+    res.json({ mailResult, message: 'success' });
+
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
+    });
+  }
+};
+
+
+exports.resetPassword = async (req, res) => {
+  const { id, token } = req.body;
+  let newPassword = req.body.password;
+
+  try {
+    const customer = await Customer.findOne({ _id: id });
+    if (!customer) {
+      return res.status(404).json({ message: "User is not found" });
+    }
+
+    try {
+      const secret = keys.secretOrKey + customer.password;
+      const verify = jwt.verify(token, secret);
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newPassword, salt, (err, hash) => {
+          if (err) throw err;
+          newPassword = hash;
+          Customer.findOneAndUpdate(
+            { _id: id },
+            {
+              $set: {
+                password: newPassword
+              }
+            },
+            { new: true }
+          )
+            .then(customer => {
+              res.json({
+                message: "Password was successfully changed",
+                customer: customer
+              });
+            })
+            .catch(err =>
+              res.status(400).json({
+                message: `Error happened on server: "${err}" `
+              })
+            );
+        });
+      });
+
+    } catch (err) {
+      res.status(400).json({
+        message: 'Invalid or expired password reset token'
+      });
+    }
+
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
+    });
+  }
 };

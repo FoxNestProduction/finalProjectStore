@@ -1,61 +1,23 @@
-import { instance } from '../../API/instance';
-
-const createCart = async (cartProducts) => {
-  const cartProductsFromServer = cartProducts.map((cartProduct) => {
-    const newCartProductObj = {
-      // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.id,
-      cartQuantity: cartProduct.cartQuantity,
-    };
-    return newCartProductObj;
-  });
+const changeCartObjectFromServer = (cartProducts) => {
   const cart = {
-    products: [
-      ...cartProductsFromServer,
-    ],
+    products: [],
   };
-  try {
-    const { data } = await instance.post('/cart', cart);
-    console.log(data);
-  } catch (err) {
-    console.warn(err);
+  if (cartProducts.length) {
+    const cartProductsFromServer = cartProducts.map((cartProduct) => {
+      const newCartProductObj = {
+        // eslint-disable-next-line no-underscore-dangle
+        product: cartProduct.product._id,
+        cartQuantity: cartProduct.cartQuantity,
+      };
+      return newCartProductObj;
+    });
+    cart.products = [...cartProductsFromServer];
   }
-};
-
-const updateCart = async (cartProducts) => {
-  const cartProductsFromServer = cartProducts.map((cartProduct) => {
-    const newCartProductObj = {
-      // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.product._id,
-      cartQuantity: cartProduct.cartQuantity,
-    };
-    return newCartProductObj;
-  });
-  const updatedCart = {
-    products: [
-      ...cartProductsFromServer,
-    ],
-  };
-  try {
-    const { data } = await instance.put('/cart', updatedCart);
-    console.log(data);
-  } catch (err) {
-    console.warn(err);
-  }
-};
-
-const updateCartAfterCloseWindow = (cartProducts) => {
-  const handleUnload = () => {
-    updateCart(cartProducts);
-  };
-  window.addEventListener('beforeunload', handleUnload);
-  return () => {
-    window.removeEventListener('beforeunload', handleUnload);
-  };
+  return cart;
 };
 
 const cartIconCounterFunction = (cartProducts) => {
-  if (cartProducts.length) {
+  if (cartProducts.length !== 0) {
     const cartCounter = cartProducts
       .map(({ cartQuantity }) => cartQuantity)
       .reduce((accumulator, currentValue) => accumulator + currentValue);
@@ -78,10 +40,21 @@ const totalSumFromCart = (cartProducts) => {
   return 0;
 };
 
+const totalSumFromCartProduct = (currentPrice, cartQuantity = 1) => {
+  const totalSum = currentPrice * cartQuantity;
+  if (totalSum) {
+    return (totalSum < 100
+      ? +totalSum.toString().slice(0, 5)
+      : totalSum < 1000
+        ? +totalSum.toString().slice(0, 6)
+        : +totalSum.toString().slice(0, 7));
+  }
+  return 0;
+};
+
 export {
-  createCart,
-  updateCart,
-  updateCartAfterCloseWindow,
+  changeCartObjectFromServer,
   cartIconCounterFunction,
   totalSumFromCart,
+  totalSumFromCartProduct,
 };

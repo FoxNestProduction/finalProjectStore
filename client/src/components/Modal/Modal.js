@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -21,6 +21,7 @@ import {
 } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import { setAuthorizationError, setRegistrationError } from '../../redux/slices/errorSlice';
+import { setNewReview } from '../../redux/slices/reviewsSlice';
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -123,4 +124,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default memo(Modal);

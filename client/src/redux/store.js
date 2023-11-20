@@ -17,6 +17,7 @@ import cartSlice from './slices/cartSlice';
 import orderSlice from './slices/orderSlice';
 import filterSlice from './slices/filterSlice';
 import scrollAnchorSlice from './slices/scrollAnchorSlice';
+import newGoogleUserSlice from './slices/newGoogleUserSlice';
 
 const authPersistConfig = {
   key: 'authorization',
@@ -30,33 +31,17 @@ const userPersistConfig = {
   storage,
 };
 
-const productPersistConfig = {
-  key: 'products',
-  version: 1,
-  storage,
-};
-
-const searchPersistConfig = {
-  key: 'search',
-  version: 1,
-  storage,
-};
 const favouritePersistConfig = {
   key: 'favorites',
   version: 1,
   storage,
 };
-const reviewsPersistConfig = {
-  key: 'reviews',
-  version: 1,
-  storage,
-};
-
-const filterPersistConfig = {
-  key: 'filter',
-  version: 1,
-  storage,
-};
+//
+// const filterPersistConfig = {
+//   key: 'filter',
+//   version: 1,
+//   storage,
+// };
 
 const cartPersistConfig = {
   key: 'cart',
@@ -75,13 +60,16 @@ const reducer = combineReducers({
   modal: modalSlice,
   partners: partnersSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
+  // user: persistReducer(userPersistConfig, userSlice),
   user: persistReducer(userPersistConfig, userSlice),
-  products: persistReducer(productPersistConfig, productsSlice),
-  search: persistReducer(searchPersistConfig, searchSlice),
+  newGoogleUser: newGoogleUserSlice,
+  products: productsSlice,
+  search: searchSlice,
   order: orderSlice,
-  reviews: persistReducer(reviewsPersistConfig, reviewsSlice),
+  reviews: reviewsSlice,
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
-  filter: persistReducer(filterPersistConfig, filterSlice),
+  // filter: persistReducer(filterPersistConfig, filterSlice),
+  filter: filterSlice,
   cart: persistReducer(cartPersistConfig, cartSlice),
   scrollAnchor: scrollAnchorSlice,
 });

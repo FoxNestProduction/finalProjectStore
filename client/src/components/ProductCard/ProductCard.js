@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { memo, useState } from 'react';
+import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -17,40 +18,48 @@ import ColorChips from '../Chip/Chip';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
-import { fixedDecodeURIComponent } from '../../utils/uriEncodeHelpers';
-import { addFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
-import { addToCart } from '../../redux/slices/cartSlice';
+import { addToFavourites, deleteFromFavourites, setIsFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
+import { addProductToCart, addToCart } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
+import useGetAPI from '../../customHooks/useGetAPI';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../Alert/Alert';
 
-const ProductCard = ({ productName }) => {
-  const nameOfProduct = fixedDecodeURIComponent(productName);
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+const ProductCard = ({ dish }) => {
   const dispatch = useDispatch();
+
+  const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
-  // eslint-disable-next-line no-underscore-dangle
-  const dish = products.find((item) => item.name.toLowerCase() === nameOfProduct);
-  console.log(products);
+  const [isShowAlert, setIsShowAlert] = useState(false);
+
+  const isLoading = useSelector((state) => state.favourites.loading);
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+
   const {
     name,
     description,
     currentPrice,
-    isTranding,
+    isTrending,
     rating,
     imageUrl,
     isSupreme,
     isHealthy,
     // eslint-disable-next-line no-underscore-dangle
     _id: id,
-  } = dish;
+  } = dish || {};
 
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const toggleFavourite = () => {
-    if (isFavourite) {
-      dispatch(removeFavourite({ id }));
-    } else {
-      dispatch(addFavourite({ id }));
+    if (!isLoading) {
+      if (isFavourite) {
+        dispatch(removeFavourite(id));
+        dispatch(deleteFromFavourites({ id }));
+      } else {
+        dispatch(setIsFavourite(id));
+        dispatch(addToFavourites({ id }));
+      }
     }
   };
   const handleOpenModalLogin = () => {
@@ -59,25 +68,28 @@ const ProductCard = ({ productName }) => {
   };
 
   const handleAddToCart = () => {
-    const selectedItem = {
-      product: {
-        _id: id,
-        currentPrice,
-        imageUrl,
-        name,
-      },
-      cartQuantity: 1,
-    };
-    dispatch(addToCart(selectedItem));
+    handleShowAlert();
+    setIsShowAlert(true);
+    setTimeout(() => {
+      handleCloseAlert();
+      setIsShowAlert(false);
+    }, 4000);
+    if (isUserAuthorized) {
+      dispatch(addProductToCart(id));
+    } else {
+      const selectedItem = {
+        product: { ...dish },
+        cartQuantity: 1,
+      };
+      dispatch(addToCart(selectedItem));
+    }
   };
-
   return (
     <Container
       component="section"
       sx={{
         bgcolor: 'background.default',
         mt: { mobile: 5, tablet: 8 },
-
       }}
     >
       <Card
@@ -110,7 +122,7 @@ const ProductCard = ({ productName }) => {
             >
               <Box sx={{ my: 2, width: { lgTablet: '350px' } }}>
                 <ColorChips
-                  isTrending={isTranding}
+                  isTrending={isTrending}
                   isSupreme={isSupreme}
                   isHealthy={isHealthy}
                 />
@@ -121,10 +133,9 @@ const ProductCard = ({ productName }) => {
               >
                 <Typography variant="body1" sx={{ whiteSpace: 'nowrap' }}>24min •</Typography>
                 <Stack direction="row" spacing={1}>
-                  {/* <RatingItem /> */}
                   <Rating
-                    name="half-rating"
-                    value={rating}
+                    name="read-only"
+                    value={rating ?? 0}
                     size="medium"
                     readOnly
                     sx={{ color: 'primary.main' }}
@@ -183,15 +194,18 @@ const ProductCard = ({ productName }) => {
           </Stack>
         </Stack>
       </Card>
+      {isShowAlert && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
+      )}
     </Container>
   );
 };
 
 ProductCard.propTypes = {
-  productName: PropTypes.string.isRequired,
+  dish: PropTypes.object,
 };
 
 ProductCard.defaultProps = {
+  dish: {},
 };
-
-export default ProductCard;
+export default memo(ProductCard);

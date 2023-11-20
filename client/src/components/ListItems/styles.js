@@ -38,7 +38,7 @@ export const gridStylesItemPartners = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  maxWidth: { lgTablet: '49%', desktop: '30%' },
+  maxWidth: { lgTablet: '48%', desktop: '31%' },
   cursor: 'pointer',
   mb: '40px',
 };
@@ -55,27 +55,13 @@ export const gridStylesItemProducts = {
     mobile: '46%',
     tablet: '44%',
     lgTablet: '26%',
-    desktop: '17%',
+    desktop: '16%',
   },
   mb: '40px',
   minWidth: {
     desktop: '145px',
-    tablet: '160px',
+    tablet: '155px',
   },
-};
-
-export const partnersCardWidth = {
-  mobile: 3,
-  tablet: 3,
-  lgTablet: 2,
-  desktop: 3,
-};
-
-export const productsCardWidth = {
-  mobile: 4,
-  tablet: 4,
-  lgTablet: 3,
-  desktop: 5,
 };
 
 export const stylesSortSelect = {

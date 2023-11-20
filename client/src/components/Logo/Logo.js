@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { IconButton, Stack, Typography } from '@mui/material';
 import { ReactComponent as LogoIcon } from '../../assets/svg/logo.svg';
@@ -29,4 +29,4 @@ Logo.defaultProps = {
   type: '',
 };
 
-export default Logo;
+export default memo(Logo);

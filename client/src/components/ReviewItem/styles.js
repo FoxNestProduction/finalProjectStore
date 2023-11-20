@@ -43,6 +43,7 @@ export const stylesText = {
     tablet: '50px',
     desktop: '60px',
   },
+  cursor: 'pointer',
 };
 
 export const stylesFullText = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
@@ -8,7 +8,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import ColorChips from '../Chip/Chip';
 import { stylesMiniTextWrapper, stylesMiniText, stylesTime, stylesImageWrapper, stylesImage, stylesFavoriteIcon, stylesTitle, stylesRatingWrapper, stylesPrice, stylesStarWrapper, stylesButton } from './styles.js';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
@@ -16,7 +16,10 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
-import { addToCart } from '../../redux/slices/cartSlice';
+import { addToCart, addProductToCart } from '../../redux/slices/cartSlice';
+import { GetOneProduct, resetOneProduct } from '../../redux/slices/productsSlice';
+import useAlert from '../../customHooks/useAlert';
+import CustomAlert from '../Alert/Alert';
 // eslint-disable-next-line no-underscore-dangle
 const ProductCardItem = ({
   currentPrice,
@@ -24,39 +27,57 @@ const ProductCardItem = ({
   name,
   rating,
   _id,
-  isTranding,
+  isTrending,
   isSupreme,
   isHealthy,
+  itemNo,
 }) => {
-  const breackPoint = useBreakpoint();
-  const products = useSelector((state) => state.products.products);
+  const breakPoint = useBreakpoint();
+  const products = useSelector((state) => state.products.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+  const { alert, handleCloseAlert, handleShowAlert } = useAlert();
+  const [clickedAdd, setClickedAdd] = useState(false);
+
   const handleOpenModalLogin = () => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
   };
 
-  let selectedItem;
+  useEffect(() => {
+    if (clickedAdd) {
+      handleShowAlert();
+      setTimeout(() => {
+        setClickedAdd(false);
+      }, 4000);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickedAdd]);
+
   const handleAddToCart = (event) => {
     event.preventDefault();
-    const index = products.findIndex((product) => product._id === _id);
-    if (index !== -1) {
-      const foundObject = products[index];
-      selectedItem = {
-        product: {
-          _id: foundObject._id,
-          currentPrice: foundObject.currentPrice,
-          imageUrl: foundObject.imageUrl,
-          name: foundObject.name,
-        },
-        cartQuantity: 1,
-      };
-    }
-    (() => dispatch(addToCart(selectedItem)))();
-  };
+    const onGetOneProductComplete = (oneProduct) => {
+      if (Object.keys(oneProduct).length !== 0) {
+        const selectedItem = {
+          product: { ...oneProduct },
+          cartQuantity: 1,
+        };
+        if (isUserAuthorized) {
+          dispatch(addProductToCart(selectedItem.product._id));
+        } else {
+          dispatch(addToCart(selectedItem));
+        }
+      }
+    };
 
+    dispatch(GetOneProduct(itemNo)).then((action) => {
+      if (GetOneProduct.fulfilled.match(action)) {
+        onGetOneProductComplete(action.payload);
+        setClickedAdd(true);
+      }
+    });
+  };
   return (
     <>
       <CardActions
@@ -68,7 +89,7 @@ const ProductCardItem = ({
         <FavouriteIcon id={_id} />
       </CardActions>
       <Box>
-        <Link sx={{ cursor: 'pointer' }} to={`/menu/${fixedEncodeURIComponent(name)}`}>
+        <Link sx={{ cursor: 'pointer' }} to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
           <Box sx={stylesImageWrapper}>
             <CardMedia
               component="img"
@@ -80,7 +101,7 @@ const ProductCardItem = ({
           <Box sx={stylesMiniTextWrapper}>
             <ColorChips
               isHealthy={isHealthy}
-              isTranding={isTranding}
+              isTrending={isTrending}
               isSupreme={isSupreme}
               customStyles={stylesMiniText}
             />
@@ -105,9 +126,12 @@ const ProductCardItem = ({
         </Typography>
       </Box>
       <CardActions onClick={handleAddToCart} sx={stylesButton}>
-        {breackPoint !== 'mobile' ? (<b>ADD</b>) : null}
+        {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
+      { clickedAdd && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
+      )}
     </>
   );
 };
@@ -119,8 +143,9 @@ ProductCardItem.propTypes = {
   rating: PropTypes.number,
   _id: PropTypes.string,
   isHealthy: PropTypes.bool,
-  isTranding: PropTypes.bool,
+  isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
+  itemNo: PropTypes.string,
 };
 
 ProductCardItem.defaultProps = {
@@ -130,8 +155,9 @@ ProductCardItem.defaultProps = {
   rating: '',
   _id: '',
   isHealthy: null,
-  isTranding: null,
+  isTrending: null,
   isSupreme: null,
+  itemNo: '',
 };
 
-export default ProductCardItem;
+export default memo(ProductCardItem);

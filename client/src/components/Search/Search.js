@@ -1,53 +1,79 @@
-import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import React, { memo, useEffect, useRef } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { debounce } from '@mui/material/utils';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
+import PropTypes from 'prop-types';
 import { stylesSearch, stylesBtn, stylesWrap, stylesBorder } from './style';
-import { setSearch, setKey, setInputSearchValue } from '../../redux/slices/searchSlice';
-import { setScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
-import { setFilter } from '../../redux/slices/filterSlice';
+import {
+  setSearch,
+  setKey,
+  setInputSearchValue,
+  fetchSearchedProductsOrPartners,
+  resetSearch,
+} from '../../redux/slices/searchSlice';
+import { resetFilterParams, deleteFilteredData } from '../../redux/slices/filterSlice';
+import { fetchAllProductsNames } from '../../redux/slices/productsSlice';
+import { fetchAllPartnersNames } from '../../redux/slices/partnersSlice';
 
-const Search = () => {
+const Search = ({ resetFiltersLocalState }) => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.products);
-  const partners = useSelector((state) => state.partners.partners);
+  const navigate = useNavigate();
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
-  const [alignment, setAlignment] = useState('food');
-  const labelForTextField = `Search  ${alignment}`;
 
-  const handleChangeButton = (event, newAlignment) => {
-    if (newAlignment !== null) {
-      setAlignment(newAlignment);
+  useEffect(() => {
+    dispatch(fetchAllProductsNames());
+    dispatch(fetchAllPartnersNames());
+  }, [dispatch]); // eslint-disable-line
+
+  const key = useSelector((state) => state.search.key);
+  const allProductsNames = useSelector((state) => state.products.allProductsNames, shallowEqual);
+  const allPartnersNames = useSelector((state) => state.partners.allPartnersNames, shallowEqual);
+  const labelForTextField = `Search  ${key}`;
+
+  const handleChangeButton = (event, keyBtn) => {
+    if (keyBtn !== null) {
+      dispatch(setKey(keyBtn));
       dispatch(setInputSearchValue(''));
       dispatch(setSearch([]));
+      dispatch(resetSearch());
     }
   };
 
-  const filteredProductsOrRestaurants = (name) => {
-    return (alignment === 'food' ? products : partners).filter((el) => {
-      return el.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
-    });
-  };
-
-  const handleInputChange = (event, newInputValue) => {
+  const handleInputChange = async (event, newInputValue) => {
     dispatch(setInputSearchValue(newInputValue));
-    if (newInputValue.length === 0) {
-      dispatch(setSearch([]));
-    }
-    if (newInputValue.length !== 0) {
-      dispatch(setSearch(filteredProductsOrRestaurants(newInputValue)));
-      dispatch(setKey(alignment));
-      dispatch(setFilter([]));
-    }
   };
 
-  const topProductsAnchor = useRef();
+  const debounceSearch = useRef(
+    debounce((inputValue, keyBtn) => {
+      if (inputValue.length === 0) {
+        dispatch(setSearch([]));
+      } else {
+        const fetchData = {
+          url: keyBtn === 'food' ? '/products/search' : '/partners/search',
+          body: {
+            query: inputValue,
+          },
+        };
+        try {
+          dispatch(fetchSearchedProductsOrPartners(fetchData));
+          dispatch(deleteFilteredData());
+          dispatch(resetFilterParams());
+          resetFiltersLocalState();
+          navigate('');
+        } catch (err) {
+          console.error(`Error getting ${inputValue}: `, err);
+        }
+      }
+    }, 1000),
+  );
+
   useEffect(() => {
-    dispatch(setScrollAnchor(topProductsAnchor.current));
-  }, [dispatch]);
+    debounceSearch.current(inputSearchValue, key);
+  }, [inputSearchValue, key]); // eslint-disable-line
 
   return (
     <Stack sx={stylesWrap}>
@@ -58,7 +84,7 @@ const Search = () => {
           freeSolo
           id="search"
           disableClearable
-          options={alignment === 'food' ? products.map((option) => option.name) : partners.map((option) => option.name)}
+          options={key === 'food' ? allProductsNames : allPartnersNames}
           renderInput={(params) => (
             <TextField
               sx={stylesBorder}
@@ -78,7 +104,8 @@ const Search = () => {
           )}
         />
       </Stack>
-      <ToggleButtonGroup value={alignment} exclusive onChange={handleChangeButton} aria-label="Platform" ref={topProductsAnchor}>
+
+      <ToggleButtonGroup value={key} exclusive onChange={handleChangeButton} aria-label="Platform">
         <ToggleButton value="food" sx={stylesBtn}>
           Food
         </ToggleButton>
@@ -90,4 +117,12 @@ const Search = () => {
   );
 };
 
-export default Search;
+Search.propTypes = {
+  resetFiltersLocalState: PropTypes.func,
+};
+
+Search.defaultProps = {
+  resetFiltersLocalState: () => {},
+};
+
+export default memo(Search);

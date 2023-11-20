@@ -15,6 +15,7 @@ import CheckoutPage from './pages/Chechout/Checkout';
 import CheckoutForm from './components/forms/CheckoutForm/CheckoutForm';
 import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
 import PaymentForm from './components/forms/PaymentForm/PaymentForm';
+import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
 import NotFound from './pages/NotFound/NotFound';
 
 const AppRoutes = () => {
@@ -32,8 +33,9 @@ const AppRoutes = () => {
         <Route path="/checkout" element={<CheckoutPage titleText="Checkout" formComponent={CheckoutForm} />} />
         <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
-        <Route path="/menu/:productName" element={<ProductPage />} />
-        <Route path="/restaurants/:partnersName" element={<PartnersPage />} />
+        <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
+        <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
+        <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

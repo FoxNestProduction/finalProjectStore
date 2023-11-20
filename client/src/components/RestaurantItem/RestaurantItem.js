@@ -9,13 +9,14 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
 import ColorChips from '../Chip/Chip';
 import { chipSizeRestaurant, chipBoxchipSizeRestaurant } from '../Chip/styles';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 
-const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupreme }) => {
+const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupreme, customId }) => {
   const styles = {
     display: 'flex',
     alignItems: 'center',
@@ -23,7 +24,7 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
   };
 
   return (
-    <Link to={`/restaurants/${fixedEncodeURIComponent(name)}`}>
+    <Link to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}>
       <Card
         sx={{
           ...styles,
@@ -71,7 +72,7 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTranding, isSupre
           <ColorChips
             customStyles={chipSizeRestaurant}
             isHealthy={isHealthy}
-            isTranding={isTranding}
+            isTrending={isTrending}
             isSupreme={isSupreme}
           />
         </Box>
@@ -170,17 +171,19 @@ RestaurantCard.propTypes = {
   name: PropTypes.string,
   imageUrl: PropTypes.string,
   isHealthy: PropTypes.bool,
-  isTranding: PropTypes.bool,
+  isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
+  customId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 RestaurantCard.defaultProps = {
   isHealthy: false,
-  isTranding: false,
+  isTrending: false,
   isSupreme: false,
   rating: 3,
-  name: 'The Chicken King',
-  imageUrl: './img/restaurants/Resturent01.jpg',
+  name: '',
+  imageUrl: '',
+  customId: '',
 };
 
-export default RestaurantCard;
+export default memo(RestaurantCard);

@@ -1,79 +1,124 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
-import { CardMedia, Typography } from '@mui/material';
+import { CardMedia, IconButton, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import CardContent from '@mui/material/CardContent';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import { useDispatch, useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
-import { addToCart, deleteFromCart, addOneMore } from '../../redux/slices/cartSlice';
+import {
+  addProductToCart,
+  decreaseProductQuantity,
+  deleteProductFromCart,
+  deleteFromCart,
+  addOneMore,
+  deleteFullProduct,
+} from '../../redux/slices/cartSlice';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
+import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
-import { cartIconContainer, img, textContentBox, textContent, buttonStyles, linkContainer, quantityStyle, textTitle } from './styles';
+import {
+  cartIconContainer,
+  img,
+  textContentBox,
+  buttonStyles,
+  linkContainer,
+  quantityStyle,
+  textTitle,
+  roundedIcons,
+  buttonsWrapper,
+  imageWrapper,
+  closeBtn,
+  closeIcon,
+} from './styles';
 
-const ProductCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
-  const cartProducts = useSelector((state) => state.cart.cart.products);
+const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageUrl }) => {
+  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
+  const authorization = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
   const index = cartProducts.findIndex(({ product }) => product._id === _id);
+  const finallySumOfCartProduct = totalSumFromCartProduct(currentPrice, cartQuantity);
   const handleDeleteOne = () => {
-    if (index !== -1) {
+    if (authorization) {
+      dispatch(decreaseProductQuantity(_id));
+    } else if (index !== -1) {
       const foundObject = cartProducts[index];
-      (() => dispatch(deleteFromCart(foundObject)))();
+      dispatch(deleteFromCart(foundObject));
     }
   };
   const handleAddOne = () => {
-    if (index !== -1) {
+    if (authorization) {
+      dispatch(addProductToCart(_id));
+    } else if (index !== -1) {
       const foundObject = cartProducts[index];
-      (() => dispatch(addOneMore(foundObject)))();
+      dispatch(addOneMore(foundObject));
+    }
+  };
+  const handleDeleteFullProduct = () => {
+    if (authorization) {
+      dispatch(deleteProductFromCart(_id));
+    } else if (index !== -1) {
+      const foundObject = cartProducts[index];
+      dispatch(deleteFullProduct(foundObject));
     }
   };
   return (
     <Card sx={cartIconContainer}>
       <Box sx={linkContainer}>
-        <Link component={RouterLink} to={`/menu/${fixedEncodeURIComponent(name)}`}>
-          <CardMedia
-            component="img"
-            sx={img}
-            image={imageUrl}
-            alt="Live from space album cover"
-          />
-        </Link>
+        <Box
+          sx={imageWrapper}
+        >
+          <Link component={RouterLink} to={`/menu/${fixedEncodeURIComponent(name)}/${itemNo}`}>
+            <CardMedia
+              component="img"
+              sx={img}
+              image={imageUrl}
+              alt="Live from space album cover"
+            />
+          </Link>
+        </Box>
         <Box sx={textContentBox}>
           <Typography sx={textTitle} variant="body2">
             {name}
           </Typography>
           <Typography variant="h3">
             $
-            {currentPrice}
+            {finallySumOfCartProduct}
           </Typography>
         </Box>
       </Box>
       <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          mr: '5px',
-        }}
+        sx={buttonsWrapper}
       >
         <ButtonGroup variant="outlined" aria-label="small button group">
           <Button sx={buttonStyles} onClick={handleDeleteOne}>
-            <RemoveRoundedIcon />
+            <RemoveRoundedIcon sx={roundedIcons} />
           </Button>
           <Typography variant="body2" sx={quantityStyle}>
             {cartQuantity}
           </Typography>
           <Button sx={buttonStyles} onClick={handleAddOne}>
-            <AddRoundedIcon />
+            <AddRoundedIcon sx={roundedIcons} />
           </Button>
         </ButtonGroup>
       </Box>
+      <IconButton
+        onClick={handleDeleteFullProduct}
+        aria-label="CloseRoundedIcon"
+        size="small"
+        color="secondary"
+        sx={closeBtn}
+      >
+        <CloseRoundedIcon
+          fontSize="small"
+          sx={closeIcon}
+        />
+      </IconButton>
     </Card>
   );
 };
@@ -84,6 +129,7 @@ ProductCartItem.propTypes = {
   name: PropTypes.string,
   cartQuantity: PropTypes.number,
   _id: PropTypes.string,
+  itemNo: PropTypes.string,
 };
 
 ProductCartItem.defaultProps = {
@@ -92,6 +138,7 @@ ProductCartItem.defaultProps = {
   name: 'Chicken Hell',
   cartQuantity: 3,
   _id: '',
+  itemNo: '',
 };
 
-export default ProductCartItem;
+export default memo(ProductCartItem);

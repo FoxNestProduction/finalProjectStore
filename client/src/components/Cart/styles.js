@@ -27,7 +27,8 @@ export const title = {
 export const cartProductsContainer = {
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
+  // alignItems: 'center',
+  alignItems: 'stretch',
   gap: {
     mobile: '24px',
     tablet: '30px',
@@ -124,9 +125,7 @@ export const deliveryTypography = {
     mobile: '18px',
     tablet: '26px',
     lgTablet: '30px',
-    // tablet: '40px',
     desktop: '38px',
-    // desktop: '48px',
   },
   fontWeight: {
     mobile: 'fontWeightSemiBold',
@@ -156,7 +155,11 @@ export const freeTypography = {
 };
 
 export const priceWrapper = {
-  width: 'max-content',
+  width: {
+    mobile: 'max-content',
+    tablet: '130px',
+    lgTablet: '155px',
+  },
   border: {
     tablet: '1px solid',
   },
@@ -180,9 +183,9 @@ export const price = {
   },
   textAlign: 'center',
   p: {
-    tablet: '11px 18px',
-    lgTablet: '12px 22px',
-    desktop: '13px 24px',
+    tablet: '11px 0px',
+    lgTablet: '12px 0px',
+    desktop: '13px 0px',
   },
 };
 
