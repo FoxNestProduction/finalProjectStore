@@ -3,16 +3,10 @@
   height: 100%;
 }
 
-.swiperSlide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .swiperSlideItem {
   border-radius: 20px;
-  overflow: hidden;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .customPagination {
