@@ -102,7 +102,7 @@ describe('Filter component', () => {
     fireEvent.click(screen.getByText('Apply'));
     await waitFor(() => {
       expect(setFilterParams).toHaveBeenCalledWith({
-        filterCategories: ['pizza', 'burgers'],
+        filterCategories: ['pizza', 'burgers', 'sushi', 'salads'],
         isHealthy: false,
         isSupreme: false,
         isTrending: false,
