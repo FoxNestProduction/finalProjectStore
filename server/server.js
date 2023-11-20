@@ -33,13 +33,13 @@ const googleAuth = require('./routes/googleAuth');
 
 const app = express();
 
-// const corsOptions = {
-//   origin: ['https://eatly-fe17.netlify.app', 'http://localhost:3000'],
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   credentials: true,
-// };
-// app.use(cors(corsOptions));
-app.use(cors());
+const corsOptions = {
+  origin: [process.env.REDIRECT_URL],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
+app.use(cors(corsOptions));
+// app.use(cors());
 
 
 // Body parser middleware
