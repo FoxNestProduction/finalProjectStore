@@ -111,7 +111,11 @@ describe('Filter component', () => {
         rating: null,
         startPage: 1,
       });
+    });
+    await waitFor(() => {
       expect(setIsApplyClicked).toHaveBeenCalledWith(true);
+    });
+    await waitFor(() => {
       expect(resetSearch).toHaveBeenCalled();
     });
   });
