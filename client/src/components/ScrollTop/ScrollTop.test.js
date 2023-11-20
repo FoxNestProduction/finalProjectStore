@@ -1,6 +1,6 @@
-import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
-import ScrollTop from "./ScrollTop";
+import React from 'react';
+import { render, fireEvent, screen } from '@testing-library/react';
+import ScrollTop from './ScrollTop';
 
 describe('ScrollTop component', () => {
   test('should render ScrollTop component', () => {
@@ -14,7 +14,7 @@ describe('ScrollTop component', () => {
     const scrollButton = screen.getByLabelText('scroll back to top');
 
     fireEvent.click(scrollButton);
-  
+
     expect(window.scrollY).toBe(0);
   });
 });

@@ -1,9 +1,9 @@
-import React from "react";
-import { MemoryRouter } from "react-router";
-import { Provider } from "react-redux";
-import { render } from "@testing-library/react";
+import React from 'react';
+import { MemoryRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 import store from '../../redux/store';
-import PublicLayout from "./PublicLayout";
+import PublicLayout from './PublicLayout';
 
 describe('PublicLayout component', () => {
   test('should render PublicLayout component', () => {
@@ -12,7 +12,7 @@ describe('PublicLayout component', () => {
         <MemoryRouter>
           <PublicLayout />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(asFragment()).toMatchSnapshot();
   });

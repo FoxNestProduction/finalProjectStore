@@ -1,9 +1,9 @@
-import React from "react";
-import { MemoryRouter } from "react-router";
-import { Provider } from "react-redux";
-import { render } from "@testing-library/react";
+import React from 'react';
+import { MemoryRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 import store from '../../redux/store';
-import SectionGetStarted from "./SectionGetStarted";
+import SectionGetStarted from './SectionGetStarted';
 
 describe('SectionGetStarted component', () => {
   test('should render SectionGetStarted component', () => {
@@ -12,7 +12,7 @@ describe('SectionGetStarted component', () => {
         <MemoryRouter>
           <SectionGetStarted />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(asFragment()).toMatchSnapshot();
   });

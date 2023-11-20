@@ -1,11 +1,11 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import MobileApp from "./MobileApp";
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import MobileApp from './MobileApp';
 
 describe('MobileApp component', () => {
   test('should render MobileApp component', () => {
     const { asFragment } = render(
-          <MobileApp />
+      <MobileApp />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -21,7 +21,7 @@ describe('MobileApp component', () => {
     expect(openSpy).toHaveBeenCalledWith('https://play.google.com/', '_blank');
 
     openSpy.mockRestore();
-  })
+  });
 
   test('calls onClick with correct URL when App Store button is clicked', () => {
     render(<MobileApp />);
@@ -34,5 +34,5 @@ describe('MobileApp component', () => {
     expect(openSpy).toHaveBeenCalledWith('https://www.apple.com/ua/app-store/', '_blank');
 
     openSpy.mockRestore();
-  })
+  });
 });

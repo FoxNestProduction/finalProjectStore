@@ -1,6 +1,6 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import Features from "./Features";
+import React from 'react';
+import { render } from '@testing-library/react';
+import Features from './Features';
 
 describe('Features component', () => {
   test('should render Features component', () => {
