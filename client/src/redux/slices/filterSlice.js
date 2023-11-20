@@ -42,12 +42,6 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setFilteredProducts(state, action) {
-      state.filteredProducts = action.payload;
-    },
-    setProductsQuantity(state, action) {
-      state.productsQuantity = action.payload;
-    },
     setFilterParams(state, action) {
       state.filterParams = { ...state.filterParams, ...action.payload };
     },
