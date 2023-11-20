@@ -33,13 +33,13 @@ const googleAuth = require('./routes/googleAuth');
 
 const app = express();
 
-const corsOptions = {
-  origin: [process.env.REDIRECT_URL],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-};
-app.use(cors(corsOptions));
-// app.use(cors());
+// const corsOptions = {
+//   origin: [process.env.REDIRECT_URL],
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+// };
+// app.use(cors(corsOptions));
+app.use(cors());
 
 
 // Body parser middleware
@@ -66,7 +66,7 @@ mongoose
 
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: process.env.REDIRECT_URL,
       methods: "GET,POST,PUT,DELETE",
       credentials: true,
     })
