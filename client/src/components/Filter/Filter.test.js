@@ -97,7 +97,7 @@ describe('Filter component', () => {
     render(
       <Provider store={store}>
         <Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />
-      </Provider>
+      </Provider>,
     );
     fireEvent.click(screen.getByText('Apply'));
     await waitFor(() => {
