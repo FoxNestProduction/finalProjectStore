@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import { groupOfStarsSizesMap } from '../../constants/bpMapConstants';
 
@@ -16,4 +16,4 @@ const GroupOfStarsSvg = () => {
   );
 };
 
-export default GroupOfStarsSvg;
+export default memo(GroupOfStarsSvg);

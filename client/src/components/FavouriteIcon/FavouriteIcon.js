@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
@@ -57,4 +57,4 @@ FavouriteIcon.defaultProps = {
   isactive: false,
 };
 
-export default FavouriteIcon;
+export default memo(FavouriteIcon);

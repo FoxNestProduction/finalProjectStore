@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -331,4 +331,4 @@ Filter.defaultProps = {
   resetFiltersLocalState: () => {},
 };
 
-export default Filter;
+export default memo(Filter);

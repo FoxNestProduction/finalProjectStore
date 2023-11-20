@@ -18,7 +18,10 @@ jest.mock('../../../API/instance', () => ({
   },
 }));
 
+const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
+
 describe('VerifyEmailForm Component', () => {
+  mockDispatch.mockReturnValueOnce(jest.fn());
   // Testing empty email input
   test('displays error messages correctly', async () => {
     render(
@@ -52,6 +55,8 @@ describe('VerifyEmailForm Component', () => {
   });
 
   test('handles form submission', async () => {
+    const dispatch = jest.fn();
+    mockDispatch.mockReturnValueOnce(dispatch);
     instance.post.mockResolvedValueOnce({ status: 200 });
     render(
       <Provider store={store}>
@@ -74,15 +79,12 @@ describe('VerifyEmailForm Component', () => {
       });
     });
     await waitFor(() => {
-      expect(useDispatch).toHaveBeenCalledTimes(1);
+      expect(useDispatch).toHaveBeenCalledTimes(2);
     });
   });
 
   //   Snapshot
   test('renders VerifyEmailForm correctly', async () => {
-    const mockDispatch = jest.fn();
-    useDispatch.mockReturnValue(mockDispatch);
-
     const { asFragment } = render(
       <Provider store={store}>
         <VerifyEmailForm />

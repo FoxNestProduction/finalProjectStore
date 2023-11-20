@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useField } from 'formik';
 import PropTypes from 'prop-types';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -96,4 +96,4 @@ Input.defaultProps = {
   styles: {},
 };
 
-export default Input;
+export default memo(Input);

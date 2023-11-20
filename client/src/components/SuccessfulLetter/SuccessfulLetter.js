@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -25,4 +25,4 @@ const SuccessfulLetter = () => {
   );
 };
 
-export default SuccessfulLetter;
+export default memo(SuccessfulLetter);

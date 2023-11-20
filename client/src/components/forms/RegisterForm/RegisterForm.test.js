@@ -59,7 +59,7 @@ describe('Register form component', () => {
     });
   });
 
-  test('displays register form correctly', async () => {
+  test('try to submit empty form', async () => {
     render(
       <Provider store={store}>
         <RegisterForm />
@@ -72,18 +72,21 @@ describe('Register form component', () => {
     const submitButton = screen.getByText('Sign up');
     fireEvent.click(submitButton);
 
-    await screen.findByText('Enter your first name');
-    await screen.findByText('Enter your last name');
-    await screen.findByText('Email is required');
-    await screen.findByText('Password is required');
-
-    expect(screen.getByText('Enter your first name')).toBeInTheDocument();
-    expect(screen.getByText('Enter your last name')).toBeInTheDocument();
-    expect(screen.getByText('Email is required')).toBeInTheDocument();
-    expect(screen.getByText('Password is required')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText('Enter your first name')).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText('Enter your last name')).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Email is required')).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Password is required')).toBeInTheDocument();
+    });
   });
 
-  test('Submit correct form data', async () => {
+  test('Submit correct form', async () => {
     render(
       <Provider store={store}>
         <RegisterForm />

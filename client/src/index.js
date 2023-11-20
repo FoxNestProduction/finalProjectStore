@@ -6,11 +6,14 @@ import './reset.scss';
 import { ThemeProvider } from '@mui/material/styles';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { ErrorBoundary } from 'react-error-boundary';
 import App from './App';
 import store from './redux/store';
 import globalTheme from './muiTheme/globalTheme';
 import { injectStore } from './API/instance';
 import { AlertContextProvider } from './context/AlertProvider';
+import SomethingWentWrong from './pages/SomethingWentWrong/SomethingWentWrong';
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // eslint-disable-line no-undef
 const persistor = persistStore(store);
@@ -18,14 +21,16 @@ injectStore(store);
 
 root.render(
   <Provider store={store}>
-    <AlertContextProvider>
-      <BrowserRouter>
-        <ThemeProvider theme={globalTheme}>
+    <ThemeProvider theme={globalTheme}>
+      <ErrorBoundary fallback={<SomethingWentWrong />}>
+        <BrowserRouter>
           <PersistGate persistor={persistor}>
-            <App />
+            <AlertContextProvider>
+              <App />
+            </AlertContextProvider>
           </PersistGate>
-        </ThemeProvider>
-      </BrowserRouter>
-    </AlertContextProvider>
+        </BrowserRouter>
+      </ErrorBoundary>
+    </ThemeProvider>
   </Provider>,
 );

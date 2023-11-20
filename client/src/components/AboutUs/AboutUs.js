@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { memo } from 'react';
 import { Container, Typography, Grid, Paper } from '@mui/material';
 
 const AboutUs = () => {
@@ -76,4 +76,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+export default memo(AboutUs);

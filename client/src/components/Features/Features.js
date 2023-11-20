@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from '@mui/material';
-import React from 'react';
+import React, { memo } from 'react';
 import { flexCenter, featuresContainer, itemContainer, itemTitle, descriptionBox, description, lineBreak, featuresBG } from './styles';
 
 const Features = () => {
@@ -34,4 +34,4 @@ const Features = () => {
   );
 };
 
-export default Features;
+export default memo(Features);

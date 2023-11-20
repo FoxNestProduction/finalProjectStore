@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -37,7 +37,7 @@ import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
-import { resetCart, setIsCart, updateCart } from '../../redux/slices/cartSlice';
+import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
 import CustomAlert from '../Alert/Alert';
 import useAlert from '../../customHooks/useAlert';
@@ -46,7 +46,6 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   // const user = useSelector((state) => state.user.user);
   // const { cart } = user; // під питанням чи потрібне це значення
@@ -82,16 +81,16 @@ const Header = () => {
     setIsMobileMenuOpen(true);
   };
 
-  const handleCloseDrawer = () => {
+  const handleCloseDrawer = useCallback(() => {
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
-  const handleOpenModalLogin = () => {
+  const handleOpenModalLogin = useCallback(() => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
-  };
+  }, [dispatch]);
 
-  const handleLogOut = () => {
+  const handleLogOut = useCallback(() => {
     dispatch(setIsCart(false));
     dispatch(resetCart());
     dispatch(setToken(null));
@@ -111,9 +110,9 @@ const Header = () => {
     //   `${process.env.REACT_APP_API_URL}/auth/logout`,
     //   '_self',
     // );
-  };
+  }, [dispatch, handleCloseAlert, handleShowAlert]);
 
-  const setNavigateTo = (page) => {
+  const setNavigateTo = useCallback((page) => {
     if (page === 'Menu') {
       if (location.pathname === '/menu' && location.search) {
         return `/menu${location.search}`;
@@ -121,12 +120,18 @@ const Header = () => {
       return '/menu';
     }
     return `/${page.toLowerCase()}`;
-  };
+  }, [location.pathname, location.search]);
 
-  const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
+  const navItems = useMemo(() => ['Menu', 'Restaurants', 'Reviews', 'Contact'], []);
 
   return (
     <>
+      {isRegistered && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your registration was successful!" />
+      )}
+      {isUserAuthorized && alert && (
+        <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Welcome back!" />
+      )}
       {(isRegistered || authorizedAlert || logOutdAlert) && alert ? (
         <CustomAlert
           type="success"
@@ -210,4 +215,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

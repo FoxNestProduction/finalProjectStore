@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -32,10 +32,10 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
 
-  const handleOpenModalRegister = () => {
+  const handleOpenModalRegister = useCallback(() => {
     dispatch(openModal());
     dispatch(setContent(<RegisterForm />));
-  };
+  }, [dispatch]);
   const favourite = useSelector((state) => state.favourites.favourites, shallowEqual);
   const favouritesAmount = isUserAuthorized ? favourite.length : null;
   const cartAmount = cartIconCounterFunction(cartProducts);
@@ -161,4 +161,4 @@ HeaderDrawer.defaultProps = {
   setNavigateTo: () => {},
 };
 
-export default HeaderDrawer;
+export default memo(HeaderDrawer);

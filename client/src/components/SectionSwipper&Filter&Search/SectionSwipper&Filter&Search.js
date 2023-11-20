@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material';
-import React, { useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import SwiperBanner from '../SwiperBanner/SwiperBanner';
 import Filter from '../Filter/Filter';
@@ -25,7 +25,7 @@ const SectionSwipperFilterSearch = () => {
 
   const [filters, setFilters] = useState(getInitialFilters);
 
-  const resetFiltersLocalState = () => {
+  const resetFiltersLocalState = useCallback(() => {
     setFilters({
       filterCategories: [],
       isTrending: false,
@@ -35,7 +35,7 @@ const SectionSwipperFilterSearch = () => {
       minPrice: 0,
       maxPrice: 30,
     });
-  };
+  }, []);
 
   return (
     <Container
@@ -64,4 +64,4 @@ const SectionSwipperFilterSearch = () => {
   );
 };
 
-export default SectionSwipperFilterSearch;
+export default memo(SectionSwipperFilterSearch);

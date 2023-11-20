@@ -108,9 +108,7 @@ describe('Snapshot test', () => {
 
     const favouriteIconFalse = screen.getByTestId('FavoriteBorderOutlinedIcon');
 
-    // await act(async () => {
     fireEvent.click(favouriteIconFalse);
-    // });
 
     await waitFor(() => {
       expect(dispatch).not.toHaveBeenCalled();

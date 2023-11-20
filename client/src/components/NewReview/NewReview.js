@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Rating from '@mui/material/Rating';
@@ -44,4 +44,4 @@ const NewReview = () => {
   );
 };
 
-export default NewReview;
+export default memo(NewReview);

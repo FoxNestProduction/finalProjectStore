@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Box, MenuItem, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -119,4 +119,4 @@ Sorter.defaultProps = {
   type: '',
 };
 
-export default Sorter;
+export default memo(Sorter);
