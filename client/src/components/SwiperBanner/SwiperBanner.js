@@ -36,7 +36,7 @@ const SwiperBanner = () => {
         grabCursor
         cubeEffect={{
           shadow: false,
-          slideShadows: true,
+          slideShadows: false,
           shadowOffset: 20,
           shadowScale: 0.94,
         }}
@@ -52,10 +52,8 @@ const SwiperBanner = () => {
         }}
       >
         {data.map((item) => (
-          <SwiperSlide className={styles.swiperSlide} key={item.index}>
-            <div id={item.index} className={styles.swiperSlideItem}>
-              <img src={item.url} alt={`Slide${item.index}`} />
-            </div>
+          <SwiperSlide className={styles.swiperSlide} key={item.index} id={item.index}>
+            <img className={styles.swiperSlideItem} src={item.url} alt={`Slide${item.index}`} />
           </SwiperSlide>
         ))}
       </Swiper>
