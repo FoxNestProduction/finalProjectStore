@@ -22,7 +22,6 @@ jest.mock('react-router', () => ({
 }));
 
 describe('RestaurantPage Component', () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
@@ -31,22 +30,22 @@ describe('RestaurantPage Component', () => {
 
   test('should renders ProductPage component', () => {
     useGetAPI.mockImplementationOnce(() => ([
-        [
-          {
-            rating: 5,
-            name: 'PzzaDay',
-            imageUrl: 'image1.jpg',
-            description: 'PzzaDayAbout',
-            customId: '321',
-          },
-        ],
-        false,
-        null,
-      ]));
+      [
+        {
+          rating: 5,
+          name: 'PzzaDay',
+          imageUrl: 'image1.jpg',
+          description: 'PzzaDayAbout',
+          customId: '321',
+        },
+      ],
+      false,
+      null,
+    ]));
 
     const { asFragment } = render(
       <Provider store={store}>
-        <MemoryRouter  initialEntries={['/restaurants/:PzzaDay/:321']}>
+        <MemoryRouter initialEntries={['/restaurants/:PzzaDay/:321']}>
           <Routes>
             <Route path="/restaurants/:name/:customId" element={<RestaurantPage />} />
           </Routes>
@@ -56,27 +55,27 @@ describe('RestaurantPage Component', () => {
 
     const skeletons = screen.getByRole('listbox');
     expect(skeletons).toBeInTheDocument();
-    expect(asFragment()).toMatchSnapshot();    
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should renders ProductPage component isLoading', () => {
     useGetAPI.mockImplementationOnce(() => ([
-        [
-          {
-            rating: 5,
-            name: 'PzzaDay',
-            imageUrl: 'image1.jpg',
-            description: 'PzzaDayAbout',
-            customId: '321',
-          },
-        ],
-        true,
-        null,
-      ]));
+      [
+        {
+          rating: 5,
+          name: 'PzzaDay',
+          imageUrl: 'image1.jpg',
+          description: 'PzzaDayAbout',
+          customId: '321',
+        },
+      ],
+      true,
+      null,
+    ]));
 
     const { asFragment } = render(
       <Provider store={store}>
-        <MemoryRouter  initialEntries={['/restaurants/:PzzaDay/:321']}>
+        <MemoryRouter initialEntries={['/restaurants/:PzzaDay/:321']}>
           <Routes>
             <Route path="/restaurants/:name/:customId" element={<RestaurantPage />} />
           </Routes>
