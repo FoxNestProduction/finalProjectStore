@@ -57,7 +57,7 @@ exports[`ProductCard Component should renders ProductCard component 1`] = `
                 class="MuiBox-root css-1ma6dsf"
               >
                 <div
-                  class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-u1otj3-MuiChip-root"
+                  class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-bqy36f-MuiChip-root"
                 >
                   <span
                     class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
@@ -66,7 +66,7 @@ exports[`ProductCard Component should renders ProductCard component 1`] = `
                   </span>
                 </div>
                 <div
-                  class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-1hn0n2n-MuiChip-root"
+                  class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-17hug3x-MuiChip-root"
                 >
                   <span
                     class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
