@@ -44,7 +44,10 @@
   "jest": {
     "transformIgnorePatterns": [
       "/node_modules/(?!axios)/"
-    ]
+    ],
+    "moduleNameMapper": {
+      "swiper/css": "swiper/swiper.min.css"
+    }
   },
   "eslintConfig": {
     "extends": [
