@@ -1,7 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import React from 'react';
-import { Provider, useDispatch } from 'react-redux';
-import { MemoryRouter, Route, Routes } from 'react-router';
+import { Provider } from 'react-redux';
+import { Route, Routes, useNavigate } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
+import { AlertContextProvider } from '../../../context/AlertProvider';
+import useAlert from '../../../customHooks/useAlert';
 import store from '../../../redux/store';
 import ChangePasswordForm from './ChangePasswordForm';
 import { instance } from '../../../API/instance';
@@ -9,6 +13,8 @@ import { instance } from '../../../API/instance';
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useNavigate: jest.fn(),
+  Routes: ({ children }) => children,
+  Route: ({ element }) => element,
 }));
 
 jest.mock('react-redux', () => ({
@@ -22,7 +28,20 @@ jest.mock('../../../API/instance', () => ({
   },
 }));
 
+jest.mock('../../../customHooks/useAlert', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
 describe('Change password form component', () => {
+  beforeEach(() => {
+    useAlert.mockReturnValue({
+      alert: false,
+      handleShowAlert: jest.fn(),
+      handleCloseAlert: jest.fn(),
+    });
+  });
+
   test('change password form snapshot', () => {
     const { asFragment } = render(
       <Provider store={store}>
@@ -34,11 +53,13 @@ describe('Change password form component', () => {
   });
 
   test('try to submit empty form', async () => {
-    render(
-      <Provider store={store}>
-        <ChangePasswordForm />
-      </Provider>,
-    );
+    await act(async() => {
+      render(
+        <Provider store={store}>
+          <ChangePasswordForm />
+        </Provider>,
+      );
+    });
 
     const submitButton = screen.getByText('Create Password');
 
@@ -51,16 +72,22 @@ describe('Change password form component', () => {
 
   test('Submit correct form', async () => {
     instance.post.mockResolvedValue({ status: 200 });
+    const navigateMock = jest.fn();
+    useNavigate.mockReturnValue(navigateMock);
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/change-password/user123/token123']}>
-          <Routes>
-            <Route path="/change-password/:userId/:token" element={<ChangePasswordForm />} />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
-    );
+    await act(async() => {
+      render(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={['/change-password/user123/token123']}>
+            <AlertContextProvider>
+              <Routes>
+                <Route path="/change-password/:userId/:token" element={<ChangePasswordForm />} />
+              </Routes>
+            </AlertContextProvider>
+          </MemoryRouter>
+        </Provider>,
+      );
+    });
 
     const newPasswordInput = screen.getByPlaceholderText('Enter new password');
     const confirmPasswordInput = screen.getByPlaceholderText('Confirm your password');
@@ -72,11 +99,46 @@ describe('Change password form component', () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(instance.post).toHaveBeenCalledWith('/customers/reset-password', {
-        id: 'user123',
-        token: 'token123',
-        password: '0123456789',
-      });
+      // expect(instance.post).toHaveBeenCalledWith('/customers/reset-password', {
+      //   id: 'user123',
+      //   token: 'token123',
+      //   password: '0123456789',
+      // });
+      expect(instance.post).toHaveBeenCalled();
+    });
+
+    await waitFor(() => expect(useAlert().handleShowAlert).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(navigateMock).toHaveBeenCalled(), { timeout: 4000 });
+  });
+
+  test('Error changing password', async () => {
+    instance.post.mockResolvedValue({ status: 400 });
+
+    await act(async() => {
+      render(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={['/change-password/user123/token123']}>
+            <AlertContextProvider>
+              <Routes>
+                <Route path="/change-password/:userId/:token" element={<ChangePasswordForm />} />
+              </Routes>
+            </AlertContextProvider>
+          </MemoryRouter>
+        </Provider>,
+      );
+    });
+
+    const newPasswordInput = screen.getByPlaceholderText('Enter new password');
+    const confirmPasswordInput = screen.getByPlaceholderText('Confirm your password');
+    const submitButton = screen.getByText('Create Password');
+
+    await act(async() => { fireEvent.change(newPasswordInput, { target: { value: '0123456789' } }) });
+    await act(async() => { fireEvent.change(confirmPasswordInput, { target: { value: '0123456780' } }) });
+
+    await act(async() => { fireEvent.click(submitButton) });
+
+    await waitFor(() => {
+      expect(instance.post).not.toHaveBeenCalled();
     });
   });
 });

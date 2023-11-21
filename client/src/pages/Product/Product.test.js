@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { useMediaQuery } from '@mui/material';
@@ -38,38 +39,44 @@ describe('ProductPage Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
+    // jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
   });
 
-  test('should renders ProductPage component', () => {
+  test('should renders ProductPage component', async () => {
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(true);
-
-    const { asFragment } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/products/:123']}>
-          <Routes>
-            <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
-    );
-
-    expect(asFragment()).toMatchSnapshot();
+    
+    await act(async() => {
+      render(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={['/products/:123']}>
+            <Routes>
+              <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
+            </Routes>
+          </MemoryRouter>
+        </Provider>,
+      );
+    })
+  
+    await waitFor(() => expect(screen.getAllByTestId('StarBorderIcon')).toHaveLength(5));;
   });
 
-  test('should renders ProductPage component isLgTablet', () => {
+  test('should renders ProductPage component isLgTablet', async () => {
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(false);
 
-    const { asFragment } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/products/:123']}>
-          <Routes>
-            <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
-    );
+    await act(async() => {
+      render(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={['/products/:123']}>
+            <Routes>
+              <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
+            </Routes>
+          </MemoryRouter>
+        </Provider>,
+      );
+    });
 
-    expect(asFragment()).toMatchSnapshot();
+    await waitFor(() => expect(screen.getAllByTestId('StarBorderIcon')).toHaveLength(5));
   });
 });
