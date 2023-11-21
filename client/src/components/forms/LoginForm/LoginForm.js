@@ -81,7 +81,7 @@ const LoginForm = () => {
       authFunc(response);
     } catch (error) {
       dispatch(setAuthorizationError(error.response.data));
-      console.error('Помилка авторизації:', error);
+      // console.error('Помилка авторизації:', error);
     }
   };
 

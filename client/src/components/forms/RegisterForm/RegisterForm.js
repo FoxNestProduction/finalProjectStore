@@ -86,7 +86,7 @@ const RegisterForm = () => {
       authFunc(response.data);
     } catch (error) {
       dispatch(setRegistrationError(error.response.data));
-      console.error('Помилка реєстрації:', error.response.data);
+      // console.error('Помилка реєстрації:', error.response.data);
     }
   };
 

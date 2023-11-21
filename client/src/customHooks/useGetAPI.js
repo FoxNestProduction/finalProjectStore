@@ -13,7 +13,7 @@ const useGetAPI = (url) => {
         const response = await instance.get(url);
         setData(response.data);
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         setError(err.response);
       } finally {
         setLoading(false);
