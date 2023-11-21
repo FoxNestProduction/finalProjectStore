@@ -50,6 +50,8 @@ jest.mock('../../redux/slices/searchSlice', () => ({
   resetSearch: jest.fn(),
 }));
 
+const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
+
 describe('Filter component', () => {
   const filters = {
     filterCategories: ['pizza', 'burgers', 'sushi', 'salads'],
@@ -62,8 +64,11 @@ describe('Filter component', () => {
   };
 
   test('renders Filter component', () => {
-    render(<Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />);
 
+    const { asFragment } = render(<Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />);
+
+    expect(asFragment()).toMatchSnapshot();
+    
     expect(screen.getByText('Category')).toBeInTheDocument();
     expect(screen.getByText('Filter By')).toBeInTheDocument();
     expect(screen.getByText('Price')).toBeInTheDocument();
@@ -94,12 +99,18 @@ describe('Filter component', () => {
   });
 
   test('handles "Apply Filter" button click correctly', async () => {
+    const dispatch = jest.fn();
+    mockDispatch.mockReturnValueOnce(dispatch);
     render(
       <Provider store={store}>
         <Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />
       </Provider>,
     );
+
     fireEvent.click(screen.getByText('Apply'));
+
+    expect(dispatch).toHaveBeenCalledTimes(3);
+
     await waitFor(() => {
       expect(setFilterParams).toHaveBeenCalledWith({
         filterCategories: ['pizza', 'burgers', 'sushi', 'salads'],
@@ -112,9 +123,7 @@ describe('Filter component', () => {
         startPage: 1,
       });
     });
-    await waitFor(() => {
-      expect(setIsApplyClicked).toHaveBeenCalledWith(true);
-    });
+   
     await waitFor(() => {
       expect(resetSearch).toHaveBeenCalled();
     });

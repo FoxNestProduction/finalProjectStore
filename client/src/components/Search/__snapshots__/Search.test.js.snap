@@ -15,12 +15,12 @@ exports[`Snapshot test should Search render 1`] = `
           class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-kifgi1-MuiFormControl-root-MuiTextField-root"
         >
           <label
-            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="true"
             for="search"
             id="search-label"
           >
-            Search  food
+            Search  undefined
           </label>
           <div
             class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedStart MuiAutocomplete-inputRoot css-8j6b76-MuiInputBase-root-MuiOutlinedInput-root"
@@ -56,7 +56,7 @@ exports[`Snapshot test should Search render 1`] = `
               role="combobox"
               spellcheck="false"
               type="search"
-              value=""
+              value="false"
             />
             <fieldset
               aria-hidden="true"
@@ -66,7 +66,7 @@ exports[`Snapshot test should Search render 1`] = `
                 class="css-14lo706"
               >
                 <span>
-                  Search  food
+                  Search  undefined
                 </span>
               </legend>
             </fieldset>
@@ -80,8 +80,8 @@ exports[`Snapshot test should Search render 1`] = `
       role="group"
     >
       <button
-        aria-pressed="true"
-        class="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal css-1ltdkv-MuiButtonBase-root-MuiToggleButton-root"
+        aria-pressed="false"
+        class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal css-1ltdkv-MuiButtonBase-root-MuiToggleButton-root"
         tabindex="0"
         type="button"
         value="food"

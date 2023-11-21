@@ -234,12 +234,13 @@ exports[`CheckoutPage should render CheckoutPage 1`] = `
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl  css-18r46to-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
               >
                 <div
+                  aria-controls=":r0:"
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-labelledby="checkout-city-label checkout-city"
                   class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
                   id="checkout-city"
-                  role="button"
+                  role="combobox"
                   tabindex="0"
                 >
                   Kyiv
