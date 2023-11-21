@@ -6,7 +6,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
@@ -143,8 +143,7 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupre
               paddingRight: '18px',
             }}
           >
-            <IconButton
-              aria-label="add to favorites"
+            <Box
               sx={{
                 padding: '0',
                 width: {
@@ -157,8 +156,8 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupre
                 },
               }}
             >
-              <BookmarkIcon />
-            </IconButton>
+              <VerifiedIcon fontSize="large" sx={{ color: 'primary.main' }} />
+            </Box>
           </CardActions>
         </Box>
       </Card>

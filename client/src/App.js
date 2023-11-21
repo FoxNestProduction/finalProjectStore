@@ -12,8 +12,6 @@ import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
 import { productsPerPageMap, topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
 import { setFilterParams } from './redux/slices/filterSlice';
-
-import styles from './styles.module.scss';
 import { getDataFromSessionStorage } from './utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from './constants/constants';
 import getMaxValue from './utils/getMaxValue';
@@ -50,23 +48,11 @@ const App = () => {
   }, [breakpoint, dispatch]);
 
   return (
-    <Box className={styles.mainBackground}>
-      <ul>
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-      </ul>
+    <>
       <Modal disagree="Close" />
       <AppRoutes />
       <ScrollTop />
-    </Box>
+    </>
   );
 };
 
