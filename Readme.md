@@ -216,3 +216,22 @@
 **Версія 1.0 (поточна версія)**
 
 ---
+
+<img id="screenshot" src="./Screenshot%20Order.png" alt="Order">
+
+<input type="checkbox" id="toggleScreenshot">
+<label for="toggleScreenshot">Order</label>
+
+<style>
+  #screenshot {
+    display: none;
+  }
+</style>
+<script>
+  const toggleCheckbox = document.getElementById('toggleScreenshot');
+  const screenshotImage = document.getElementById('screenshot');
+
+  toggleCheckbox.addEventListener('change', () => {
+    screenshotImage.style.display = toggleCheckbox.checked ? 'block' : 'none';
+  });
+</script>
