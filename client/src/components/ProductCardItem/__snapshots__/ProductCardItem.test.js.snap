@@ -172,7 +172,7 @@ exports[`ProductCardItem Component should renders ProductCardItem component 1`] 
           class="MuiBox-root css-1ma6dsf"
         >
           <div
-            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-1krnf8j-MuiChip-root"
+            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-1fl3m13-MuiChip-root"
           >
             <span
               class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
@@ -181,7 +181,7 @@ exports[`ProductCardItem Component should renders ProductCardItem component 1`] 
             </span>
           </div>
           <div
-            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-2mg4ts-MuiChip-root"
+            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-qlsjpx-MuiChip-root"
           >
             <span
               class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
@@ -190,7 +190,7 @@ exports[`ProductCardItem Component should renders ProductCardItem component 1`] 
             </span>
           </div>
           <div
-            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-1noanwr-MuiChip-root"
+            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-9oknxi-MuiChip-root"
           >
             <span
               class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
