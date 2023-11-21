@@ -20,7 +20,7 @@ exports[`Snapshot test should Search render 1`] = `
             for="search"
             id="search-label"
           >
-            Search  undefined
+            Search  food
           </label>
           <div
             class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedStart MuiAutocomplete-inputRoot css-8j6b76-MuiInputBase-root-MuiOutlinedInput-root"
@@ -56,7 +56,7 @@ exports[`Snapshot test should Search render 1`] = `
               role="combobox"
               spellcheck="false"
               type="search"
-              value="false"
+              value="test"
             />
             <fieldset
               aria-hidden="true"
@@ -66,7 +66,7 @@ exports[`Snapshot test should Search render 1`] = `
                 class="css-14lo706"
               >
                 <span>
-                  Search  undefined
+                  Search  food
                 </span>
               </legend>
             </fieldset>
@@ -80,8 +80,8 @@ exports[`Snapshot test should Search render 1`] = `
       role="group"
     >
       <button
-        aria-pressed="false"
-        class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal css-1ltdkv-MuiButtonBase-root-MuiToggleButton-root"
+        aria-pressed="true"
+        class="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal css-1ltdkv-MuiButtonBase-root-MuiToggleButton-root"
         tabindex="0"
         type="button"
         value="food"

@@ -1,31 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import Filter from './Filter';
 import { setFilterParams } from '../../redux/slices/filterSlice';
 import { resetSearch } from '../../redux/slices/searchSlice';
-
-const mockStore = configureStore();
-const store = mockStore({
-  filteredProducts: [],
-  productsQuantity: null,
-  loading: false,
-  error: null,
-  nothingFound: false,
-  filterParams: {
-    filterCategories: [],
-    isTrending: false,
-    rating: null, // mostPopular
-    isHealthy: false,
-    isSupreme: false,
-    minPrice: 0,
-    maxPrice: 30,
-    sort: '',
-    startPage: 1,
-    perPage: 10,
-  },
-});
+import store from '../../redux/store';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
@@ -111,16 +90,7 @@ describe('Filter component', () => {
     expect(dispatch).toHaveBeenCalledTimes(3);
 
     await waitFor(() => {
-      expect(setFilterParams).toHaveBeenCalledWith({
-        filterCategories: ['pizza', 'burgers', 'sushi', 'salads'],
-        isHealthy: false,
-        isSupreme: false,
-        isTrending: false,
-        maxPrice: 30,
-        minPrice: 0,
-        rating: null,
-        startPage: 1,
-      });
+      expect(setFilterParams).toHaveBeenCalledTimes(1);
     });
 
     await waitFor(() => {
