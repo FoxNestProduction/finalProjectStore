@@ -53,7 +53,8 @@ describe('Change password form component', () => {
   });
 
   test('try to submit empty form', async () => {
-    await act(async() => {
+     /* eslint-disable-next-line */
+    await act(async () => {
       render(
         <Provider store={store}>
           <ChangePasswordForm />
@@ -74,8 +75,8 @@ describe('Change password form component', () => {
     instance.post.mockResolvedValue({ status: 200 });
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
-
-    await act(async() => {
+ /* eslint-disable-next-line */
+    await act(async () => {
       render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/change-password/user123/token123']}>
@@ -113,8 +114,8 @@ describe('Change password form component', () => {
 
   test('Error changing password', async () => {
     instance.post.mockResolvedValue({ status: 400 });
-
-    await act(async() => {
+ /* eslint-disable-next-line */
+    await act(async () => {
       render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/change-password/user123/token123']}>
@@ -131,11 +132,12 @@ describe('Change password form component', () => {
     const newPasswordInput = screen.getByPlaceholderText('Enter new password');
     const confirmPasswordInput = screen.getByPlaceholderText('Confirm your password');
     const submitButton = screen.getByText('Create Password');
-
-    await act(async() => { fireEvent.change(newPasswordInput, { target: { value: '0123456789' } }) });
-    await act(async() => { fireEvent.change(confirmPasswordInput, { target: { value: '0123456780' } }) });
-
-    await act(async() => { fireEvent.click(submitButton) });
+    /* eslint-disable-next-line */
+    await act(async () => { fireEvent.change(newPasswordInput, { target: { value: '0123456789' } }); });
+     /* eslint-disable-next-line */
+    await act(async () => { fireEvent.change(confirmPasswordInput, { target: { value: '0123456780' } }); });
+     /* eslint-disable-next-line */
+    await act(async () => { fireEvent.click(submitButton); });
 
     await waitFor(() => {
       expect(instance.post).not.toHaveBeenCalled();

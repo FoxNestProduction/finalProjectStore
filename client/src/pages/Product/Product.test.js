@@ -39,14 +39,13 @@ describe('ProductPage Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
-    // jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
   });
 
   test('should renders ProductPage component', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(true);
-    
-    await act(async() => {
+ /* eslint-disable-next-line */
+    await act(async () => {
       render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/products/:123']}>
@@ -56,16 +55,16 @@ describe('ProductPage Component', () => {
           </MemoryRouter>
         </Provider>,
       );
-    })
-  
-    await waitFor(() => expect(screen.getAllByTestId('StarBorderIcon')).toHaveLength(5));;
+    });
+
+    await waitFor(() => expect(screen.getAllByTestId('StarBorderIcon')).toHaveLength(5));
   });
 
   test('should renders ProductPage component isLgTablet', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(false);
-
-    await act(async() => {
+ /* eslint-disable-next-line */
+    await act(async () => {
       render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/products/:123']}>

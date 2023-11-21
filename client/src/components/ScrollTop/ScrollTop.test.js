@@ -9,7 +9,7 @@ describe('ScrollTop component', () => {
 
   afterEach(() => {
     window.scrollTo.mockRestore();
-  })
+  });
 
   test('should render ScrollTop component', () => {
     const { asFragment } = render(<ScrollTop />);
