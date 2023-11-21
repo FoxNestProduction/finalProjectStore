@@ -76,11 +76,9 @@ const productsSlice = createSlice({
         state.topProducts = action.payload;
       })
       .addCase(fetchTopProducts.rejected, setError)
-      // .addCase(GetOneProduct.pending, setLoading)
       .addCase(GetOneProduct.fulfilled, (state, action) => {
         state.oneProduct = action.payload;
       })
-      .addCase(GetOneProduct.rejected, setError)
       .addCase(fetchSortedProducts.pending, setLoading)
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
         state.loading = false;

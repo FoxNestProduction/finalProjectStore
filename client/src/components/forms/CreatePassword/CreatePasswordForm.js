@@ -32,7 +32,7 @@ const CreatePasswordForm = () => {
   const dispatch = useDispatch();
   const newGoogleUser = useSelector((state) => state.newGoogleUser.newGoogleUser);
 
-  const handleSubmit = async (values, actions) => {
+  const handleSubmit = async (values) => {
     const login = newGoogleUser.email.split('@')[0];
     const newCustomer = {
       ...newGoogleUser,
@@ -40,7 +40,6 @@ const CreatePasswordForm = () => {
       login,
       isAdmin: false,
     };
-    console.log(newCustomer);
 
     try {
       const response = await instance.post('/customers', newCustomer);
@@ -57,7 +56,6 @@ const CreatePasswordForm = () => {
       dispatch(createCart());
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));
-      console.error('Помилка реєстрації:', error);
     }
   };
 

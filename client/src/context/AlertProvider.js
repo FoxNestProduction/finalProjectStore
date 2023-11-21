@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useRef, useState, useMemo, memo } from 'react';
+import React, { createContext, useState, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 
 export const AlertContext = createContext({});
@@ -23,8 +23,6 @@ export const AlertContextProvider = memo(({ children }) => {
       handleShowAlert,
     };
   }, [alert]);
-
-  // console.log(value);
 
   return <AlertContext.Provider value={value}>{children}</AlertContext.Provider>;
 });

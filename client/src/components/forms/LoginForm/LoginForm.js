@@ -100,7 +100,6 @@ const LoginForm = () => {
             authFunc(res);
           }
           const { data } = res;
-          console.log(data);
           dispatch(setNewGoogleUser({
             email: data.email,
             firstName: data.given_name ? data.given_name : 'New',

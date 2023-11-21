@@ -29,19 +29,16 @@ const ContactForm = () => {
   };
 
   const handleSubmit = async (values, actions) => {
-    console.log(values);
     try {
       setLoading(true);
       setError(false);
       setMessageReceived(false);
       const response = await instance.post('/support', values);
-      console.log(response);
       if (response.status === 200) {
         setMessageReceived(true);
       }
       actions.resetForm();
     } catch (err) {
-      console.error('Error sending customer support request: ', err);
       setMessageReceived(false);
       setError(true);
     } finally {
