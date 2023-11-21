@@ -27,12 +27,21 @@ describe('orderSlice reducers', () => {
 
 describe('orderSlice extraReducers', () => {
   test('should change status with "putNewOrder.pending" action', () => {
-    const state = orderReducer(initialState, putNewOrder.pending());
+    const prevState = {
+      ...initialState,
+      loading: false,
+      error: 'error',
+    };
+    const state = orderReducer(prevState, putNewOrder.pending());
     expect(state.loading).toBe(true);
     expect(state.error).toBeNull();
   });
 
   test('should post order with "putNewOrder.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+    };
     const newOrderData = {
       data: {
         order: {
@@ -43,18 +52,22 @@ describe('orderSlice extraReducers', () => {
         },
       },
     };
-    const state = orderReducer(initialState, putNewOrder.fulfilled(newOrderData));
+    const state = orderReducer(prevState, putNewOrder.fulfilled(newOrderData));
     expect(state.order).toEqual(newOrderData.data.order);
     expect(state.loading).toBe(false);
   });
 
   test('should change status with "putNewOrder.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+    };
     const errorMessage = 'Something went wrong. We couldn\'t process your order.';
     const action = {
       type: putNewOrder.rejected.type,
       payload: errorMessage,
     };
-    const state = orderReducer(initialState, action);
+    const state = orderReducer(prevState, action);
     expect(state.loading).toBe(false);
     expect(state.error).toBe(errorMessage);
   });

@@ -14,39 +14,50 @@ describe('partnersSlice extraReducers', () => {
   });
 
   test('should change status with "fetchTopPartners.pending" action', () => {
-    const state = partnersReducer(initialState, fetchTopPartners.pending());
+    const prevState = {
+      ...initialState,
+      loading: false,
+      error: 'error',
+    };
+    const state = partnersReducer(prevState, fetchTopPartners.pending());
     expect(state.loading).toBe(true);
     expect(state.error).toBeNull();
   });
 
   test('should fetch top partners with "fetchTopPartners.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+    };
     const partners = [
       { customId: '17001', name: 'Sushi Delight', isTrending: true },
       { customId: '17002', name: 'Burger Heaven', isTrending: false },
     ];
 
-    const state = partnersReducer(initialState, fetchTopPartners.fulfilled(partners));
+    const state = partnersReducer(prevState, fetchTopPartners.fulfilled(partners));
     expect(state.topPartners).toEqual(partners);
     expect(state.loading).toBe(false);
   });
 
   test('should change status with "fetchTopPartners.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+    };
     const errorMessage = 'Something went wrong.';
     const action = {
       type: fetchTopPartners.rejected.type,
       payload: errorMessage,
     };
-    const state = partnersReducer(initialState, action);
+    const state = partnersReducer(prevState, action);
     expect(state.loading).toBe(false);
     expect(state.error).toBe(errorMessage);
   });
 
   test('should fetch all partners names with "fetchAllPartnersNames.fulfilled" action', () => {
     const partnersNames = ['Sushi Delight', 'Burger Heaven', 'Welcome Pizzeria'];
-
     const state = partnersReducer(initialState, fetchAllPartnersNames.fulfilled(partnersNames));
     expect(state.allPartnersNames).toEqual(partnersNames);
-    expect(state.loading).toBe(false);
   });
 });
 

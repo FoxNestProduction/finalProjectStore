@@ -17,7 +17,7 @@ describe('errorSlice', () => {
   });
 
   test('should save registration error into state with "setRegistrationError" action', () => {
-    const error = 'RegistrationError error!';
+    const error = 'Registration error!';
     const state = errorReducer(initialState, setRegistrationError(error));
     expect(state.registration).toBe(error);
   });

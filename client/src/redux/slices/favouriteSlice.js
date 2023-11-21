@@ -25,12 +25,6 @@ const favouriteSlice = createSlice({
   name: 'favourites',
   initialState,
   reducers: {
-    setFavourite(state, action) {
-      state.favourites = action.payload;
-      action.payload.forEach(({ id }) => {
-        state.cardStates[id] = true;
-      });
-    },
     addFavourite(state, action) {
       const newProduct = action.payload[action.payload.length - 1];
       state.favourites.push(newProduct);
@@ -73,7 +67,6 @@ export const {
   addFavourite,
   setIsFavourite,
   removeFavourite,
-  setFavourite,
   setIsLoading,
   resetCardStates,
 } = favouriteSlice.actions;

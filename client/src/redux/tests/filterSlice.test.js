@@ -73,41 +73,61 @@ describe('filterSlice reducers', () => {
 
 describe('filterSlice extraReducers', () => {
   test('should change status with "fetchFilteredProducts.pending" action', () => {
-    const state = filterReducer(initialState, fetchFilteredProducts.pending());
+    const prevState = {
+      ...initialState,
+      loading: false,
+      error: 'error',
+    };
+    const state = filterReducer(prevState, fetchFilteredProducts.pending());
     expect(state.loading).toBe(true);
     expect(state.error).toBeNull();
   });
 
   test('should fetch filtered products "fetchFilteredProducts.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+    };
     const mockProducts = {
       products: [{ name: 'Chicken Burger', price: '22.99' }, { name: 'Meat Pizza', price: '19.99' }],
       productsQuantity: 2,
     };
 
-    const state = filterReducer(initialState, fetchFilteredProducts.fulfilled(mockProducts));
+    const state = filterReducer(prevState, fetchFilteredProducts.fulfilled(mockProducts));
     expect(state.filteredProducts).toEqual(mockProducts.products);
     expect(state.productsQuantity).toBe(2);
     expect(state.nothingFound).toBe(false);
+    expect(state.loading).toBe(false);
   });
 
   test('should fetch filtered products "fetchFilteredProducts.fulfilled" action with no products returned', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+    };
     const mockProducts = {
       products: [],
       productsQuantity: 0,
     };
 
-    const state = filterReducer(initialState, fetchFilteredProducts.fulfilled(mockProducts));
+    const state = filterReducer(prevState, fetchFilteredProducts.fulfilled(mockProducts));
     expect(state.filteredProducts).toEqual([]);
     expect(state.productsQuantity).toBeNull();
     expect(state.nothingFound).toBe(true);
+    expect(state.loading).toBe(false);
   });
 
   test('should change status with "fetchFilteredProducts.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      error: null,
+    };
     const action = {
       type: fetchFilteredProducts.rejected.type,
       payload: 'Something went wrong',
     };
-    const state = filterReducer(initialState, action);
+    const state = filterReducer(prevState, action);
     expect(state.loading).toBe(false);
     expect(state.error).toBe('Something went wrong');
   });

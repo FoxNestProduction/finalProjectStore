@@ -21,7 +21,7 @@ describe('favouritesSlice reducers', () => {
   });
 
   test('should add favourite product with "addFavourite" action', () => {
-    const favProduct = [{ name: 'Avocado Veggie Burger', currentPrice: '11.49', itemNo: '10019' }];
+    const favProduct = [{ name: 'Avocado Veggie Burger', currentPrice: '11.49', _id: '123' }];
     const state = favouritesReducer(undefined, addFavourite(favProduct));
     expect(state.favourites).toContainEqual(favProduct[0]);
   });
@@ -80,8 +80,6 @@ describe('favouritesSlice reducers', () => {
   });
 });
 
-// ---------- ❗️❗️❗️testing favouritesSlice extraReducers❗️❗️❗️ ----------
-
 describe('favouritesSlice extraReducers', () => {
   test('should change status with "fetchFavourites.pending" action', () => {
     const prevState = {
@@ -130,8 +128,6 @@ describe('favouritesSlice extraReducers', () => {
 });
 
 jest.mock('../../API/instance');
-
-// ---------- ❗️❗️❗️testing favouritesThunk ❗️❗️❗️ ----------
 
 describe('favouritesThunk fetchFavourites', () => {
   test('should fetchFavourites with resolved response', async () => {

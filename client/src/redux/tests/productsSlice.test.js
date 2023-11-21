@@ -23,29 +23,42 @@ describe('productsSlice extraReducers', () => {
 
   // --------- fetchTopProducts extraReducer ---------
   test('should change status with "fetchTopProducts.pending" action', () => {
-    const state = productsReducer(initialState, fetchTopProducts.pending());
+    const prevState = {
+      ...initialState,
+      loading: false,
+      error: 'error',
+    };
+    const state = productsReducer(prevState, fetchTopProducts.pending());
     expect(state.loading).toBe(true);
     expect(state.error).toBeNull();
   });
 
   test('should fetch top products with "fetchTopProducts.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+    };
     const products = [
       { itemNo: '123', name: 'Cheeseburger', price: '10.99' },
       { itemNo: '456', name: 'Cesar Salad', price: '12.99' },
     ];
 
-    const state = productsReducer(initialState, fetchTopProducts.fulfilled(products));
+    const state = productsReducer(prevState, fetchTopProducts.fulfilled(products));
     expect(state.topProducts).toEqual(products);
     expect(state.loading).toBe(false);
   });
 
   test('should change status with "fetchTopProducts.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+    };
     const errorMessage = 'Something went wrong.';
     const action = {
       type: fetchTopProducts.rejected.type,
       payload: errorMessage,
     };
-    const state = productsReducer(initialState, action);
+    const state = productsReducer(prevState, action);
     expect(state.loading).toBe(false);
     expect(state.error).toBe(errorMessage);
   });
