@@ -213,15 +213,22 @@
   * реалізовано можливість оформлення замовлення з різних ресторанах,
   * review коду колег.
 
+---
+#### :camera: Скріншоти
+
+<details><summary>Order confirmation letter</summary>
+<img src="./imgReadme/ScreenshotOrder.png" alt="Screenshot-Order" border="1">
+</details>
+
+<details><summary>Email with Reset password</summary>
+<img src="./imgReadme/ScreenshotLetter.png" alt="Screenshot-Letter" border="1">
+</details>
+
+<details><summary>New customer request</summary>
+<img src="./imgReadme/ScreenshotSupport.png" alt="Screenshot-Letter" border="1">
+</details>
+
 ----
 
 **Версія 1.0 (поточна версія)**
 
----
-<details><summary>Order confirmation letter</summary>
-<a href="https://ibb.co/KmKYFnb"><img src="https://i.ibb.co/Yb06pgP/Screenshot-Order.png" alt="Screenshot-Order" border="0"></a>
-</details>
-
-<details><summary>Email with a link to reset your password</summary>
-<img src="./imgReadme/ScreenshotLetter.png" alt="Screenshot-Letter" border="0">
-</details>
