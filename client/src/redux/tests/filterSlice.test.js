@@ -3,7 +3,6 @@ import filterReducer, { setFilterParams,
   resetFilterParams,
   fetchFilteredProducts } from '../slices/filterSlice';
 import { instance } from '../../API/instance';
-import { resetSearch } from '../slices/searchSlice';
 
 const initialState = {
   filteredProducts: [],
@@ -38,7 +37,7 @@ const filters = {
   perPage: 10,
 };
 
-describe('filterSlice', () => {
+describe('filterSlice reducers', () => {
   test('should return initial state when passed an empty action', () => {
     expect(filterReducer(undefined, { type: '' })).toEqual(initialState);
   });
@@ -138,6 +137,8 @@ describe('filterThunk', () => {
     expect(middle[0].type).toBe('search/resetSearch');
     expect(end[0].type).toBe('filter/fetchFilteredProducts/fulfilled');
     expect(end[0].payload).toEqual(mockProducts);
+
+    expect(instance.get).toHaveBeenCalledWith(`/products/filter${queryString}`);
   });
 
   test('should fetchFilteredProducts with rejected response', async () => {
@@ -156,5 +157,7 @@ describe('filterThunk', () => {
     expect(end[0].type).toBe('filter/fetchFilteredProducts/rejected');
     expect(end[0].payload.message).toBe('Something went wrong');
     expect(end[0].meta.rejectedWithValue).toBe(true);
+
+    expect(instance.get).toHaveBeenCalledWith(`/products/filter${queryString}`);
   });
 });

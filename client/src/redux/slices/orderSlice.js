@@ -7,10 +7,8 @@ export const putNewOrder = createAsyncThunk(
   async (newOrder, { rejectWithValue }) => {
     try {
       const response = await instance.post('/orders', newOrder);
-      console.log(response.data.order);
       return response;
     } catch (err) {
-      console.log(err);
       return rejectWithValue("Oops! We couldn't process your order. Please check your details and try again. If the issue persists, contact support.");
     }
   },

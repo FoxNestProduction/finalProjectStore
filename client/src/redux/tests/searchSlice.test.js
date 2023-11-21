@@ -78,18 +78,18 @@ describe('searchThunk', () => {
 
     const dispatch = jest.fn();
     const thunk = fetchSearchedProductsOrPartners(fetchData);
-    // повертає функцію, куди прокидається dispatch
     await thunk(dispatch);
     const { calls } = dispatch.mock;
-    expect(calls).toHaveLength(2); // два виклики (pending та fulfilled);
+    expect(calls).toHaveLength(2);
 
     const [start, end] = calls;
     expect(start[0].type).toBe('search/fetchSearchedProductsOrPartners/pending');
     expect(end[0].type).toBe('search/fetchSearchedProductsOrPartners/fulfilled');
     // expect(start[0].type).toBe(fetchSearchedProductsOrPartners.pending().type);
     // expect(end[0].type).toBe(fetchSearchedProductsOrPartners.fulfilled().type);
-
     expect(end[0].payload).toEqual(mockProducts);
+
+    expect(instance.post).toHaveBeenCalledWith('/products/search', { query: 'pizza' });
   });
 
   test('should fetchSearchedProductsOrPartners with rejected response', async () => {
@@ -104,15 +104,16 @@ describe('searchThunk', () => {
 
     const dispatch = jest.fn();
     const thunk = fetchSearchedProductsOrPartners(fetchData);
-    // повертає функцію, куди прокидається dispatch
     await thunk(dispatch);
     const { calls } = dispatch.mock;
-    expect(calls).toHaveLength(2); // два виклики (pending та fulfilled);
+    expect(calls).toHaveLength(2);
 
     const [start, end] = calls;
     expect(start[0].type).toBe('search/fetchSearchedProductsOrPartners/pending');
     expect(end[0].type).toBe('search/fetchSearchedProductsOrPartners/rejected');
     expect(end[0].payload.message).toBe('Something went wrong');
     expect(end[0].meta.rejectedWithValue).toBe(true);
+
+    expect(instance.post).toHaveBeenCalledWith('/products/search', { query: 'pizza' });
   });
 });
