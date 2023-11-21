@@ -2,6 +2,8 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { useMediaQuery } from '@mui/material';
+import store from '../../redux/store';
 import ProductPage from './Product';
 
 jest.mock('react-redux', () => ({
@@ -11,10 +13,7 @@ jest.mock('react-redux', () => ({
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
-  useParams: jest.fn(),
-  // useParams: () => ({
-  //   hash: '123',
-  // }),
+  useParams: () => ({ itemNo: '123' }),
 }));
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
@@ -23,35 +22,54 @@ jest.mock('@mui/material', () => ({
 
 describe('ProductPage Component', () => {
   const dish = {
-    // name: 'Product',
-    // description: 'About Product',
-    // itemNo: '123',
-    // currentPrice: 10.99,
-    // isTrending: true,
-    // rating: 4,
-    // imageUrl: 'image.jpg',
-    // isSupreme: false,
-    // isHealthy: true,
-    // randomNum: 25,
+    name: 'Product',
+    description: 'About Product',
+    itemNo: '123',
+    currentPrice: 10.99,
+    isTrending: true,
+    rating: 4,
+    imageUrl: 'image.jpg',
+    isSupreme: false,
+    isHealthy: true,
+    randomNum: 25,
     _id: '123',
   };
 
   beforeEach(() => {
     jest.clearAllMocks();
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
-    jest.spyOn(require('react-router'), 'useParams').mockReturnValueOnce({ itemNo: '123' });
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
   });
 
   test('should renders ProductPage component', () => {
-    // const { asFragment } = render(
-    //   <MemoryRouter initialEntries={['/products/:itemNo']}>
-    //     <Routes>
-    //       <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
-    //     </Routes>
-    //   </MemoryRouter>
-    // );
+    useMediaQuery.mockReturnValue(true);
 
-    // expect(asFragment()).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/products/:123']}>
+          <Routes>
+            <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('should renders ProductPage component isLgTablet', () => {
+    useMediaQuery.mockReturnValue(false);
+
+    const { asFragment } = render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/products/:123']}>
+          <Routes>
+            <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

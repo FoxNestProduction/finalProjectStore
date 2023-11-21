@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SectionGetStarted component should render SectionGetStarted component 1`] = `
+<DocumentFragment>
+  <section
+    class="MuiContainer-root MuiContainer-maxWidthLg css-vct4wb-MuiContainer-root"
+  >
+    <div
+      class="MuiBox-root css-fhi1jl"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-body1 css-1flcdwx-MuiTypography-root"
+      >
+        OVER 1000 USERS
+      </span>
+      <h1
+        class="MuiTypography-root MuiTypography-h1 css-2s84mo-MuiTypography-root"
+      >
+        Enjoy Foods All
+        <br />
+        Over The World
+      </h1>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-3by2ru-MuiTypography-root"
+      >
+        Eatly helps you set saving goals, earn cash back offers, and get paychecks up to two days early. Get a $20 bonus.
+      </p>
+      <div
+        class="MuiBox-root css-1wajcrl"
+      >
+        <a
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-ibva2t-MuiButtonBase-root-MuiButton-root"
+          href="/menu"
+          tabindex="0"
+        >
+          Get Started
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </a>
+        <a
+          aria-disabled="true"
+          class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium Mui-disabled MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium css-1b1g7hx-MuiButtonBase-root-MuiButton-root"
+          href="/pricing"
+          tabindex="-1"
+        >
+          Go Pro
+        </a>
+      </div>
+      <div
+        class="MuiBox-root css-q0lyv9"
+      >
+        <img
+          alt=""
+          src="/img/layout/trustpilotIcon.png"
+          style="position: relative; top: -4px; left: -2px;"
+        />
+        <span
+          class="MuiTypography-root MuiTypography-h6 css-3efye1-MuiTypography-root"
+        >
+          Trustpilot
+        </span>
+        <span
+          aria-label="4 Stars"
+          class="MuiRating-root MuiRating-sizeMedium Mui-readOnly MuiRating-readOnly css-x7x6my-MuiRating-root"
+          role="img"
+        >
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </span>
+          </span>
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </span>
+          </span>
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </span>
+          </span>
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </span>
+          </span>
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconEmpty css-1c99szj-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarBorderIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"
+                />
+              </svg>
+            </span>
+          </span>
+        </span>
+        <span
+          class="MuiTypography-root MuiTypography-body1 css-1g16ti7-MuiTypography-root"
+        >
+          4900+
+        </span>
+      </div>
+    </div>
+    <div
+      class="MuiBox-root css-gmuwbf"
+    >
+      <img
+        alt=""
+        src="/img/layout/getStartedSectionImage.png"
+      />
+    </div>
+  </section>
+</DocumentFragment>
+`;
