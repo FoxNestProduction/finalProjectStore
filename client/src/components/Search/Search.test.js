@@ -1,16 +1,14 @@
 import React from 'react';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 
 import Search from './Search';
-import {
-  fetchAllProductsNames,
-  fetchAllPartnersNames,
-  deleteFilteredData,
-  resetFilterParams,
+import { fetchAllProductsNames } from '../../redux/slices/productsSlice';
+import { fetchAllPartnersNames } from '../../redux/slices/partnersSlice';
+import { deleteFilteredData, resetFilterParams } from '../../redux/slices/filterSlice';
+import {  
   setKey,
   setInputSearchValue,
   setSearch,
@@ -89,7 +87,7 @@ describe('Snapshot test', () => {
         <Router>
           <Search />
         </Router>
-      </Provider>
+      </Provider>,
     );
     expect(asFragment()).toMatchSnapshot();
     expect(screen.getByText('Food')).toBeInTheDocument();
@@ -101,15 +99,15 @@ describe('Snapshot test', () => {
     mockDispatch.mockReturnValueOnce(dispatch);
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
-  
+
     render(
       <Provider store={store}>
         <Router>
           <Search />
         </Router>
-      </Provider>
+      </Provider>,
     );
-  
+
     expect(dispatch).toHaveBeenCalledWith(setInputSearchValue('new search value'));
   });
 
@@ -118,18 +116,18 @@ describe('Snapshot test', () => {
     mockDispatch.mockReturnValueOnce(dispatch);
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
-  
+
     render(
       <Provider store={store}>
         <Router>
           <Search />
         </Router>
-      </Provider>
+      </Provider>,
     );
-  
+
     const foodButton = screen.getByText('Food');
     fireEvent.click(foodButton);
-  
+
     expect(dispatch).toHaveBeenCalledWith(setKey('food'));
     expect(dispatch).toHaveBeenCalledWith(setInputSearchValue(''));
     expect(dispatch).toHaveBeenCalledWith(setSearch([]));
@@ -141,15 +139,15 @@ describe('Snapshot test', () => {
     mockDispatch.mockReturnValueOnce(dispatch);
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
-  
+
     render(
       <Provider store={store}>
         <Router>
           <Search />
         </Router>
-      </Provider>
+      </Provider>,
     );
-  
+
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith(fetchSearchedProductsOrPartners(expect.any(Object)));
     });
@@ -166,7 +164,7 @@ describe('Snapshot test', () => {
         <Router>
           <Search />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     const foodButton = screen.getByText('Food');

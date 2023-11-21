@@ -1,11 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import Filter from './Filter';
 import { setFilterParams } from '../../redux/slices/filterSlice';
-import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
 import { resetSearch } from '../../redux/slices/searchSlice';
 
 const mockStore = configureStore();
@@ -64,11 +62,12 @@ describe('Filter component', () => {
   };
 
   test('renders Filter component', () => {
-
-    const { asFragment } = render(<Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />);
+    const { asFragment } = render(
+    <Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />
+    );
 
     expect(asFragment()).toMatchSnapshot();
-    
+
     expect(screen.getByText('Category')).toBeInTheDocument();
     expect(screen.getByText('Filter By')).toBeInTheDocument();
     expect(screen.getByText('Price')).toBeInTheDocument();
@@ -123,7 +122,7 @@ describe('Filter component', () => {
         startPage: 1,
       });
     });
-   
+
     await waitFor(() => {
       expect(resetSearch).toHaveBeenCalled();
     });
