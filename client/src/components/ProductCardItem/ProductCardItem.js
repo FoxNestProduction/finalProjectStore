@@ -17,8 +17,7 @@ import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import { addToCart, addProductToCart } from '../../redux/slices/cartSlice';
-// import { instance } from '../../API/instance';
-import { GetOneProduct, resetOneProduct } from '../../redux/slices/productsSlice';
+import { GetOneProduct } from '../../redux/slices/productsSlice';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
 // eslint-disable-next-line no-underscore-dangle

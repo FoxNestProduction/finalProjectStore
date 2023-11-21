@@ -1,4 +1,3 @@
-import MockAdapter from 'axios-mock-adapter';
 import searchReducer, { setSearch, setKey, setInputSearchValue, resetSearch, fetchSearchedProductsOrPartners } from '../slices/searchSlice';
 import { instance } from '../../API/instance';
 

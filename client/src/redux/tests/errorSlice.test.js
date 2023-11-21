@@ -12,13 +12,13 @@ describe('errorSlice', () => {
 
   test('should save authorization error into state with "setAuthorizationError" action', () => {
     const error = 'Authorization error!';
-    const result = errorReducer(initialState, setAuthorizationError(error));
-    expect(result.authorization).toBe(error);
+    const state = errorReducer(initialState, setAuthorizationError(error));
+    expect(state.authorization).toBe(error);
   });
 
   test('should save registration error into state with "setRegistrationError" action', () => {
     const error = 'RegistrationError error!';
-    const result = errorReducer(initialState, setRegistrationError(error));
-    expect(result.registration).toBe(error);
+    const state = errorReducer(initialState, setRegistrationError(error));
+    expect(state.registration).toBe(error);
   });
 });

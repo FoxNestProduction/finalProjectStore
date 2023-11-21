@@ -12,12 +12,12 @@ describe('scrollAnchorSlice', () => {
 
   test('should add productsScrollAnchor with "setProductsScrollAnchor" action', () => {
     const anchor = '<div>Anchor</div>';
-    const result = scrollAnchorReducer(undefined, setProductsScrollAnchor(anchor));
-    expect(result.productsScrollAnchor).toEqual('<div>Anchor</div>');
+    const state = scrollAnchorReducer(undefined, setProductsScrollAnchor(anchor));
+    expect(state.productsScrollAnchor).toEqual('<div>Anchor</div>');
   });
 
   test('should change isApplyClicked state with "setIsApplyClicked" action', () => {
-    const result = scrollAnchorReducer(undefined, setIsApplyClicked(true));
-    expect(result.isApplyClicked).toEqual(true);
+    const state = scrollAnchorReducer(undefined, setIsApplyClicked(true));
+    expect(state.isApplyClicked).toEqual(true);
   });
 });

@@ -44,8 +44,8 @@ describe('filterSlice reducers', () => {
 
   test('should change filter params with "setFilterParams" action', () => {
     const filterParam = { startPage: 6 };
-    const result = filterReducer(undefined, setFilterParams(filterParam));
-    expect(result.filterParams.startPage).toBe(6);
+    const state = filterReducer(undefined, setFilterParams(filterParam));
+    expect(state.filterParams.startPage).toBe(6);
   });
 
   test('should delete filtered products, quantity and reset nothingFound with "deleteFilteredData" action', () => {
@@ -55,10 +55,10 @@ describe('filterSlice reducers', () => {
       productsQuantity: 1,
       nothingFound: true,
     };
-    const result = filterReducer(mockState, deleteFilteredData());
-    expect(result.filteredProducts).toEqual([]);
-    expect(result.productsQuantity).toBe(null);
-    expect(result.nothingFound).toBe(false);
+    const state = filterReducer(mockState, deleteFilteredData());
+    expect(state.filteredProducts).toEqual([]);
+    expect(state.productsQuantity).toBe(null);
+    expect(state.nothingFound).toBe(false);
   });
 
   test('should reset filter params to initial with "resetFilterParams" action', () => {
@@ -66,8 +66,8 @@ describe('filterSlice reducers', () => {
       ...initialState,
       ...filters,
     };
-    const result = filterReducer(mockState, resetFilterParams());
-    expect(result.filterParams).toEqual(initialState.filterParams);
+    const state = filterReducer(mockState, resetFilterParams());
+    expect(state.filterParams).toEqual(initialState.filterParams);
   });
 });
 

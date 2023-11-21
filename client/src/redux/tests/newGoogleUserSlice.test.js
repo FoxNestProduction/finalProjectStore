@@ -19,7 +19,7 @@ describe('newGoogleUserSlice', () => {
       firstName: 'John',
       lastName: 'Smith',
     };
-    const result = newGoogleUserReducer(initialState, setNewGoogleUser(googleUser));
-    expect(result.newGoogleUser).toEqual(googleUser);
+    const state = newGoogleUserReducer(initialState, setNewGoogleUser(googleUser));
+    expect(state.newGoogleUser).toEqual(googleUser);
   });
 });

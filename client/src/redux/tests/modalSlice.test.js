@@ -25,8 +25,8 @@ describe('modalSlice', () => {
   });
 
   test('should set isOpen to true with "openModal" action', () => {
-    const result = modalReducer(initialState, openModal());
-    expect(result.isOpen).toBe(true);
+    const state = modalReducer(initialState, openModal());
+    expect(state.isOpen).toBe(true);
   });
 
   test('should reset states to the initial ones with "closeModal" action', () => {
@@ -43,25 +43,25 @@ describe('modalSlice', () => {
         disabled: false,
       },
     };
-    const result = modalReducer(openModalStates, closeModal());
-    expect(result).toEqual(initialState);
+    const state = modalReducer(openModalStates, closeModal());
+    expect(state).toEqual(initialState);
   });
 
   test('should save title into state with "setTitle" action', () => {
     const title = 'Title';
-    const result = modalReducer(initialState, setTitle(title));
-    expect(result.title).toBe(title);
+    const state = modalReducer(initialState, setTitle(title));
+    expect(state.title).toBe(title);
   });
 
   test('should save content into state with "setContent" action', () => {
     const content = 'Do you want to add new review?';
-    const result = modalReducer(initialState, setContent(content));
-    expect(result.content).toBe(content);
+    const state = modalReducer(initialState, setContent(content));
+    expect(state.content).toBe(content);
   });
 
   test('should set buttonBox to true with "addButtonBox" action', () => {
-    const result = modalReducer(initialState, addButtonBox());
-    expect(result.buttonBox).toBe(true);
+    const state = modalReducer(initialState, addButtonBox());
+    expect(state.buttonBox).toBe(true);
   });
 
   test('should set buttonAgree with "setButtonAgree" action', () => {
@@ -72,7 +72,7 @@ describe('modalSlice', () => {
       onClick: () => {},
       disabled: false,
     };
-    const result = modalReducer(initialState, setButtonAgree(buttonAgree));
-    expect(result.buttonAgree).toEqual(buttonAgree);
+    const state = modalReducer(initialState, setButtonAgree(buttonAgree));
+    expect(state.buttonAgree).toEqual(buttonAgree);
   });
 });

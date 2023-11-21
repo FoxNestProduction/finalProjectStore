@@ -11,13 +11,13 @@ describe('authorizationSlice', () => {
   });
 
   test('should change isUserAuthorized state with "setAuthorization" action', () => {
-    const result = authorizationReducer(initialState, setAuthorization(true));
-    expect(result.isUserAuthorized).toBe(true);
+    const state = authorizationReducer(initialState, setAuthorization(true));
+    expect(state.isUserAuthorized).toBe(true);
   });
 
   test('should save token to state with "setToken" action', () => {
     const token = 'Bearer 1234567890';
-    const result = authorizationReducer(initialState, setToken(token));
-    expect(result.token).toBe(token);
+    const state = authorizationReducer(initialState, setToken(token));
+    expect(state.token).toBe(token);
   });
 });
