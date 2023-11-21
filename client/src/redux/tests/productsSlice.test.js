@@ -1,9 +1,8 @@
 import productsReducer, {
-  resetOneProduct,
   fetchTopProducts,
   fetchSortedProducts,
   fetchAllProductsNames,
-  GetOneProduct,
+  getOneProduct,
 } from '../slices/productsSlice';
 import { instance } from '../../API/instance';
 
@@ -22,6 +21,7 @@ describe('productsSlice extraReducers', () => {
     expect(productsReducer(undefined, { type: '' })).toEqual(initialState);
   });
 
+  // --------- fetchTopProducts extraReducer ---------
   test('should change status with "fetchTopProducts.pending" action', () => {
     const state = productsReducer(initialState, fetchTopProducts.pending());
     expect(state.loading).toBe(true);
@@ -30,8 +30,8 @@ describe('productsSlice extraReducers', () => {
 
   test('should fetch top products with "fetchTopProducts.fulfilled" action', () => {
     const products = [
-      { customId: '17001', name: 'Sushi Delight', isTrending: true },
-      { customId: '17002', name: 'Burger Heaven', isTrending: false },
+      { itemNo: '123', name: 'Cheeseburger', price: '10.99' },
+      { itemNo: '456', name: 'Cesar Salad', price: '12.99' },
     ];
 
     const state = productsReducer(initialState, fetchTopProducts.fulfilled(products));
@@ -50,22 +50,42 @@ describe('productsSlice extraReducers', () => {
     expect(state.error).toBe(errorMessage);
   });
 
-  test('should fetch all products names with "fetchAllProductsNames.fulfilled" action', () => {
-    const productsNames = ['Sushi Delight', 'Burger Heaven', 'Welcome Pizzeria'];
+  // --------- fetchSortedProducts extraReducer ---------
+  test('should fetch sorted products with "fetchSortedProducts.fulfilled" action', () => {
+    const productsData = { products: [
+      { itemNo: '123', name: 'Cheeseburger', price: '10.99' },
+      { itemNo: '456', name: 'Cesar Salad', price: '12.99' },
+    ],
+    productsQuantity: 2 };
 
+    const state = productsReducer(initialState, fetchSortedProducts.fulfilled(productsData));
+    expect(state.products).toEqual(productsData.products);
+    expect(state.productsQuantity).toEqual(2);
+  });
+
+  // --------- getOneProduct extraReducer ---------
+  test('should fetch one product with "getOneProduct.fulfilled" action', () => {
+    const product = { itemNo: '123', name: 'Cheeseburger', price: '10.99' };
+    const state = productsReducer(initialState, getOneProduct.fulfilled(product));
+    expect(state.oneProduct).toEqual(product);
+  });
+
+  // --------- fetchAllProductsNames extraReducer ---------
+  test('should fetch all products names with "fetchAllProductsNames.fulfilled" action', () => {
+    const productsNames = ['Cheeseburger', 'Cesar Salad', 'Cheese Pizza'];
     const state = productsReducer(initialState, fetchAllProductsNames.fulfilled(productsNames));
     expect(state.allProductsNames).toEqual(productsNames);
-    expect(state.loading).toBe(false);
   });
 });
 
 jest.mock('../../API/instance');
 
+// --------- fetchTopProducts asyncThunk ----------
 describe('productsThunk fetchTopProducts', () => {
   test('should fetchTopProducts with resolved response', async () => {
     const mockTopProducts = [
-      { customId: '17001', name: 'Sushi Delight', isTrending: true },
-      { customId: '17002', name: 'Burger Heaven', isTrending: false },
+      { itemNo: '123', name: 'Cheeseburger', price: '10.99' },
+      { itemNo: '456', name: 'Cesar Salad', price: '12.99' },
     ];
     const count = 2;
 
@@ -105,9 +125,10 @@ describe('productsThunk fetchTopProducts', () => {
   });
 });
 
+// --------- fetchAllProductsNames asyncThunk ----------
 describe('productsThunk fetchAllProductsNames', () => {
   test('should fetchAllProductsNames with resolved response', async () => {
-    const productsNames = ['Sushi Delight', 'Burger Heaven', 'Welcome Pizzeria'];
+    const productsNames = ['Cheeseburger', 'Cesar Salad', 'Cheese Pizza'];
 
     instance.get.mockResolvedValue({ data: productsNames });
     const dispatch = jest.fn();
@@ -142,5 +163,92 @@ describe('productsThunk fetchAllProductsNames', () => {
     expect(end[0].meta.rejectedWithValue).toBe(true);
 
     expect(instance.get).toHaveBeenCalledWith('/products/names');
+  });
+});
+
+// --------- fetchSortedProducts asyncThunk ----------
+describe('productsThunk fetchSortedProducts', () => {
+  test('should fetchSortedProducts with resolved response', async () => {
+    const queryStr = '?sort=+currentPrice&startPage=1&perPage=15';
+    const mockSortedProducts = [
+      { itemNo: '123', name: 'Cheeseburger', price: '10.99' },
+      { itemNo: '456', name: 'Cesar Salad', price: '12.99' },
+    ];
+
+    instance.get.mockResolvedValue({ data: mockSortedProducts });
+    const dispatch = jest.fn();
+
+    const thunk = fetchSortedProducts(queryStr);
+    await thunk(dispatch);
+    const { calls } = dispatch.mock;
+    expect(calls).toHaveLength(2);
+    const [start, end] = calls;
+
+    expect(start[0].type).toBe('products/fetchSortedProducts/pending');
+    expect(end[0].type).toBe('products/fetchSortedProducts/fulfilled');
+    expect(end[0].payload).toEqual(mockSortedProducts);
+
+    expect(instance.get).toHaveBeenCalledWith(`/products/filter${queryStr}`);
+  });
+
+  test('should fetchSortedProducts with rejected response', async () => {
+    const queryStr = '?sort=+currentPrice&startPage=1&perPage=15';
+    instance.get.mockRejectedValue({ response: { data: { message: 'Something went wrong' } } });
+
+    const dispatch = jest.fn();
+    const thunk = fetchSortedProducts(queryStr);
+    await thunk(dispatch);
+    const { calls } = dispatch.mock;
+    expect(calls).toHaveLength(2);
+    const [start, end] = calls;
+
+    expect(start[0].type).toBe('products/fetchSortedProducts/pending');
+    expect(end[0].type).toBe('products/fetchSortedProducts/rejected');
+    expect(end[0].payload.message).toBe('Something went wrong');
+    expect(end[0].meta.rejectedWithValue).toBe(true);
+
+    expect(instance.get).toHaveBeenCalledWith(`/products/filter${queryStr}`);
+  });
+});
+
+// --------- getOneProduct asyncThunk ----------
+describe('productsThunk getOneProduct', () => {
+  test('should getOneProduct with resolved response', async () => {
+    const itemNo = '123';
+    const mockProduct = { itemNo: '123', name: 'Cheeseburger', price: '10.99' };
+
+    instance.get.mockResolvedValue({ data: mockProduct });
+    const dispatch = jest.fn();
+
+    const thunk = getOneProduct(itemNo);
+    await thunk(dispatch);
+    const { calls } = dispatch.mock;
+    expect(calls).toHaveLength(2);
+    const [start, end] = calls;
+
+    expect(start[0].type).toBe('products/getOneProduct/pending');
+    expect(end[0].type).toBe('products/getOneProduct/fulfilled');
+    expect(end[0].payload).toEqual(mockProduct);
+
+    expect(instance.get).toHaveBeenCalledWith(`/products/${itemNo}`);
+  });
+
+  test('should getOneProduct with rejected response', async () => {
+    const itemNo = '123';
+    instance.get.mockRejectedValue({ response: { data: { message: 'Something went wrong' } } });
+
+    const dispatch = jest.fn();
+    const thunk = getOneProduct(itemNo);
+    await thunk(dispatch);
+    const { calls } = dispatch.mock;
+    expect(calls).toHaveLength(2);
+    const [start, end] = calls;
+
+    expect(start[0].type).toBe('products/getOneProduct/pending');
+    expect(end[0].type).toBe('products/getOneProduct/rejected');
+    expect(end[0].payload.message).toBe('Something went wrong');
+    expect(end[0].meta.rejectedWithValue).toBe(true);
+
+    expect(instance.get).toHaveBeenCalledWith(`/products/${itemNo}`);
   });
 });

@@ -17,9 +17,9 @@ import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import { addToCart, addProductToCart } from '../../redux/slices/cartSlice';
-import { GetOneProduct } from '../../redux/slices/productsSlice';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
+import { getOneProduct } from '../../redux/slices/productsSlice';
 // eslint-disable-next-line no-underscore-dangle
 const ProductCardItem = ({
   currentPrice,
@@ -72,8 +72,8 @@ const ProductCardItem = ({
       }
     };
 
-    dispatch(GetOneProduct(itemNo)).then((action) => {
-      if (GetOneProduct.fulfilled.match(action)) {
+    dispatch(getOneProduct(itemNo)).then((action) => {
+      if (getOneProduct.fulfilled.match(action)) {
         onGetOneProductComplete(action.payload);
         setClickedAdd(true);
       }
