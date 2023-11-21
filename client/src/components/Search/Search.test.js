@@ -8,7 +8,7 @@ import Search from './Search';
 import { fetchAllProductsNames } from '../../redux/slices/productsSlice';
 import { fetchAllPartnersNames } from '../../redux/slices/partnersSlice';
 import { deleteFilteredData, resetFilterParams } from '../../redux/slices/filterSlice';
-import {  
+import {
   setKey,
   setInputSearchValue,
   setSearch,

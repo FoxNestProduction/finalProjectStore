@@ -63,7 +63,7 @@ describe('Filter component', () => {
 
   test('renders Filter component', () => {
     const { asFragment } = render(
-    <Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />
+      <Filter filters={filters} setFilters={() => {}} resetFiltersLocalState={() => {}} />,
     );
 
     expect(asFragment()).toMatchSnapshot();
