@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Skeleton component Restaurant skeleton snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="restaurantCardSkeleton"
+      data-testid="restaurant"
+    >
+      <div
+        class="restaurantImageSkeleton loading"
+      />
+      <div
+        class="restaurantChipsTitleRatingSkeleton loading"
+      />
+      <div
+        class="restaurantChipsTitleRatingSkeleton loading"
+      />
+      <div
+        class="restaurantChipsTitleRatingSkeleton loading"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

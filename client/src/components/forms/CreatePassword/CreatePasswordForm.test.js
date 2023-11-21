@@ -59,13 +59,13 @@ describe('Create password form component', () => {
     const passwordInput = screen.getByPlaceholderText('Сome up with a password');
     const submitButton = screen.getByText('Sign up');
 
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.change(passwordInput, { target: { value: 'Password12#' } });
 
     fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(instance.post).toHaveBeenCalledWith('/customers', expect.objectContaining({
-        password: 'password123',
+        password: 'Password12#',
       }));
     });
   });
