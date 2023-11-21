@@ -84,7 +84,6 @@ const MenuPage = () => {
       dispatch(setProductsScrollAnchor(productsScrollRef.current));
     }
   }, [dispatch]);
-
   return (
     <>
       <SectionSwipperFilterSearch />
@@ -120,7 +119,6 @@ const MenuPage = () => {
                 <>
                   <Skeleton skeletonType="product" />
                   <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
                 </>
               )}
             </Box>
@@ -136,7 +134,6 @@ const MenuPage = () => {
                 <>
                   <Skeleton skeletonType="product" />
                   <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
                 </>
               )}
             </Box>
@@ -150,7 +147,6 @@ const MenuPage = () => {
               )}
               {isDesktop && (
                 <>
-                  <Skeleton skeletonType="product" />
                   <Skeleton skeletonType="product" />
                   <Skeleton skeletonType="product" />
                 </>
