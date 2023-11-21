@@ -442,5 +442,3 @@ exports[`PartnersPage Component should render skeleton while loading partner 1`]
   </div>
 </DocumentFragment>
 `;
-
-exports[`PartnersPage Component should renders PartnersPage component 1`] = `<DocumentFragment />`;

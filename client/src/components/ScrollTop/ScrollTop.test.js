@@ -3,6 +3,14 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import ScrollTop from './ScrollTop';
 
 describe('ScrollTop component', () => {
+  beforeEach(() => {
+    window.scrollTo = jest.fn();
+  });
+
+  afterEach(() => {
+    window.scrollTo.mockRestore();
+  });
+
   test('should render ScrollTop component', () => {
     const { asFragment } = render(<ScrollTop />);
     expect(asFragment()).toMatchSnapshot();
@@ -15,6 +23,6 @@ describe('ScrollTop component', () => {
 
     fireEvent.click(scrollButton);
 
-    expect(window.scrollY).toBe(0);
+    expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
   });
 });

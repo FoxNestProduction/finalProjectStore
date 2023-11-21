@@ -16,6 +16,8 @@ jest.mock('../../../API/instance', () => ({
   },
 }));
 
+const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
+
 describe('Create password form component', () => {
   test('Create password form snapshot', () => {
     const { asFragment } = render(
@@ -28,6 +30,8 @@ describe('Create password form component', () => {
   });
 
   test('try to submit empty form', async () => {
+    mockDispatch.mockReturnValueOnce(jest.fn());
+    instance.post.mockRejectedValue({ response: { data: { message: 'Password is required' } } });
     render(
       <Provider store={store}>
         <CreatePasswordForm />
@@ -44,6 +48,8 @@ describe('Create password form component', () => {
   });
 
   test('Submit correct form', async () => {
+    instance.post.mockResolvedValue({ status: 200 });
+
     render(
       <Provider store={store}>
         <CreatePasswordForm />
