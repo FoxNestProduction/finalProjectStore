@@ -53,7 +53,7 @@ describe('Change password form component', () => {
   });
 
   test('try to submit empty form', async () => {
-     /* eslint-disable-next-line */
+    /* eslint-disable-next-line */
     await act(async () => {
       render(
         <Provider store={store}>
@@ -75,7 +75,7 @@ describe('Change password form component', () => {
     instance.post.mockResolvedValue({ status: 200 });
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
- /* eslint-disable-next-line */
+    /* eslint-disable-next-line */
     await act(async () => {
       render(
         <Provider store={store}>
@@ -114,7 +114,7 @@ describe('Change password form component', () => {
 
   test('Error changing password', async () => {
     instance.post.mockResolvedValue({ status: 400 });
- /* eslint-disable-next-line */
+    /* eslint-disable-next-line */
     await act(async () => {
       render(
         <Provider store={store}>
@@ -134,9 +134,9 @@ describe('Change password form component', () => {
     const submitButton = screen.getByText('Create Password');
     /* eslint-disable-next-line */
     await act(async () => { fireEvent.change(newPasswordInput, { target: { value: '0123456789' } }); });
-     /* eslint-disable-next-line */
+    /* eslint-disable-next-line */
     await act(async () => { fireEvent.change(confirmPasswordInput, { target: { value: '0123456780' } }); });
-     /* eslint-disable-next-line */
+    /* eslint-disable-next-line */
     await act(async () => { fireEvent.click(submitButton); });
 
     await waitFor(() => {

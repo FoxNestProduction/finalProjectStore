@@ -44,7 +44,7 @@ describe('ProductPage Component', () => {
   test('should renders ProductPage component', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(true);
- /* eslint-disable-next-line */
+    /* eslint-disable-next-line */
     await act(async () => {
       render(
         <Provider store={store}>
@@ -63,7 +63,7 @@ describe('ProductPage Component', () => {
   test('should renders ProductPage component isLgTablet', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(false);
- /* eslint-disable-next-line */
+    /* eslint-disable-next-line */
     await act(async () => {
       render(
         <Provider store={store}>
