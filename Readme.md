@@ -137,6 +137,7 @@
   * створено customHook useGetAPI,
   * написаня логіки для створення тимчасового token  для можливості відновлення паролю, стилізовано лист, що приходить користувачу з тимчасовим посиланням,
   * відредаговано в controller forgotPassword, та створено resrtPassvord,
+  * додано errorBoundary з відмалюванням компоненту SomethingWentWrong,
   * review коду колег.
 * **Дмитро Кудь:**
   * реєстрація та створення БД MongoDB,
@@ -204,34 +205,23 @@
   * написання логіки авторизації через google account, використання google API,
   * додано skeleton до всіх елемекнтів, що завантажуються з сервера.
 * **Ярослав Грошев:**
-  * створення rfc форми LogIn з валідацією введених даних,
-  * створення сторінки Cart,
+  * створенно rfc форми LogIn з валідацією введених даних,
+  * створенно сторінки Cart,
+  * створено instance interceptors з можливістю використання даних зі state redux,
   * робота над логікою додавання та видаленння товарів з кошика,
   * створено випадаючий список miniCart,
   * реалізовано можливість оформлення замовлення з різних ресторанах,
   * review коду колег.
-  
+
 ----
 
 **Версія 1.0 (поточна версія)**
 
 ---
+<details><summary>Order confirmation letter</summary>
+<a href="https://ibb.co/KmKYFnb"><img src="https://i.ibb.co/Yb06pgP/Screenshot-Order.png" alt="Screenshot-Order" border="0"></a>
+</details>
 
-<img id="screenshot" src="./Screenshot%20Order.png" alt="Order">
-
-<input type="checkbox" id="toggleScreenshot">
-<label for="toggleScreenshot">Order</label>
-
-<style>
-  #screenshot {
-    display: none;
-  }
-</style>
-<script>
-  const toggleCheckbox = document.getElementById('toggleScreenshot');
-  const screenshotImage = document.getElementById('screenshot');
-
-  toggleCheckbox.addEventListener('change', () => {
-    screenshotImage.style.display = toggleCheckbox.checked ? 'block' : 'none';
-  });
-</script>
+<details><summary>Email with a link to reset your password</summary>
+<img src="./imgReadme/ScreenshotLetter.png" alt="Screenshot-Letter" border="0">
+</details>
