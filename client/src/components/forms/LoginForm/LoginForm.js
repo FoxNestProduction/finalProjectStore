@@ -1,6 +1,5 @@
 /* eslint-disable import/no-cycle */
 import React, { memo } from 'react';
-// import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { Typography, Box, Button, Link } from '@mui/material';
@@ -29,7 +28,7 @@ import {
   setAuthorization,
   setToken,
 } from '../../../redux/slices/authorizationSlice';
-import { setUser } from '../../../redux/slices/userSlice';
+import { loginCustomer, setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
@@ -58,13 +57,12 @@ const LoginForm = () => {
     dispatch(setContent(<VerifyEmailForm />));
   };
 
-  const authFunc = (value) => {
-    const { token } = value.data;
-    const { user } = value.data;
+  const authFunc = (data) => {
+    const { token, user } = data;
     if (token) {
       dispatch(setToken(token));
       dispatch(setAuthorization(true));
-      dispatch(setUser(user));
+      // dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setAuthorizationError(''));
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
@@ -76,13 +74,15 @@ const LoginForm = () => {
   };
 
   const handleSubmit = async (values) => {
-    try {
-      const response = await instance.post('/customers/login', values);
-      authFunc(response);
-    } catch (error) {
-      dispatch(setAuthorizationError(error.response.data));
-      console.error('Помилка авторизації:', error);
+    // try {
+    // const response = await instance.post('/customers/login', values);
+    const data = await dispatch(loginCustomer(values)).unwrap();
+    if (data.success) {
+      authFunc(data);
     }
+    // } catch (error) {
+    //   dispatch(setAuthorizationError(error.response.data));
+    // }
   };
 
   // eslint-disable-next-line no-undef
@@ -97,7 +97,7 @@ const LoginForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            authFunc(res);
+            authFunc(res.data);
           }
           const { data } = res;
           dispatch(setNewGoogleUser({
