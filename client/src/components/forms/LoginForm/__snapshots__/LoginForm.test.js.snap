@@ -53,6 +53,11 @@ exports[`Login form component Login form snapshot 1`] = `
             />
           </defs>
         </svg>
+        <span
+          class="MuiBox-root css-1fcdftl"
+        >
+          Google
+        </span>
       </button>
     </div>
     <p

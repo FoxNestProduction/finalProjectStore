@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
@@ -22,7 +22,7 @@ import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpe
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-// import { getCartItemsFromServer } from '../../../redux/slices/cartSlice';
+import { createCart } from '../../../redux/slices/cartSlice';
 
 export const initialValues = {
   password: '',
@@ -53,7 +53,7 @@ const CreatePasswordForm = () => {
 
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
-      // dispatch(getCartItemsFromServer());
+      dispatch(createCart());
     } catch (error) {
       dispatch(setRegistrationError(error.response.data.message));
       console.error('Помилка реєстрації:', error);
@@ -114,4 +114,4 @@ const CreatePasswordForm = () => {
   );
 };
 
-export default CreatePasswordForm;
+export default memo(CreatePasswordForm);

@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { Provider, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import store from '../../../redux/store';
 import CheckoutForm from './CheckoutForm';
 
@@ -16,6 +17,8 @@ jest.mock('react-redux', () => ({
 
 describe('Checkout form component', () => {
   test('checkout form snapshot', () => {
+    const navigateMock = jest.fn();
+    useNavigate.mockReturnValue(navigateMock);
     const { asFragment } = render(
       <Provider store={store}>
         <CheckoutForm />
@@ -26,6 +29,8 @@ describe('Checkout form component', () => {
   });
 
   test('try to submit empty form', async () => {
+    const navigateMock = jest.fn();
+    useNavigate.mockReturnValue(navigateMock);
     render(
       <Provider store={store}>
         <CheckoutForm />
@@ -54,6 +59,8 @@ describe('Checkout form component', () => {
   });
 
   test('Submit correct form', async () => {
+    const navigateMock = jest.fn();
+    useNavigate.mockReturnValue(navigateMock);
     const dispatch = jest.fn();
     useDispatch.mockReturnValue(dispatch);
 

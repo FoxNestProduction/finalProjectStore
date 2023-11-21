@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 const OneLoopArrowSvg = ({ color }) => {
@@ -18,4 +18,4 @@ OneLoopArrowSvg.defaultProps = {
   color: '#6C5FBC',
 };
 
-export default OneLoopArrowSvg;
+export default memo(OneLoopArrowSvg);

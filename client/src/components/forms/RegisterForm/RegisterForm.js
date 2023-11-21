@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
@@ -22,7 +22,7 @@ import {
   legend,
   inputsWrapper,
   signUpBtn,
-  signInLink,
+  signInLink, googleText,
 } from './styles';
 import Input from '../../inputs/Input/Input';
 import { closeModal, setContent } from '../../../redux/slices/modalSlice';
@@ -34,7 +34,6 @@ import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
 import { createCart } from '../../../redux/slices/cartSlice';
-
 import useAlert from '../../../customHooks/useAlert';
 import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
 import CreatePasswordForm from '../CreatePassword/CreatePasswordForm';
@@ -56,7 +55,7 @@ const RegisterForm = () => {
   };
 
   const authFunc = (value) => {
-    const { user, token } = value.data;
+    const { user, token } = value;
 
     dispatch(setIsRegistrationSuccessful(true));
     handleShowAlert();
@@ -148,6 +147,12 @@ const RegisterForm = () => {
           sx={googleAppleBtn}
         >
           <GoogleSvgComponent />
+          <Box
+            component="span"
+            sx={googleText}
+          >
+            Google
+          </Box>
         </Button>
         {/* <Button
           disableRipple
@@ -235,4 +240,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default memo(RegisterForm);

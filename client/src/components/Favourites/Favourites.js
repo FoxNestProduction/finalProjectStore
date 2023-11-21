@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from '@mui/material/Container';
@@ -28,7 +29,7 @@ const Favourites = () => {
 
   return (
     <Box position="relative">
-      {favouritesList.length !== 0 ? (
+      {favouritesList && favouritesList.length !== 0 ? (
         <Box sx={{ mb: '300px', pt: { mobile: '40px', lgTablet: '60px' } }}>
           { isLgTablet && favouritesList
           && (
@@ -70,7 +71,7 @@ const Favourites = () => {
       )}
       {loading
       && (
-        <Box sx={{ width: '100%', position: 'fixed', zIndex: '1100', top: '87px' }}>
+        <Box sx={{ width: '100%', position: 'fixed', zIndex: '1100', top: '0' }}>
           <LinearProgress />
         </Box>
       )}
@@ -79,4 +80,4 @@ const Favourites = () => {
   );
 };
 
-export default Favourites;
+export default memo(Favourites);

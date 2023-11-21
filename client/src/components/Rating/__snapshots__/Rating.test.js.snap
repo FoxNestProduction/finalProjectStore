@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`smoke test should Rating render 1`] = `
+exports[`smoke test should RatingItem render 1`] = `
 <DocumentFragment>
   <div
     class="MuiBox-root css-0"

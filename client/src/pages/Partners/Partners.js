@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useParams } from 'react-router';
 import { Container, Box, useMediaQuery } from '@mui/material';
 import PartnersCard from '../../components/PartnersCard/PartnersCard';
@@ -89,4 +89,4 @@ const PartnersPage = () => {
   );
 };
 
-export default PartnersPage;
+export default memo(PartnersPage);

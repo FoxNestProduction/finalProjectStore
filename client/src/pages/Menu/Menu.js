@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
@@ -253,4 +253,4 @@ const MenuPage = () => {
   );
 };
 
-export default MenuPage;
+export default memo(MenuPage);
