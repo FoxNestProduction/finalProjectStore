@@ -6,24 +6,17 @@ import { Provider } from 'react-redux';
 import { useMediaQuery } from '@mui/material';
 import store from '../../redux/store';
 import ProductPage from './Product';
-import useGetAPI from '../../customHooks/useGetAPI';
 import useTopProducts from '../../customHooks/useTopProducts';
 
 jest.mock('../../customHooks/useTopProducts', () => ({
-  useTopProducts: jest.fn(),
+  __esModule: true,
+  default: jest.fn(),
 }));
-// jest.mock('../../customHooks/useTopProducts', () => ({
-//   ...jest.requireActual('../../customHooks/useTopProducts'),
-//   useTopProducts: jest.fn(),
-// }));
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
 }));
-jest.mock('../../customHooks/useGetAPI', () => ({
-  __esModule: true,
-  default: jest.fn(),
-}));
+
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useParams: () => ({ itemNo: '123' }),
@@ -50,15 +43,14 @@ describe('ProductPage Component', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    useTopProducts.mockReturnValueOnce([]);
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    useTopProducts.mockImplementationOnce(() => [])
   });
 
   test('should renders ProductPage component', async () => {
-    useGetAPI.mockImplementationOnce(jest.fn());
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(true);
-    /* eslint-disable-next-line */
-    await act(async () => {
+    
+    await act(async() => {
       render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/products/:123']}>
@@ -68,16 +60,16 @@ describe('ProductPage Component', () => {
           </MemoryRouter>
         </Provider>,
       );
-    });
-
+    })
+  
     await waitFor(() => expect(screen.getAllByTestId('StarBorderIcon')).toHaveLength(5));
   });
 
   test('should renders ProductPage component isLgTablet', async () => {
-    useGetAPI.mockImplementationOnce(jest.fn());
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(false);
-    /* eslint-disable-next-line */
-    await act(async () => {
+
+    await act(async() => {
       render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/products/:123']}>
@@ -90,5 +82,43 @@ describe('ProductPage Component', () => {
     });
 
     await waitFor(() => expect(screen.getAllByTestId('StarBorderIcon')).toHaveLength(5));
+  });
+
+  test('should renders Skeletons loadingTopProducts', async () => {
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
+    useMediaQuery.mockReturnValue(true);
+
+    await act(async() => {
+      render(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={['/products/:123']}>
+            <Routes>
+              <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
+            </Routes>
+          </MemoryRouter>
+        </Provider>,
+      );
+    });
+
+    await waitFor(() => expect(screen.getByText('Popular')).toBeInTheDocument());
+  });
+
+  test('should renders Skeletons loadingTopProducts', async () => {
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
+    useMediaQuery.mockReturnValue(false);
+
+    await act(async() => {
+      const { asFragment } = render(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={['/products/:123']}>
+            <Routes>
+              <Route path="/products/:itemNo" element={<ProductPage dish={dish} />} />
+            </Routes>
+          </MemoryRouter>
+        </Provider>,
+      );
+    });
+
+    await waitFor(() => expect(screen.getByText('Popular')).toBeInTheDocument());
   });
 });

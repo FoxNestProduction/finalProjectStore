@@ -5,6 +5,12 @@ import { Provider } from 'react-redux';
 import store from '../../redux/store';
 import RestaurantPage from './Restaurant';
 import useGetAPI from '../../customHooks/useGetAPI';
+import useTopProducts from '../../customHooks/useTopProducts';
+
+jest.mock('../../customHooks/useTopProducts', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
@@ -21,15 +27,10 @@ jest.mock('react-router', () => ({
   useParams: () => ({ name: 'PzzaDay', customId: '321' }),
 }));
 
-jest.mock('../../customHooks/useTopProducts', () => ({
-  ...jest.requireActual('../../customHooks/useTopProducts'),
-  useTopProducts: jest.fn(),
-}));
-
 describe('RestaurantPage Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.spyOn(require('../../customHooks/useTopProducts'), 'useTopProducts').mockReturnValueOnce([]);
+    useTopProducts.mockImplementationOnce(() => [])
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
   });
 

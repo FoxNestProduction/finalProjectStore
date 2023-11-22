@@ -7,7 +7,7 @@ const Skeleton = ({ skeletonType }) => {
   return (
     <div className={styles.container}>
       { skeletonType === 'restaurant' ? (
-        <div data-testID="restaurant" className={styles.restaurantCardSkeleton}>
+        <div data-testid="restaurant" className={styles.restaurantCardSkeleton}>
           <div className={classNames(styles.restaurantImageSkeleton, styles.loading)} />
           <div
             className={classNames(styles.restaurantChipsTitleRatingSkeleton, styles.loading)}
@@ -20,7 +20,7 @@ const Skeleton = ({ skeletonType }) => {
           />
         </div>
       ) : skeletonType === 'restaurantsPage' || skeletonType === 'oneRestaurantPage' ? (
-        <div data-testID="oneRestaurantPage" className={skeletonType !== 'oneRestaurantPage' ? styles.restaurantsPageCardSkeleton : styles.oneRestaurantPageCardSkeleton}>
+        <div data-testid="oneRestaurantPage" className={skeletonType !== 'oneRestaurantPage' ? styles.restaurantsPageCardSkeleton : styles.oneRestaurantPageCardSkeleton}>
           <div className={classNames(styles.restaurantsPageImageSkeleton, styles.loading)} />
           <div
             className={classNames(styles.restaurantsPageChipsTitleRatingSkeleton, styles.loading)}
@@ -33,7 +33,7 @@ const Skeleton = ({ skeletonType }) => {
           />
         </div>
       ) : skeletonType === 'product' ? (
-        <div data-testID="product" className={styles.productCardSkeleton}>
+        <div data-testid="product" className={styles.productCardSkeleton}>
           <div className={classNames(styles.productImageSkeleton, styles.loading)} />
           <div className={classNames(styles.productChipsTitleRatingSkeleton, styles.loading)} />
           <div className={classNames(styles.productChipsTitleRatingSkeleton, styles.loading)} />
@@ -41,7 +41,7 @@ const Skeleton = ({ skeletonType }) => {
           <div className={classNames(styles.productPriceSkeleton, styles.loading)} />
         </div>
       ) : skeletonType === 'oneProductPage' ? (
-        <div data-testID="oneProductPage" className={styles.oneProductPageCardSkeleton}>
+        <div data-testid="oneProductPage" className={styles.oneProductPageCardSkeleton}>
           <div className={classNames(styles.oneProductPageImageSkeleton, styles.loading)} />
           <div className={styles.oneProductPageDescriptionWrapper}>
             <div className={classNames(
@@ -59,7 +59,7 @@ const Skeleton = ({ skeletonType }) => {
           </div>
         </div>
       ) : (
-        <div data-testID="reviews" className={styles.reviewCardSkeleton}>
+        <div data-testid="reviews" className={styles.reviewCardSkeleton}>
           <div className={styles.userContainer}>
             <div className={classNames(styles.avatar, styles.loading)} />
             <div className={classNames(styles.username, styles.loading)} />

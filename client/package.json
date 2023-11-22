@@ -38,7 +38,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test  --watchAll=false --coverage",
-    "test1": "react-scripts test  --watchAll=false ./src/components/Skeleton",
+    "test1": "react-scripts test  Partners.test.js",
     "eject": "react-scripts eject",
     "e-lint": "npx eslint ./src/**/*.js --fix",
     "prepare": "cd .. && husky install client/.husky"
