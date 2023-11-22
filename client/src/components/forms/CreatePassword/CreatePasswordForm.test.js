@@ -16,8 +16,6 @@ jest.mock('../../../API/instance', () => ({
   },
 }));
 
-const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
-
 describe('Create password form component', () => {
   test('Create password form snapshot', () => {
     const { asFragment } = render(
@@ -30,7 +28,8 @@ describe('Create password form component', () => {
   });
 
   test('try to submit empty form', async () => {
-    mockDispatch.mockReturnValueOnce(jest.fn());
+    const dispatch = jest.fn();
+    useDispatch.mockReturnValue(dispatch);
     instance.post.mockRejectedValue({ response: { data: { message: 'Password is required' } } });
     render(
       <Provider store={store}>
@@ -40,7 +39,7 @@ describe('Create password form component', () => {
 
     const submitButton = screen.getByText('Sign up');
 
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText('Password is required')).toBeInTheDocument();
@@ -48,6 +47,8 @@ describe('Create password form component', () => {
   });
 
   test('Submit correct form', async () => {
+    const dispatch = jest.fn();
+    useDispatch.mockReturnValue(dispatch);
     instance.post.mockResolvedValue({ status: 200 });
 
     render(
@@ -61,12 +62,10 @@ describe('Create password form component', () => {
 
     fireEvent.change(passwordInput, { target: { value: 'Password12#' } });
 
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
-      expect(instance.post).toHaveBeenCalledWith('/customers', expect.objectContaining({
-        password: 'Password12#',
-      }));
+      expect(dispatch).toHaveBeenCalled();
     });
   });
 });

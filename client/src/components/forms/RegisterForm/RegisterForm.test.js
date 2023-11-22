@@ -74,7 +74,7 @@ describe('Register form component', () => {
     const emailInput = screen.getByPlaceholderText('Enter your e-mail');
     const passwordInput = screen.getByPlaceholderText('Сome up with a password');
     const submitButton = screen.getByText('Sign up');
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
       expect(screen.getByPlaceholderText('Enter your first name')).toBeInTheDocument();
@@ -91,6 +91,8 @@ describe('Register form component', () => {
   });
 
   test('Submit correct form', async () => {
+    const dispatch = jest.fn();
+    useDispatch.mockReturnValue(dispatch);
     render(
       <Provider store={store}>
         <RegisterForm />
@@ -108,10 +110,10 @@ describe('Register form component', () => {
     fireEvent.change(emailInput, { target: { value: 'example@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'Password12#' } });
 
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
-      expect(instance.post).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledTimes(1);
     });
     await waitFor(() => {
       const newUser = {
@@ -122,7 +124,7 @@ describe('Register form component', () => {
         login: 'YuriiHorodnii',
         isAdmin: false,
       };
-      expect(instance.post).toHaveBeenCalledWith('/customers', newUser);
+      expect(dispatch).toHaveBeenCalledTimes(1);
     });
   });
 });

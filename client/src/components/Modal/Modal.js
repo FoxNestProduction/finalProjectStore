@@ -73,6 +73,7 @@ const Modal = () => {
             Close
           </Button>
           <Button
+            role="radio"
             sx={{ px: 1 }}
             variant="contained"
             endIcon={buttonAgree.endIcon && <SendIcon />}

@@ -31,12 +31,13 @@ const ProductCardItem = ({
   isSupreme,
   isHealthy,
   itemNo,
+  randomNum,
 }) => {
   const breakPoint = useBreakpoint();
   const dispatch = useDispatch();
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+  // const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
 
   const { alert, handleCloseAlert, handleShowAlert } = useAlert();
   const [clickedAdd, setClickedAdd] = useState(false);
@@ -148,18 +149,20 @@ ProductCardItem.propTypes = {
   isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
   itemNo: PropTypes.string,
+  randomNum: PropTypes.number,
 };
 
 ProductCardItem.defaultProps = {
-  currentPrice: '',
+  currentPrice: null,
   imageUrl: '',
   name: '',
-  rating: '',
+  rating: null,
   _id: '',
-  isHealthy: null,
-  isTrending: null,
-  isSupreme: null,
+  isHealthy: false,
+  isTrending: false,
+  isSupreme: false,
   itemNo: '',
+  randomNum: 24,
 };
 
 export default memo(ProductCardItem);
