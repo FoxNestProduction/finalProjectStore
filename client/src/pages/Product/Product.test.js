@@ -49,7 +49,7 @@ describe('ProductPage Component', () => {
   test('should renders ProductPage component', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(true);
-// eslint-disable-next-line testing-library/no-unnecessary-act
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       render(
         <Provider store={store}>
@@ -68,7 +68,7 @@ describe('ProductPage Component', () => {
   test('should renders ProductPage component isLgTablet', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(false);
-// eslint-disable-next-line testing-library/no-unnecessary-act
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       render(
         <Provider store={store}>
@@ -84,10 +84,10 @@ describe('ProductPage Component', () => {
     await waitFor(() => expect(screen.getAllByTestId('StarBorderIcon')).toHaveLength(5));
   });
 
-  test('should renders Skeletons loadingTopProducts', async () => {
+  test('should renders Skeletons loadingTopProducts desktop', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
     useMediaQuery.mockReturnValue(true);
-// eslint-disable-next-line testing-library/no-unnecessary-act
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       render(
         <Provider store={store}>
@@ -103,10 +103,10 @@ describe('ProductPage Component', () => {
     await screen.findByText('Popular');
   });
 
-  test('should renders Skeletons loadingTopProducts', async () => {
+  test('should renders Skeletons loadingTopProducts tablet', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
     useMediaQuery.mockReturnValue(false);
-// eslint-disable-next-line testing-library/no-unnecessary-act
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       const { asFragment } = render(
         <Provider store={store}>
