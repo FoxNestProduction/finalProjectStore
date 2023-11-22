@@ -86,7 +86,7 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
             alignItems: 'center',
             gap: '10px',
             padding: '0',
-            width: { mobile: '87%', lgTablet: '55%' },
+            width: { mobile: '87%', lgTablet: '53%' },
             flexWrap: 'noWrap',
           }}
         >
@@ -111,19 +111,22 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
           sx={{
             padding: '0',
             paddingRight: '0',
-            width: { mobile: '13%', lgTablet: '5%' },
+            width: { mobile: '13%', lgTablet: '7%' },
+            justifyContent: 'flex-end',
           }}
         >
           <Box
             sx={{
               padding: '0',
               width: {
-                mobile: 35,
-                tablet: 41,
+                mobile: '26px',
+                tablet: '30px',
+                desktop: '35px',
               },
               height: {
-                mobile: 35,
-                tablet: 41,
+                mobile: '26px',
+                tablet: '30px',
+                desktop: '35px',
               },
             }}
           >

@@ -147,12 +147,12 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupre
               sx={{
                 padding: '0',
                 width: {
-                  mobile: 30,
-                  tablet: 41,
+                  mobile: '25px',
+                  tablet: '30px',
                 },
                 height: {
-                  mobile: 30,
-                  tablet: 41,
+                  mobile: '25px',
+                  tablet: '30px',
                 },
               }}
             >
