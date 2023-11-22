@@ -17,6 +17,5 @@ instance.interceptors.request.use((config) => {
   }
   return config;
 }, (error) => {
-  console.warn('Something went wrong in axios interceptors', `Request error: ${error}`);
   return Promise.reject(error);
 });

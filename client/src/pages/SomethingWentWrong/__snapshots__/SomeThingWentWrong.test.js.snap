@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SomethingWentWrong should render SomethingWentWrong 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-17txlf5"
+  >
+    <div
+      class="MuiBox-root css-117hc89"
+    >
+      <svg>
+        smthWrong.svg
+      </svg>
+    </div>
+    <h1
+      class="MuiTypography-root MuiTypography-h3 css-1fzg7sk-MuiTypography-root"
+    >
+      Oops... Something went wrong!
+    </h1>
+    <p
+      class="MuiTypography-root MuiTypography-h4 css-1o5qxe9-MuiTypography-root"
+    >
+      Please either refresh the page or return home to try again. If the issue continues, please 
+      <a
+        class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1xoiqdk-MuiTypography-root-MuiLink-root"
+        href="mailto:eatly.supp@gmail.com"
+      >
+        get in touch.
+      </a>
+    </p>
+    <div
+      class="MuiBox-root css-e7xvdn"
+    >
+      <a
+        class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium css-zt68by-MuiButtonBase-root-MuiButton-root"
+        href="/"
+        tabindex="0"
+      >
+        Go Home
+      </a>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-17qa510-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        Reload
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

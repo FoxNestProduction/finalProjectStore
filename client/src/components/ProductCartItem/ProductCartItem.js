@@ -18,6 +18,7 @@ import {
   deleteFromCart,
   addOneMore,
   deleteFullProduct,
+  setRestaurants,
 } from '../../redux/slices/cartSlice';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import { totalSumFromCartProduct } from '../Cart/cartFunctions';
@@ -49,6 +50,7 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
     } else if (index !== -1) {
       const foundObject = cartProducts[index];
       dispatch(deleteFromCart(foundObject));
+      dispatch(setRestaurants());
     }
   };
   const handleAddOne = () => {
@@ -57,6 +59,7 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
     } else if (index !== -1) {
       const foundObject = cartProducts[index];
       dispatch(addOneMore(foundObject));
+      dispatch(setRestaurants());
     }
   };
   const handleDeleteFullProduct = () => {
@@ -65,6 +68,7 @@ const ProductCartItem = ({ _id, itemNo, name, cartQuantity, currentPrice, imageU
     } else if (index !== -1) {
       const foundObject = cartProducts[index];
       dispatch(deleteFullProduct(foundObject));
+      dispatch(setRestaurants());
     }
   };
   return (

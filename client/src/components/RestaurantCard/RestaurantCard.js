@@ -1,16 +1,15 @@
 import React, { memo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
-import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
 
 const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => {
@@ -87,7 +86,7 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
             alignItems: 'center',
             gap: '10px',
             padding: '0',
-            width: { mobile: '87%', lgTablet: '55%' },
+            width: { mobile: '87%', lgTablet: '53%' },
             flexWrap: 'noWrap',
           }}
         >
@@ -111,26 +110,28 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
         <CardActions
           sx={{
             padding: '0',
-            paddingRight: '18px',
-            width: { mobile: '13%', lgTablet: '5%' },
+            paddingRight: '0',
+            width: { mobile: '13%', lgTablet: '7%' },
+            justifyContent: 'flex-end',
           }}
         >
-          <IconButton
-            aria-label="add to favorites"
+          <Box
             sx={{
               padding: '0',
               width: {
-                mobile: 35,
-                tablet: 41,
+                mobile: '26px',
+                tablet: '30px',
+                desktop: '35px',
               },
               height: {
-                mobile: 35,
-                tablet: 41,
+                mobile: '26px',
+                tablet: '30px',
+                desktop: '35px',
               },
             }}
           >
-            <BookmarkIcon />
-          </IconButton>
+            <VerifiedIcon sx={{ color: 'primary.main', height: '100%', width: '100%' }} />
+          </Box>
         </CardActions>
       </Stack>
       <Stack direction="row" justifyContent="flex-end" width="100%" m="15px">

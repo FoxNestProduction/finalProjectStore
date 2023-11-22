@@ -16,7 +16,6 @@ const errorSlice = createSlice({
       state.registration = action.payload;
     },
   },
-
 });
 
 export const {

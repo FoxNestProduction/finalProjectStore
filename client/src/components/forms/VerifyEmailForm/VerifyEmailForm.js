@@ -32,7 +32,6 @@ const VerifyEmailForm = () => {
         dispatch(setContent(<SuccessfulLetter />));
       }
     } catch (err) {
-      console.log('Error sending mail: ', err);
       setError(err.response?.data?.message);
     } finally {
       setLoading(false);

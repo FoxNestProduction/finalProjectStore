@@ -84,7 +84,6 @@ const MenuPage = () => {
       dispatch(setProductsScrollAnchor(productsScrollRef.current));
     }
   }, [dispatch]);
-
   return (
     <>
       <SectionSwipperFilterSearch />
@@ -99,132 +98,127 @@ const MenuPage = () => {
           itemsFrom="search"
         />
       )}
-      {loadingProducts ? (
-        <>
-          <Typography
-            variant="h2"
-            component="h2"
-            color="text.primary"
-            sx={{ textAlign: 'center', mb: 3 }}
-          >
-            All Dishes
-          </Typography>
-          <Container sx={{ mb: 13 }}>
-            <Box sx={gridStylesContainer}>
-              <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
-              {isLgTablet && (
+      <Box ref={productsScrollRef}>
+        {loadingProducts ? (
+          <>
+            <Typography
+              variant="h2"
+              component="h2"
+              color="text.primary"
+              sx={{ textAlign: 'center', mb: 3 }}
+            >
+              All Dishes
+            </Typography>
+            <Container sx={{ mb: 13 }}>
+              <Box sx={gridStylesContainer}>
                 <Skeleton skeletonType="product" />
-              )}
-              {isDesktop && (
+                <Skeleton skeletonType="product" />
+                {isLgTablet && (
+                <Skeleton skeletonType="product" />
+                )}
+                {isDesktop && (
                 <>
                   <Skeleton skeletonType="product" />
                   <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
                 </>
-              )}
-            </Box>
-          </Container>
-          <Container sx={{ mb: 13 }}>
-            <Box sx={gridStylesContainer}>
-              <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
-              {isLgTablet && (
-                <Skeleton skeletonType="product" />
-              )}
-              {isDesktop && (
-                <>
-                  <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
-                </>
-              )}
-            </Box>
-          </Container>
-          <Container sx={{ mb: 13 }}>
-            <Box sx={gridStylesContainer}>
-              <Skeleton skeletonType="product" />
-              <Skeleton skeletonType="product" />
-              {isLgTablet && (
-                <Skeleton skeletonType="product" />
-              )}
-              {isDesktop && (
-                <>
-                  <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
-                </>
-              )}
-            </Box>
-          </Container>
-          {!isLgTablet && !isDesktop ? (
-            <>
-              <Container sx={{ mb: 13 }}>
-                <Box sx={gridStylesContainer}>
-                  <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
-                </Box>
-              </Container>
-              <Container sx={{ mb: 13 }}>
-                <Box sx={gridStylesContainer}>
-                  <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
-                </Box>
-              </Container>
-            </>
-          ) : null}
-        </>
-      ) : (
-        <Box ref={productsScrollRef}>
-          {keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
-            <ListItems
-              title={`Search Results (${itemsFromSearch.length})`}
-              items={itemsFromSearch}
-              itemComponent={ProductCardItem}
-              actions={null}
-              type="food"
-              itemsFrom="search"
-            />
-          ) : itemsFromFilter.length !== 0 ? (
-            <ListItems
-              title={`Filter Results (${filteredProductsQuantity})`}
-              items={itemsFromFilter}
-              itemComponent={ProductCardItem}
-              actions={null}
-              type="food"
-              pagination
-              sorting
-              itemsFrom="filter"
-              isScrolling
-            />
-          ) : (!nothingFound) ? (
-            <ListItems
-              title="All Dishes"
-              items={products}
-              itemComponent={ProductCardItem}
-              actions={null}
-              type="food"
-              pagination
-              sorting
-              itemsFrom="allDishes"
-            />
-          ) : (
-            <Container sx={{ pb: '60px' }}>
-              <Typography
-                variant="h3"
-                component="p"
-                color="primary.main"
-                sx={{ textAlign: 'center',
-                  fontSize: { mobile: '22px', tablet: '26px', desktop: '32px' },
-                  px: '10px',
-                  fontWeight: 'fontWeightLight' }}
-              >
-                Sorry, no results match your current filter settings...🤷‍♀️
-              </Typography>
+                )}
+              </Box>
             </Container>
-          )}
-        </Box>
-      )}
+            <Container sx={{ mb: 13 }}>
+              <Box sx={gridStylesContainer}>
+                <Skeleton skeletonType="product" />
+                <Skeleton skeletonType="product" />
+                {isLgTablet && (
+                <Skeleton skeletonType="product" />
+                )}
+                {isDesktop && (
+                <>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </>
+                )}
+              </Box>
+            </Container>
+            <Container sx={{ mb: 13 }}>
+              <Box sx={gridStylesContainer}>
+                <Skeleton skeletonType="product" />
+                <Skeleton skeletonType="product" />
+                {isLgTablet && (
+                <Skeleton skeletonType="product" />
+                )}
+                {isDesktop && (
+                <>
+                  <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
+                </>
+                )}
+              </Box>
+            </Container>
+            {!isLgTablet && !isDesktop ? (
+              <>
+                <Container sx={{ mb: 13 }}>
+                  <Box sx={gridStylesContainer}>
+                    <Skeleton skeletonType="product" />
+                    <Skeleton skeletonType="product" />
+                  </Box>
+                </Container>
+                <Container sx={{ mb: 13 }}>
+                  <Box sx={gridStylesContainer}>
+                    <Skeleton skeletonType="product" />
+                    <Skeleton skeletonType="product" />
+                  </Box>
+                </Container>
+              </>
+            ) : null}
+          </>
+        ) : (keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
+          <ListItems
+            title={`Search Results (${itemsFromSearch.length})`}
+            items={itemsFromSearch}
+            itemComponent={ProductCardItem}
+            actions={null}
+            type="food"
+            itemsFrom="search"
+          />
+        ) : itemsFromFilter.length !== 0 ? (
+          <ListItems
+            title={`Filter Results (${filteredProductsQuantity})`}
+            items={itemsFromFilter}
+            itemComponent={ProductCardItem}
+            actions={null}
+            type="food"
+            pagination
+            sorting
+            itemsFrom="filter"
+            isScrolling
+          />
+        ) : (!nothingFound) ? (
+          <ListItems
+            title="All Dishes"
+            items={products}
+            itemComponent={ProductCardItem}
+            actions={null}
+            type="food"
+            pagination
+            sorting
+            itemsFrom="allDishes"
+          />
+        ) : (
+          <Container sx={{ pb: '60px' }}>
+            <Typography
+              variant="h3"
+              component="p"
+              color="primary.main"
+              sx={{ textAlign: 'center',
+                fontSize: { mobile: '22px', tablet: '26px', desktop: '32px' },
+                px: '10px',
+                fontWeight: 'fontWeightLight' }}
+            >
+              Sorry, no results match your current filter settings...🤷‍♀️
+            </Typography>
+          </Container>
+        ))}
+      </Box>
       {loadingPartners ? (
         <Container sx={{ mb: 13 }}>
           <Typography

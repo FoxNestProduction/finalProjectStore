@@ -1,6 +1,6 @@
 import { Divider, Box, Button, Container, List, ListItem, Typography } from '@mui/material';
 import React, { memo } from 'react';
-import { section, descriptionBox, list, listText, googleAppleBtn, googleAppleBox, arrow, mobileImg } from './styles';
+import { section, descriptionBox, list, listText, googleAppleBtn, googleAppleBox, mobileImg } from './styles';
 
 const MobileApp = () => {
   const onClick = (url) => {
@@ -48,11 +48,10 @@ const MobileApp = () => {
               <Box
                 component="img"
                 src={`${process.env.PUBLIC_URL}/img/app-store.png`}
-                alt="google play"
+                alt="app store"
                 sx={googleAppleBtn}
               />
             </Button>
-            {/* <Box sx={arrow}><DoubleLoopArrow /></Box> */}
           </Box>
         </Box>
         <Box

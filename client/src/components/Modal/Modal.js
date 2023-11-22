@@ -5,23 +5,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 
 import {
-  openModal,
   closeModal,
-  setTitle,
-  setContent,
-  setButtonAgree,
-  addButtonBox,
 } from '../../redux/slices/modalSlice';
-import LoginForm from '../forms/LoginForm/LoginForm';
 import { setAuthorizationError, setRegistrationError } from '../../redux/slices/errorSlice';
-import { setNewReview } from '../../redux/slices/reviewsSlice';
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -42,41 +34,21 @@ const Modal = () => {
     dispatch(closeModal());
   };
 
-  const handleOpenModalWarning = () => {
-    dispatch(openModal());
-    dispatch(setTitle('Are you sure you want to remove the product?'));
-    dispatch(addButtonBox(true));
-    dispatch(setContent(
-      <DialogContentText>
-        Do you confirm that the selected item will be removed from the order?
-      </DialogContentText>,
-    ));
-    dispatch(setButtonAgree({
-      text: 'Delete',
-      startIcon: true,
-      onClick: handleRemoveItemCart,
-    }));
-  };
-
   return (
-    <>
-      {/* <Button variant="outlined" onClick={handleOpenModalWarning}> */}
-      {/*  Open modal with warning text */}
-      {/* </Button> */}
-      <Dialog
-        open={isOpen}
-        onClose={handleClose}
+    <Dialog
+      open={isOpen}
+      onClose={handleClose}
+    >
+      <IconButton
+        sx={{
+          ml: 'auto',
+          color: 'primary.main',
+        }}
+        onClick={handleClose}
       >
-        <IconButton
-          sx={{
-            ml: 'auto',
-            color: 'primary.main',
-          }}
-          onClick={handleClose}
-        >
-          <CloseIcon />
-        </IconButton>
-        {title && (
+        <CloseIcon />
+      </IconButton>
+      {title && (
         <DialogTitle
           sx={{
             textAlign: 'center',
@@ -87,11 +59,11 @@ const Modal = () => {
         >
           {title}
         </DialogTitle>
-        )}
-        <DialogContent sx={{ textAlign: 'center', minHeight: '12vh' }}>
-          {content}
-        </DialogContent>
-        {buttonBox && (
+      )}
+      <DialogContent sx={{ textAlign: 'center', minHeight: '12vh' }}>
+        {content}
+      </DialogContent>
+      {buttonBox && (
         <DialogActions>
           <Button
             sx={{ px: 1 }}
@@ -101,6 +73,7 @@ const Modal = () => {
             Close
           </Button>
           <Button
+            role="radio"
             sx={{ px: 1 }}
             variant="contained"
             endIcon={buttonAgree.endIcon && <SendIcon />}
@@ -111,16 +84,9 @@ const Modal = () => {
           >
             {buttonAgree.text}
           </Button>
-          {/* eslint-disable-next-line no-restricted-globals,no-undef */}
-          {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-              This is a success message!
-            </Alert>
-          </Snackbar> */}
         </DialogActions>
-        )}
-      </Dialog>
-    </>
+      )}
+    </Dialog>
   );
 };
 

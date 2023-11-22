@@ -72,6 +72,7 @@ exports.createCustomer = (req, res, next) => {
                 { expiresIn: 36000 },
                 (err, token) => {
                   res.json({
+                    success: true,
                     token: "Bearer " + token,
                     user: userWithoutPassword,
                   });
@@ -99,7 +100,6 @@ exports.loginCustomer = async (req, res, next) => {
 
   // Check Validation
   if (!isValid) {
-      // console.log(isValid);
       return res.status(400).json(errors);
   }
 
@@ -115,9 +115,7 @@ exports.loginCustomer = async (req, res, next) => {
 
         // Check for customer
       if (!customer) {
-          console.log(customer);
-
-          errors.email = "Customer is not found";
+        errors.email = "Customer is not found";
         return res.status(404).json(errors);
       }
 
@@ -141,7 +139,6 @@ exports.loginCustomer = async (req, res, next) => {
             keys.secretOrKey,
             { expiresIn: 36000 },
             (err, token) => {
-                //todo: шото придумать з токеном
               res.json({
                 success: true,
                 token: "Bearer " + token,
@@ -310,7 +307,7 @@ exports.forgotPassword = async (req, res) => {
       expiresIn: 900, // 15хв
     });
 
-    const recoveryPasswordLink = `http://localhost:3000/recovery-password/${customer._id}/${token}`;
+    const recoveryPasswordLink = `${process.env.REDIRECT_URL}/recovery-password/${customer._id}/${token}`;
 
     const subscriberMail = req.body.email;
     const letterSubject = 'Reset password';

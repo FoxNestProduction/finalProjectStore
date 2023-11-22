@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RestaurantItem renders RestaurantItem component 1`] = `
+<DocumentFragment>
+  <a
+    href="/restaurants/test-restaurant/123"
+  >
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1n5b3dl-MuiPaper-root-MuiCard-root"
+    >
+      <div
+        class="MuiBox-root css-gpemya"
+      >
+        <img
+          alt="Test Restaurant"
+          class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-wlfvqy-MuiCardMedia-root"
+          height="160px"
+          src="https://https://osvitanova.com.ua/ckeditor_assets/pictures/6254/content_1.jpg"
+        />
+      </div>
+      <div
+        class="MuiBox-root css-1yjkie7"
+      >
+        <div
+          class="MuiBox-root css-1ma6dsf"
+        >
+          <div
+            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-1q17mge-MuiChip-root"
+          >
+            <span
+              class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
+            >
+              Healthy
+            </span>
+          </div>
+          <div
+            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-lg2r8e-MuiChip-root"
+          >
+            <span
+              class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
+            >
+              Supreme
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiCardHeader-root css-zfs40-MuiCardHeader-root"
+      >
+        <div
+          class="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+        >
+          <h3
+            class="MuiTypography-root MuiTypography-h3 css-xz6qnp-MuiTypography-root"
+          >
+            Test Restaurant
+          </h3>
+        </div>
+      </div>
+      <div
+        class="MuiBox-root css-uamacb"
+      >
+        <div
+          class="MuiCardContent-root css-908ytw-MuiCardContent-root"
+        >
+          <div
+            class="MuiBox-root css-0"
+          >
+            <span
+              aria-label="4 Stars"
+              class="MuiRating-root MuiRating-sizeSmall Mui-readOnly MuiRating-readOnly css-1nmdjm5-MuiRating-root"
+              role="img"
+            >
+              <span>
+                <span
+                  class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+                    data-testid="StarRateRoundedIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span>
+                <span
+                  class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+                    data-testid="StarRateRoundedIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span>
+                <span
+                  class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+                    data-testid="StarRateRoundedIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span>
+                <span
+                  class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+                    data-testid="StarRateRoundedIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span>
+                <span
+                  class="MuiRating-icon MuiRating-iconEmpty css-1c99szj-MuiRating-icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                    data-testid="StarRateRoundedIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </span>
+          </div>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-w9h7d4-MuiTypography-root"
+          >
+            24min •
+          </p>
+        </div>
+        <div
+          class="MuiCardActions-root css-16fdxhp-MuiCardActions-root"
+        >
+          <div
+            class="MuiBox-root css-1ojb3r8"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-18pfkx-MuiSvgIcon-root"
+              data-testid="VerifiedIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</DocumentFragment>
+`;

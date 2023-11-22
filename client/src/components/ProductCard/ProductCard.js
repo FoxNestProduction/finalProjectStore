@@ -1,5 +1,4 @@
 import React, { memo, useState } from 'react';
-import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
@@ -19,9 +18,8 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { addToFavourites, deleteFromFavourites, setIsFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
-import { addProductToCart, addToCart } from '../../redux/slices/cartSlice';
+import { addProductToCart, addToCart, setRestaurants } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
-import useGetAPI from '../../customHooks/useGetAPI';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
 
@@ -82,6 +80,7 @@ const ProductCard = ({ dish }) => {
         cartQuantity: 1,
       };
       dispatch(addToCart(selectedItem));
+      dispatch(setRestaurants());
     }
   };
   return (

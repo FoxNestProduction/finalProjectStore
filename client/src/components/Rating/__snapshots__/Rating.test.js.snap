@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`smoke test should RatingItem render 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-0"
+  >
+    <span
+      aria-label="5 Stars"
+      class="MuiRating-root MuiRating-sizeSmall Mui-readOnly MuiRating-readOnly css-1nmdjm5-MuiRating-root"
+      role="img"
+    >
+      <span>
+        <span
+          class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+            data-testid="StarRateRoundedIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+            />
+          </svg>
+        </span>
+      </span>
+      <span>
+        <span
+          class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+            data-testid="StarRateRoundedIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+            />
+          </svg>
+        </span>
+      </span>
+      <span>
+        <span
+          class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+            data-testid="StarRateRoundedIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+            />
+          </svg>
+        </span>
+      </span>
+      <span>
+        <span
+          class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+            data-testid="StarRateRoundedIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+            />
+          </svg>
+        </span>
+      </span>
+      <span>
+        <span
+          class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+            data-testid="StarRateRoundedIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m14.43 10-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.57 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.45z"
+            />
+          </svg>
+        </span>
+      </span>
+    </span>
+  </div>
+</DocumentFragment>
+`;

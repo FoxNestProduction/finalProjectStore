@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -28,7 +28,7 @@ const Favourites = () => {
 
   return (
     <Box position="relative">
-      {favouritesList.length !== 0 ? (
+      {favouritesList && favouritesList.length !== 0 ? (
         <Box sx={{ mb: '300px', pt: { mobile: '40px', lgTablet: '60px' } }}>
           { isLgTablet && favouritesList
           && (

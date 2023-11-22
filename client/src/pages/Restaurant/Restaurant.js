@@ -14,7 +14,7 @@ import Skeleton from '../../components/Skeleton/Skeleton';
 import useTopProducts from '../../customHooks/useTopProducts';
 
 const RestaurantPage = () => {
-  const [partners, loading, error] = useGetAPI('/partners');
+  const [partners, loading] = useGetAPI('/partners');
 
   const topProducts = useTopProducts();
   const loadingProducts = useSelector((state) => state.products.loading);
@@ -67,7 +67,7 @@ const RestaurantPage = () => {
       </Container>
       {loadingProducts ? (
         <Container sx={{ mb: 13 }}>
-          <Box sx={gridStylesContainer}>
+          <Box role="listbox" sx={gridStylesContainer}>
             <Skeleton skeletonType="product" />
             <Skeleton skeletonType="product" />
             <Skeleton skeletonType="product" />

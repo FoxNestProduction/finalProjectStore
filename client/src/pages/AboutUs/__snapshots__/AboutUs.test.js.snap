@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AboutUs Pages should AboutUs Pages 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthLg css-9tnhgm-MuiContainer-root"
+  >
+    <h2
+      class="MuiTypography-root MuiTypography-h2 MuiTypography-gutterBottom css-1aebo1m-MuiTypography-root"
+    >
+      About Us
+    </h2>
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-zow5z4-MuiGrid-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 css-10u5m3t-MuiPaper-root"
+        >
+          <h3
+            class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom css-1mktp8m-MuiTypography-root"
+          >
+            Our Story
+          </h3>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+          >
+            Welcome to Eatly, your destination for delicious dining experiences! We are passionate about connecting food lovers with the best restaurants in town. Our journey began with a simple idea: to make it easier for people to discover and enjoy great food. We believe that every meal is an opportunity to create wonderful memories, and we're here to make those moments special.
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 css-10u5m3t-MuiPaper-root"
+        >
+          <h3
+            class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom css-1mktp8m-MuiTypography-root"
+          >
+            Our Mission
+          </h3>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+          >
+            At Eatly, our mission is to provide a seamless and delightful dining experience. We work tirelessly to bring you a diverse selection of restaurants, each with its own unique flavors and culinary traditions. Whether you're craving comfort food, international cuisine, or something in between, we've got you covered. We're committed to helping you explore new tastes and create unforgettable food adventures.
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 css-10u5m3t-MuiPaper-root"
+        >
+          <h3
+            class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom css-1mktp8m-MuiTypography-root"
+          >
+            Our Team
+          </h3>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+          >
+            Our dedicated team of food enthusiasts and tech experts is at the heart of everything we do. We're passionate about curating the best dining options for you, ensuring that every restaurant we partner with meets our high standards of quality and service. Your satisfaction is our top priority, and we're here to assist you every step of the way.
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 css-10u5m3t-MuiPaper-root"
+        >
+          <h3
+            class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom css-1mktp8m-MuiTypography-root"
+          >
+            Contact Us
+          </h3>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+          >
+            If you have any questions, feedback, or inquiries, don't hesitate to reach out to us. We'd love to hear from you and assist with any requests. You can contact us at
+            <a
+              href="mailto:eatly.supp@gmail.com"
+              style="font-weight: bold; color: rgb(108, 95, 188);"
+            >
+               eatly.supp@gmail.com 
+            </a>
+            or through our
+            <a
+              href="/contact"
+              style="font-weight: bold; color: rgb(108, 95, 188);"
+            >
+               customer support page 
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

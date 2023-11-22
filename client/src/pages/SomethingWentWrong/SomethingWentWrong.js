@@ -31,7 +31,6 @@ const SomethingWentWrong = () => {
       </Typography>
       <Box sx={btnWrapper}>
         <Button
-          // type="button"
           variant="outlined"
           component="a"
           href="/"

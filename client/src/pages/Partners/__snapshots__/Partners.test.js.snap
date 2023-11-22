@@ -1,0 +1,453 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PartnersPage Component should render skeleton while loading partner 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-0"
+  >
+    <section
+      class="MuiContainer-root MuiContainer-maxWidthLg css-2zxudu-MuiContainer-root"
+    >
+      <div
+        class="container"
+      >
+        <div
+          class="oneRestaurantPageCardSkeleton"
+          data-testid="oneRestaurantPage"
+        >
+          <div
+            class="restaurantsPageImageSkeleton loading"
+          />
+          <div
+            class="restaurantsPageChipsTitleRatingSkeleton loading"
+          />
+          <div
+            class="restaurantsPageChipsTitleRatingSkeleton loading"
+          />
+          <div
+            class="restaurantsPageShowMoreSkeleton loading"
+          />
+        </div>
+      </div>
+    </section>
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthLg css-sjcq8o-MuiContainer-root"
+    >
+      <div
+        class="MuiBox-root css-1f0n1hj"
+      >
+        <div
+          class="MuiBox-root css-8atqhb"
+        >
+          <div
+            class="container"
+          >
+            <div
+              class="productCardSkeleton"
+              data-testid="product"
+            >
+              <div
+                class="productImageSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productRaitingSkeleton loading"
+              />
+              <div
+                class="productPriceSkeleton loading"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiBox-root css-8atqhb"
+        >
+          <div
+            class="container"
+          >
+            <div
+              class="productCardSkeleton"
+              data-testid="product"
+            >
+              <div
+                class="productImageSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productRaitingSkeleton loading"
+              />
+              <div
+                class="productPriceSkeleton loading"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiBox-root css-8atqhb"
+        >
+          <div
+            class="container"
+          >
+            <div
+              class="productCardSkeleton"
+              data-testid="product"
+            >
+              <div
+                class="productImageSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productRaitingSkeleton loading"
+              />
+              <div
+                class="productPriceSkeleton loading"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiBox-root css-8atqhb"
+        >
+          <div
+            class="container"
+          >
+            <div
+              class="productCardSkeleton"
+              data-testid="product"
+            >
+              <div
+                class="productImageSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productRaitingSkeleton loading"
+              />
+              <div
+                class="productPriceSkeleton loading"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiBox-root css-8atqhb"
+        >
+          <div
+            class="container"
+          >
+            <div
+              class="productCardSkeleton"
+              data-testid="product"
+            >
+              <div
+                class="productImageSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productRaitingSkeleton loading"
+              />
+              <div
+                class="productPriceSkeleton loading"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiBox-root css-8atqhb"
+        >
+          <div
+            class="container"
+          >
+            <div
+              class="productCardSkeleton"
+              data-testid="product"
+            >
+              <div
+                class="productImageSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productChipsTitleRatingSkeleton loading"
+              />
+              <div
+                class="productRaitingSkeleton loading"
+              />
+              <div
+                class="productPriceSkeleton loading"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section
+      class="MuiContainer-root MuiContainer-maxWidthLg css-83rf2v-MuiContainer-root"
+    >
+      <h3
+        class="MuiTypography-root MuiTypography-h5 css-2mz86v-MuiTypography-root"
+      >
+        Frequently Asked
+        <br />
+        Questions
+      </h3>
+      <ul
+        class="MuiList-root MuiList-padding css-h4y409-MuiList-root"
+      >
+        <li
+          class="MuiListItem-root MuiListItem-gutters css-uxa1ks-MuiListItem-root"
+        >
+          <ul
+            class="MuiList-root css-1mk9mw3-MuiList-root"
+          >
+            <li
+              class="MuiListItem-root MuiListItem-gutters css-1wxbwxm-MuiListItem-root"
+            >
+              <div
+                class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+              >
+                <h5
+                  class="MuiTypography-root MuiTypography-h3 css-krdrhq-MuiTypography-root"
+                >
+                  How long does delivery take?
+                </h5>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+                  data-testid="AddCircleIcon"
+                  edge="end"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </li>
+          </ul>
+          <hr
+            class="MuiDivider-root MuiDivider-fullWidth css-1b008ma-MuiDivider-root"
+          />
+        </li>
+        <li
+          class="MuiListItem-root MuiListItem-gutters css-uxa1ks-MuiListItem-root"
+        >
+          <ul
+            class="MuiList-root css-1mk9mw3-MuiList-root"
+          >
+            <li
+              class="MuiListItem-root MuiListItem-gutters css-1wxbwxm-MuiListItem-root"
+            >
+              <div
+                class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+              >
+                <h5
+                  class="MuiTypography-root MuiTypography-h3 css-krdrhq-MuiTypography-root"
+                >
+                  How Does It Work?
+                </h5>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+                  data-testid="AddCircleIcon"
+                  edge="end"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </li>
+          </ul>
+          <hr
+            class="MuiDivider-root MuiDivider-fullWidth css-1b008ma-MuiDivider-root"
+          />
+        </li>
+        <li
+          class="MuiListItem-root MuiListItem-gutters css-uxa1ks-MuiListItem-root"
+        >
+          <ul
+            class="MuiList-root css-1mk9mw3-MuiList-root"
+          >
+            <li
+              class="MuiListItem-root MuiListItem-gutters css-1wxbwxm-MuiListItem-root"
+            >
+              <div
+                class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+              >
+                <h5
+                  class="MuiTypography-root MuiTypography-h3 css-krdrhq-MuiTypography-root"
+                >
+                  How does your food delivery service work?
+                </h5>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+                  data-testid="AddCircleIcon"
+                  edge="end"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </li>
+          </ul>
+          <hr
+            class="MuiDivider-root MuiDivider-fullWidth css-1b008ma-MuiDivider-root"
+          />
+        </li>
+        <li
+          class="MuiListItem-root MuiListItem-gutters css-uxa1ks-MuiListItem-root"
+        >
+          <ul
+            class="MuiList-root css-1mk9mw3-MuiList-root"
+          >
+            <li
+              class="MuiListItem-root MuiListItem-gutters css-1wxbwxm-MuiListItem-root"
+            >
+              <div
+                class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+              >
+                <h5
+                  class="MuiTypography-root MuiTypography-h3 css-krdrhq-MuiTypography-root"
+                >
+                  What payment options do you accept?
+                </h5>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+                  data-testid="AddCircleIcon"
+                  edge="end"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </li>
+          </ul>
+          <hr
+            class="MuiDivider-root MuiDivider-fullWidth css-1b008ma-MuiDivider-root"
+          />
+        </li>
+        <li
+          class="MuiListItem-root MuiListItem-gutters css-uxa1ks-MuiListItem-root"
+        >
+          <ul
+            class="MuiList-root css-1mk9mw3-MuiList-root"
+          >
+            <li
+              class="MuiListItem-root MuiListItem-gutters css-1wxbwxm-MuiListItem-root"
+            >
+              <div
+                class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+              >
+                <h5
+                  class="MuiTypography-root MuiTypography-h3 css-krdrhq-MuiTypography-root"
+                >
+                  Do you offer discounts or promotions?
+                </h5>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+                  data-testid="AddCircleIcon"
+                  edge="end"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </li>
+          </ul>
+          <hr
+            class="MuiDivider-root MuiDivider-fullWidth css-1b008ma-MuiDivider-root"
+          />
+        </li>
+      </ul>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PartnersPage Component should renders PartnersPage component 1`] = `<DocumentFragment />`;
