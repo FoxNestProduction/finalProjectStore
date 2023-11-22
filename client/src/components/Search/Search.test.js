@@ -55,7 +55,6 @@ jest.mock('../../redux/slices/filterSlice', () => ({
 const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
 describe('Snapshot test', () => {
-  
   beforeEach(() => {
     jest.clearAllMocks();
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce('test');
