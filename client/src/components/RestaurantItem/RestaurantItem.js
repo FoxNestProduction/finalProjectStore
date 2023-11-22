@@ -147,16 +147,16 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupre
               sx={{
                 padding: '0',
                 width: {
-                  mobile: 35,
-                  tablet: 41,
+                  mobile: '25px',
+                  tablet: '30px',
                 },
                 height: {
-                  mobile: 35,
-                  tablet: 41,
+                  mobile: '25px',
+                  tablet: '30px',
                 },
               }}
             >
-              <VerifiedIcon fontSize="large" sx={{ color: 'primary.main' }} />
+              <VerifiedIcon sx={{ color: 'primary.main', height: '100%', width: '100%' }} />
             </Box>
           </CardActions>
         </Box>
