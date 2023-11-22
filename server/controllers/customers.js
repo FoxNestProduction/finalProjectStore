@@ -141,7 +141,6 @@ exports.loginCustomer = async (req, res, next) => {
             keys.secretOrKey,
             { expiresIn: 36000 },
             (err, token) => {
-                //todo: шото придумать з токеном
               res.json({
                 success: true,
                 token: "Bearer " + token,
