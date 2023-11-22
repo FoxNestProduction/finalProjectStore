@@ -30,6 +30,7 @@ import {
   decreaseProductQuantity,
   addToCart,
   deleteFromCart,
+  setRestaurants,
 } from '../../redux/slices/cartSlice';
 import { totalSumFromCartProduct } from '../Cart/cartFunctions';
 
@@ -45,6 +46,7 @@ const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
     } else if (index !== -1) {
       const foundObject = cartProducts[index];
       dispatch(deleteFromCart(foundObject));
+      dispatch(setRestaurants());
     }
   };
   const handleAddOne = () => {
@@ -53,6 +55,7 @@ const MiniCartItem = ({ _id, name, cartQuantity, currentPrice, imageUrl }) => {
     } else if (index !== -1) {
       const foundObject = cartProducts[index];
       dispatch(addToCart(foundObject));
+      dispatch(setRestaurants());
     }
   };
   return (

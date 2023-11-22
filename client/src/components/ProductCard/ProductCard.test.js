@@ -200,7 +200,7 @@ describe('ProductCard Component', () => {
 
     fireEvent.click(activeButton);
 
-    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch).toHaveBeenCalledTimes(2);
     expect(addToCart).toHaveBeenCalled();
     expect(useAlert().handleShowAlert).toHaveBeenCalledTimes(1);
     await waitFor(() => {

@@ -137,34 +137,21 @@ exports[`RestaurantCard renders RestaurantCard component 1`] = `
       <div
         class="MuiCardActions-root MuiCardActions-spacing css-mkkqzv-MuiCardActions-root"
       >
-        <button
-          aria-label="add to favorites"
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1n91ue6-MuiButtonBase-root-MuiIconButton-root"
-          tabindex="0"
-          type="button"
+        <div
+          class="MuiBox-root css-1ejqzbj"
         >
           <svg
-            fill="none"
-            height="41"
-            viewBox="0 0 41 41"
-            width="41"
-            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-bsqp9w-MuiSvgIcon-root"
+            data-testid="VerifiedIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
           >
-            <circle
-              cx="20.3574"
-              cy="20.6406"
-              fill="#DBD9EE"
-              r="20"
-            />
             <path
-              d="M24.7408 11.2928C21.8454 10.8074 18.8738 10.8074 15.9784 11.2928C14.9206 11.4701 14.0782 12.2822 13.8661 13.3351C12.8944 18.1588 12.8414 23.1226 13.7098 27.966L14.0634 29.9379C14.1724 30.5459 14.9136 30.7889 15.3615 30.3635L19.6291 26.3093C20.0384 25.9204 20.6807 25.9204 21.0901 26.3093L25.3576 30.3635C25.8055 30.7889 26.5468 30.5459 26.6558 29.9379L27.0093 27.966C27.8777 23.1226 27.8247 18.1588 26.8531 13.3351C26.641 12.2822 25.7986 11.4701 24.7408 11.2928Z"
-              fill="#6C5FBC"
+              d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"
             />
           </svg>
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
-        </button>
+        </div>
       </div>
     </div>
     <div

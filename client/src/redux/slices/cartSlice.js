@@ -1,7 +1,10 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import isEqualWith from 'lodash.isequalwith';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import uniq from 'lodash.uniq';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
 import { changeCartObjectFromServer } from '../../components/Cart/cartFunctions';
@@ -10,6 +13,7 @@ const initialState = {
   cart: {
     products: [],
   },
+  restaurants: [],
   loading: false,
   isCart: false,
   error: null,
@@ -52,9 +56,12 @@ export const fetchCart = createAsyncThunk(
           return null;
         }
       }
+      if (data !== null) {
+        dispatch(setRestaurants(data.products));
+      }
       return data;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -69,52 +76,56 @@ export const fetchCartAfterAuthorization = createAsyncThunk(
         dispatch(createCart());
       }
       if (cartProducts.length && data !== null) {
-        // eslint-disable-next-line no-use-before-define
         dispatch(setCart(data.products));
         const newCartProducts = getState().cart.cart.products;
         const updatedCart = changeCartObjectFromServer(newCartProducts);
         const response = await instance.put('/cart', updatedCart);
+        dispatch(setRestaurants(response.data.products));
         return response.data;
       }
+      dispatch(setRestaurants(data.products));
       return data;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
 
 export const addProductToCart = createAsyncThunk(
   'cart/addProductToCart',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.put(`/cart/${id}`);
+      dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
 
 export const decreaseProductQuantity = createAsyncThunk(
   'cart/decreaseProductQuantity',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.delete(`/cart/product/${id}`);
+      dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
 
 export const deleteProductFromCart = createAsyncThunk(
   'cart/deleteProductFromCart',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.delete(`/cart/${id}`);
+      dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -126,7 +137,7 @@ export const deleteCart = createAsyncThunk(
       const { data } = await instance.delete('/cart');
       return data;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -213,6 +224,22 @@ const cartSlice = createSlice({
         }
       }
     },
+    setRestaurants(state, action) {
+      let restaurants = [];
+      const { products } = state.cart;
+      if (action.payload && action.payload.length) {
+        restaurants = action.payload;
+      } else if (products.length) {
+        restaurants = products;
+      }
+      if (restaurants.length) {
+        state.restaurants = uniq(restaurants.map((prodactObj) => {
+          return prodactObj.product.restaurant_name;
+        }));
+      } else {
+        state.restaurants = [];
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -238,7 +265,6 @@ const cartSlice = createSlice({
         }
       })
       .addCase(fetchCart.rejected, (state, action) => {
-        state.isCart = false;
         state.loading = false;
         state.error = action.payload;
       })
@@ -294,6 +320,7 @@ export const {
   addOneMore,
   resetCart,
   deleteFullProduct,
+  setRestaurants,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

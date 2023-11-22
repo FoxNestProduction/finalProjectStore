@@ -16,8 +16,7 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
-import { addToCart, addProductToCart } from '../../redux/slices/cartSlice';
-// import { instance } from '../../API/instance';
+import { addToCart, addProductToCart, setRestaurants } from '../../redux/slices/cartSlice';
 import { GetOneProduct, resetOneProduct } from '../../redux/slices/productsSlice';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
@@ -52,9 +51,9 @@ const ProductCardItem = ({
       handleShowAlert();
       setTimeout(() => {
         setClickedAdd(false);
-      }, 3000);
+      }, 4000);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickedAdd]);
 
   const handleAddToCart = (event) => {
@@ -69,6 +68,7 @@ const ProductCardItem = ({
           dispatch(addProductToCart(selectedItem.product._id));
         } else {
           dispatch(addToCart(selectedItem));
+          dispatch(setRestaurants());
         }
       }
     };
@@ -131,7 +131,7 @@ const ProductCardItem = ({
         {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
-      { clickedAdd && alert && (
+      {clickedAdd && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}
     </>

@@ -21,10 +21,15 @@ jest.mock('react-router', () => ({
   useParams: () => ({ name: 'PzzaDay', customId: '321' }),
 }));
 
+jest.mock('../../customHooks/useTopProducts', () => ({
+  ...jest.requireActual('../../customHooks/useTopProducts'),
+  useTopProducts: jest.fn(),
+}));
+
 describe('RestaurantPage Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
+    jest.spyOn(require('../../customHooks/useTopProducts'), 'useTopProducts').mockReturnValueOnce([]);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
   });
 

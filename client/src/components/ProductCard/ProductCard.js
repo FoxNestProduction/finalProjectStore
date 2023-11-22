@@ -19,7 +19,7 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import { stylesButtonCard, stylesButtonCardOutline, stylesSectionCard, stylesHeaderTopCard, stylesHeaderInCard, stylesContentCard, stylesActionsCard, stylesPriceCard, stylesRatingCard, stylesLabelCard, stylesMediaCard } from './styles';
 import { addToFavourites, deleteFromFavourites, setIsFavourite, removeFavourite } from '../../redux/slices/favouriteSlice';
-import { addProductToCart, addToCart } from '../../redux/slices/cartSlice';
+import { addProductToCart, addToCart, setRestaurants } from '../../redux/slices/cartSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import useGetAPI from '../../customHooks/useGetAPI';
 import useAlert from '../../customHooks/useAlert';
@@ -32,6 +32,7 @@ const ProductCard = ({ dish }) => {
 
   const [ishovered, setIsHovered] = useState(false);
   const [isactive, setIsActive] = useState(false);
+  const [isShowAlert, setIsShowAlert] = useState(false);
 
   const isLoading = useSelector((state) => state.favourites.loading);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
@@ -68,8 +69,10 @@ const ProductCard = ({ dish }) => {
 
   const handleAddToCart = () => {
     handleShowAlert();
+    setIsShowAlert(true);
     setTimeout(() => {
       handleCloseAlert();
+      setIsShowAlert(false);
     }, 4000);
     if (isUserAuthorized) {
       dispatch(addProductToCart(id));
@@ -79,6 +82,7 @@ const ProductCard = ({ dish }) => {
         cartQuantity: 1,
       };
       dispatch(addToCart(selectedItem));
+      dispatch(setRestaurants());
     }
   };
   return (
@@ -191,7 +195,7 @@ const ProductCard = ({ dish }) => {
           </Stack>
         </Stack>
       </Card>
-      { alert && (
+      {isShowAlert && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}
     </Container>

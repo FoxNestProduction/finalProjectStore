@@ -6,12 +6,16 @@ import { Provider } from 'react-redux';
 import { useMediaQuery } from '@mui/material';
 import store from '../../redux/store';
 import ProductPage from './Product';
+import useGetAPI from '../../customHooks/useGetAPI';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
 }));
-
+jest.mock('../../customHooks/useGetAPI', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useParams: () => ({ itemNo: '123' }),
@@ -19,6 +23,10 @@ jest.mock('react-router', () => ({
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
   useMediaQuery: jest.fn(),
+}));
+jest.mock('../../customHooks/useTopProducts', () => ({
+  ...jest.requireActual('../../customHooks/useTopProducts'),
+  useTopProducts: jest.fn(),
 }));
 
 describe('ProductPage Component', () => {
@@ -38,11 +46,12 @@ describe('ProductPage Component', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce([]);
+    jest.spyOn(require('../../customHooks/useTopProducts'), 'useTopProducts').mockReturnValueOnce([]);
+    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
   });
 
   test('should renders ProductPage component', async () => {
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    useGetAPI.mockImplementationOnce(jest.fn());
     useMediaQuery.mockReturnValue(true);
     /* eslint-disable-next-line */
     await act(async () => {
@@ -61,7 +70,7 @@ describe('ProductPage Component', () => {
   });
 
   test('should renders ProductPage component isLgTablet', async () => {
-    jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
+    useGetAPI.mockImplementationOnce(jest.fn());
     useMediaQuery.mockReturnValue(false);
     /* eslint-disable-next-line */
     await act(async () => {

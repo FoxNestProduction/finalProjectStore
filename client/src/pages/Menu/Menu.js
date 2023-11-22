@@ -20,6 +20,7 @@ import { getParamsFromURL, checkFiltersInParams, getParamsFilteredFromDefaultVal
 import { setProductsScrollAnchor } from '../../redux/slices/scrollAnchorSlice';
 import { gridStylesContainer } from '../../components/ListItems/styles';
 import Skeleton from '../../components/Skeleton/Skeleton';
+import useTopPartners from '../../customHooks/useTopPartners';
 
 const MenuPage = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const MenuPage = () => {
   const nothingFound = useSelector((state) => state.filter.nothingFound);
   const products = useSelector((state) => state.products.products, shallowEqual);
   const loadingProducts = useSelector((state) => state.products.loading);
-  const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
+  const topPartners = useTopPartners();
   const loadingPartners = useSelector((state) => state.partners.loading);
 
   useEffect(() => {
@@ -83,7 +84,6 @@ const MenuPage = () => {
       dispatch(setProductsScrollAnchor(productsScrollRef.current));
     }
   }, [dispatch]);
-
   return (
     <>
       <SectionSwipperFilterSearch />
@@ -119,7 +119,6 @@ const MenuPage = () => {
                 <>
                   <Skeleton skeletonType="product" />
                   <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
                 </>
               )}
             </Box>
@@ -135,7 +134,6 @@ const MenuPage = () => {
                 <>
                   <Skeleton skeletonType="product" />
                   <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
                 </>
               )}
             </Box>
@@ -149,7 +147,6 @@ const MenuPage = () => {
               )}
               {isDesktop && (
                 <>
-                  <Skeleton skeletonType="product" />
                   <Skeleton skeletonType="product" />
                   <Skeleton skeletonType="product" />
                 </>

@@ -1,6 +1,6 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { shallowEqual, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Container, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
@@ -11,11 +11,12 @@ import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import useGetAPI from '../../customHooks/useGetAPI';
 import { gridStylesContainer } from '../../components/ListItems/styles';
 import Skeleton from '../../components/Skeleton/Skeleton';
+import useTopProducts from '../../customHooks/useTopProducts';
 
 const RestaurantPage = () => {
   const [partners, loading, error] = useGetAPI('/partners');
 
-  const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
+  const topProducts = useTopProducts();
   const loadingProducts = useSelector((state) => state.products.loading);
 
   const styleRestaurant = {

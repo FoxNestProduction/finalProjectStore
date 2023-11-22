@@ -12,10 +12,9 @@ import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
 import { productsPerPageMap, topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
 import { setFilterParams } from './redux/slices/filterSlice';
-
-import styles from './styles.module.scss';
 import { getDataFromSessionStorage } from './utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from './constants/constants';
+import getMaxValue from './utils/getMaxValue';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -37,8 +36,11 @@ const App = () => {
   }, [pathname]);
 
   useEffect(() => {
-    dispatch(fetchTopProducts(topProductsQtyMap[breakpoint]));
-    dispatch(fetchTopPartners(topPartnersQtyMap[breakpoint]));
+    dispatch(fetchTopProducts(getMaxValue(topProductsQtyMap)));
+    dispatch(fetchTopPartners(getMaxValue(topPartnersQtyMap)));
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(setFilterParams({
       perPage: productsPerPageMap[breakpoint],
     }));
@@ -46,23 +48,11 @@ const App = () => {
   }, [breakpoint, dispatch]);
 
   return (
-    <Box className={styles.mainBackground}>
-      <ul>
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-      </ul>
+    <>
       <Modal disagree="Close" />
       <AppRoutes />
       <ScrollTop />
-    </Box>
+    </>
   );
 };
 
