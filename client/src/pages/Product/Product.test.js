@@ -7,7 +7,15 @@ import { useMediaQuery } from '@mui/material';
 import store from '../../redux/store';
 import ProductPage from './Product';
 import useGetAPI from '../../customHooks/useGetAPI';
+import useTopProducts from '../../customHooks/useTopProducts';
 
+jest.mock('../../customHooks/useTopProducts', () => ({
+  useTopProducts: jest.fn(),
+}));
+// jest.mock('../../customHooks/useTopProducts', () => ({
+//   ...jest.requireActual('../../customHooks/useTopProducts'),
+//   useTopProducts: jest.fn(),
+// }));
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
@@ -23,10 +31,6 @@ jest.mock('react-router', () => ({
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
   useMediaQuery: jest.fn(),
-}));
-jest.mock('../../customHooks/useTopProducts', () => ({
-  ...jest.requireActual('../../customHooks/useTopProducts'),
-  useTopProducts: jest.fn(),
 }));
 
 describe('ProductPage Component', () => {
@@ -46,7 +50,7 @@ describe('ProductPage Component', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.spyOn(require('../../customHooks/useTopProducts'), 'useTopProducts').mockReturnValueOnce([]);
+    useTopProducts.mockReturnValueOnce([]);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
   });
 
