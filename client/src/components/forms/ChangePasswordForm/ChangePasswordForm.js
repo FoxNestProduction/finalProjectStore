@@ -47,7 +47,6 @@ const ChangePasswordForm = () => {
         }, 2500);
       }
     } catch (err) {
-      console.error('Error changing password: ', err);
       if (err.response?.data?.message) {
         setError(err.response.data.message);
       }

@@ -1,12 +1,11 @@
 /* eslint-disable import/no-cycle */
 import React, { memo } from 'react';
-// import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
-import { Typography, Box, Button, Link } from '@mui/material';
+import { Typography, Box, Button } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
-import { closeModal, openModal, setContent } from '../../../redux/slices/modalSlice';
+import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import validationSchema from './validationSchema';
 import {
   flexcenter,
@@ -18,7 +17,7 @@ import {
   forgetPassword,
   signInBtn,
   signUpLink,
-  appleIcon, googleText,
+  googleText,
 } from './styles';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import VerifyEmailForm from '../VerifyEmailForm/VerifyEmailForm';
@@ -29,7 +28,7 @@ import {
   setAuthorization,
   setToken,
 } from '../../../redux/slices/authorizationSlice';
-import { setUser } from '../../../redux/slices/userSlice';
+import { loginCustomer, setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
@@ -58,13 +57,11 @@ const LoginForm = () => {
     dispatch(setContent(<VerifyEmailForm />));
   };
 
-  const authFunc = (value) => {
-    const { token } = value.data;
-    const { user } = value.data;
+  const authFunc = (data) => {
+    const { token, user } = data;
     if (token) {
       dispatch(setToken(token));
       dispatch(setAuthorization(true));
-      dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setAuthorizationError(''));
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
@@ -76,12 +73,9 @@ const LoginForm = () => {
   };
 
   const handleSubmit = async (values) => {
-    try {
-      const response = await instance.post('/customers/login', values);
-      authFunc(response);
-    } catch (error) {
-      dispatch(setAuthorizationError(error.response.data));
-      // console.error('Помилка авторизації:', error);
+    const data = await dispatch(loginCustomer(values)).unwrap();
+    if (data.success) {
+      authFunc(data);
     }
   };
 
@@ -97,16 +91,16 @@ const LoginForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            authFunc(res);
+            authFunc(res.data);
+          } else {
+            const { data } = res;
+            dispatch(setNewGoogleUser({
+              email: data.email,
+              firstName: data.given_name ? data.given_name : 'New',
+              lastName: data.family_name ? data.family_name : 'User',
+            }));
+            dispatch(setContent(<CreatePasswordForm />));
           }
-          const { data } = res;
-          console.log(data);
-          dispatch(setNewGoogleUser({
-            email: data.email,
-            firstName: data.given_name ? data.given_name : 'New',
-            lastName: data.family_name ? data.family_name : 'User',
-          }));
-          dispatch(setContent(<CreatePasswordForm />));
         });
     },
   });
@@ -195,14 +189,6 @@ const LoginForm = () => {
                   icon={<LockIcon />}
                 />
               </Box>
-              {/* <Link
-                component={NavLink}
-                to="/forget-password"
-                underline="none"
-                sx={forgetPassword}
-              >
-                Forget Password ?
-              </Link> */}
               <Typography
                 sx={forgetPassword}
                 onClick={handleFogetPassword}

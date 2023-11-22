@@ -8,7 +8,7 @@ import useGetAPI from '../../customHooks/useGetAPI';
 import Skeleton from '../Skeleton/Skeleton';
 
 const SwiperReview = () => {
-  const [lastReviewsData, loading, error] = useGetAPI('/comments/filter?startPage=1&perPage=8&sort=-date');
+  const [lastReviewsData, loading] = useGetAPI('/comments/filter?startPage=1&perPage=8&sort=-date');
   const [currentIndex, setCurrentIndex] = useState(1);
   const [widthStep, setWidthStep] = useState(0);
   const lengthReviews = lastReviewsData && lastReviewsData.comments.length - 1;

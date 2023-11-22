@@ -29,7 +29,6 @@ const FavouriteItem = ({ product }) => {
     _id,
   } = product;
 
-  // const isFavourite = useSelector((state) => state.favourites.cardStates[_id]);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
   const [favAlert, setFavAlert] = useState(false);
 
