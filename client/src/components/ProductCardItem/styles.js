@@ -135,10 +135,10 @@ export const stylesButton = {
   zIndex: 1050,
   backgroundColor: 'background.default',
   '&:hover': {
-    backgroundColor: 'primary.hover',
-    borderColor: 'primary.hover',
-    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
-    color: 'text.primaryLight',
+    backgroundColor: { desktop: 'primary.hover' },
+    borderColor: { desktop: 'primary.hover' },
+    boxShadow: { desktop: '0px 4px 6px rgba(0, 0, 0, 0.3)' },
+    color: { desktop: 'text.primaryLight' },
   },
   '&:active': {
     color: 'primary.main',
