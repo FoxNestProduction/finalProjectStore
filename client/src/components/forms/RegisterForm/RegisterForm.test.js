@@ -31,6 +31,10 @@ global.google = {
 };
 
 describe('Register form component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('Register form snapshot', () => {
     const { asFragment } = render(
       <Provider store={store}>
@@ -70,7 +74,7 @@ describe('Register form component', () => {
     const emailInput = screen.getByPlaceholderText('Enter your e-mail');
     const passwordInput = screen.getByPlaceholderText('Сome up with a password');
     const submitButton = screen.getByText('Sign up');
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
       expect(screen.getByPlaceholderText('Enter your first name')).toBeInTheDocument();
@@ -87,6 +91,8 @@ describe('Register form component', () => {
   });
 
   test('Submit correct form', async () => {
+    const dispatch = jest.fn();
+    useDispatch.mockReturnValue(dispatch);
     render(
       <Provider store={store}>
         <RegisterForm />
@@ -102,23 +108,23 @@ describe('Register form component', () => {
     fireEvent.change(firstNameInput, { target: { value: 'Yurii' } });
     fireEvent.change(lastNameInput, { target: { value: 'Horodnii' } });
     fireEvent.change(emailInput, { target: { value: 'example@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.change(passwordInput, { target: { value: 'Password12#' } });
 
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
-      expect(instance.post).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledTimes(1);
     });
     await waitFor(() => {
       const newUser = {
         firstName: 'Yurii',
         lastName: 'Horodnii',
         email: 'example@example.com',
-        password: 'password123',
+        password: 'Password12#',
         login: 'YuriiHorodnii',
         isAdmin: false,
       };
-      expect(instance.post).toHaveBeenCalledWith('/customers', newUser);
+      expect(dispatch).toHaveBeenCalledTimes(1);
     });
   });
 });

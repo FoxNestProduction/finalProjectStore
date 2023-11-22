@@ -24,12 +24,3 @@ export const backHomeBtn = {
     borderColor: 'primary.main',
   },
 };
-
-export const starsWrapper = {
-  display: {
-    mobile: 'none',
-    lgTablet: 'block',
-  },
-  position: 'absolute',
-  top: '10px',
-};

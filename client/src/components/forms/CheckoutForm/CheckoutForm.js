@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { memo, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -33,7 +32,7 @@ import {
 } from '../../../utils/sessionStorageHelpers';
 import { putNewOrder, setPendingOrderInfo } from '../../../redux/slices/orderSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
-import { resetCart, deleteCart } from '../../../redux/slices/cartSlice';
+import { deleteCart, resetCart, setRestaurants } from '../../../redux/slices/cartSlice';
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -115,6 +114,7 @@ const CheckoutForm = () => {
       if (response.status === 200) {
         removeDataFromSessionStorage(CHECKOUT_SS_KEY);
         dispatch(resetCart());
+        dispatch(setRestaurants());
         if (isUserAuthorized && user) {
           saveUserInfoToSessionStorage(user);
           dispatch(deleteCart());

@@ -21,7 +21,6 @@ const RatingItem = ({ ratingValue }) => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        // precision={0.5}
         size="small"
         icon={<StarRateRoundedIcon color="primary" />}
         emptyIcon={<StarRateRoundedIcon />}

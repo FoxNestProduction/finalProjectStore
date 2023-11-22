@@ -74,7 +74,9 @@ const productsSlice = createSlice({
       .addCase(getOneProduct.fulfilled, (state, action) => {
         state.oneProduct = action.payload;
       })
+      .addCase(fetchSortedProducts.pending, setLoading)
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
+        state.loading = false;
         state.products = action.payload.products;
         state.productsQuantity = action.payload.productsQuantity;
       })

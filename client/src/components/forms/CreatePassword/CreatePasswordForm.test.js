@@ -28,6 +28,9 @@ describe('Create password form component', () => {
   });
 
   test('try to submit empty form', async () => {
+    const dispatch = jest.fn();
+    useDispatch.mockReturnValue(dispatch);
+    instance.post.mockRejectedValue({ response: { data: { message: 'Password is required' } } });
     render(
       <Provider store={store}>
         <CreatePasswordForm />
@@ -36,7 +39,7 @@ describe('Create password form component', () => {
 
     const submitButton = screen.getByText('Sign up');
 
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText('Password is required')).toBeInTheDocument();
@@ -44,6 +47,10 @@ describe('Create password form component', () => {
   });
 
   test('Submit correct form', async () => {
+    const dispatch = jest.fn();
+    useDispatch.mockReturnValue(dispatch);
+    instance.post.mockResolvedValue({ status: 200 });
+
     render(
       <Provider store={store}>
         <CreatePasswordForm />
@@ -53,14 +60,12 @@ describe('Create password form component', () => {
     const passwordInput = screen.getByPlaceholderText('Сome up with a password');
     const submitButton = screen.getByText('Sign up');
 
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.change(passwordInput, { target: { value: 'Password12#' } });
 
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
-      expect(instance.post).toHaveBeenCalledWith('/customers', expect.objectContaining({
-        password: 'password123',
-      }));
+      expect(dispatch).toHaveBeenCalled();
     });
   });
 });

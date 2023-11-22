@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
+import { setError, setLoading } from '../extraReducersHelpers';
 
 export const fetchSearchedProductsOrPartners = createAsyncThunk(
   'search/fetchSearchedProductsOrPartners',
@@ -7,14 +8,16 @@ export const fetchSearchedProductsOrPartners = createAsyncThunk(
     try {
       const response = await instance.post(url, body);
       return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   },
 );
 
 const initialState = {
   search: [],
+  loading: false,
+  error: true,
   key: 'food',
   inputSearchValue: '',
 };
@@ -39,9 +42,11 @@ const searchSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchSearchedProductsOrPartners.pending, setLoading)
       .addCase(fetchSearchedProductsOrPartners.fulfilled, (state, action) => {
         state.search = action.payload;
-      });
+      })
+      .addCase(fetchSearchedProductsOrPartners.rejected, setError);
   },
 });
 

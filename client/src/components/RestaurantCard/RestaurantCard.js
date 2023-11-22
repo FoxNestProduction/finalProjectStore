@@ -1,16 +1,15 @@
 import React, { memo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
-import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
 
 const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => {
@@ -115,8 +114,7 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
             width: { mobile: '13%', lgTablet: '5%' },
           }}
         >
-          <IconButton
-            aria-label="add to favorites"
+          <Box
             sx={{
               padding: '0',
               width: {
@@ -129,8 +127,8 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
               },
             }}
           >
-            <BookmarkIcon />
-          </IconButton>
+            <VerifiedIcon fontSize="large" sx={{ color: 'primary.main' }} />
+          </Box>
         </CardActions>
       </Stack>
       <Stack direction="row" justifyContent="flex-end" width="100%" m="15px">

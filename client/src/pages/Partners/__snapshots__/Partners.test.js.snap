@@ -13,6 +13,7 @@ exports[`PartnersPage Component should render skeleton while loading partner 1`]
       >
         <div
           class="oneRestaurantPageCardSkeleton"
+          data-testid="oneRestaurantPage"
         >
           <div
             class="restaurantsPageImageSkeleton loading"
@@ -43,6 +44,7 @@ exports[`PartnersPage Component should render skeleton while loading partner 1`]
           >
             <div
               class="productCardSkeleton"
+              data-testid="product"
             >
               <div
                 class="productImageSkeleton loading"
@@ -70,6 +72,7 @@ exports[`PartnersPage Component should render skeleton while loading partner 1`]
           >
             <div
               class="productCardSkeleton"
+              data-testid="product"
             >
               <div
                 class="productImageSkeleton loading"
@@ -97,6 +100,7 @@ exports[`PartnersPage Component should render skeleton while loading partner 1`]
           >
             <div
               class="productCardSkeleton"
+              data-testid="product"
             >
               <div
                 class="productImageSkeleton loading"
@@ -124,6 +128,7 @@ exports[`PartnersPage Component should render skeleton while loading partner 1`]
           >
             <div
               class="productCardSkeleton"
+              data-testid="product"
             >
               <div
                 class="productImageSkeleton loading"
@@ -151,6 +156,7 @@ exports[`PartnersPage Component should render skeleton while loading partner 1`]
           >
             <div
               class="productCardSkeleton"
+              data-testid="product"
             >
               <div
                 class="productImageSkeleton loading"
@@ -178,6 +184,7 @@ exports[`PartnersPage Component should render skeleton while loading partner 1`]
           >
             <div
               class="productCardSkeleton"
+              data-testid="product"
             >
               <div
                 class="productImageSkeleton loading"

@@ -36,31 +36,18 @@ const favouritePersistConfig = {
   version: 1,
   storage,
 };
-//
-// const filterPersistConfig = {
-//   key: 'filter',
-//   version: 1,
-//   storage,
-// };
 
 const cartPersistConfig = {
   key: 'cart',
   version: 1,
   storage,
 };
-/*
-    todo: - ЗВЕРНІТЬ УВАГУ!
-      якщо вам потрібно щоб ваш стейт не зникав після перезавантаження
-      то юзайте підхід як authorization і user,
-      якщо ж ні то варіант написання як для modal всередині reducer
-      Якщо що пишіть @Ihor_Kacher
-*/
+
 const reducer = combineReducers({
   error: errorSlice,
   modal: modalSlice,
   partners: partnersSlice,
   authorization: persistReducer(authPersistConfig, authorizationSlice),
-  // user: persistReducer(userPersistConfig, userSlice),
   user: persistReducer(userPersistConfig, userSlice),
   newGoogleUser: newGoogleUserSlice,
   products: productsSlice,
@@ -68,7 +55,6 @@ const reducer = combineReducers({
   order: orderSlice,
   reviews: reviewsSlice,
   favourites: persistReducer(favouritePersistConfig, favouriteSlice),
-  // filter: persistReducer(filterPersistConfig, filterSlice),
   filter: filterSlice,
   cart: persistReducer(cartPersistConfig, cartSlice),
   scrollAnchor: scrollAnchorSlice,

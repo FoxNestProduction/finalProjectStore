@@ -58,15 +58,11 @@ const Search = ({ resetFiltersLocalState }) => {
             query: inputValue,
           },
         };
-        try {
-          dispatch(fetchSearchedProductsOrPartners(fetchData));
-          dispatch(deleteFilteredData());
-          dispatch(resetFilterParams());
-          resetFiltersLocalState();
-          navigate('');
-        } catch (err) {
-          console.error(`Error getting ${inputValue}: `, err);
-        }
+        dispatch(fetchSearchedProductsOrPartners(fetchData));
+        dispatch(deleteFilteredData());
+        dispatch(resetFilterParams());
+        resetFiltersLocalState();
+        navigate('');
       }
     }, 1000),
   );

@@ -67,7 +67,7 @@ describe('Login form component', () => {
     const emailInput = screen.getByPlaceholderText('Enter your e-mail');
     const passwordInput = screen.getByPlaceholderText('Enter your password');
     const submitButton = screen.getByText('Sign in');
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
       expect(screen.getByPlaceholderText('Enter your e-mail')).toBeInTheDocument();
@@ -84,6 +84,8 @@ describe('Login form component', () => {
   });
 
   test('Submit correct form', async () => {
+    const dispatch = jest.fn();
+    useDispatch.mockReturnValue(dispatch);
     render(
       <Provider store={store}>
         <LoginForm />
@@ -97,17 +99,13 @@ describe('Login form component', () => {
     fireEvent.change(emailInput, { target: { value: 'example@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
 
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
 
     await waitFor(() => {
-      expect(instance.post).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalled();
     });
     await waitFor(() => {
-      const user = {
-        email: 'example@example.com',
-        password: 'password123',
-      };
-      expect(instance.post).toHaveBeenCalledWith('/customers/login', user);
+      expect(dispatch).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -30,6 +30,10 @@ const Modal = () => {
     dispatch(setRegistrationError(''));
   };
 
+  const handleRemoveItemCart = () => {
+    dispatch(closeModal());
+  };
+
   return (
     <Dialog
       open={isOpen}
@@ -45,42 +49,42 @@ const Modal = () => {
         <CloseIcon />
       </IconButton>
       {title && (
-      <DialogTitle
-        sx={{
-          textAlign: 'center',
-          bgcolor: 'primary.main',
-          color: 'text.primaryLight',
-          mb: 5,
-        }}
-      >
-        {title}
-      </DialogTitle>
+        <DialogTitle
+          sx={{
+            textAlign: 'center',
+            bgcolor: 'primary.main',
+            color: 'text.primaryLight',
+            mb: 5,
+          }}
+        >
+          {title}
+        </DialogTitle>
       )}
       <DialogContent sx={{ textAlign: 'center', minHeight: '12vh' }}>
         {content}
       </DialogContent>
       {buttonBox && (
-      <DialogActions>
-        <Button
-          sx={{ px: 1 }}
-          variant="outlined"
-          onClick={handleClose}
-        >
-          Close
-        </Button>
-        <Button
-          role="radio"
-          sx={{ px: 1 }}
-          variant="contained"
-          endIcon={buttonAgree.endIcon && <SendIcon />}
-          startIcon={buttonAgree.startIcon && <DeleteIcon />}
-          onClick={buttonAgree.onClick}
-          disabled={buttonAgree.disabled}
-          autoFocus
-        >
-          {buttonAgree.text}
-        </Button>
-      </DialogActions>
+        <DialogActions>
+          <Button
+            sx={{ px: 1 }}
+            variant="outlined"
+            onClick={handleClose}
+          >
+            Close
+          </Button>
+          <Button
+            role="radio"
+            sx={{ px: 1 }}
+            variant="contained"
+            endIcon={buttonAgree.endIcon && <SendIcon />}
+            startIcon={buttonAgree.startIcon && <DeleteIcon />}
+            onClick={buttonAgree.onClick}
+            disabled={buttonAgree.disabled}
+            autoFocus
+          >
+            {buttonAgree.text}
+          </Button>
+        </DialogActions>
       )}
     </Dialog>
   );

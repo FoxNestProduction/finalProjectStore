@@ -16,7 +16,7 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
-import { addToCart, addProductToCart } from '../../redux/slices/cartSlice';
+import { addToCart, addProductToCart, setRestaurants } from '../../redux/slices/cartSlice';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
 import { getOneProduct } from '../../redux/slices/productsSlice';
@@ -34,10 +34,11 @@ const ProductCardItem = ({
   randomNum,
 }) => {
   const breakPoint = useBreakpoint();
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
+
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   // const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+
   const { alert, handleCloseAlert, handleShowAlert } = useAlert();
   const [clickedAdd, setClickedAdd] = useState(false);
 
@@ -51,9 +52,9 @@ const ProductCardItem = ({
       handleShowAlert();
       setTimeout(() => {
         setClickedAdd(false);
-      }, 3000);
+      }, 4000);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickedAdd]);
 
   const handleAddToCart = (event) => {
@@ -68,6 +69,7 @@ const ProductCardItem = ({
           dispatch(addProductToCart(selectedItem.product._id));
         } else {
           dispatch(addToCart(selectedItem));
+          dispatch(setRestaurants());
         }
       }
     };
@@ -130,7 +132,7 @@ const ProductCardItem = ({
         {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
-      { clickedAdd && alert && (
+      {clickedAdd && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}
     </>
@@ -156,9 +158,9 @@ ProductCardItem.defaultProps = {
   name: '',
   rating: null,
   _id: '',
-  isHealthy: null,
-  isTrending: null,
-  isSupreme: null,
+  isHealthy: false,
+  isTrending: false,
+  isSupreme: false,
   itemNo: '',
   randomNum: 24,
 };

@@ -3,7 +3,7 @@
 exports[`smoke test should CustomAlert render 1`] = `
 <DocumentFragment>
   <div
-    class="MuiStack-root css-5epdbl-MuiStack-root"
+    class="MuiStack-root css-1jgsyyv-MuiStack-root"
   >
     <div
       class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardSuccess MuiAlert-standard css-wnkddu-MuiPaper-root-MuiAlert-root"

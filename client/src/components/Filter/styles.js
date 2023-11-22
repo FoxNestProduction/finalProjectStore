@@ -12,7 +12,6 @@ export const stylesWrap = {
   bgcolor: '#ffffff',
   color: 'text.secondary',
   boxShadow: '6px 10px 28px 1px rgba(108, 95, 188, 0.2)',
-  // boxShadow: '14px 10px 48px 0px rgba(0,0,0,0.2)',
   p: {
     mobile: '27px',
     tablet: '23px',
@@ -117,7 +116,6 @@ export const stylesToggleButton = {
     border: '4px solid rgba(251, 71, 29, 0.50)',
     '&:hover': {
       bgcolor: '#ffffff',
-      // border: '4px solid rgba(251, 71, 29, 0.50)',
     },
   },
   transition: 'background-color 0.3s ease, border 0.1s ease',
@@ -172,13 +170,11 @@ export const stylesSlider = {
   fontWeight: '500',
   '.MuiSlider-valueLabel': {
     fontFamily: 'fontPoppins',
-    // fontSize: '12px',
     fontSize: {
       mobile: '12px',
       tablet: '11px',
       desktop: '15px',
     },
-    // lineHeight: '14px',
     lineHeight: {
       mobile: '14px',
       tablet: '13px',

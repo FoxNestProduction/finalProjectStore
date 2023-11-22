@@ -30,7 +30,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
 
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
-  const { alert, handleCloseAlert } = useAlert();
+  const { handleCloseAlert } = useAlert();
 
   const marks = [
     {
@@ -117,7 +117,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               onChange={() => handleChangeDishes('pizza')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/pizza.png" alt="pizza" />
+                <CardMedia component="img" image="./img/filter/pizza.png" alt="pizza" />
                 <Typography component="p">Pizza</Typography>
               </Stack>
             </ToggleButton>
@@ -129,7 +129,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               onChange={() => handleChangeDishes('burgers')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/burger.png" alt="burger" />
+                <CardMedia component="img" image="./img/filter/burger.png" alt="burger" />
                 <Typography component="p">Burgers</Typography>
               </Stack>
             </ToggleButton>
@@ -141,7 +141,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               onChange={() => handleChangeDishes('sushi')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/sushi.png" alt="sushi" />
+                <CardMedia component="img" image="./img/filter/sushi.png" alt="sushi" />
                 <Typography component="p">Sushi</Typography>
               </Stack>
             </ToggleButton>
@@ -153,7 +153,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               onChange={() => handleChangeDishes('salads')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/salad_2.png" alt="salads" />
+                <CardMedia component="img" image="./img/filter/salad.png" alt="salads" />
                 <Typography component="p">Salads</Typography>
               </Stack>
             </ToggleButton>
@@ -174,7 +174,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               onChange={() => handleChangeDishes('pasta')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/pasta.png" alt="pasta" />
+                <CardMedia component="img" image="./img/filter/pasta.png" alt="pasta" />
                 <Typography component="p">Pasta</Typography>
               </Stack>
             </ToggleButton>
@@ -186,7 +186,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               onChange={() => handleChangeDishes('sandwiches')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/sandwich.png" alt="sandwich" />
+                <CardMedia component="img" image="./img/filter/sandwich.png" alt="sandwich" />
                 <Typography component="p">Sandwich</Typography>
               </Stack>
             </ToggleButton>
@@ -198,7 +198,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               onChange={() => handleChangeDishes('bbqMeat')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/bbqMeat.png" alt="bbq meat" />
+                <CardMedia component="img" image="./img/filter/bbqMeat.png" alt="bbq meat" />
                 <Typography component="p">BBQ</Typography>
               </Stack>
             </ToggleButton>
@@ -210,7 +210,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
               onChange={() => handleChangeDishes('drink')}
             >
               <Stack component="div" sx={stylesCategoryItem}>
-                <CardMedia component="img" image="./img/drink_2.png" alt="drink" />
+                <CardMedia component="img" image="./img/filter/drink.png" alt="drink" />
                 <Typography component="p">Drink</Typography>
               </Stack>
             </ToggleButton>

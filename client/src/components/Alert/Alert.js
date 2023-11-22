@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
@@ -22,11 +22,10 @@ const CustomAlert = ({ type, content, handleCloseAlert }) => {
   };
 
   const alertStyle = {
-    display: { mobile: 'none', lgTablet: 'block' },
-    width: { mobile: '0', lgTablet: '325px', desktop: '425px' },
+    width: { mobile: '270px', tablet: '325px', desktop: '425px' },
     position: 'fixed',
     bottom: '50px',
-    left: '50px',
+    left: { mobile: '25px', tablet: '50px' },
     zIndex: '3000',
     transition: 'opacity 1s ease-in-out',
     opacity: visible ? 1 : 0,
