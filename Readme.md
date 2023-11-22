@@ -238,6 +238,10 @@
 <img src="./imgReadme/ScreenshotSupport.png" alt="Screenshot-Letter" border="1">
 </details>
 
+<details><summary>ErrorBoundary</summary>
+<img src="./imgReadme/ScreenshotError.png" alt="Screenshot-error" border="1">
+</details>
+
 ----
 
 **Версія 1.0 (поточна версія)**
