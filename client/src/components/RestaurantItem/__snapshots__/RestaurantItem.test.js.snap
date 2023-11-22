@@ -168,11 +168,11 @@ exports[`RestaurantItem renders RestaurantItem component 1`] = `
           class="MuiCardActions-root css-16fdxhp-MuiCardActions-root"
         >
           <div
-            class="MuiBox-root css-1ejqzbj"
+            class="MuiBox-root css-1ojb3r8"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-bsqp9w-MuiSvgIcon-root"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-18pfkx-MuiSvgIcon-root"
               data-testid="VerifiedIcon"
               focusable="false"
               viewBox="0 0 24 24"

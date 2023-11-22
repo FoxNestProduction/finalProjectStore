@@ -31,7 +31,7 @@ exports[`ProductCardItem Component should renders ProductCardItem component 1`] 
           </div>
         </div>
         <div
-          class="MuiCardContent-root css-oq62jt-MuiCardContent-root"
+          class="MuiCardContent-root css-11loz1y-MuiCardContent-root"
         >
           <div
             class="MuiBox-root css-0"
@@ -135,14 +135,14 @@ exports[`ProductCardItem Component should renders ProductCardItem component 1`] 
           </p>
         </div>
         <div
-          class="MuiCardActions-root MuiCardActions-spacing css-mkkqzv-MuiCardActions-root"
+          class="MuiCardActions-root MuiCardActions-spacing css-11mje90-MuiCardActions-root"
         >
           <div
-            class="MuiBox-root css-1ejqzbj"
+            class="MuiBox-root css-1h2gtqd"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-bsqp9w-MuiSvgIcon-root"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-18pfkx-MuiSvgIcon-root"
               data-testid="VerifiedIcon"
               focusable="false"
               viewBox="0 0 24 24"
