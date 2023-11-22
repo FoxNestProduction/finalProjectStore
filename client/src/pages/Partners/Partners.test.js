@@ -54,7 +54,6 @@ describe('PartnersPage Component', () => {
           {/* <MemoryRouter initialEntries={['/restaurants/:PizzaDay/:321']}> */}
           <Routes>
             <Route
-              // path="/restaurants/:name/:customId"
               path="/restaurants/:PizzaDay/:321"
               element={(
                 <PartnersPage>

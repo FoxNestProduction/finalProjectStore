@@ -5,7 +5,7 @@ import PartnersCard from './PartnersCard';
 describe('ProductCardItem Component', () => {
   test('should renders ProductCardItem component', () => {
     const { asFragment } = render(
-      <PartnersCard partner="partner" />,
+      <PartnersCard partner={{}} />,
     );
 
     expect(asFragment()).toMatchSnapshot();
