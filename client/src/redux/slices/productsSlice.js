@@ -63,11 +63,6 @@ const initialState = {
 const productsSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {
-    resetOneProduct(state, action = {}) {
-      state.products = action.payload;
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTopProducts.pending, setLoading)
@@ -76,11 +71,9 @@ const productsSlice = createSlice({
         state.topProducts = action.payload;
       })
       .addCase(fetchTopProducts.rejected, setError)
-      // .addCase(GetOneProduct.pending, setLoading)
       .addCase(GetOneProduct.fulfilled, (state, action) => {
         state.oneProduct = action.payload;
       })
-      .addCase(GetOneProduct.rejected, setError)
       .addCase(fetchSortedProducts.pending, setLoading)
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
         state.loading = false;
@@ -92,7 +85,5 @@ const productsSlice = createSlice({
       });
   },
 });
-
-export const { resetOneProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

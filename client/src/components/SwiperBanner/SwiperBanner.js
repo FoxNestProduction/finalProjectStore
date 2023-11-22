@@ -14,9 +14,9 @@ const SwiperBanner = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   const data = [
-    { url: './img/forBanner0.jpg', index: 0 },
-    { url: './img/forBanner1.jpg', index: 1 },
-    { url: './img/forBanner2.jpg', index: 2 },
+    { url: './img/banner/forBanner0.jpg', index: 0 },
+    { url: './img/banner/forBanner1.jpg', index: 1 },
+    { url: './img/banner/forBanner2.jpg', index: 2 },
   ];
 
   const handleSlideChange = (swiper) => {

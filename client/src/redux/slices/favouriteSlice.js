@@ -19,18 +19,13 @@ const initialState = {
   cardStates: {},
   loading: false,
   error: null,
+  addDeleteError: null,
 };
 
 const favouriteSlice = createSlice({
   name: 'favourites',
   initialState,
   reducers: {
-    setFavourite(state, action) {
-      state.favourites = action.payload;
-      action.payload.forEach(({ id }) => {
-        state.cardStates[id] = true;
-      });
-    },
     addFavourite(state, action) {
       const newProduct = action.payload[action.payload.length - 1];
       state.favourites.push(newProduct);
@@ -41,6 +36,9 @@ const favouriteSlice = createSlice({
     },
     setIsLoading(state) {
       state.loading = false;
+    },
+    setAddDeleteError(state, action) {
+      state.addDeleteError = action.payload;
     },
     removeFavourite(state, action) {
     // eslint-disable-next-line no-underscore-dangle
@@ -73,8 +71,8 @@ export const {
   addFavourite,
   setIsFavourite,
   removeFavourite,
-  setFavourite,
   setIsLoading,
+  setAddDeleteError,
   resetCardStates,
 } = favouriteSlice.actions;
 
@@ -87,7 +85,7 @@ export const addToFavourites = ({ id }) => async (dispatch) => {
     const { products } = data;
     dispatch(addFavourite(products));
   } catch (error) {
-    console.warn('Error loading favourites:', error);
+    dispatch(setAddDeleteError(error.response.data));
   }
 };
 
@@ -99,7 +97,7 @@ export const deleteFromFavourites = ({ id }) => async (dispatch) => {
       dispatch(setIsLoading());
     }
   } catch (error) {
-    console.warn('Error loading favourites:', error);
+    dispatch(setAddDeleteError(error.response.data));
   }
 };
 

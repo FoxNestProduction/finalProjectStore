@@ -3,7 +3,11 @@ import { object, string } from 'yup';
 const validationSchema = object({
   name: string()
     .required('Name is required')
-    .matches(/^[A-Z][a-z]+$/, 'Name must be capitalized and contain only Latin letters'),
+    .matches(
+      /^[A-ZА-ЯІЇЄҐ][a-zа-яіїєґ']+(?: [A-ZА-ЯІЇЄҐ][a-zа-яіїєґ']+)*$/,
+      `Name must start with a capital letter and may contain only Latin or Ukrainian letters.
+      If providing both name and surname, please separate them with a space.`,
+    ),
   email: string()
     .required('Email is required')
     .email('Invalid email format'),

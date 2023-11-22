@@ -16,7 +16,7 @@ import {
 import Input from '../../inputs/Input/Input';
 import { closeModal } from '../../../redux/slices/modalSlice';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
-import { setUser } from '../../../redux/slices/userSlice';
+import { registerCustomer, setUser } from '../../../redux/slices/userSlice';
 import { setRegistrationError } from '../../../redux/slices/errorSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
@@ -32,7 +32,7 @@ const CreatePasswordForm = () => {
   const dispatch = useDispatch();
   const newGoogleUser = useSelector((state) => state.newGoogleUser.newGoogleUser);
 
-  const handleSubmit = async (values, actions) => {
+  const handleSubmit = async (values) => {
     const login = newGoogleUser.email.split('@')[0];
     const newCustomer = {
       ...newGoogleUser,
@@ -40,24 +40,18 @@ const CreatePasswordForm = () => {
       login,
       isAdmin: false,
     };
-    console.log(newCustomer);
 
-    try {
-      const response = await instance.post('/customers', newCustomer);
-      const { user, token } = response.data;
+    const data = await dispatch(registerCustomer(newCustomer)).unwrap();
 
+    if (data.success) {
+      const { user, token } = data;
       dispatch(setToken(token));
       dispatch(setAuthorization(true));
-      dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setRegistrationError(''));
-
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
       dispatch(createCart());
-    } catch (error) {
-      dispatch(setRegistrationError(error.response.data.message));
-      console.error('Помилка реєстрації:', error);
     }
   };
 

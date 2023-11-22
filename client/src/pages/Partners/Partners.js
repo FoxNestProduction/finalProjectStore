@@ -14,9 +14,9 @@ const PartnersPage = () => {
 
   const [title, setTitle] = useState('');
 
-  const [partner, partnerLoading, partnerError] = useGetAPI(`/partners/${customId}`);
+  const [partner, partnerLoading] = useGetAPI(`/partners/${customId}`);
 
-  const [productsOfRest, productsLoading, productsError] = useGetAPI(`/products/filter?restaurant_name=${title}`);
+  const [productsOfRest, productsLoading] = useGetAPI(`/products/filter?restaurant_name=${title}`);
 
   const isDesktop = useMediaQuery('(min-width: 993px)');
 
