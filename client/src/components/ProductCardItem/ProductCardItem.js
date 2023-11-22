@@ -17,7 +17,7 @@ import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import { addToCart, addProductToCart, setRestaurants } from '../../redux/slices/cartSlice';
-import { GetOneProduct, resetOneProduct } from '../../redux/slices/productsSlice';
+import { GetOneProduct } from '../../redux/slices/productsSlice';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
 // eslint-disable-next-line no-underscore-dangle
@@ -33,10 +33,11 @@ const ProductCardItem = ({
   itemNo,
 }) => {
   const breakPoint = useBreakpoint();
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
+
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+
   const { alert, handleCloseAlert, handleShowAlert } = useAlert();
   const [clickedAdd, setClickedAdd] = useState(false);
 

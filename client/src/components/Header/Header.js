@@ -106,11 +106,6 @@ const Header = () => {
       handleCloseAlert();
       setLogOutAlert(false);
     }, 4000);
-
-    // await window.open(
-    //   `${process.env.REACT_APP_API_URL}/auth/logout`,
-    //   '_self',
-    // );
   }, [dispatch, handleCloseAlert, handleShowAlert]);
 
   const setNavigateTo = useCallback((page) => {

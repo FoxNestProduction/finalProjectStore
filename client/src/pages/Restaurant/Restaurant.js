@@ -14,7 +14,7 @@ import Skeleton from '../../components/Skeleton/Skeleton';
 import useTopProducts from '../../customHooks/useTopProducts';
 
 const RestaurantPage = () => {
-  const [partners, loading, error] = useGetAPI('/partners');
+  const [partners, loading] = useGetAPI('/partners');
 
   const topProducts = useTopProducts();
   const loadingProducts = useSelector((state) => state.products.loading);
