@@ -38,14 +38,14 @@ export const fetchAllProductsNames = createAsyncThunk(
   },
 );
 
-export const GetOneProduct = createAsyncThunk(
-  'products/GetOneProduct',
+export const getOneProduct = createAsyncThunk(
+  'products/getOneProduct',
   async (itemNo, { rejectWithValue }) => {
     try {
       const { data } = await instance.get(`/products/${itemNo}`);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err.response.data);
     }
   },
 );
@@ -71,7 +71,7 @@ const productsSlice = createSlice({
         state.topProducts = action.payload;
       })
       .addCase(fetchTopProducts.rejected, setError)
-      .addCase(GetOneProduct.fulfilled, (state, action) => {
+      .addCase(getOneProduct.fulfilled, (state, action) => {
         state.oneProduct = action.payload;
       })
       .addCase(fetchSortedProducts.pending, setLoading)

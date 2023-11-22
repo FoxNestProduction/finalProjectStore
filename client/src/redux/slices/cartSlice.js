@@ -255,8 +255,9 @@ const cartSlice = createSlice({
           state.isCart = false;
         }
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload.data.message;
       })
+
       .addCase(fetchCart.pending, setLoading)
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
@@ -268,30 +269,35 @@ const cartSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
       .addCase(addProductToCart.pending, setLoading)
       .addCase(addProductToCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cart.products = action.payload;
       })
       .addCase(addProductToCart.rejected, setError)
+
       .addCase(decreaseProductQuantity.pending, setLoading)
       .addCase(decreaseProductQuantity.fulfilled, (state, action) => {
         state.loading = false;
         state.cart.products = action.payload;
       })
       .addCase(decreaseProductQuantity.rejected, setError)
+
       .addCase(deleteProductFromCart.pending, setLoading)
       .addCase(deleteProductFromCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cart.products = action.payload;
       })
       .addCase(deleteProductFromCart.rejected, setError)
+
       .addCase(deleteCart.pending, setLoading)
       .addCase(deleteCart.fulfilled, (state) => {
         state.loading = false;
         state.cart.products = [];
       })
       .addCase(deleteCart.rejected, setError)
+
       .addCase(fetchCartAfterAuthorization.pending, (state, action) => {
         state.authorizationReqInProgress = true;
         state.loading = true;
