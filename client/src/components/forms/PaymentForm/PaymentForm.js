@@ -37,7 +37,7 @@ const PaymentForm = () => {
     cvv: '123',
   };
 
-  const handleContinue = async (values) => {
+  const handleContinue = async () => {
     const newOrder = {
       ...pendingOrderInfo,
       status: 'new_order/paid',

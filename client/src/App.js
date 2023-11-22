@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import './App.scss';
 import { useLocation } from 'react-router';
-import { Box } from '@mui/material';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
@@ -44,7 +43,6 @@ const App = () => {
     dispatch(setFilterParams({
       perPage: productsPerPageMap[breakpoint],
     }));
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint, dispatch]);
 
   return (

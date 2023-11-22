@@ -2,10 +2,10 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
-import { Typography, Box, Button, Link } from '@mui/material';
+import { Typography, Box, Button } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
-import { closeModal, openModal, setContent } from '../../../redux/slices/modalSlice';
+import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import validationSchema from './validationSchema';
 import {
   flexcenter,
@@ -17,7 +17,7 @@ import {
   forgetPassword,
   signInBtn,
   signUpLink,
-  appleIcon, googleText,
+  googleText,
 } from './styles';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import VerifyEmailForm from '../VerifyEmailForm/VerifyEmailForm';
@@ -62,7 +62,6 @@ const LoginForm = () => {
     if (token) {
       dispatch(setToken(token));
       dispatch(setAuthorization(true));
-      // dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setAuthorizationError(''));
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
@@ -74,15 +73,10 @@ const LoginForm = () => {
   };
 
   const handleSubmit = async (values) => {
-    // try {
-    // const response = await instance.post('/customers/login', values);
     const data = await dispatch(loginCustomer(values)).unwrap();
     if (data.success) {
       authFunc(data);
     }
-    // } catch (error) {
-    //   dispatch(setAuthorizationError(error.response.data));
-    // }
   };
 
   // eslint-disable-next-line no-undef
@@ -194,14 +188,6 @@ const LoginForm = () => {
                   icon={<LockIcon />}
                 />
               </Box>
-              {/* <Link
-                component={NavLink}
-                to="/forget-password"
-                underline="none"
-                sx={forgetPassword}
-              >
-                Forget Password ?
-              </Link> */}
               <Typography
                 sx={forgetPassword}
                 onClick={handleFogetPassword}

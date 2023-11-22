@@ -16,7 +16,7 @@ const ProductPage = () => {
   const loadingTopProducts = useSelector((state) => state.products.loading);
 
   const { itemNo } = useParams();
-  const [dish, loading, error] = useGetAPI(`/products/${itemNo}`);
+  const [dish, loading] = useGetAPI(`/products/${itemNo}`);
 
   const isLgTablet = useMediaQuery('(min-width: 690px)');
   const isDesktop = useMediaQuery('(min-width: 993px)');
