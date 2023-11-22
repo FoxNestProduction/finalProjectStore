@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
-import { setAuthorizationError } from './errorSlice';
+import { setAuthorizationError, setRegistrationError } from './errorSlice';
 
 export const updateCustomer = createAsyncThunk(
   'user/updateCustomer',
@@ -24,6 +24,20 @@ export const loginCustomer = createAsyncThunk(
       return response.data;
     } catch (err) {
       dispatch(setAuthorizationError(err.response.data));
+    }
+  },
+);
+
+export const registerCustomer = createAsyncThunk(
+  'user/registerCustomer',
+  // eslint-disable-next-line consistent-return
+  async (newCustomer, { dispatch }) => {
+    try {
+      dispatch(setRegistrationError(''));
+      const response = await instance.post('/customers', newCustomer);
+      return response.data;
+    } catch (err) {
+      dispatch(setRegistrationError(err.response.data));
     }
   },
 );
@@ -72,8 +86,19 @@ const userSlice = createSlice({
         state.loading.loginCustomer = false;
         state.user = payload.user;
       })
-      .addCase(loginCustomer.rejected, (state, { payload }) => {
+      .addCase(loginCustomer.rejected, (state) => {
         state.loading.loginCustomer = false;
+      })
+
+      .addCase(registerCustomer.pending, (state) => {
+        state.loading.registerCustomer = true;
+      })
+      .addCase(registerCustomer.fulfilled, (state, { payload }) => {
+        state.loading.registerCustomer = false;
+        state.user = payload.user;
+      })
+      .addCase(registerCustomer.rejected, (state) => {
+        state.loading.registerCustomer = false;
       });
   },
 });

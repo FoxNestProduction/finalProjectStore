@@ -92,14 +92,15 @@ const LoginForm = () => {
         .then((res) => {
           if (res.status === 200) {
             authFunc(res.data);
+          } else {
+            const { data } = res;
+            dispatch(setNewGoogleUser({
+              email: data.email,
+              firstName: data.given_name ? data.given_name : 'New',
+              lastName: data.family_name ? data.family_name : 'User',
+            }));
+            dispatch(setContent(<CreatePasswordForm />));
           }
-          const { data } = res;
-          dispatch(setNewGoogleUser({
-            email: data.email,
-            firstName: data.given_name ? data.given_name : 'New',
-            lastName: data.family_name ? data.family_name : 'User',
-          }));
-          dispatch(setContent(<CreatePasswordForm />));
         });
     },
   });
