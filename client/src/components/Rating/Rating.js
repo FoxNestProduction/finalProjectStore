@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
@@ -21,7 +21,6 @@ const RatingItem = ({ ratingValue }) => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        // precision={0.5}
         size="small"
         icon={<StarRateRoundedIcon color="primary" />}
         emptyIcon={<StarRateRoundedIcon />}
@@ -39,4 +38,4 @@ RatingItem.defaultProps = {
   ratingValue: 3,
 };
 
-export default RatingItem;
+export default memo(RatingItem);

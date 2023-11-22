@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import {
   Typography,
   Container,
@@ -22,55 +22,32 @@ import {
   continueBtn,
 } from './styles';
 import {
-  // createCart,
-  // updateCartObj,
   totalSumFromCart,
 } from './cartFunctions';
-import ProductCartItem from '../ProductCartItem/ProductCartItem';
-import { updateCart, createCart, fetchCart } from '../../redux/slices/cartSlice';
+import { fetchCart } from '../../redux/slices/cartSlice';
+import RestaurantCartItem from '../RestaurantCartItem/RestaurantCartItem';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
-  const userIsHasCart = useSelector((state) => state.cart.isCart);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
+  const authorizationMark = useSelector((state) => state.cart.authorizationReqInProgress);
+  const restaurants = useSelector((state) => state.cart.restaurants);
   const totalSum = totalSumFromCart(cartProducts);
   const getCart = () => {
-    if (isUserAuthorization) {
-      // dispatch(getCartItemsFromServer());
+    if (isUserAuthorization && !authorizationMark) {
       dispatch(fetchCart());
-    } else {
-      console.log('user need to autorise');
     }
   };
-  console.log(cartProducts);
-  const updateCartAfterCloseWindow = () => {
-    const handleUnload = () => {
-      updateCart(cartProducts);
-    };
-    window.addEventListener('beforeunload', handleUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-    };
-  };
+  const delivery = restaurants.length * 2;
 
   useEffect(() => {
     getCart();
-    updateCartAfterCloseWindow(cartProducts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUserAuthorization]);
+  }, [isUserAuthorization, authorizationMark]);
 
   const continueFn = () => {
-    if (isUserAuthorization) {
-      if (userIsHasCart) {
-        dispatch(updateCart(cartProducts));
-      } else {
-        dispatch(createCart());
-      }
-    } else {
-      navigate('/checkout');
-    }
     navigate('/checkout');
   };
 
@@ -88,15 +65,16 @@ const Cart = () => {
         <Box
           sx={cartProductsContainer}
         >
-          {cartProducts.map(({ product, cartQuantity }) => (
-            <ProductCartItem key={product._id} cartQuantity={cartQuantity} {...product} />
-          ))}
           {!cartProducts.length && (
             <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, my: 10 }}>
               <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>Oops! your cart is empty</Typography>
               <Typography variant="h3" color="text.secondary">Fill it with orders</Typography>
             </Stack>
           )}
+          {cartProducts.length !== 0 && (
+            restaurants.map((restaurantName) => (
+              <RestaurantCartItem restaurantName={restaurantName} key={restaurantName} />
+            )))}
         </Box>
         <Button
           LinkComponent={NavLink}
@@ -122,7 +100,7 @@ const Cart = () => {
               component="p"
               sx={freeTypography}
             >
-              Free
+              {delivery === 0 ? `$${delivery}` : `$${delivery}.00`}
             </Typography>
             <Box
               sx={priceWrapper}
@@ -140,7 +118,7 @@ const Cart = () => {
             variant="contained"
             onClick={continueFn}
             sx={continueBtn}
-          // disabled={cartProducts.length === 0}
+            disabled={cartProducts.length === 0}
           >
             Continue
           </Button>
@@ -150,4 +128,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default memo(Cart);

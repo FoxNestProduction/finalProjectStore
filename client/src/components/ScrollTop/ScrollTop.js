@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useScrollTrigger } from '@mui/material';
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
@@ -40,4 +40,4 @@ const ScrollTop = () => {
   );
 };
 
-export default ScrollTop;
+export default memo(ScrollTop);

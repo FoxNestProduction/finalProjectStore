@@ -1,14 +1,11 @@
 /* eslint-disable import/no-cycle */
-import React from 'react';
-// import axios from 'axios';
+import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
-import { NavLink, useLocation } from 'react-router-dom';
-import { Typography, Box, Button, Link } from '@mui/material';
+import { Typography, Box, Button } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
-import AppleIcon from '@mui/icons-material/Apple';
-import { closeModal, openModal, setContent } from '../../../redux/slices/modalSlice';
+import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import validationSchema from './validationSchema';
 import {
   flexcenter,
@@ -20,7 +17,7 @@ import {
   forgetPassword,
   signInBtn,
   signUpLink,
-  appleIcon,
+  googleText,
 } from './styles';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import VerifyEmailForm from '../VerifyEmailForm/VerifyEmailForm';
@@ -31,24 +28,21 @@ import {
   setAuthorization,
   setToken,
 } from '../../../redux/slices/authorizationSlice';
-import { setUser } from '../../../redux/slices/userSlice';
+import { loginCustomer, setUser } from '../../../redux/slices/userSlice';
 import { setAuthorizationError } from '../../../redux/slices/errorSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
-import { fetchCart, updateCart } from '../../../redux/slices/cartSlice';
+import { fetchCartAfterAuthorization } from '../../../redux/slices/cartSlice';
 import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
 import useAlert from '../../../customHooks/useAlert';
-import CustomAlert from '../../Alert/Alert';
 import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
-  const cartProducts = useSelector((state) => state.cart.cart.products);
   const { handleShowAlert } = useAlert();
-  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
 
   const initialValues = {
     email: '',
@@ -63,30 +57,25 @@ const LoginForm = () => {
     dispatch(setContent(<VerifyEmailForm />));
   };
 
-  const authFunc = (value) => {
-    const { token } = value.data;
-    const { user } = value.data;
+  const authFunc = (data) => {
+    const { token, user } = data;
     if (token) {
       dispatch(setToken(token));
       dispatch(setAuthorization(true));
-      dispatch(setUser(user));
       dispatch(closeModal());
       dispatch(setAuthorizationError(''));
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
       saveUserInfoToSessionStorage(user);
-      dispatch(fetchCart());
+      dispatch(fetchCartAfterAuthorization());
       dispatch(fetchFavourites());
       handleShowAlert();
     }
   };
 
-  const handleSubmit = async (values, actions) => {
-    try {
-      const response = await instance.post('/customers/login', values);
-      authFunc(response);
-    } catch (error) {
-      dispatch(setAuthorizationError(error.response.data));
-      console.error('Помилка авторизації:', error);
+  const handleSubmit = async (values) => {
+    const data = await dispatch(loginCustomer(values)).unwrap();
+    if (data.success) {
+      authFunc(data);
     }
   };
 
@@ -102,16 +91,16 @@ const LoginForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            authFunc(res);
+            authFunc(res.data);
+          } else {
+            const { data } = res;
+            dispatch(setNewGoogleUser({
+              email: data.email,
+              firstName: data.given_name ? data.given_name : 'New',
+              lastName: data.family_name ? data.family_name : 'User',
+            }));
+            dispatch(setContent(<CreatePasswordForm />));
           }
-          const { data } = res;
-          console.log(data);
-          dispatch(setNewGoogleUser({
-            email: data.email,
-            firstName: data.given_name ? data.given_name : 'New',
-            lastName: data.family_name ? data.family_name : 'User',
-          }));
-          dispatch(setContent(<CreatePasswordForm />));
         });
     },
   });
@@ -153,6 +142,12 @@ const LoginForm = () => {
           onClick={googleAuth}
         >
           <GoogleSvgComponent />
+          <Box
+            component="span"
+            sx={googleText}
+          >
+            Google
+          </Box>
         </Button>
         {/* <Button disabled disableRipple variant="contained" sx={googleAppleBtn}>
           <AppleIcon sx={appleIcon} />
@@ -194,14 +189,6 @@ const LoginForm = () => {
                   icon={<LockIcon />}
                 />
               </Box>
-              {/* <Link
-                component={NavLink}
-                to="/forget-password"
-                underline="none"
-                sx={forgetPassword}
-              >
-                Forget Password ?
-              </Link> */}
               <Typography
                 sx={forgetPassword}
                 onClick={handleFogetPassword}
@@ -238,4 +225,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default memo(LoginForm);

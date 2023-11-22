@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useParams } from 'react-router';
 import { Container, Box, useMediaQuery } from '@mui/material';
 import PartnersCard from '../../components/PartnersCard/PartnersCard';
@@ -14,9 +14,9 @@ const PartnersPage = () => {
 
   const [title, setTitle] = useState('');
 
-  const [partner, partnerLoading, partnerError] = useGetAPI(`/partners/${customId}`);
+  const [partner, partnerLoading] = useGetAPI(`/partners/${customId}`);
 
-  const [productsOfRest, productsLoading, productsError] = useGetAPI(`/products/filter?restaurant_name=${title}`);
+  const [productsOfRest, productsLoading] = useGetAPI(`/products/filter?restaurant_name=${title}`);
 
   const isDesktop = useMediaQuery('(min-width: 993px)');
 
@@ -89,4 +89,4 @@ const PartnersPage = () => {
   );
 };
 
-export default PartnersPage;
+export default memo(PartnersPage);

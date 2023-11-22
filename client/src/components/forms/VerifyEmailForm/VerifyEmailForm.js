@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import Box from '@mui/material/Box';
@@ -32,7 +32,6 @@ const VerifyEmailForm = () => {
         dispatch(setContent(<SuccessfulLetter />));
       }
     } catch (err) {
-      console.log('Error sending mail: ', err);
       setError(err.response?.data?.message);
     } finally {
       setLoading(false);
@@ -105,4 +104,4 @@ const VerifyEmailForm = () => {
   );
 };
 
-export default VerifyEmailForm;
+export default memo(VerifyEmailForm);

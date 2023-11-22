@@ -1,5 +1,5 @@
-import React from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
 import { Box, Container, Grid, Typography, useMediaQuery } from '@mui/material';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
@@ -11,12 +11,16 @@ import SwiperReview from '../../components/SwiperReview/SwiperReview';
 import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
 import Skeleton from '../../components/Skeleton/Skeleton';
 import { partnersSkeletonStylesContainer, productSkeletonStylesContainer } from './styles';
+import useTopProducts from '../../customHooks/useTopProducts';
+import useTopPartners from '../../customHooks/useTopPartners';
 
 const HomePage = () => {
-  const topPartners = useSelector((state) => state.partners.topPartners, shallowEqual);
+  const topPartners = useTopPartners();
   const loadingPartners = useSelector((state) => state.partners.loading);
-  const topProducts = useSelector((state) => state.products.topProducts, shallowEqual);
+
+  const topProducts = useTopProducts();
   const loadingProducts = useSelector((state) => state.products.loading);
+
   const isLgTablet = useMediaQuery('(min-width: 690px)');
   const isDesktop = useMediaQuery('(min-width: 993px)');
 
@@ -102,4 +106,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default memo(HomePage);

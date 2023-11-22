@@ -1,6 +1,10 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-// import { allProducts } from './productsSlice';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import isEqualWith from 'lodash.isequalwith';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import uniq from 'lodash.uniq';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
 import { changeCartObjectFromServer } from '../../components/Cart/cartFunctions';
@@ -9,9 +13,11 @@ const initialState = {
   cart: {
     products: [],
   },
+  restaurants: [],
   loading: false,
   isCart: false,
   error: null,
+  authorizationReqInProgress: false,
 };
 
 /* eslint-disable no-param-reassign */
@@ -30,70 +36,96 @@ export const createCart = createAsyncThunk(
   },
 );
 
-export const updateCart = createAsyncThunk(
-  'cart/updateCart',
-  async (cartProducts, { rejectWithValue }) => {
-    const updatedCart = changeCartObjectFromServer(cartProducts);
-    try {
-      const response = await instance.put('/cart', updatedCart);
-      return response;
-    } catch (err) {
-      return rejectWithValue(err.response);
-    }
-  },
-);
-
 export const fetchCart = createAsyncThunk(
-  'caer/fetchCart',
+  'cart/fetchCart',
   async (_, { rejectWithValue, dispatch, getState }) => {
     const cartProducts = getState().cart.cart.products;
     try {
-      if (cartProducts.length !== 0) {
-        dispatch(updateCart(cartProducts));
-      }
       const { data, status } = await instance.get('/cart');
       if (status === 200 && data === null) {
         dispatch(createCart());
       }
+      if (cartProducts.length) {
+        const result = isEqualWith(data.products, cartProducts, (serverObj, stateObj, key) => {
+          if (key === 'date') {
+            return true;
+          }
+          return undefined;
+        });
+        if (result) {
+          return null;
+        }
+      }
+      if (data !== null) {
+        dispatch(setRestaurants(data.products));
+      }
       return data;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
+    }
+  },
+);
+
+export const fetchCartAfterAuthorization = createAsyncThunk(
+  'cart/fetchCartAfterAuthorization',
+  async (_, { rejectWithValue, dispatch, getState }) => {
+    const cartProducts = getState().cart.cart.products;
+    try {
+      const { data, status } = await instance.get('/cart');
+      if (status === 200 && data === null) {
+        dispatch(createCart());
+      }
+      if (cartProducts.length && data !== null) {
+        dispatch(setCart(data.products));
+        const newCartProducts = getState().cart.cart.products;
+        const updatedCart = changeCartObjectFromServer(newCartProducts);
+        const response = await instance.put('/cart', updatedCart);
+        dispatch(setRestaurants(response.data.products));
+        return response.data;
+      }
+      dispatch(setRestaurants(data.products));
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
     }
   },
 );
 
 export const addProductToCart = createAsyncThunk(
   'cart/addProductToCart',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.put(`/cart/${id}`);
+      dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
 
 export const decreaseProductQuantity = createAsyncThunk(
   'cart/decreaseProductQuantity',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.delete(`/cart/product/${id}`);
+      dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
 
 export const deleteProductFromCart = createAsyncThunk(
   'cart/deleteProductFromCart',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await instance.delete(`/cart/${id}`);
+      dispatch(setRestaurants(data.products));
       return data.products;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -105,7 +137,7 @@ export const deleteCart = createAsyncThunk(
       const { data } = await instance.delete('/cart');
       return data;
     } catch (err) {
-      return rejectWithValue(err.response);
+      return rejectWithValue(err);
     }
   },
 );
@@ -128,36 +160,30 @@ const cartSlice = createSlice({
       }
     },
     setCart(state, action) {
-      if (state.cart.products.length === 0) {
+      const { products } = state.cart;
+      if (products.length === 0) {
         state.cart.products = action.payload;
       } else {
-        const uniqueFilteredProducts = action.payload.filter((cartProductObj) => {
-          const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.product._id !== cartProductObj.product._id);
-          const mark = matchedProduct !== undefined;
-          return mark;
-        });
-        const notUniqueFilteredProducts = action.payload.filter((cartProductObj) => {
-          const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
-          const mark = matchedProduct !== undefined;
-          return mark;
-        }).map((cartProductObj) => {
-          const matchedProduct = state.cart.products
-            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
-          cartProductObj.cartQuantity += matchedProduct.cartQuantity;
-          return cartProductObj;
-        });
-        const uniqueFilteredProductsFromStore = state.cart.products.filter((cartProductObj) => {
-          const uniqueStoreProducts = action.payload
-            .find((cartProduct) => cartProduct.product._id === cartProductObj.product._id);
-          const mark = uniqueStoreProducts === undefined;
-          return mark;
+        const uniqueProducts = action.payload.filter((objectFromServer) => (
+          !products.some((stateObj) => stateObj.product._id === objectFromServer.product._id)
+        ));
+        const notUniqueProducts = action.payload.filter((objectFromServer) => (
+          products.some((stateObj) => stateObj.product._id === objectFromServer.product._id)
+        ))
+          .map((objectFromServer) => {
+            const matchedProduct = state.cart.products
+              .find((cartProduct) => cartProduct.product._id === objectFromServer.product._id);
+            objectFromServer.cartQuantity += matchedProduct.cartQuantity;
+            return objectFromServer;
+          });
+        const newProducts = products.filter((stateObj) => {
+          return !action.payload.some((objectFromServer) => (
+            objectFromServer.product._id === stateObj.product._id));
         });
         state.cart.products = [
-          ...uniqueFilteredProducts,
-          ...notUniqueFilteredProducts,
-          ...uniqueFilteredProductsFromStore,
+          ...uniqueProducts,
+          ...notUniqueProducts,
+          ...newProducts,
         ];
       }
     },
@@ -198,11 +224,27 @@ const cartSlice = createSlice({
         }
       }
     },
+    setRestaurants(state, action) {
+      let restaurants = [];
+      const { products } = state.cart;
+      if (action.payload && action.payload.length) {
+        restaurants = action.payload;
+      } else if (products.length) {
+        restaurants = products;
+      }
+      if (restaurants.length) {
+        state.restaurants = uniq(restaurants.map((prodactObj) => {
+          return prodactObj.product.restaurant_name;
+        }));
+      } else {
+        state.restaurants = [];
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(createCart.pending, setLoading)
-      .addCase(createCart.fulfilled, (state, action) => {
+      .addCase(createCart.fulfilled, (state) => {
         state.isCart = true;
         state.loading = false;
       })
@@ -215,11 +257,6 @@ const cartSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(updateCart.pending, setLoading)
-      .addCase(updateCart.fulfilled, (state, action) => {
-        state.loading = false;
-      })
-      .addCase(updateCart.rejected, setError)
       .addCase(fetchCart.pending, setLoading)
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
@@ -228,7 +265,6 @@ const cartSlice = createSlice({
         }
       })
       .addCase(fetchCart.rejected, (state, action) => {
-        state.isCart = false;
         state.loading = false;
         state.error = action.payload;
       })
@@ -255,7 +291,24 @@ const cartSlice = createSlice({
         state.loading = false;
         state.cart.products = [];
       })
-      .addCase(deleteCart.rejected, setError);
+      .addCase(deleteCart.rejected, setError)
+      .addCase(fetchCartAfterAuthorization.pending, (state, action) => {
+        state.authorizationReqInProgress = true;
+        state.loading = true;
+      })
+      .addCase(fetchCartAfterAuthorization.fulfilled, (state, action) => {
+        state.isCart = true;
+        state.loading = false;
+        if (action.payload !== null) {
+          state.cart.products = action.payload.products;
+        }
+        state.authorizationReqInProgress = false;
+      })
+      .addCase(fetchCartAfterAuthorization.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.authorizationReqInProgress = false;
+      });
   },
 });
 
@@ -267,13 +320,7 @@ export const {
   addOneMore,
   resetCart,
   deleteFullProduct,
+  setRestaurants,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
-
-/*
-1. Вирішити щось з reducers які ми не використовуємо
-2. Вирішити як буде проходити зляття кошику коли неавторизований користувач
-
-3. Прописати логіку додавання в кошик коли користувач не авторизований
-*/

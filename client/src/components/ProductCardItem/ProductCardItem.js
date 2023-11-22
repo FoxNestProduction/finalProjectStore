@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
@@ -16,9 +16,8 @@ import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
-import { addToCart, addProductToCart } from '../../redux/slices/cartSlice';
-// import { instance } from '../../API/instance';
-import { GetOneProduct, resetOneProduct } from '../../redux/slices/productsSlice';
+import { addToCart, addProductToCart, setRestaurants } from '../../redux/slices/cartSlice';
+import { GetOneProduct } from '../../redux/slices/productsSlice';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
 // eslint-disable-next-line no-underscore-dangle
@@ -34,10 +33,11 @@ const ProductCardItem = ({
   itemNo,
 }) => {
   const breakPoint = useBreakpoint();
-  const products = useSelector((state) => state.products.products, shallowEqual);
-  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const dispatch = useDispatch();
+
+  const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+
   const { alert, handleCloseAlert, handleShowAlert } = useAlert();
   const [clickedAdd, setClickedAdd] = useState(false);
 
@@ -51,9 +51,9 @@ const ProductCardItem = ({
       handleShowAlert();
       setTimeout(() => {
         setClickedAdd(false);
-      }, 3000);
+      }, 4000);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickedAdd]);
 
   const handleAddToCart = (event) => {
@@ -68,6 +68,7 @@ const ProductCardItem = ({
           dispatch(addProductToCart(selectedItem.product._id));
         } else {
           dispatch(addToCart(selectedItem));
+          dispatch(setRestaurants());
         }
       }
     };
@@ -130,7 +131,7 @@ const ProductCardItem = ({
         {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
-      { clickedAdd && alert && (
+      {clickedAdd && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}
     </>
@@ -161,4 +162,4 @@ ProductCardItem.defaultProps = {
   itemNo: '',
 };
 
-export default ProductCardItem;
+export default memo(ProductCardItem);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -29,7 +29,6 @@ const FavouriteItem = ({ product }) => {
     _id,
   } = product;
 
-  const isFavourite = useSelector((state) => state.favourites.cardStates[_id]);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
   const [favAlert, setFavAlert] = useState(false);
 
@@ -92,7 +91,6 @@ const FavouriteItem = ({ product }) => {
       </CardActions>
       <CardActions sx={{ position: 'absolute', top: '0', right: '0' }}>
         <FavouriteIcon id={_id} />
-        {/* <FavouriteIcon product={product} /> */}
       </CardActions>
       {favAlert && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
@@ -108,4 +106,4 @@ FavouriteItem.defaultProps = {
   product: {},
 };
 
-export default FavouriteItem;
+export default memo(FavouriteItem);

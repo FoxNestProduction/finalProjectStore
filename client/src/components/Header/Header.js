@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -17,6 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
+import { useMediaQuery } from '@mui/material';
 import HeaderDrawer from '../HeaderDrawer/HeaderDrawer';
 import Logo from '../Logo/Logo';
 import {
@@ -37,7 +38,7 @@ import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
-import { resetCart, setIsCart, updateCart } from '../../redux/slices/cartSlice';
+import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
 import CustomAlert from '../Alert/Alert';
 import useAlert from '../../customHooks/useAlert';
@@ -46,16 +47,15 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  // const user = useSelector((state) => state.user.user);
-  // const { cart } = user; // під питанням чи потрібне це значення
   const favourite = useSelector((state) => state.favourites.cardStates, shallowEqual);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
   const [authorizedAlert, setAuthorizedAlert] = useState(false);
-  const [logOutdAlert, setLogOutdAlert] = useState(false);
+  const [logOutAlert, setLogOutAlert] = useState(false);
+
+  const isLgTabletOrDesktop = useMediaQuery('(min-width:690px)');
 
   useEffect(() => {
     if (isUserAuthorized) {
@@ -82,16 +82,16 @@ const Header = () => {
     setIsMobileMenuOpen(true);
   };
 
-  const handleCloseDrawer = () => {
+  const handleCloseDrawer = useCallback(() => {
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
-  const handleOpenModalLogin = () => {
+  const handleOpenModalLogin = useCallback(() => {
     dispatch(openModal());
     dispatch(setContent(<LoginForm />));
-  };
+  }, [dispatch]);
 
-  const handleLogOut = () => {
+  const handleLogOut = useCallback(() => {
     dispatch(setIsCart(false));
     dispatch(resetCart());
     dispatch(setToken(null));
@@ -101,19 +101,14 @@ const Header = () => {
     dispatch(resetCardStates());
 
     handleShowAlert();
-    setLogOutdAlert(true);
+    setLogOutAlert(true);
     setTimeout(() => {
       handleCloseAlert();
-      setLogOutdAlert(false);
+      setLogOutAlert(false);
     }, 4000);
+  }, [dispatch, handleCloseAlert, handleShowAlert]);
 
-    // await window.open(
-    //   `${process.env.REACT_APP_API_URL}/auth/logout`,
-    //   '_self',
-    // );
-  };
-
-  const setNavigateTo = (page) => {
+  const setNavigateTo = useCallback((page) => {
     if (page === 'Menu') {
       if (location.pathname === '/menu' && location.search) {
         return `/menu${location.search}`;
@@ -121,17 +116,17 @@ const Header = () => {
       return '/menu';
     }
     return `/${page.toLowerCase()}`;
-  };
+  }, [location.pathname, location.search]);
 
-  const navItems = ['Menu', 'Restaurants', 'Reviews', 'Contact'];
+  const navItems = useMemo(() => ['Menu', 'Restaurants', 'Reviews', 'Contact'], []);
 
   return (
     <>
-      {(isRegistered || authorizedAlert || logOutdAlert) && alert ? (
+      {(isRegistered || authorizedAlert || logOutAlert) && alert ? (
         <CustomAlert
           type="success"
           handleCloseAlert={handleCloseAlert}
-          content={isRegistered ? 'Your registration was successful!' : (logOutdAlert ? 'See you soon!' : 'Welcome back!')}
+          content={isRegistered ? 'Your registration was successful!' : (logOutAlert ? 'See you soon!' : 'Welcome back!')}
         />
       ) : null}
       <ElevationScroll>
@@ -150,7 +145,6 @@ const Header = () => {
                   <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                     <Button
                       component={NavLink}
-                      // to={`/${page.toLowerCase()}`}
                       to={setNavigateTo(page)}
                       sx={stylesNavMenuItem}
                     >
@@ -159,6 +153,28 @@ const Header = () => {
                   </ListItem>
                 ))}
               </List>
+
+              <Box sx={stylesIconsWrapper}>
+                {isUserAuthorized && isLgTabletOrDesktop && (
+                  <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
+                    <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                      <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                    </Badge>
+                  </IconButton>
+                )}
+
+                <MiniCart />
+
+                {isLgTabletOrDesktop && (isUserAuthorized ? (
+                  <IconButton aria-label="logout" edge="end" size="small" onClick={handleLogOut}>
+                    <ExitToAppIcon sx={stylesIcon} />
+                  </IconButton>
+                ) : (
+                  <IconButton aria-label="login" edge="end" size="small" onClick={handleOpenModalLogin}>
+                    <PersonOutlineOutlinedIcon sx={stylesPersonIcon} />
+                  </IconButton>
+                ))}
+              </Box>
 
               <IconButton
                 aria-label="open drawer"
@@ -170,27 +186,6 @@ const Header = () => {
                 <MenuIcon sx={{ fontSize: 35 }} />
               </IconButton>
 
-              <Box sx={stylesIconsWrapper}>
-                {isUserAuthorized && (
-                  <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
-                    <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
-                      <FavoriteBorderOutlinedIcon sx={stylesIcon} />
-                    </Badge>
-                  </IconButton>
-                )}
-
-                <MiniCart />
-
-                {(isUserAuthorized) ? (
-                  <IconButton aria-label="logout" edge="end" size="small" onClick={handleLogOut}>
-                    <ExitToAppIcon sx={stylesIcon} />
-                  </IconButton>
-                ) : (
-                  <IconButton aria-label="login" edge="end" size="small" onClick={handleOpenModalLogin}>
-                    <PersonOutlineOutlinedIcon sx={stylesPersonIcon} />
-                  </IconButton>
-                )}
-              </Box>
             </Toolbar>
             <Divider />
           </Container>
@@ -210,4 +205,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

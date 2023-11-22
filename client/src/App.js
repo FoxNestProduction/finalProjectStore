@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import './App.scss';
 import { useLocation } from 'react-router';
-import { Box } from '@mui/material';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
@@ -12,10 +11,9 @@ import saveUserInfoToSessionStorage from './utils/saveUserInfoToSessionStorage';
 import useBreakpoint from './customHooks/useBreakpoint';
 import { productsPerPageMap, topPartnersQtyMap, topProductsQtyMap } from './constants/bpMapConstants';
 import { setFilterParams } from './redux/slices/filterSlice';
-
-import styles from './styles.module.scss';
 import { getDataFromSessionStorage } from './utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from './constants/constants';
+import getMaxValue from './utils/getMaxValue';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -37,32 +35,22 @@ const App = () => {
   }, [pathname]);
 
   useEffect(() => {
-    dispatch(fetchTopProducts(topProductsQtyMap[breakpoint]));
-    dispatch(fetchTopPartners(topPartnersQtyMap[breakpoint]));
+    dispatch(fetchTopProducts(getMaxValue(topProductsQtyMap)));
+    dispatch(fetchTopPartners(getMaxValue(topPartnersQtyMap)));
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(setFilterParams({
       perPage: productsPerPageMap[breakpoint],
     }));
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [breakpoint, dispatch]);
 
   return (
-    <Box className={styles.mainBackground}>
-      <ul>
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-        <li />
-      </ul>
+    <>
       <Modal disagree="Close" />
       <AppRoutes />
       <ScrollTop />
-    </Box>
+    </>
   );
 };
 

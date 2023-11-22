@@ -1,24 +1,23 @@
 const changeCartObjectFromServer = (cartProducts) => {
-  const cartProductsFromServer = cartProducts.map((cartProduct) => {
-    const newCartProductObj = {
-      // eslint-disable-next-line no-underscore-dangle
-      product: cartProduct.product._id,
-      cartQuantity: cartProduct.cartQuantity,
-    };
-    return newCartProductObj;
-  });
   const cart = {
     products: [],
   };
-  if (!cartProductsFromServer.length) {
-    return cart;
+  if (cartProducts.length) {
+    const cartProductsFromServer = cartProducts.map((cartProduct) => {
+      const newCartProductObj = {
+        // eslint-disable-next-line no-underscore-dangle
+        product: cartProduct.product._id,
+        cartQuantity: cartProduct.cartQuantity,
+      };
+      return newCartProductObj;
+    });
+    cart.products = [...cartProductsFromServer];
   }
-  cart.products = [...cartProductsFromServer];
   return cart;
 };
 
 const cartIconCounterFunction = (cartProducts) => {
-  if (cartProducts.length) {
+  if (cartProducts.length !== 0) {
     const cartCounter = cartProducts
       .map(({ cartQuantity }) => cartQuantity)
       .reduce((accumulator, currentValue) => accumulator + currentValue);

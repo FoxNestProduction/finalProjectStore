@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { memo } from 'react';
 import { Form, Formik } from 'formik';
 import Stack from '@mui/material/Stack';
 import {
@@ -17,7 +17,7 @@ import CheckoutActions from '../CheckoutForm/CheckoutActions';
 import { putNewOrder } from '../../../redux/slices/orderSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
-import { resetCart, deleteCart } from '../../../redux/slices/cartSlice';
+import { resetCart, deleteCart, setRestaurants } from '../../../redux/slices/cartSlice';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 
 const PaymentForm = () => {
@@ -37,7 +37,7 @@ const PaymentForm = () => {
     cvv: '123',
   };
 
-  const handleContinue = async (values) => {
+  const handleContinue = async () => {
     const newOrder = {
       ...pendingOrderInfo,
       status: 'new_order/paid',
@@ -45,10 +45,11 @@ const PaymentForm = () => {
     const response = await dispatch(putNewOrder(newOrder)).unwrap();
     if (response.status === 200) {
       removeDataFromSessionStorage(CHECKOUT_SS_KEY);
-      // dispatch(resetCart());
-      dispatch(deleteCart());
+      dispatch(resetCart());
+      dispatch(setRestaurants());
       if (isUserAuthorized && user) {
         saveUserInfoToSessionStorage(user);
+        dispatch(deleteCart());
       }
       navigate('/order-confirmation');
     }
@@ -189,4 +190,4 @@ const PaymentForm = () => {
   );
 };
 
-export default PaymentForm;
+export default memo(PaymentForm);

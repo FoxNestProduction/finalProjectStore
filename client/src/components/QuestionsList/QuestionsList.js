@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable max-len */
+import React, { memo, useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -8,8 +9,6 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-
-/* eslint-disable max-len */
 
 const QuestionsList = () => {
   const [isOpen, setIsOpen] = useState({});
@@ -83,4 +82,4 @@ const QuestionsList = () => {
   );
 };
 
-export default QuestionsList;
+export default memo(QuestionsList);

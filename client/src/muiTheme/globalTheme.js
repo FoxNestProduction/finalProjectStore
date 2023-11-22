@@ -21,6 +21,7 @@ const globalTheme = createTheme({
     text: {
       primary: '#2B2B2B',
       secondary: '#676767',
+      secondaryLightGrey: '#818181',
       primaryLight: '#F9F9F9',
       secondaryLight: '#DBD9EE',
       header: '#606060',

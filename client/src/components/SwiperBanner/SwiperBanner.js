@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectCube, Pagination } from 'swiper/modules';
 import classNames from 'classnames';
@@ -14,9 +14,9 @@ const SwiperBanner = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   const data = [
-    { url: './img/Banner.jpg', index: 0 },
-    { url: './img/Banner2_1.jpg', index: 1 },
-    { url: './img/Banner3_1.jpg', index: 2 },
+    { url: './img/banner/forBanner0.jpg', index: 0 },
+    { url: './img/banner/forBanner1.jpg', index: 1 },
+    { url: './img/banner/forBanner2.jpg', index: 2 },
   ];
 
   const handleSlideChange = (swiper) => {
@@ -36,7 +36,7 @@ const SwiperBanner = () => {
         grabCursor
         cubeEffect={{
           shadow: false,
-          slideShadows: true,
+          slideShadows: false,
           shadowOffset: 20,
           shadowScale: 0.94,
         }}
@@ -52,10 +52,8 @@ const SwiperBanner = () => {
         }}
       >
         {data.map((item) => (
-          <SwiperSlide className={styles.swiperSlide} key={item.index}>
-            <div id={item.index} className={styles.swiperSlideItem}>
-              <img src={item.url} alt={`Slide${item.index}`} />
-            </div>
+          <SwiperSlide className={styles.swiperSlide} key={item.index} id={item.index}>
+            <img className={styles.swiperSlideItem} src={item.url} alt={`Slide${item.index}`} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -77,4 +75,4 @@ const SwiperBanner = () => {
   );
 };
 
-export default SwiperBanner;
+export default memo(SwiperBanner);

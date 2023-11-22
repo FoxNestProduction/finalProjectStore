@@ -27,7 +27,6 @@ export const title = {
 export const cartProductsContainer = {
   display: 'flex',
   flexDirection: 'column',
-  // alignItems: 'center',
   alignItems: 'stretch',
   gap: {
     mobile: '24px',

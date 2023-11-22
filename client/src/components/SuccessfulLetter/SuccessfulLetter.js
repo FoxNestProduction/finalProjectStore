@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -7,7 +7,6 @@ const SuccessfulLetter = () => {
     <Box sx={{ px: 3, pb: 4, display: 'flex', flexDirection: 'column', gap: 3, maxWidth: '560px' }}>
       <Box>
         <img src="./img/sendMail.svg" alt="send mail" />
-        {/* <img src="./img/sendMail_1.svg" alt="send mail" /> */}
       </Box>
       <Typography variant="h3" color="primary.main">
         An email with a link has been sent to your email
@@ -26,4 +25,4 @@ const SuccessfulLetter = () => {
   );
 };
 
-export default SuccessfulLetter;
+export default memo(SuccessfulLetter);

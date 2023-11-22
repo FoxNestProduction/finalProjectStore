@@ -6,9 +6,10 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 import BookmarkIcon from '../../assets/svgComponents/BookmarkIcon';
 import RatingItem from '../Rating/Rating';
 import ColorChips from '../Chip/Chip';
@@ -142,22 +143,21 @@ const RestaurantCard = ({ rating, name, imageUrl, isHealthy, isTrending, isSupre
               paddingRight: '18px',
             }}
           >
-            <IconButton
-              aria-label="add to favorites"
+            <Box
               sx={{
                 padding: '0',
                 width: {
-                  mobile: 35,
-                  tablet: 41,
+                  mobile: '25px',
+                  tablet: '30px',
                 },
                 height: {
-                  mobile: 35,
-                  tablet: 41,
+                  mobile: '25px',
+                  tablet: '30px',
                 },
               }}
             >
-              <BookmarkIcon />
-            </IconButton>
+              <VerifiedIcon sx={{ color: 'primary.main', height: '100%', width: '100%' }} />
+            </Box>
           </CardActions>
         </Box>
       </Card>
@@ -185,4 +185,4 @@ RestaurantCard.defaultProps = {
   customId: '',
 };
 
-export default RestaurantCard;
+export default memo(RestaurantCard);

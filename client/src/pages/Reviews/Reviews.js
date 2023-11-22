@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState, useRef, createRef } from 'react';
+import React, { useEffect, useState, useRef, createRef, memo } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Typography, Button, Box, Container, useMediaQuery } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -8,9 +8,10 @@ import ReviewItem from '../../components/ReviewItem/ReviewItem';
 import NewReview from '../../components/NewReview/NewReview';
 import { openModal, setTitle, setContent, setButtonAgree, addButtonBox, closeModal } from '../../redux/slices/modalSlice';
 import { addNewReview, resetReviewState, searchReviews, setNewReview } from '../../redux/slices/reviewsSlice';
-import { TitleBtn, commentItem, commentList, container, flexCenter, titleContainer } from './styles';
+import { TitleBtn, commentItem, commentItemSkeleton, commentList, container, flexCenter, titleContainer } from './styles';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../../components/Alert/Alert';
+import Skeleton from '../../components/Skeleton/Skeleton';
 
 const ReviewsPage = () => {
   const searchReview = useSelector((state) => state.reviews.search);
@@ -185,10 +186,28 @@ const ReviewsPage = () => {
           )
         ))}
       </Box>
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <>
+          <Box
+            sx={commentItemSkeleton}
+          >
+            <Skeleton />
+          </Box>
+          <Box
+            sx={commentItemSkeleton}
+          >
+            <Skeleton />
+          </Box>
+          <Box
+            sx={commentItemSkeleton}
+          >
+            <Skeleton />
+          </Box>
+        </>
+      )}
       {error && <div>{error.statusText}</div>}
     </Container>
   );
 };
 
-export default ReviewsPage;
+export default memo(ReviewsPage);

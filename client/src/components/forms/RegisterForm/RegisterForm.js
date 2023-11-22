@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
@@ -23,19 +23,18 @@ import {
   legend,
   inputsWrapper,
   signUpBtn,
-  signInLink,
+  signInLink, googleText,
 } from './styles';
 import Input from '../../inputs/Input/Input';
 import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import { setAuthorization, setToken } from '../../../redux/slices/authorizationSlice';
-import { setIsRegistrationSuccessful, setUser } from '../../../redux/slices/userSlice';
+import { registerCustomer, setIsRegistrationSuccessful, setUser } from '../../../redux/slices/userSlice';
 import { setRegistrationError } from '../../../redux/slices/errorSlice';
 import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
 import { CHECKOUT_SS_KEY } from '../../../constants/constants';
 import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
 import { instance } from '../../../API/instance';
 import { createCart } from '../../../redux/slices/cartSlice';
-
 import useAlert from '../../../customHooks/useAlert';
 import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
 import CreatePasswordForm from '../CreatePassword/CreatePasswordForm';
@@ -56,8 +55,8 @@ const RegisterForm = () => {
     dispatch(setContent(<LoginForm />));
   };
 
-  const authFunc = (value) => {
-    const { user, token } = value.data;
+  const authFunc = (data) => {
+    const { user, token } = data;
 
     dispatch(setIsRegistrationSuccessful(true));
     handleShowAlert();
@@ -67,7 +66,6 @@ const RegisterForm = () => {
 
     dispatch(setToken(token));
     dispatch(setAuthorization(true));
-    dispatch(setUser(user));
     dispatch(closeModal());
     dispatch(setRegistrationError(''));
 
@@ -83,12 +81,9 @@ const RegisterForm = () => {
       isAdmin: false,
     };
 
-    try {
-      const response = await instance.post('/customers', newCustomer);
-      authFunc(response.data);
-    } catch (error) {
-      dispatch(setRegistrationError(error.response.data));
-      console.error('Помилка реєстрації:', error.response.data);
+    const data = await dispatch(registerCustomer(newCustomer)).unwrap();
+    if (data.success) {
+      authFunc(data);
     }
   };
 
@@ -104,15 +99,16 @@ const RegisterForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            authFunc(res);
+            authFunc(res.data);
+          } else {
+            const { data } = res;
+            dispatch(setNewGoogleUser({
+              email: data.email,
+              firstName: data.given_name ? data.given_name : 'New',
+              lastName: data.family_name ? data.family_name : 'User',
+            }));
+            dispatch(setContent(<CreatePasswordForm />));
           }
-          const { data } = res;
-          dispatch(setNewGoogleUser({
-            email: data.email,
-            firstName: data.given_name ? data.given_name : 'New',
-            lastName: data.family_name ? data.family_name : 'User',
-          }));
-          dispatch(setContent(<CreatePasswordForm />));
         });
     },
   });
@@ -149,6 +145,12 @@ const RegisterForm = () => {
           sx={googleAppleBtn}
         >
           <GoogleSvgComponent />
+          <Box
+            component="span"
+            sx={googleText}
+          >
+            Google
+          </Box>
         </Button>
         {/* <Button
           disableRipple
@@ -236,4 +238,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default memo(RegisterForm);

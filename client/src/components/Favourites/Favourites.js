@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -70,7 +70,7 @@ const Favourites = () => {
       )}
       {loading
       && (
-        <Box sx={{ width: '100%', position: 'fixed', zIndex: '1100', top: '87px' }}>
+        <Box sx={{ width: '100%', position: 'fixed', zIndex: '1100', top: '0' }}>
           <LinearProgress />
         </Box>
       )}
@@ -79,4 +79,4 @@ const Favourites = () => {
   );
 };
 
-export default Favourites;
+export default memo(Favourites);
