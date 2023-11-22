@@ -37,7 +37,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test  --watchAll=false --coverage",
+    "test": "react-scripts test  --watchAll=false --coverage ./src/redux/tests",
     "test1": "react-scripts test  Pagination.test.js",
     "eject": "react-scripts eject",
     "e-lint": "npx eslint ./src/**/*.js --fix",

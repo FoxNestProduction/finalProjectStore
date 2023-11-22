@@ -13,6 +13,7 @@ const initialState = {
   cardStates: {},
   loading: false,
   error: null,
+  addDeleteError: null,
 };
 
 describe('favouritesSlice reducers', () => {
@@ -170,5 +171,3 @@ describe('favouritesThunk fetchFavourites', () => {
     expect(instance.get).toHaveBeenCalledWith('/wishlist');
   });
 });
-
-// ---------- ❗️❗️❗️testing favourites async functions ❗️❗️❗️ ----------

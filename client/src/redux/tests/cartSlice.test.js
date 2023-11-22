@@ -6,19 +6,20 @@ import cartReducer, {
   addOneMore,
   resetCart,
   deleteFullProduct,
+  setRestaurants,
   createCart,
   fetchCart,
   fetchCartAfterAuthorization,
   addProductToCart,
   decreaseProductQuantity,
-  deleteCart,
+  deleteCart, deleteProductFromCart,
 } from '../slices/cartSlice';
-import { instance } from '../../API/instance';
 
 const initialState = {
   cart: {
     products: [],
   },
+  restaurants: [],
   loading: false,
   isCart: false,
   error: null,
@@ -87,7 +88,7 @@ describe('cartSlice reducers', () => {
     expect(state.isCart).toBe(false);
   });
 
-  test('should delete from cart product with "deleteFromCart" action if quantity is 1', () => {
+  test('should delete from cart product if quantity is 1 with "deleteFromCart" action', () => {
     const prevState = {
       ...initialState,
       cart: {
@@ -104,163 +105,498 @@ describe('cartSlice reducers', () => {
       },
       cartQuantity: 1,
     };
-    const state = cartReducer(prevState, addToCart(productCartItem));
+    const state = cartReducer(prevState, deleteFromCart(productCartItem));
+    const deletedProduct = state.cart.products.some((el) => el.product._id === '123');
+    expect(deletedProduct).toBe(false);
+  });
+
+  test('should decrease quantity if quantity is more than 1 with "deleteFromCart" action', () => {
+    const prevState = {
+      ...initialState,
+      cart: {
+        products: [
+          { product: { _id: '123', name: 'Burger', currentPrice: '17.99' }, cartQuantity: 2 },
+        ],
+      },
+    };
+    const productCartItem = {
+      product: {
+        _id: '123',
+        name: 'Burger',
+        currentPrice: '17.99',
+      },
+      cartQuantity: 1,
+    };
+    const state = cartReducer(prevState, deleteFromCart(productCartItem));
+    const decreasedProduct = state.cart.products.find((el) => el.product._id === '123');
+    expect(decreasedProduct.cartQuantity).toBe(1);
+  });
+
+  test('should set cart if cart state products is empty with "setCart" action', () => {
+    const newDataFromServer = [
+      { product: { _id: '789', name: 'Salad', currentPrice: '8.99' }, cartQuantity: 1 },
+      { product: { _id: '456', name: 'Pizza', currentPrice: '12.99' }, cartQuantity: 2 },
+      { product: { _id: '111', name: 'Pasta', currentPrice: '14.99' }, cartQuantity: 1 },
+    ];
+
+    const state = cartReducer(undefined, setCart(newDataFromServer));
+    expect(state.cart.products).toEqual(newDataFromServer);
+  });
+
+  test('should update cart products with "setCart" action', () => {
+    const prevState = {
+      ...initialState,
+      cart: {
+        products: [
+          { product: { _id: '123', name: 'Burger', currentPrice: '17.99' }, cartQuantity: 2 },
+          { product: { _id: '456', name: 'Pizza', currentPrice: '12.99' }, cartQuantity: 1 },
+        ],
+      },
+    };
+
+    const newDataFromServer = [
+      { product: { _id: '789', name: 'Salad', currentPrice: '8.99' }, cartQuantity: 1 },
+      { product: { _id: '456', name: 'Pizza', currentPrice: '12.99' }, cartQuantity: 2 },
+      { product: { _id: '111', name: 'Pasta', currentPrice: '14.99' }, cartQuantity: 1 },
+    ];
+
+    // Виклик setCart
+    const state = cartReducer(prevState, setCart(newDataFromServer));
+
+    // Очікується, що кошик буде оновлений згідно нових даних з сервера
+    expect(state.cart.products).toEqual([
+      { product: { _id: '789', name: 'Salad', currentPrice: '8.99' }, cartQuantity: 1 },
+      { product: { _id: '111', name: 'Pasta', currentPrice: '14.99' }, cartQuantity: 1 },
+      { product: { _id: '456', name: 'Pizza', currentPrice: '12.99' }, cartQuantity: 3 },
+      { product: { _id: '123', name: 'Burger', currentPrice: '17.99' }, cartQuantity: 2 },
+    ]);
+  });
+
+  test('should increase cartQuantity by 1 with "addOneMore" action', () => {
+    const prevState = {
+      ...initialState,
+      cart: {
+        products: [
+          { product: { _id: '123', name: 'Burger', currentPrice: '17.99' }, cartQuantity: 2 },
+        ],
+      },
+    };
+    const productCartItem = {
+      product: {
+        _id: '123',
+        name: 'Burger',
+        currentPrice: '17.99',
+      },
+      cartQuantity: 1,
+    };
+    const state = cartReducer(prevState, addOneMore(productCartItem));
     const updatedProduct = state.cart.products.find((el) => el.product._id === '123');
-    expect(updatedProduct.cartQuantity).toBe(productCartItem.cartQuantity + 1);
+    expect(updatedProduct.cartQuantity).toBe(prevState.cart.products[0].cartQuantity + 1);
+  });
+
+  test('should remove product from cart with "deleteFullProduct" action', () => {
+    const prevState = {
+      ...initialState,
+      cart: {
+        products: [
+          { product: { _id: '123', name: 'Burger', currentPrice: '17.99' }, cartQuantity: 2 },
+          { product: { _id: '456', name: 'Pizza', currentPrice: '12.99' }, cartQuantity: 1 },
+        ],
+      },
+    };
+    const productCartItem = {
+      product: {
+        _id: '123',
+        name: 'Burger',
+        currentPrice: '17.99',
+      },
+    };
+    const state = cartReducer(prevState, deleteFullProduct(productCartItem));
+    const updatedCart = state.cart.products;
+
+    // Очікується, що продукт буде видалено з кошика
+    expect(updatedCart.some((el) => el.product._id === '123')).toBe(false);
+    // Очікується, що інші продукти в кошику залишаться
+    expect(updatedCart.length).toBe(prevState.cart.products.length - 1);
+  });
+
+  test('should set unique restaurant names with "setRestaurants" action', () => {
+    const prevState = {
+      ...initialState,
+      cart: {
+        products: [
+          { product: { _id: '123', name: 'Burger', currentPrice: '17.99', restaurant_name: 'BurgerPlace' }, cartQuantity: 2 },
+          { product: { _id: '456', name: 'Pizza', currentPrice: '12.99', restaurant_name: 'PizzaHub' }, cartQuantity: 1 },
+        ],
+      },
+    };
+    const restaurantNames = ['BurgerPlace', 'PizzaHub'];
+
+    const state = cartReducer(prevState, setRestaurants());
+    const updatedRestaurants = state.restaurants;
+    expect(updatedRestaurants).toEqual(restaurantNames);
+  });
+
+  test('should set empty restaurants array with "setRestaurants" action when cart is empty and no payload', () => {
+    const prevState = {
+      ...initialState,
+      cart: {
+        products: [],
+      },
+    };
+
+    const state = cartReducer(prevState, setRestaurants());
+    expect(state.restaurants).toEqual([]);
   });
 });
 
-// ------- tests -------
-describe('cartSlice', () => {
-  test('should add favourite product with "addFavourite" action', () => {
-    const favProduct = [{ name: 'Avocado Veggie Burger', currentPrice: '11.49', _id: '123' }];
-    const state = cartReducer(undefined, addFavourite(favProduct));
-    expect(state.cart).toContainEqual(favProduct[0]);
-  });
-
-  test('should set isFavourite with "setIsFavourite" action', () => {
-    const id = '123';
-    const state = cartReducer(undefined, setIsFavourite(id));
-    expect(state.cardStates[id]).toBe(true);
-    expect(state.loading).toBe(true);
-  });
-
-  test('should set loading to false with "setIsLoading" action', () => {
-    const prevState = {
-      ...initialState,
-      loading: true,
-    };
-    const state = cartReducer(prevState, setIsLoading());
-    expect(state.loading).toBe(false);
-  });
-
-  test('should remove favourite product with "removeFavourite" action', () => {
-    const prevState = {
-      ...initialState,
-      cart: [
-        { name: 'Avocado Veggie Burger', currentPrice: '11.49', _id: '123' },
-        { name: 'Vegan Burger', currentPrice: '12.49', _id: '456' },
-      ],
-      cardStates: {
-        '123': true,
-        '456': true,
-      },
-      loading: false,
-    };
-    const idToRemove = '123';
-    const state = cartReducer(prevState, removeFavourite(idToRemove));
-    expect(state.cart.some((item) => item._id === idToRemove)).toBe(false);
-    expect(state.cardStates[idToRemove]).toBeUndefined();
-    expect(state.loading).toBe(true);
-  });
-
-  test('should reset cardStates and cart with "resetCardStates" action', () => {
-    const prevState = {
-      ...initialState,
-      cart: [
-        { name: 'Avocado Veggie Burger', currentPrice: '11.49', _id: '123' },
-        { name: 'Vegan Burger', currentPrice: '12.49', _id: '456' },
-      ],
-      cardStates: {
-        '123': true,
-        '456': true,
-      },
-    };
-    const state = cartReducer(prevState, resetCardStates());
-    expect(state.cardStates).toEqual({});
-    expect(state.cart).toEqual([]);
-  });
-});
+// ---------- тести для extraReducers ----------
 
 describe('cartSlice extraReducers', () => {
-  test('should change status with "fetchFavourites.pending" action', () => {
+  // ---------- createCart test ----------
+  test('should change status with "createCart.pending" action', () => {
     const prevState = {
       ...initialState,
       loading: false,
       error: 'error',
     };
-    const state = cartReducer(prevState, fetchFavourites.pending());
+    const state = cartReducer(prevState, createCart.pending());
     expect(state.loading).toBe(true);
     expect(state.error).toBeNull();
   });
 
-  test('should fetch cart with "fetchFavourites.fulfilled" action', () => {
+  test('should set isCart to true, loading to false with "createCart.fulfilled" action', () => {
     const prevState = {
       ...initialState,
+      isCart: false,
       loading: true,
     };
-    const cart = [
-      { _id: '123', name: 'Cheeseburger', price: '10.99' },
-      { _id: '456', name: 'Cesar Salad', price: '12.99' },
-    ];
-
-    const state = cartReducer(prevState, fetchFavourites.fulfilled(cart));
+    const state = cartReducer(prevState, createCart.fulfilled());
+    expect(state.isCart).toBe(true);
     expect(state.loading).toBe(false);
-    expect(state.cart).toEqual(cart);
-    cart.forEach(({ _id }) => {
-      expect(state.cardStates[_id]).toBe(true);
-    });
   });
 
-  test('should change status with "fetchFavourites.rejected" action', () => {
+  test('should set isCart to true, loading to false, and error to payload with "createCart.rejected" action', () => {
     const prevState = {
       ...initialState,
+      isCart: false,
       loading: true,
       error: null,
     };
     const errorMessage = 'Something went wrong.';
     const action = {
-      type: fetchFavourites.rejected.type,
+      type: createCart.rejected.type,
+      payload: { status: 400, data: { message: errorMessage } },
+    };
+    const state = cartReducer(prevState, action);
+    expect(state.isCart).toBe(true);
+    expect(state.loading).toBe(false);
+    expect(state.error).toBe('Something went wrong.');
+  });
+
+  // ---------- fetchCart test ----------
+  test('should set loading to true with "fetchCart.pending" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: false,
+      error: 'error',
+    };
+
+    const state = cartReducer(prevState, fetchCart.pending());
+    expect(state.loading).toBe(true);
+    expect(state.error).toBeNull();
+  });
+
+  test('should set loading to false and update cart products with "fetchCart.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      cart: {
+        products: [],
+      },
+    };
+
+    const cartData = {
+      products: [
+        { _id: '123', name: 'Cheeseburger', price: '10.99' },
+        { _id: '456', name: 'Cesar Salad', price: '12.99' },
+      ],
+    };
+
+    const state = cartReducer(prevState, fetchCart.fulfilled(cartData));
+    expect(state.loading).toBe(false);
+    expect(state.cart.products).toEqual(cartData.products);
+  });
+
+  test('should set loading to false and update error with "fetchCart.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      error: null,
+    };
+
+    const errorMessage = 'Error fetching cart data';
+    const action = {
+      type: fetchCart.rejected.type,
       payload: errorMessage,
     };
     const state = cartReducer(prevState, action);
+
     expect(state.loading).toBe(false);
     expect(state.error).toBe(errorMessage);
   });
-});
 
-jest.mock('../../API/instance');
+  // ---------- addProductToCart test ----------
 
-describe('cartThunk fetchFavourites', () => {
-  test('should fetchFavourites with resolved response', async () => {
-    const mockFavourites = [
+  test('should change status with "addProductToCart.pending" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: false,
+      error: 'error',
+    };
+    const state = cartReducer(prevState, addProductToCart.pending());
+    expect(state.loading).toBe(true);
+    expect(state.error).toBeNull();
+  });
+
+  test('should set loading to false and update cart products with "addProductToCart.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      cart: {
+        products: [],
+      },
+    };
+    const cartData = [
       { _id: '123', name: 'Cheeseburger', price: '10.99' },
       { _id: '456', name: 'Cesar Salad', price: '12.99' },
     ];
 
-    instance.get.mockResolvedValue({ data: { products: mockFavourites } });
-    const dispatch = jest.fn();
-
-    const thunk = fetchFavourites();
-    await thunk(dispatch);
-    const { calls } = dispatch.mock;
-    expect(calls).toHaveLength(2);
-    const [start, end] = calls;
-
-    expect(start[0].type).toBe('cart/fetchFavourites/pending');
-    expect(end[0].type).toBe('cart/fetchFavourites/fulfilled');
-    expect(end[0].payload).toEqual(mockFavourites);
-
-    expect(instance.get).toHaveBeenCalledWith('/wishlist');
+    const action = addProductToCart.fulfilled(cartData);
+    const state = cartReducer(prevState, action);
+    expect(state.loading).toBe(false);
+    expect(state.cart.products).toEqual(cartData);
   });
 
-  test('should fetchFavourites with rejected response', async () => {
-    instance.get.mockRejectedValue({ response: { data: { message: 'Something went wrong' } } });
+  test('should change status with "addProductToCart.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      error: null,
+    };
+    const action = {
+      type: addProductToCart.rejected.type,
+      payload: 'Something went wrong',
+    };
+    const state = cartReducer(prevState, action);
+    expect(state.loading).toBe(false);
+    expect(state.error).toBe('Something went wrong');
+  });
 
-    const dispatch = jest.fn();
-    const thunk = fetchFavourites();
-    await thunk(dispatch);
-    const { calls } = dispatch.mock;
-    expect(calls).toHaveLength(2);
-    const [start, end] = calls;
+  // ---------- decreaseProductQuantity test ----------
 
-    expect(start[0].type).toBe('cart/fetchFavourites/pending');
-    expect(end[0].type).toBe('cart/fetchFavourites/rejected');
-    expect(end[0].payload.message).toBe('Something went wrong');
-    expect(end[0].meta.rejectedWithValue).toBe(true);
+  test('should change status with "decreaseProductQuantity.pending" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: false,
+      error: 'error',
+    };
+    const state = cartReducer(prevState, decreaseProductQuantity.pending());
+    expect(state.loading).toBe(true);
+    expect(state.error).toBeNull();
+  });
 
-    expect(instance.get).toHaveBeenCalledWith('/wishlist');
+  test('should set loading to false and update cart products with decreased quantity with "decreaseProductQuantity.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      cart: {
+        products: [
+          { product: { _id: '123', name: 'Cheeseburger', price: '10.99' }, cartQuantity: 2 },
+        ],
+      },
+    };
+    const updatedCartData = [
+      { product: { _id: '123', name: 'Cheeseburger', price: '10.99' }, cartQuantity: 1 },
+    ];
+
+    const action = decreaseProductQuantity.fulfilled(updatedCartData);
+    const state = cartReducer(prevState, action);
+    expect(state.loading).toBe(false);
+    expect(state.cart.products).toEqual(updatedCartData);
+  });
+
+  test('should change status with "decreaseProductQuantity.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      error: null,
+    };
+    const action = {
+      type: decreaseProductQuantity.rejected.type,
+      payload: 'Something went wrong',
+    };
+    const state = cartReducer(prevState, action);
+    expect(state.loading).toBe(false);
+    expect(state.error).toBe('Something went wrong');
+  });
+
+  // ---------- deleteProductFromCart test ----------
+
+  test('should change status with "deleteProductFromCart.pending" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: false,
+      error: 'error',
+    };
+    const state = cartReducer(prevState, deleteProductFromCart.pending());
+    expect(state.loading).toBe(true);
+    expect(state.error).toBeNull();
+  });
+
+  test('should set loading to false and update cart products with deleted product with "deleteProductFromCart.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      cart: {
+        products: [
+          { product: { _id: '123', name: 'Cheeseburger', price: '10.99' }, cartQuantity: 2 },
+          { product: { _id: '456', name: 'Cesar Salad', price: '12.99' }, cartQuantity: 1 },
+        ],
+      },
+    };
+    const updatedCartData = [
+      { product: { _id: '123', name: 'Cheeseburger', price: '10.99' }, cartQuantity: 2 },
+    ];
+
+    const action = deleteProductFromCart.fulfilled(updatedCartData);
+    const state = cartReducer(prevState, action);
+    expect(state.loading).toBe(false);
+    expect(state.cart.products).toEqual(updatedCartData);
+  });
+
+  test('should change status with "deleteProductFromCart.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      error: null,
+    };
+    const action = {
+      type: deleteProductFromCart.rejected.type,
+      payload: 'Something went wrong',
+    };
+    const state = cartReducer(prevState, action);
+    expect(state.loading).toBe(false);
+    expect(state.error).toBe('Something went wrong');
+  });
+
+  // ---------- deleteCart test ----------
+
+  test('should change status with "deleteCart.pending" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: false,
+      error: 'error',
+    };
+    const state = cartReducer(prevState, deleteCart.pending());
+    expect(state.loading).toBe(true);
+    expect(state.error).toBeNull();
+  });
+
+  test('should set loading to false and clear cart products with "deleteCart.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      cart: {
+        products: [
+          { product: { _id: '123', name: 'Cheeseburger', price: '10.99' }, cartQuantity: 2 },
+          { product: { _id: '456', name: 'Cesar Salad', price: '12.99' }, cartQuantity: 1 },
+        ],
+      },
+    };
+
+    const action = deleteCart.fulfilled();
+    const state = cartReducer(prevState, action);
+
+    expect(state.loading).toBe(false);
+    expect(state.cart.products).toEqual([]);
+  });
+
+  test('should change status with "deleteCart.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      error: null,
+    };
+    const action = {
+      type: deleteCart.rejected.type,
+      payload: 'Something went wrong',
+    };
+    const state = cartReducer(prevState, action);
+    expect(state.loading).toBe(false);
+    expect(state.error).toBe('Something went wrong');
+  });
+
+  // ---------- fetchCartAfterAuthorization test ----------
+
+  test('should set loading and authorizationReqInProgress to true with "fetchCartAfterAuthorization.pending" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: false,
+      authorizationReqInProgress: false,
+    };
+
+    const action = fetchCartAfterAuthorization.pending();
+    const state = cartReducer(prevState, action);
+    expect(state.loading).toBe(true);
+    expect(state.authorizationReqInProgress).toBe(true);
+  });
+
+  test('should set loading to false, isCart to true, and update cart products with "fetchCartAfterAuthorization.fulfilled" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      authorizationReqInProgress: true,
+      isCart: false,
+      cart: {
+        products: [
+          { product: { _id: '123', name: 'Cheeseburger', price: '10.99' }, cartQuantity: 2 },
+          { product: { _id: '456', name: 'Cesar Salad', price: '12.99' }, cartQuantity: 1 },
+        ],
+      },
+    };
+    const cartData = {
+      products: [
+        { product: { _id: '789', name: 'Veggie Wrap', price: '8.99' }, cartQuantity: 3 },
+      ],
+    };
+
+    const action = fetchCartAfterAuthorization.fulfilled(cartData);
+    const state = cartReducer(prevState, action);
+
+    expect(state.loading).toBe(false);
+    expect(state.authorizationReqInProgress).toBe(false);
+    expect(state.isCart).toBe(true);
+    expect(state.cart.products).toEqual(cartData.products);
+  });
+
+  test('should set loading to false, authorizationReqInProgress to false, and update error with "fetchCartAfterAuthorization.rejected" action', () => {
+    const prevState = {
+      ...initialState,
+      loading: true,
+      authorizationReqInProgress: true,
+      error: null,
+    };
+
+    const errorMessage = 'Authorization failed';
+    const action = {
+      type: fetchCartAfterAuthorization.rejected.type,
+      payload: errorMessage,
+    };
+    const state = cartReducer(prevState, action);
+
+    expect(state.loading).toBe(false);
+    expect(state.authorizationReqInProgress).toBe(false);
+    expect(state.error).toBe(errorMessage);
   });
 });
-
-// ---------- ❗️❗️❗️testing cart async functions ❗️❗️❗️ ----------

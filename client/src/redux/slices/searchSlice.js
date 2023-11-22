@@ -17,7 +17,7 @@ export const fetchSearchedProductsOrPartners = createAsyncThunk(
 const initialState = {
   search: [],
   loading: false,
-  error: true,
+  error: null,
   key: 'food',
   inputSearchValue: '',
 };

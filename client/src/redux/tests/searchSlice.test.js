@@ -3,6 +3,8 @@ import { instance } from '../../API/instance';
 
 const initialState = {
   search: [],
+  loading: false,
+  error: null,
   key: 'food',
   inputSearchValue: '',
 };
@@ -41,6 +43,8 @@ describe('searchSlice reducers', () => {
   test('should reset search state to initial with "resetSearch" action', () => {
     const mockState = {
       search: [{ name: 'Cezar Salad', price: '22.49' }],
+      loading: false,
+      error: null,
       key: 'food',
       inputSearchValue: 'pizza',
     };
