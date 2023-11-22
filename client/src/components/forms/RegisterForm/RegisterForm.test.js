@@ -31,6 +31,10 @@ global.google = {
 };
 
 describe('Register form component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('Register form snapshot', () => {
     const { asFragment } = render(
       <Provider store={store}>
@@ -102,7 +106,7 @@ describe('Register form component', () => {
     fireEvent.change(firstNameInput, { target: { value: 'Yurii' } });
     fireEvent.change(lastNameInput, { target: { value: 'Horodnii' } });
     fireEvent.change(emailInput, { target: { value: 'example@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.change(passwordInput, { target: { value: 'Password12#' } });
 
     fireEvent.click(submitButton);
 
@@ -114,7 +118,7 @@ describe('Register form component', () => {
         firstName: 'Yurii',
         lastName: 'Horodnii',
         email: 'example@example.com',
-        password: 'password123',
+        password: 'Password12#',
         login: 'YuriiHorodnii',
         isAdmin: false,
       };
