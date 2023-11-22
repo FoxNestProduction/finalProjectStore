@@ -43,14 +43,14 @@ describe('ProductPage Component', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    useTopProducts.mockImplementationOnce(() => [])
+    useTopProducts.mockImplementationOnce(() => []);
   });
 
   test('should renders ProductPage component', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(true);
-    
-    await act(async() => {
+// eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
       render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/products/:123']}>
@@ -60,16 +60,16 @@ describe('ProductPage Component', () => {
           </MemoryRouter>
         </Provider>,
       );
-    })
-  
+    });
+
     await waitFor(() => expect(screen.getAllByTestId('StarBorderIcon')).toHaveLength(5));
   });
 
   test('should renders ProductPage component isLgTablet', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(false);
     useMediaQuery.mockReturnValue(false);
-
-    await act(async() => {
+// eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
       render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/products/:123']}>
@@ -87,8 +87,8 @@ describe('ProductPage Component', () => {
   test('should renders Skeletons loadingTopProducts', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
     useMediaQuery.mockReturnValue(true);
-
-    await act(async() => {
+// eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
       render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/products/:123']}>
@@ -100,14 +100,14 @@ describe('ProductPage Component', () => {
       );
     });
 
-    await waitFor(() => expect(screen.getByText('Popular')).toBeInTheDocument());
+    await screen.findByText('Popular');
   });
 
   test('should renders Skeletons loadingTopProducts', async () => {
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
     useMediaQuery.mockReturnValue(false);
-
-    await act(async() => {
+// eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
       const { asFragment } = render(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/products/:123']}>
@@ -119,6 +119,6 @@ describe('ProductPage Component', () => {
       );
     });
 
-    await waitFor(() => expect(screen.getByText('Popular')).toBeInTheDocument());
+    await screen.findByText('Popular');
   });
 });

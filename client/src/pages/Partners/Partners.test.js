@@ -45,20 +45,13 @@ describe('PartnersPage Component', () => {
   });
 
   test('should renders PartnersPage component', () => {
-    const partner = {
-      rating: 5,
-      name: 'PizzaDay',
-      imageUrl: 'image1.jpg',
-      description: 'PizzaDayAbout',
-      customId: '321',
-    }
     useGetAPI.mockReturnValueOnce([partner, false, null]);
     useGetAPI.mockReturnValueOnce([[], false, null]);
 
     const { asFragment } = render(
       <Provider store={store}>
         <MemoryRouter>
-        {/* <MemoryRouter initialEntries={['/restaurants/:PizzaDay/:321']}> */}
+          {/* <MemoryRouter initialEntries={['/restaurants/:PizzaDay/:321']}> */}
           <Routes>
             <Route
               // path="/restaurants/:name/:customId"
@@ -71,7 +64,7 @@ describe('PartnersPage Component', () => {
             />
           </Routes>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     expect(asFragment()).toMatchSnapshot();

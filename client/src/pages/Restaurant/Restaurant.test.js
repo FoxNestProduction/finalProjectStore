@@ -30,7 +30,7 @@ jest.mock('react-router', () => ({
 describe('RestaurantPage Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    useTopProducts.mockImplementationOnce(() => [])
+    useTopProducts.mockImplementationOnce(() => []);
     jest.spyOn(require('react-redux'), 'useSelector').mockReturnValueOnce(true);
   });
 
