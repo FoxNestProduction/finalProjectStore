@@ -28,7 +28,7 @@ const Favourites = () => {
 
   return (
     <Box position="relative">
-      {favouritesList.length !== 0 ? (
+      {favouritesList && favouritesList.length !== 0 ? (
         <Box sx={{ mb: '300px', pt: { mobile: '40px', lgTablet: '60px' } }}>
           { isLgTablet && favouritesList
           && (

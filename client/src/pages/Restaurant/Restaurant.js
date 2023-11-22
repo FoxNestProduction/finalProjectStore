@@ -67,7 +67,7 @@ const RestaurantPage = () => {
       </Container>
       {loadingProducts ? (
         <Container sx={{ mb: 13 }}>
-          <Box sx={gridStylesContainer}>
+          <Box role="listbox" sx={gridStylesContainer}>
             <Skeleton skeletonType="product" />
             <Skeleton skeletonType="product" />
             <Skeleton skeletonType="product" />

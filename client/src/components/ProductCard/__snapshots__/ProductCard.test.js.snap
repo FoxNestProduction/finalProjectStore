@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductCard Component should renders ProductCard component 1`] = `
+<DocumentFragment>
+  <section
+    class="MuiContainer-root MuiContainer-maxWidthLg css-2zxudu-MuiContainer-root"
+  >
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-7ppu4o-MuiPaper-root-MuiCard-root"
+    >
+      <h1
+        class="MuiCardHeader-root css-wft9xy-MuiCardHeader-root"
+        variant="h5"
+      >
+        <div
+          class="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-h5 MuiCardHeader-title css-1qvr50w-MuiTypography-root"
+          >
+            Product
+          </span>
+        </div>
+      </h1>
+      <div
+        class="MuiStack-root css-hwo7yp-MuiStack-root"
+      >
+        <img
+          alt="lobster"
+          class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-meb2d4-MuiCardMedia-root"
+          src="image.jpg"
+        />
+        <div
+          class="MuiStack-root css-1am8drf-MuiStack-root"
+        >
+          <h3
+            class="MuiCardHeader-root css-revmsc-MuiCardHeader-root"
+            variant="h5"
+          >
+            <div
+              class="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+            >
+              <span
+                class="MuiTypography-root MuiTypography-h5 MuiCardHeader-title css-1qvr50w-MuiTypography-root"
+              >
+                Product
+              </span>
+            </div>
+          </h3>
+          <div
+            class="MuiStack-root css-inz84j-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-14p1x4i"
+            >
+              <div
+                class="MuiBox-root css-1ma6dsf"
+              >
+                <div
+                  class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-bqy36f-MuiChip-root"
+                >
+                  <span
+                    class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
+                  >
+                    Healthy
+                  </span>
+                </div>
+                <div
+                  class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-17hug3x-MuiChip-root"
+                >
+                  <span
+                    class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
+                  >
+                    Trending
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiStack-root css-12iqr45-MuiStack-root"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-rhzpb0-MuiTypography-root"
+              >
+                24min •
+              </p>
+              <div
+                class="MuiStack-root css-niqf4j-MuiStack-root"
+              >
+                <span
+                  aria-label="4 Stars"
+                  class="MuiRating-root MuiRating-sizeMedium Mui-readOnly MuiRating-readOnly css-1ntt3c0-MuiRating-root"
+                  role="img"
+                >
+                  <span>
+                    <span
+                      class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                        data-testid="StarIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span>
+                    <span
+                      class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                        data-testid="StarIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span>
+                    <span
+                      class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                        data-testid="StarIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span>
+                    <span
+                      class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                        data-testid="StarIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span>
+                    <span
+                      class="MuiRating-icon MuiRating-iconEmpty css-1c99szj-MuiRating-icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                        data-testid="StarBorderIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </span>
+                <legend
+                  class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+                >
+                  4
+                </legend>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiCardContent-root css-18m58hg-MuiCardContent-root"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-description css-lor93s-MuiTypography-root"
+            >
+              About Product
+            </p>
+          </div>
+          <div
+            class="MuiBox-root css-x39k33"
+          >
+            <h3
+              class="MuiTypography-root MuiTypography-h3 css-rhg1r4-MuiTypography-root"
+            >
+              $10.99
+            </h3>
+          </div>
+          <div
+            class="MuiCardActions-root MuiCardActions-spacing css-us7ea4-MuiCardActions-root"
+          >
+            <div
+              class="MuiBox-root css-18k5jjb"
+              variant="outlined"
+            >
+              Favourite
+              <button
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-u1vl96-MuiButtonBase-root-MuiIconButton-root"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1gick0k-MuiSvgIcon-root"
+                  data-testid="FavoriteBorderOutlinedIcon"
+                  focusable="false"
+                  isactive="false"
+                  ishovered="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"
+                  />
+                </svg>
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1oti5-MuiButtonBase-root-MuiButton-root"
+              tabindex="0"
+              type="button"
+            >
+              Add to card
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-2zunby-MuiSvgIcon-root"
+                data-testid="AddBoxOutlinedIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-8-2h2v-4h4v-2h-4V7h-2v4H7v2h4z"
+                />
+              </svg>
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

@@ -17,9 +17,9 @@ import useBreakpoint from '../../customHooks/useBreakpoint';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import { addToCart, addProductToCart, setRestaurants } from '../../redux/slices/cartSlice';
-import { GetOneProduct } from '../../redux/slices/productsSlice';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
+import { getOneProduct } from '../../redux/slices/productsSlice';
 // eslint-disable-next-line no-underscore-dangle
 const ProductCardItem = ({
   currentPrice,
@@ -31,12 +31,13 @@ const ProductCardItem = ({
   isSupreme,
   isHealthy,
   itemNo,
+  randomNum,
 }) => {
   const breakPoint = useBreakpoint();
   const dispatch = useDispatch();
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
-  const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
+  // const randomNum = Math.floor(Math.random() * (59 - 29 + 1)) + 29;
 
   const { alert, handleCloseAlert, handleShowAlert } = useAlert();
   const [clickedAdd, setClickedAdd] = useState(false);
@@ -73,8 +74,8 @@ const ProductCardItem = ({
       }
     };
 
-    dispatch(GetOneProduct(itemNo)).then((action) => {
-      if (GetOneProduct.fulfilled.match(action)) {
+    dispatch(getOneProduct(itemNo)).then((action) => {
+      if (getOneProduct.fulfilled.match(action)) {
         onGetOneProductComplete(action.payload);
         setClickedAdd(true);
       }
@@ -148,18 +149,20 @@ ProductCardItem.propTypes = {
   isTrending: PropTypes.bool,
   isSupreme: PropTypes.bool,
   itemNo: PropTypes.string,
+  randomNum: PropTypes.number,
 };
 
 ProductCardItem.defaultProps = {
-  currentPrice: '',
+  currentPrice: null,
   imageUrl: '',
   name: '',
-  rating: '',
+  rating: null,
   _id: '',
-  isHealthy: null,
-  isTrending: null,
-  isSupreme: null,
+  isHealthy: false,
+  isTrending: false,
+  isSupreme: false,
   itemNo: '',
+  randomNum: 24,
 };
 
 export default memo(ProductCardItem);

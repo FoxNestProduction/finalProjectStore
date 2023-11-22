@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test should NewReview render 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiFormControl-root MuiFormControl-marginDense MuiFormControl-fullWidth MuiTextField-root css-1z10yd4-MuiFormControl-root-MuiTextField-root"
+  >
+    <label
+      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-focused MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+      data-shrink="true"
+      for="review"
+      id="review-label"
+    >
+      leave your feedback about the service
+    </label>
+    <div
+      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth Mui-focused MuiInputBase-formControl MuiInputBase-multiline css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root"
+    >
+      <textarea
+        aria-invalid="false"
+        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMultiline css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input"
+        id="review"
+        rows="4"
+        style="height: 0px; overflow: hidden;"
+      />
+      <textarea
+        aria-hidden="true"
+        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMultiline css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input"
+        readonly=""
+        style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); padding-top: 0px; padding-bottom: 0px; width: 100%;"
+        tabindex="-1"
+      />
+      <fieldset
+        aria-hidden="true"
+        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+      >
+        <legend
+          class="css-14lo706"
+        >
+          <span>
+            leave your feedback about the service
+          </span>
+        </legend>
+      </fieldset>
+    </div>
+  </div>
+  <div
+    class="MuiStack-root css-u2hr8g-MuiStack-root"
+  >
+    <legend
+      class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+    >
+      You can rate the service
+    </legend>
+    <span
+      class="MuiRating-root MuiRating-sizeMedium css-iljtu2-MuiRating-root"
+      label="You can rate our service"
+    >
+      <label
+        class="css-dqr9h-MuiRating-label"
+        for=":r2:"
+      >
+        <span
+          class="MuiRating-icon MuiRating-iconEmpty css-1c99szj-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+            data-testid="StarBorderIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiRating-visuallyHidden"
+        >
+          1 Star
+        </span>
+      </label>
+      <input
+        class="MuiRating-visuallyHidden"
+        id=":r2:"
+        name="simple-controlled"
+        type="radio"
+        value="1"
+      />
+      <label
+        class="css-dqr9h-MuiRating-label"
+        for=":r3:"
+      >
+        <span
+          class="MuiRating-icon MuiRating-iconEmpty css-1c99szj-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+            data-testid="StarBorderIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiRating-visuallyHidden"
+        >
+          2 Stars
+        </span>
+      </label>
+      <input
+        class="MuiRating-visuallyHidden"
+        id=":r3:"
+        name="simple-controlled"
+        type="radio"
+        value="2"
+      />
+      <label
+        class="css-dqr9h-MuiRating-label"
+        for=":r4:"
+      >
+        <span
+          class="MuiRating-icon MuiRating-iconEmpty css-1c99szj-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+            data-testid="StarBorderIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiRating-visuallyHidden"
+        >
+          3 Stars
+        </span>
+      </label>
+      <input
+        class="MuiRating-visuallyHidden"
+        id=":r4:"
+        name="simple-controlled"
+        type="radio"
+        value="3"
+      />
+      <label
+        class="css-dqr9h-MuiRating-label"
+        for=":r5:"
+      >
+        <span
+          class="MuiRating-icon MuiRating-iconEmpty css-1c99szj-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+            data-testid="StarBorderIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiRating-visuallyHidden"
+        >
+          4 Stars
+        </span>
+      </label>
+      <input
+        class="MuiRating-visuallyHidden"
+        id=":r5:"
+        name="simple-controlled"
+        type="radio"
+        value="4"
+      />
+      <label
+        class="css-dqr9h-MuiRating-label"
+        for=":r6:"
+      >
+        <span
+          class="MuiRating-icon MuiRating-iconEmpty css-1c99szj-MuiRating-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+            data-testid="StarBorderIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiRating-visuallyHidden"
+        >
+          5 Stars
+        </span>
+      </label>
+      <input
+        class="MuiRating-visuallyHidden"
+        id=":r6:"
+        name="simple-controlled"
+        type="radio"
+        value="5"
+      />
+      <label
+        class="MuiRating-label MuiRating-pristine css-dqr9h-MuiRating-label"
+      >
+        <input
+          checked=""
+          class="MuiRating-visuallyHidden"
+          id="simple-controlled-empty"
+          name="simple-controlled"
+          type="radio"
+          value=""
+        />
+        <span
+          class="MuiRating-visuallyHidden"
+        >
+          Empty
+        </span>
+      </label>
+    </span>
+  </div>
+</DocumentFragment>
+`;

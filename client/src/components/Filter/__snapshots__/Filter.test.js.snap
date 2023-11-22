@@ -1,0 +1,468 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter component renders Filter component 1`] = `
+<DocumentFragment>
+  <section
+    class="MuiStack-root css-dpm171-MuiStack-root"
+  >
+    <div
+      class="MuiStack-root css-nen11g-MuiStack-root"
+    >
+      <div
+        class="MuiStack-root css-ar0lna-MuiStack-root"
+      >
+        <h3
+          class="MuiTypography-root MuiTypography-body1 css-11nk9k9-MuiTypography-root"
+        >
+          Category
+        </h3>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-1yb6wzo-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          Reset
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+      <div
+        class="MuiStack-root css-1pjwift-MuiStack-root"
+      >
+        <div
+          class="MuiStack-root css-1geu7ea-MuiStack-root"
+        >
+          <button
+            aria-pressed="true"
+            class="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-sizeMedium MuiToggleButton-standard css-1n7te43-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="pizza"
+          >
+            <div
+              class="MuiStack-root css-1sv8m96-MuiStack-root"
+            >
+              <img
+                alt="pizza"
+                class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+                src="./img/filter/pizza.png"
+              />
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              >
+                Pizza
+              </p>
+            </div>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-pressed="true"
+            class="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-sizeMedium MuiToggleButton-standard css-1n7te43-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="burgers"
+          >
+            <div
+              class="MuiStack-root css-1sv8m96-MuiStack-root"
+            >
+              <img
+                alt="burger"
+                class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+                src="./img/filter/burger.png"
+              />
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              >
+                Burgers
+              </p>
+            </div>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-pressed="true"
+            class="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-sizeMedium MuiToggleButton-standard css-1n7te43-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="sushi"
+          >
+            <div
+              class="MuiStack-root css-1sv8m96-MuiStack-root"
+            >
+              <img
+                alt="sushi"
+                class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+                src="./img/filter/sushi.png"
+              />
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              >
+                Sushi
+              </p>
+            </div>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-pressed="true"
+            class="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-sizeMedium MuiToggleButton-standard css-1n7te43-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="salads"
+          >
+            <div
+              class="MuiStack-root css-1sv8m96-MuiStack-root"
+            >
+              <img
+                alt="salads"
+                class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+                src="./img/filter/salad.png"
+              />
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              >
+                Salads
+              </p>
+            </div>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <div
+          class="MuiStack-root css-1geu7ea-MuiStack-root"
+        >
+          <button
+            aria-pressed="false"
+            class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard css-1n7te43-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="pasta"
+          >
+            <div
+              class="MuiStack-root css-1sv8m96-MuiStack-root"
+            >
+              <img
+                alt="pasta"
+                class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+                src="./img/filter/pasta.png"
+              />
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              >
+                Pasta
+              </p>
+            </div>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-pressed="false"
+            class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard css-1n7te43-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="sandwiches"
+          >
+            <div
+              class="MuiStack-root css-1sv8m96-MuiStack-root"
+            >
+              <img
+                alt="sandwich"
+                class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+                src="./img/filter/sandwich.png"
+              />
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              >
+                Sandwich
+              </p>
+            </div>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-pressed="false"
+            class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard css-1n7te43-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="bbqMeat"
+          >
+            <div
+              class="MuiStack-root css-1sv8m96-MuiStack-root"
+            >
+              <img
+                alt="bbq meat"
+                class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+                src="./img/filter/bbqMeat.png"
+              />
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              >
+                BBQ
+              </p>
+            </div>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-pressed="false"
+            class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard css-1n7te43-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="drink"
+          >
+            <div
+              class="MuiStack-root css-1sv8m96-MuiStack-root"
+            >
+              <img
+                alt="drink"
+                class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+                src="./img/filter/drink.png"
+              />
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              >
+                Drink
+              </p>
+            </div>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiStack-root css-h29emu-MuiStack-root"
+    >
+      <h3
+        class="MuiTypography-root MuiTypography-body1 css-11nk9k9-MuiTypography-root"
+      >
+        Filter By
+      </h3>
+      <div
+        class="MuiStack-root css-1t5hxec-MuiStack-root"
+      >
+        <div
+          class="MuiStack-root css-ee32gy-MuiStack-root"
+        >
+          <button
+            aria-pressed="false"
+            class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard css-1l39r7-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="isTrending"
+          >
+            Trending
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-pressed="false"
+            class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard css-1l39r7-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="isHealthy"
+          >
+            Healthy
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <div
+          class="MuiStack-root css-ee32gy-MuiStack-root"
+        >
+          <button
+            aria-pressed="false"
+            class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard css-1l39r7-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="isSupreme"
+          >
+            Supreme
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-pressed="false"
+            class="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-standard css-1l39r7-MuiButtonBase-root-MuiToggleButton-root"
+            tabindex="0"
+            type="button"
+            value="mostPopular"
+          >
+            Most Popular
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiStack-root css-13o102m-MuiStack-root"
+    >
+      <h3
+        class="MuiTypography-root MuiTypography-body1 css-11nk9k9-MuiTypography-root"
+      >
+        Price
+      </h3>
+      <div
+        class="MuiBox-root css-jelsty"
+      >
+        <span
+          class="MuiSlider-root MuiSlider-marked MuiSlider-colorPrimary MuiSlider-sizeMedium css-618fq9-MuiSlider-root"
+        >
+          <span
+            class="MuiSlider-rail css-14pt78w-MuiSlider-rail"
+          />
+          <span
+            class="MuiSlider-track css-1gv0vcd-MuiSlider-track"
+            style="left: 0%; width: 100%;"
+          />
+          <span
+            class="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
+            data-index="0"
+            style="left: 0%;"
+          />
+          <span
+            aria-hidden="true"
+            class="MuiSlider-markLabel MuiSlider-markLabel MuiSlider-markLabelActive css-1eoe787-MuiSlider-markLabel"
+            data-index="0"
+            style="left: 0%;"
+          >
+            0$
+          </span>
+          <span
+            class="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
+            data-index="1"
+            style="left: 33.333333333333336%;"
+          />
+          <span
+            aria-hidden="true"
+            class="MuiSlider-markLabel MuiSlider-markLabel MuiSlider-markLabelActive css-1eoe787-MuiSlider-markLabel"
+            data-index="1"
+            style="left: 33.333333333333336%;"
+          >
+            10$
+          </span>
+          <span
+            class="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
+            data-index="2"
+            style="left: 66.66666666666667%;"
+          />
+          <span
+            aria-hidden="true"
+            class="MuiSlider-markLabel MuiSlider-markLabel MuiSlider-markLabelActive css-1eoe787-MuiSlider-markLabel"
+            data-index="2"
+            style="left: 66.66666666666667%;"
+          >
+            20$
+          </span>
+          <span
+            class="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
+            data-index="3"
+            style="left: 100%;"
+          />
+          <span
+            aria-hidden="true"
+            class="MuiSlider-markLabel MuiSlider-markLabel MuiSlider-markLabelActive css-1eoe787-MuiSlider-markLabel"
+            data-index="3"
+            style="left: 100%;"
+          >
+            30$
+          </span>
+          <span
+            class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-eg0mwd-MuiSlider-thumb"
+            data-index="0"
+            style="left: 0%;"
+          >
+            <input
+              aria-label="Always visible"
+              aria-orientation="horizontal"
+              aria-valuemax="30"
+              aria-valuemin="0"
+              aria-valuenow="0"
+              data-index="0"
+              max="30"
+              min="0"
+              step="1"
+              style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
+              type="range"
+              value="0"
+            />
+            <span
+              aria-hidden="true"
+              class="MuiSlider-valueLabelOpen MuiSlider-valueLabel css-nnid7-MuiSlider-valueLabel"
+            >
+              <span
+                class="MuiSlider-valueLabelCircle"
+              >
+                <span
+                  class="MuiSlider-valueLabelLabel"
+                >
+                  0
+                </span>
+              </span>
+            </span>
+          </span>
+          <span
+            class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-eg0mwd-MuiSlider-thumb"
+            data-index="1"
+            style="left: 100%;"
+          >
+            <input
+              aria-label="Always visible"
+              aria-orientation="horizontal"
+              aria-valuemax="30"
+              aria-valuemin="0"
+              aria-valuenow="30"
+              data-index="1"
+              max="30"
+              min="0"
+              step="1"
+              style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
+              type="range"
+              value="30"
+            />
+            <span
+              aria-hidden="true"
+              class="MuiSlider-valueLabelOpen MuiSlider-valueLabel css-nnid7-MuiSlider-valueLabel"
+            >
+              <span
+                class="MuiSlider-valueLabelCircle"
+              >
+                <span
+                  class="MuiSlider-valueLabelLabel"
+                >
+                  30
+                </span>
+              </span>
+            </span>
+          </span>
+        </span>
+      </div>
+    </div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-13mseku-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      Apply
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </section>
+</DocumentFragment>
+`;

@@ -1,7 +1,7 @@
 ### 📒Документація проекту "Eatly"
 
 :globe_with_meridians: Проект розміщено на платформі [Netlify](https://eatly-fe17.netlify.app/).
-:email: E-mail: <info@eatly.com>
+:email: E-mail: <eatly.supp@gmail.com>
 
 ---
 

@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { CardActions, CardContent, CardMedia, Rating, Button, Box, Card } from '@mui/material';
