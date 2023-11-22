@@ -12,7 +12,6 @@ jest.mock('react-redux', () => ({
 const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
 describe('MiniCartItem Component', () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -23,13 +22,13 @@ describe('MiniCartItem Component', () => {
 
     const { asFragment } = render(
       <MemoryRouter>
-          <MiniCartItem
-            name="Product"
-            currentPrice={10.99}
-            imageUrl="image.jpg"
-            cartQuantity={1}
-            _id="123"
-          />
+        <MiniCartItem
+          name="Product"
+          currentPrice={10.99}
+          imageUrl="image.jpg"
+          cartQuantity={1}
+          _id="123"
+        />
       </MemoryRouter>,
     );
 
@@ -44,13 +43,13 @@ describe('MiniCartItem Component', () => {
 
     render(
       <MemoryRouter>
-          <MiniCartItem
-            name="Product"
-            currentPrice={10.99}
-            imageUrl="image.jpg"
-            cartQuantity={1}
-            _id="123"
-          />
+        <MiniCartItem
+          name="Product"
+          currentPrice={10.99}
+          imageUrl="image.jpg"
+          cartQuantity={1}
+          _id="123"
+        />
       </MemoryRouter>,
     );
 
@@ -67,16 +66,15 @@ describe('MiniCartItem Component', () => {
 
     render(
       <MemoryRouter>
-          <MiniCartItem
-            name="Product"
-            currentPrice={10.99}
-            imageUrl="image.jpg"
-            cartQuantity={1}
-            _id="123"
-          />
+        <MiniCartItem
+          name="Product"
+          currentPrice={10.99}
+          imageUrl="image.jpg"
+          cartQuantity={1}
+          _id="123"
+        />
       </MemoryRouter>,
     );
-
 
     const addButtons = screen.getAllByTestId('AddRoundedIcon');
     fireEvent.click(addButtons[0]);

@@ -10,7 +10,6 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('RestaurantCartItem Component', () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -20,7 +19,7 @@ describe('RestaurantCartItem Component', () => {
 
     const { asFragment } = render(
       <MemoryRouter>
-          <RestaurantCartItem restaurantName={'Pesto'} />
+        <RestaurantCartItem restaurantName="Pesto" />
       </MemoryRouter>,
     );
 

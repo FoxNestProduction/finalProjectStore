@@ -12,7 +12,6 @@ jest.mock('react-redux', () => ({
 const mockDispatch = jest.spyOn(require('react-redux'), 'useDispatch');
 
 describe('ProductCartItem Component', () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -23,14 +22,14 @@ describe('ProductCartItem Component', () => {
 
     const { asFragment } = render(
       <MemoryRouter>
-          <ProductCartItem
-            name="Product"
-            itemNo="123"
-            currentPrice={10.99}
-            imageUrl="image.jpg"
-            cartQuantity={1}
-            _id="123"
-          />
+        <ProductCartItem
+          name="Product"
+          itemNo="123"
+          currentPrice={10.99}
+          imageUrl="image.jpg"
+          cartQuantity={1}
+          _id="123"
+        />
       </MemoryRouter>,
     );
 
@@ -45,14 +44,14 @@ describe('ProductCartItem Component', () => {
 
     render(
       <MemoryRouter>
-          <ProductCartItem
-            name="Product"
-            itemNo="123"
-            currentPrice={10.99}
-            imageUrl="image.jpg"
-            cartQuantity={1}
-            _id="123"
-          />
+        <ProductCartItem
+          name="Product"
+          itemNo="123"
+          currentPrice={10.99}
+          imageUrl="image.jpg"
+          cartQuantity={1}
+          _id="123"
+        />
       </MemoryRouter>,
     );
 
@@ -69,14 +68,14 @@ describe('ProductCartItem Component', () => {
 
     render(
       <MemoryRouter>
-          <ProductCartItem
-            name="Product"
-            itemNo="123"
-            currentPrice={10.99}
-            imageUrl="image.jpg"
-            cartQuantity={1}
-            _id="123"
-          />
+        <ProductCartItem
+          name="Product"
+          itemNo="123"
+          currentPrice={10.99}
+          imageUrl="image.jpg"
+          cartQuantity={1}
+          _id="123"
+        />
       </MemoryRouter>,
     );
 
@@ -93,14 +92,14 @@ describe('ProductCartItem Component', () => {
 
     render(
       <MemoryRouter>
-          <ProductCartItem
-            name="Product"
-            itemNo="123"
-            currentPrice={10.99}
-            imageUrl="image.jpg"
-            cartQuantity={1}
-            _id="123"
-          />
+        <ProductCartItem
+          name="Product"
+          itemNo="123"
+          currentPrice={10.99}
+          imageUrl="image.jpg"
+          cartQuantity={1}
+          _id="123"
+        />
       </MemoryRouter>,
     );
 
