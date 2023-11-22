@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RestaurantCartItem Component should renders RestaurantCartItem component 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-dx88nq"
+  >
+    <div
+      class="MuiBox-root css-1b4yrg4"
+    >
+      <h3
+        class="MuiTypography-root MuiTypography-h3 css-1sp1o0y-MuiTypography-root"
+      >
+        Pesto
+      </h3>
+      <div
+        class="MuiBox-root css-70qvj9"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-8bjktx-MuiTypography-root"
+        >
+          Total:
+        </p>
+        <div
+          class="MuiBox-root css-idyf5l"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body3 css-ak10t6-MuiTypography-root"
+          >
+            $0
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiBox-root css-1wfkfls"
+    />
+  </div>
+</DocumentFragment>
+`;
