@@ -107,15 +107,15 @@ export const stylesToggleButton = {
   borderRadius: '15px',
   bgcolor: '#FFDE8A',
   '&:hover': {
-    bgcolor: '#ffffff',
-    border: '4px solid rgba(251, 71, 29, 0.50)',
+    bgcolor: { mobile: '#FFDE8A', desktop: '#ffffff' },
+    border: { mobile: 'none', desktop: '4px solid rgba(251, 71, 29, 0.50)' },
   },
   '&.Mui-selected': {
     color: '#FB471D',
     bgcolor: '#F7C5BA',
     border: '4px solid rgba(251, 71, 29, 0.50)',
     '&:hover': {
-      bgcolor: '#ffffff',
+      bgcolor: { mobile: '#F7C5BA', desktop: '#ffffff' },
     },
   },
   transition: 'background-color 0.3s ease, border 0.1s ease',
