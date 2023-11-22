@@ -110,7 +110,7 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
         <CardActions
           sx={{
             padding: '0',
-            paddingRight: '18px',
+            paddingRight: '0',
             width: { mobile: '13%', lgTablet: '5%' },
           }}
         >
@@ -127,7 +127,7 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
               },
             }}
           >
-            <VerifiedIcon fontSize="large" sx={{ color: 'primary.main' }} />
+            <VerifiedIcon sx={{ color: 'primary.main', height: '100%', width: '100%' }} />
           </Box>
         </CardActions>
       </Stack>
