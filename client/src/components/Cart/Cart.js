@@ -45,7 +45,6 @@ const Cart = () => {
   useEffect(() => {
     getCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-
   }, [isUserAuthorization, authorizationMark]);
 
   const continueFn = () => {
