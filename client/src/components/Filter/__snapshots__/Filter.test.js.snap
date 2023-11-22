@@ -46,7 +46,7 @@ exports[`Filter component renders Filter component 1`] = `
               <img
                 alt="pizza"
                 class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
-                src="./img/pizza.png"
+                src="./img/filter/pizza.png"
               />
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -71,7 +71,7 @@ exports[`Filter component renders Filter component 1`] = `
               <img
                 alt="burger"
                 class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
-                src="./img/burger.png"
+                src="./img/filter/burger.png"
               />
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -96,7 +96,7 @@ exports[`Filter component renders Filter component 1`] = `
               <img
                 alt="sushi"
                 class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
-                src="./img/sushi.png"
+                src="./img/filter/sushi.png"
               />
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -121,7 +121,7 @@ exports[`Filter component renders Filter component 1`] = `
               <img
                 alt="salads"
                 class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
-                src="./img/salad_2.png"
+                src="./img/filter/salad.png"
               />
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -150,7 +150,7 @@ exports[`Filter component renders Filter component 1`] = `
               <img
                 alt="pasta"
                 class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
-                src="./img/pasta.png"
+                src="./img/filter/pasta.png"
               />
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -175,7 +175,7 @@ exports[`Filter component renders Filter component 1`] = `
               <img
                 alt="sandwich"
                 class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
-                src="./img/sandwich.png"
+                src="./img/filter/sandwich.png"
               />
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -200,7 +200,7 @@ exports[`Filter component renders Filter component 1`] = `
               <img
                 alt="bbq meat"
                 class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
-                src="./img/bbqMeat.png"
+                src="./img/filter/bbqMeat.png"
               />
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -225,7 +225,7 @@ exports[`Filter component renders Filter component 1`] = `
               <img
                 alt="drink"
                 class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
-                src="./img/drink_2.png"
+                src="./img/filter/drink.png"
               />
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
