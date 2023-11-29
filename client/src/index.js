@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -15,6 +15,8 @@ import { injectStore } from './API/instance';
 import { AlertContextProvider } from './context/AlertProvider';
 import SomethingWentWrong from './pages/SomethingWentWrong/SomethingWentWrong';
 
+import './i18n';
+
 const root = ReactDOM.createRoot(document.getElementById('root')); // eslint-disable-line no-undef
 const persistor = persistStore(store);
 injectStore(store);
@@ -23,13 +25,15 @@ root.render(
   <Provider store={store}>
     <ThemeProvider theme={globalTheme}>
       <ErrorBoundary fallback={<SomethingWentWrong />}>
-        <BrowserRouter>
-          <PersistGate persistor={persistor}>
-            <AlertContextProvider>
-              <App />
-            </AlertContextProvider>
-          </PersistGate>
-        </BrowserRouter>
+        <Suspense fallback="loading">
+          <BrowserRouter>
+            <PersistGate persistor={persistor}>
+              <AlertContextProvider>
+                <App />
+              </AlertContextProvider>
+            </PersistGate>
+          </BrowserRouter>
+        </Suspense>
       </ErrorBoundary>
     </ThemeProvider>
   </Provider>,
