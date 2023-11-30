@@ -25,7 +25,7 @@ root.render(
   <Provider store={store}>
     <ThemeProvider theme={globalTheme}>
       <ErrorBoundary fallback={<SomethingWentWrong />}>
-        <Suspense fallback="loading">
+        <Suspense fallback={<h2 style={{ textAlign: 'center', marginTop: '300px' }}>🌀 Loading...</h2>}>
           <BrowserRouter>
             <PersistGate persistor={persistor}>
               <AlertContextProvider>

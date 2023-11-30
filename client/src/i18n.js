@@ -10,10 +10,10 @@ i18n
   .use(i18nBackend)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'en',
-    lng: 'en',
+    fallbackLng: 'en', // мова, яка буде завантажена, якщо переклади, які шукає користувач, будуть недоступні
+    lng: 'en', // мова за замовчуванням
     interpolation: {
-      escapeValue: false,
+      escapeValue: false, // використовується для екранування значень і уникнення атак XSS
     },
     backend: {
       loadPath: `${getCurrentHost}/i18n/{{lng}}.json`,
