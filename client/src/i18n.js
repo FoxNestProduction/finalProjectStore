@@ -11,32 +11,36 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
-    lng: 'ua',
+    lng: 'en',
     interpolation: {
       escapeValue: false,
     },
-    // backend: {
-    //   // loadPath: `${getCurrentHost}/i18n/{{lng}}.json`,
-    //   loadPath: 'http://localhost:5173/i18n/{{lng}}.json',
-    // },
-    resources: {
-      en: {
-        translation: {
-          menu: 'Menu',
-          restaurants: 'Restaurants',
-          reviews: 'Reviews',
-          contact: 'Contact',
-        },
-      },
-      ua: {
-        translation: {
-          menu: 'Меню',
-          restaurants: 'Ресторани',
-          reviews: 'Відгуки',
-          contact: 'Контакт',
-        },
-      },
+    backend: {
+      // loadPath: `${getCurrentHost}/i18n/{{lng}}.json`,
+      loadPath: 'http://localhost:3000/i18n/{{lng}}.json',
     },
+    // resources: {
+    //   en: {
+    //     translation: {
+    //       menu: 'Menu',
+    //       restaurants: 'Restaurants',
+    //       reviews: 'Reviews',
+    //       contact: 'Contact',
+    //       aboutUs: 'About Us',
+    //       rights: '© 2023 EATLY All Rights Reserved.',
+    //     },
+    //   },
+    //   ua: {
+    //     translation: {
+    //       menu: 'Меню',
+    //       restaurants: 'Ресторани',
+    //       reviews: 'Відгуки',
+    //       contact: 'Контакт',
+    //       aboutUs: 'Про нас',
+    //       rights: '© 2023 EATLY Всі права захищені.',
+    //     },
+    //   },
+    // },
   });
 
 export default i18n;

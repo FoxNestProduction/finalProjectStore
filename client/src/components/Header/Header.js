@@ -49,7 +49,7 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { i18n, t } = useTranslation();
-  console.log(i18n);
+  // console.log(i18n);
   const onChangeLang = (e) => {
     const langCode = e.target.value;
     i18n.changeLanguage(langCode);
@@ -163,21 +163,23 @@ const Header = () => {
               </List>
 
               <Box sx={stylesIconsWrapper}>
-                <TextField
-                  sx={stylesLangSelect}
-                  id="standard-select-currency"
-                  size="small"
-                  select
-                  defaultValue={i18n.language}
-                  variant="standard"
-                  onChange={onChangeLang}
-                >
-                  {LANGUAGES.map(({ code, label }) => (
-                    <MenuItem key={code} value={code}>
-                      {label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                <Box sx={{ minWidth: '25px' }}>
+                  <TextField
+                    sx={stylesLangSelect}
+                    id="standard-select-currency"
+                    size="small"
+                    select
+                    value={i18n.language}
+                    variant="standard"
+                    onChange={onChangeLang}
+                  >
+                    {LANGUAGES.map(({ code, label }) => (
+                      <MenuItem key={code} value={code}>
+                        {label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Box>
                 {isUserAuthorized && isLgTabletOrDesktop && (
                   <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
                     <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
