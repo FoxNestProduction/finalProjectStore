@@ -1,8 +1,10 @@
 import { Divider, Box, Button, Container, List, ListItem, Typography } from '@mui/material';
 import React, { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { section, descriptionBox, list, listText, googleAppleBtn, googleAppleBox, mobileImg } from './styles';
 
 const MobileApp = () => {
+  const { i18n, t } = useTranslation();
   const onClick = (url) => {
     window.open(url, '_blank');
   };
@@ -15,23 +17,23 @@ const MobileApp = () => {
       >
         <Box sx={descriptionBox}>
           <Typography component="h2" variant="h2" sx={{ color: 'text.primary' }} textTransform="capitalize" fontWeight={500}>
-            Premium Quality
+            {t('titleMobeleApp_1')}
             <br />
-            For Your Health
+            {t('titleMobeleApp_2')}
           </Typography>
           <List sx={list}>
             <ListItem sx={{ display: 'list-item', padding: '0' }}>
               <Typography component="p" variant="subtitle1" sx={listText}>
-                Premium quality food is made with ingredients that
+                {t('discriptionMobileApp_1')}
                 <br />
-                are packed with essential vitamins, minerals.
+                {t('discriptionMobileApp_2')}
               </Typography>
             </ListItem>
             <ListItem sx={{ display: 'list-item', padding: '0' }}>
               <Typography component="p" variant="subtitle1" sx={listText}>
-                These foods promote overall wellness by
+                {t('discriptionMobileApp_3')}
                 <br />
-                support healthy digestion and boosting immunity
+                {t('discriptionMobileApp_4')}
               </Typography>
             </ListItem>
           </List>
