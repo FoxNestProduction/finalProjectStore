@@ -4,6 +4,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { debounce } from '@mui/material/utils';
 import { Autocomplete, InputAdornment, Stack, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
+import { useTranslation } from 'react-i18next';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
@@ -23,6 +24,7 @@ const Search = ({ resetFiltersLocalState }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
+  const { i18n, t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchAllProductsNames());
