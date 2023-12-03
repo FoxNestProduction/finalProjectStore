@@ -11,24 +11,24 @@ const Features = () => {
         <Box sx={{ ...flexCenter, ...itemContainer }}>
           <Typography component="h1" sx={itemTitle}>10K+</Typography>
           <Box sx={{ ...flexCenter, ...descriptionBox }}>
-            <Typography component="p" sx={description}>{t('satisfiedCostumers')}</Typography>
-            <Typography component="p" sx={description}>{t('allGreatOverTheWorld')}</Typography>
+            <Typography component="p" sx={description}>{t('features.satisfiedCostumers')}</Typography>
+            <Typography component="p" sx={description}>{t('features.allGreatOverTheWorld')}</Typography>
           </Box>
         </Box>
         <Typography component="span" sx={lineBreak} />
         <Box sx={{ ...flexCenter, ...itemContainer }}>
           <Typography component="h1" sx={itemTitle}>4M</Typography>
           <Box sx={{ ...flexCenter, ...descriptionBox }}>
-            <Typography component="p" sx={description}>{t('healthyDishesSold')}</Typography>
-            <Typography component="p" sx={description}>{t('includingMilkShakesSmooth')}</Typography>
+            <Typography component="p" sx={description}>{t('features.healthyDishesSold')}</Typography>
+            <Typography component="p" sx={description}>{t('features.includingMilkShakesSmooth')}</Typography>
           </Box>
         </Box>
         <Typography component="span" sx={lineBreak} />
         <Box sx={{ ...flexCenter, ...itemContainer }}>
           <Typography component="h1" sx={itemTitle}>99.99%</Typography>
           <Box sx={{ ...flexCenter, ...descriptionBox }}>
-            <Typography component="p" sx={description}>{t('reliableCustomerSupport')}</Typography>
-            <Typography component="p" sx={description}>{t('weProvideGreatExperiences')}</Typography>
+            <Typography component="p" sx={description}>{t('features.reliableCustomerSupport')}</Typography>
+            <Typography component="p" sx={description}>{t('features.weProvideGreatExperiences')}</Typography>
           </Box>
         </Box>
       </Container>

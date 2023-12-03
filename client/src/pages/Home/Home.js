@@ -39,7 +39,7 @@ const HomePage = () => {
             color="text.primary"
             sx={{ textAlign: 'center', mb: 3 }}
           >
-            {t('ourTopRestaurants')}
+            {t('homePage.ourTopRestaurants')}
           </Typography>
           <Box sx={partnersSkeletonStylesContainer}>
             <Skeleton skeletonType="restaurant" />
@@ -49,7 +49,7 @@ const HomePage = () => {
         </Container>
       ) : (topPartners.length > 0 && (
         <ListItems
-          title={t('ourTopRestaurants')}
+          title={t('homePage.ourTopRestaurants')}
           items={topPartners}
           itemComponent={RestaurantItem}
           actions={<ListItemAction type="partners" />}
@@ -65,7 +65,7 @@ const HomePage = () => {
             color="text.primary"
             sx={{ textAlign: 'center', mb: 3 }}
           >
-            {t('ourTopDishes')}
+            {t('homePage.ourTopDishes')}
           </Typography>
           <Grid sx={productSkeletonStylesContainer}>
             <Grid>
@@ -97,7 +97,7 @@ const HomePage = () => {
         </Container>
       ) : (topProducts.length > 0 && (
         <ListItems
-          title={t('ourTopDishes')}
+          title={t('homePage.ourTopDishes')}
           items={topProducts}
           itemComponent={ProductCardItem}
           actions={<ListItemAction />}

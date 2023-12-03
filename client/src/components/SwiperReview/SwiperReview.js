@@ -65,7 +65,7 @@ const SwiperReview = () => {
 
   return (
     <Container component="section">
-      <Typography variant="h2" component="h2" color="text.primary" sx={{ textAlign: 'center', mb: 2 }}>{t('сustomerSay')}</Typography>
+      <Typography variant="h2" component="h2" color="text.primary" sx={{ textAlign: 'center', mb: 2 }}>{t('home.сustomerSay')}</Typography>
       <Box sx={{ pb: '150px', position: 'relative' }}>
 
         <Box

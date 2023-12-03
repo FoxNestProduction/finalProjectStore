@@ -12,15 +12,15 @@ const SectionGetStarted = () => {
   const title = {
     short:
   <>
-    {t('enjoyFoods')}
+    {t('sectionGetStarted.enjoyFoods')}
     <br />
-    {t('overWorld')}
+    {t('sectionGetStarted.overWorld')}
   </>,
     long:
   <>
-    {t('enjoyFoodsAll')}
+    {t('sectionGetStarted.enjoyFoodsAll')}
     <br />
-    {t('overTheWorld')}
+    {t('sectionGetStarted.overTheWorld')}
   </>,
   };
 
@@ -34,7 +34,7 @@ const SectionGetStarted = () => {
           component="span"
           sx={stylesLabel}
         >
-          {t('over1000Users')}
+          {t('sectionGetStarted.over1000Users')}
         </Typography>
         <Typography
           variant="h1"
@@ -45,11 +45,12 @@ const SectionGetStarted = () => {
         </Typography>
         <Typography component="p" sx={stylesDescription}>
           {/* eslint-disable-next-line max-len */}
-          {t('discriptionGetStarted')}
+          {t('sectionGetStarted.discription')}
         </Typography>
         <Box sx={stylesActions}>
           <Button sx={stylesStartedBnt} component={RouterLink} to="/menu" variant="contained">
-            Get Started
+            {t('sectionGetStarted.buttonGetStarted')}
+            {/* Get Started */}
           </Button>
           <Button sx={stylesProBnt} component={RouterLink} to="/pricing" variant="outlined" disabled>
             Go Pro

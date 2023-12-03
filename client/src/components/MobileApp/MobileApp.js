@@ -17,23 +17,23 @@ const MobileApp = () => {
       >
         <Box sx={descriptionBox}>
           <Typography component="h2" variant="h2" sx={{ color: 'text.primary' }} textTransform="capitalize" fontWeight={500}>
-            {t('titleMobeleApp_1')}
+            {t('mobileApp.title_1')}
             <br />
-            {t('titleMobeleApp_2')}
+            {t('mobileApp.title_2')}
           </Typography>
           <List sx={list}>
             <ListItem sx={{ display: 'list-item', padding: '0' }}>
               <Typography component="p" variant="subtitle1" sx={listText}>
-                {t('discriptionMobileApp_1')}
+                {t('mobileApp.discription_1')}
                 <br />
-                {t('discriptionMobileApp_2')}
+                {t('mobileApp.discription_2')}
               </Typography>
             </ListItem>
             <ListItem sx={{ display: 'list-item', padding: '0' }}>
               <Typography component="p" variant="subtitle1" sx={listText}>
-                {t('discriptionMobileApp_3')}
+                {t('mobileApp.discription_3')}
                 <br />
-                {t('discriptionMobileApp_4')}
+                {t('mobileApp.discription_4')}
               </Typography>
             </ListItem>
           </List>
