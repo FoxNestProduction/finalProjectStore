@@ -1,0 +1,43 @@
+{
+  "menu": "Меню",
+  "restaurants": "Ресторани",
+  "reviews": "Відгуки",
+  "contact": "Контакт",
+  "aboutUs": "Про нас",
+  "rights": "© 2023 EATLY Всі права захищені.",
+  "buttonViewAll": "Подивитись Всі",
+  "home": {
+    "ourTopRestaurants": "Наші Топові Ресторани",
+    "ourTopDishes": "Наші Топові Страви",
+    "сustomerSay": "Відгуки Клієнтів"
+  },
+  "menuPage": {
+    "titleAllDishes": "Всі Страви",
+    "ourTopRestaurants": "Наші Топові Ресторани"
+  },
+  "sectionGetStarted": {
+    "over1000Users": "БІЛЬШЕ 1000 КОРИСТУВАЧІВ",
+    "enjoyFoods": "Насолоджуйтесь їжею",
+    "enjoyFoodsAll": "Насолоджуйтесь їжею",
+    "overWorld": "По Світу",
+    "overTheWorld": "По Всьому Світу",
+    "discription": "Eatly допомагає вам встановити цілі заощаджень, отримати пропозиції повернення готівки та отримати зарплату до двох днів раніше. Отримайте бонус у розмірі $20.",
+    "buttonGetStarted": "Почати"
+  },
+  "features": {
+    "satisfiedCostumers": "Задоволених Клієнтів ",
+    "allGreatOverTheWorld": "В Усьому Світі",
+    "healthyDishesSold": "Проданих Корисних Страв",
+    "includingMilkShakesSmooth": "Включно З Молочними Коктейлями",
+    "reliableCustomerSupport": "Надійна Підтримка Клієнтів",
+    "weProvideGreatExperiences": "Ми Гарантуємо Чудові Враження"
+  },
+  "mobileApp": {
+    "title_1": "Преміальна Якість",
+    "title_2": "Для Вашого Здоров'я",
+    "discription_1": "Їжа преміум-класу виготовляється з інгредієнтів, які",
+    "discription_2": "містять необхідні вітаміни та мінерали.",
+    "discription_3": "Ці продукти сприяють загальному самопочуттю, ",
+    "discription_4": "підтримують здорове травлення та зміцнюють імунітет"
+  }
+}

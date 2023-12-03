@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { Container, Box, Typography, IconButton } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import styles from './SwiperReview.module.scss';
@@ -12,6 +13,7 @@ const SwiperReview = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [widthStep, setWidthStep] = useState(0);
   const lengthReviews = lastReviewsData && lastReviewsData.comments.length - 1;
+  const { i18n, t } = useTranslation();
 
   const scrollingWrapperRef = useRef(null);
   const cardRef = useRef([]);
@@ -63,7 +65,7 @@ const SwiperReview = () => {
 
   return (
     <Container component="section">
-      <Typography variant="h2" component="h2" color="text.primary" sx={{ textAlign: 'center', mb: 2 }}>Customer Say</Typography>
+      <Typography variant="h2" component="h2" color="text.primary" sx={{ textAlign: 'center', mb: 2 }}>{t('home.сustomerSay')}</Typography>
       <Box sx={{ pb: '150px', position: 'relative' }}>
 
         <Box

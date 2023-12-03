@@ -1,0 +1,43 @@
+{
+  "menu": "Menu",
+  "restaurants": "Restaurants",
+  "reviews": "Reviews",
+  "contact": "Contact",
+  "aboutUs": "About Us",
+  "rights": "© 2023 EATLY All Rights Reserved.",
+  "buttonViewAll": "View All",
+  "homePage": {
+    "ourTopRestaurants": "Our Top Restaurants",
+    "ourTopDishes": "Our Top Dishes",
+    "сustomerSay": "Customer Say"
+  },
+  "menuPage": {
+    "titleAllDishes": "All Dishes",
+    "ourTopRestaurants": "Our Top Restaurants"
+  },
+  "sectionGetStarted": {
+    "over1000Users": "OVER 1000 USERS",
+    "enjoyFoods": "Enjoy Foods",
+    "enjoyFoodsAll": "Enjoy Foods ALL",
+    "overWorld": "Over World",
+    "overTheWorld": "Over The World",
+    "discription": "Eatly helps you set saving goals, earn cash back offers, and get paychecks up to two days early. Get a $20 bonus.",
+    "buttonGetStarted": "Get Started"
+  },
+  "features": {
+    "satisfiedCostumers": "Satisfied Costumers",
+    "allGreatOverTheWorld": "All Great Over The World",
+    "healthyDishesSold": "Healthy Dishes Sold",
+    "includingMilkShakesSmooth": "Including Milk Shakes Smooth",
+    "reliableCustomerSupport": "Reliable Customer Support",
+    "weProvideGreatExperiences": "We Provide Great Experiences"
+  },
+  "mobileApp": {
+    "title_1": "Premium Quality",
+    "title_2": "For Your Health",
+    "discription_1": "Premium quality food is made with ingredients that",
+    "discription_2": "are packed with essential vitamins, minerals.",
+    "discription_3": "These foods promote overall wellness by",
+    "discription_4": "support healthy digestion and boosting immunity"
+  }
+}

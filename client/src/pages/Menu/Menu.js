@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, useMediaQuery } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
@@ -26,6 +27,7 @@ const MenuPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const { i18n, t } = useTranslation();
 
   const isQuery = useRef(false);
   const isMounted = useRef(false);
@@ -107,7 +109,7 @@ const MenuPage = () => {
               color="text.primary"
               sx={{ textAlign: 'center', mb: 3 }}
             >
-              All Dishes
+              {t('menuPage.titleAllDishes')}
             </Typography>
             <Container sx={{ mb: 13 }}>
               <Box sx={gridStylesContainer}>
@@ -194,7 +196,7 @@ const MenuPage = () => {
           />
         ) : (!nothingFound) ? (
           <ListItems
-            title="All Dishes"
+            title={t('menuPage.titleAllDishes')}
             items={products}
             itemComponent={ProductCardItem}
             actions={null}
@@ -227,7 +229,7 @@ const MenuPage = () => {
             color="text.primary"
             sx={{ textAlign: 'center', mb: 3 }}
           >
-            Our Top Restaurants
+            {t('menuPage.ourTopRestaurants')}
           </Typography>
           <Box sx={gridStylesContainer}>
             <Skeleton skeletonType="restaurant" />
@@ -237,7 +239,7 @@ const MenuPage = () => {
         </Container>
       ) : (topPartners.length > 0 && (
         <ListItems
-          title="Our Top Restaurants"
+          title={t('menuPage.ourTopRestaurants')}
           items={topPartners}
           itemComponent={RestaurantItem}
           actions={<ListItemAction type="partners" />}

@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Box, Container, Grid, Typography, useMediaQuery } from '@mui/material';
 import SectionGetStarted from '../../components/SectionGetStarted/SectionGetStarted';
 import ListItems from '../../components/ListItems/ListItem';
@@ -17,6 +18,7 @@ import useTopPartners from '../../customHooks/useTopPartners';
 const HomePage = () => {
   const topPartners = useTopPartners();
   const loadingPartners = useSelector((state) => state.partners.loading);
+  const { i18n, t } = useTranslation();
 
   const topProducts = useTopProducts();
   const loadingProducts = useSelector((state) => state.products.loading);
@@ -37,7 +39,7 @@ const HomePage = () => {
             color="text.primary"
             sx={{ textAlign: 'center', mb: 3 }}
           >
-            Our Top Restaurants
+            {t('homePage.ourTopRestaurants')}
           </Typography>
           <Box sx={partnersSkeletonStylesContainer}>
             <Skeleton skeletonType="restaurant" />
@@ -47,7 +49,7 @@ const HomePage = () => {
         </Container>
       ) : (topPartners.length > 0 && (
         <ListItems
-          title="Our Top Restaurants"
+          title={t('homePage.ourTopRestaurants')}
           items={topPartners}
           itemComponent={RestaurantItem}
           actions={<ListItemAction type="partners" />}
@@ -63,7 +65,7 @@ const HomePage = () => {
             color="text.primary"
             sx={{ textAlign: 'center', mb: 3 }}
           >
-            Our Top Dishes
+            {t('homePage.ourTopDishes')}
           </Typography>
           <Grid sx={productSkeletonStylesContainer}>
             <Grid>
@@ -95,7 +97,7 @@ const HomePage = () => {
         </Container>
       ) : (topProducts.length > 0 && (
         <ListItems
-          title="Our Top Dishes"
+          title={t('homePage.ourTopDishes')}
           items={topProducts}
           itemComponent={ProductCardItem}
           actions={<ListItemAction />}
