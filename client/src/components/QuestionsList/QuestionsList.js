@@ -9,9 +9,11 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import { useTranslation } from 'react-i18next';
 
 const QuestionsList = () => {
   const [isOpen, setIsOpen] = useState({});
+  const { i18n, t } = useTranslation();
 
   const getAnswer = (elem) => {
     setIsOpen((prev) => ({ ...prev, [elem]: !prev[elem] }));
@@ -19,7 +21,11 @@ const QuestionsList = () => {
 
   const questions = [
     {
-      question: 'How long does delivery take?',
+      question: {
+        en: 'How long does delivery take?',
+        ua: '.іолвралоіралоірвалоі',
+        pl: 'How long does delivery take?',
+      },
       answer: 'You Can Get Information By Contacting Our Support Team Have 24/7 Service. What is The Difference Between Free And Paid Plan ?',
     },
     {
@@ -57,7 +63,7 @@ const QuestionsList = () => {
             <List disablePadding>
               <ListItem disablePadding sx={{ pb: 3 }}>
                 <ListItemText
-                  primary={<Typography variant="h3" component="h5" color="text.primary">{item.question}</Typography>}
+                  primary={<Typography variant="h3" component="h5" color="text.primary">{item.question[i18n.language]}</Typography>}
                 />
                 <IconButton onClick={() => getAnswer(item.question)}>
                   {!isOpen[item.question]
