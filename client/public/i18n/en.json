@@ -90,5 +90,19 @@
     "discription_4_1": "If you have any questions, feedback, or inquiries, don't hesitate to reach out to us. We'd love to hear from you and assist with any requests. You can contact us at",
     "discription_4_2": "or through our",
     "discription_4_3": "customer support page"
+  },
+  "questions": {
+    "title": "Frequently Asked",
+    "title_1": "Questions"
+  },
+  "contactForm": {
+    "title": "Customer Support",
+    "placeholderName": "Enter your name",
+    "labelName": "Name",
+    "placeholderMail": "Enter your e-mail",
+    "placeholderText": "Enter the problem or query...",
+    "messageReceived": "Thank you for reaching out! We've received your inquiry and will get back to you as soon as possible.",
+    "error": "Oops...Something went wrong. Try to send your inquiry again.",
+    "submit": "Send Now"
   }
 }

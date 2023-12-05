@@ -30,7 +30,7 @@ const Sorter = ({ type }) => {
         value: 'Rating UP',
         label: {
           en: 'Rating UP',
-          ua: 'Збільшенню рейтинга',
+          ua: 'Рейтингом, від найменшого',
           pl: 'Rating UP',
         },
       },
@@ -38,7 +38,7 @@ const Sorter = ({ type }) => {
         value: 'Rating DOWN',
         label: {
           en: 'Rating DOWN',
-          ua: 'Зменшенню рейтинга',
+          ua: 'Рейтингом, від найвищого',
           pl: 'Rating DOWN',
         },
       },
@@ -46,7 +46,7 @@ const Sorter = ({ type }) => {
         value: 'Default',
         label: {
           en: 'Default',
-          ua: 'Замовченню',
+          ua: 'Замовчуванням',
           pl: 'Default',
         },
       },
@@ -57,7 +57,7 @@ const Sorter = ({ type }) => {
         value: 'Price UP',
         label: {
           en: 'Price UP',
-          ua: 'Збільшенню ціни',
+          ua: 'Ціною, від найнижчої',
           pl: 'Price UP',
         },
       },
@@ -65,7 +65,7 @@ const Sorter = ({ type }) => {
         value: 'Price DOWN',
         label: {
           en: 'Price DOWN',
-          ua: 'Зменшенню ціни',
+          ua: 'Ціною, від найвищої',
           pl: 'Price DOWN',
         },
       },
@@ -73,7 +73,7 @@ const Sorter = ({ type }) => {
         value: 'Rating UP',
         label: {
           en: 'Rating UP',
-          ua: 'Збільшенню рейтинга',
+          ua: 'Рейтингом, від найнижчого',
           pl: 'Rating UP',
         },
       },
@@ -81,7 +81,7 @@ const Sorter = ({ type }) => {
         value: 'Rating DOWN',
         label: {
           en: 'Rating DOWN',
-          ua: 'Зменшенню рейтинга',
+          ua: 'Рейтингом, від найвищого',
           pl: 'Rating DOWN',
         },
       },
@@ -89,7 +89,7 @@ const Sorter = ({ type }) => {
         value: 'Default',
         label: {
           en: 'Default',
-          ua: 'Замовченню',
+          ua: 'Замовчуванням',
           pl: 'Default',
         },
       },
