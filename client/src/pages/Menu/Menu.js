@@ -92,7 +92,7 @@ const MenuPage = () => {
 
       {keyFromSearch === 'restaurant' && itemsFromSearch.length !== 0 && (
         <ListItems
-          title={`Search Restaurant (${itemsFromSearch.length})`}
+          title={`${t('menuPage.searchRestaurant')} (${itemsFromSearch.length})`}
           items={itemsFromSearch}
           itemComponent={RestaurantItem}
           actions={null}
@@ -175,7 +175,7 @@ const MenuPage = () => {
           </>
         ) : (keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
           <ListItems
-            title={`Search Results (${itemsFromSearch.length})`}
+            title={`${t('menuPage.searchResults')} (${itemsFromSearch.length})`}
             items={itemsFromSearch}
             itemComponent={ProductCardItem}
             actions={null}
@@ -184,7 +184,7 @@ const MenuPage = () => {
           />
         ) : itemsFromFilter.length !== 0 ? (
           <ListItems
-            title={`Filter Results (${filteredProductsQuantity})`}
+            title={`${t('menuPage.filterResults')} (${filteredProductsQuantity})`}
             items={itemsFromFilter}
             itemComponent={ProductCardItem}
             actions={null}

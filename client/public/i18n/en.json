@@ -38,6 +38,9 @@
   },
   "menuPage": {
     "titleAllDishes": "All Dishes",
+    "searchRestaurant": "Search Restaurant",
+    "searchResults": "Search Results",
+    "filterResults": "Filter Results",
     "ourTopRestaurants": "Our Top Restaurants"
   },
   "filter": {
@@ -60,7 +63,12 @@
     "apply": "Apply"
   },
   "search": {
-    "lable": ""
+    "label": "Search",
+    "food": "Food",
+    "restaurant": "Restaurant"
+  },
+  "sorter": {
+    "label": "Sort by"
   },
   "aboutUsPage": {
     "title_1": "About Us",

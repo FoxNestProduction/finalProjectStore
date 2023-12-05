@@ -2,7 +2,7 @@
   "menu": "Меню",
   "restaurants": "Ресторани",
   "reviews": "Відгуки",
-  "contact": "Контакт",
+  "contact": "Контакти",
   "aboutUs": "Про нас",
   "rights": "© 2023 EATLY Всі права захищені.",
   "buttonViewAll": "Подивитись Всі",
@@ -38,6 +38,9 @@
   },
   "menuPage": {
     "titleAllDishes": "Всі Страви",
+    "searchRestaurant": "Знайдений ресторан",
+    "searchResults": "Знайдені страви",
+    "filterResults": "Відфільтровані страви",
     "ourTopRestaurants": "Наші Топові Ресторани"
   },
   "filter": {
@@ -58,6 +61,16 @@
     "mostPopular": "Найпопулярніша",
     "price": "Ціна",
     "apply": "Застосувати"
+  },
+  "search": {
+    "label": "Пошук",
+    "food": "Їжа",
+    "restaurant": "Ресторан"
+  },
+  "sorter": {
+    "label": "Сортувати по",
+    "food": "Food",
+    "restaurant": "Restaurant"
   },
   "aboutUsPage": {
     "title_1": "Про Нас",

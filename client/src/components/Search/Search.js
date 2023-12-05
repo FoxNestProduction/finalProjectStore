@@ -32,9 +32,24 @@ const Search = ({ resetFiltersLocalState }) => {
   }, [dispatch]); // eslint-disable-line
 
   const key = useSelector((state) => state.search.key);
+  let labelKey = {};
+
+  if (key === 'restaurant') {
+    labelKey = {
+      en: 'Restaurant',
+      ua: 'Ресторану',
+      pl: 'Restaurant',
+    };
+  } else {
+    labelKey = {
+      en: 'Food',
+      ua: 'Їжі',
+      pl: 'Food',
+    };
+  }
   const allProductsNames = useSelector((state) => state.products.allProductsNames, shallowEqual);
   const allPartnersNames = useSelector((state) => state.partners.allPartnersNames, shallowEqual);
-  const labelForTextField = `Search  ${key}`;
+  const labelForTextField = `${t('search.label')}  ${labelKey[i18n.language]}`;
 
   const handleChangeButton = (event, keyBtn) => {
     if (keyBtn !== null) {
@@ -105,10 +120,10 @@ const Search = ({ resetFiltersLocalState }) => {
 
       <ToggleButtonGroup value={key} exclusive onChange={handleChangeButton} aria-label="Platform">
         <ToggleButton value="food" sx={stylesBtn}>
-          Food
+          {t('search.food')}
         </ToggleButton>
         <ToggleButton value="restaurant" sx={stylesBtn}>
-          Restaurant
+          {t('search.restaurant')}
         </ToggleButton>
       </ToggleButtonGroup>
     </Stack>
