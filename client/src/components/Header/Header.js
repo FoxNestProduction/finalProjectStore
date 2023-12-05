@@ -49,6 +49,7 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { i18n, t } = useTranslation();
+  console.log(i18n);
 
   const onChangeLang = (e) => {
     const langCode = e.target.value;

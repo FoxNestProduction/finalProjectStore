@@ -74,7 +74,7 @@ export const stylesSortSelect = {
     desktop: '20px',
   },
   '& .MuiInputBase-input': {
-    width: '150px',
+    width: '180px',
     fontFamily: 'fontPoppins',
     color: 'primary.main',
     fontWeight: '600',
