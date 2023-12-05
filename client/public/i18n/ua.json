@@ -72,6 +72,14 @@
     "food": "Food",
     "restaurant": "Restaurant"
   },
+  "restaurantPage": {
+    "title": "Всі ресторани",
+    "ourTopDishes": "Наші Топові Страви"
+  },
+  "reviewsPage": {
+    "title": "Відгуки Клієнтів",
+    "buttonCreate": "Залиште ваш відгук"
+  },
   "aboutUsPage": {
     "title_1": "Про Нас",
     "title_2": "Наша історія",

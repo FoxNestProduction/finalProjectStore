@@ -70,6 +70,14 @@
   "sorter": {
     "label": "Sort by"
   },
+  "restaurantPage": {
+    "title": "All Restaurants",
+    "ourTopDishes": "Our Top Dishes"
+  },
+  "reviewsPage": {
+    "title": "Customers Say",
+    "buttonCreate": "Create your own review"
+  },
   "aboutUsPage": {
     "title_1": "About Us",
     "title_2": "Our Story",
