@@ -43,7 +43,7 @@ const Search = ({ resetFiltersLocalState }) => {
   } else {
     labelKey = {
       en: 'Food',
-      ua: 'Їжі',
+      ua: 'Страв',
       pl: 'Food',
     };
   }

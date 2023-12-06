@@ -118,5 +118,15 @@
     "fillItWithDishes": "Fill it with dishes",
     "Back to menu": "Back to menu",
     "addToCart": "Add To Cart"
+  },
+  "cart": {
+    "goToCart": "Go to cart",
+    "order": "Order",
+    "continueShopping": "Continue shopping",
+    "delivery": "Delivery",
+    "continue": "Continue",
+    "total": "Total",
+    "oopsCart": "Oops! your cart is empty",
+    "fillItWithOrders": "Fill it with orders"
   }
 }

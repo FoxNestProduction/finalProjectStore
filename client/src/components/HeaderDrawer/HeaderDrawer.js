@@ -90,7 +90,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
           <List>
             <MenuItemWithIcon
               navLink
-              page={t('favourite')}
+              page="Favourites"
               icon={
                 (
                   <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>

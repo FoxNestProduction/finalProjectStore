@@ -115,8 +115,18 @@
   "favourites": {
     "favourite": "Список улюблених",
     "backToMenu": "До меню",
-    "wishlistIsEmpty": "Уупс! твій список улюблених страв пустий",
+    "wishlistIsEmpty": "Упс! твій список улюблених страв пустий",
     "fillItWithDishes": "Наповни його стравами",
     "addToCart": "Замовити"
+  },
+  "cart": {
+    "goToCart": "Перейти до кошика",
+    "order": "Замовлення",
+    "continueShopping": "Продовжити покупки",
+    "delivery": "Доставка",
+    "continue": "Далі",
+    "total": "Всього",
+    "oopsCart": "Упс! Твій кошик пустий",
+    "fillItWithOrders": "Наповни його стравами"
   }
 }

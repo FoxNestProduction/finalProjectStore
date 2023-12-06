@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   mainBox,
   title,
@@ -30,6 +31,7 @@ import RestaurantCartItem from '../RestaurantCartItem/RestaurantCartItem';
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { i18n, t } = useTranslation();
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const isUserAuthorization = useSelector((state) => state.authorization.isUserAuthorized);
   const authorizationMark = useSelector((state) => state.cart.authorizationReqInProgress);
@@ -60,15 +62,15 @@ const Cart = () => {
           variant="h2"
           sx={title}
         >
-          Order
+          {t('cart.order')}
         </Typography>
         <Box
           sx={cartProductsContainer}
         >
           {!cartProducts.length && (
             <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, my: 10 }}>
-              <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>Oops! your cart is empty</Typography>
-              <Typography variant="h3" color="text.secondary">Fill it with orders</Typography>
+              <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>{t('cart.oopsCart')}</Typography>
+              <Typography variant="h3" color="text.secondary">{t('cart.fillItWithOrders')}</Typography>
             </Stack>
           )}
           {cartProducts.length !== 0 && (
@@ -82,7 +84,7 @@ const Cart = () => {
           variant="outlined"
           sx={continueShoppingBtn}
         >
-          Continue shopping
+          {t('cart.continueShopping')}
         </Button>
         <Box
           sx={priceAndContBtnWrapper}
@@ -94,7 +96,7 @@ const Cart = () => {
               component="p"
               sx={deliveryTypography}
             >
-              Delivery
+              {t('cart.delivery')}
             </Typography>
             <Typography
               component="p"
@@ -120,7 +122,7 @@ const Cart = () => {
             sx={continueBtn}
             disabled={cartProducts.length === 0}
           >
-            Continue
+            {t('cart.continue')}
           </Button>
         </Box>
       </Box>
