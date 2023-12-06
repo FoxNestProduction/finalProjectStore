@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import LockIcon from '@mui/icons-material/Lock';
 import { CircularProgress } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import validationSchema from './validationShema';
 import Input from '../../inputs/Input/Input';
 import { flexcenter, mainTitle, signInBtn } from './styles';
@@ -20,6 +21,7 @@ const ChangePasswordForm = () => {
   const { token } = useParams();
   const navigate = useNavigate();
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
+  const { i18n, t } = useTranslation();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -79,7 +81,7 @@ const ChangePasswordForm = () => {
           component="h1"
           sx={mainTitle}
         >
-          Create new password
+          {t('changePassword.createNewPassword')}
         </Typography>
         {error && (
         <Typography
@@ -96,7 +98,7 @@ const ChangePasswordForm = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
-          validationSchema={validationSchema}
+          validationSchema={validationSchema(t)}
         >
           {({ isValid }) => (
             <Form>
@@ -117,16 +119,16 @@ const ChangePasswordForm = () => {
                     type="password"
                     name="password"
                     id="resetPassword"
-                    placeholder="Enter new password"
-                    label="Password"
+                    placeholder={t('changePassword.placeholderEnter')}
+                    label={t('changePassword.labelEnter')}
                     icon={<LockIcon />}
                   />
                   <Input
                     type="password"
                     name="passwordConfirmation"
                     id="resetPasswordConfirmation"
-                    placeholder="Confirm your password"
-                    label="Password confirmation"
+                    placeholder={t('changePassword.placeholderConfirm')}
+                    label={t('changePassword.labelConfirm')}
                     icon={<LockIcon />}
                   />
                 </Box>
@@ -137,7 +139,7 @@ const ChangePasswordForm = () => {
                   disabled={!isValid || loading}
                 >
                   {!loading
-                    ? 'Create Password'
+                    ? t('changePassword.buttonCreate')
                     : <CircularProgress color="primary" />}
                 </Button>
               </Box>

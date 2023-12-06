@@ -1,13 +1,14 @@
 import { object, string, ref } from 'yup';
+// import { useTranslation } from 'react-i18next';
 
-const validationSchema = object({
+const validationSchema = (t) => object({
   password: string()
-    .required('This field is required')
-    .min(8, 'Password is too short - should be 8 chars minimum'),
+    .required(t('changePassword.required'))
+    .min(8, t('changePassword.validationPass')),
   passwordConfirmation: string()
-    .required('This field is required')
-    .min(8, 'The password is incorrect, please try again')
-    .oneOf([ref('password')], 'Your passwords do not match.'),
+    .required(t('changePassword.required'))
+    .min(8, t('changePassword.validationConfirmPass'))
+    .oneOf([ref('password')], t('changePassword.unValidation')),
 });
 
 export default validationSchema;

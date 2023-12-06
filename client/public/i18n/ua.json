@@ -128,5 +128,17 @@
     "total": "Всього",
     "oopsCart": "Упс! Твій кошик пустий",
     "fillItWithOrders": "Наповни його стравами"
+  },
+  "changePassword": {
+    "createNewPassword": "Створіть новий пароль",
+    "placeholderEnter": "Введіть новий пароль",
+    "placeholderConfirm": "Підтвердіть Ваш пароль",
+    "labelEnter": "Пароль",
+    "labelConfirm": "Підтвердження паролю",
+    "buttonCreate": "Створити пароль",
+    "required": "Це поле є обов'язковим до заповнення",
+    "validationPass": "Пароль занадто короткий - повинно бути мінімум 8 символів",
+    "validationConfirmPass": "Пароль неправильний, спробуйте ще раз",
+    "unValidation": "Ваші паролі не співпадають"
   }
 }

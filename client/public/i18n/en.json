@@ -128,5 +128,17 @@
     "total": "Total",
     "oopsCart": "Oops! your cart is empty",
     "fillItWithOrders": "Fill it with orders"
+  },
+  "changePassword": {
+    "createNewPassword": "Create new password",
+    "placeholderEnter": "Enter new password",
+    "placeholderConfirm": "Confirm your password",
+    "labelEnter": "Password",
+    "labelConfirm": "Password confirmation",
+    "buttonCreate": "Create Password",
+    "required": "This field is required",
+    "validationPass": "Password is too short - should be 8 chars minimum",
+    "validationConfirmPass": "The password is incorrect, please try again",
+    "unValidation": "Your passwords do not match"
   }
 }
