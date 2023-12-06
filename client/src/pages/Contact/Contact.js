@@ -3,6 +3,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTranslation } from 'react-i18next';
 import ContactForm from '../../components/forms/ContactForm/ContactForm';
 import {
   doubleLoopArrowWrapper,
@@ -20,6 +21,7 @@ const ContactPage = () => {
   const isXsMobile = useMediaQuery('(max-width: 390px)');
   const isXsTablet = useMediaQuery('(min-width: 481px) and (max-width: 600px)');
   const isLgTablet = useMediaQuery('(min-width: 690px)');
+  const { i18n, t } = useTranslation();
 
   return (
     <Container component="section" sx={mainContainer}>
@@ -34,7 +36,7 @@ const ContactPage = () => {
               align="center"
               sx={title}
             >
-              { !isLgTablet ? 'Contact Us' : 'Just Contact' }
+              { !isLgTablet ? t('contactForm.contactUs') : t('contactForm.contactUs') }
             </Typography>
 
             <Box sx={doubleLoopArrowWrapper}>

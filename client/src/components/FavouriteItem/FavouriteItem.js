@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { CardActions, CardContent, CardMedia, Rating, Button, Box, Card } from '@mui/material';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import { useTranslation } from 'react-i18next';
 import ColorChips from '../Chip/Chip';
 import { chipForFavourite } from '../Chip/styles';
 import { stylesButton, styleCardFavourite, styleMediaFavourite, styleContentFavourite } from './styles';
@@ -31,6 +32,7 @@ const FavouriteItem = ({ product }) => {
 
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
   const [favAlert, setFavAlert] = useState(false);
+  const { i18n, t } = useTranslation();
 
   const handleAddToCart = () => {
     dispatch(addProductToCart(_id));
@@ -82,7 +84,7 @@ const FavouriteItem = ({ product }) => {
           fontSize="medium"
           sx={stylesButton}
         >
-          Add To Cart
+          {t('favourites.addToCart')}
           <AddBoxOutlinedIcon
             fontSize="small"
             sx={{ ml: 1 }}

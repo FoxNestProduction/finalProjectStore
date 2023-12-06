@@ -4,6 +4,10 @@
   "reviews": "Reviews",
   "contact": "Contact",
   "aboutUs": "About Us",
+  "favourite": "Favourites",
+  "logOut": "Logout",
+  "logIn": "Login",
+  "signUp": "Sign up",
   "rights": "© 2023 EATLY All Rights Reserved.",
   "buttonViewAll": "View All",
   "homePage": {
@@ -103,6 +107,16 @@
     "placeholderText": "Enter the problem or query...",
     "messageReceived": "Thank you for reaching out! We've received your inquiry and will get back to you as soon as possible.",
     "error": "Oops...Something went wrong. Try to send your inquiry again.",
-    "submit": "Send Now"
+    "submit": "Send Now",
+    "contactUs": "Contact Us",
+    "justContact": "Just Contact"
+  },
+  "favourites": {
+    "favourite": "Favourite",
+    "backToMenu": "Back to menu",
+    "wishlistIsEmpty": "Oops! your wishlist is empty",
+    "fillItWithDishes": "Fill it with dishes",
+    "Back to menu": "Back to menu",
+    "addToCart": "Add To Cart"
   }
 }

@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+import { useTranslation } from 'react-i18next';
 import FavouriteItem from '../FavouriteItem/FavouriteItem';
 import ListItems from '../ListItems/ListItem';
 import ProductCardItem from '../ProductCardItem/ProductCardItem';
@@ -16,6 +17,7 @@ import buttonBackToMenu from './styles';
 const Favourites = () => {
   const navigate = useNavigate();
   const isLgTablet = useMediaQuery('(min-width: 690px)');
+  const { i18n, t } = useTranslation();
 
   const handlMenuClick = () => {
     navigate('/menu');
@@ -33,7 +35,7 @@ const Favourites = () => {
           { isLgTablet && favouritesList
           && (
           <Container sx={{ backgroundColor: 'background.default' }}>
-            <Typography variant="h2" component="h3" sx={{ textAlign: 'center', mb: { lgTablet: '34px', desktop: '28px' } }}>Favourite</Typography>
+            <Typography variant="h2" component="h3" sx={{ textAlign: 'center', mb: { lgTablet: '34px', desktop: '28px' } }}>{t('favourites.favourite')}</Typography>
             <Stack direction="column" spacing={3}>
               { favouritesList.map((item) => (
                 <Box key={item._id}>
@@ -46,7 +48,7 @@ const Favourites = () => {
           { !isLgTablet && favouritesList
           && (
           <ListItems
-            title="Favourite"
+            title={t('favourites.favourite')}
             items={favouritesList}
             itemComponent={ProductCardItem}
             actions={null}
@@ -56,14 +58,14 @@ const Favourites = () => {
       ) : (
         <Container>
           <Stack direction="column" sx={{ justifyContent: 'center', alignItems: 'center', gap: 5, mb: 10, py: 10 }}>
-            <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>Oops! your wishlist is empty</Typography>
-            <Typography variant="h3" color="text.secondary">Fill it with dishes</Typography>
+            <Typography variant="h2" color="primary.main" sx={{ textAlign: 'center' }}>{t('favourites.wishlistIsEmpty')}</Typography>
+            <Typography variant="h3" color="text.secondary">{t('favourites.fillItWithDishes')}</Typography>
             <Button
               variant="contained"
               onClick={handlMenuClick}
               sx={buttonBackToMenu}
             >
-              Back to menu
+              {t('favourites.backToMenu')}
             </Button>
           </Stack>
         </Container>
