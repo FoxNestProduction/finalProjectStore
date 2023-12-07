@@ -30,11 +30,12 @@ const Input = ({ type, label, icon, id, error, bgColor, styles, ...props }) => {
       </InputLabel>
       <OutlinedInput
         sx={{
-          ...styles,
           bgcolor: `${bgColor}`,
           '&:hover:not(.Mui-error):not(.Mui-focused):not(.Mui-disabled) > .MuiOutlinedInput-notchedOutline': {
             borderColor: '#664FFF',
           },
+          // fontWeight: 'fontWeightMedium',
+          ...styles,
         }}
         id={id}
         aria-describedby="helper-text"

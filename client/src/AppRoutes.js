@@ -17,6 +17,8 @@ import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
 import PaymentForm from './components/forms/PaymentForm/PaymentForm';
 import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
 import NotFound from './pages/NotFound/NotFound';
+import ItemsEditor from './components/adminPanel/ItemsEditor/ItemsEditor';
+import EditPage from './components/adminPanel/EditPage/EditPage';
 
 const AppRoutes = () => {
   return (
@@ -36,6 +38,9 @@ const AppRoutes = () => {
         <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
         <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
         <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
+        {/* Routes for admin panel */}
+        <Route path="/items-editor" element={<EditPage />} />
+
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
