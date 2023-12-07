@@ -167,5 +167,21 @@
     "invalidMail": "Невірний формат Е-mail",
     "invalidPhone": "Невірний номер телефону",
     "invalidStreet": "Назва вудиці надто коротка."
+  },
+  "payment": {
+    "payment": "Оплата",
+    "credit": "Кредитна ",
+    "debit": "Дебетова картка",
+    "addNewCard": "Додати нову картку",
+    "labelHolderName": "Ім'я власника картки*",
+    "labelNumberCard": "Номер картки*",
+    "labelDateCard": "Термін дії картки*",
+    "labelCvvCard": "CVV"
+  },
+  "orderConfirm": {
+    "thankYou": "Дякуємо!",
+    "confirmedOrder": "Ваше замовлення підтверджено!",
+    "numberOrder": "Номер замовлення:",
+    "backHome": "На головну"
   }
 }

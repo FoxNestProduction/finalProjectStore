@@ -34,7 +34,7 @@ const AppRoutes = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/checkout" element={<CheckoutPage titleText={t('checkout.checkout')} formComponent={CheckoutForm} />} />
-        <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
+        <Route path="/checkout/payment" element={<CheckoutPage titleText={t('payment.payment')} formComponent={PaymentForm} />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
         <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />

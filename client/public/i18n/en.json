@@ -167,5 +167,21 @@
     "invalidMail": "Invalid email format",
     "invalidPhone": "Invalid phone number",
     "invalidStreet": "The name of the street is too short."
+  },
+  "payment": {
+    "payment": "Payment",
+    "credit": "Credit ",
+    "debit": "Debit card",
+    "addNewCard": "Add new card",
+    "labelHolderName": "Cardholder name*",
+    "labelNumberCard": "Card number*",
+    "labelDateCard": "Expiry date",
+    "labelCvvCard": "CVV"
+  },
+  "orderConfirm": {
+    "thankYou": "Thank you!",
+    "confirmedOrder": "Your order is confirmed!",
+    "numberOrder": "Order number:",
+    "backHome": "Back Home"
   }
 }
