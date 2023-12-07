@@ -1,5 +1,4 @@
 import { object, string, ref } from 'yup';
-// import { useTranslation } from 'react-i18next';
 
 const validationSchema = (t) => object({
   password: string()

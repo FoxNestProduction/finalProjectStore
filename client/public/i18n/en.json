@@ -140,5 +140,32 @@
     "validationPass": "Password is too short - should be 8 chars minimum",
     "validationConfirmPass": "The password is incorrect, please try again",
     "unValidation": "Your passwords do not match"
+  },
+  "checkout": {
+    "checkout": "Checkout",
+    "back": "Back",
+    "continue": "Continue",
+    "personalInformation": "Personal Information",
+    "deliveryInformation": "Delivery Information",
+    "paymentMethod": "Payment method",
+    "city": "City*",
+    "labelName": "Name*",
+    "labelMail": "Email Address*",
+    "labelPhone": "Phone Number*",
+    "labelCity": "City*",
+    "labelStreet": "Street*",
+    "labelHose": "House*",
+    "labelApartment": "Apartment",
+    "labelCard": "Card",
+    "labelCash": "Cash",
+    "requiredName": "Name is required",
+    "requiredMail": "Email is required",
+    "requiredPhone": "Phone number is required",
+    "requiredHose": "Enter the number of your house",
+    "requiredStreet": "Enter the name of your street",
+    "validationName": "Name must start with a capital letter and may contain only Latin or Ukrainian letters. If providing both name and surname, please separate them with a space.",
+    "invalidMail": "Invalid email format",
+    "invalidPhone": "Invalid phone number",
+    "invalidStreet": "The name of the street is too short."
   }
 }

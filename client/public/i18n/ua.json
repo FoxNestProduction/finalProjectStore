@@ -140,5 +140,32 @@
     "validationPass": "Пароль занадто короткий - повинно бути мінімум 8 символів",
     "validationConfirmPass": "Пароль неправильний, спробуйте ще раз",
     "unValidation": "Ваші паролі не співпадають"
+  },
+  "checkout": {
+    "checkout": "Форма замовлення",
+    "back": "Назад",
+    "continue": "Далі",
+    "personalInformation": "Персональні дані",
+    "deliveryInformation": "Дані для доставки",
+    "paymentMethod": "Метод оплати",
+    "city": "Місто*",
+    "labelName": "Ім'я",
+    "labelMail": "Email адреса*",
+    "labelPhone": "Номер телефону*",
+    "labelCity": "Місто*",
+    "labelStreet": "Вулиця*",
+    "labelHose": "Будинок*",
+    "labelApartment": "Квартира",
+    "labelCard": "Карткою",
+    "labelCash": "Готівкою",
+    "requiredName": "Поле 'Ім'я' є обов'язковим до заповнення",
+    "requiredMail": "Поле Email є обов'язковим до заповнення",
+    "requiredPhone": "Поле є обов'язковим до заповнення",
+    "requiredHose": "Вкажіть номер Вашого будинку",
+    "requiredStreet": "Вкажіть назву вулиці",
+    "validationName": "Ім'я має починатися з великої літери і може містити лише латинські та українські літери. Якщо ви вказуєте ім’я та прізвище, розділяйте їх пробілом.",
+    "invalidMail": "Невірний формат Е-mail",
+    "invalidPhone": "Невірний номер телефону",
+    "invalidStreet": "Назва вудиці надто коротка."
   }
 }
