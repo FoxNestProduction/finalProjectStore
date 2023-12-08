@@ -1,10 +1,10 @@
 import { object, string } from 'yup';
 
-const validationSchema = object({
+const validationSchema = (t) => object({
 
   password: string()
-    .required('Password is required')
-    .min(8, 'Password is too short - should be 8 chars minimum'),
+    .required(t('createPassword.required'))
+    .min(8, t('createPassword.validationPass')),
 });
 
 export default validationSchema;

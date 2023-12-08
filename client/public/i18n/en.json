@@ -183,5 +183,28 @@
     "confirmedOrder": "Your order is confirmed!",
     "numberOrder": "Order number:",
     "backHome": "Back Home"
+  },
+  "createPassword": {
+    "create": "Create your own password",
+    "signUp": "Sign up",
+    "label": "Password",
+    "placeholder": "Сome up with a password",
+    "required": "Password is required",
+    "validationPass": "Password is too short - should be 8 chars minimum"
+  },
+  "loginForm": {
+    "title": "Sign In To eatly",
+    "or": "OR",
+    "forgetPassword": "Forget Password ",
+    "signIn": "Sign in",
+    "createNewAccount": "Create A New Account",
+    "signUp": "Sign Up",
+    "labelPassword": "Password",
+    "placeholderMail": "Enter your e-mail",
+    "placeholderPassword": "Enter your password",
+    "requiredMail": "Email is required",
+    "requiredPassword": "This field is required",
+    "invalidMail": "Invalid email format",
+    "invalidPassword": "Password is too short - should be 8 chars minimum"
   }
 }

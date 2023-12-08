@@ -183,5 +183,28 @@
     "confirmedOrder": "Ваше замовлення підтверджено!",
     "numberOrder": "Номер замовлення:",
     "backHome": "На головну"
+  },
+  "createPassword": {
+    "create": "Створіть особистий пароль",
+    "signUp": "Зареєструватися",
+    "label": "Пароль",
+    "placeholder": "Вигадайте пароль",
+    "required": "Поле 'Пароль обов'язкове до заповнення'",
+    "validationPass": "Пароль надто короткий - має містити мінімум 8 символів"
+  },
+  "loginForm": {
+    "title": "Увійти до Eatly",
+    "or": "АБО",
+    "forgetPassword": "Забули пароль",
+    "signIn": "Увійти",
+    "createNewAccount": "Створити новий акаунт",
+    "signUp": "Зареєструватись",
+    "labelPassword": "Пароль",
+    "placeholderMail": "Введіть ваш e-mail",
+    "placeholderPassword": "Введіть ваш пароль",
+    "requiredMail": "Поле Email є обов'язковим до заповнення",
+    "requiredPassword": "Це поле є обов'язковим до заповнення",
+    "invalidMail": "Невірний формат Е-mail",
+    "invalidPassword": "Пароль надто короткий - має бути не маньше 8 символів"
   }
 }
