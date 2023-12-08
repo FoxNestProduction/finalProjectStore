@@ -10,6 +10,10 @@
   "signUp": "Sign up",
   "rights": "© 2023 EATLY All Rights Reserved.",
   "buttonViewAll": "View All",
+  "buttonClose": "Close",
+  "buttonFavourite": "Favourite",
+  "buttonAddToCart": "Add to card",
+  "buttonContinue": "Continue",
   "homePage": {
     "ourTopRestaurants": "Our Top Restaurants",
     "ourTopDishes": "Our Top Dishes",
@@ -80,7 +84,12 @@
   },
   "reviewsPage": {
     "title": "Customers Say",
-    "buttonCreate": "Create your own review"
+    "buttonCreate": "Create your own review",
+    "buttonSend": "Send",
+    "titleNewReview": "Feedback about the service will help us work even better:",
+    "labelNewReview": "leave your feedback about the service",
+    "textNewReview": "You can rate the service",
+    "labelRating": "You can rate our service"
   },
   "aboutUsPage": {
     "title_1": "About Us",
@@ -206,5 +215,40 @@
     "requiredPassword": "This field is required",
     "invalidMail": "Invalid email format",
     "invalidPassword": "Password is too short - should be 8 chars minimum"
-  }
+  },
+  "registrationForm": {
+    "title": "Sign Up To eatly",
+    "or": "OR",
+    "signUp": "Sign up",
+    "haveAnAccount": "Already Have An Account",
+    "logIn": "Log In",
+    "labelFirstName": "First name",
+    "labelLastName": "Last name",
+    "labelPassword": "Password",
+    "placeholderFirstName": "Enter your first name",
+    "placeholderLastName": "Enter your last name",
+    "placeholderMail": "Enter your e-mail",
+    "placeholderPassword": "Сome up with a password",
+    "requiredFirstName": "Enter your first name",
+    "requiredLastName": "Enter your last name",
+    "requiredMail": "Email is required",
+    "requiredPassword": "Password is required",
+    "invalidFirstName": "The first name must be capitalized and contain only Latin letters",
+    "invalidLastName": "The last name must be capitalized and contain only Latin letters",
+    "invalidMail": "Invalid email format",
+    "invalidPassword": "Password is too short - should be 8 chars minimum"
+   },
+   "verifyMail": {
+    "fogot": "Forgot Password",
+    "enterMail": "Enter your e-mail to reset password",
+    "placeholder": "Enter your e-mail",
+    "required": "Email is required",
+    "invalid": "Invalid email format"
+   },
+   "successfulLetter": {
+    "text1": "An email with a link has been sent to your email",
+    "text2": "Open this email and click on the link to change your password",
+    "text3": "If you did not receive the message, check the spam folder and whether the email address is correct and try to send the request again.",
+    "text4": "The link will only be active for 15 minutes ..."
+   }
 }

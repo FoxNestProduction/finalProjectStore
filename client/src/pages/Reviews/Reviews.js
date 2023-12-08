@@ -114,13 +114,13 @@ const ReviewsPage = () => {
   const handleOpenModalReview = () => {
     if (isRendered) {
       dispatch(openModal());
-      dispatch(setTitle('Feedback about the service will help us work even better:'));
+      dispatch(setTitle(t('reviewsPage.titleNewReview')));
       dispatch(setContent(
         <NewReview />,
       ));
       dispatch(resetReviewState());
       dispatch(setButtonAgree({
-        text: 'Send',
+        text: t('reviewsPage.buttonSend'),
         endIcon: true,
         disabled: newReview.content === '',
       }));

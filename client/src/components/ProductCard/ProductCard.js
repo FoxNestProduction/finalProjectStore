@@ -13,6 +13,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import { useTranslation } from 'react-i18next';
 import ColorChips from '../Chip/Chip';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
@@ -25,6 +26,7 @@ import CustomAlert from '../Alert/Alert';
 
 const ProductCard = ({ dish }) => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
@@ -175,7 +177,7 @@ const ProductCard = ({ dish }) => {
                 onMouseUp={() => setIsActive(false)}
                 onClick={isUserAuthorized ? toggleFavourite : handleOpenModalLogin}
               >
-                Favourite
+                {t('buttonFavourite')}
                 <FavouriteIcon id={id} sx={{ ml: 1 }} ishovered={ishovered} isactive={isactive} />
               </Box>
               <Button
@@ -183,7 +185,7 @@ const ProductCard = ({ dish }) => {
                 sx={stylesButtonCard}
                 onClick={handleAddToCart}
               >
-                Add to card
+                {t('buttonAddToCart')}
                 <AddBoxOutlinedIcon
                   fontSize="medium"
                   sx={{ ml: 1 }}

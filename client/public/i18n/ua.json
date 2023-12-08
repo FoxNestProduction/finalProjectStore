@@ -10,6 +10,10 @@
   "signUp": "Зареєструватись",
   "rights": "© 2023 EATLY Всі права захищені.",
   "buttonViewAll": "Переглянути Всі",
+  "buttonClose": "Закрити",
+  "buttonFavourite": "Улюблені",
+  "buttonAddToCart": "Замовити",
+  "buttonContinue": "Далі",
   "homePage": {
     "ourTopRestaurants": "Наші Найкращі Партнери",
     "ourTopDishes": "Наші Найпопулярніші Страви",
@@ -82,7 +86,12 @@
   },
   "reviewsPage": {
     "title": "Відгуки Клієнтів",
-    "buttonCreate": "Залиште ваш відгук"
+    "buttonCreate": "Залиште ваш відгук",
+    "buttonSend": "Відправити",
+    "titleNewReview": "Відгуки про сервіс допоможуть нам працювати ще краще:",
+    "labelNewReview": "Залишити свій відгук про сервіс",
+    "textNewReview": "Ви можете оцінити наш сервіс",
+    "labelRating": "Ви можете оцінити наш сервіс"
   },
   "aboutUsPage": {
     "title_1": "Про Нас",
@@ -206,5 +215,40 @@
     "requiredPassword": "Це поле є обов'язковим до заповнення",
     "invalidMail": "Невірний формат Е-mail",
     "invalidPassword": "Пароль надто короткий - має бути не маньше 8 символів"
-  }
+  },
+  "registrationForm": {
+    "title": "Увійти до Eatly",
+    "or": "АБО",
+    "signUp": "Зареєструватись",
+    "haveAnAccount": "Вже є аккаунт",
+    "logIn": "Увійти",
+    "labelFirstName": "Ім'я",
+    "labelLastName": "Прізвище",
+    "labelPassword": "Пароль",
+    "placeholderFirstName": "Введіть своє ім’я",
+    "placeholderLastName": "Введіть своє прізвище",
+    "placeholderMail": "Введіть свій e-mail",
+    "placeholderPassword": "Вигадайте свій пароль",
+    "requiredFirstName": "Введіть своє ім’я",
+    "requiredLastName": "Введіть своє прізвище",
+    "requiredMail": "Поле Email є обов'язковим до заповнення",
+    "requiredPassword": "Це поле є обов'язковим до заповнення",
+    "invalidFirstName": "Ім'я має бути написане з великої літери та містити лише латинські літери",
+    "invalidLastName": "Прізвище має бути написане з великої літери та містити лише латинські літери",
+    "invalidMail": "Невірний формат email",
+    "invalidPassword": "Пароль надто короткий - має бути не маньше 8 символів"
+   },
+   "verifyMail": {
+    "fogot": "Забули пароль",
+    "enterMail": "Введіть свій e-mail, щоб скинути пароль",
+    "placeholder": "Введіть свій e-mail",
+    "required": "Поле Email є обов'язковим до заповнення",
+    "invalid": "Невірний формат email"
+   },
+   "successfulLetter": {
+    "text1": "На вашу електронну адресу надіслано лист із посиланням",
+    "text2": "Відкрийте цей електронний лист і натисніть посилання, щоб змінити свій пароль",
+    "text3": "Якщо ви не отримали повідомлення, перевірте папку спаму та чи правильна адреса електронної пошти та спробуйте надіслати запит ще раз.",
+    "text4": "Посилання буде активним лише 15 хвилин ..."
+   }
 }
