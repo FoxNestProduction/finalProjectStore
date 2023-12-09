@@ -1,12 +1,17 @@
 import { object, string } from 'yup';
 
-const validationSchema = object({
-  email: string()
-    .required('Email is required')
-    .email('Invalid email format'),
-  password: string()
-    .required('This field is required')
-    .min(8, 'Password is too short - should be 8 chars minimum'),
-});
+const getValidationSchema = (partnerValidationNames) => {
+  const descriptionValidationSchema = (Object.fromEntries(partnerValidationNames.map((name) => (
+    [name, string().required('Required')]
+  ))));
 
-export default validationSchema;
+  return object({
+    name: string()
+      .required('Name is required'),
+    address: string()
+      .required('Address is required'),
+    ...descriptionValidationSchema,
+  });
+};
+
+export default getValidationSchema;

@@ -112,32 +112,7 @@ export const inputsWrapper = {
   width: '100%',
 };
 
-export const forgetPassword = {
-  fontFamily: 'fontFamily',
-  fontSize: {
-    mobile: '12px',
-    tablet: '11px',
-    desktop: '16px',
-  },
-  lineHeight: '1.5em',
-  transition: 'color 0.3s ease',
-  opacity: '0.7',
-  cursor: 'pointer',
-  alignSelf: {
-    mobile: 'flex-end',
-    desktop: 'center',
-  },
-  mb: {
-    mobile: '16px',
-    tablet: '14px',
-    desktop: '24px',
-  },
-  '&:hover': {
-    color: 'primary.hover',
-  },
-};
-
-export const signInBtn = {
+export const saveBtn = {
   minWidth: '140px',
   color: 'text.primaryLight',
   mb: {

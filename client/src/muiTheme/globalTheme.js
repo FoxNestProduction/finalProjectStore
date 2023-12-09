@@ -18,6 +18,8 @@ const globalTheme = createTheme({
       main: '#FF9140',
       hover: '#FF7C1C',
     },
+    disable: '#FB471D',
+    activate: '#309D5B',
     text: {
       primary: '#2B2B2B',
       secondary: '#676767',

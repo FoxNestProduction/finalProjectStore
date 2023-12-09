@@ -9,15 +9,42 @@ export const card = {
 
 export const btnDisable = {
   p: '6px 16px',
-  minWidth: '120px',
+  minWidth: {
+    mobile: '100px',
+    lgTablet: '120px',
+  },
   fontSize: {
     mobile: '14px',
     lgTablet: '16px',
     desktop: '18px',
   },
   borderRadius: '12px',
-  border: '2px solid #FB471D',
+  border: '2px solid',
+  borderColor: 'disable',
   color: 'text.primary',
+  transition: '.3s ease-in-out',
+  '&:hover': {
+    border: '2px solid',
+    borderColor: 'disable',
+    color: {
+      mobile: 'text.primary',
+      desktop: 'text.primaryLight',
+    },
+    bgcolor: {
+      mobile: 'common.white',
+      desktop: 'disable',
+    },
+  },
+  '&:active': {
+    color: {
+      mobile: 'text.primaryLight',
+      desktop: 'text.primary',
+    },
+    bgcolor: {
+      mobile: 'disable',
+      desktop: 'common.white',
+    },
+  },
 };
 
 export const infoWrapper = {

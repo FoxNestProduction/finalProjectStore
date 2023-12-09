@@ -1,41 +1,51 @@
-/* eslint-disable import/no-cycle */
 import React, { memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
-import { Typography, Box, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import validationSchema from './validationSchema';
+import getValidationSchema from './validationSchema';
 import {
   flexcenter,
   inputsWrapper,
-  signInBtn,
+  saveBtn,
 } from './styles';
 import Input from '../../inputs/Input/Input';
-import {
-  setAuthorization,
-  setToken,
-} from '../../../redux/slices/authorizationSlice';
-import { loginCustomer, setUser } from '../../../redux/slices/userSlice';
-import { setAuthorizationError } from '../../../redux/slices/errorSlice';
-import { removeDataFromSessionStorage } from '../../../utils/sessionStorageHelpers';
-import { CHECKOUT_SS_KEY } from '../../../constants/constants';
-import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionStorage';
-import { instance } from '../../../API/instance';
-import { fetchCartAfterAuthorization } from '../../../redux/slices/cartSlice';
-import { fetchFavourites } from '../../../redux/slices/favouriteSlice';
-import useAlert from '../../../customHooks/useAlert';
-import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
+import { DESCRIPTION } from '../constants';
 
 const PartnerEditForm = ({ restaurant }) => {
   const { name, address, description } = restaurant;
+
+  let partnerValidationNames = []; // eslint-disable-line
+  const descriptionArr = Object.entries(description).map((lang) => {
+    partnerValidationNames.push(`${DESCRIPTION}${lang[0]}`);
+    return [`${DESCRIPTION}${lang[0]}`, lang[1]];
+  });
+
+  const descriptionInitialValues = Object.fromEntries(descriptionArr);
+
   const initialValues = {
     name,
     address,
-    description,
+    ...descriptionInitialValues,
   };
 
   const handleSubmit = async (values) => {
     console.log(values);
+    const descriptionInDiffLangs = {};
+
+    Object.keys(values).forEach((key) => {
+      if (key.startsWith(DESCRIPTION)) {
+        const lang = key.replace(DESCRIPTION, '').toLowerCase();
+        descriptionInDiffLangs[lang] = values[key].trim();
+      }
+    });
+    const body = {
+      name,
+      address,
+      description: {
+        ...descriptionInDiffLangs,
+      },
+    };
+    console.log(body);
   };
 
   return (
@@ -46,7 +56,7 @@ const PartnerEditForm = ({ restaurant }) => {
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        validationSchema={validationSchema}
+        validationSchema={getValidationSchema(partnerValidationNames)}
       >
         {({ isValid }) => (
           <Form>
@@ -64,7 +74,6 @@ const PartnerEditForm = ({ restaurant }) => {
                 }}
               >
                 <Input
-                  // error={authError.email}
                   name="name"
                   id="editRestaurantName"
                   label="Name"
@@ -72,37 +81,42 @@ const PartnerEditForm = ({ restaurant }) => {
                   styles={{
                     fontWeight: '500',
                   }}
+                  readOnly
                 />
                 <Input
-                  // error={authError.password}
                   name="address"
                   id="editRestaurantAddress"
                   label="Address"
                   bgColor="common.white"
                   styles={{
-                    // bgcolor: 'common.white',
                     fontWeight: '500',
                   }}
+                  readOnly
                 />
-                <Input
-                  // error={authError.password}
-                  name="description"
-                  id="editRestaurantDescription"
-                  label="Description"
-                  bgColor="common.white"
-                  styles={{
-                    fontWeight: '500',
-                  }}
-                />
+                {Object.keys(description).map((lang) => (
+                  <Input
+                    key={lang}
+                    name={`${DESCRIPTION}${lang}`}
+                    id={`editRestaurantDescription${lang}`}
+                    label={`Description in ${lang.toUpperCase()}`}
+                    bgColor="common.white"
+                    styles={{
+                      fontWeight: '500',
+                    }}
+                    multiline
+                    maxRows={8}
+                    readOnly
+                  />
+                ))}
               </Box>
               <Button
                 disableRipple
                 variant="contained"
-                sx={signInBtn}
+                sx={saveBtn}
                 type="submit"
                 disabled={!isValid}
               >
-                Sign in
+                Save
               </Button>
             </Box>
           </Form>
