@@ -6,6 +6,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import { useTranslation } from 'react-i18next';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -13,7 +14,6 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import { useTranslation } from 'react-i18next';
 import ColorChips from '../Chip/Chip';
 import LoginForm from '../forms/LoginForm/LoginForm';
 import FavouriteIcon from '../FavouriteIcon/FavouriteIcon';
@@ -49,6 +49,9 @@ const ProductCard = ({ dish }) => {
     // eslint-disable-next-line no-underscore-dangle
     _id: id,
   } = dish || {};
+
+  const descriptionLang = description || {};
+  // const descrLang = descr[i18n.language];
 
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const toggleFavourite = () => {
@@ -151,7 +154,7 @@ const ProductCard = ({ dish }) => {
                 component="p"
                 sx={{ textAlign: 'justify' }}
               >
-                {description}
+                {descriptionLang[i18n.language] || description}
               </Typography>
             </CardContent>
             <Box

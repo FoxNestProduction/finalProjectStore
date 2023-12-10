@@ -17,6 +17,7 @@ import useTopProducts from '../../customHooks/useTopProducts';
 const RestaurantPage = () => {
   const [partners, loading] = useGetAPI('/partners');
   const { i18n, t } = useTranslation();
+  console.log(partners);
 
   const topProducts = useTopProducts();
   const loadingProducts = useSelector((state) => state.products.loading);
