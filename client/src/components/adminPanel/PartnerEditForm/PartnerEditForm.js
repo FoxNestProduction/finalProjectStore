@@ -4,13 +4,15 @@ import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import getValidationSchema from './validationSchema';
 import {
-  btnsWrapper,
+  btn,
+  btnsWrapper, cancelBtn,
   input,
   inputsWrapper,
   saveBtn,
 } from './styles';
 import Input from '../../inputs/Input/Input';
 import { DESCRIPTION } from '../constants';
+import { btnStyles, containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
 const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
   const { name, address, description } = restaurant;
@@ -134,7 +136,7 @@ const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
                   <Button
                     type="button"
                     variant="outlined"
-                    sx={saveBtn}
+                    sx={{ ...btn, ...outlinedBtnStyles }}
                     disableRipple
                     onClick={() => { setIsEditing(false); }}
                   >
@@ -143,7 +145,7 @@ const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
                   <Button
                     type="submit"
                     variant="contained"
-                    sx={saveBtn}
+                    sx={{ ...btn, ...containedBtnStyles }}
                     disableRipple
                     disabled={!isValid}
                   >

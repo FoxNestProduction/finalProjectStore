@@ -14,10 +14,11 @@ import {
   infoWrapper,
   toggleDisableBtn,
   disableBtn,
-  activateBtn,
+  activateBtn, showDishesBtn,
 } from './styles';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 import PartnerEditForm from '../PartnerEditForm/PartnerEditForm';
+import { outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
 const ItemsEditor = () => {
   const item = {
@@ -97,8 +98,14 @@ const ItemsEditor = () => {
         </Box>
       </Box>
       {!isEditing && (
-      <CardActions>
-        <Button size="small">Show dishes</Button>
+      <CardActions sx={{ justifyContent: 'flex-end',
+        p: '0',
+        mt: {
+          mobile: '20px',
+          desktop: '10px',
+        } }}
+      >
+        <Button type="button" variant="outlined" size="small" sx={showDishesBtn}>Show dishes</Button>
       </CardActions>
       )}
     </Card>

@@ -1,6 +1,8 @@
+import { btnStyles, containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
+
 export const card = {
   m: '0 auto',
-  p: '24px',
+  p: '24px 24px 63px 24px',
   maxWidth: '1083px',
   borderRadius: '16px',
   // background: '#fdf3f3',
@@ -9,7 +11,7 @@ export const card = {
 };
 
 export const toggleDisableBtn = {
-  background: '#FFF',
+  background: 'common.white',
   p: '6px 16px',
   minWidth: {
     mobile: '100px',
@@ -24,32 +26,6 @@ export const toggleDisableBtn = {
   border: '2px solid',
   color: 'text.primary',
   transition: 'border .3s ease, border-color .3s ease, color .3s ease, background-color .3s ease',
-  // '&:hover': {
-  //   border: '2px solid',
-  //   borderColor: 'disable',
-  //   color: {
-  //     mobile: 'text.primary',
-  //     desktop: 'text.primaryLight',
-  //   },
-  //   bgcolor: {
-  //     mobile: 'common.white',
-  //     desktop: 'disable',
-  //   },
-  // },
-  // '&:active': {
-  //   color: {
-  //     mobile: 'text.primaryLight',
-  //     desktop: 'text.primary',
-  //   },
-  //   bgcolor: {
-  //     mobile: 'disable',
-  //     desktop: 'common.white',
-  //   },
-  // },
-  // '&:active': {
-  //   color: 'text.primaryLight',
-  //   bgcolor: 'disable',
-  // },
 };
 
 export const disableBtn = {
@@ -57,20 +33,9 @@ export const disableBtn = {
   '&:hover': {
     border: '2px solid',
     borderColor: 'disable',
-    color: {
-      mobile: 'text.primary',
-      desktop: 'text.primaryLight',
-    },
-    bgcolor: {
-      mobile: 'common.white',
-      desktop: 'disable',
-    },
+    color: { desktop: 'text.primaryLight' },
+    bgcolor: { mobile: 'transparent', desktop: 'disable' },
   },
-  // '&:active': {
-  //   bgcolor: {
-  //     mobile: 'disable',
-  //   },
-  // },
   '&:active': {
     color: 'text.primaryLight',
     bgcolor: 'disable',
@@ -157,4 +122,12 @@ export const formWrapper = {
   minWidth: {
     lgTablet: '300px',
   },
+};
+
+export const showDishesBtn = {
+  ...btnStyles,
+  ...outlinedBtnStyles,
+  p: '10px 16px',
+  width: '100%',
+  maxWidth: { mobile: '150px', tablet: '180px', desktop: '200px' },
 };
