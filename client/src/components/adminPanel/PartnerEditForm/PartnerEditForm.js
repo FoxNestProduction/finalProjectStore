@@ -4,14 +4,15 @@ import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import getValidationSchema from './validationSchema';
 import {
-  flexcenter,
+  btnsWrapper,
+  input,
   inputsWrapper,
   saveBtn,
 } from './styles';
 import Input from '../../inputs/Input/Input';
 import { DESCRIPTION } from '../constants';
 
-const PartnerEditForm = ({ restaurant }) => {
+const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
   const { name, address, description } = restaurant;
 
   let partnerValidationNames = []; // eslint-disable-line
@@ -48,6 +49,13 @@ const PartnerEditForm = ({ restaurant }) => {
     console.log(body);
   };
 
+  const handleClick = (e) => {
+    if (e.detail === 2) {
+      setIsEditing(true);
+      e.target.focus();
+    }
+  };
+
   return (
     <Box sx={{
       width: '100%',
@@ -68,30 +76,37 @@ const PartnerEditForm = ({ restaurant }) => {
             }}
             >
               <Box
-                sx={{
-                  ...flexcenter,
-                  ...inputsWrapper,
-                }}
+                sx={inputsWrapper}
               >
                 <Input
                   name="name"
                   id="editRestaurantName"
                   label="Name"
-                  bgColor="common.white"
+                  // bgColor="common.white"
+                  bgColor={isEditing ? 'common.white' : undefined}
+                  // styles={input}
                   styles={{
-                    fontWeight: '500',
+                    fontWeight: 'fontWeightMedium',
+                    // fontWeight: `${isEditing ? 'fontWeightMedium' : 'fontWeightRegular'}`,
+                    // color: `${isEditing ? 'text.primary' : 'text.header'}`,
                   }}
-                  readOnly
+                  readOnly={!isEditing}
+                  onClick={handleClick}
                 />
                 <Input
                   name="address"
                   id="editRestaurantAddress"
                   label="Address"
-                  bgColor="common.white"
+                  // bgColor="common.white"
+                  bgColor={isEditing ? 'common.white' : undefined}
+                  // styles={input}
                   styles={{
-                    fontWeight: '500',
+                    fontWeight: 'fontWeightMedium',
+                    // fontWeight: `${isEditing ? 'fontWeightMedium' : 'fontWeightRegular'}`,
+                    // color: `${isEditing ? 'text.primary' : 'text.header'}`,
                   }}
-                  readOnly
+                  readOnly={!isEditing}
+                  onClick={handleClick}
                 />
                 {Object.keys(description).map((lang) => (
                   <Input
@@ -99,25 +114,43 @@ const PartnerEditForm = ({ restaurant }) => {
                     name={`${DESCRIPTION}${lang}`}
                     id={`editRestaurantDescription${lang}`}
                     label={`Description in ${lang.toUpperCase()}`}
-                    bgColor="common.white"
+                    // bgColor="common.white"
+                    bgColor={isEditing ? 'common.white' : undefined}
+                    // styles={input}
                     styles={{
-                      fontWeight: '500',
+                      fontWeight: 'fontWeightMedium',
+                      // fontWeight: `${isEditing ? 'fontWeightMedium' : 'fontWeightRegular'}`,
+                      // color: `${isEditing ? 'text.primary' : 'text.secondary'}`,
                     }}
+                    onClick={handleClick}
                     multiline
                     maxRows={8}
-                    readOnly
+                    readOnly={!isEditing}
                   />
                 ))}
               </Box>
-              <Button
-                disableRipple
-                variant="contained"
-                sx={saveBtn}
-                type="submit"
-                disabled={!isValid}
-              >
-                Save
-              </Button>
+              {isEditing && (
+                <Box sx={btnsWrapper}>
+                  <Button
+                    type="button"
+                    variant="outlined"
+                    sx={saveBtn}
+                    disableRipple
+                    onClick={() => { setIsEditing(false); }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={saveBtn}
+                    disableRipple
+                    disabled={!isValid}
+                  >
+                    Save
+                  </Button>
+                </Box>
+              )}
             </Box>
           </Form>
         )}
@@ -128,10 +161,14 @@ const PartnerEditForm = ({ restaurant }) => {
 
 PartnerEditForm.propTypes = {
   restaurant: PropTypes.object,
+  isEditing: PropTypes.bool,
+  setIsEditing: PropTypes.func,
 };
 
 PartnerEditForm.defaultProps = {
   restaurant: {},
+  isEditing: false,
+  setIsEditing: () => {},
 };
 
 export default memo(PartnerEditForm);

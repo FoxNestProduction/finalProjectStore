@@ -6,7 +6,16 @@ import CardMedia from '@mui/material/CardMedia';
 import { Card, CardContent, Container } from '@mui/material';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { btnDisable, card, cardImg, formWrapper, infoWrapper } from './styles';
+import {
+  card,
+  cardImgWrapper,
+  cardImg,
+  formWrapper,
+  infoWrapper,
+  toggleDisableBtn,
+  disableBtn,
+  activateBtn,
+} from './styles';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 import PartnerEditForm from '../PartnerEditForm/PartnerEditForm';
 
@@ -33,6 +42,12 @@ const ItemsEditor = () => {
     customId: '17001',
   };
 
+  const [isEditing, setIsEditing] = useState(false);
+
+  // const handleEditInfo = () => {
+  //   setIsEditing(true);
+  // };
+
   return (
     <Card sx={card}>
       <CardActions sx={{
@@ -51,32 +66,41 @@ const ItemsEditor = () => {
           type="button"
           variant="outlined"
           size="small"
-          sx={btnDisable}
+          sx={{ ...toggleDisableBtn, ...(item.enabled ? disableBtn : activateBtn) }}
         >
-          Disable
+          {item.enabled ? 'Disable' : 'Activate'}
         </Button>
         <IconButton
           sx={{
             bgcolor: 'background.footer',
           }}
+          onClick={() => { setIsEditing(true); }}
         >
           <EditIcon />
         </IconButton>
       </CardActions>
       <Box sx={infoWrapper}>
-        <CardMedia
-          component="img"
-          src={item.imageUrl}
-          alt={item.name}
-          sx={cardImg}
-        />
+        <CardMedia sx={cardImgWrapper}>
+          <Box
+            component="img"
+            src={item.imageUrl}
+            alt={item.name}
+            sx={cardImg}
+          />
+        </CardMedia>
         <Box sx={formWrapper}>
-          <PartnerEditForm restaurant={item} />
+          <PartnerEditForm
+            restaurant={item}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+          />
         </Box>
       </Box>
+      {!isEditing && (
       <CardActions>
         <Button size="small">Show dishes</Button>
       </CardActions>
+      )}
     </Card>
   );
 };
