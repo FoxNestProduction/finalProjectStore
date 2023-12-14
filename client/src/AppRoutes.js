@@ -17,6 +17,7 @@ import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
 import PaymentForm from './components/forms/PaymentForm/PaymentForm';
 import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
 import NotFound from './pages/NotFound/NotFound';
+import AddEditProductPage from './pages/AddEditProductPage/AddEditProductPage';
 
 const AppRoutes = () => {
   return (
@@ -33,7 +34,9 @@ const AppRoutes = () => {
         <Route path="/checkout" element={<CheckoutPage titleText="Checkout" formComponent={CheckoutForm} />} />
         <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
-        <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
+        {/* <Route path="/menu/:productName/:itemNo" element={<ProductPage />} /> */}
+        <Route path="/menu/:productName/:itemNo" element={<AddEditProductPage />} />
+        <Route path="/menu/newProduct" element={<AddEditProductPage />} />
         <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
         <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
         <Route path="*" element={<NotFound />} />

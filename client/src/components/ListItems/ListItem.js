@@ -1,4 +1,5 @@
 import React, { createElement, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
@@ -14,7 +15,6 @@ import { setFilterParams } from '../../redux/slices/filterSlice';
 import scrollToElementTop from '../../utils/scrollToElementTop';
 import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
-import AddNewProductForm from '../forms/AddNewProductForm/AddNewProductForm';
 
 const ListItems = ({ title, items, itemComponent, actions,
   pagination, type, itemsFrom, sorting, isScrolling }) => {
@@ -33,10 +33,9 @@ const ListItems = ({ title, items, itemComponent, actions,
 
   const isLgTablet = useMediaQuery('(min-width: 690px)');
 
-  const handleOpenModal = useCallback(() => {
-    dispatch(openModal());
-    dispatch(setContent(<AddNewProductForm />));
-  }, [dispatch]);
+  const handleAddNewProduct = useCallback(() => {
+
+  }, []);
 
   useEffect(() => {
     let currentPageQty;
@@ -72,7 +71,7 @@ const ListItems = ({ title, items, itemComponent, actions,
         >
           {title}
         </Typography>
-        <Button variant="standard" sx={TitleBtn} onClick={handleOpenModal}>
+        <Button component={NavLink} to="/menu/newProduct" sx={TitleBtn}>
           {isLgTablet && <Typography mr={1}>Add new porduct</Typography>}
           <AddCircleOutlineIcon />
         </Button>
