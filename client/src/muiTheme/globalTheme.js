@@ -42,6 +42,10 @@ const globalTheme = createTheme({
       supreme: '#33AC64',
       quote: '#DADADA',
     },
+    scrollbar: {
+      track: '#f0eefc',
+      thumb: '#c8c5df',
+    },
   },
   shape: {
     borderRadius: 16,

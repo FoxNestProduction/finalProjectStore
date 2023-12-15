@@ -37,11 +37,7 @@ export const inputsWrapper = {
 };
 
 export const input = {
-  fontWeight: '500',
-  // fontSize: {
-  //   mobile: '16px',
-  //   desktop: '24px',
-  // },
+  fontWeight: 'fontWeightMedium',
 };
 
 export const btnsWrapper = {

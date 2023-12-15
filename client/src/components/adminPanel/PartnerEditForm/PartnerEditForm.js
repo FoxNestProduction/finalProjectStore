@@ -1,14 +1,13 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { Formik, Form } from 'formik';
 import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import getValidationSchema from './validationSchema';
 import {
   btn,
-  btnsWrapper, cancelBtn,
+  btnsWrapper,
   input,
   inputsWrapper,
-  saveBtn,
 } from './styles';
 import Input from '../../inputs/Input/Input';
 import { DESCRIPTION } from '../constants';
@@ -17,11 +16,13 @@ import { btnStyles, containedBtnStyles, outlinedBtnStyles } from '../../../muiTh
 const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
   const { name, address, description } = restaurant;
 
-  let partnerValidationNames = []; // eslint-disable-line
-  const descriptionArr = Object.entries(description).map((lang) => {
-    partnerValidationNames.push(`${DESCRIPTION}${lang[0]}`);
-    return [`${DESCRIPTION}${lang[0]}`, lang[1]];
-  });
+  const partnerValidationNames = useMemo(() => {
+    return Object.entries(description).map(([lang]) => `${DESCRIPTION}${lang}`);
+  }, [description]);
+
+  const descriptionArr = useMemo(() => (Object.entries(description).map(([lang, value]) => {
+    return [`${DESCRIPTION}${lang}`, value];
+  })), [description]);
 
   const descriptionInitialValues = Object.fromEntries(descriptionArr);
 
@@ -51,7 +52,7 @@ const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
     console.log(body);
   };
 
-  const handleClick = (e) => {
+  const handleInputDoubleClick = (e) => {
     if (e.detail === 2) {
       setIsEditing(true);
       e.target.focus();
@@ -84,31 +85,19 @@ const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
                   name="name"
                   id="editRestaurantName"
                   label="Name"
-                  // bgColor="common.white"
                   bgColor={isEditing ? 'common.white' : undefined}
-                  // styles={input}
-                  styles={{
-                    fontWeight: 'fontWeightMedium',
-                    // fontWeight: `${isEditing ? 'fontWeightMedium' : 'fontWeightRegular'}`,
-                    // color: `${isEditing ? 'text.primary' : 'text.header'}`,
-                  }}
+                  styles={input}
                   readOnly={!isEditing}
-                  onClick={handleClick}
+                  onClick={handleInputDoubleClick}
                 />
                 <Input
                   name="address"
                   id="editRestaurantAddress"
                   label="Address"
-                  // bgColor="common.white"
                   bgColor={isEditing ? 'common.white' : undefined}
-                  // styles={input}
-                  styles={{
-                    fontWeight: 'fontWeightMedium',
-                    // fontWeight: `${isEditing ? 'fontWeightMedium' : 'fontWeightRegular'}`,
-                    // color: `${isEditing ? 'text.primary' : 'text.header'}`,
-                  }}
+                  styles={input}
                   readOnly={!isEditing}
-                  onClick={handleClick}
+                  onClick={handleInputDoubleClick}
                 />
                 {Object.keys(description).map((lang) => (
                   <Input
@@ -116,17 +105,11 @@ const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
                     name={`${DESCRIPTION}${lang}`}
                     id={`editRestaurantDescription${lang}`}
                     label={`Description in ${lang.toUpperCase()}`}
-                    // bgColor="common.white"
                     bgColor={isEditing ? 'common.white' : undefined}
-                    // styles={input}
-                    styles={{
-                      fontWeight: 'fontWeightMedium',
-                      // fontWeight: `${isEditing ? 'fontWeightMedium' : 'fontWeightRegular'}`,
-                      // color: `${isEditing ? 'text.primary' : 'text.secondary'}`,
-                    }}
-                    onClick={handleClick}
-                    multiline
-                    maxRows={8}
+                    styles={input}
+                    onClick={handleInputDoubleClick}
+                    // multiline
+                    // maxRows={8}
                     readOnly={!isEditing}
                   />
                 ))}

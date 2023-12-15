@@ -35,38 +35,21 @@ const Input = ({ type, label, icon, id, error, bgColor, styles, multiline, maxRo
           bgcolor: `${bgColor}`,
           cursor: `${props.readOnly ? 'default' : 'initial'}`,
           '&:hover:not(.Mui-error):not(.Mui-focused):not(.Mui-disabled) > .MuiOutlinedInput-notchedOutline': {
-            // borderColor: 'primary.hover',
             borderColor: `${props.readOnly ? 'primary.main' : 'primary.hover'}`,
           },
           '&.Mui-focused > .MuiOutlinedInput-notchedOutline': {
             borderWidth: `${props.readOnly ? '1px' : '2px'}`,
           },
-          // '& textarea::-webkit-scrollbar': {
-          //   width: '13px',
-          // },
-          // '& textarea::-webkit-scrollbar-track': {
-          //   background: '#c8c5df',
-          //   borderRadius: '12px',
-          //   p: '10px',
-          // },
-          // '& textarea::-webkit-scrollbar-thumb': {
-          //   backgroundColor: 'primary.main',
-          //   borderRadius: '12px',
-          //   border: '2px solid #c8c5df',
-          // },
           '& textarea::-webkit-scrollbar': {
-            width: '10px',
+            width: '8px',
           },
           '& textarea::-webkit-scrollbar-track': {
-            backgroundColor: '#f0eefc',
+            backgroundColor: 'scrollbar.track',
             borderRadius: '12px',
-            p: '10px',
           },
           '& textarea::-webkit-scrollbar-thumb': {
-            backgroundColor: '#c8c5df',
+            backgroundColor: 'scrollbar.thumb',
             borderRadius: '12px',
-            // border: '2px solid #f0eefc',
-            // borderColor: 'primary.main',
           },
           '& input': {
             cursor: `${props.readOnly ? 'default' : 'initial'}`,

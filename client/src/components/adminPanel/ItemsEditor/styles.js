@@ -1,12 +1,10 @@
-import { btnStyles, containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
+import { btnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
 export const card = {
   m: '0 auto',
   p: '24px 24px 63px 24px',
   maxWidth: '1083px',
   borderRadius: '16px',
-  // background: '#fdf3f3',
-  // border: '1px solid red',
   boxShadow: '7.572px 90.862px 45.431px 0px rgba(229, 229, 229, 0.70)',
 };
 
@@ -62,59 +60,34 @@ export const activateBtn = {
   },
 };
 
-// ------- 1 варіант ------
-
-// export const infoWrapper = {
-//   display: 'flex',
-//   flexDirection: {
-//     mobile: 'column',
-//     desktop: 'row',
-//   },
-//   gap: {
-//     mobile: '35px',
-//     desktop: '3%',
-//   },
-// };
-//
-// export const cardImgWrapper = {
-//   width: '100%',
-//   maxHeight: '500px',
-//   borderRadius: '16px',
-//   overflow: 'hidden',
-// };
-//
-// export const cardImg = {
-//   width: '100%',
-//   borderRadius: '16px',
-// };
-
-// ------- 1 варіант кінець ------
-
-// ------- 2 варіант ------
-
 export const infoWrapper = {
   display: 'flex',
   flexDirection: {
     mobile: 'column',
-    lgTablet: 'row',
+    desktop: 'row',
   },
   gap: {
     mobile: '35px',
-    lgTablet: '3%',
+    desktop: '3%',
   },
 };
 
 export const cardImgWrapper = {
   width: '100%',
   borderRadius: '16px',
+  overflow: 'hidden',
 };
 
 export const cardImg = {
+  maxHeight: {
+    mobile: '250px',
+    tablet: '300px',
+    lgTablet: '350px',
+    desktop: '400px',
+  },
   width: '100%',
   borderRadius: '16px',
 };
-
-// ------- 2 варіант кінець ------
 
 export const formWrapper = {
   p: '0px',

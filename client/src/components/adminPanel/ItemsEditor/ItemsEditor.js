@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
@@ -19,6 +19,7 @@ import {
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 import PartnerEditForm from '../PartnerEditForm/PartnerEditForm';
 import { outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
+import { topBtnsWrapper } from '../EditPage/styles';
 
 const ItemsEditor = () => {
   const item = {
@@ -38,6 +39,7 @@ const ItemsEditor = () => {
     address: '123 Main Street',
     imageUrl: 'https://res.cloudinary.com/dvtjgmpnr/image/upload/c_scale,w_650/v1696613466/EatlyProject/restaurants/welcome_pizzeria_hgfw99.png',
     enabled: true,
+    // enabled: false,
     isSupreme: true,
     isTrending: true,
     customId: '17001',
@@ -45,24 +47,9 @@ const ItemsEditor = () => {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  // const handleEditInfo = () => {
-  //   setIsEditing(true);
-  // };
-
   return (
-    <Card sx={card}>
-      <CardActions sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        gap: {
-          mobile: '6%',
-          lgTablet: '5%',
-          desktop: '4%',
-        },
-        p: '0',
-        mb: '23px',
-      }}
-      >
+    <Card sx={{ ...card, ...(!item.enabled ? { border: '2px solid', borderColor: 'disable' } : {}) }}>
+      <CardActions sx={topBtnsWrapper}>
         <Button
           type="button"
           variant="outlined"
@@ -74,21 +61,27 @@ const ItemsEditor = () => {
         <IconButton
           sx={{
             bgcolor: 'background.footer',
+            '&.Mui-disabled': {
+              bgcolor: 'scrollbar.track',
+            },
           }}
           onClick={() => { setIsEditing(true); }}
+          disabled={isEditing}
         >
-          <EditIcon />
+          <EditIcon color={isEditing ? '#c8c5df' : undefined} />
         </IconButton>
       </CardActions>
       <Box sx={infoWrapper}>
-        <CardMedia sx={cardImgWrapper}>
-          <Box
+        <Box sx={cardImgWrapper}>
+          <CardMedia
             component="img"
             src={item.imageUrl}
             alt={item.name}
+            // width="600"
+            // height="400"
             sx={cardImg}
           />
-        </CardMedia>
+        </Box>
         <Box sx={formWrapper}>
           <PartnerEditForm
             restaurant={item}
