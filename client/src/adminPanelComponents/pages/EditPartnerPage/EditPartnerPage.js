@@ -19,7 +19,7 @@ const EditPartnerPage = () => {
       </Typography>
       {partnerLoading
         ? (<Typography>Loading...</Typography>)
-        : (partner && <ItemsEditor unit={partner} type="restaurant" />)}
+        : (partner && <ItemsEditor entity={partner} type="restaurant" />)}
       {/* todo: додати search + select(all/active/disabled) + restaurant dishes */}
     </Container>
   );

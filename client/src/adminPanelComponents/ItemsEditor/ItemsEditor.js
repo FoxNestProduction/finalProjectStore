@@ -24,10 +24,9 @@ import EditIcon from '../../assets/svgComponents/EditIcon';
 import PartnerEditForm from '../forms/EditPartnerForm/EditPartnerForm';
 import { instance } from '../../API/instance';
 
-const ItemsEditor = ({ unit, type }) => {
-  console.log(unit);
+const ItemsEditor = ({ entity, type }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [item, setItem] = useState(unit);
+  const [item, setItem] = useState(entity);
 
   const handleDisable = async () => {
     const path = (type === 'dish') ? `/products/${item._id}` : `/partners/${item.customId}`;
@@ -98,12 +97,12 @@ const ItemsEditor = ({ unit, type }) => {
 };
 
 ItemsEditor.propTypes = {
-  unit: PropTypes.object,
+  entity: PropTypes.object,
   type: PropTypes.oneOf(['dish', 'restaurant']).isRequired,
 };
 
 ItemsEditor.defaultProps = {
-  unit: {},
+  entity: {},
 };
 
 export default memo(ItemsEditor);

@@ -19,7 +19,7 @@ const EditDishPage = () => {
       </Typography>
       {dishLoading
         ? (<Typography>Loading...</Typography>)
-        : (dish && <ItemsEditor unit={dish} type="dish" />)}
+        : (dish && <ItemsEditor entity={dish} type="dish" />)}
     </Container>
   );
 };
