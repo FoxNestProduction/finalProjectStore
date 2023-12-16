@@ -8,21 +8,20 @@ import {
 import ItemsEditor from '../../ItemsEditor/ItemsEditor';
 import useGetAPI from '../../../customHooks/useGetAPI';
 
-const EditPartnerPage = () => {
-  const { partnerId } = useParams();
-  const [partner, partnerLoading] = useGetAPI(`/partners/${partnerId}`);
+const EditDishPage = () => {
+  const { dishId } = useParams();
+  const [dish, dishLoading] = useGetAPI(`/products/${dishId}`);
 
   return (
     <Container sx={mainContainer}>
       <Typography variant="h2" component="h1" sx={mainTitle}>
-        Partner
+        Dish
       </Typography>
-      {partnerLoading
+      {dishLoading
         ? (<Typography>Loading...</Typography>)
-        : (partner && <ItemsEditor unit={partner} type="restaurant" />)}
-      {/* todo: додати search + select(all/active/disabled) + restaurant dishes */}
+        : (dish && <ItemsEditor unit={dish} type="dish" />)}
     </Container>
   );
 };
 
-export default memo(EditPartnerPage);
+export default memo(EditDishPage);

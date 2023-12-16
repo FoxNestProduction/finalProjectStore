@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
-import { Card, CardContent, Container } from '@mui/material';
+import { Card } from '@mui/material';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
 import {
   card,
+  topBtnsWrapper,
   cardImgWrapper,
   cardImg,
   formWrapper,
@@ -20,18 +21,32 @@ import {
 } from './styles';
 import EditIcon from '../../assets/svgComponents/EditIcon';
 import PartnerEditForm from '../forms/EditPartnerForm/EditPartnerForm';
-import { topBtnsWrapper } from '../pages/EditPartnerPage/styles';
+import { instance } from '../../API/instance';
 
-const ItemsEditor = ({ item }) => {
+const ItemsEditor = ({ unit, type }) => {
+  console.log(unit);
   const [isEditing, setIsEditing] = useState(false);
+  const [item, setItem] = useState(unit);
+
+  const handleDisable = async () => {
+    const path = (type === 'dish') ? `/products/${item._id}` : `/partners/${item.customId}`;
+
+    try {
+      const { data } = await instance.put(path, { enabled: !item.enabled });
+      setItem((prev) => ({ ...prev, enabled: data.enabled }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
-    <Card sx={{ ...card, ...(!item?.enabled ? { border: '2px solid', borderColor: 'disable' } : {}) }}>
+    <Card sx={{ ...card, ...(!item?.enabled ? { outline: '2px solid', outlineColor: (theme) => theme.palette.disable } : {}) }}>
       <CardActions sx={topBtnsWrapper}>
         <Button
           type="button"
           variant="outlined"
           size="small"
+          onClick={handleDisable}
           sx={{ ...toggleDisableBtn, ...(item?.enabled ? disableBtn : activateBtn) }}
         >
           {item.enabled ? 'Disable' : 'Activate'}
@@ -55,8 +70,6 @@ const ItemsEditor = ({ item }) => {
             component="img"
             src={item.imageUrl}
             alt={item.name}
-            width="600"
-            height="400"
             sx={cardImg}
           />
         </Box>
@@ -68,27 +81,28 @@ const ItemsEditor = ({ item }) => {
           />
         </Box>
       </Box>
-      {!isEditing && (
-      <CardActions sx={{ justifyContent: 'flex-end',
-        p: '0',
-        mt: {
-          mobile: '20px',
-          desktop: '10px',
-        } }}
-      >
-        <Button type="button" variant="outlined" size="small" sx={showDishesBtn}>Show dishes</Button>
-      </CardActions>
+      {!isEditing && type === 'restaurant' && (
+        <CardActions sx={{ justifyContent: 'flex-end',
+          p: '0',
+          mt: {
+            mobile: '20px',
+            desktop: '10px',
+          } }}
+        >
+          <Button type="button" variant="outlined" size="small" sx={showDishesBtn}>Show dishes</Button>
+        </CardActions>
       )}
     </Card>
   );
 };
 
 ItemsEditor.propTypes = {
-  item: PropTypes.object,
+  unit: PropTypes.object,
+  type: PropTypes.oneOf(['dish', 'restaurant']).isRequired,
 };
 
 ItemsEditor.defaultProps = {
-  item: {},
+  unit: {},
 };
 
 export default memo(ItemsEditor);

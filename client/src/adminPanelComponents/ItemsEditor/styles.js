@@ -2,10 +2,22 @@ import { btnStyles, outlinedBtnStyles } from '../../muiTheme/buttonsStyles';
 
 export const card = {
   m: '0 auto',
-  p: '24px 24px 63px 24px',
+  p: '24px 24px 50px 24px',
   maxWidth: '1083px',
   borderRadius: '16px',
   boxShadow: '7.572px 90.862px 45.431px 0px rgba(229, 229, 229, 0.70)',
+};
+
+export const topBtnsWrapper = {
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: {
+    mobile: '6%',
+    lgTablet: '5%',
+    desktop: '4%',
+  },
+  p: '0',
+  mb: '23px',
 };
 
 export const toggleDisableBtn = {

@@ -9,7 +9,6 @@ const useGetAPI = (url) => {
   useEffect(() => {
     (async () => {
       try {
-        // setLoading(true);
         const response = await instance.get(url);
         setData(response.data);
       } catch (err) {

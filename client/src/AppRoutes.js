@@ -20,6 +20,7 @@ import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePass
 import NotFound from './pages/NotFound/NotFound';
 import ItemsEditor from './adminPanelComponents/ItemsEditor/ItemsEditor';
 import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
+import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
 
 const AppRoutes = () => {
   return (
@@ -48,8 +49,9 @@ const AppRoutes = () => {
         {/* сторінка редагування ресторану /admin-panel/partners/17001 */}
         <Route path="/admin-panel/partners/:partnerId" element={<EditPartnerPage />} />
 
-        {/* сторінка редагування блюда конкретного ресторану */}
-        <Route path="/admin-panel/partners/:partnerId/dishes/:dishId" element={<Box />} />
+        {/* eslint-disable-next-line max-len */}
+        {/* сторінка редагування блюда конкретного ресторану /admin-panel/partners/17001/dishes/10001 */}
+        <Route path="/admin-panel/partners/:partnerId/dishes/:dishId" element={<EditDishPage />} />
 
         {/* сторінка створення нового блюда конкретного ресторану */}
         <Route path="/admin-panel/partners/:partnerId/dishes/new-dish" element={<Box />} />
