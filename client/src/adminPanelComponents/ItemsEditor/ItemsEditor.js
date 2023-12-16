@@ -12,7 +12,8 @@ import {
   card,
   topBtnsWrapper,
   cardImgWrapper,
-  cardImg,
+  dishCardImg,
+  restaurantCardImg,
   formWrapper,
   infoWrapper,
   toggleDisableBtn,
@@ -70,7 +71,7 @@ const ItemsEditor = ({ unit, type }) => {
             component="img"
             src={item.imageUrl}
             alt={item.name}
-            sx={cardImg}
+            sx={type === 'dish' ? dishCardImg : restaurantCardImg}
           />
         </Box>
         <Box sx={formWrapper}>

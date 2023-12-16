@@ -90,7 +90,7 @@ export const cardImgWrapper = {
   overflow: 'hidden',
 };
 
-export const cardImg = {
+export const restaurantCardImg = {
   maxHeight: {
     mobile: '250px',
     tablet: '300px',
@@ -98,6 +98,16 @@ export const cardImg = {
     desktop: '400px',
   },
   width: '100%',
+  borderRadius: '16px',
+};
+
+export const dishCardImg = {
+  width: '100%',
+  maxWidth: {
+    lgTablet: '75%',
+    desktop: '100%',
+  },
+  m: '0 auto',
   borderRadius: '16px',
 };
 
