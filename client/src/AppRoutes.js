@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
+import { Box } from '@mui/material';
 import PublicLayout from './components/Layout/PublicLayout';
 import ContactPage from './pages/Contact/Contact';
 import HomePage from './pages/Home/Home';
@@ -17,8 +18,8 @@ import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
 import PaymentForm from './components/forms/PaymentForm/PaymentForm';
 import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
 import NotFound from './pages/NotFound/NotFound';
-import ItemsEditor from './components/adminPanel/ItemsEditor/ItemsEditor';
-import EditPage from './components/adminPanel/EditPage/EditPage';
+import ItemsEditor from './adminPanelComponents/ItemsEditor/ItemsEditor';
+import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
 
 const AppRoutes = () => {
   return (
@@ -38,8 +39,23 @@ const AppRoutes = () => {
         <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
         <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
         <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
+
         {/* Routes for admin panel */}
-        <Route path="/items-editor" element={<EditPage />} />
+
+        {/* сторінка усіх ресторанів */}
+        <Route path="/admin-panel/partners" element={<Box />} />
+
+        {/* сторінка редагування ресторану /admin-panel/partners/17001 */}
+        <Route path="/admin-panel/partners/:partnerId" element={<EditPartnerPage />} />
+
+        {/* сторінка редагування блюда конкретного ресторану */}
+        <Route path="/admin-panel/partners/:partnerId/dishes/:dishId" element={<Box />} />
+
+        {/* сторінка створення нового блюда конкретного ресторану */}
+        <Route path="/admin-panel/partners/:partnerId/dishes/new-dish" element={<Box />} />
+
+        {/* сторінка створення нового ресторану */}
+        <Route path="/admin-panel/partners/new-partner" element={<Box />} />
 
         <Route path="*" element={<NotFound />} />
       </Route>

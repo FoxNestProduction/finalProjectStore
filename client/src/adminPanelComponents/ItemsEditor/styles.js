@@ -1,4 +1,4 @@
-import { btnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
+import { btnStyles, outlinedBtnStyles } from '../../muiTheme/buttonsStyles';
 
 export const card = {
   m: '0 auto',

@@ -3,13 +3,13 @@ import { instance } from '../API/instance';
 
 const useGetAPI = (url) => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     (async () => {
       try {
-        setLoading(true);
+        // setLoading(true);
         const response = await instance.get(url);
         setData(response.data);
       } catch (err) {

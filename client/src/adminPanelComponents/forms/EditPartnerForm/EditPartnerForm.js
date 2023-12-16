@@ -9,11 +9,11 @@ import {
   input,
   inputsWrapper,
 } from './styles';
-import Input from '../../inputs/Input/Input';
-import { DESCRIPTION } from '../constants';
+import Input from '../../../components/inputs/Input/Input';
+import { DESCRIPTION } from '../../constants';
 import { btnStyles, containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
-const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
+const EditPartnerForm = ({ restaurant, isEditing, setIsEditing }) => {
   const { name, address, description } = restaurant;
 
   const partnerValidationNames = useMemo(() => {
@@ -104,7 +104,7 @@ const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
                     key={lang}
                     name={`${DESCRIPTION}${lang}`}
                     id={`editRestaurantDescription${lang}`}
-                    label={`Description in ${lang.toUpperCase()}`}
+                    label={`Description (${lang.toUpperCase()})`}
                     bgColor={isEditing ? 'common.white' : undefined}
                     styles={input}
                     onClick={handleInputDoubleClick}
@@ -144,16 +144,16 @@ const PartnerEditForm = ({ restaurant, isEditing, setIsEditing }) => {
   );
 };
 
-PartnerEditForm.propTypes = {
+EditPartnerForm.propTypes = {
   restaurant: PropTypes.object,
   isEditing: PropTypes.bool,
   setIsEditing: PropTypes.func,
 };
 
-PartnerEditForm.defaultProps = {
+EditPartnerForm.defaultProps = {
   restaurant: {},
   isEditing: false,
   setIsEditing: () => {},
 };
 
-export default memo(PartnerEditForm);
+export default memo(EditPartnerForm);
