@@ -13,8 +13,8 @@ import Input from '../../../components/inputs/Input/Input';
 import { DESCRIPTION } from '../../constants';
 import { btnStyles, containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
-const EditPartnerForm = ({ restaurant, isEditing, setIsEditing }) => {
-  const { name, address, description } = restaurant;
+const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
+  const { name, address, description } = partner;
 
   const partnerValidationNames = useMemo(() => {
     return Object.entries(description).map(([lang]) => `${DESCRIPTION}${lang}`);
@@ -83,7 +83,7 @@ const EditPartnerForm = ({ restaurant, isEditing, setIsEditing }) => {
               >
                 <Input
                   name="name"
-                  id="editRestaurantName"
+                  id="editPartnerName"
                   label="Name"
                   bgColor={isEditing ? 'common.white' : undefined}
                   styles={input}
@@ -92,7 +92,7 @@ const EditPartnerForm = ({ restaurant, isEditing, setIsEditing }) => {
                 />
                 <Input
                   name="address"
-                  id="editRestaurantAddress"
+                  id="editPartnerAddress"
                   label="Address"
                   bgColor={isEditing ? 'common.white' : undefined}
                   styles={input}
@@ -103,7 +103,7 @@ const EditPartnerForm = ({ restaurant, isEditing, setIsEditing }) => {
                   <Input
                     key={lang}
                     name={`${DESCRIPTION}${lang}`}
-                    id={`editRestaurantDescription${lang}`}
+                    id={`editPartnerDescription${lang}`}
                     label={`Description (${lang.toUpperCase()})`}
                     bgColor={isEditing ? 'common.white' : undefined}
                     styles={input}
@@ -145,13 +145,13 @@ const EditPartnerForm = ({ restaurant, isEditing, setIsEditing }) => {
 };
 
 EditPartnerForm.propTypes = {
-  restaurant: PropTypes.object,
+  partner: PropTypes.object,
   isEditing: PropTypes.bool,
   setIsEditing: PropTypes.func,
 };
 
 EditPartnerForm.defaultProps = {
-  restaurant: {},
+  partner: {},
   isEditing: false,
   setIsEditing: () => {},
 };

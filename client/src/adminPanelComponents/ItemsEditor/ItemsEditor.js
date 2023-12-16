@@ -13,7 +13,7 @@ import {
   topBtnsWrapper,
   cardImgWrapper,
   dishCardImg,
-  restaurantCardImg,
+  partnerCardImg,
   formWrapper,
   infoWrapper,
   toggleDisableBtn,
@@ -70,18 +70,18 @@ const ItemsEditor = ({ entity, type }) => {
             component="img"
             src={item.imageUrl}
             alt={item.name}
-            sx={type === 'dish' ? dishCardImg : restaurantCardImg}
+            sx={type === 'dish' ? dishCardImg : partnerCardImg}
           />
         </Box>
         <Box sx={formWrapper}>
           <PartnerEditForm
-            restaurant={item}
+            partner={item}
             isEditing={isEditing}
             setIsEditing={setIsEditing}
           />
         </Box>
       </Box>
-      {!isEditing && type === 'restaurant' && (
+      {!isEditing && type === 'partner' && (
         <CardActions sx={{ justifyContent: 'flex-end',
           p: '0',
           mt: {
@@ -98,7 +98,7 @@ const ItemsEditor = ({ entity, type }) => {
 
 ItemsEditor.propTypes = {
   entity: PropTypes.object,
-  type: PropTypes.oneOf(['dish', 'restaurant']).isRequired,
+  type: PropTypes.oneOf(['dish', 'partner']).isRequired,
 };
 
 ItemsEditor.defaultProps = {

@@ -90,7 +90,7 @@ export const cardImgWrapper = {
   overflow: 'hidden',
 };
 
-export const restaurantCardImg = {
+export const partnerCardImg = {
   maxHeight: {
     mobile: '250px',
     tablet: '300px',

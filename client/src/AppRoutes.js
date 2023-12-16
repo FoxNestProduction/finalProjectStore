@@ -21,6 +21,8 @@ import NotFound from './pages/NotFound/NotFound';
 import ItemsEditor from './adminPanelComponents/ItemsEditor/ItemsEditor';
 import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
 import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
+import AddDishPage from './adminPanelComponents/pages/AddDishPage/AddDishPage';
+import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
 
 const AppRoutes = () => {
   return (
@@ -54,10 +56,10 @@ const AppRoutes = () => {
         <Route path="/admin-panel/partners/:partnerId/dishes/:dishId" element={<EditDishPage />} />
 
         {/* сторінка створення нового блюда конкретного ресторану */}
-        <Route path="/admin-panel/partners/:partnerId/dishes/new-dish" element={<Box />} />
+        <Route path="/admin-panel/partners/:partnerId/dishes/new-dish" element={<AddDishPage />} />
 
         {/* сторінка створення нового ресторану */}
-        <Route path="/admin-panel/partners/new-partner" element={<Box />} />
+        <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />
 
         <Route path="*" element={<NotFound />} />
       </Route>
