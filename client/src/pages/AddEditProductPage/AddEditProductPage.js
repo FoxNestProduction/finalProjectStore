@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import {
   Box,
   Button,
+  CardMedia,
   Checkbox,
   Container,
   FormControl,
@@ -21,56 +22,131 @@ import useGetAPI from '../../customHooks/useGetAPI';
 import { ReactComponent as Edit } from '../../assets/svg/edit.svg';
 import SelectForFormik from '../../components/inputs/Select/Select';
 import Input from '../../components/inputs/Input/Input';
-import Textarea from '../../components/inputs/Textarea/Textarea';
 import validationSchema from './validationSchema';
-import { flexCenter, container } from './styles';
+
+import { flexCenter, container, title, imgContainer, imgEditBtn, submitBtn } from './styles';
+import { instance } from '../../API/instance';
 
 const AddEditProductPage = () => {
-  const [partners, loadingPartners] = useGetAPI('/partners/names');
-  const [categories, loadingCategories] = useGetAPI('/products/categories');
+  const [restaurant, setRestaurant] = useState('');
+  const [foodCategory, setFoodCategory] = useState('');
 
-  console.log(partners);
+  const { itemNo } = useParams();
+  const [dish, loading] = useGetAPI(`/products/${itemNo}`);
 
-  const { pathname } = useLocation();
+  console.log(dish);
+  const [checkedList, setCheckedList] = useState({
+    isTrending: dish ? dish.isTrending : false,
+    isHealthy: dish ? dish.isHealthy : false,
+    isSupreme: dish ? dish.isSupreme : false,
+  });
+  const [imageUrl, setImageUrl] = useState('');
 
-  const initialValues = {
-    name: '',
-    price: '',
-    descriptionEN: '',
-    descriptionUA: '',
-    descriptionPL: '',
+  const cloudName = 'dvtjgmpnr';
+  const uploadPreset = 'nggr2j5w';
+  const uwConfig = {
+    cloudName,
+    uploadPreset,
+    folder: `EatlyProject/products/${restaurant}`,
   };
 
-  const handleSubmit = (values) => console.log(values);
+  const handleOpenWidget = () => {
+    // eslint-disable-next-line no-undef
+    const myWidget = cloudinary.createUploadWidget(
+      uwConfig,
+      (error, result) => {
+        if (!error && result && result.event === 'success') {
+          setImageUrl(result.info.secure_url);
+        }
+      },
+    );
+    if (restaurant && foodCategory) {
+      myWidget.open();
+    }
+  };
+
+  const [partners] = useGetAPI('/partners/names');
+  const [categories] = useGetAPI('/products/categories');
+  const [maxNo] = useGetAPI('/products/itemNo');
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const initialValues = {
+    restaurant: dish ? dish.restaurant_name : '',
+    name: dish ? dish.name : '',
+    price: dish ? dish.currentPrice : '',
+    descriptionEN: dish ? dish.description.en : '',
+    descriptionUA: dish ? dish.description.ua : '',
+    descriptionPL: dish ? dish.description.pl : '',
+  };
+
+  const handleChangeCheckbox = (element) => {
+    setCheckedList((prev) => ({
+      ...prev,
+      [element]: !prev[element],
+    }));
+  };
+
+  const handleSubmit = async (values) => {
+    const {
+      descriptionEN,
+      descriptionPL,
+      descriptionUA,
+      name,
+      price,
+    } = values;
+    const { isTrending, isHealthy, isSupreme } = checkedList;
+
+    const newProduct = {
+      restaurant_name: restaurant,
+      name,
+      description: {
+        en: descriptionEN,
+        pl: descriptionPL,
+        ua: descriptionUA,
+      },
+      currentPrice: price,
+      isSupreme,
+      isHealthy,
+      filterCategories: foodCategory,
+      imageUrl,
+      enabled: true,
+      isTrending,
+      itemNo: maxNo + 1,
+    };
+    try {
+      const data = await instance.post('/products', newProduct);
+      if (data.status === 200) {
+        navigate('/menu');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Container component="section">
       <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          bgcolor: 'common.white',
-          p: {
-            desktop: 2,
-          },
-        }}
+        sx={container}
       >
         <Typography
-          sx={container}
+          sx={title}
         >
-          {pathname === '/menu/newProduct' && 'Add new dish'}
+          {!dish ? 'Add new dish' : dish.name}
         </Typography>
 
         <Box>
-          {/* <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button>
-              <Typography>{pathname === '/menu/newProduct' ? 'Disable' : 'Activate'}</Typography>
-            </Button>
-            <Button>
-              <Edit />
-            </Button>
-          </Box> */}
+          {location.pathname !== '/menu/newProduct' && (
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button>
+                <Typography>{location.pathname === '/menu/newProduct' ? 'Disable' : 'Activate'}</Typography>
+              </Button>
+              <Button>
+                <Edit />
+              </Button>
+            </Box>
+          )}
           <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
@@ -80,22 +156,22 @@ const AddEditProductPage = () => {
               <Form style={{ width: '100%' }}>
                 <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', columnGap: '24px' }}>
                   <Box sx={{
-                    position: 'relative',
-                    border: '1px solid #1B1B1B',
-                    borderRadius: '16px',
-                    width: '506px',
-                    height: '506px',
+                    ...imgContainer,
                     ...flexCenter,
                   }}
                   >
-                    <SatelliteOutlinedIcon sx={{ fontSize: '346px' }} />
-                    <Button sx={{
-                      position: 'absolute',
-                      top: '20px',
-                      right: 0,
-                      padding: 0,
-                    }}
-                    >
+                    {!dish && !imageUrl ? <SatelliteOutlinedIcon sx={{ fontSize: '346px' }} /> : (
+                      <CardMedia
+                        component="img"
+                        image={!dish ? imageUrl : dish.imageUrl}
+                        sx={{
+                          maxWidth: '400px',
+                          maxHeight: '400px',
+                          borderRadius: '16px',
+                        }}
+                      />
+                    )}
+                    <Button sx={imgEditBtn} onClick={() => handleOpenWidget()}>
                       <Edit />
                     </Button>
                   </Box>
@@ -108,18 +184,24 @@ const AddEditProductPage = () => {
                   >
                     <FormControl sx={{ width: '100%' }}>
                       <InputLabel id="restaurant">Name restaurant</InputLabel>
-                      <Field
-                        name="restaurant"
-                        label="Restaurant"
-                        component={SelectForFormik}
-                        labelId="restaurant"
-                        id="restaurant"
-                        bgColor="#FFF"
-                      >
-                        {partners && partners.map((el) => (
-                          <MenuItem key={el} value={el}>{el}</MenuItem>
-                        ))}
-                      </Field>
+                      {partners && (
+                        <Field
+                          name="restaurant"
+                          label="Restaurant"
+                          component={SelectForFormik}
+                          labelId="restaurant"
+                          id="restaurant"
+                          bgColor="#FFF"
+                          onChange={(event) => {
+                            const selectedRestaurant = event.target.value;
+                            setRestaurant(selectedRestaurant);
+                          }}
+                        >
+                          {partners.map((el) => (
+                            <MenuItem key={el} value={el}>{el}</MenuItem>
+                          ))}
+                        </Field>
+                      )}
                     </FormControl>
                     <Input
                       name="name"
@@ -129,18 +211,24 @@ const AddEditProductPage = () => {
                     />
                     <FormControl fullWidth>
                       <InputLabel id="checkout-city-label">Category</InputLabel>
-                      <Field
-                        name="category"
-                        label="Category"
-                        component={SelectForFormik}
-                        labelId="category"
-                        id="category"
-                        bgColor="#FFF"
-                      >
-                        {categories && categories.map((el) => (
-                          <MenuItem key={el} value={el}>{el}</MenuItem>
-                        ))}
-                      </Field>
+                      {categories && (
+                        <Field
+                          name="category"
+                          label="Category"
+                          component={SelectForFormik}
+                          labelId="category"
+                          id="category"
+                          bgColor="#FFF"
+                          onChange={(event) => {
+                            const selectedCategory = event.target.value;
+                            setFoodCategory(selectedCategory);
+                          }}
+                        >
+                          {categories.map((el) => (
+                            <MenuItem key={el} value={el}>{el}</MenuItem>
+                          ))}
+                        </Field>
+                      )}
                     </FormControl>
                     <Input
                       name="price"
@@ -173,6 +261,7 @@ const AddEditProductPage = () => {
                           disableRipple
                           icon={<RadioButtonUncheckedOutlinedIcon />}
                           checkedIcon={<CheckCircleOutlineOutlinedIcon />}
+                          onClick={() => handleChangeCheckbox('isTrending')}
                         />
                       )}
                       label="Trending"
@@ -188,6 +277,7 @@ const AddEditProductPage = () => {
                           disableRipple
                           icon={<RadioButtonUncheckedOutlinedIcon />}
                           checkedIcon={<CheckCircleOutlineOutlinedIcon />}
+                          onClick={() => handleChangeCheckbox('isHealthy')}
                         />
                       )}
                       label="Healthy"
@@ -203,6 +293,7 @@ const AddEditProductPage = () => {
                           disableRipple
                           icon={<RadioButtonUncheckedOutlinedIcon />}
                           checkedIcon={<CheckCircleOutlineOutlinedIcon />}
+                          onClick={() => handleChangeCheckbox('isSupreme')}
                         />
                       )}
                       label="Supreme"
@@ -215,43 +306,9 @@ const AddEditProductPage = () => {
                     <Button
                       disableRipple
                       variant="contained"
-                      sx={{
-                        width: '188px',
-                        height: '60px',
-                        color: 'text.primaryLight',
-                        mb: {
-                          mobile: '19px',
-                          tablet: '16px',
-                          desktop: '24px',
-                        },
-                        transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
-                        '&:hover': {
-                          backgroundColor: 'primary.hover',
-                          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
-                        },
-                        '&:active': {
-                          boxShadow: '0px -1px 4px rgba(0, 0, 0, 0.5)',
-                          transform: 'translateY(1px)',
-                          backgroundColor: 'common.white',
-                          color: '#1C186C',
-                          boxSizing: 'border-box',
-                          border: '1px solid',
-                          borderColor: 'primary.main',
-                        },
-                        fontSize: {
-                          mobile: '14px',
-                          desktop: '20px',
-                        },
-                        fontWeight: {
-                          mobile: 'fontWeightSemiBold',
-                          desktop: 'fontWeightRegular',
-                        },
-                        textTransform: {
-                          mobile: 'capitalize',
-                        },
-                      }}
+                      sx={submitBtn}
                       type="submit"
-                      disabled={!isValid}
+                      disabled={!isValid && !imageUrl}
                     >
                       Confirm
                     </Button>

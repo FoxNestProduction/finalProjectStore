@@ -7,6 +7,7 @@ const SelectForFormik = ({ field, form, children, bgColor, ...props }) => {
     <Select
       {...field}
       {...props}
+      defaultValue=""
       sx={{
         bgcolor: `${bgColor}`,
         '&:hover:not(.Mui-error):not(.Mui-focused) > .MuiOutlinedInput-notchedOutline': {
