@@ -30,15 +30,10 @@ import { instance } from '../../API/instance';
 const AddEditProductPage = () => {
   const [restaurant, setRestaurant] = useState('');
   const [foodCategory, setFoodCategory] = useState('');
-
-  const { itemNo } = useParams();
-  const [dish, loading] = useGetAPI(`/products/${itemNo}`);
-
-  console.log(dish);
   const [checkedList, setCheckedList] = useState({
-    isTrending: dish ? dish.isTrending : false,
-    isHealthy: dish ? dish.isHealthy : false,
-    isSupreme: dish ? dish.isSupreme : false,
+    isTrending: false,
+    isHealthy: false,
+    isSupreme: false,
   });
   const [imageUrl, setImageUrl] = useState('');
 
@@ -72,8 +67,11 @@ const AddEditProductPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { itemNo } = useParams();
+  const [dish, loading] = useGetAPI(`/products/${itemNo}`);
+  console.log(dish);
+
   const initialValues = {
-    restaurant: dish ? dish.restaurant_name : '',
     name: dish ? dish.name : '',
     price: dish ? dish.currentPrice : '',
     descriptionEN: dish ? dish.description.en : '',
