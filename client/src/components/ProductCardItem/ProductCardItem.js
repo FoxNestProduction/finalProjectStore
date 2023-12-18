@@ -19,7 +19,7 @@ import LoginForm from '../forms/LoginForm/LoginForm';
 import { addToCart, addProductToCart, setRestaurants } from '../../redux/slices/cartSlice';
 import useAlert from '../../customHooks/useAlert';
 import CustomAlert from '../Alert/Alert';
-import { getOneProduct } from '../../redux/slices/productsSlice';
+import { fetchGetOneProduct } from '../../redux/slices/productsSlice';
 // eslint-disable-next-line no-underscore-dangle
 const ProductCardItem = ({
   currentPrice,
@@ -74,8 +74,8 @@ const ProductCardItem = ({
       }
     };
 
-    dispatch(getOneProduct(itemNo)).then((action) => {
-      if (getOneProduct.fulfilled.match(action)) {
+    dispatch(fetchGetOneProduct(itemNo)).then((action) => {
+      if (fetchGetOneProduct.fulfilled.match(action)) {
         onGetOneProductComplete(action.payload);
         setClickedAdd(true);
       }

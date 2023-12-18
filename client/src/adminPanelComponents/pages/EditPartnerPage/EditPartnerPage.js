@@ -1,16 +1,25 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Container, Typography } from '@mui/material';
 import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   mainContainer,
   mainTitle,
 } from '../commonStyles';
 import ItemsEditor from '../../ItemsEditor/ItemsEditor';
 import useGetAPI from '../../../customHooks/useGetAPI';
+import { fetchGetPartner } from '../../../redux/slices/partnersSlice';
 
 const EditPartnerPage = () => {
-  const { partnerId } = useParams();
-  const [partner, partnerLoading] = useGetAPI(`/partners/${partnerId}`);
+  const { customId } = useParams();
+  const dispatch = useDispatch();
+
+  const partnerLoading = useSelector((state) => state.partners.loading);
+  const partner = useSelector((state) => state.partners.currentEditingPartner);
+
+  useEffect(() => {
+    dispatch(fetchGetPartner(customId));
+  }, [dispatch, customId]);
 
   return (
     <Container sx={mainContainer}>
@@ -19,7 +28,7 @@ const EditPartnerPage = () => {
       </Typography>
       {partnerLoading
         ? (<Typography>Loading...</Typography>)
-        : (partner && <ItemsEditor entity={partner} type="partner" />)}
+        : (partner && <ItemsEditor type="partner" />)}
       {/* todo: додати search + select(all/active/disabled) + restaurant dishes */}
     </Container>
   );
