@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
+import { fetchGetPartner, fetchUpdatePartner } from './partnersSlice';
 
 export const fetchTopProducts = createAsyncThunk(
   'products/fetchTopProducts',
@@ -38,11 +39,25 @@ export const fetchAllProductsNames = createAsyncThunk(
   },
 );
 
-export const getOneProduct = createAsyncThunk(
-  'products/getOneProduct',
+export const fetchGetOneProduct = createAsyncThunk(
+  'products/fetchGetOneProduct',
   async (itemNo, { rejectWithValue }) => {
     try {
       const { data } = await instance.get(`/products/${itemNo}`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+// ----- requests for Admin -----
+
+export const fetchUpdateProduct = createAsyncThunk(
+  'partners/fetchUpdateProduct',
+  async ({ itemNo, body }, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.put(`/partners/${itemNo}`, body);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -54,7 +69,7 @@ const initialState = {
   products: [],
   productsQuantity: null,
   topProducts: [],
-  oneProduct: {},
+  oneProduct: null,
   allProductsNames: [],
   loading: false,
   error: null,
@@ -71,17 +86,29 @@ const productsSlice = createSlice({
         state.topProducts = action.payload;
       })
       .addCase(fetchTopProducts.rejected, setError)
-      .addCase(getOneProduct.fulfilled, (state, action) => {
+
+      .addCase(fetchGetOneProduct.pending, setLoading)
+      .addCase(fetchGetOneProduct.fulfilled, (state, action) => {
         state.oneProduct = action.payload;
+        state.loading = false;
       })
+
       .addCase(fetchSortedProducts.pending, setLoading)
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload.products;
         state.productsQuantity = action.payload.productsQuantity;
       })
+
       .addCase(fetchAllProductsNames.fulfilled, (state, action) => {
         state.allProductsNames = action.payload;
+      })
+
+      // ---- Admin ---
+      .addCase(fetchUpdateProduct.pending, setLoading)
+      .addCase(fetchUpdateProduct.fulfilled, (state, action) => {
+        state.oneProduct = { ...state.oneProduct, ...action.payload };
+        state.loading = false;
       });
   },
 });

@@ -1,16 +1,26 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Container, Typography } from '@mui/material';
 import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   mainContainer,
   mainTitle,
 } from '../commonStyles';
 import ItemsEditor from '../../ItemsEditor/ItemsEditor';
 import useGetAPI from '../../../customHooks/useGetAPI';
+import { fetchGetPartner } from '../../../redux/slices/partnersSlice';
+import { fetchGetOneProduct } from '../../../redux/slices/productsSlice';
 
 const EditDishPage = () => {
-  const { dishId } = useParams();
-  const [dish, dishLoading] = useGetAPI(`/products/${dishId}`);
+  const { itemNo } = useParams();
+  const dispatch = useDispatch();
+
+  const dishLoading = useSelector((state) => state.products.loading);
+  const dish = useSelector((state) => state.products.oneProduct);
+
+  useEffect(() => {
+    dispatch(fetchGetOneProduct(itemNo));
+  }, [dispatch, itemNo]);
 
   return (
     <Container sx={mainContainer}>
@@ -19,7 +29,7 @@ const EditDishPage = () => {
       </Typography>
       {dishLoading
         ? (<Typography>Loading...</Typography>)
-        : (dish && <ItemsEditor entity={dish} type="dish" />)}
+        : (dish && <ItemsEditor type="dish" />)}
     </Container>
   );
 };

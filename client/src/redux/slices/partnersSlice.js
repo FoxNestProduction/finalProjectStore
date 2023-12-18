@@ -29,9 +29,9 @@ export const fetchAllPartnersNames = createAsyncThunk(
 // ----- requests for Admin -----
 export const fetchGetPartner = createAsyncThunk(
   'partners/fetchGetPartner',
-  async (partnerId, { rejectWithValue }) => {
+  async (customId, { rejectWithValue }) => {
     try {
-      const { data } = await instance.get(`/partners/${partnerId}`);
+      const { data } = await instance.get(`/partners/${customId}`);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -41,9 +41,9 @@ export const fetchGetPartner = createAsyncThunk(
 
 export const fetchUpdatePartner = createAsyncThunk(
   'partners/fetchUpdatePartner',
-  async ({ partnerId, body }, { rejectWithValue }) => {
+  async ({ customId, body }, { rejectWithValue }) => {
     try {
-      const { data } = await instance.put(`/partners/${partnerId}`, body);
+      const { data } = await instance.put(`/partners/${customId}`, body);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -78,11 +78,13 @@ const partnersSlice = createSlice({
       .addCase(fetchGetPartner.pending, setLoading)
       .addCase(fetchGetPartner.fulfilled, (state, action) => {
         state.currentEditingPartner = action.payload;
+        state.loading = false;
       })
 
       .addCase(fetchUpdatePartner.pending, setLoading)
       .addCase(fetchUpdatePartner.fulfilled, (state, action) => {
-        state.currentEditingPartner = action.payload;
+        state.currentEditingPartner = { ...state.currentEditingPartner, ...action.payload };
+        state.loading = false;
       });
   },
 });

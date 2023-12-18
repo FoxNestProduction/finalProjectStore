@@ -49,14 +49,14 @@ const AppRoutes = () => {
         <Route path="/admin-panel/partners" element={<Box />} />
 
         {/* сторінка редагування ресторану /admin-panel/partners/17001 */}
-        <Route path="/admin-panel/partners/:partnerId" element={<EditPartnerPage />} />
+        <Route path="/admin-panel/partners/:customId" element={<EditPartnerPage />} />
 
         {/* eslint-disable-next-line max-len */}
         {/* сторінка редагування блюда конкретного ресторану /admin-panel/partners/17001/dishes/10001 */}
-        <Route path="/admin-panel/partners/:partnerId/dishes/:dishId" element={<EditDishPage />} />
+        <Route path="/admin-panel/partners/:customId/dishes/:itemNo" element={<EditDishPage />} />
 
         {/* сторінка створення нового блюда конкретного ресторану */}
-        <Route path="/admin-panel/partners/:partnerId/dishes/new-dish" element={<AddDishPage />} />
+        <Route path="/admin-panel/partners/:customId/dishes/new-dish" element={<AddDishPage />} />
 
         {/* сторінка створення нового ресторану */}
         <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />

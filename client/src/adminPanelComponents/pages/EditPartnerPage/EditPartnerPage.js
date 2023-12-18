@@ -11,15 +11,15 @@ import useGetAPI from '../../../customHooks/useGetAPI';
 import { fetchGetPartner } from '../../../redux/slices/partnersSlice';
 
 const EditPartnerPage = () => {
-  const { partnerId } = useParams();
-  const [partner, partnerLoading] = useGetAPI(`/partners/${partnerId}`);
+  const { customId } = useParams();
+  const dispatch = useDispatch();
 
-  // const dispatch = useDispatch();
-  // const partnerLoading = useSelector((state) => state.partners.loading);
-  // const partner = useSelector((state) => state.partners.currentEditingPartner);
-  // useEffect(() => {
-  //   dispatch(fetchGetPartner(partnerId));
-  // }, [dispatch, partnerId]);
+  const partnerLoading = useSelector((state) => state.partners.loading);
+  const partner = useSelector((state) => state.partners.currentEditingPartner);
+
+  useEffect(() => {
+    dispatch(fetchGetPartner(customId));
+  }, [dispatch, customId]);
 
   return (
     <Container sx={mainContainer}>
@@ -28,7 +28,7 @@ const EditPartnerPage = () => {
       </Typography>
       {partnerLoading
         ? (<Typography>Loading...</Typography>)
-        : (partner && <ItemsEditor entity={partner} type="partner" />)}
+        : (partner && <ItemsEditor type="partner" />)}
       {/* todo: додати search + select(all/active/disabled) + restaurant dishes */}
     </Container>
   );

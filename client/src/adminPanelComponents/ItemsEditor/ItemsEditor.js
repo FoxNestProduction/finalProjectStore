@@ -2,8 +2,6 @@
 import React, { useState, useEffect, memo, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CardActions from '@mui/material/CardActions';
-import Box from '@mui/material/Box';
-import CardMedia from '@mui/material/CardMedia';
 import { Card, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -17,25 +15,22 @@ import {
 } from './styles';
 import EditIcon from '../../assets/svgComponents/EditIcon';
 import PartnerEditForm from '../forms/EditPartnerForm/EditPartnerForm';
-import { instance } from '../../API/instance';
 import { fetchUpdatePartner } from '../../redux/slices/partnersSlice';
+import { fetchUpdateProduct } from '../../redux/slices/productsSlice';
 
-const ItemsEditor = ({ entity, type }) => {
+const ItemsEditor = ({ type }) => {
   const [isEditing, setIsEditing] = useState(false);
-  // const dispatch = useDispatch();
-  const [item, setItem] = useState(entity);
+  const dispatch = useDispatch();
+
+  const item = useSelector((state) => {
+    return type === 'partner' ? state.partners.currentEditingPartner : state.products.oneProduct;
+  });
 
   const handleDisable = async () => {
-    // if (type === 'partner') {
-    //   dispatch(fetchUpdatePartner({ partnerId: item.customId, body: { enabled: !item.enabled } }));
-    // }
-    const path = (type === 'dish') ? `/products/${item._id}` : `/partners/${item.customId}`;
-
-    try {
-      const { data } = await instance.put(path, { enabled: !item.enabled });
-      setItem((prev) => ({ ...prev, enabled: data.enabled }));
-    } catch (err) {
-      console.log(err);
+    if (type === 'partner') {
+      dispatch(fetchUpdatePartner({ customId: item.customId, body: { enabled: !item.enabled } }));
+    } else {
+      dispatch(fetchUpdateProduct({ itemNo: item.itemNo, body: { enabled: !item.enabled } }));
     }
   };
 
@@ -88,14 +83,12 @@ const ItemsEditor = ({ entity, type }) => {
 };
 
 ItemsEditor.propTypes = {
-  entity: PropTypes.object,
   // item: PropTypes.object,
   type: PropTypes.oneOf(['dish', 'partner']).isRequired,
 };
 
-ItemsEditor.defaultProps = {
-  entity: null,
-  // item: null,
-};
+// ItemsEditor.defaultProps = {
+// item: null,
+// };
 
 export default memo(ItemsEditor);
