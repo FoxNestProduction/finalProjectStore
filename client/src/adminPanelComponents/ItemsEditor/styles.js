@@ -8,6 +8,17 @@ export const card = {
   boxShadow: '7.572px 90.862px 45.431px 0px rgba(229, 229, 229, 0.70)',
 };
 
+export const getCardStyles = (item) => {
+  if (item) {
+    return ({
+      ...card,
+      ...(!item?.enabled ? { outline: '2px solid', outlineColor: (theme) => theme.palette.disable } : {}),
+    });
+  }
+  return { ...card,
+    p: '50px 24px 50px 24px' };
+};
+
 export const topBtnsWrapper = {
   display: 'flex',
   justifyContent: 'flex-end',

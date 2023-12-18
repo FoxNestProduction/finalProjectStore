@@ -19,12 +19,12 @@ import Input from '../../../components/inputs/Input/Input';
 import { DESCRIPTION } from '../../constants';
 import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
-const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
-  const { name, address, description } = partner;
+const EditPartnerForm = ({ partner, isNewItem, isEditing, setIsEditing }) => {
+  const description = isNewItem ? null : partner.description;
 
   const descriptionsObj = useMemo(() => {
-    return partner ? description : { ua: '', pl: '', en: '' };
-  }, [partner, description]);
+    return description || { ua: '', pl: '', en: '' };
+  }, [description]);
 
   const partnerValidationNames = useMemo(() => {
     return Object.entries(descriptionsObj).map(([lang]) => `${DESCRIPTION}${lang}`);
@@ -37,15 +37,16 @@ const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   const descriptionInitialValues = Object.fromEntries(descriptionArr);
 
   const initialValues = {
-    name,
-    address,
+    name: isNewItem ? '' : partner.name,
+    address: isNewItem ? '' : partner.address,
     ...descriptionInitialValues,
   };
 
   const handleSubmit = async (values) => {
     console.log(values);
-    const descriptionInDiffLangs = {};
+    const { name, address } = values;
 
+    const descriptionInDiffLangs = {};
     Object.keys(values).forEach((key) => {
       if (key.startsWith(DESCRIPTION)) {
         const lang = key.replace(DESCRIPTION, '').toLowerCase();
@@ -74,8 +75,8 @@ const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
       <Box sx={cardImgWrapper}>
         <CardMedia
           component="img"
-          src={partner.imageUrl}
-          alt={partner.name}
+          src={isNewItem ? `${process.env.PUBLIC_URL}/img/admin/addImgPlug.png` : partner.imageUrl}
+          alt={isNewItem ? 'add new image' : partner.name}
           sx={partnerCardImg}
         />
       </Box>
@@ -163,12 +164,14 @@ const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
 
 EditPartnerForm.propTypes = {
   partner: PropTypes.object,
+  isNewItem: PropTypes.bool,
   isEditing: PropTypes.bool,
   setIsEditing: PropTypes.func,
 };
 
 EditPartnerForm.defaultProps = {
   partner: {},
+  isNewItem: false,
   isEditing: false,
   setIsEditing: () => {},
 };

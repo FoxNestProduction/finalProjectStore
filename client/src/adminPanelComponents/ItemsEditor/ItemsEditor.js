@@ -2,6 +2,7 @@
 import React, { useState, useEffect, memo, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CardActions from '@mui/material/CardActions';
+import Box from '@mui/material/Box';
 import { Card, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -11,14 +12,14 @@ import {
   topBtnsWrapper,
   toggleDisableBtn,
   disableBtn,
-  activateBtn, showDishesBtn,
+  activateBtn, showDishesBtn, getCardStyles,
 } from './styles';
 import EditIcon from '../../assets/svgComponents/EditIcon';
 import PartnerEditForm from '../forms/EditPartnerForm/EditPartnerForm';
 import { fetchUpdatePartner } from '../../redux/slices/partnersSlice';
 import { fetchUpdateProduct } from '../../redux/slices/productsSlice';
 
-const ItemsEditor = ({ type }) => {
+const ItemsEditor = ({ type, isNewItem }) => {
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
 
@@ -35,7 +36,8 @@ const ItemsEditor = ({ type }) => {
   };
 
   return (
-    <Card sx={{ ...card, ...(!item?.enabled ? { outline: '2px solid', outlineColor: (theme) => theme.palette.disable } : {}) }}>
+    <Card sx={getCardStyles(item)}>
+      {!isNewItem && (
       <CardActions sx={topBtnsWrapper}>
         <Button
           type="button"
@@ -60,14 +62,16 @@ const ItemsEditor = ({ type }) => {
           <EditIcon color={isEditing ? '#c8c5df' : undefined} />
         </IconButton>
       </CardActions>
+      )}
       {type === 'partner' ? (
         <PartnerEditForm
-          partner={item}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
+          isNewItem={isNewItem}
+          partner={isNewItem ? null : item}
+          isEditing={isNewItem ? true : isEditing}
+          setIsEditing={isNewItem ? undefined : setIsEditing}
         />
       ) : (<Typography variant="h3">Dish form will be here :)</Typography>)}
-      {!isEditing && type === 'partner' && (
+      {!isEditing && type === 'partner' && !isNewItem && (
         <CardActions sx={{ justifyContent: 'flex-end',
           p: '0',
           mt: {
@@ -83,12 +87,12 @@ const ItemsEditor = ({ type }) => {
 };
 
 ItemsEditor.propTypes = {
-  // item: PropTypes.object,
   type: PropTypes.oneOf(['dish', 'partner']).isRequired,
+  isNewItem: PropTypes.bool,
 };
 
-// ItemsEditor.defaultProps = {
-// item: null,
-// };
+ItemsEditor.defaultProps = {
+  isNewItem: false,
+};
 
 export default memo(ItemsEditor);

@@ -38,6 +38,8 @@ export const cardImgWrapper = {
 };
 
 export const partnerCardImg = {
+  border: '1px solid',
+  borderColor: 'common.dark',
   maxHeight: {
     mobile: '250px',
     tablet: '300px',
