@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
+import { Box } from '@mui/material';
 import PublicLayout from './components/Layout/PublicLayout';
 import ContactPage from './pages/Contact/Contact';
 import HomePage from './pages/Home/Home';
@@ -17,6 +18,11 @@ import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
 import PaymentForm from './components/forms/PaymentForm/PaymentForm';
 import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
 import NotFound from './pages/NotFound/NotFound';
+import ItemsEditor from './adminPanelComponents/ItemsEditor/ItemsEditor';
+import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
+import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
+import AddDishPage from './adminPanelComponents/pages/AddDishPage/AddDishPage';
+import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
 import AddEditProductPage from './pages/AddEditProductPage/AddEditProductPage';
 
 const AppRoutes = () => {
@@ -39,6 +45,25 @@ const AppRoutes = () => {
         <Route path="/menu/newProduct" element={<AddEditProductPage />} />
         <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
         <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
+
+        {/* Routes for admin panel */}
+
+        {/* сторінка усіх ресторанів */}
+        <Route path="/admin-panel/partners" element={<Box />} />
+
+        {/* сторінка редагування ресторану /admin-panel/partners/17001 */}
+        <Route path="/admin-panel/partners/:partnerId" element={<EditPartnerPage />} />
+
+        {/* eslint-disable-next-line max-len */}
+        {/* сторінка редагування блюда конкретного ресторану /admin-panel/partners/17001/dishes/10001 */}
+        <Route path="/admin-panel/partners/:partnerId/dishes/:dishId" element={<EditDishPage />} />
+
+        {/* сторінка створення нового блюда конкретного ресторану */}
+        <Route path="/admin-panel/partners/:partnerId/dishes/new-dish" element={<AddDishPage />} />
+
+        {/* сторінка створення нового ресторану */}
+        <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />
+
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

@@ -18,6 +18,8 @@ const globalTheme = createTheme({
       main: '#FF9140',
       hover: '#FF7C1C',
     },
+    disable: '#FB471D',
+    activate: '#309D5B',
     text: {
       primary: '#2B2B2B',
       secondary: '#676767',
@@ -39,6 +41,10 @@ const globalTheme = createTheme({
       trending: '#F7C5BA',
       supreme: '#33AC64',
       quote: '#DADADA',
+    },
+    scrollbar: {
+      track: '#f0eefc',
+      thumb: '#c8c5df',
     },
   },
   shape: {

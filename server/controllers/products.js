@@ -64,15 +64,17 @@ exports.updateProduct = (req, res, next) => {
       } else {
         const productFields = _.cloneDeep(req.body);
 
-        try {
-          productFields.name = productFields.name
-            .toLowerCase()
-            .trim()
-            .replace(/\s\s+/g, " ");
-        } catch (err) {
-          res.status(400).json({
-            message: `Error happened on server: "${err}" `
-          });
+        if(productFields.name) {
+          try {
+            productFields.name = productFields.name
+              .toLowerCase()
+              .trim()
+              .replace(/\s\s+/g, " ");
+          } catch (err) {
+            res.status(400).json({
+              message: `Error happened on server: "${err}" `
+            });
+          }
         }
 
         const updatedProduct = queryCreator(productFields);
