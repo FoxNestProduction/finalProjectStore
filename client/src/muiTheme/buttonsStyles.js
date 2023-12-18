@@ -7,26 +7,23 @@ export const btnStyles = {
 };
 
 export const outlinedBtnStyles = {
+  ...btnStyles,
   color: 'primary.main',
   border: '1px solid',
-  // border: '2px solid',
   borderColor: 'primary.main',
   transition: 'background-color 0.3s ease, color 0.3s ease',
   '&:hover': {
     color: { desktop: 'text.primaryLight' },
     backgroundColor: { mobile: 'transparent', desktop: 'primary.hover' },
-    // border: '2px solid',
-    // borderColor: { mobile: 'primary.main', desktop: 'primary.hover' },
   },
   '&:active': {
     color: 'text.primaryLight',
     backgroundColor: 'primary.hover',
-    // border: '2px solid',
-    // borderColor: 'primary.hover',
   },
 };
 
 export const containedBtnStyles = {
+  ...btnStyles,
   color: 'text.primaryLight',
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',
   '&:hover': {

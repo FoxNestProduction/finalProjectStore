@@ -11,11 +11,6 @@ import PropTypes from 'prop-types';
 import {
   card,
   topBtnsWrapper,
-  cardImgWrapper,
-  dishCardImg,
-  partnerCardImg,
-  formWrapper,
-  infoWrapper,
   toggleDisableBtn,
   disableBtn,
   activateBtn, showDishesBtn,
@@ -52,6 +47,7 @@ const ItemsEditor = ({ entity, type }) => {
           variant="outlined"
           size="small"
           onClick={handleDisable}
+          disabled={isEditing}
           sx={{ ...toggleDisableBtn, ...(item?.enabled ? disableBtn : activateBtn) }}
         >
           {item.enabled ? 'Disable' : 'Activate'}
@@ -69,25 +65,13 @@ const ItemsEditor = ({ entity, type }) => {
           <EditIcon color={isEditing ? '#c8c5df' : undefined} />
         </IconButton>
       </CardActions>
-      <Box sx={infoWrapper}>
-        <Box sx={cardImgWrapper}>
-          <CardMedia
-            component="img"
-            src={item.imageUrl}
-            alt={item.name}
-            sx={type === 'dish' ? dishCardImg : partnerCardImg}
-          />
-        </Box>
-        <Box sx={formWrapper}>
-          {type === 'partner' ? (
-            <PartnerEditForm
-              partner={item}
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-            />
-          ) : (<Typography variant="h3">Dish form will be here :)</Typography>)}
-        </Box>
-      </Box>
+      {type === 'partner' ? (
+        <PartnerEditForm
+          partner={item}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+        />
+      ) : (<Typography variant="h3">Dish form will be here :)</Typography>)}
       {!isEditing && type === 'partner' && (
         <CardActions sx={{ justifyContent: 'flex-end',
           p: '0',

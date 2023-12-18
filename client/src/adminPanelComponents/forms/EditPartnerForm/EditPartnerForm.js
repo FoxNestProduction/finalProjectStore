@@ -1,9 +1,15 @@
 import React, { memo, useMemo } from 'react';
 import { Formik, Form } from 'formik';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+import CardMedia from '@mui/material/CardMedia';
 import getValidationSchema from './validationSchema';
 import {
+  cardImgWrapper,
+  dishCardImg,
+  formWrapper,
+  infoWrapper,
+  partnerCardImg,
   btn,
   btnsWrapper,
   input,
@@ -11,7 +17,7 @@ import {
 } from './styles';
 import Input from '../../../components/inputs/Input/Input';
 import { DESCRIPTION } from '../../constants';
-import { btnStyles, containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
+import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
 const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   const { name, address, description } = partner;
@@ -64,61 +70,67 @@ const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   };
 
   return (
-    <Box sx={{
-      width: '100%',
-    }}
-    >
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={getValidationSchema(partnerValidationNames)}
-      >
-        {({ isValid }) => (
-          <Form>
-            <Box sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-end',
-              width: '100%',
-            }}
-            >
-              <Box
-                sx={inputsWrapper}
+    <Box sx={infoWrapper}>
+      <Box sx={cardImgWrapper}>
+        <CardMedia
+          component="img"
+          src={partner.imageUrl}
+          alt={partner.name}
+          sx={partnerCardImg}
+        />
+      </Box>
+      <Box sx={formWrapper}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={getValidationSchema(partnerValidationNames)}
+        >
+          {({ isValid }) => (
+            <Form>
+              <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+                width: '100%',
+              }}
               >
-                <Input
-                  name="name"
-                  id="editPartnerName"
-                  label="Name"
-                  bgColor={isEditing ? 'common.white' : undefined}
-                  styles={input}
-                  readOnly={!isEditing}
-                  onClick={handleInputDoubleClick}
-                />
-                <Input
-                  name="address"
-                  id="editPartnerAddress"
-                  label="Address"
-                  bgColor={isEditing ? 'common.white' : undefined}
-                  styles={input}
-                  readOnly={!isEditing}
-                  onClick={handleInputDoubleClick}
-                />
-                {Object.keys(descriptionsObj).map((lang) => (
+                <Box
+                  sx={inputsWrapper}
+                >
                   <Input
-                    key={lang}
-                    name={`${DESCRIPTION}${lang}`}
-                    id={`editPartnerDescription${lang}`}
-                    label={`Description (${lang.toUpperCase()})`}
+                    name="name"
+                    id="editPartnerName"
+                    label="Name"
                     bgColor={isEditing ? 'common.white' : undefined}
                     styles={input}
-                    onClick={handleInputDoubleClick}
-                    multiline
-                    maxRows={8}
                     readOnly={!isEditing}
+                    onClick={handleInputDoubleClick}
                   />
-                ))}
-              </Box>
-              {isEditing && (
+                  <Input
+                    name="address"
+                    id="editPartnerAddress"
+                    label="Address"
+                    bgColor={isEditing ? 'common.white' : undefined}
+                    styles={input}
+                    readOnly={!isEditing}
+                    onClick={handleInputDoubleClick}
+                  />
+                  {Object.keys(descriptionsObj).map((lang) => (
+                    <Input
+                      key={lang}
+                      name={`${DESCRIPTION}${lang}`}
+                      id={`editPartnerDescription${lang}`}
+                      label={`Description (${lang.toUpperCase()})`}
+                      bgColor={isEditing ? 'common.white' : undefined}
+                      styles={input}
+                      onClick={handleInputDoubleClick}
+                      multiline
+                      maxRows={8}
+                      readOnly={!isEditing}
+                    />
+                  ))}
+                </Box>
+                {isEditing && (
                 <Box sx={btnsWrapper}>
                   <Button
                     type="button"
@@ -139,11 +151,12 @@ const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                     Save
                   </Button>
                 </Box>
-              )}
-            </Box>
-          </Form>
-        )}
-      </Formik>
+                )}
+              </Box>
+            </Form>
+          )}
+        </Formik>
+      </Box>
     </Box>
   );
 };

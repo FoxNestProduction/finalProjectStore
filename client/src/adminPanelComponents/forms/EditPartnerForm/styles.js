@@ -19,6 +19,53 @@ export const mainTitle = {
   },
 };
 
+export const infoWrapper = {
+  display: 'flex',
+  flexDirection: {
+    mobile: 'column',
+    desktop: 'row',
+  },
+  gap: {
+    mobile: '35px',
+    desktop: '3%',
+  },
+};
+
+export const cardImgWrapper = {
+  width: '100%',
+  borderRadius: '16px',
+  overflow: 'hidden',
+};
+
+export const partnerCardImg = {
+  maxHeight: {
+    mobile: '250px',
+    tablet: '300px',
+    lgTablet: '350px',
+    desktop: '400px',
+  },
+  width: '100%',
+  borderRadius: '16px',
+};
+
+export const dishCardImg = {
+  width: '100%',
+  maxWidth: {
+    lgTablet: '75%',
+    desktop: '100%',
+  },
+  m: '0 auto',
+  borderRadius: '16px',
+};
+
+export const formWrapper = {
+  p: '0px',
+  width: '100%',
+  minWidth: {
+    lgTablet: '300px',
+  },
+};
+
 export const inputsWrapper = {
   display: 'flex',
   flexDirection: 'column',
@@ -52,7 +99,6 @@ export const btnsWrapper = {
 };
 
 export const btn = {
-  ...btnStyles,
   p: '10px 16px',
   width: '100%',
   maxWidth: '190px',
