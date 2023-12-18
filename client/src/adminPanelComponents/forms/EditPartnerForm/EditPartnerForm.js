@@ -16,13 +16,17 @@ import { btnStyles, containedBtnStyles, outlinedBtnStyles } from '../../../muiTh
 const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   const { name, address, description } = partner;
 
-  const partnerValidationNames = useMemo(() => {
-    return Object.entries(description).map(([lang]) => `${DESCRIPTION}${lang}`);
-  }, [description]);
+  const descriptionsObj = useMemo(() => {
+    return partner ? description : { ua: '', pl: '', en: '' };
+  }, [partner, description]);
 
-  const descriptionArr = useMemo(() => (Object.entries(description).map(([lang, value]) => {
+  const partnerValidationNames = useMemo(() => {
+    return Object.entries(descriptionsObj).map(([lang]) => `${DESCRIPTION}${lang}`);
+  }, [descriptionsObj]);
+
+  const descriptionArr = useMemo(() => (Object.entries(descriptionsObj).map(([lang, value]) => {
     return [`${DESCRIPTION}${lang}`, value];
-  })), [description]);
+  })), [descriptionsObj]);
 
   const descriptionInitialValues = Object.fromEntries(descriptionArr);
 
@@ -99,7 +103,7 @@ const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                   readOnly={!isEditing}
                   onClick={handleInputDoubleClick}
                 />
-                {Object.keys(description).map((lang) => (
+                {Object.keys(descriptionsObj).map((lang) => (
                   <Input
                     key={lang}
                     name={`${DESCRIPTION}${lang}`}
@@ -108,8 +112,8 @@ const EditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                     bgColor={isEditing ? 'common.white' : undefined}
                     styles={input}
                     onClick={handleInputDoubleClick}
-                    // multiline
-                    // maxRows={8}
+                    multiline
+                    maxRows={8}
                     readOnly={!isEditing}
                   />
                 ))}

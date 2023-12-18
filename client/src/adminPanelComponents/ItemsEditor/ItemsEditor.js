@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
-import { Card } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
@@ -23,12 +23,17 @@ import {
 import EditIcon from '../../assets/svgComponents/EditIcon';
 import PartnerEditForm from '../forms/EditPartnerForm/EditPartnerForm';
 import { instance } from '../../API/instance';
+import { fetchUpdatePartner } from '../../redux/slices/partnersSlice';
 
 const ItemsEditor = ({ entity, type }) => {
   const [isEditing, setIsEditing] = useState(false);
+  // const dispatch = useDispatch();
   const [item, setItem] = useState(entity);
 
   const handleDisable = async () => {
+    // if (type === 'partner') {
+    //   dispatch(fetchUpdatePartner({ partnerId: item.customId, body: { enabled: !item.enabled } }));
+    // }
     const path = (type === 'dish') ? `/products/${item._id}` : `/partners/${item.customId}`;
 
     try {
@@ -74,11 +79,13 @@ const ItemsEditor = ({ entity, type }) => {
           />
         </Box>
         <Box sx={formWrapper}>
-          <PartnerEditForm
-            partner={item}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-          />
+          {type === 'partner' ? (
+            <PartnerEditForm
+              partner={item}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+            />
+          ) : (<Typography variant="h3">Dish form will be here :)</Typography>)}
         </Box>
       </Box>
       {!isEditing && type === 'partner' && (
@@ -98,11 +105,13 @@ const ItemsEditor = ({ entity, type }) => {
 
 ItemsEditor.propTypes = {
   entity: PropTypes.object,
+  // item: PropTypes.object,
   type: PropTypes.oneOf(['dish', 'partner']).isRequired,
 };
 
 ItemsEditor.defaultProps = {
-  entity: {},
+  entity: null,
+  // item: null,
 };
 
 export default memo(ItemsEditor);
