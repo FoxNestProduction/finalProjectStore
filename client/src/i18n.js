@@ -6,9 +6,8 @@ const getCurrentHost = process.env.NODE_ENV === 'development'
   ? process.env.REACT_APP_URL
   : process.env.REACT_APP_URL_PROD;
 
-/* global navigator */
-const userLanguage = navigator.language.split('-')[0];
-console.log(navigator.language);
+const userLanguage = window.navigator.language.split('-')[0];
+console.log(window.navigator.language);
 
 i18n
   .use(i18nBackend)
