@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import i18nBackend from 'i18next-http-backend';
@@ -6,7 +7,6 @@ const getCurrentHost = process.env.NODE_ENV === 'development'
   ? process.env.REACT_APP_URL
   : process.env.REACT_APP_URL_PROD;
 
-/* global navigator */
 const userLanguage = navigator.language.split('-')[0];
 console.log(navigator.language);
 

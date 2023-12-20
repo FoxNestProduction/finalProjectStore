@@ -154,7 +154,7 @@ const ProductCard = ({ dish }) => {
                 component="p"
                 sx={{ textAlign: 'justify' }}
               >
-                {descriptionLang[i18n.language] || description}
+                {descriptionLang[i18n.language] || descriptionLang.en}
               </Typography>
             </CardContent>
             <Box
