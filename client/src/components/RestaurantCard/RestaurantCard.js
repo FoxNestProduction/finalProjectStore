@@ -17,7 +17,6 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
   const [desc, setDesc] = useState(false);
   const { i18n, t } = useTranslation();
   const descriptionLang = description || {};
-  console.log(descriptionLang);
 
   return (
     <Card
