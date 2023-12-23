@@ -23,6 +23,7 @@ import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPa
 import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
 import AddDishPage from './adminPanelComponents/pages/AddDishPage/AddDishPage';
 import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
+import AllPartnersPage from './adminPanelComponents/pages/Partners/PartnersPage';
 
 const AppRoutes = () => {
   return (
@@ -46,7 +47,7 @@ const AppRoutes = () => {
         {/* Routes for admin panel */}
 
         {/* сторінка усіх ресторанів */}
-        <Route path="/admin-panel/partners" element={<Box />} />
+        <Route path="/admin-panel/partners" element={<AllPartnersPage />} />
 
         {/* сторінка редагування ресторану /admin-panel/partners/17001 */}
         <Route path="/admin-panel/partners/:customId" element={<EditPartnerPage />} />
