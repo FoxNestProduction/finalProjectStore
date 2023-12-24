@@ -41,6 +41,7 @@ const MenuPage = () => {
   const loadingProducts = useSelector((state) => state.products.loading);
   const topPartners = useTopPartners();
   const loadingPartners = useSelector((state) => state.partners.loading);
+  console.log(itemsFromSearch);
 
   useEffect(() => {
     if (location.search) {
@@ -114,13 +115,13 @@ const MenuPage = () => {
                 <Skeleton skeletonType="product" />
                 <Skeleton skeletonType="product" />
                 {isLgTablet && (
-                <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
                 )}
                 {isDesktop && (
-                <>
-                  <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
-                </>
+                  <>
+                    <Skeleton skeletonType="product" />
+                    <Skeleton skeletonType="product" />
+                  </>
                 )}
               </Box>
             </Container>
@@ -129,13 +130,13 @@ const MenuPage = () => {
                 <Skeleton skeletonType="product" />
                 <Skeleton skeletonType="product" />
                 {isLgTablet && (
-                <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
                 )}
                 {isDesktop && (
-                <>
-                  <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
-                </>
+                  <>
+                    <Skeleton skeletonType="product" />
+                    <Skeleton skeletonType="product" />
+                  </>
                 )}
               </Box>
             </Container>
@@ -144,13 +145,13 @@ const MenuPage = () => {
                 <Skeleton skeletonType="product" />
                 <Skeleton skeletonType="product" />
                 {isLgTablet && (
-                <Skeleton skeletonType="product" />
+                  <Skeleton skeletonType="product" />
                 )}
                 {isDesktop && (
-                <>
-                  <Skeleton skeletonType="product" />
-                  <Skeleton skeletonType="product" />
-                </>
+                  <>
+                    <Skeleton skeletonType="product" />
+                    <Skeleton skeletonType="product" />
+                  </>
                 )}
               </Box>
             </Container>
@@ -209,10 +210,12 @@ const MenuPage = () => {
               variant="h3"
               component="p"
               color="primary.main"
-              sx={{ textAlign: 'center',
+              sx={{
+                textAlign: 'center',
                 fontSize: { mobile: '22px', tablet: '26px', desktop: '32px' },
                 px: '10px',
-                fontWeight: 'fontWeightLight' }}
+                fontWeight: 'fontWeightLight',
+              }}
             >
               Sorry, no results match your current filter settings...🤷‍♀️
             </Typography>
@@ -243,7 +246,7 @@ const MenuPage = () => {
           actions={<ListItemAction type="partners" />}
           type="partners"
         />
-      )) }
+      ))}
     </>
   );
 };

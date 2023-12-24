@@ -1,41 +1,128 @@
-import { Box, Typography, Container, Stack, Autocomplete } from '@mui/material';
+import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment } from '@mui/material';
 import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 import Filter from '../../../components/Filter/Filter';
 import SectionSwipperFilterSearch from '../../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
 import { fetchAllPartnersNames } from '../../../redux/slices/partnersSlice';
+import { stylesBorder, stylesSearch } from './styles';
+import ListItem from '../../../components/ListItems/ListItem';
+import RestaurantItem from '../../../components/RestaurantItem/RestaurantItem';
+import RestaurantCard from '../../../components/RestaurantCard/RestaurantCard';
+import useGetAPI from '../../../customHooks/useGetAPI';
+import { fixedEncodeURIComponent } from '../../../utils/uriEncodeHelpers';
 
 const PartnersPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllPartnersNames());
   }, [dispatch]);
+  const [partners, loading] = useGetAPI('/partners');
 
+  console.log(partners);
+  const styleRestaurant = {
+    mobile: 315,
+    tablet: 420,
+    lgTablet: 500,
+    desktop: 800,
+  };
+  const itemsFromSearch = useSelector((state) => state.search.search, shallowEqual);
   const allPartnersNames = useSelector((state) => state.partners.allPartnersNames, shallowEqual);
+  const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
+  console.log(allPartnersNames);
+  console.log(itemsFromSearch);
   return (
-    <Container>
+    <Container
+      sx={{
+        textAlign: 'center',
+      }}
+    >
       <Box
         sx={{
+          width: '100%',
           display: 'flex',
           justifyContent: 'center',
         }}
       >
-        <Stack>
-          <Autocomplete
-            options={allPartnersNames}
-            onInputChange={() => { }}
-          />
-        </Stack>
-        <Typography
-          variant="h1"
+        <Box
           sx={{
-            fontSize: {
-              mobile: '48px',
-            },
+            maxWidth: '1083px',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            py: '100px',
           }}
         >
-          Partners
-        </Typography>
+          <Stack
+            sx={stylesSearch}
+          >
+            <Autocomplete
+              // inputValue={inputSearchValue}
+              options={allPartnersNames}
+              onInputChange={() => { }}
+              id="search-partners"
+              freeSolo
+              blurOnSelect
+              clearOnBlur
+              renderInput={(params) => (
+                <TextField
+                  sx={stylesBorder}
+                  {...params}
+                  label="Search Partners"
+                  variant="outlined"
+                // inputProps={{
+                // ...params.InputProps,
+                // type: 'search',
+                // startAdornment: (
+                //   <InputAdornment position="start">
+                //     <SearchIcon />
+                //   </InputAdornment>
+                // ),
+                // }}
+                />
+              )}
+            />
+          </Stack>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: {
+                mobile: '48px',
+              },
+            }}
+          >
+            Partners
+          </Typography>
+        </Box>
+        <Box>
+          {/* {itemsFromSearch.length !== 0
+            && (
+              <ListItem
+                // title={`Search Restaurant (${itemsFromSearch?.length})`}
+                title="Search Restaurant"
+                items={itemsFromSearch}
+                itemComponent={RestaurantItem}
+                actions={null}
+                type="partners"
+                itemsFrom="search-partners"
+              />
+            )} */}
+          {/* {!itemsFromSearch.length && partners.length !== 0
+            && partners.map(({ rating, name, imageUrl, description, customId }) => (
+              <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}>
+                <RestaurantCard
+                  rating={rating}
+                  name={name}
+                  imageUrl={imageUrl}
+                  description={description}
+                  styleWidth={styleRestaurant}
+                />
+              </Link>
+            ))} */}
+        </Box>
       </Box>
     </Container>
   );

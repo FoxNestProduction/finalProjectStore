@@ -15,7 +15,7 @@ import useTopProducts from '../../customHooks/useTopProducts';
 
 const RestaurantPage = () => {
   const [partners, loading] = useGetAPI('/partners');
-
+  console.log(partners);
   const topProducts = useTopProducts();
   const loadingProducts = useSelector((state) => state.products.loading);
 
@@ -82,7 +82,7 @@ const RestaurantPage = () => {
           itemComponent={ProductCardItem}
           actions={null}
         />
-      )) }
+      ))}
       <QuestionsList />
     </>
   );
