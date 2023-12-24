@@ -12,6 +12,7 @@ import RestaurantItem from '../../../components/RestaurantItem/RestaurantItem';
 import RestaurantCard from '../../../components/RestaurantCard/RestaurantCard';
 import useGetAPI from '../../../customHooks/useGetAPI';
 import { fixedEncodeURIComponent } from '../../../utils/uriEncodeHelpers';
+import PartnersCard from '../../PartnersCard/PartnersCard';
 
 const PartnersPage = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,8 @@ const PartnersPage = () => {
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
         }}
       >
         <Box
@@ -97,7 +100,14 @@ const PartnersPage = () => {
             Partners
           </Typography>
         </Box>
-        <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+            gap: '40px',
+          }}
+        >
           {/* {itemsFromSearch.length !== 0
             && (
               <ListItem
@@ -122,6 +132,21 @@ const PartnersPage = () => {
                 />
               </Link>
             ))} */}
+          {partners !== null && partners.length !== 0 && partners.map(
+            ({ imageUrl, enabled, _id, name, customId }) => (
+              <Link
+                key={_id}
+                to={`/admin-panel/partners/${customId}`}
+              >
+                <PartnersCard
+                  title={name}
+                  enabled={enabled}
+                  url={imageUrl}
+                />
+              </Link>
+
+            ),
+          )}
         </Box>
       </Box>
     </Container>
