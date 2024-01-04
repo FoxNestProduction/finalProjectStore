@@ -1,9 +1,9 @@
 import { object, string } from 'yup';
 
-const validationSchema = object({
+const validationSchema = (t) => object({
   email: string()
-    .required('Email is required')
-    .email('Invalid email format'),
+    .required(t('verifyMail.required'))
+    .email(t('verifyMail.invalid')),
 });
 
 export default validationSchema;

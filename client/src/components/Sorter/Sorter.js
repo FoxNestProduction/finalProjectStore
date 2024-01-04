@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Box, MenuItem, TextField } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { stylesSortSelect } from '../ListItems/styles';
@@ -7,6 +8,7 @@ import { setFilterParams } from '../../redux/slices/filterSlice';
 
 const Sorter = ({ type }) => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const filterParams = useSelector((state) => state.filter.filterParams, shallowEqual);
 
@@ -26,38 +28,70 @@ const Sorter = ({ type }) => {
     currencies = [
       {
         value: 'Rating UP',
-        label: 'Rating UP',
+        label: {
+          en: 'Rating UP',
+          ua: 'Рейтингом, від найменшого',
+          pl: 'Rating UP',
+        },
       },
       {
         value: 'Rating DOWN',
-        label: 'Rating DOWN',
+        label: {
+          en: 'Rating DOWN',
+          ua: 'Рейтингом, від найвищого',
+          pl: 'Rating DOWN',
+        },
       },
       {
         value: 'Default',
-        label: 'Default',
+        label: {
+          en: 'Default',
+          ua: 'Замовчуванням',
+          pl: 'Default',
+        },
       },
     ];
   } else {
     currencies = [
       {
         value: 'Price UP',
-        label: 'Price UP',
+        label: {
+          en: 'Price UP',
+          ua: 'Ціною, від найнижчої',
+          pl: 'Price UP',
+        },
       },
       {
         value: 'Price DOWN',
-        label: 'Price DOWN',
+        label: {
+          en: 'Price DOWN',
+          ua: 'Ціною, від найвищої',
+          pl: 'Price DOWN',
+        },
       },
       {
         value: 'Rating UP',
-        label: 'Rating UP',
+        label: {
+          en: 'Rating UP',
+          ua: 'Рейтингом, від найнижчого',
+          pl: 'Rating UP',
+        },
       },
       {
         value: 'Rating DOWN',
-        label: 'Rating DOWN',
+        label: {
+          en: 'Rating DOWN',
+          ua: 'Рейтингом, від найвищого',
+          pl: 'Rating DOWN',
+        },
       },
       {
         value: 'Default',
-        label: 'Default',
+        label: {
+          en: 'Default',
+          ua: 'Замовчуванням',
+          pl: 'Default',
+        },
       },
     ];
   }
@@ -95,7 +129,7 @@ const Sorter = ({ type }) => {
         id="standard-select-currency"
         size="small"
         select
-        label="Sort by"
+        label={t('sorter.label')}
         defaultValue=""
         variant="standard"
         value={setSelectedValue(filterParams.sort)}
@@ -103,7 +137,7 @@ const Sorter = ({ type }) => {
       >
         {currencies.map((option) => (
           <MenuItem key={option.value} value={option.value}>
-            {option.label}
+            {option.label[i18n.language]}
           </MenuItem>
         ))}
       </TextField>

@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { AppBar, Box, Container, IconButton, Stack, Toolbar, Typography, Link } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -19,6 +20,7 @@ import {
 import Logo from '../Logo/Logo';
 
 const Footer = () => {
+  const { i18n, t } = useTranslation();
   return (
     <AppBar
       elevation={0}
@@ -49,15 +51,15 @@ const Footer = () => {
                 }}
                 sx={stylesLinkWrap}
               >
-                <Link component={NavLink} to="/reviews" sx={stylesLink}>Reviews</Link>
-                <Link component={NavLink} to="/Restaurants" sx={stylesLink}>Restaurants</Link>
-                <Link component={NavLink} to="/about-us" sx={stylesLink}>About Us</Link>
-                <Link component={NavLink} to="/contact" sx={stylesLink}>Contact</Link>
+                <Link component={NavLink} to="/reviews" sx={stylesLink}>{t('reviews')}</Link>
+                <Link component={NavLink} to="/Restaurants" sx={stylesLink}>{t('restaurants')}</Link>
+                <Link component={NavLink} to="/about-us" sx={stylesLink}>{t('aboutUs')}</Link>
+                <Link component={NavLink} to="/contact" sx={stylesLink}>{t('contact')}</Link>
               </Stack>
             </Stack>
             <Box sx={stylesLine} />
             <Typography component="p" sx={stylesText}>
-              © 2023 EATLY All Rights Reserved.
+              {t('rights')}
             </Typography>
             <Stack direction="row" sx={stylesSocialWrap}>
               <IconButton href="https://www.instagram.com/" sx={stylesSocial} target="blanc">

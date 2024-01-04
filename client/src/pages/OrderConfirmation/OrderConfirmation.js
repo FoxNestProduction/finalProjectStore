@@ -6,6 +6,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router';
 import Box from '@mui/material/Box';
+import { useTranslation } from 'react-i18next';
 import { backHomeBtn } from './styles';
 import { starsWrapper } from '../Chechout/styles';
 import GroupOfStarsSvg from '../../assets/svgComponents/GroupOfStarsSvg';
@@ -13,6 +14,7 @@ import GroupOfStarsSvg from '../../assets/svgComponents/GroupOfStarsSvg';
 const OrderConfirmationPage = () => {
   const order = useSelector((state) => state.order.order, shallowEqual);
   const navigate = useNavigate();
+  const { i18n, t } = useTranslation();
 
   return (
     <Container>
@@ -24,8 +26,8 @@ const OrderConfirmationPage = () => {
           <GroupOfStarsSvg />
         </Box>
         <Stack spacing={4} alignItems="center">
-          <Typography align="center" variant="h2" conponent="p" color="text.primary">Thank you!</Typography>
-          <Typography align="center" variant="h2" conponent="p" color="text.primary">Your order is confirmed!</Typography>
+          <Typography align="center" variant="h2" conponent="p" color="text.primary">{t('orderConfirm.thankYou')}</Typography>
+          <Typography align="center" variant="h2" conponent="p" color="text.primary">{t('orderConfirm.confirmedOrder')}</Typography>
           <Typography
             align="center"
             variant="h2"
@@ -39,7 +41,7 @@ const OrderConfirmationPage = () => {
               },
             }}
           >
-            Order number:
+            {t('orderConfirm.numberOrder')}
             {' '}
             {order.orderNo}
           </Typography>
@@ -51,7 +53,7 @@ const OrderConfirmationPage = () => {
               navigate('/');
             }}
           >
-            Back Home
+            {t('orderConfirm.backHome')}
           </Button>
         </Stack>
       </Box>

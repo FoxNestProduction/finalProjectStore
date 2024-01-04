@@ -17,6 +17,7 @@ import Badge from '@mui/material/Badge';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Logo from '../Logo/Logo';
 import MenuItemWithIcon from '../MenuItemWithIcon/MenuItemWithIcon';
 import { stylesDrawer, stylesDrawerHeader, stylesIcon, stylesListItem, stylesBadge } from './styles';
@@ -27,6 +28,7 @@ import { cartIconCounterFunction } from '../Cart/cartFunctions';
 const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   handleCloseDrawer, handleOpenModalLogin, handleLogOut, setNavigateTo }) => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
 
@@ -74,7 +76,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
                 to={setNavigateTo(page)}
               >
                 <ListItemText
-                  primary={page}
+                  primary={t(`${page.toLowerCase()}`)}
                   sx={stylesListItem}
                 />
               </ListItemButton>
@@ -106,19 +108,19 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
         <List>
           {isUserAuthorized ? (
             <MenuItemWithIcon
-              page="Logout"
+              page={t('logOut')}
               icon={<ExitToAppIcon sx={stylesIcon} />}
               onClick={handleLogOut}
             />
           ) : (
             <>
               <MenuItemWithIcon
-                page="Login"
+                page={t('logIn')}
                 icon={<LoginOutlinedIcon sx={{ ...stylesIcon, ml: '-2px' }} />}
                 onClick={handleOpenModalLogin}
               />
               <MenuItemWithIcon
-                page="Sign up"
+                page={t('signUp')}
                 icon={<PersonAddAlt1OutlinedIcon sx={stylesIcon} />}
                 onClick={handleOpenModalRegister}
               />

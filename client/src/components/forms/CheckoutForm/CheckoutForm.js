@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import InputMask from 'react-input-mask';
+import { useTranslation } from 'react-i18next';
 
 import Input from '../../inputs/Input/Input';
 import validationSchema from './validationSchema';
@@ -37,6 +38,7 @@ import { deleteCart, resetCart, setRestaurants } from '../../../redux/slices/car
 const CheckoutForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const getInitialValues = () => ({
     name: '',
@@ -149,7 +151,7 @@ const CheckoutForm = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleContinue}
-      validationSchema={validationSchema}
+      validationSchema={validationSchema(t)}
       enableReinitialize
       initialTouched={setInitialTouched()}
     >
@@ -158,13 +160,13 @@ const CheckoutForm = () => {
           <Stack spacing={4}>
             <Divider />
             <Typography variant="h3" component="h2" align="left" sx={subtitle}>
-              Personal Information
+              {t('checkout.personalInformation')}
             </Typography>
 
             <Input
               name="name"
               id="checkout-name"
-              label="Name*"
+              label={t('checkout.labelName')}
               bgColor="#FFF"
               onBlur={(e) => {
                 handleFieldBlur(e, handleBlur);
@@ -173,7 +175,7 @@ const CheckoutForm = () => {
             <Input
               name="email"
               id="checkout-email"
-              label="Email Address*"
+              label={t('checkout.labelMail')}
               bgColor="#FFF"
               onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
             />
@@ -185,21 +187,21 @@ const CheckoutForm = () => {
                   {...field}
                   onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
                 >
-                  <Input type="tel" name="tel" id="checkout-tel" bgColor="#FFF" label="Phone Number*" />
+                  <Input type="tel" name="tel" id="checkout-tel" bgColor="#FFF" label={t('checkout.labelPhone')} />
                 </InputMask>
               )}
             </Field>
 
             <Divider />
             <Typography variant="h3" component="h2" align="left" sx={subtitle}>
-              Delivery Information
+              {t('checkout.deliveryInformation')}
             </Typography>
 
             <FormControl fullWidth>
-              <InputLabel id="checkout-city-label">City*</InputLabel>
+              <InputLabel id="checkout-city-label">{t('checkout.city')}</InputLabel>
               <Field
                 name="city"
-                label="City*"
+                label={t('checkout.labelCity')}
                 component={SelectForFormik}
                 labelId="checkout-city-label"
                 id="checkout-city"
@@ -214,7 +216,7 @@ const CheckoutForm = () => {
             <Input
               name="street"
               id="checkout-street"
-              label="Street*"
+              label={t('checkout.labelStreet')}
               bgColor="#FFF"
               onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
             />
@@ -222,14 +224,14 @@ const CheckoutForm = () => {
               <Input
                 name="house"
                 id="checkout-house"
-                label="House*"
+                label={t('checkout.labelHose')}
                 bgColor="#FFF"
                 onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
               />
               <Input
                 name="apartment"
                 id="checkout-apartment"
-                label="Apartment"
+                label={t('checkout.labelApartment')}
                 bgColor="#FFF"
                 onBlur={(e) => { handleFieldBlur(e, handleBlur); }}
               />
@@ -237,15 +239,15 @@ const CheckoutForm = () => {
 
             <Divider />
             <Typography variant="h3" component="h2" align="left" sx={subtitle}>
-              Payment method
+              {t('checkout.paymentMethod')}
             </Typography>
 
             <Field name="payment">
               {({ field }) => (
                 <FormControl sx={paymentWrapper}>
                   <RadioGroup {...field} onBlur={(e) => { handleFieldBlur(e, handleBlur); }}>
-                    <FormControlLabel value="Card" control={<Radio />} label="Card" sx={paymentRadioBtn} />
-                    <FormControlLabel value="Cash" control={<Radio />} label="Cash" sx={paymentRadioBtn} />
+                    <FormControlLabel value="Card" control={<Radio />} label={t('checkout.labelCard')} sx={paymentRadioBtn} />
+                    <FormControlLabel value="Cash" control={<Radio />} label={t('checkout.labelCash')} sx={paymentRadioBtn} />
                   </RadioGroup>
                 </FormControl>
               )}
