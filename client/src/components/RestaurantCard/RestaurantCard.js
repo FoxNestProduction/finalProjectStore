@@ -7,6 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -14,6 +15,9 @@ import RatingItem from '../Rating/Rating';
 
 const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => {
   const [desc, setDesc] = useState(false);
+  const { i18n, t } = useTranslation();
+  const descriptionLang = description || {};
+
   return (
     <Card
       sx={{
@@ -168,7 +172,7 @@ const RestaurantCard = ({ rating, name, imageUrl, description, styleWidth }) => 
         margin={desc ? '25px' : '0'}
         sx={{ textAlign: 'justify' }}
       >
-        {desc && description}
+        {desc && (descriptionLang[i18n.language] || description)}
       </Typography>
     </Card>
   );
@@ -178,7 +182,9 @@ RestaurantCard.propTypes = {
   rating: PropTypes.number,
   name: PropTypes.string,
   imageUrl: PropTypes.string,
-  description: PropTypes.string,
+  description: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.object,
+  ]),
   styleWidth: PropTypes.object,
 };
 
@@ -186,7 +192,7 @@ RestaurantCard.defaultProps = {
   rating: 3,
   name: '',
   imageUrl: '',
-  description: '',
+  description: {},
   styleWidth: {},
 };
 

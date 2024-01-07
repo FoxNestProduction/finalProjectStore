@@ -1,24 +1,23 @@
 import { object, string } from 'yup';
 
-const validationSchema = object({
+const validationSchema = (t) => object({
   name: string()
-    .required('Name is required')
+    .required(t('checkout.requiredName'))
     .matches(
       /^[A-ZА-ЯІЇЄҐ][a-zа-яіїєґ']+(?: [A-ZА-ЯІЇЄҐ][a-zа-яіїєґ']+)*$/,
-      `Name must start with a capital letter and may contain only Latin or Ukrainian letters.
-      If providing both name and surname, please separate them with a space.`,
+      t('checkout.validationName'),
     ),
   email: string()
-    .required('Email is required')
-    .email('Invalid email format'),
+    .required(t('checkout.requiredMail'))
+    .email(t('checkout.invalidMail')),
   tel: string()
-    .required('Phone number is required')
-    .matches(/^\+38 \(0\d{2}\) \d{3}-\d{2}-\d{2}$/, 'Invalid phone number'),
+    .required(t('checkout.requiredPhone'))
+    .matches(/^\+38 \(0\d{2}\) \d{3}-\d{2}-\d{2}$/, t('checkout.invalidPhone')),
   street: string()
-    .required('Enter the name of your street')
-    .min(2, 'The name of the street is too short.'),
+    .required(t('checkout.requiredStreet'))
+    .min(2, t('checkout.invalidStreet')),
   house: string()
-    .required('Enter the number of your house'),
+    .required(t('checkout.requiredHose')),
 });
 
 export default validationSchema;

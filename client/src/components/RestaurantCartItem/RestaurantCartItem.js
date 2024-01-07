@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { shallowEqual, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import ProductCartItem from '../ProductCartItem/ProductCartItem';
 import { totalSumFromCart } from '../Cart/cartFunctions';
 import {
@@ -16,6 +17,7 @@ import {
 } from './styles';
 
 const RestaurantCartItem = ({ restaurantName }) => {
+  const { i18n, t } = useTranslation();
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
   const filteredProducts = cartProducts.filter((productObj) => (
     productObj.product.restaurant_name === restaurantName
@@ -41,7 +43,8 @@ const RestaurantCartItem = ({ restaurantName }) => {
             component="p"
             sx={totalWord}
           >
-            Total:
+            {t('cart.total')}
+            :
           </Typography>
           <Box
             sx={totalPriceFromRestaurantOrderContainer}

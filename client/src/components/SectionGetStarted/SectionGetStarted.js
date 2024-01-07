@@ -1,24 +1,26 @@
 import React, { memo } from 'react';
 import { Typography, Container, Box, Rating, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import useBreakpoint from '../../customHooks/useBreakpoint';
 import { stylesReviewAmount, stylesStarts, stylesTrustpilot, stylesProBnt, stylesStartedBnt, stylesTextContainer, stylesLabel, stylesTitle, stylesSection, stylesDescription, stylesActions, stylesRating, stylesImage } from './styles';
 
 const SectionGetStarted = () => {
+  const { i18n, t } = useTranslation();
   const starsValue = 4;
   const breakPoint = useBreakpoint();
   const title = {
     short:
   <>
-    Enjoy Foods
+    {t('sectionGetStarted.enjoyFoods')}
     <br />
-    Over World
+    {t('sectionGetStarted.overWorld')}
   </>,
     long:
   <>
-    Enjoy Foods All
+    {t('sectionGetStarted.enjoyFoodsAll')}
     <br />
-    Over The World
+    {t('sectionGetStarted.overTheWorld')}
   </>,
   };
 
@@ -32,7 +34,7 @@ const SectionGetStarted = () => {
           component="span"
           sx={stylesLabel}
         >
-          OVER 1000 USERS
+          {t('sectionGetStarted.over1000Users')}
         </Typography>
         <Typography
           variant="h1"
@@ -43,11 +45,12 @@ const SectionGetStarted = () => {
         </Typography>
         <Typography component="p" sx={stylesDescription}>
           {/* eslint-disable-next-line max-len */}
-          Eatly helps you set saving goals, earn cash back offers, and get paychecks up to two days early. Get a $20 bonus.
+          {t('sectionGetStarted.discription')}
         </Typography>
         <Box sx={stylesActions}>
           <Button sx={stylesStartedBnt} component={RouterLink} to="/menu" variant="contained">
-            Get Started
+            {t('sectionGetStarted.buttonGetStarted')}
+            {/* Get Started */}
           </Button>
           <Button sx={stylesProBnt} component={RouterLink} to="/pricing" variant="outlined" disabled>
             Go Pro

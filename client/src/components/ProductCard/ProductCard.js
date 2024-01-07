@@ -6,6 +6,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import { useTranslation } from 'react-i18next';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -25,6 +26,7 @@ import CustomAlert from '../Alert/Alert';
 
 const ProductCard = ({ dish }) => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
 
@@ -47,6 +49,9 @@ const ProductCard = ({ dish }) => {
     // eslint-disable-next-line no-underscore-dangle
     _id: id,
   } = dish || {};
+
+  const descriptionLang = description || {};
+  // const descrLang = descr[i18n.language];
 
   const isFavourite = useSelector((state) => state.favourites.cardStates[id]);
   const toggleFavourite = () => {
@@ -149,7 +154,7 @@ const ProductCard = ({ dish }) => {
                 component="p"
                 sx={{ textAlign: 'justify' }}
               >
-                {description}
+                {descriptionLang[i18n.language] || descriptionLang.en}
               </Typography>
             </CardContent>
             <Box
@@ -175,7 +180,7 @@ const ProductCard = ({ dish }) => {
                 onMouseUp={() => setIsActive(false)}
                 onClick={isUserAuthorized ? toggleFavourite : handleOpenModalLogin}
               >
-                Favourite
+                {t('buttonFavourite')}
                 <FavouriteIcon id={id} sx={{ ml: 1 }} ishovered={ishovered} isactive={isactive} />
               </Box>
               <Button
@@ -183,7 +188,7 @@ const ProductCard = ({ dish }) => {
                 sx={stylesButtonCard}
                 onClick={handleAddToCart}
               >
-                Add to card
+                {t('buttonAddToCart')}
                 <AddBoxOutlinedIcon
                   fontSize="medium"
                   sx={{ ml: 1 }}

@@ -1,0 +1,255 @@
+{
+    "menu": "Menu",
+    "restaurants": "Restauracje",
+    "reviews": "Opinie",
+    "contact": "Kontakt",
+    "aboutUs": "O Nas",
+    "favourite": "Ulubione",
+    "logOut": "Wyloguj",
+    "logIn": "Logowanie",
+    "signUp": "Rejestracja",
+    "rights": "© 2023 EATLY All Rights Reserved.",
+    "buttonViewAll": "Pokaż",
+    "buttonClose": "Zamknij",
+    "buttonFavourite": "Ulubione",
+    "buttonAddToCart": "Do koszyka",
+    "buttonContinue": "Kontynuj",
+    "homePage": {
+      "ourTopRestaurants": "Najlepsze restauracje",
+      "ourTopDishes": "Najlepsze dania",
+      "сustomerSay": "Klieci mówią"
+    },
+    "sectionGetStarted": {
+      "over1000Users": "PONAD 1000 UŻYTKOWNIKÓW",
+      "enjoyFoods": "Ciesz się Jedzeniem ",
+      "enjoyFoodsAll": "Ciesz się Foods ALL",
+      "overWorld": "Na całym świecie",
+      "overTheWorld": "Na całym świecie",
+      "discription": "Eatly pomaga Ci wyznaczać cele oszczędzania, zdobywać oferty zwrotu gotówki i otrzymywać wypłaty nawet dwa dni wcześniej. Zdobądź premię w wysokości 20 dolarów.",
+      "buttonGetStarted": "Zaczynamy"
+    },
+    "features": {
+      "satisfiedCostumers": "Zadowolonych klientów",
+      "allGreatOverTheWorld": "na całym świecie",
+      "healthyDishesSold": "Zdrowych dań sprzedanych",
+      "includingMilkShakesSmooth": "Włącznie Milk Shakes Smooth",
+      "reliableCustomerSupport": "Niezawodna obsługa klienta",
+      "weProvideGreatExperiences": "Zapewniamy wspaniałe przeżycia"
+    },
+    "mobileApp": {
+      "title_1": "Najwyższa jakość",
+      "title_2": "Dla Twojego zdrowia",
+      "discription_1": "Najwyższej jakości żywność wytwarzana jest ze składników, które",
+      "discription_2": "są bogate w niezbędne witaminy i minerały.",
+      "discription_3": "Te pokarmy promują ogólne dobre samopoczucie poprzez",
+      "discription_4": "wspierając zdrowe trawienie i wzmacniając odporność"
+    },
+    "menuPage": {
+      "titleAllDishes": "Wszystkie dania",
+      "searchRestaurant": "Wyszukaj restaurację",
+      "searchResults": "Wyniki wyszukiwania",
+      "filterResults": "Wyniki filtrowania",
+      "ourTopRestaurants": "Nasze najlepsze restauracje"
+    },
+    "filter": {
+      "category": "Kategorie",
+      "reset": "Resetuj",
+      "pizza": "Pizza",
+      "burgers": "Burgery",
+      "sushi": "Sushi",
+      "salads": "Salatki",
+      "pasta": "Makaron",
+      "sandwich": "Kanapki",
+      "bbq": "BBQ",
+      "drinks": "Napoje",
+      "filterBy": "Filtruj według",
+      "trending": "Trendy",
+      "healthy": "Zdrowe",
+      "supreme": "Najlepsze",
+      "mostPopular": "Najpopularniejsze",
+      "price": "Cena",
+      "apply": "Zastosuj"
+    },
+    "search": {
+      "label": "Szukaj",
+      "food": "Jedzenie",
+      "restaurant": "Restauracje"
+    },
+    "sorter": {
+      "label": "Sortuj według"
+    },
+    "restaurantPage": {
+      "title": "Wszystkie restauracje",
+      "ourTopDishes": "Nasze najlepsze dania"
+    },
+    "reviewsPage": {
+      "title": "Klienci mówią",
+      "buttonCreate": "Stwórz własną recenzję",
+      "buttonSend": "Wyślij",
+      "titleNewReview": "Informacje zwrotne na temat usługi pomogą nam pracować jeszcze lepiej:",
+      "labelNewReview": "zostaw swoją opinię na temat usługi",
+      "textNewReview": "Oceń usługę",
+      "labelRating": "Możesz ocenić naszą usługę"
+    },
+    "aboutUsPage": {
+      "title_1": "O Nas",
+      "title_2": "Nasza Historia",
+      "discription_1": "Witamy w Eatly, miejscu, w którym możesz cieszyć się pysznymi doznaniami kulinarnymi! Naszą pasją jest łączenie miłośników jedzenia z najlepszymi restauracjami w mieście. Nasza podróż zaczęła się od prostego pomysłu: ułatwić ludziom odkrywanie i cieszenie się wspaniałym jedzeniem. Wierzymy, że każdy posiłek jest okazją do stworzenia wspaniałych wspomnień, a my jesteśmy po to, aby uczynić te chwile wyjątkowymi.",
+      "title_3": "Nasza Misja",
+      "discription_2": "Naszą misją w Eatly jest zapewnianie płynnych i zachwycających wrażeń kulinarnych. Niestrudzenie pracujemy, aby zapewnić Państwu różnorodny wybór restauracji, każda z własnymi, niepowtarzalnymi smakami i tradycjami kulinarnymi. Niezależnie od tego, czy masz ochotę na wygodne jedzenie, kuchnię międzynarodową, czy coś pomiędzy, mamy coś dla Ciebie. Zależy nam na tym, aby pomóc Ci odkrywać nowe smaki i tworzyć niezapomniane kulinarne przygody.",
+      "title_4": "Nasz zespół",
+      "discription_3": "Nasz oddany zespół entuzjastów jedzenia i ekspertów technicznych jest sercem wszystkiego, co robimy. Naszą pasją jest wybieranie dla Ciebie najlepszych lokali gastronomicznych, dbając o to, aby każda restauracja, z którą współpracujemy, spełniała nasze wysokie standardy jakości i usług. Twoja satysfakcja jest naszym najwyższym priorytetem i jesteśmy tutaj, aby pomóc Ci na każdym kroku.",
+      "title_5": "Skontaktuj się z nami",
+      "discription_4_1": "Jeśli masz jakieś pytania, uwagi lub zapytania, nie wahaj się z nami skontaktować. Chętnie wysłuchamy Twojej opinii i pomożemy w przypadku wszelkich próśb. Możesz się z nami skontaktować pod adresem",
+      "discription_4_2": "lub przez naszą",
+      "discription_4_3": "stronę obsługi klienta"
+    },
+    "questions": {
+      "title": "Często zadawane",
+      "title_1": "pytania"
+    },
+    "contactForm": {
+      "title": "Obsługa klienta",
+      "placeholderName": "Wpisz swoje imię",
+      "labelName": "Imię",
+      "placeholderMail": "Wpisz swój e-mail",
+      "placeholderText": "Wpisz problem lub zapytanie...",
+      "messageReceived": "Dziękujemy za kontakt! Otrzymaliśmy Twoje zapytanie i skontaktujemy się z Tobą tak szybko, jak to możliwe.",
+      "error": "Ups! Coś poszło nie tak. Spróbuj wysłać zapytanie ponownie.",
+      "submit": "Wyślij teraz",
+      "contactUs": "Skontaktuj się z nami",
+      "justContact": "Po prostu skontaktuj się"
+    },
+    "favourites": {
+      "favourite": "Ulubione",
+      "backToMenu": "Powrót do meni",
+      "wishlistIsEmpty": "Ups! Twoja lista życzeń jest pusta",
+      "fillItWithDishes": "Wypełnij go naczyniami",
+      "Back to menu": "Powrót do meni",
+      "addToCart": "Dodaj do koszyka"
+    },
+    "cart": {
+      "goToCart": "Idź do koszyka",
+      "order": "Zamówienie",
+      "continueShopping": "Koontynuj zakupy",
+      "delivery": "Dostawa",
+      "continue": "Kontynuj",
+      "total": "Razem",
+      "oopsCart": "Ups! Twój koszyk jest pusty",
+      "fillItWithOrders": "Wypełnij go zamówieniami"
+    },
+    "changePassword": {
+      "createNewPassword": "Utwórz nowe hasło",
+      "placeholderEnter": "Wprowadź nowe hasło",
+      "placeholderConfirm": "Potwierdź swoje hasło",
+      "labelEnter": "Hasło",
+      "labelConfirm": "Potwierdzenie hasła",
+      "buttonCreate": "Stwórz hasło",
+      "required": "To pole jest wymagane",
+      "validationPass": "Hasło jest za krótkie - powinno mieć minimum 8 znaków",
+      "validationConfirmPass": "Hasło jest nieprawidłowe. Proszę spróbować ponownie",
+      "unValidation": "Twoje hasła nie pasują do siebie"
+    },
+    "checkout": {
+      "checkout": "Wymeldować się",
+      "back": "Powrót",
+      "continue": "Koontynuj",
+      "personalInformation": "Informacje osobiste",
+      "deliveryInformation": "Delivery Information",
+      "paymentMethod": "Metoda płatności",
+      "city": "Miasto*",
+      "labelName": "Imie*",
+      "labelMail": "Email*",
+      "labelPhone": "Numer telefonu*",
+      "labelCity": "Miasto*",
+      "labelStreet": "Ulica*",
+      "labelHose": "Numer budynku*",
+      "labelApartment": "Numer mieszkania",
+      "labelCard": "Kartą",
+      "labelCash": "Gotuwką",
+      "requiredName": "Imie jest wymagane",
+      "requiredMail": "Email jest wymagany",
+      "requiredPhone": "Numer telefonu jest wymagany",
+      "requiredHose": "Podaj numer swojego domu",
+      "requiredStreet": "Wpisz nazwę swojej ulicy",
+      "validationName": "Imię musi zaczynać się z dużej litery i może zawierać wyłącznie litery łacińskie lub ukraińskie. Jeżeli podajesz zarówno imię, jak i nazwisko, prosimy o oddzielenie ich spacją.",
+      "invalidMail": "Niewłaściwy format email",
+      "invalidPhone": "Niewłaściwy numer telefonu",
+      "invalidStreet": "Nazwa ulicy jest za krótka."
+    },
+    "payment": {
+      "payment": "Płatność",
+      "credit": "Credit ",
+      "debit": "Debit card",
+      "addNewCard": "Dodaj nową kartę",
+      "labelHolderName": "Imię właściciela karty*",
+      "labelNumberCard": "Numer karty*",
+      "labelDateCard": "Data waności",
+      "labelCvvCard": "CVV"
+    },
+    "orderConfirm": {
+      "thankYou": "Dziękuję!",
+      "confirmedOrder": "Twoje zamówienie zostało potwierdzone!",
+      "numberOrder": "Numer zamówienia:",
+      "backHome": "Powrót na stronę główną"
+    },
+    "createPassword": {
+      "create": "Stwórz własne hasło",
+      "signUp": "Sign up",
+      "label": "Hasło",
+      "placeholder": "Wymyśl hasło",
+      "required": "Hasło jest wymagane",
+      "validationPass": "Hasło jest za krótkie - powinno mieć minimum 8 znaków"
+    },
+    "loginForm": {
+      "title": "Zaloguj się do Eatly",
+      "or": "albo",
+      "forgetPassword": "Nie pamiętasz hasła? ",
+      "signIn": "Zaloguj się",
+      "createNewAccount": "Stwórz nowe konto",
+      "signUp": "Sign Up",
+      "labelPassword": "Hasło",
+      "placeholderMail": "Wprowadź e-mail",
+      "placeholderPassword": "Wprowadź password",
+      "requiredMail": "Email jest wymagany",
+      "requiredPassword": "To pole jest wymagane",
+      "invalidMail": "niewłaściwy format email",
+      "invalidPassword": "Hasło jest za krótkie - powinno mieć minimum 8 znaków"
+    },
+    "registrationForm": {
+      "title": "Zaloguj się do Eatly",
+      "or": "albo",
+      "signUp": "Sign up",
+      "haveAnAccount": "Posiadasz już konto",
+      "logIn": "Zaloguj się",
+      "labelFirstName": "Imię",
+      "labelLastName": "Nazwisko",
+      "labelPassword": "Hasło",
+      "placeholderFirstName": "Wprowadź imię",
+      "placeholderLastName": "Wprowadź Nazwisko",
+      "placeholderMail": "Wprowadź e-mail",
+      "placeholderPassword": "Wymyśl hasło",
+      "requiredFirstName": "Wprowadź imię",
+      "requiredLastName": "Wprowadź Nazwisko",
+      "requiredMail": "Email jest wymagany",
+      "requiredPassword": "Hasło jest wymagane",
+      "invalidFirstName": "Imię musi być pisane wielką literą i zawierać wyłącznie litery łacińskie",
+      "invalidLastName": "Nazwisko musi być pisane wielką literą i zawierać wyłącznie litery łacińskie",
+      "invalidMail": "Niewłaściwy format email",
+      "invalidPassword": "Hasło jest za krótkie - powinno mieć minimum 8 znaków"
+     },
+     "verifyMail": {
+      "fogot": "Zapomniałeś hasła",
+      "enterMail": "Wpisz swój adres e-mail, aby zresetować hasło",
+      "placeholder": "Wpisz swój adres e-mail",
+      "required": "Email jest wymagany",
+      "invalid": "Niewłaściwy format email"
+     },
+     "successfulLetter": {
+      "text1": "Na Twój adres e-mail została wysłana wiadomość z linkiem ",
+      "text2": "otwórz tę wiadomość e-mail i kliknij link, aby zmienić hasło",
+      "text3": "Jeśli nie otrzymałeś wiadomości, sprawdź folder ze spamem, poprawność adresu e-mail i spróbuj wysłać prośbę ponownie.",
+      "text4": "Link będzie aktywny tylko przez 15 minut..."
+     }
+  }
+  

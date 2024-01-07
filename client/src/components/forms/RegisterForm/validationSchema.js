@@ -1,18 +1,18 @@
 import { object, string } from 'yup';
 
-const validationSchema = object({
+const validationSchema = (t) => object({
   firstName: string()
-    .required('Enter your first name')
-    .matches('^[A-Z][a-z]+$', 'The first name must be capitalized and contain only Latin letters'),
+    .required(t('registrationForm.requiredFirstName'))
+    .matches('^[A-Z][a-z]+$', t('registrationForm.invalidFirstName')),
   lastName: string()
-    .required('Enter your last name')
-    .matches('^[A-Z][a-z]+$', 'The last name must be capitalized and contain only Latin letters'),
+    .required(t('registrationForm.requiredLastName'))
+    .matches('^[A-Z][a-z]+$', t('registrationForm.invalidLastName')),
   email: string()
-    .required('Email is required')
-    .email('Invalid email format'),
+    .required(t('registrationForm.requiredMail'))
+    .email(t('registrationForm.invalidMail')),
   password: string()
-    .required('Password is required')
-    .min(8, 'Password is too short - should be 8 chars minimum'),
+    .required(t('registrationForm.requiredPassword'))
+    .min(8, t('registrationForm.invalidPassword')),
 });
 
 export default validationSchema;

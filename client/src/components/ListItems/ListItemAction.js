@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 import { Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -8,6 +9,7 @@ import { actionsStyle, linkStyles } from './styles';
 import ArrowIcon from '../../assets/svgComponents/ArrowIcon';
 
 const ListItemAction = ({ type }) => {
+  const { i18n, t } = useTranslation();
   return (
     <Box
       sx={actionsStyle}
@@ -33,7 +35,7 @@ const ListItemAction = ({ type }) => {
             },
           }}
         >
-          View All
+          {t('buttonViewAll')}
         </Typography>
         <ArrowIcon fill="text.secondaryGray" />
       </Link>

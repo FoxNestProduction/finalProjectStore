@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import LockIcon from '@mui/icons-material/Lock';
+import { useTranslation } from 'react-i18next';
 import validationSchema from './validationSchema';
 import {
   flexcenter,
@@ -30,6 +31,7 @@ export const initialValues = {
 
 const CreatePasswordForm = () => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
   const newGoogleUser = useSelector((state) => state.newGoogleUser.newGoogleUser);
 
   const handleSubmit = async (values) => {
@@ -68,12 +70,12 @@ const CreatePasswordForm = () => {
         variant="h2"
         sx={mainTitle}
       >
-        Create your own password
+        {t('createPassword.create')}
       </Typography>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        validationSchema={validationSchema}
+        validationSchema={validationSchema(t)}
       >
         {({ isValid }) => (
           <Form>
@@ -88,8 +90,8 @@ const CreatePasswordForm = () => {
                 type="password"
                 name="password"
                 id="registerPassword"
-                label="Password"
-                placeholder="Сome up with a password"
+                label={t('createPassword.label')}
+                placeholder={t('createPassword.placeholder')}
                 icon={<LockIcon />}
               />
               <Button
@@ -99,7 +101,7 @@ const CreatePasswordForm = () => {
                 type="submit"
                 disabled={!isValid}
               >
-                Sign up
+                {t('createPassword.signUp')}
               </Button>
             </Box>
           </Form>

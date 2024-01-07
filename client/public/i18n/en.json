@@ -1,0 +1,254 @@
+{
+  "menu": "Menu",
+  "restaurants": "Restaurants",
+  "reviews": "Reviews",
+  "contact": "Contact",
+  "aboutUs": "About Us",
+  "favourite": "Favourites",
+  "logOut": "Logout",
+  "logIn": "Login",
+  "signUp": "Sign up",
+  "rights": "© 2023 EATLY All Rights Reserved.",
+  "buttonViewAll": "View All",
+  "buttonClose": "Close",
+  "buttonFavourite": "Favourite",
+  "buttonAddToCart": "Add to card",
+  "buttonContinue": "Continue",
+  "homePage": {
+    "ourTopRestaurants": "Our Top Restaurants",
+    "ourTopDishes": "Our Top Dishes",
+    "сustomerSay": "Customer Say"
+  },
+  "sectionGetStarted": {
+    "over1000Users": "OVER 1000 USERS",
+    "enjoyFoods": "Enjoy Foods",
+    "enjoyFoodsAll": "Enjoy Foods ALL",
+    "overWorld": "Over World",
+    "overTheWorld": "Over The World",
+    "discription": "Eatly helps you set saving goals, earn cash back offers, and get paychecks up to two days early. Get a $20 bonus.",
+    "buttonGetStarted": "Get Started"
+  },
+  "features": {
+    "satisfiedCostumers": "Satisfied Costumers",
+    "allGreatOverTheWorld": "All Great Over The World",
+    "healthyDishesSold": "Healthy Dishes Sold",
+    "includingMilkShakesSmooth": "Including Milk Shakes Smooth",
+    "reliableCustomerSupport": "Reliable Customer Support",
+    "weProvideGreatExperiences": "We Provide Great Experiences"
+  },
+  "mobileApp": {
+    "title_1": "Premium Quality",
+    "title_2": "For Your Health",
+    "discription_1": "Premium quality food is made with ingredients that",
+    "discription_2": "are packed with essential vitamins, minerals.",
+    "discription_3": "These foods promote overall wellness by",
+    "discription_4": "support healthy digestion and boosting immunity"
+  },
+  "menuPage": {
+    "titleAllDishes": "All Dishes",
+    "searchRestaurant": "Search Restaurant",
+    "searchResults": "Search Results",
+    "filterResults": "Filter Results",
+    "ourTopRestaurants": "Our Top Restaurants"
+  },
+  "filter": {
+    "category": "Category",
+    "reset": "Reset",
+    "pizza": "Pizza",
+    "burgers": "Burgers",
+    "sushi": "Sushi",
+    "salads": "Salads",
+    "pasta": "Pasta",
+    "sandwich": "Sandwich",
+    "bbq": "BBQ",
+    "drinks": "Drinks",
+    "filterBy": "Filter By",
+    "trending": "Trending",
+    "healthy": "Healthy",
+    "supreme": "Supreme",
+    "mostPopular": "Most Popular",
+    "price": "Price",
+    "apply": "Apply"
+  },
+  "search": {
+    "label": "Search",
+    "food": "Food",
+    "restaurant": "Restaurant"
+  },
+  "sorter": {
+    "label": "Sort by"
+  },
+  "restaurantPage": {
+    "title": "All Restaurants",
+    "ourTopDishes": "Our Top Dishes"
+  },
+  "reviewsPage": {
+    "title": "Customers Say",
+    "buttonCreate": "Create your own review",
+    "buttonSend": "Send",
+    "titleNewReview": "Feedback about the service will help us work even better:",
+    "labelNewReview": "leave your feedback about the service",
+    "textNewReview": "You can rate the service",
+    "labelRating": "You can rate our service"
+  },
+  "aboutUsPage": {
+    "title_1": "About Us",
+    "title_2": "Our Story",
+    "discription_1": "Welcome to Eatly, your destination for delicious dining experiences! We are passionate about connecting food lovers with the best restaurants in town. Our journey began with a simple idea: to make it easier for people to discover and enjoy great food. We believe that every meal is an opportunity to create wonderful memories, and we're here to make those moments special.",
+    "title_3": "Our Mission",
+    "discription_2": "At Eatly, our mission is to provide a seamless and delightful dining experience. We work tirelessly to bring you a diverse selection of restaurants, each with its own unique flavors and culinary traditions. Whether you're craving comfort food, international cuisine, or something in between, we've got you covered. We're committed to helping you explore new tastes and create unforgettable food adventures.",
+    "title_4": "Our Team",
+    "discription_3": "Our dedicated team of food enthusiasts and tech experts is at the heart of everything we do. We're passionate about curating the best dining options for you, ensuring that every restaurant we partner with meets our high standards of quality and service. Your satisfaction is our top priority, and we're here to assist you every step of the way.",
+    "title_5": "Contact Us",
+    "discription_4_1": "If you have any questions, feedback, or inquiries, don't hesitate to reach out to us. We'd love to hear from you and assist with any requests. You can contact us at",
+    "discription_4_2": "or through our",
+    "discription_4_3": "customer support page"
+  },
+  "questions": {
+    "title": "Frequently Asked",
+    "title_1": "Questions"
+  },
+  "contactForm": {
+    "title": "Customer Support",
+    "placeholderName": "Enter your name",
+    "labelName": "Name",
+    "placeholderMail": "Enter your e-mail",
+    "placeholderText": "Enter the problem or query...",
+    "messageReceived": "Thank you for reaching out! We've received your inquiry and will get back to you as soon as possible.",
+    "error": "Oops...Something went wrong. Try to send your inquiry again.",
+    "submit": "Send Now",
+    "contactUs": "Contact Us",
+    "justContact": "Just Contact"
+  },
+  "favourites": {
+    "favourite": "Favourite",
+    "backToMenu": "Back to menu",
+    "wishlistIsEmpty": "Oops! your wishlist is empty",
+    "fillItWithDishes": "Fill it with dishes",
+    "Back to menu": "Back to menu",
+    "addToCart": "Add To Cart"
+  },
+  "cart": {
+    "goToCart": "Go to cart",
+    "order": "Order",
+    "continueShopping": "Continue shopping",
+    "delivery": "Delivery",
+    "continue": "Continue",
+    "total": "Total",
+    "oopsCart": "Oops! your cart is empty",
+    "fillItWithOrders": "Fill it with orders"
+  },
+  "changePassword": {
+    "createNewPassword": "Create new password",
+    "placeholderEnter": "Enter new password",
+    "placeholderConfirm": "Confirm your password",
+    "labelEnter": "Password",
+    "labelConfirm": "Password confirmation",
+    "buttonCreate": "Create Password",
+    "required": "This field is required",
+    "validationPass": "Password is too short - should be 8 chars minimum",
+    "validationConfirmPass": "The password is incorrect, please try again",
+    "unValidation": "Your passwords do not match"
+  },
+  "checkout": {
+    "checkout": "Checkout",
+    "back": "Back",
+    "continue": "Continue",
+    "personalInformation": "Personal Information",
+    "deliveryInformation": "Delivery Information",
+    "paymentMethod": "Payment method",
+    "city": "City*",
+    "labelName": "Name*",
+    "labelMail": "Email Address*",
+    "labelPhone": "Phone Number*",
+    "labelCity": "City*",
+    "labelStreet": "Street*",
+    "labelHose": "House*",
+    "labelApartment": "Apartment",
+    "labelCard": "Card",
+    "labelCash": "Cash",
+    "requiredName": "Name is required",
+    "requiredMail": "Email is required",
+    "requiredPhone": "Phone number is required",
+    "requiredHose": "Enter the number of your house",
+    "requiredStreet": "Enter the name of your street",
+    "validationName": "Name must start with a capital letter and may contain only Latin or Ukrainian letters. If providing both name and surname, please separate them with a space.",
+    "invalidMail": "Invalid email format",
+    "invalidPhone": "Invalid phone number",
+    "invalidStreet": "The name of the street is too short."
+  },
+  "payment": {
+    "payment": "Payment",
+    "credit": "Credit ",
+    "debit": "Debit card",
+    "addNewCard": "Add new card",
+    "labelHolderName": "Cardholder name*",
+    "labelNumberCard": "Card number*",
+    "labelDateCard": "Expiry date",
+    "labelCvvCard": "CVV"
+  },
+  "orderConfirm": {
+    "thankYou": "Thank you!",
+    "confirmedOrder": "Your order is confirmed!",
+    "numberOrder": "Order number:",
+    "backHome": "Back Home"
+  },
+  "createPassword": {
+    "create": "Create your own password",
+    "signUp": "Sign up",
+    "label": "Password",
+    "placeholder": "Сome up with a password",
+    "required": "Password is required",
+    "validationPass": "Password is too short - should be 8 chars minimum"
+  },
+  "loginForm": {
+    "title": "Sign In To eatly",
+    "or": "OR",
+    "forgetPassword": "Forget Password ",
+    "signIn": "Sign in",
+    "createNewAccount": "Create A New Account",
+    "signUp": "Sign Up",
+    "labelPassword": "Password",
+    "placeholderMail": "Enter your e-mail",
+    "placeholderPassword": "Enter your password",
+    "requiredMail": "Email is required",
+    "requiredPassword": "This field is required",
+    "invalidMail": "Invalid email format",
+    "invalidPassword": "Password is too short - should be 8 chars minimum"
+  },
+  "registrationForm": {
+    "title": "Sign Up To eatly",
+    "or": "OR",
+    "signUp": "Sign up",
+    "haveAnAccount": "Already Have An Account",
+    "logIn": "Log In",
+    "labelFirstName": "First name",
+    "labelLastName": "Last name",
+    "labelPassword": "Password",
+    "placeholderFirstName": "Enter your first name",
+    "placeholderLastName": "Enter your last name",
+    "placeholderMail": "Enter your e-mail",
+    "placeholderPassword": "Сome up with a password",
+    "requiredFirstName": "Enter your first name",
+    "requiredLastName": "Enter your last name",
+    "requiredMail": "Email is required",
+    "requiredPassword": "Password is required",
+    "invalidFirstName": "The first name must be capitalized and contain only Latin letters",
+    "invalidLastName": "The last name must be capitalized and contain only Latin letters",
+    "invalidMail": "Invalid email format",
+    "invalidPassword": "Password is too short - should be 8 chars minimum"
+   },
+   "verifyMail": {
+    "fogot": "Forgot Password",
+    "enterMail": "Enter your e-mail to reset password",
+    "placeholder": "Enter your e-mail",
+    "required": "Email is required",
+    "invalid": "Invalid email format"
+   },
+   "successfulLetter": {
+    "text1": "An email with a link has been sent to your email",
+    "text2": "Open this email and click on the link to change your password",
+    "text3": "If you did not receive the message, check the spam folder and whether the email address is correct and try to send the request again.",
+    "text4": "The link will only be active for 15 minutes ..."
+   }
+}
