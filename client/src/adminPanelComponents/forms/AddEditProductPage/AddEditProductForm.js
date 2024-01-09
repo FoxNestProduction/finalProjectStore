@@ -28,14 +28,13 @@ import SelectForFormik from '../../../components/inputs/Select/Select';
 import Input from '../../../components/inputs/Input/Input';
 import validationSchema from './validationSchema';
 
-import { flexCenter, title, imgContainer, imgEditBtn, submitBtn } from './styles';
+import { btnsWrapper, input, btn, flexCenter, title, imgContainer, imgEditBtn, submitBtn } from './styles';
 import { instance } from '../../../API/instance';
 import { mainContainer } from '../../pages/commonStyles';
-import { topBtnsWrapper, toggleDisableBtn, disableBtn, activateBtn } from '../../ItemsEditor/styles';
 import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
-import EditIcon from '../../../assets/svgComponents/EditIcon';
-import { input } from '../EditPartnerForm/styles';
 import { DESCRIPTION } from '../../constants';
+
+import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
 const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
   const [restaurant, setRestaurant] = useState('');
@@ -50,8 +49,8 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
 
   const [imageUrl, setImageUrl] = useState('');
 
-  const cloudName = 'dvtjgmpnr';
-  const uploadPreset = 'nggr2j5w';
+  const cloudName = process.env.REACT_APP_CLOUD_NAME;
+  const uploadPreset = process.env.REACT_APP_UPLOAD_PRESSET;
   const uwConfig = {
     cloudName,
     uploadPreset,
@@ -190,7 +189,7 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
                       }}
                     />
                   )}
-                  <Button sx={imgEditBtn} onClick={() => handleOpenWidget()}>
+                  <Button sx={imgEditBtn} onClick={handleOpenWidget}>
                     <Edit />
                   </Button>
                 </Box>
@@ -286,6 +285,7 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
                         icon={<RadioButtonUncheckedOutlinedIcon />}
                         checkedIcon={<CheckCircleOutlineOutlinedIcon />}
                         onClick={() => handleChangeCheckbox('isTrending')}
+                        defaultChecked={dish && dish.isTrending}
                       />
                     )}
                     name="isTrending"
@@ -303,6 +303,7 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
                         icon={<RadioButtonUncheckedOutlinedIcon />}
                         checkedIcon={<CheckCircleOutlineOutlinedIcon />}
                         onClick={() => handleChangeCheckbox('isHealthy')}
+                        defaultChecked={dish && dish.isHealthy}
                       />
                     )}
                     name="isHealthy"
@@ -320,6 +321,7 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
                         icon={<RadioButtonUncheckedOutlinedIcon />}
                         checkedIcon={<CheckCircleOutlineOutlinedIcon />}
                         onClick={() => handleChangeCheckbox('isSupreme')}
+                        defaultChecked={dish && dish.isSupreme}
                       />
                     )}
                     name="isSupreme"
@@ -330,15 +332,28 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
                       justifyContent: 'space-between',
                     }}
                   />
-                  <Button
-                    disableRipple
-                    variant="contained"
-                    sx={submitBtn}
-                    type="submit"
-                    disabled={!isValid && !imageUrl}
-                  >
-                    Confirm
-                  </Button>
+                  {isEditing && (
+                    <Box sx={btnsWrapper}>
+                      <Button
+                        type="button"
+                        variant="outlined"
+                        sx={{ ...btn, ...outlinedBtnStyles }}
+                        disableRipple
+                        onClick={() => { setIsEditing(false); }}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{ ...btn, ...containedBtnStyles }}
+                        disableRipple
+                        disabled={!isValid}
+                      >
+                        Save
+                      </Button>
+                    </Box>
+                  )}
                 </Box>
               </Box>
             </Form>
