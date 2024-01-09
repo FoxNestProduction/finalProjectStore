@@ -75,7 +75,7 @@ const EditPartnerForm = ({ partner, isNewItem, isEditing, setIsEditing }) => {
       <Box sx={cardImgWrapper}>
         <CardMedia
           component="img"
-          src={isNewItem ? `${process.env.PUBLIC_URL}/img/admin/addImgPlug.png` : partner.imageUrl}
+          src={isNewItem ? '/img/admin/addImgPlug.png' : partner.imageUrl}
           alt={isNewItem ? 'add new image' : partner.name}
           sx={partnerCardImg}
         />
