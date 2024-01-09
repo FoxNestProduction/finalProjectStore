@@ -21,9 +21,10 @@ import NotFound from './pages/NotFound/NotFound';
 import ItemsEditor from './adminPanelComponents/ItemsEditor/ItemsEditor';
 import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
 import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
-import AddDishPage from './adminPanelComponents/pages/AddDishPage/AddDishPage';
 import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
-import AddEditProductPage from './pages/AddEditProductPage/AddEditProductPage';
+import AddEditProductPage from './adminPanelComponents/forms/AddEditProductPage/AddEditProductPage';
+import AddEditProductForm from './adminPanelComponents/forms/AddEditProductPage/AddEditProductForm';
+import AddEditDishPage from './adminPanelComponents/pages/AddEditDishPage/AddDishPage';
 
 const AppRoutes = () => {
   return (
@@ -53,13 +54,6 @@ const AppRoutes = () => {
 
         {/* сторінка редагування ресторану /admin-panel/partners/17001 */}
         <Route path="/admin-panel/partners/:customId" element={<EditPartnerPage />} />
-
-        {/* eslint-disable-next-line max-len */}
-        {/* сторінка редагування блюда конкретного ресторану /admin-panel/partners/17001/dishes/10001 */}
-        <Route path="/admin-panel/partners/:customId/dishes/:itemNo" element={<EditDishPage />} />
-
-        {/* сторінка створення нового блюда конкретного ресторану */}
-        <Route path="/admin-panel/partners/:customId/dishes/new-dish" element={<AddDishPage />} />
 
         {/* сторінка створення нового ресторану */}
         <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />

@@ -40,8 +40,9 @@ export const cardImgWrapper = {
 export const partnerCardImg = {
   border: '1px solid',
   borderColor: 'common.dark',
+  minHeight: '250px',
+  minWidth: '250px',
   maxHeight: {
-    mobile: '250px',
     tablet: '300px',
     lgTablet: '350px',
     desktop: '400px',
