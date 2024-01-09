@@ -44,6 +44,7 @@ export const fetchGetOneProduct = createAsyncThunk(
   async (itemNo, { rejectWithValue }) => {
     try {
       const { data } = await instance.get(`/products/${itemNo}`);
+      console.log(data);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -57,7 +58,7 @@ export const fetchUpdateProduct = createAsyncThunk(
   'partners/fetchUpdateProduct',
   async ({ itemNo, body }, { rejectWithValue }) => {
     try {
-      const { data } = await instance.put(`/partners/${itemNo}`, body);
+      const { data } = await instance.put(`/products/${itemNo}`, body);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);

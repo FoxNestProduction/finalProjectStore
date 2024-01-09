@@ -6,7 +6,6 @@ import {
   mainContainer,
   mainTitle,
 } from '../commonStyles';
-import useGetAPI from '../../../customHooks/useGetAPI';
 // import ItemsEditorCopy from '../../ItemsEditor/ItemsEditorСopy';
 import ItemsEditor from '../../ItemsEditor/ItemsEditor';
 import { fetchGetOneProduct } from '../../../redux/slices/productsSlice';
@@ -24,14 +23,13 @@ const AddEditDishPage = () => {
   }, [dispatch, itemNo]);
 
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <Container sx={mainContainer}>
-      <Typography variant="h2" component="h1">
+      <Typography variant="h2" component="h1" sx={mainTitle}>
         {oneProduct ? oneProduct.name : 'Add new dish'}
       </Typography>
-      {loading ? (<Typography>Loading...</Typography>) : (<ItemsEditor type="product" isNewItem={!itemNo && true} />)}
+      {loading ? (<Typography>Loading...</Typography>) : oneProduct && (<ItemsEditor type="dish" isNewItem={!itemNo && true} />)}
     </Container>
   );
 };

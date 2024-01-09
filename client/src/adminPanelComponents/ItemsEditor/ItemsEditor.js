@@ -28,13 +28,11 @@ const ItemsEditor = ({ type, isNewItem }) => {
     return type === 'partner' ? state.partners.currentEditingPartner : state.products.oneProduct;
   });
 
-  console.log(item);
-
   const handleDisable = async () => {
     if (type === 'partner') {
       dispatch(fetchUpdatePartner({ customId: item.customId, body: { enabled: !item.enabled } }));
     } else {
-      dispatch(fetchUpdateProduct({ itemNo: item.itemNo, body: { enabled: !item.enabled } }));
+      dispatch(fetchUpdateProduct({ itemNo: item._id, body: { enabled: !item.enabled } }));
     }
   };
 

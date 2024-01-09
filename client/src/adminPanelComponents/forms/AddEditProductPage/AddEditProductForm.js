@@ -165,39 +165,6 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
 
   return (
     <Container component="section" sx={mainContainer}>
-      <Typography
-        sx={title}
-      >
-        {!dish ? 'Add new dish' : dish.name}
-      </Typography>
-
-      {dish && (
-        <CardActions sx={topBtnsWrapper}>
-          <Button
-            type="button"
-            variant="outlined"
-            size="small"
-            onClick={handleDisable}
-            disabled={isEditing}
-            sx={{ ...toggleDisableBtn, ...(dish?.enabled ? disableBtn : activateBtn) }}
-          >
-            {dish.enabled ? 'Disable' : 'Activate'}
-          </Button>
-          <IconButton
-            sx={{
-              bgcolor: 'background.footer',
-              '&.Mui-disabled': {
-                bgcolor: 'scrollbar.track',
-              },
-            }}
-            onClick={() => { setIsEditing(true); }}
-            disabled={isEditing}
-          >
-            <EditIcon color={isEditing ? '#c8c5df' : undefined} />
-          </IconButton>
-        </CardActions>
-      )}
-
       <Box>
         <Formik
           initialValues={initialValues}
