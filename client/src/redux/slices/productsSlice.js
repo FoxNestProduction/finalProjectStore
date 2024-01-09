@@ -56,9 +56,9 @@ export const fetchGetOneProduct = createAsyncThunk(
 
 export const fetchUpdateProduct = createAsyncThunk(
   'partners/fetchUpdateProduct',
-  async ({ itemNo, body }, { rejectWithValue }) => {
+  async ({ itemId, body }, { rejectWithValue }) => {
     try {
-      const { data } = await instance.put(`/products/${itemNo}`, body);
+      const { data } = await instance.put(`/products/${itemId}`, body);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);

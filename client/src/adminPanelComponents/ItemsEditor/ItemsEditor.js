@@ -32,7 +32,7 @@ const ItemsEditor = ({ type, isNewItem }) => {
     if (type === 'partner') {
       dispatch(fetchUpdatePartner({ customId: item.customId, body: { enabled: !item.enabled } }));
     } else {
-      dispatch(fetchUpdateProduct({ itemNo: item._id, body: { enabled: !item.enabled } }));
+      dispatch(fetchUpdateProduct({ itemId: item._id, body: { enabled: !item.enabled } }));
     }
   };
 
