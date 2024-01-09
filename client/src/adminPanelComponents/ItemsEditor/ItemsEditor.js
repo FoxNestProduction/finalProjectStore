@@ -18,6 +18,7 @@ import EditIcon from '../../assets/svgComponents/EditIcon';
 import PartnerEditForm from '../forms/EditPartnerForm/EditPartnerForm';
 import { fetchUpdatePartner } from '../../redux/slices/partnersSlice';
 import { fetchUpdateProduct } from '../../redux/slices/productsSlice';
+import AddEditProductForm from '../forms/AddEditProductPage/AddEditProductForm';
 
 const ItemsEditor = ({ type, isNewItem }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -26,6 +27,8 @@ const ItemsEditor = ({ type, isNewItem }) => {
   const item = useSelector((state) => {
     return type === 'partner' ? state.partners.currentEditingPartner : state.products.oneProduct;
   });
+
+  console.log(item);
 
   const handleDisable = async () => {
     if (type === 'partner') {
@@ -70,7 +73,14 @@ const ItemsEditor = ({ type, isNewItem }) => {
           isEditing={isNewItem ? true : isEditing}
           setIsEditing={isNewItem ? undefined : setIsEditing}
         />
-      ) : (<Typography variant="h3">Dish form will be here :)</Typography>)}
+      ) : (
+        <AddEditProductForm
+          isNewItem={isNewItem}
+          dish={isNewItem ? null : item}
+          isEditing={isNewItem ? true : isEditing}
+          setIsEditing={isNewItem ? undefined : setIsEditing}
+        />
+      )}
       {!isEditing && type === 'partner' && !isNewItem && (
         <CardActions sx={{ justifyContent: 'flex-end',
           p: '0',

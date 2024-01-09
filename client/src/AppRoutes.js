@@ -18,13 +18,9 @@ import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
 import PaymentForm from './components/forms/PaymentForm/PaymentForm';
 import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
 import NotFound from './pages/NotFound/NotFound';
-import ItemsEditor from './adminPanelComponents/ItemsEditor/ItemsEditor';
 import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
-import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
 import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
-import AddEditProductPage from './adminPanelComponents/forms/AddEditProductPage/AddEditProductPage';
-import AddEditProductForm from './adminPanelComponents/forms/AddEditProductPage/AddEditProductForm';
-import AddEditDishPage from './adminPanelComponents/pages/AddEditDishPage/AddDishPage';
+import AddEditDishPage from './adminPanelComponents/pages/AddEditDishPage/AddEditDishPage';
 
 const AppRoutes = () => {
   return (
@@ -42,8 +38,8 @@ const AppRoutes = () => {
         <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         {/* <Route path="/menu/:productName/:itemNo" element={<ProductPage />} /> */}
-        <Route path="/menu/:productName/:itemNo" element={<AddEditProductPage />} />
-        <Route path="/menu/newProduct" element={<AddEditProductPage />} />
+        <Route path="/menu/:productName/:itemNo" element={<AddEditDishPage />} />
+        <Route path="/menu/newProduct" element={<AddEditDishPage />} />
         <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
         <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
 

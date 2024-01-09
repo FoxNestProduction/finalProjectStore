@@ -1,28 +1,43 @@
-import React, { memo, useEffect, useMemo, useState } from 'react';
-import { Formik, Form, Field } from 'formik';
-import { Box, Button, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Typography } from '@mui/material';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import PropTypes from 'prop-types';
-import CardMedia from '@mui/material/CardMedia';
+import {
+  Box,
+  Button,
+  CardActions,
+  CardMedia,
+  Checkbox,
+  Container,
+  FormControl,
+  FormControlLabel,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Typography,
+} from '@mui/material';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import SatelliteOutlinedIcon from '@mui/icons-material/SatelliteOutlined';
 import RadioButtonUncheckedOutlinedIcon from '@mui/icons-material/RadioButtonUncheckedOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
-import {
-  cardImgWrapper,
-  formWrapper,
-  infoWrapper,
-  partnerCardImg,
-  btn,
-  btnsWrapper,
-  input,
-  inputsWrapper,
-} from '../EditPartnerForm/styles';
-import Input from '../../../components/inputs/Input/Input';
-import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
+import { Field, Form, Formik } from 'formik';
+import { useDispatch } from 'react-redux';
 import useGetAPI from '../../../customHooks/useGetAPI';
+
+import { ReactComponent as Edit } from '../../../assets/svg/edit.svg';
 import SelectForFormik from '../../../components/inputs/Select/Select';
+import Input from '../../../components/inputs/Input/Input';
+import validationSchema from './validationSchema';
+
+import { flexCenter, title, imgContainer, imgEditBtn, submitBtn } from './styles';
+import { instance } from '../../../API/instance';
+import { mainContainer } from '../../pages/commonStyles';
+import { topBtnsWrapper, toggleDisableBtn, disableBtn, activateBtn } from '../../ItemsEditor/styles';
+import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
+import EditIcon from '../../../assets/svgComponents/EditIcon';
+import { input } from '../EditPartnerForm/styles';
 import { DESCRIPTION } from '../../constants';
 
-const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
-  console.log(item);
+const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
   const [restaurant, setRestaurant] = useState('');
   const [foodCategory, setFoodCategory] = useState('');
   const [checkedList, setCheckedList] = useState({
@@ -31,77 +46,71 @@ const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
     isSupreme: false,
   });
 
+  const dispatch = useDispatch();
+
   const [imageUrl, setImageUrl] = useState('');
-  const [prevImageUrl, setPrevImageUrl] = useState('');
 
-  useEffect(() => {
-    if (item) {
-      setRestaurant(item.restaurant_name);
-      setFoodCategory(item.filterCategories);
-      setCheckedList({
-        isTrending: item.isTrending,
-        isHealthy: item.isHealthy,
-        isSupreme: item.isSupreme,
-      });
-    }
-  }, [item]);
+  const cloudName = 'dvtjgmpnr';
+  const uploadPreset = 'nggr2j5w';
+  const uwConfig = {
+    cloudName,
+    uploadPreset,
+    folder: `EatlyProject/products/${restaurant}`,
+  };
 
-  const description = !item ? null : item.description;
-
-  const descriptionsObj = useMemo(() => {
-    return description || { ua: '', pl: '', en: '' };
-  }, [description]);
-
-  const productValidationNames = useMemo(() => {
-    return Object.entries(descriptionsObj).map(([lang]) => `${DESCRIPTION}${lang}`);
-  }, [descriptionsObj]);
-
-  const descriptionArr = useMemo(() => (Object.entries(descriptionsObj).map(([lang, value]) => {
-    return [`${DESCRIPTION}${lang}`, value];
-  })), [descriptionsObj]);
-
-  const descriptionInitialValues = Object.fromEntries(descriptionArr);
+  const handleOpenWidget = () => {
+    // eslint-disable-next-line no-undef
+    const myWidget = cloudinary.createUploadWidget(
+      uwConfig,
+      (error, result) => {
+        if (!error && result && result.event === 'success') {
+          setImageUrl(result.info.secure_url);
+        }
+      },
+    );
+    myWidget.open();
+  };
 
   const [partners] = useGetAPI('/partners/names');
   const [categories] = useGetAPI('/products/categories');
 
+  const navigate = useNavigate();
+
+  const handleDisable = async () => {
+    dispatch(fetchUpdateProduct({ itemNo: dish.itemNo, body: { enabled: !dish.enabled } }));
+  };
+
+  useEffect(() => {
+    if (dish) {
+      setRestaurant(dish.restaurant_name);
+      setFoodCategory(dish.filterCategories);
+      setCheckedList({
+        isTrending: dish.isTrending,
+        isHealthy: dish.isHealthy,
+        isSupreme: dish.isSupreme,
+      });
+    }
+  }, [dish]);
+
+  const description = useMemo(() => (dish?.description || { ua: '', pl: '', en: '' }), [dish]);
+
+  const partnerValidationNames = useMemo(() => {
+    return Object.entries(description).map(([lang]) => `${DESCRIPTION}${lang}`);
+  }, [description]);
+
+  const descriptionArr = useMemo(() => (Object.entries(description).map(([lang, value]) => {
+    return [`${DESCRIPTION}${lang}`, value];
+  })), [description]);
+
   const initialValues = {
     restaurant: '',
-    name: item ? item.name : '',
+    name: dish ? dish.name : '',
     category: '',
-    price: item ? item.currentPrice : '',
-    ...descriptionInitialValues,
-    isTrending: item ? item.isTrending : false,
-    isHealthy: item ? item.isHealthy : false,
-    isSupreme: item ? item.isSupreme : false,
-  };
-
-  const handleSubmit = async (values) => {
-    // console.log(values);
-    // const { name, address } = values;
-
-    // const descriptionInDiffLangs = {};
-    // Object.keys(values).forEach((key) => {
-    //   if (key.startsWith(DESCRIPTION)) {
-    //     const lang = key.replace(DESCRIPTION, '').toLowerCase();
-    //     descriptionInDiffLangs[lang] = values[key].trim();
-    //   }
-    // });
-    // const body = {
-    //   name,
-    //   address,
-    //   description: {
-    //     ...descriptionInDiffLangs,
-    //   },
-    // };
-    // console.log(body);
-  };
-
-  const handleInputDoubleClick = (e) => {
-    if (e.detail === 2) {
-      setIsEditing(true);
-      e.target.focus();
-    }
+    price: dish ? dish.currentPrice : '',
+    ...Object.fromEntries(descriptionArr),
+    isTrending: '',
+    isHealthy: '',
+    isSupreme: '',
   };
 
   const handleChangeCheckbox = (element) => {
@@ -111,34 +120,119 @@ const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
     }));
   };
 
+  const handleSubmit = async (values) => {
+    const {
+      descriptionEN,
+      descriptionPL,
+      descriptionUA,
+      name,
+      price,
+    } = values;
+    const { isTrending, isHealthy, isSupreme } = checkedList;
+
+    const newProduct = {
+      restaurant_name: restaurant,
+      name,
+      description: {
+        en: descriptionEN,
+        pl: descriptionPL,
+        ua: descriptionUA,
+      },
+      currentPrice: price,
+      isSupreme,
+      isHealthy,
+      filterCategories: foodCategory,
+      imageUrl,
+      enabled: true,
+      isTrending,
+    };
+    try {
+      const data = await instance.post('/products', newProduct);
+      if (data.status === 200) {
+        navigate('/menu');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleInputDoubleClick = (e) => {
+    if (e.detail === 2) {
+      setIsEditing(true);
+      e.target.focus();
+    }
+  };
+
   return (
-    <Box sx={infoWrapper}>
-      <Box sx={cardImgWrapper}>
-        <CardMedia
-          component="img"
-          src={!item ? './img/admin/addImgPlug.png' : item.imageUrl}
-          alt={!item ? 'add new image' : item.name}
-          sx={partnerCardImg}
-        />
-      </Box>
-      <Box sx={formWrapper}>
+    <Container component="section" sx={mainContainer}>
+      <Typography
+        sx={title}
+      >
+        {!dish ? 'Add new dish' : dish.name}
+      </Typography>
+
+      {dish && (
+        <CardActions sx={topBtnsWrapper}>
+          <Button
+            type="button"
+            variant="outlined"
+            size="small"
+            onClick={handleDisable}
+            disabled={isEditing}
+            sx={{ ...toggleDisableBtn, ...(dish?.enabled ? disableBtn : activateBtn) }}
+          >
+            {dish.enabled ? 'Disable' : 'Activate'}
+          </Button>
+          <IconButton
+            sx={{
+              bgcolor: 'background.footer',
+              '&.Mui-disabled': {
+                bgcolor: 'scrollbar.track',
+              },
+            }}
+            onClick={() => { setIsEditing(true); }}
+            disabled={isEditing}
+          >
+            <EditIcon color={isEditing ? '#c8c5df' : undefined} />
+          </IconButton>
+        </CardActions>
+      )}
+
+      <Box>
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
-          // validationSchema={getValidationSchema(productValidationNames)}
-          validationSchema={initialValues}
+          validationSchema={validationSchema(partnerValidationNames)}
         >
-          {({ isValid }) => (
-            <Form>
-              <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                width: '100%',
-              }}
-              >
+          {({ values, isValid }) => (
+            <Form style={{ width: '100%' }}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', columnGap: '24px' }}>
+                <Box sx={{
+                  ...imgContainer,
+                  ...flexCenter,
+                }}
+                >
+                  {!dish && !imageUrl ? <SatelliteOutlinedIcon sx={{ fontSize: '346px' }} /> : (
+                    <CardMedia
+                      component="img"
+                      image={!dish ? imageUrl : dish.imageUrl}
+                      sx={{
+                        maxWidth: '400px',
+                        maxHeight: '400px',
+                        borderRadius: '16px',
+                      }}
+                    />
+                  )}
+                  <Button sx={imgEditBtn} onClick={() => handleOpenWidget()}>
+                    <Edit />
+                  </Button>
+                </Box>
                 <Box
-                  sx={inputsWrapper}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    rowGap: '24px',
+                  }}
                 >
                   <FormControl sx={{ width: '100%' }}>
                     <InputLabel id="restaurant">Name restaurant</InputLabel>
@@ -150,7 +244,7 @@ const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
                         labelId="restaurant"
                         id="restaurant"
                         bgColor="#FFF"
-                        value={restaurant}
+                        value={dish ? dish.restaurant_name : restaurant}
                         onChange={(event) => {
                           const selectedRestaurant = event.target.value;
                           setRestaurant(selectedRestaurant);
@@ -164,12 +258,12 @@ const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
                   </FormControl>
                   <Input
                     name="name"
-                    id="productName"
-                    label="Name"
+                    id="name_dish"
+                    label="Name dish"
                     bgColor={isEditing ? 'common.white' : undefined}
                     styles={input}
                     readOnly={!isEditing}
-                    value={item ? item.name : ''}
+                    value={values.name}
                     onClick={handleInputDoubleClick}
                   />
                   <FormControl fullWidth>
@@ -182,7 +276,7 @@ const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
                         labelId="category"
                         id="category"
                         bgColor="#FFF"
-                        value={foodCategory}
+                        value={dish ? dish.filterCategories : foodCategory}
                         onChange={(event) => {
                           const selectedCategory = event.target.value;
                           setFoodCategory(selectedCategory);
@@ -196,15 +290,15 @@ const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
                   </FormControl>
                   <Input
                     name="price"
-                    id="productPrice"
+                    id="price"
                     label="Price"
                     bgColor={isEditing ? 'common.white' : undefined}
                     styles={input}
                     readOnly={!isEditing}
-                    value={item ? item.currentPrice : ''}
                     onClick={handleInputDoubleClick}
+                    icon={<AttachMoneyIcon />}
                   />
-                  {/* {Object.keys(descriptionsObj).map((lang) => (
+                  {Object.keys(description).map((lang) => (
                     <Input
                       key={lang}
                       name={`${DESCRIPTION}${lang}`}
@@ -217,43 +311,7 @@ const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
                       maxRows={8}
                       readOnly={!isEditing}
                     />
-                  ))} */}
-                  <Input
-                    name="descriptionEn"
-                    id="descriptionEn"
-                    label="Description (EN)"
-                    bgColor={isEditing ? 'common.white' : undefined}
-                    styles={input}
-                    onClick={handleInputDoubleClick}
-                    multiline
-                    maxRows={8}
-                    readOnly={!isEditing}
-                    value={item ? item?.description?.en : ''}
-                  />
-                  <Input
-                    name="descriptionPl"
-                    id="descriptionPl"
-                    label="Description (PL)"
-                    bgColor={isEditing ? 'common.white' : undefined}
-                    styles={input}
-                    onClick={handleInputDoubleClick}
-                    multiline
-                    maxRows={8}
-                    readOnly={!isEditing}
-                    value={item ? item?.description?.pl : ''}
-                  />
-                  <Input
-                    name="descriptionUa"
-                    id="descriptionUa"
-                    label="Description (UA)"
-                    bgColor={isEditing ? 'common.white' : undefined}
-                    styles={input}
-                    onClick={handleInputDoubleClick}
-                    multiline
-                    maxRows={8}
-                    readOnly={!isEditing}
-                    value={item ? item?.description?.ua : ''}
-                  />
+                  ))}
                   <FormControlLabel
                     control={(
                       <Checkbox
@@ -261,7 +319,6 @@ const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
                         icon={<RadioButtonUncheckedOutlinedIcon />}
                         checkedIcon={<CheckCircleOutlineOutlinedIcon />}
                         onClick={() => handleChangeCheckbox('isTrending')}
-                        defaultChecked={item ? item.isTrending : checkedList.isTrending}
                       />
                     )}
                     name="isTrending"
@@ -306,48 +363,37 @@ const AddEditProductForm = ({ item, isEditing, setIsEditing }) => {
                       justifyContent: 'space-between',
                     }}
                   />
-                </Box>
-                {isEditing && (
-                <Box sx={btnsWrapper}>
                   <Button
-                    type="button"
-                    variant="outlined"
-                    sx={{ ...btn, ...outlinedBtnStyles }}
                     disableRipple
-                    onClick={() => { setIsEditing(false); }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
                     variant="contained"
-                    sx={{ ...btn, ...containedBtnStyles }}
-                    disableRipple
-                    disabled={!isValid}
+                    sx={submitBtn}
+                    type="submit"
+                    disabled={!isValid && !imageUrl}
                   >
-                    Save
+                    Confirm
                   </Button>
                 </Box>
-                )}
               </Box>
             </Form>
           )}
         </Formik>
       </Box>
-    </Box>
+    </Container>
   );
 };
 
 AddEditProductForm.propTypes = {
-  item: PropTypes.object,
+  dish: PropTypes.object,
+  isNewItem: PropTypes.bool,
   isEditing: PropTypes.bool,
   setIsEditing: PropTypes.func,
 };
 
 AddEditProductForm.defaultProps = {
-  item: {},
+  dish: {},
+  isNewItem: false,
   isEditing: false,
   setIsEditing: () => {},
 };
 
-export default memo(AddEditProductForm);
+export default AddEditProductForm;
