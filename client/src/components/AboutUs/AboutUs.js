@@ -1,70 +1,62 @@
 /* eslint-disable max-len */
 import React, { memo } from 'react';
 import { Container, Typography, Grid, Paper } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const AboutUs = () => {
+  const { i18n, t } = useTranslation();
   return (
     <Container sx={{ paddingBottom: '30px', color: 'text.primary' }}>
       <Typography variant="h2" component="h2" sx={{ marginTop: '30px', paddingLeft: '10px' }} gutterBottom>
-        About Us
+        {t('aboutUsPage.title_1')}
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: '20px' }}>
             <Typography variant="h3" gutterBottom>
-              Our Story
+              {t('aboutUsPage.title_2')}
             </Typography>
             <Typography>
-              Welcome to Eatly, your destination for delicious dining experiences! We are passionate about connecting food lovers
-              with the best restaurants in town. Our journey began with a simple idea: to make it easier for people to discover
-              and enjoy great food. We believe that every meal is an opportunity to create wonderful memories, and we&apos;re here
-              to make those moments special.
+              {t('aboutUsPage.discription_1')}
             </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: '20px' }}>
             <Typography variant="h3" component="h3" gutterBottom>
-              Our Mission
+              {t('aboutUsPage.title_3')}
             </Typography>
             <Typography>
-              At Eatly, our mission is to provide a seamless and delightful dining experience. We work tirelessly to bring you a
-              diverse selection of restaurants, each with its own unique flavors and culinary traditions. Whether you&apos;re
-              craving comfort food, international cuisine, or something in between, we&apos;ve got you covered. We&apos;re
-              committed to helping you explore new tastes and create unforgettable food adventures.
+              {t('aboutUsPage.discription_2')}
             </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: '20px' }}>
             <Typography variant="h3" component="h3" gutterBottom>
-              Our Team
+              {t('aboutUsPage.title_4')}
             </Typography>
             <Typography>
-              Our dedicated team of food enthusiasts and tech experts is at the heart of everything we do. We&apos;re passionate
-              about curating the best dining options for you, ensuring that every restaurant we partner with meets our high
-              standards of quality and service. Your satisfaction is our top priority, and we&apos;re here to assist you every
-              step of the way.
+              {t('aboutUsPage.discription_3')}
             </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: '20px' }}>
             <Typography variant="h3" component="h3" gutterBottom>
-              Contact Us
+              {t('aboutUsPage.title_5')}
             </Typography>
             <Typography>
-              If you have any questions, feedback, or inquiries, don&apos;t hesitate to reach out to us. We&apos;d love to hear
-              from you and assist with any requests. You can contact us at
+              {t('aboutUsPage.discription_4_1')}
               <a href="mailto:eatly.supp@gmail.com" style={{ fontWeight: 'bold', color: '#6C5FBC' }}>
                 {' '}
                 eatly.supp@gmail.com
                 {' '}
               </a>
-              or through our
+              {t('aboutUsPage.discription_4_2')}
               <a href="/contact" style={{ fontWeight: 'bold', color: '#6C5FBC' }}>
                 {' '}
-                customer support page
+                {t('aboutUsPage.discription_4_3')}
                 {' '}
               </a>
               .

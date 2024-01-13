@@ -1,21 +1,23 @@
-import React, { memo } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Container, Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
-import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
-import QuestionsList from '../../components/QuestionsList/QuestionsList';
-import ListItems from '../../components/ListItems/ListItem';
-import ProductCardItem from '../../components/ProductCardItem/ProductCardItem';
-import useGetAPI from '../../customHooks/useGetAPI';
-import { gridStylesContainer } from '../../components/ListItems/styles';
-import Skeleton from '../../components/Skeleton/Skeleton';
-import useTopProducts from '../../customHooks/useTopProducts';
+import React, {memo} from "react";
+import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {Container, Box} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import {useTranslation} from "react-i18next";
+import {fixedEncodeURIComponent} from "../../utils/uriEncodeHelpers";
+import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
+import QuestionsList from "../../components/QuestionsList/QuestionsList";
+import ListItems from "../../components/ListItems/ListItem";
+import ProductCardItem from "../../components/ProductCardItem/ProductCardItem";
+import useGetAPI from "../../customHooks/useGetAPI";
+import {gridStylesContainer} from "../../components/ListItems/styles";
+import Skeleton from "../../components/Skeleton/Skeleton";
+import useTopProducts from "../../customHooks/useTopProducts";
 
 const RestaurantPage = () => {
-  const [partners, loading] = useGetAPI('/partners');
-  console.log(partners);
+  const [partners, loading] = useGetAPI("/partners");
+  const {i18n, t} = useTranslation();
+
   const topProducts = useTopProducts();
   const loadingProducts = useSelector((state) => state.products.loading);
 
@@ -31,17 +33,17 @@ const RestaurantPage = () => {
       <Container
         component="section"
         sx={{
-          bgcolor: 'background.default',
-          my: '60px',
+          bgcolor: "background.default",
+          my: "60px",
         }}
       >
         <Typography
           variant="h2"
           component="h2"
           color="text.primary"
-          sx={{ textAlign: 'center', mb: 6 }}
+          sx={{textAlign: "center", mb: 6}}
         >
-          All Restaurants
+          {t("restaurantPage.title")}
         </Typography>
 
         {loading ? (
@@ -53,8 +55,12 @@ const RestaurantPage = () => {
             <Skeleton skeletonType="restaurantsPage" />
           </>
         ) : (
-          partners && partners.map(({ rating, name, imageUrl, description, customId }) => (
-            <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}>
+          partners &&
+          partners.map(({rating, name, imageUrl, description, customId}) => (
+            <Link
+              key={name}
+              to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}
+            >
               <RestaurantCard
                 rating={rating}
                 name={name}
@@ -63,10 +69,11 @@ const RestaurantPage = () => {
                 styleWidth={styleRestaurant}
               />
             </Link>
-          )))}
+          ))
+        )}
       </Container>
       {loadingProducts ? (
-        <Container sx={{ mb: 13 }}>
+        <Container sx={{mb: 13}}>
           <Box role="listbox" sx={gridStylesContainer}>
             <Skeleton skeletonType="product" />
             <Skeleton skeletonType="product" />
@@ -75,14 +82,16 @@ const RestaurantPage = () => {
             <Skeleton skeletonType="product" />
           </Box>
         </Container>
-      ) : (topProducts.length > 0 && (
-        <ListItems
-          title="Our Top Dishes"
-          items={topProducts}
-          itemComponent={ProductCardItem}
-          actions={null}
-        />
-      ))}
+      ) : (
+        topProducts.length > 0 && (
+          <ListItems
+            title={t("restaurantPage.ourTopDishes")}
+            items={topProducts}
+            itemComponent={ProductCardItem}
+            actions={null}
+          />
+        )
+      )}
       <QuestionsList />
     </>
   );

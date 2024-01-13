@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, useMediaQuery } from '@mui/material';
 import RestaurantItem from '../../components/RestaurantItem/RestaurantItem';
@@ -26,6 +27,7 @@ const MenuPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const { i18n, t } = useTranslation();
 
   const isQuery = useRef(false);
   const isMounted = useRef(false);
@@ -91,7 +93,7 @@ const MenuPage = () => {
 
       {keyFromSearch === 'restaurant' && itemsFromSearch.length !== 0 && (
         <ListItems
-          title={`Search Restaurant (${itemsFromSearch.length})`}
+          title={`${t('menuPage.searchRestaurant')} (${itemsFromSearch.length})`}
           items={itemsFromSearch}
           itemComponent={RestaurantItem}
           actions={null}
@@ -108,7 +110,7 @@ const MenuPage = () => {
               color="text.primary"
               sx={{ textAlign: 'center', mb: 3 }}
             >
-              All Dishes
+              {t('menuPage.titleAllDishes')}
             </Typography>
             <Container sx={{ mb: 13 }}>
               <Box sx={gridStylesContainer}>
@@ -174,7 +176,7 @@ const MenuPage = () => {
           </>
         ) : (keyFromSearch === 'food' && itemsFromSearch.length !== 0 ? (
           <ListItems
-            title={`Search Results (${itemsFromSearch.length})`}
+            title={`${t('menuPage.searchResults')} (${itemsFromSearch.length})`}
             items={itemsFromSearch}
             itemComponent={ProductCardItem}
             actions={null}
@@ -183,7 +185,7 @@ const MenuPage = () => {
           />
         ) : itemsFromFilter.length !== 0 ? (
           <ListItems
-            title={`Filter Results (${filteredProductsQuantity})`}
+            title={`${t('menuPage.filterResults')} (${filteredProductsQuantity})`}
             items={itemsFromFilter}
             itemComponent={ProductCardItem}
             actions={null}
@@ -195,7 +197,7 @@ const MenuPage = () => {
           />
         ) : (!nothingFound) ? (
           <ListItems
-            title="All Dishes"
+            title={t('menuPage.titleAllDishes')}
             items={products}
             itemComponent={ProductCardItem}
             actions={null}
@@ -230,7 +232,7 @@ const MenuPage = () => {
             color="text.primary"
             sx={{ textAlign: 'center', mb: 3 }}
           >
-            Our Top Restaurants
+            {t('menuPage.ourTopRestaurants')}
           </Typography>
           <Box sx={gridStylesContainer}>
             <Skeleton skeletonType="restaurant" />
@@ -240,7 +242,7 @@ const MenuPage = () => {
         </Container>
       ) : (topPartners.length > 0 && (
         <ListItems
-          title="Our Top Restaurants"
+          title={t('menuPage.ourTopRestaurants')}
           items={topPartners}
           itemComponent={RestaurantItem}
           actions={<ListItemAction type="partners" />}

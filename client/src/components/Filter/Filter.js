@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Button, CardMedia, Stack, ToggleButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import { useTranslation } from 'react-i18next';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -27,6 +28,7 @@ import CustomAlert from '../Alert/Alert';
 
 const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const loading = useSelector((state) => state.filter.loading);
   const nothingFound = useSelector((state) => state.filter.nothingFound);
@@ -94,10 +96,10 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       <Stack component="div">
         <Stack component="div" sx={stylesWrapTitle}>
           <Typography component="h3" sx={stylesTitle}>
-            Category
+            {t('filter.category')}
           </Typography>
           <Button sx={stylesBtnReset} onClick={handleResetFilter}>
-            Reset
+            {t('filter.reset')}
           </Button>
         </Stack>
 
@@ -118,7 +120,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/filter/pizza.png" alt="pizza" />
-                <Typography component="p">Pizza</Typography>
+                <Typography component="p">{t('filter.pizza')}</Typography>
               </Stack>
             </ToggleButton>
 
@@ -130,7 +132,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/filter/burger.png" alt="burger" />
-                <Typography component="p">Burgers</Typography>
+                <Typography component="p">{t('filter.burgers')}</Typography>
               </Stack>
             </ToggleButton>
 
@@ -142,7 +144,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/filter/sushi.png" alt="sushi" />
-                <Typography component="p">Sushi</Typography>
+                <Typography component="p">{t('filter.sushi')}</Typography>
               </Stack>
             </ToggleButton>
 
@@ -154,7 +156,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/filter/salad.png" alt="salads" />
-                <Typography component="p">Salads</Typography>
+                <Typography component="p">{t('filter.salads')}</Typography>
               </Stack>
             </ToggleButton>
           </Stack>
@@ -175,7 +177,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/filter/pasta.png" alt="pasta" />
-                <Typography component="p">Pasta</Typography>
+                <Typography component="p">{t('filter.pasta')}</Typography>
               </Stack>
             </ToggleButton>
 
@@ -187,7 +189,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/filter/sandwich.png" alt="sandwich" />
-                <Typography component="p">Sandwich</Typography>
+                <Typography component="p">{t('filter.sandwich')}</Typography>
               </Stack>
             </ToggleButton>
 
@@ -199,7 +201,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/filter/bbqMeat.png" alt="bbq meat" />
-                <Typography component="p">BBQ</Typography>
+                <Typography component="p">{t('filter.bbq')}</Typography>
               </Stack>
             </ToggleButton>
 
@@ -211,7 +213,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
             >
               <Stack component="div" sx={stylesCategoryItem}>
                 <CardMedia component="img" image="./img/filter/drink.png" alt="drink" />
-                <Typography component="p">Drink</Typography>
+                <Typography component="p">{t('filter.drinks')}</Typography>
               </Stack>
             </ToggleButton>
 
@@ -221,7 +223,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
       <Stack component="div" sx={{ mt: { mobile: '25px', tablet: '30px' } }}>
 
         <Typography component="h3" sx={stylesTitle}>
-          Filter By
+          {t('filter.filterBy')}
         </Typography>
         <Stack component="div" direction="column" spacing={0} alignItems="flex-start" sx={{ width: '100%' }}>
           <Stack component="div" direction="row" justifyContent="space-between" sx={{ width: '100%' }}>
@@ -236,7 +238,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
                 }));
               }}
             >
-              Trending
+              {t('filter.trending')}
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
@@ -249,7 +251,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
                 }));
               }}
             >
-              Healthy
+              {t('filter.healthy')}
             </ToggleButton>
           </Stack>
 
@@ -265,7 +267,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
                 }));
               }}
             >
-              Supreme
+              {t('filter.supreme')}
             </ToggleButton>
             <ToggleButton
               sx={stylesSortBtn}
@@ -278,7 +280,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
                 }));
               }}
             >
-              Most Popular
+              {t('filter.mostPopular')}
             </ToggleButton>
           </Stack>
         </Stack>
@@ -286,7 +288,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
 
       <Stack component="div" sx={{ mt: { mobile: '15px', tablet: '10px', desktop: '15px' } }}>
         <Typography component="h3" sx={stylesTitle}>
-          Price
+          {t('filter.price')}
         </Typography>
         <Box component="div" sx={{ width: '100%', mt: { mobile: '15px', tablet: '10px', desktop: '15px' } }}>
           <Slider
@@ -308,7 +310,7 @@ const Filter = ({ filters, setFilters, resetFiltersLocalState }) => {
         </Box>
       </Stack>
       <Button sx={stylesBtn} onClick={handleApplyFilter} disabled={loading}>
-        Apply
+        {t('filter.apply')}
       </Button>
 
       {nothingFound && filterAlert && (
