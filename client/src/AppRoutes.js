@@ -23,7 +23,7 @@ import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPa
 import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
 import AddDishPage from './adminPanelComponents/pages/AddDishPage/AddDishPage';
 import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
-import AllPartnersPage from './adminPanelComponents/pages/Partners/PartnersPage';
+import AddEditProductPage from './pages/AddEditProductPage/AddEditProductPage';
 
 const AppRoutes = () => {
   const { i18n, t } = useTranslation();
@@ -58,15 +58,11 @@ const AppRoutes = () => {
           )}
         />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
-        <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
-        <Route
-          path="/restaurants/:partnersName/:customId"
-          element={<PartnersPage />}
-        />
-        <Route
-          path="/recovery-password/:userId/:token"
-          element={<ChangePasswordForm />}
-        />
+        {/* <Route path="/menu/:productName/:itemNo" element={<ProductPage />} /> */}
+        <Route path="/menu/:productName/:itemNo" element={<AddEditProductPage />} />
+        <Route path="/menu/newProduct" element={<AddEditProductPage />} />
+        <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
+        <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
 
         {/* Routes for admin panel */}
 
