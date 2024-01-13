@@ -1,31 +1,31 @@
-import React from "react";
-import {Route, Routes} from "react-router";
-import PublicLayout from "./components/Layout/PublicLayout";
-import ContactPage from "./pages/Contact/Contact";
-import HomePage from "./pages/Home/Home";
-import MenuPage from "./pages/Menu/Menu";
-import RestaurantPage from "./pages/Restaurant/Restaurant";
-import AboutUsPage from "./pages/AboutUs/AboutUs";
-import ProductPage from "./pages/Product/Product";
-import PartnersPage from "./pages/Partners/Partners";
-import ReviewsPage from "./pages/Reviews/Reviews";
-import Cart from "./components/Cart/Cart";
-import Favourites from "./components/Favourites/Favourites";
-import CheckoutPage from "./pages/Chechout/Checkout";
-import CheckoutForm from "./components/forms/CheckoutForm/CheckoutForm";
-import OrderConfirmationPage from "./pages/OrderConfirmation/OrderConfirmation";
-import PaymentForm from "./components/forms/PaymentForm/PaymentForm";
-import ChangePasswordForm from "./components/forms/ChangePasswordForm/ChangePasswordForm";
-import NotFound from "./pages/NotFound/NotFound";
-import ItemsEditor from "./adminPanelComponents/ItemsEditor/ItemsEditor";
-import EditPartnerPage from "./adminPanelComponents/pages/EditPartnerPage/EditPartnerPage";
-import EditDishPage from "./adminPanelComponents/pages/EditDishPage/EditDishPage";
-import AddDishPage from "./adminPanelComponents/pages/AddDishPage/AddDishPage";
-import AddPartnerPage from "./adminPanelComponents/pages/AddPartnerPage/AddPartnerPage";
-import AllPartnersPage from "./adminPanelComponents/pages/Partners/PartnersPage";
+import React from 'react';
+import { Route, Routes } from 'react-router';
+import PublicLayout from './components/Layout/PublicLayout';
+import ContactPage from './pages/Contact/Contact';
+import HomePage from './pages/Home/Home';
+import MenuPage from './pages/Menu/Menu';
+import RestaurantPage from './pages/Restaurant/Restaurant';
+import AboutUsPage from './pages/AboutUs/AboutUs';
+import ProductPage from './pages/Product/Product';
+import PartnersPage from './pages/Partners/Partners';
+import ReviewsPage from './pages/Reviews/Reviews';
+import Cart from './components/Cart/Cart';
+import Favourites from './components/Favourites/Favourites';
+import CheckoutPage from './pages/Chechout/Checkout';
+import CheckoutForm from './components/forms/CheckoutForm/CheckoutForm';
+import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
+import PaymentForm from './components/forms/PaymentForm/PaymentForm';
+import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
+import NotFound from './pages/NotFound/NotFound';
+import ItemsEditor from './adminPanelComponents/ItemsEditor/ItemsEditor';
+import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
+import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
+import AddDishPage from './adminPanelComponents/pages/AddDishPage/AddDishPage';
+import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
+import AllPartnersPage from './adminPanelComponents/pages/Partners/PartnersPage';
 
 const AppRoutes = () => {
-  const {i18n, t} = useTranslation();
+  const { i18n, t } = useTranslation();
 
   return (
     <Routes>
@@ -40,21 +40,21 @@ const AppRoutes = () => {
         <Route path="/favourites" element={<Favourites />} />
         <Route
           path="/checkout"
-          element={
+          element={(
             <CheckoutPage
-              titleText={t("checkout.checkout")}
+              titleText={t('checkout.checkout')}
               formComponent={CheckoutForm}
             />
-          }
+          )}
         />
         <Route
           path="/checkout/payment"
-          element={
+          element={(
             <CheckoutPage
-              titleText={t("payment.payment")}
+              titleText={t('payment.payment')}
               formComponent={PaymentForm}
             />
-          }
+          )}
         />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
