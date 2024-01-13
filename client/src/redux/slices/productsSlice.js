@@ -73,11 +73,17 @@ const initialState = {
   allProductsNames: [],
   loading: false,
   error: null,
+  editProduct: {},
 };
 
 const productsSlice = createSlice({
   name: 'products',
   initialState,
+  redusers: {
+    setEditProduct(state, action) {
+      state.editProduct = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTopProducts.pending, setLoading)
@@ -112,5 +118,7 @@ const productsSlice = createSlice({
       });
   },
 });
+
+export const { setEditProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

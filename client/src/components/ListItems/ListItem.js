@@ -1,16 +1,20 @@
-import React, { createElement, memo, useEffect, useRef, useState } from 'react';
+import React, { createElement, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useDispatch, useSelector } from 'react-redux';
-import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
+import { Button, useMediaQuery } from '@mui/material';
+import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect, TitleBtn } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import Sorter from '../Sorter/Sorter';
 import { setFilterParams } from '../../redux/slices/filterSlice';
 import scrollToElementTop from '../../utils/scrollToElementTop';
 import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
+import { openModal, setContent } from '../../redux/slices/modalSlice';
 
 const ListItems = ({ title, items, itemComponent, actions,
   pagination, type, itemsFrom, sorting, isScrolling }) => {
@@ -26,6 +30,12 @@ const ListItems = ({ title, items, itemComponent, actions,
   const allProductsQuantity = useSelector((state) => state.products.productsQuantity);
 
   const [pageQty, setPageQty] = useState(1);
+
+  const isLgTablet = useMediaQuery('(min-width: 690px)');
+
+  const handleAddNewProduct = useCallback(() => {
+
+  }, []);
 
   useEffect(() => {
     let currentPageQty;
@@ -52,14 +62,20 @@ const ListItems = ({ title, items, itemComponent, actions,
 
   return (
     <Container sx={{ mb: 13 }}>
-      <Typography
-        variant="h2"
-        component="h2"
-        color="text.primary"
-        sx={{ textAlign: 'center', mb: 3 }}
-      >
-        {title}
-      </Typography>
+      <Grid sx={{ display: 'grid', alignItems: 'center', justifyContent: 'center', gridTemplateColumns: 'repeat(2,1fr)' }}>
+        <Typography
+          variant="h2"
+          component="h2"
+          color="text.primary"
+          sx={{ mb: 3 }}
+        >
+          {title}
+        </Typography>
+        <Button component={NavLink} to="/menu/newProduct" sx={TitleBtn}>
+          {isLgTablet && <Typography mr={1}>Add new porduct</Typography>}
+          <AddCircleOutlineIcon />
+        </Button>
+      </Grid>
 
       { sorting && (
       <Sorter

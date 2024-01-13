@@ -24,6 +24,7 @@ import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPa
 import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
 import AddDishPage from './adminPanelComponents/pages/AddDishPage/AddDishPage';
 import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
+import AddEditProductPage from './pages/AddEditProductPage/AddEditProductPage';
 import AllPartnersPage from './adminPanelComponents/pages/Partners/PartnersPage';
 
 const AppRoutes = () => {
