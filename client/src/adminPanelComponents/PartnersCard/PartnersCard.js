@@ -39,7 +39,8 @@ const PartnersCard = ({ title, url, enabled }) => {
               aria-label="disable"
               variant="outlined"
               sx={{
-                borderColor: '#FB471D',
+                border: 'none',
+                outline: '2px solid #FB471D',
                 color: '#000000',
                 fontFamily: 'fontFamily',
                 fontSize: {
@@ -49,6 +50,18 @@ const PartnersCard = ({ title, url, enabled }) => {
                 position: 'absolute',
                 top: '14px',
                 right: '0',
+                transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+                '&:hover': {
+                  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.3)',
+                  backgroundColor: 'common.white',
+                  outline: 'none',
+                  border: 'none',
+                },
+                '&:active': {
+                  boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.2)',
+                  transform: 'translateY(1px)',
+                  backgroundColor: '#EAEAEA',
+                },
               }}
             >
               Disable
