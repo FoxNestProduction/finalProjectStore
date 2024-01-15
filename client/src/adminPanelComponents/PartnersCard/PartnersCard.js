@@ -68,16 +68,36 @@ const PartnersCard = ({ title, url, enabled }) => {
             </Button>
           )}
         />
-        <CardMedia
-          component="img"
-          image={`${url}`}
+        <Box
           sx={{
-            width: '1035px',
-            height: '495px',
-            borderRadius: '16px',
+            position: 'relative',
           }}
-          alt={`Restaurant ${title}`}
-        />
+        >
+          {!enabled ? (
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                width: '100%',
+                height: '100%',
+                background: 'rgba(217, 217, 217, 0.60)',
+
+              }}
+            />
+          ) : null}
+          <CardMedia
+            component="img"
+            image={`${url}`}
+            sx={{
+              display: 'block',
+              width: '1035px',
+              height: '495px',
+              borderRadius: '16px',
+            }}
+            alt={`Restaurant ${title}`}
+          />
+        </Box>
       </Card>
     </Box>
   );

@@ -1,18 +1,21 @@
-import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment } from '@mui/material';
+import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment, Button } from '@mui/material';
 import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
-import Filter from '../../../components/Filter/Filter';
-import SectionSwipperFilterSearch from '../../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
+// import Filter from '../../../components/Filter/Filter';
+// import SectionSwipperFilterSearch from '..
+// /../../components/SectionSwipper&Filter&Search/SectionSwipper&Filter&Search';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { fetchAllPartnersNames } from '../../../redux/slices/partnersSlice';
 import { stylesBorder, stylesSearch } from './styles';
-import ListItem from '../../../components/ListItems/ListItem';
-import RestaurantItem from '../../../components/RestaurantItem/RestaurantItem';
-import RestaurantCard from '../../../components/RestaurantCard/RestaurantCard';
+// import ListItem from '../../../components/ListItems/ListItem';
+// import RestaurantItem from '../../../components/RestaurantItem/RestaurantItem';
+// import RestaurantCard from '../../../components/RestaurantCard/RestaurantCard';
 import useGetAPI from '../../../customHooks/useGetAPI';
-import { fixedEncodeURIComponent } from '../../../utils/uriEncodeHelpers';
+// import { fixedEncodeURIComponent } from '../../../utils/uriEncodeHelpers';
 import PartnersCard from '../../PartnersCard/PartnersCard';
+import { outlinedBtnStyles, containedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
 const PartnersPage = () => {
   const dispatch = useDispatch();
@@ -76,18 +79,55 @@ const PartnersPage = () => {
                   {...params}
                   label="Search Partners"
                   variant="outlined"
-                // inputProps={{
-                // ...params.InputProps,
-                // type: 'search',
-                // startAdornment: (
-                //   <InputAdornment position="start">
-                //     <SearchIcon />
-                //   </InputAdornment>
-                // ),
-                // }}
+                  InputProps={{
+                    ...params.InputProps,
+                    type: 'search',
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               )}
             />
+            <Button
+              variant="contained"
+              sx={{
+                ...containedBtnStyles,
+                width: '188px',
+                height: '60px',
+                borderRadius: '18px',
+                padding: '12px 16px',
+              }}
+            >
+              Search
+            </Button>
+            <Button
+              variant="outlined"
+              endIcon={<AddBoxOutlinedIcon />}
+              sx={{
+                ...outlinedBtnStyles,
+                height: '60px',
+                maxWidth: '248px',
+                padding: '12px 16px',
+
+                //     padding: 24px 32px;
+                // color: #6C5FBC;
+
+                // font-family: Inter;
+                // font-size: 24px;
+                // font-style: normal;
+                // font-weight: 500;
+                // line-height: 150%; /* 36px */
+                //                 border-radius: 18px;
+                // border: 2px solid #6C5FBC;
+
+                // background: #FFF;
+              }}
+            >
+              Add Partners
+            </Button>
           </Stack>
           <Typography
             variant="h1"
