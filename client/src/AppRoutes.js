@@ -18,11 +18,9 @@ import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
 import PaymentForm from './components/forms/PaymentForm/PaymentForm';
 import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
 import NotFound from './pages/NotFound/NotFound';
-import ItemsEditor from './adminPanelComponents/ItemsEditor/ItemsEditor';
 import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
-import EditDishPage from './adminPanelComponents/pages/EditDishPage/EditDishPage';
-import AddDishPage from './adminPanelComponents/pages/AddDishPage/AddDishPage';
 import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
+import AddEditDishPage from './adminPanelComponents/pages/AddEditDishPage/AddEditDishPage';
 
 const AppRoutes = () => {
   return (
@@ -39,7 +37,9 @@ const AppRoutes = () => {
         <Route path="/checkout" element={<CheckoutPage titleText="Checkout" formComponent={CheckoutForm} />} />
         <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
-        <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
+        {/* <Route path="/menu/:productName/:itemNo" element={<ProductPage />} /> */}
+        <Route path="/menu/:productName/:itemNo" element={<AddEditDishPage />} />
+        <Route path="/menu/newProduct" element={<AddEditDishPage />} />
         <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
         <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
 
@@ -50,13 +50,6 @@ const AppRoutes = () => {
 
         {/* сторінка редагування ресторану /admin-panel/partners/17001 */}
         <Route path="/admin-panel/partners/:customId" element={<EditPartnerPage />} />
-
-        {/* eslint-disable-next-line max-len */}
-        {/* сторінка редагування блюда конкретного ресторану /admin-panel/partners/17001/dishes/10001 */}
-        <Route path="/admin-panel/partners/:customId/dishes/:itemNo" element={<EditDishPage />} />
-
-        {/* сторінка створення нового блюда конкретного ресторану */}
-        <Route path="/admin-panel/partners/:customId/dishes/new-dish" element={<AddDishPage />} />
 
         {/* сторінка створення нового ресторану */}
         <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />

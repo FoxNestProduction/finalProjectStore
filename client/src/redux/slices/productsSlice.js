@@ -44,6 +44,7 @@ export const fetchGetOneProduct = createAsyncThunk(
   async (itemNo, { rejectWithValue }) => {
     try {
       const { data } = await instance.get(`/products/${itemNo}`);
+      console.log(data);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -55,9 +56,9 @@ export const fetchGetOneProduct = createAsyncThunk(
 
 export const fetchUpdateProduct = createAsyncThunk(
   'partners/fetchUpdateProduct',
-  async ({ itemNo, body }, { rejectWithValue }) => {
+  async ({ itemId, body }, { rejectWithValue }) => {
     try {
-      const { data } = await instance.put(`/partners/${itemNo}`, body);
+      const { data } = await instance.put(`/products/${itemId}`, body);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -73,11 +74,17 @@ const initialState = {
   allProductsNames: [],
   loading: false,
   error: null,
+  editProduct: {},
 };
 
 const productsSlice = createSlice({
   name: 'products',
   initialState,
+  redusers: {
+    setEditProduct(state, action) {
+      state.editProduct = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTopProducts.pending, setLoading)
@@ -112,5 +119,7 @@ const productsSlice = createSlice({
       });
   },
 });
+
+export const { setEditProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -7,6 +7,7 @@ import { Card, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router';
 import {
   card,
   topBtnsWrapper,
@@ -19,25 +20,28 @@ import PartnerEditForm from '../forms/EditPartnerForm/EditPartnerForm';
 import { fetchUpdatePartner } from '../../redux/slices/partnersSlice';
 import { fetchUpdateProduct } from '../../redux/slices/productsSlice';
 import AddEditProductForm from '../forms/AddEditProductPage/AddEditProductForm';
+import useGetAPI from '../../customHooks/useGetAPI';
 
-const ItemsEditor = ({ type, isNewItem }) => {
+const ItemsEditorCopy = ({ type, isNewItem }) => {
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
 
-  const item = useSelector((state) => {
-    return type === 'partner' ? state.partners.currentEditingPartner : state.products.oneProduct;
-  });
+  const { itemNo } = useParams();
+  const [dish] = useGetAPI(`/products/${itemNo}`);
+
+  const { customId } = useParams();
+  const [partner] = useGetAPI(`/partner/${customId}`);
 
   const handleDisable = async () => {
     if (type === 'partner') {
-      dispatch(fetchUpdatePartner({ customId: item.customId, body: { enabled: !item.enabled } }));
+      dispatch(fetchUpdatePartner({ customId: dish.customId, body: { enabled: !dish.enabled } }));
     } else {
-      dispatch(fetchUpdateProduct({ itemId: item._id, body: { enabled: !item.enabled } }));
+      dispatch(fetchUpdateProduct({ itemNo: dish.itemNo, body: { enabled: !dish.enabled } }));
     }
   };
 
   return (
-    <Card sx={getCardStyles(item)}>
+    <Card sx={getCardStyles(dish)}>
       {!isNewItem && (
       <CardActions sx={topBtnsWrapper}>
         <Button
@@ -46,9 +50,9 @@ const ItemsEditor = ({ type, isNewItem }) => {
           size="small"
           onClick={handleDisable}
           disabled={isEditing}
-          sx={{ ...toggleDisableBtn, ...(item?.enabled ? disableBtn : activateBtn) }}
+          sx={{ ...toggleDisableBtn, ...(dish?.enabled ? disableBtn : activateBtn) }}
         >
-          {item.enabled ? 'Disable' : 'Activate'}
+          {dish.enabled ? 'Disable' : 'Activate'}
         </Button>
         <IconButton
           sx={{
@@ -64,43 +68,24 @@ const ItemsEditor = ({ type, isNewItem }) => {
         </IconButton>
       </CardActions>
       )}
-      {type === 'partner' ? (
-        <PartnerEditForm
-          isNewItem={isNewItem}
-          partner={isNewItem ? null : item}
-          isEditing={isNewItem ? true : isEditing}
-          setIsEditing={isNewItem ? undefined : setIsEditing}
-        />
-      ) : (
+      {type === 'partner' ? null : (
         <AddEditProductForm
-          isNewItem={isNewItem}
-          dish={isNewItem ? null : item}
+          item={dish}
           isEditing={isNewItem ? true : isEditing}
           setIsEditing={isNewItem ? undefined : setIsEditing}
         />
-      )}
-      {!isEditing && type === 'partner' && !isNewItem && (
-        <CardActions sx={{ justifyContent: 'flex-end',
-          p: '0',
-          mt: {
-            mobile: '20px',
-            desktop: '10px',
-          } }}
-        >
-          <Button type="button" variant="outlined" size="small" sx={showDishesBtn}>Show dishes</Button>
-        </CardActions>
       )}
     </Card>
   );
 };
 
-ItemsEditor.propTypes = {
-  type: PropTypes.oneOf(['dish', 'partner']).isRequired,
+ItemsEditorCopy.propTypes = {
+  type: PropTypes.oneOf(['product', 'partner']).isRequired,
   isNewItem: PropTypes.bool,
 };
 
-ItemsEditor.defaultProps = {
+ItemsEditorCopy.defaultProps = {
   isNewItem: false,
 };
 
-export default memo(ItemsEditor);
+export default memo(ItemsEditorCopy);

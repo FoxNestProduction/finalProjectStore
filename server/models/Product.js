@@ -27,17 +27,6 @@ const ProductSchema = new Schema(
       type: String,
       required: false
     },
-    imageUrls: [
-      {
-        type: String,
-        required: false
-      }
-    ],
-    quantity: {
-      type: Number,
-      required: false,
-      default: 0
-    },
     productUrl: {
       type: String
     },
@@ -47,15 +36,19 @@ const ProductSchema = new Schema(
     },
     rating: {
       type: Number,
+      default: 3,
     },
     isSupreme: {
       type: Boolean,
+      default: false,
     },
     isTrending: {
       type: Boolean,
+      default: false,
     },
     isHealthy: {
       type: Boolean,
+      default: false,
     },
     filterCategories: {
       type: String
