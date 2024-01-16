@@ -32,6 +32,7 @@ export const infoWrapper = {
 };
 
 export const cardImgWrapper = {
+  position: 'relative',
   width: '100%',
   borderRadius: '16px',
   overflow: 'hidden',
@@ -59,6 +60,16 @@ export const dishCardImg = {
   },
   m: '0 auto',
   borderRadius: '16px',
+};
+
+export const editIconBtn = {
+  position: 'absolute',
+  top: '15px',
+  right: '15px',
+  bgcolor: 'background.footer',
+  '&:hover': {
+    bgcolor: 'background.iconHover',
+  },
 };
 
 export const formWrapper = {

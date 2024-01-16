@@ -56,6 +56,9 @@ const ItemsEditor = ({ type, isNewItem }) => {
             '&.Mui-disabled': {
               bgcolor: 'scrollbar.track',
             },
+            '&:hover': {
+              bgcolor: 'background.iconHover',
+            },
           }}
           onClick={() => { setIsEditing(true); }}
           disabled={isEditing}

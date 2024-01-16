@@ -1,8 +1,9 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { Formik, Form } from 'formik';
 import { Box, Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
 import getValidationSchema from './validationSchema';
 import {
   cardImgWrapper,
@@ -13,11 +14,12 @@ import {
   btn,
   btnsWrapper,
   input,
-  inputsWrapper,
+  inputsWrapper, editIconBtn,
 } from './styles';
 import Input from '../../../components/inputs/Input/Input';
 import { DESCRIPTION } from '../../constants';
 import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
+import EditIcon from '../../../assets/svgComponents/EditIcon';
 
 const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   const description = partner?.description || null;
@@ -42,6 +44,38 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
     ...descriptionInitialValues,
   };
 
+  // ------- upload img to cloudinary functionality -------
+  const [imageUrl, setImageUrl] = useState('');
+
+  const cloudName = 'dvtjgmpnr';
+  const uploadPreset = 'nggr2j5w';
+  const uwConfig = {
+    cloudName,
+    uploadPreset,
+    folder: 'EatlyProject/restaurants',
+  };
+
+  const handleOpenWidget = () => {
+    // eslint-disable-next-line no-undef
+    const myWidget = cloudinary.createUploadWidget(
+      uwConfig,
+      (error, result) => {
+        if (!error && result && result.event === 'success') {
+          setImageUrl(result.info.secure_url);
+        }
+      },
+    );
+    myWidget.open();
+  };
+
+  // ------- editing by double click on inputs -------
+  const handleInputDoubleClick = (e) => {
+    if (e.detail === 2) {
+      setIsEditing(true);
+      e.target.focus();
+    }
+  };
+
   const handleSubmit = async (values) => {
     console.log(values);
     const { name, address } = values;
@@ -59,19 +93,11 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
       description: {
         ...descriptionInDiffLangs,
       },
+      imageUrl: imageUrl || partner.imageUrl,
+      // enabled: !!partner?.enabled,
+      enabled: partner ? partner.enabled : false,
     };
     console.log(body);
-  };
-
-  const handleInputDoubleClick = (e) => {
-    if (e.detail === 2) {
-      setIsEditing(true);
-      e.target.focus();
-    }
-  };
-
-  const handleClearInputs = () => {
-
   };
 
   return (
@@ -79,10 +105,17 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
       <Box sx={cardImgWrapper}>
         <CardMedia
           component="img"
-          src={partner ? partner.imageUrl : '/img/admin/addImgPlug.png'}
+          // src={partner ? partner.imageUrl : '/img/admin/addImgPlug.png'}
+          src={partner ? partner.imageUrl : (imageUrl || '/img/admin/addImgPlug.png')}
           alt={partner ? partner.name : 'add new image'}
           sx={partnerCardImg}
         />
+        <IconButton
+          sx={editIconBtn}
+          onClick={() => handleOpenWidget()}
+        >
+          <EditIcon />
+        </IconButton>
       </Box>
       <Box sx={formWrapper}>
         <Formik
@@ -154,7 +187,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                     variant="contained"
                     sx={{ ...btn, ...containedBtnStyles }}
                     disableRipple
-                    disabled={!isValid}
+                    disabled={!isValid && !imageUrl}
                   >
                     Save
                   </Button>
