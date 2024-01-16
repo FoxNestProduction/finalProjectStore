@@ -19,8 +19,8 @@ import Input from '../../../components/inputs/Input/Input';
 import { DESCRIPTION } from '../../constants';
 import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
-const EditPartnerForm = ({ partner, isNewItem, isEditing, setIsEditing }) => {
-  const description = isNewItem ? null : partner.description;
+const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
+  const description = partner?.description || null;
 
   const descriptionsObj = useMemo(() => {
     return description || { ua: '', pl: '', en: '' };
@@ -37,8 +37,8 @@ const EditPartnerForm = ({ partner, isNewItem, isEditing, setIsEditing }) => {
   const descriptionInitialValues = Object.fromEntries(descriptionArr);
 
   const initialValues = {
-    name: isNewItem ? '' : partner.name,
-    address: isNewItem ? '' : partner.address,
+    name: partner ? partner.name : '',
+    address: partner ? partner.address : '',
     ...descriptionInitialValues,
   };
 
@@ -70,13 +70,17 @@ const EditPartnerForm = ({ partner, isNewItem, isEditing, setIsEditing }) => {
     }
   };
 
+  const handleClearInputs = () => {
+
+  };
+
   return (
     <Box sx={infoWrapper}>
       <Box sx={cardImgWrapper}>
         <CardMedia
           component="img"
-          src={isNewItem ? '/img/admin/addImgPlug.png' : partner.imageUrl}
-          alt={isNewItem ? 'add new image' : partner.name}
+          src={partner ? partner.imageUrl : '/img/admin/addImgPlug.png'}
+          alt={partner ? partner.name : 'add new image'}
           sx={partnerCardImg}
         />
       </Box>
@@ -86,7 +90,7 @@ const EditPartnerForm = ({ partner, isNewItem, isEditing, setIsEditing }) => {
           onSubmit={handleSubmit}
           validationSchema={getValidationSchema(partnerValidationNames)}
         >
-          {({ isValid }) => (
+          {({ isValid, resetForm, initialValues: defaultValues }) => (
             <Form>
               <Box sx={{
                 display: 'flex',
@@ -138,9 +142,12 @@ const EditPartnerForm = ({ partner, isNewItem, isEditing, setIsEditing }) => {
                     variant="outlined"
                     sx={{ ...btn, ...outlinedBtnStyles }}
                     disableRipple
-                    onClick={() => { setIsEditing(false); }}
+                    onClick={() => {
+                      resetForm({ values: defaultValues });
+                      if (partner) setIsEditing(false);
+                    }}
                   >
-                    Cancel
+                    {partner ? 'Cancel' : 'Clear'}
                   </Button>
                   <Button
                     type="submit"
@@ -162,18 +169,16 @@ const EditPartnerForm = ({ partner, isNewItem, isEditing, setIsEditing }) => {
   );
 };
 
-EditPartnerForm.propTypes = {
+AddEditPartnerForm.propTypes = {
   partner: PropTypes.object,
-  isNewItem: PropTypes.bool,
   isEditing: PropTypes.bool,
   setIsEditing: PropTypes.func,
 };
 
-EditPartnerForm.defaultProps = {
+AddEditPartnerForm.defaultProps = {
   partner: {},
-  isNewItem: false,
   isEditing: false,
   setIsEditing: () => {},
 };
 
-export default memo(EditPartnerForm);
+export default memo(AddEditPartnerForm);

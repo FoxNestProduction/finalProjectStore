@@ -83,6 +83,15 @@ export const activateBtn = {
   },
 };
 
+export const showDishesBtnWrapper = {
+  justifyContent: 'flex-end',
+  p: '0',
+  mt: {
+    mobile: '20px',
+    desktop: '10px',
+  },
+};
+
 export const showDishesBtn = {
   ...outlinedBtnStyles,
   p: '10px 16px',

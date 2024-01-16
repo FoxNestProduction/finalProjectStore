@@ -18,9 +18,9 @@ import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
 import PaymentForm from './components/forms/PaymentForm/PaymentForm';
 import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
 import NotFound from './pages/NotFound/NotFound';
-import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
-import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
 import AddEditDishPage from './adminPanelComponents/pages/AddEditDishPage/AddEditDishPage';
+import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
+import AddPartnerPage from './adminPanelComponents/pages/AddEditPartnerPage/AddPartnerPage';
 
 const AppRoutes = () => {
   return (

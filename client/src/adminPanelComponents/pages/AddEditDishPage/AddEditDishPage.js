@@ -27,7 +27,7 @@ const AddEditDishPage = () => {
   return (
     <Container sx={mainContainer}>
       <Typography variant="h2" component="h1" sx={mainTitle}>
-        {oneProduct ? oneProduct.name : 'Add new dish'}
+        {itemNo && oneProduct ? oneProduct.name : 'Add new dish'}
       </Typography>
       {loading ? (<Typography>Loading...</Typography>) : oneProduct && (<ItemsEditor type="dish" isNewItem={!itemNo && true} />)}
     </Container>

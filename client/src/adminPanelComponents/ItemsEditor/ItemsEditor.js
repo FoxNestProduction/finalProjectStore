@@ -12,13 +12,13 @@ import {
   topBtnsWrapper,
   toggleDisableBtn,
   disableBtn,
-  activateBtn, showDishesBtn, getCardStyles,
+  activateBtn, showDishesBtn, getCardStyles, showDishesBtnWrapper,
 } from './styles';
 import EditIcon from '../../assets/svgComponents/EditIcon';
-import PartnerEditForm from '../forms/EditPartnerForm/EditPartnerForm';
+import AddEditPartnerForm from '../forms/AddEditPartnerForm/AddEditPartnerForm';
 import { fetchUpdatePartner } from '../../redux/slices/partnersSlice';
 import { fetchUpdateProduct } from '../../redux/slices/productsSlice';
-import AddEditProductForm from '../forms/AddEditProductPage/AddEditProductForm';
+import AddEditProductForm from '../forms/AddEditProductForm/AddEditProductForm';
 
 const ItemsEditor = ({ type, isNewItem }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -65,28 +65,20 @@ const ItemsEditor = ({ type, isNewItem }) => {
       </CardActions>
       )}
       {type === 'partner' ? (
-        <PartnerEditForm
-          isNewItem={isNewItem}
+        <AddEditPartnerForm
           partner={isNewItem ? null : item}
           isEditing={isNewItem ? true : isEditing}
-          setIsEditing={isNewItem ? undefined : setIsEditing}
+          setIsEditing={setIsEditing}
         />
       ) : (
         <AddEditProductForm
-          isNewItem={isNewItem}
           dish={isNewItem ? null : item}
           isEditing={isNewItem ? true : isEditing}
-          setIsEditing={isNewItem ? undefined : setIsEditing}
+          setIsEditing={setIsEditing}
         />
       )}
       {!isEditing && type === 'partner' && !isNewItem && (
-        <CardActions sx={{ justifyContent: 'flex-end',
-          p: '0',
-          mt: {
-            mobile: '20px',
-            desktop: '10px',
-          } }}
-        >
+        <CardActions sx={showDishesBtnWrapper}>
           <Button type="button" variant="outlined" size="small" sx={showDishesBtn}>Show dishes</Button>
         </CardActions>
       )}

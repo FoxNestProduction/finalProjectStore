@@ -16,10 +16,10 @@ import {
   activateBtn, showDishesBtn, getCardStyles,
 } from './styles';
 import EditIcon from '../../assets/svgComponents/EditIcon';
-import PartnerEditForm from '../forms/EditPartnerForm/EditPartnerForm';
+import PartnerEditForm from '../forms/AddEditPartnerForm/AddEditPartnerForm';
 import { fetchUpdatePartner } from '../../redux/slices/partnersSlice';
 import { fetchUpdateProduct } from '../../redux/slices/productsSlice';
-import AddEditProductForm from '../forms/AddEditProductPage/AddEditProductForm';
+import AddEditProductForm from '../forms/AddEditProductForm/AddEditProductForm';
 import useGetAPI from '../../customHooks/useGetAPI';
 
 const ItemsEditorCopy = ({ type, isNewItem }) => {

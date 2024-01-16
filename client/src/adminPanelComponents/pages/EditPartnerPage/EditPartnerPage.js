@@ -24,7 +24,7 @@ const EditPartnerPage = () => {
   return (
     <Container sx={mainContainer}>
       <Typography variant="h2" component="h1" sx={mainTitle}>
-        Partner
+        {partner?.name}
       </Typography>
       {partnerLoading
         ? (<Typography>Loading...</Typography>)

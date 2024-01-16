@@ -34,10 +34,10 @@ import { mainContainer } from '../../pages/commonStyles';
 import { topBtnsWrapper, toggleDisableBtn, disableBtn, activateBtn } from '../../ItemsEditor/styles';
 import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
-import { input } from '../EditPartnerForm/styles';
+import { input } from '../AddEditPartnerForm/styles';
 import { DESCRIPTION } from '../../constants';
 
-const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
+const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
   const [restaurant, setRestaurant] = useState('');
   const [foodCategory, setFoodCategory] = useState('');
   const [checkedList, setCheckedList] = useState({
@@ -351,14 +351,12 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
 
 AddEditProductForm.propTypes = {
   dish: PropTypes.object,
-  isNewItem: PropTypes.bool,
   isEditing: PropTypes.bool,
   setIsEditing: PropTypes.func,
 };
 
 AddEditProductForm.defaultProps = {
   dish: {},
-  isNewItem: false,
   isEditing: false,
   setIsEditing: () => {},
 };

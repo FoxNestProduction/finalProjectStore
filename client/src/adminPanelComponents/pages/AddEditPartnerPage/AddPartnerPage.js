@@ -10,7 +10,7 @@ const AddPartnerPage = () => {
   return (
     <Container sx={mainContainer}>
       <Typography variant="h2" component="h1" sx={mainTitle}>
-        New Partner
+        Add New Partner
       </Typography>
       <ItemsEditor type="partner" isNewItem />
     </Container>
