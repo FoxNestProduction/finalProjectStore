@@ -7,7 +7,7 @@ import {
   mainTitle,
 } from '../commonStyles';
 // import ItemsEditorCopy from '../../ItemsEditor/ItemsEditorСopy';
-import ItemsEditor from '../../ItemsEditor/ItemsEditor';
+import ItemsEditor from '../../components/ItemsEditor/ItemsEditor';
 import { fetchGetOneProduct } from '../../../redux/slices/productsSlice';
 
 const AddEditDishPage = () => {

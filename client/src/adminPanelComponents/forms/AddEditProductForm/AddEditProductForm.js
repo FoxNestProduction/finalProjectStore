@@ -31,7 +31,7 @@ import validationSchema from './validationSchema';
 import { flexCenter, title, imgContainer, imgEditBtn, submitBtn } from './styles';
 import { instance } from '../../../API/instance';
 import { mainContainer } from '../../pages/commonStyles';
-import { topBtnsWrapper, toggleDisableBtn, disableBtn, activateBtn } from '../../ItemsEditor/styles';
+import { topBtnsWrapper, toggleDisableBtn, disableBtn, activateBtn } from '../../components/ItemsEditor/styles';
 import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 import { input } from '../AddEditPartnerForm/styles';
@@ -76,10 +76,6 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
 
   const navigate = useNavigate();
 
-  const handleDisable = async () => {
-    dispatch(fetchUpdateProduct({ itemNo: dish.itemNo, body: { enabled: !dish.enabled } }));
-  };
-
   useEffect(() => {
     if (dish) {
       setRestaurant(dish.restaurant_name);
@@ -92,7 +88,7 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
     }
   }, [dish]);
 
-  const description = useMemo(() => (dish?.description || { ua: '', pl: '', en: '' }), [dish]);
+  const description = useMemo(() => (dish?.description || { uk: '', pl: '', en: '' }), [dish]);
 
   const partnerValidationNames = useMemo(() => {
     return Object.entries(description).map(([lang]) => `${DESCRIPTION}${lang}`);

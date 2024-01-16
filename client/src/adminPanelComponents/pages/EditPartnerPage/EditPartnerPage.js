@@ -6,7 +6,7 @@ import {
   mainContainer,
   mainTitle,
 } from '../commonStyles';
-import ItemsEditor from '../../ItemsEditor/ItemsEditor';
+import ItemsEditor from '../../components/ItemsEditor/ItemsEditor';
 import useGetAPI from '../../../customHooks/useGetAPI';
 import { fetchGetPartner } from '../../../redux/slices/partnersSlice';
 

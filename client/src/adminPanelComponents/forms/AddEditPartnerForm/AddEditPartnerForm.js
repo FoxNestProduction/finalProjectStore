@@ -22,26 +22,22 @@ import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttons
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 
 const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
-  const description = partner?.description || null;
-
-  const descriptionsObj = useMemo(() => {
-    return description || { ua: '', pl: '', en: '' };
-  }, [description]);
+  /* ----- dynamic creation of textareas for description depending on
+           the quantity of languages available */
+  const description = useMemo(() => partner?.description || { uk: '', pl: '', en: '' }, [partner]);
 
   const partnerValidationNames = useMemo(() => {
-    return Object.entries(descriptionsObj).map(([lang]) => `${DESCRIPTION}${lang}`);
-  }, [descriptionsObj]);
+    return Object.entries(description).map(([lang]) => `${DESCRIPTION}${lang}`);
+  }, [description]);
 
-  const descriptionArr = useMemo(() => (Object.entries(descriptionsObj).map(([lang, value]) => {
+  const descriptionArr = useMemo(() => (Object.entries(description).map(([lang, value]) => {
     return [`${DESCRIPTION}${lang}`, value];
-  })), [descriptionsObj]);
-
-  const descriptionInitialValues = Object.fromEntries(descriptionArr);
+  })), [description]);
 
   const initialValues = {
     name: partner ? partner.name : '',
     address: partner ? partner.address : '',
-    ...descriptionInitialValues,
+    ...Object.fromEntries(descriptionArr),
   };
 
   // ------- upload img to cloudinary functionality -------
@@ -153,7 +149,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                     readOnly={!isEditing}
                     onClick={handleInputDoubleClick}
                   />
-                  {Object.keys(descriptionsObj).map((lang) => (
+                  {Object.keys(description).map((lang) => (
                     <Input
                       key={lang}
                       name={`${DESCRIPTION}${lang}`}
