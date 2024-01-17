@@ -10,6 +10,7 @@ import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutli
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
+import { useNavigate } from 'react-router';
 import getValidationSchema from './validationSchema';
 import {
   cardImgWrapper,
@@ -31,6 +32,7 @@ import { paymentRadioBtn, paymentWrapper } from '../../../components/forms/Check
 
 const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   /* ----- dynamic creation of textareas for description depending on
            the quantity of languages available */
@@ -111,13 +113,17 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
     };
     console.log('body', body);
 
-    try {
+    if (!partner) {
       const data = await dispatch(fetchAddNewPartner(body)).unwrap();
-      if (data.success) console.log(data);
-    } catch (err) {
-      console.log(err);
+      if (data.success) {
+        console.log(data);
+        // TODO: alert 'Partner was successfully added'
+        navigate(`/admin-panel/partners/${data.partner.customId}`);
+      }
+    } else {
+      dispatch(fetchUpdatePartner({ customId: partner.customId, body }));
+      // TODO: alert 'Changes accepted'
     }
-    // dispatch(fetchUpdatePartner({ customId: partner.customId, body }));
   };
 
   return (
