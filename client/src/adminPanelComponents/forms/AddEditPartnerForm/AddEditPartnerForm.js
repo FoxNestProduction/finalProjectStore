@@ -1,10 +1,15 @@
 import React, { memo, useMemo, useState } from 'react';
-import { Formik, Form } from 'formik';
-import { Box, Button, Typography } from '@mui/material';
+import { Formik, Form, Field } from 'formik';
+import { Box, Button, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import { useDispatch } from 'react-redux';
+import RadioButtonUncheckedOutlinedIcon from '@mui/icons-material/RadioButtonUncheckedOutlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import FormControl from '@mui/material/FormControl';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
 import getValidationSchema from './validationSchema';
 import {
   cardImgWrapper,
@@ -15,13 +20,14 @@ import {
   btn,
   btnsWrapper,
   input,
-  inputsWrapper, editIconBtn,
+  inputsWrapper, editIconBtn, badge,
 } from './styles';
 import Input from '../../../components/inputs/Input/Input';
 import { DESCRIPTION } from '../../constants';
 import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 import { fetchUpdatePartner } from '../../../redux/slices/partnersSlice';
+import { paymentRadioBtn, paymentWrapper } from '../../../components/forms/CheckoutForm/styles';
 
 const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   const dispatch = useDispatch();
@@ -38,10 +44,15 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
     return [`${DESCRIPTION}${lang}`, value];
   })), [description]);
 
+  console.log(partner);
+
   const initialValues = {
-    name: partner ? partner.name : '',
-    address: partner ? partner.address : '',
+    name: partner?.name ?? '',
+    address: partner?.address ?? '',
     ...Object.fromEntries(descriptionArr),
+    isTrending: partner?.isTrending ?? false,
+    isHealthy: partner?.isHealthy ?? false,
+    isSupreme: partner?.isSupreme ?? false,
   };
 
   // ------- upload img to cloudinary functionality -------
@@ -77,26 +88,28 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
-    const { name, address } = values;
+    console.log('values', values);
 
     const descriptionInDiffLangs = {};
+    const otherValues = {};
+
     Object.keys(values).forEach((key) => {
       if (key.startsWith(DESCRIPTION)) {
         const lang = key.replace(DESCRIPTION, '').toLowerCase();
         descriptionInDiffLangs[lang] = values[key].trim();
+      } else {
+        otherValues[key] = values[key];
       }
     });
     const body = {
-      name,
-      address,
       description: {
         ...descriptionInDiffLangs,
       },
+      ...otherValues,
       imageUrl: imageUrl || partner.imageUrl,
       enabled: partner?.enabled ?? false,
     };
-    console.log(body);
+    console.log('body', body);
     dispatch(fetchUpdatePartner({ customId: partner.customId, body }));
   };
 
@@ -168,6 +181,61 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                       readOnly={!isEditing}
                     />
                   ))}
+
+                  <Field type="checkbox" name="isTrending">
+                    {({ field }) => (
+                      <FormControlLabel
+                        control={(
+                          <Checkbox
+                            {...field}
+                            icon={<RadioButtonUncheckedOutlinedIcon />}
+                            checkedIcon={<CheckCircleOutlineOutlinedIcon />}
+                            disabled={!isEditing}
+                          />
+                            )}
+                        label="Trending"
+                        labelPlacement="start"
+                        sx={badge}
+                      />
+                    )}
+                  </Field>
+
+                  <Field type="checkbox" name="isHealthy">
+                    {({ field }) => (
+                      <FormControlLabel
+                        control={(
+                          <Checkbox
+                            {...field}
+                            icon={<RadioButtonUncheckedOutlinedIcon />}
+                            checkedIcon={<CheckCircleOutlineOutlinedIcon />}
+                            disabled={!isEditing}
+                          />
+                            )}
+                        label="Healthy"
+                        labelPlacement="start"
+                        sx={badge}
+                      />
+                    )}
+                  </Field>
+
+                  <Field type="checkbox" name="isSupreme">
+                    {({ field }) => (
+                      <FormControlLabel
+                        control={(
+                          <Checkbox
+                            {...field}
+                            icon={<RadioButtonUncheckedOutlinedIcon />}
+                            checkedIcon={<CheckCircleOutlineOutlinedIcon />}
+                            disabled={!isEditing}
+                          />
+                            )}
+                        label="Supreme"
+                        labelPlacement="start"
+                        sx={badge}
+                      />
+                    )}
+                  </Field>
+
                 </Box>
                 {isEditing && (
                 <Box sx={btnsWrapper}>

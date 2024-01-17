@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CardActions from '@mui/material/CardActions';
 import { Card } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -15,7 +15,6 @@ import DisableBtn from '../DisableBtn/DisableBtn';
 
 const ItemsEditor = ({ type, isNewItem }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const dispatch = useDispatch();
 
   const item = useSelector((state) => {
     return type === 'partner' ? state.partners.currentEditingPartner : state.products.oneProduct;

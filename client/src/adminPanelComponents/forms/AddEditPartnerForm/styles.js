@@ -117,3 +117,20 @@ export const btn = {
   width: '100%',
   maxWidth: '190px',
 };
+
+export const badge = {
+  width: '100%',
+  pr: '10px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  '& .MuiFormControlLabel-label.Mui-disabled': {
+    color: 'rgba(43, 43, 43, 1);',
+  },
+  '& .Mui-disabled': {
+    color: 'rgba(0, 0, 0, 0.38);',
+  },
+  '& .MuiTypography-root': {
+    fontSize: '18px',
+    fontWeight: 'fontWeightMedium',
+  },
+};

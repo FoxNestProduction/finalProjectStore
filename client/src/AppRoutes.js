@@ -49,11 +49,17 @@ const AppRoutes = () => {
         {/* сторінка усіх ресторанів */}
         <Route path="/admin-panel/partners" element={<Box />} />
 
-        {/* сторінка редагування ресторану /admin-panel/partners/17001 */}
+        {/* створення нового ресторану */}
+        <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />
+
+        {/* редагування ресторану /admin-panel/partners/17001 */}
         <Route path="/admin-panel/partners/:customId" element={<EditPartnerPage />} />
 
-        {/* сторінка створення нового ресторану */}
-        <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />
+        {/* редагування блюда конкретного ресторану /admin-panel/partners/17001/dishes/10001 */}
+        <Route path="/admin-panel/partners/:customId/dishes/:itemNo" element={<AddEditDishPage />} />
+
+        {/* створення нового блюда конкретного ресторану */}
+        <Route path="/admin-panel/partners/:customId/dishes/new-dish" element={<AddEditDishPage />} />
 
         <Route path="*" element={<NotFound />} />
       </Route>
