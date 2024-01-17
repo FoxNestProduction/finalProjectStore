@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
+import { useTranslation } from 'react-i18next';
+import { Box } from '@mui/material';
 import PublicLayout from './components/Layout/PublicLayout';
 import ContactPage from './pages/Contact/Contact';
 import HomePage from './pages/Home/Home';
