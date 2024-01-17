@@ -4,6 +4,7 @@ import { Box, Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
+import { useDispatch } from 'react-redux';
 import getValidationSchema from './validationSchema';
 import {
   cardImgWrapper,
@@ -20,8 +21,11 @@ import Input from '../../../components/inputs/Input/Input';
 import { DESCRIPTION } from '../../constants';
 import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
+import { fetchUpdatePartner } from '../../../redux/slices/partnersSlice';
 
 const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
+  const dispatch = useDispatch();
+
   /* ----- dynamic creation of textareas for description depending on
            the quantity of languages available */
   const description = useMemo(() => partner?.description || { uk: '', pl: '', en: '' }, [partner]);
@@ -41,7 +45,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   };
 
   // ------- upload img to cloudinary functionality -------
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState(() => partner?.imageUrl || '');
 
   const cloudName = 'dvtjgmpnr';
   const uploadPreset = 'nggr2j5w';
@@ -64,7 +68,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
     myWidget.open();
   };
 
-  // ------- editing by double click on inputs -------
+  // ------- open editing by double click on inputs -------
   const handleInputDoubleClick = (e) => {
     if (e.detail === 2) {
       setIsEditing(true);
@@ -90,10 +94,10 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
         ...descriptionInDiffLangs,
       },
       imageUrl: imageUrl || partner.imageUrl,
-      // enabled: !!partner?.enabled,
-      enabled: partner ? partner.enabled : false,
+      enabled: partner?.enabled ?? false,
     };
     console.log(body);
+    dispatch(fetchUpdatePartner({ customId: partner.customId, body }));
   };
 
   return (
@@ -101,17 +105,18 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
       <Box sx={cardImgWrapper}>
         <CardMedia
           component="img"
-          // src={partner ? partner.imageUrl : '/img/admin/addImgPlug.png'}
-          src={partner ? partner.imageUrl : (imageUrl || '/img/admin/addImgPlug.png')}
+          src={imageUrl || '/img/admin/addImgPlug.png'}
           alt={partner ? partner.name : 'add new image'}
           sx={partnerCardImg}
         />
+        {isEditing && (
         <IconButton
           sx={editIconBtn}
           onClick={() => handleOpenWidget()}
         >
           <EditIcon />
         </IconButton>
+        )}
       </Box>
       <Box sx={formWrapper}>
         <Formik
@@ -173,6 +178,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                     disableRipple
                     onClick={() => {
                       resetForm({ values: defaultValues });
+                      setImageUrl(partner?.imageUrl || '');
                       if (partner) setIsEditing(false);
                     }}
                   >
@@ -183,7 +189,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                     variant="contained"
                     sx={{ ...btn, ...containedBtnStyles }}
                     disableRipple
-                    disabled={!isValid && !imageUrl}
+                    disabled={!isValid || !imageUrl}
                   >
                     Save
                   </Button>
