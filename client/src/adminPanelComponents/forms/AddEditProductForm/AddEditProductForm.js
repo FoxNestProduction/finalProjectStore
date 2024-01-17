@@ -31,7 +31,7 @@ import validationSchema from './validationSchema';
 import { flexCenter, title, imgContainer, imgEditBtn, submitBtn } from './styles';
 import { instance } from '../../../API/instance';
 import { mainContainer } from '../../pages/commonStyles';
-import { topBtnsWrapper, toggleDisableBtn, disableBtn, activateBtn } from '../../components/ItemsEditor/styles';
+import { topBtnsWrapper } from '../../components/ItemsEditor/styles';
 import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 import { input } from '../AddEditPartnerForm/styles';
