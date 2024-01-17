@@ -4,26 +4,48 @@ const _ = require("lodash");
 const filterParser = require("../commonHelpers/filterParser");
 const Product = require("../models/Product");
 
-exports.addPartner = (req, res, next) => {
-  Partner.findOne({ customId: req.body.customId }).then(partner => {
-    if (partner) {
-      return res.status(400).json({
-        message: `Partner with customId "${partner.customId}" already exists`
-      });
-    } else {
-      const data = _.cloneDeep(req.body);
-      const newPartner = new Partner(queryCreator(data));
+exports.addPartner = async (req, res) => {
+    const data = _.cloneDeep(req.body);
+    try {
+        // Отримання останнього customId
+        const lastPartner = await Partner.findOne({}, {}, { sort: { 'customId': -1 } });
 
-      newPartner
-        .save()
-        .then(partner => res.status(200).json(partner))
-        .catch(err =>
-          res.status(400).json({
-            message: `Error happened on server: "${err}" `
-          })
-        );
+        // Отримання нового customId, якщо партнерів немає
+        const newCustomId = lastPartner ? +lastPartner.customId + 1 : 17001;
+
+        // Створення нового партнера з новим customId
+        const newPartner = new Partner(queryCreator({
+            ...data,
+            customId: newCustomId,
+        }));
+
+        await newPartner.save();
+        res.status(200).json({ success: true, partner: newPartner });
+    } catch (error) {
+        res.status(400).json({ success: false, message: `Error happened on server: "${err}" ` });
     }
-  });
+
+// ----- СТАРИЙ ВАРІАНТ -----
+
+  // Partner.findOne({ customId: req.body.customId }).then(partner => {
+  //   if (partner) {
+  //     return res.status(400).json({
+  //       message: `Partner with customId "${partner.customId}" already exists`
+  //     });
+  //   } else {
+  // const data = _.cloneDeep(req.body);
+  // const newPartner = new Partner(queryCreator(data));
+  //
+  // newPartner
+  //     .save()
+  //     .then(partner => res.status(200).json(partner))
+  //     .catch(err =>
+  //         res.status(400).json({
+  //           message: `Error happened on server: "${err}" `
+  //         })
+  //     );
+  // }
+  // });
 };
 
 exports.updatePartner = (req, res, next) => {

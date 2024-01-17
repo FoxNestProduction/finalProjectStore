@@ -26,7 +26,7 @@ import Input from '../../../components/inputs/Input/Input';
 import { DESCRIPTION } from '../../constants';
 import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
-import { fetchUpdatePartner } from '../../../redux/slices/partnersSlice';
+import { fetchAddNewPartner, fetchUpdatePartner } from '../../../redux/slices/partnersSlice';
 import { paymentRadioBtn, paymentWrapper } from '../../../components/forms/CheckoutForm/styles';
 
 const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
@@ -110,7 +110,14 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
       enabled: partner?.enabled ?? false,
     };
     console.log('body', body);
-    dispatch(fetchUpdatePartner({ customId: partner.customId, body }));
+
+    try {
+      const data = await dispatch(fetchAddNewPartner(body)).unwrap();
+      if (data.success) console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+    // dispatch(fetchUpdatePartner({ customId: partner.customId, body }));
   };
 
   return (

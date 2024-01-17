@@ -16,3 +16,15 @@ export const mainTitle = {
     desktop: '40px',
   },
 };
+
+export const errorMessage = {
+  textAlign: 'center',
+  mb: '30px',
+  color: 'text.primary',
+  fontSize: {
+    mobile: '22px',
+    lgTablet: '28px',
+    desktop: '34px',
+  },
+  fontWeight: 'fontWeightRegular',
+};
