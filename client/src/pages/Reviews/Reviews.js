@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef, createRef, memo } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Typography, Button, Box, Container, useMediaQuery } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import useGetAPI from '../../customHooks/useGetAPI';
 import ReviewItem from '../../components/ReviewItem/ReviewItem';
@@ -16,6 +17,7 @@ import Skeleton from '../../components/Skeleton/Skeleton';
 const ReviewsPage = () => {
   const searchReview = useSelector((state) => state.reviews.search);
   const indexSearchReview = useSelector((state) => state.reviews.indexSearch);
+  const { i18n, t } = useTranslation();
   const loadingReviews = 3;
   const counScrollReview = 6 + Math.floor((indexSearchReview - 2) / 3) * 3;
   const [perPage, setPerPage] = useState(!indexSearchReview ? loadingReviews : counScrollReview);
@@ -112,13 +114,13 @@ const ReviewsPage = () => {
   const handleOpenModalReview = () => {
     if (isRendered) {
       dispatch(openModal());
-      dispatch(setTitle('Feedback about the service will help us work even better:'));
+      dispatch(setTitle(t('reviewsPage.titleNewReview')));
       dispatch(setContent(
         <NewReview />,
       ));
       dispatch(resetReviewState());
       dispatch(setButtonAgree({
-        text: 'Send',
+        text: t('reviewsPage.buttonSend'),
         endIcon: true,
         disabled: newReview.content === '',
       }));
@@ -164,10 +166,10 @@ const ReviewsPage = () => {
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Thank you! Your comment is added" />
       )}
       <Box sx={titleContainer}>
-        <Typography variant="h2" sx={{ justifySelf: 'center' }}>Customers Say</Typography>
+        <Typography variant="h2" sx={{ justifySelf: 'center' }}>{t('reviewsPage.title')}</Typography>
         {isUserAuthorized && (
           <Button variant="standard" sx={TitleBtn} onClick={handleOpenModalReview}>
-            {isLgTablet && <Typography mr={1}>Create your own review</Typography>}
+            {isLgTablet && <Typography mr={1}>{t('reviewsPage.buttonCreate')}</Typography>}
             <AddCircleOutlineIcon />
           </Button>
         )}

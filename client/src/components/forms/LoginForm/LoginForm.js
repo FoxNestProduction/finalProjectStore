@@ -5,6 +5,7 @@ import { Formik, Form } from 'formik';
 import { Typography, Box, Button } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
+import { useTranslation } from 'react-i18next';
 import { closeModal, setContent } from '../../../redux/slices/modalSlice';
 import validationSchema from './validationSchema';
 import {
@@ -43,6 +44,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const authError = useSelector((state) => state.error.authorization);
   const { handleShowAlert } = useAlert();
+  const { i18n, t } = useTranslation();
 
   const initialValues = {
     email: '',
@@ -127,7 +129,7 @@ const LoginForm = () => {
       }}
     >
       <Typography variant="h2" component="h1" sx={mainTitle}>
-        Sign In To eatly
+        {t('loginForm.title')}
       </Typography>
       <Box
         sx={{
@@ -154,12 +156,12 @@ const LoginForm = () => {
         </Button> */}
       </Box>
       <Typography variant="body1" sx={legend}>
-        OR
+        {t('loginForm.or')}
       </Typography>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        validationSchema={validationSchema}
+        validationSchema={validationSchema(t)}
       >
         {({ isValid }) => (
           <Form>
@@ -175,7 +177,7 @@ const LoginForm = () => {
                   type="email"
                   name="email"
                   id="loginEmail"
-                  placeholder="Enter your e-mail"
+                  placeholder={t('loginForm.placeholderMail')}
                   label="E-mail"
                   icon={<EmailIcon />}
                 />
@@ -184,8 +186,8 @@ const LoginForm = () => {
                   type="password"
                   name="password"
                   id="loginPassword"
-                  placeholder="Enter your password"
-                  label="Password"
+                  placeholder={t('loginForm.placeholderPassword')}
+                  label={t('loginForm.labelPassword')}
                   icon={<LockIcon />}
                 />
               </Box>
@@ -193,7 +195,8 @@ const LoginForm = () => {
                 sx={forgetPassword}
                 onClick={handleFogetPassword}
               >
-                Forget Password ?
+                {t('loginForm.forgetPassword')}
+                ?
               </Typography>
               <Button
                 disableRipple
@@ -202,7 +205,7 @@ const LoginForm = () => {
                 type="submit"
                 disabled={!isValid}
               >
-                Sign in
+                {t('loginForm.signIn')}
               </Button>
               <Typography
                 variant="body1"
@@ -212,9 +215,10 @@ const LoginForm = () => {
                   width: '100%',
                 }}
               >
-                Create A New Account?
+                {t('loginForm.createNewAccount')}
+                ?
                 <Button onClick={handleOpenSignUpForm} sx={signUpLink}>
-                  Sing Up
+                  {t('loginForm.signUp')}
                 </Button>
               </Typography>
             </Box>

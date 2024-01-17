@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
-import { Box } from '@mui/material';
 import PublicLayout from './components/Layout/PublicLayout';
 import ContactPage from './pages/Contact/Contact';
 import HomePage from './pages/Home/Home';
@@ -23,6 +22,8 @@ import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPa
 import AddPartnerPage from './adminPanelComponents/pages/AddEditPartnerPage/AddPartnerPage';
 
 const AppRoutes = () => {
+  const { i18n, t } = useTranslation();
+
   return (
     <Routes>
       <Route element={<PublicLayout />}>
@@ -34,12 +35,10 @@ const AppRoutes = () => {
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/favourites" element={<Favourites />} />
-        <Route path="/checkout" element={<CheckoutPage titleText="Checkout" formComponent={CheckoutForm} />} />
-        <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
+        <Route path="/checkout" element={<CheckoutPage titleText={t('checkout.checkout')} formComponent={CheckoutForm} />} />
+        <Route path="/checkout/payment" element={<CheckoutPage titleText={t('payment.payment')} formComponent={PaymentForm} />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
-        {/* <Route path="/menu/:productName/:itemNo" element={<ProductPage />} /> */}
-        <Route path="/menu/:productName/:itemNo" element={<AddEditDishPage />} />
-        <Route path="/menu/newProduct" element={<AddEditDishPage />} />
+        <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
         <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
         <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
 

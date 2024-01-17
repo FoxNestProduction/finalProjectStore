@@ -3,6 +3,7 @@ import { Popover, Box, IconButton, Badge, Button, useMediaQuery } from '@mui/mat
 import { shallowEqual, useSelector } from 'react-redux';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import MiniCartItem from '../MiniCartItem/MiniCartItem';
 import {
   stylesBadge,
@@ -14,6 +15,7 @@ import { cartIconCounterFunction } from '../Cart/cartFunctions';
 
 const MiniCart = () => {
   const matches = useMediaQuery('(min-width:690px)');
+  const { i18n, t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
 
@@ -96,7 +98,7 @@ const MiniCart = () => {
           onClick={handleClose}
           sx={goToCartBtn}
         >
-          Go to cart
+          {t('cart.goToCart')}
         </Button>
       </Popover>
     </div>

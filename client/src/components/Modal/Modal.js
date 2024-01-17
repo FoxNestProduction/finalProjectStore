@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
+import { useTranslation } from 'react-i18next';
 
 import {
   closeModal,
@@ -17,6 +18,7 @@ import { setAuthorizationError, setRegistrationError } from '../../redux/slices/
 
 const Modal = () => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const isOpen = useSelector((state) => state.modal.isOpen);
   const title = useSelector((state) => state.modal.title);
@@ -70,7 +72,7 @@ const Modal = () => {
             variant="outlined"
             onClick={handleClose}
           >
-            Close
+            {t('buttonClose')}
           </Button>
           <Button
             role="radio"

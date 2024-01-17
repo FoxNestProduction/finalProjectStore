@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { CircularProgress } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import validationSchema from './validationSchema';
 import {
   mainTitle,
@@ -21,6 +22,7 @@ const ContactForm = () => {
   const [messageReceived, setMessageReceived] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { i18n, t } = useTranslation();
 
   const initialValues = {
     name: '',
@@ -54,7 +56,7 @@ const ContactForm = () => {
   return (
     <Box sx={formWrapper}>
       <Typography variant="h2" component="h1" sx={mainTitle}>
-        Customer Support
+        {t('contactForm.title')}
       </Typography>
       <Formik
         initialValues={initialValues}
@@ -68,8 +70,8 @@ const ContactForm = () => {
                 type="text"
                 name="name"
                 id="contactName"
-                placeholder="Enter your name"
-                label="Name"
+                placeholder={t('contactForm.placeholderName')}
+                label={t('contactForm.labelName')}
                 bgColor="#FFF"
                 onChange={(e) => {
                   handleFieldChange(e, handleChange);
@@ -79,7 +81,7 @@ const ContactForm = () => {
                 type="email"
                 name="email"
                 id="contactEmail"
-                placeholder="Enter your e-mail"
+                placeholder={t('contactForm.placeholderMail')}
                 label="E-mail"
                 bgColor="#FFF"
                 onChange={(e) => {
@@ -88,7 +90,7 @@ const ContactForm = () => {
               />
               <Textarea
                 name="message"
-                placeholder="Enter the problem or query..."
+                placeholder={t('contactForm.placeholderText')}
                 onChange={(e) => {
                   handleFieldChange(e, handleChange);
                 }}
@@ -96,14 +98,12 @@ const ContactForm = () => {
             </Box>
             {messageReceived && (
             <Typography variant="body1" component="p" sx={{ color: 'primary.main', mb: '10px', pl: '5px' }}>
-              Thank you for reaching out!
-              We&apos;ve received your inquiry and will get back to you as soon as possible.
+              {t('contactForm.messageReceived')}
             </Typography>
             )}
             {error && (
               <Typography variant="body1" component="p" sx={{ color: 'text.error', mb: '10px', pl: '5px' }}>
-                Oops...Something went wrong.
-                Try to send your inquiry again.
+                {t('contactForm.error')}
               </Typography>
             )}
             <Box sx={{ textAlign: 'center' }}>
@@ -115,7 +115,7 @@ const ContactForm = () => {
                 disabled={!isValid || loading}
               >
                 {!loading
-                  ? 'Send Now'
+                  ? t('contactForm.submit')
                   : <CircularProgress color="primary" />}
               </Button>
             </Box>

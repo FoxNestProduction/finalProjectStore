@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { useTranslation } from 'react-i18next';
 import Input from '../../inputs/Input/Input';
 import { subtitle, input, paymentSystemsWrapper, imgVisa } from './styles';
 import CheckoutActions from '../CheckoutForm/CheckoutActions';
@@ -23,6 +24,7 @@ import saveUserInfoToSessionStorage from '../../../utils/saveUserInfoToSessionSt
 const PaymentForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
   const user = useSelector((state) => state.user.user, shallowEqual);
@@ -89,13 +91,14 @@ const PaymentForm = () => {
                 component="p"
                 sx={{ userSelect: 'none', color: 'text.primary' }}
               >
-                Credit /
+                {t('payment.credit')}
+                /
                 {' '}
                 <Typography
                   component="span"
                   sx={{ whiteSpace: 'nowrap' }}
                 >
-                  Debit card
+                  {t('payment.debit')}
                 </Typography>
               </Typography>
             </Box>
@@ -123,25 +126,26 @@ const PaymentForm = () => {
                 component="p"
                 sx={{ userSelect: 'none', color: 'text.primary' }}
               >
-                Credit /
+                {t('payment.credit')}
+                /
                 {' '}
                 <Typography
                   component="span"
                   sx={{ whiteSpace: 'nowrap' }}
                 >
-                  Debit card
+                  {t('payment.debit')}
                 </Typography>
               </Typography>
             </Box>
 
             <Typography variant="h3" component="h2" align="left" sx={subtitle}>
-              Add new card
+              {t('payment.addNewCard')}
             </Typography>
 
             <Input
               name="name"
               id="checkout-name"
-              label="Cardholder name*"
+              label={t('payment.labelHolderName')}
               bgColor="#FFF"
               disabled
               styles={input}
@@ -149,7 +153,7 @@ const PaymentForm = () => {
             <Input
               name="cardNumber"
               id="checkout-cardNumber"
-              label="Card number*"
+              label={t('payment.labelNumberCard')}
               bgColor="#FFF"
               disabled
               styles={input}
@@ -158,7 +162,7 @@ const PaymentForm = () => {
               <Input
                 name="expiryDate"
                 id="checkout-expiryDate"
-                label="Expiry date"
+                label={t('payment.labelDateCard')}
                 bgColor="#FFF"
                 disabled
                 styles={input}
@@ -166,7 +170,7 @@ const PaymentForm = () => {
               <Input
                 name="cvv"
                 id="checkout-cvv"
-                label="CVV"
+                label={t('payment.labelCvvCard')}
                 bgColor="#FFF"
                 type="password"
                 disabled
