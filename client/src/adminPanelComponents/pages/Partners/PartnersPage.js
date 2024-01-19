@@ -1,5 +1,5 @@
-import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment, Button } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment, Button, debounce } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ import {
 import useGetAPI from '../../../customHooks/useGetAPI';
 import PartnersCard from '../../PartnersCard/PartnersCard';
 import { outlinedBtnStyles, containedBtnStyles } from '../../../muiTheme/buttonsStyles';
+import { setInputSearchValue, setSearch, fetchSearchedProductsOrPartners } from '../../../redux/slices/searchSlice';
 
 const PartnersPage = () => {
   const dispatch = useDispatch();
@@ -37,8 +38,37 @@ const PartnersPage = () => {
   const itemsFromSearch = useSelector((state) => state.search.search, shallowEqual);
   const allPartnersNames = useSelector((state) => state.partners.allPartnersNames, shallowEqual);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
-  console.log(allPartnersNames);
+  console.log(inputSearchValue);
   console.log(itemsFromSearch);
+
+  const handleInputChange = async (event, newInputValue) => {
+    dispatch(setInputSearchValue(newInputValue));
+  };
+
+  const debounceSearch = useRef(
+    debounce((inputValue) => {
+      if (inputValue.length === 0) {
+        dispatch(setSearch([]));
+      } else {
+        const fetchData = {
+          url: '/partners/search',
+          body: {
+            query: inputValue,
+          },
+        };
+        dispatch(fetchSearchedProductsOrPartners(fetchData));
+        // dispatch(deleteFilteredData());
+        // dispatch(resetFilterParams());
+        // resetFiltersLocalState();
+        navigate('');
+      }
+    }, 1000),
+  );
+
+  useEffect(() => {
+    debounceSearch.current(inputSearchValue);
+  }, [inputSearchValue]); // eslint-disable-line
+
   return (
     <Container
       sx={container}
@@ -56,9 +86,9 @@ const PartnersPage = () => {
               sx={stylesSearch}
             >
               <Autocomplete
-                // inputValue={inputSearchValue}
+                inputValue={inputSearchValue}
                 options={allPartnersNames}
-                onInputChange={() => { }}
+                onInputChange={handleInputChange}
                 id="search-partners"
                 freeSolo
                 blurOnSelect
@@ -114,8 +144,9 @@ const PartnersPage = () => {
         <Box
           sx={cardContainer}
         >
-          {partners !== null && partners.length !== 0 && partners.map(
-            ({ imageUrl, enabled, _id, name, customId }) => (
+          {
+          itemsFromSearch.length !== 0
+            ? (itemsFromSearch.map(({ imageUrl, enabled, _id, name, customId }) => (
               <Link
                 key={_id}
                 to={`/admin-panel/partners/${customId}`}
@@ -126,9 +157,22 @@ const PartnersPage = () => {
                   url={imageUrl}
                 />
               </Link>
-
-            ),
-          )}
+            )))
+            : (partners !== null && partners.length !== 0 && partners.map(
+              ({ imageUrl, enabled, _id, name, customId }) => (
+                <Link
+                  key={_id}
+                  to={`/admin-panel/partners/${customId}`}
+                >
+                  <PartnersCard
+                    title={name}
+                    enabled={enabled}
+                    url={imageUrl}
+                  />
+                </Link>
+              ),
+            ))
+          }
         </Box>
       </Box>
     </Container>
