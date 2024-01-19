@@ -11,6 +11,7 @@ export const stylesSearch = {
   bgcolor: 'background.default',
   width: '100%',
   minWidth: '260px',
+  maxWidth: '593px',
   height: {
     mobile: '51px',
     tablet: '53px',

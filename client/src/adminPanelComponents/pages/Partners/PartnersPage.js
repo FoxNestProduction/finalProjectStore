@@ -25,12 +25,6 @@ const PartnersPage = () => {
   const [partners, loading] = useGetAPI('/partners');
 
   console.log(partners);
-  const styleRestaurant = {
-    mobile: 315,
-    tablet: 420,
-    lgTablet: 500,
-    desktop: 800,
-  };
   const itemsFromSearch = useSelector((state) => state.search.search, shallowEqual);
   const allPartnersNames = useSelector((state) => state.partners.allPartnersNames, shallowEqual);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
@@ -59,38 +53,46 @@ const PartnersPage = () => {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            py: '100px',
+            py: '40px',
           }}
         >
-          <Stack
-            sx={stylesSearch}
+          <Box sx={{
+            display: 'flex',
+            width: '100%',
+            gap: '24px',
+            mb: '34px',
+          }}
           >
-            <Autocomplete
-              // inputValue={inputSearchValue}
-              options={allPartnersNames}
-              onInputChange={() => { }}
-              id="search-partners"
-              freeSolo
-              blurOnSelect
-              clearOnBlur
-              renderInput={(params) => (
-                <TextField
-                  sx={stylesBorder}
-                  {...params}
-                  label="Search Partners"
-                  variant="outlined"
-                  InputProps={{
-                    ...params.InputProps,
-                    type: 'search',
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              )}
-            />
+            <Stack
+              sx={stylesSearch}
+            >
+              <Autocomplete
+                // inputValue={inputSearchValue}
+                options={allPartnersNames}
+                onInputChange={() => { }}
+                id="search-partners"
+                freeSolo
+                blurOnSelect
+                clearOnBlur
+                renderInput={(params) => (
+                  <TextField
+                    sx={stylesBorder}
+                    {...params}
+                    label="Search Partners"
+                    variant="outlined"
+                    InputProps={{
+                      ...params.InputProps,
+                      type: 'search',
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
+              />
+            </Stack>
             <Button
               variant="contained"
               sx={{
@@ -99,6 +101,14 @@ const PartnersPage = () => {
                 height: '60px',
                 borderRadius: '18px',
                 padding: '12px 16px',
+                marginRight: '5px',
+                fontSize: {
+                  tablet: '1.1em',
+                  desktop: '1.3em',
+                },
+                '@media (min-width: 1212px )': {
+                  fontSize: '1.5em',
+                },
               }}
             >
               Search
@@ -109,26 +119,21 @@ const PartnersPage = () => {
               sx={{
                 ...outlinedBtnStyles,
                 height: '60px',
-                maxWidth: '248px',
-                padding: '12px 16px',
-
-                //     padding: 24px 32px;
-                // color: #6C5FBC;
-
-                // font-family: Inter;
-                // font-size: 24px;
-                // font-style: normal;
-                // font-weight: 500;
-                // line-height: 150%; /* 36px */
-                //                 border-radius: 18px;
-                // border: 2px solid #6C5FBC;
-
-                // background: #FFF;
+                width: '248px',
+                padding: '12px 5px',
+                fontSize: {
+                  tablet: '1em',
+                  desktop: '1.12em',
+                },
+                '@media (min-width: 1212px )': {
+                  fontSize: '1.5em',
+                },
               }}
             >
               Add Partners
             </Button>
-          </Stack>
+          </Box>
+
           <Typography
             variant="h1"
             sx={{
@@ -146,32 +151,9 @@ const PartnersPage = () => {
             alignItems: 'center',
             flexDirection: 'column',
             gap: '40px',
+            mb: '100px',
           }}
         >
-          {/* {itemsFromSearch.length !== 0
-            && (
-              <ListItem
-                // title={`Search Restaurant (${itemsFromSearch?.length})`}
-                title="Search Restaurant"
-                items={itemsFromSearch}
-                itemComponent={RestaurantItem}
-                actions={null}
-                type="partners"
-                itemsFrom="search-partners"
-              />
-            )} */}
-          {/* {!itemsFromSearch.length && partners.length !== 0
-            && partners.map(({ rating, name, imageUrl, description, customId }) => (
-              <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}>
-                <RestaurantCard
-                  rating={rating}
-                  name={name}
-                  imageUrl={imageUrl}
-                  description={description}
-                  styleWidth={styleRestaurant}
-                />
-              </Link>
-            ))} */}
           {partners !== null && partners.length !== 0 && partners.map(
             ({ imageUrl, enabled, _id, name, customId }) => (
               <Link
