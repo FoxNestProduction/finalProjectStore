@@ -37,8 +37,6 @@ const PartnersPage = () => {
   const itemsFromSearch = useSelector((state) => state.search.search, shallowEqual);
   const allPartnersNames = useSelector((state) => state.partners.allPartnersNames, shallowEqual);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
-  console.log(inputSearchValue);
-  console.log(itemsFromSearch);
   /* Варіант коду з пошуком через сервер
  const handleSearchFetch = (value) => {
     if (value === '') {
