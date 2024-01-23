@@ -1,4 +1,4 @@
-import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment, Button, debounce } from '@mui/material';
+import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment, Button } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
@@ -34,40 +34,54 @@ const PartnersPage = () => {
     navigate('/admin-panel/partners/new-partner');
   };
 
-  console.log(partners);
   const itemsFromSearch = useSelector((state) => state.search.search, shallowEqual);
   const allPartnersNames = useSelector((state) => state.partners.allPartnersNames, shallowEqual);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
   console.log(inputSearchValue);
   console.log(itemsFromSearch);
-
-  const handleInputChange = async (event, newInputValue) => {
-    dispatch(setInputSearchValue(newInputValue));
+  /* Варіант коду з пошуком через сервер
+ const handleSearchFetch = (value) => {
+    if (value === '') {
+      dispatch(setSearch([]));
+    } else {
+      const fetchData = {
+        url: '/partners/search',
+        body: {
+          query: inputSearchValue,
+        },
+      };
+      dispatch(fetchSearchedProductsOrPartners(fetchData));
+      navigate('');
+    }
   };
 
-  const debounceSearch = useRef(
-    debounce((inputValue) => {
-      if (inputValue.length === 0) {
-        dispatch(setSearch([]));
-      } else {
-        const fetchData = {
-          url: '/partners/search',
-          body: {
-            query: inputValue,
-          },
-        };
-        dispatch(fetchSearchedProductsOrPartners(fetchData));
-        // dispatch(deleteFilteredData());
-        // dispatch(resetFilterParams());
-        // resetFiltersLocalState();
-        navigate('');
-      }
-    }, 1000),
-  );
+   const handleInputChange = async (event, newInputValue, reason) => {
+    dispatch(setInputSearchValue(newInputValue));
+    if (reason === 'clear') {
+      handleSearchFetch(newInputValue);
+    }
+  };
 
-  useEffect(() => {
-    debounceSearch.current(inputSearchValue);
-  }, [inputSearchValue]); // eslint-disable-line
+    const handleSearch = (newInputValue) => {
+    dispatch(setInputSearchValue(newInputValue));
+    handleSearchFetch(newInputValue);
+  };
+
+  */
+  // Варіант коду з фільтрацією на стороні клієнта
+  const handleInputChange = async (event, newInputValue, reason) => {
+    dispatch(setInputSearchValue(newInputValue));
+    if (reason === 'clear') {
+      dispatch(setSearch([]));
+    }
+  };
+
+  const handleSearch = (newInputValue) => {
+    const filteredItem = partners.filter(({ name }) => {
+      return inputSearchValue === name || name.includes(inputSearchValue);
+    });
+    dispatch(setSearch(filteredItem));
+  };
 
   return (
     <Container
@@ -92,10 +106,14 @@ const PartnersPage = () => {
                 id="search-partners"
                 freeSolo
                 blurOnSelect
-                clearOnBlur
                 renderInput={(params) => (
                   <TextField
-                    sx={stylesBorder}
+                    sx={{
+                      ...stylesBorder,
+                      '& .MuiInputBase-input[type="search"]::-webkit-search-cancel-button': {
+                        display: 'none',
+                      },
+                    }}
                     {...params}
                     label="Search Partners"
                     variant="outlined"
@@ -114,6 +132,7 @@ const PartnersPage = () => {
             </Stack>
             <Button
               variant="contained"
+              onClick={handleSearch}
               sx={{
                 ...containedBtnStyles,
                 ...searchBtn,
@@ -145,21 +164,8 @@ const PartnersPage = () => {
           sx={cardContainer}
         >
           {
-          itemsFromSearch.length !== 0
-            ? (itemsFromSearch.map(({ imageUrl, enabled, _id, name, customId }) => (
-              <Link
-                key={_id}
-                to={`/admin-panel/partners/${customId}`}
-              >
-                <PartnersCard
-                  title={name}
-                  enabled={enabled}
-                  url={imageUrl}
-                />
-              </Link>
-            )))
-            : (partners !== null && partners.length !== 0 && partners.map(
-              ({ imageUrl, enabled, _id, name, customId }) => (
+            itemsFromSearch.length !== 0
+              ? (itemsFromSearch.map(({ imageUrl, enabled, _id, name, customId }) => (
                 <Link
                   key={_id}
                   to={`/admin-panel/partners/${customId}`}
@@ -170,8 +176,21 @@ const PartnersPage = () => {
                     url={imageUrl}
                   />
                 </Link>
-              ),
-            ))
+              )))
+              : (partners !== null && partners.length !== 0 && partners.map(
+                ({ imageUrl, enabled, _id, name, customId }) => (
+                  <Link
+                    key={_id}
+                    to={`/admin-panel/partners/${customId}`}
+                  >
+                    <PartnersCard
+                      title={name}
+                      enabled={enabled}
+                      url={imageUrl}
+                    />
+                  </Link>
+                ),
+              ))
           }
         </Box>
       </Box>
