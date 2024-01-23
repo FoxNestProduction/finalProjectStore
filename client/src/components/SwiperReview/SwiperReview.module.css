@@ -1,0 +1,74 @@
+.scrollingWrapper {
+  display: flex;
+  gap: 1vw;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  scroll-behavior: smooth;
+  height: 100%;
+  padding-top: 32px;
+  padding-bottom: 56px;
+  width: 100%;
+}
+.scrollingWrapper .card {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+@media (max-width: 481px) {
+  .scrollingWrapper .card {
+    min-width: 280px;
+  }
+}
+.scrollingWrapper::-webkit-scrollbar {
+  -webkit-overflow-scrolling: touch;
+  height: 12px;
+}
+.scrollingWrapper::-webkit-scrollbar-track {
+  background: #c8c5df;
+  border-radius: 35px;
+  margin-top: 70px;
+  margin-left: 13vw;
+  margin-right: 13vw;
+}
+@media (min-width: 481px) {
+  .scrollingWrapper::-webkit-scrollbar-track {
+    margin: 0 20vw;
+  }
+}
+.scrollingWrapper::-webkit-scrollbar-thumb {
+  background-color: #6C5FBC;
+  width: 10vw;
+  border-radius: 35px;
+  border: 3px solid #c8c5df;
+  position: relative;
+  z-index: 1;
+}
+.scrollingWrapper::-webkit-scrollbar-thumb::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: -1;
+}
+
+.skeletonCard {
+  height: 100%;
+  cursor: pointer;
+  min-width: 280px;
+}
+@media (min-width: 481px) {
+  .skeletonCard {
+    min-width: 345px;
+  }
+}
+@media (min-width: 993px) {
+  .skeletonCard {
+    min-width: 485px;
+  }
+}/*# sourceMappingURL=SwiperReview.module.css.map */

@@ -76,7 +76,8 @@
     "restaurant": "Restaurant"
   },
   "sorter": {
-    "label": "Sort by"
+    "label": "Sort by",
+    "labelAdmin": "Show"
   },
   "restaurantPage": {
     "title": "All Restaurants",

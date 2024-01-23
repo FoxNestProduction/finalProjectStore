@@ -32,6 +32,7 @@ const ProductCardItem = ({
   isHealthy,
   itemNo,
   randomNum,
+  admin,
 }) => {
   const breakPoint = useBreakpoint();
   const dispatch = useDispatch();
@@ -128,10 +129,18 @@ const ProductCardItem = ({
           {`$${currentPrice}`}
         </Typography>
       </Box>
-      <CardActions onClick={handleAddToCart} sx={stylesButton}>
-        {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
-        <ShoppingCartCheckoutIcon />
-      </CardActions>
+      { !admin ? (
+        <CardActions onClick={handleAddToCart} sx={stylesButton}>
+          {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
+          <ShoppingCartCheckoutIcon />
+        </CardActions>
+      ) : (
+        <CardActions onClick={() => {}} sx={stylesButton}>
+          {breakPoint !== 'mobile' ? (<b>EDIT</b>) : null}
+          <ShoppingCartCheckoutIcon />
+        </CardActions>
+      )}
+
       {clickedAdd && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}
@@ -150,6 +159,7 @@ ProductCardItem.propTypes = {
   isSupreme: PropTypes.bool,
   itemNo: PropTypes.string,
   randomNum: PropTypes.number,
+  admin: PropTypes.bool,
 };
 
 ProductCardItem.defaultProps = {
@@ -163,6 +173,7 @@ ProductCardItem.defaultProps = {
   isSupreme: false,
   itemNo: '',
   randomNum: 24,
+  admin: false,
 };
 
 export default memo(ProductCardItem);

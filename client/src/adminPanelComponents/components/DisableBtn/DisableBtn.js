@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { activateBtn, disableBtn, btn, largeBtn, smallBtn } from './styles';
 import { fetchUpdatePartner } from '../../../redux/slices/partnersSlice';
 import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
+import { updateFilteredPartnerProducts } from '../../../redux/slices/filterSlice';
 
 const DisableBtn = ({ item, type, isEditing, isLarge }) => {
   const dispatch = useDispatch();
@@ -13,7 +14,15 @@ const DisableBtn = ({ item, type, isEditing, isLarge }) => {
     if (type === 'partner') {
       dispatch(fetchUpdatePartner({ customId: item.customId, body: { enabled: !item.enabled } }));
     } else {
-      dispatch(fetchUpdateProduct({ itemId: item._id, body: { enabled: !item.enabled } }));
+      const response = await dispatch(fetchUpdateProduct({ itemId: item._id,
+        body: { enabled: !item.enabled } })).unwrap();
+      if (response.status === 'ok') {
+        if (isLarge) {
+          // для сторінки продукту
+        } else {
+          dispatch(updateFilteredPartnerProducts(response.data));
+        }
+      }
     }
   };
 
