@@ -43,10 +43,27 @@ const EditPartnerPage = () => {
 
   const restourauntProducts = useSelector((state) => state.filter.filteredPartnerProducts, shallowEqual); // eslint-disable-line
   const restourauntOneProduct = useSelector((state) => state.filter.filteredProduct, shallowEqual); // eslint-disable-line
+  const sortBy = useSelector((state) => state.filter.filterParams.sort); // eslint-disable-line
+  console.log(sortBy);
 
   useEffect(() => {
     dispatch(fetchFilteredPartnerProducts(partner?.name));
   }, [dispatch, partner]);
+
+  let showProducts;
+  if (sortBy === 'all' || sortBy === '') {
+    showProducts = restourauntProducts;
+  }
+  if (sortBy === 'active') {
+    showProducts = restourauntProducts.filter((item) => {
+      return item.enabled === true;
+    });
+  }
+  if (sortBy === 'disabled') {
+    showProducts = restourauntProducts.filter((item) => {
+      return item.enabled === false;
+    });
+  }
 
   if (error) {
     return (
@@ -68,7 +85,7 @@ const EditPartnerPage = () => {
       {partnerLoading ? <Typography>Loading...</Typography> : partner && <ItemsEditor type="partner" />}
       {/* todo: додати search + select(all/active/disabled) + restaurant dishes */}
       <Box sx={{ mt: 5 }}>
-        <Grid sx={{ display: 'grid', alignItems: 'center', justifyContent: 'center', gridTemplateColumns: 'repeat(2,1fr)', p: '0 30px', mb: '10px' }}>
+        <Grid sx={{ display: 'grid', alignItems: 'center', justifyContent: 'center', gridTemplateColumns: 'repeat(2,1fr)', p: '0 90px', mb: '10px' }}>
 
           <AdminSearch items={restourauntProducts} type="food" />
 
@@ -153,7 +170,7 @@ const EditPartnerPage = () => {
         ) : !nothingFound ? (
           <ListItems
             title={`Restaurant Dishes (${filteredProductsQuantity})`}
-            items={restourauntProducts}
+            items={showProducts}
             itemComponent={AdminProductCardItem}
             actions={null}
             type="food"

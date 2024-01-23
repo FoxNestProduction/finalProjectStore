@@ -93,10 +93,6 @@ const filterSlice = createSlice({
       state.filteredProduct = [];
     },
     updateFilteredPartnerProducts(state, action) {
-      // const updatedProduct = state.filteredPartnerProducts.filter((item) =>
-      // item.itemNo = action.payload.itemNo);
-      // updatedProduct.enabled = action.payload.enabled;
-      // state.filteredPartnerProducts = [...state.filteredPartnerProducts, updatedProduct]
       const updatedProducts = state.filteredPartnerProducts.map((item) => {
         if (item.itemNo === action.payload.itemNo) {
           return { ...item, enabled: action.payload.enabled };
