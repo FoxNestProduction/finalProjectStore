@@ -127,7 +127,7 @@ export const badge = {
     color: 'rgba(43, 43, 43, 1);',
   },
   '& .Mui-disabled': {
-    color: 'rgba(0, 0, 0, 0.38);',
+    color: 'rgba(0, 0, 0, 0.4);',
   },
   '& .MuiTypography-root': {
     fontSize: '18px',

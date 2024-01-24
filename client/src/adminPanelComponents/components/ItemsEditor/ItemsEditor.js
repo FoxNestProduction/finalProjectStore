@@ -37,6 +37,7 @@ const ItemsEditor = ({ type, isNewItem }) => {
           }}
           onClick={() => { setIsEditing(true); }}
           disabled={isEditing}
+          title="Edit partner info"
         >
           <EditIcon color={isEditing ? '#c8c5df' : undefined} />
         </IconButton>

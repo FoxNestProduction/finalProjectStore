@@ -22,6 +22,7 @@ import NotFound from './pages/NotFound/NotFound';
 import AddEditDishPage from './adminPanelComponents/pages/AddEditDishPage/AddEditDishPage';
 import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
 import AddPartnerPage from './adminPanelComponents/pages/AddEditPartnerPage/AddPartnerPage';
+import AdminRoute from './adminPanelComponents/components/AdminRoute';
 
 const AppRoutes = () => {
   const { i18n, t } = useTranslation();
@@ -53,7 +54,8 @@ const AppRoutes = () => {
         <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />
 
         {/* редагування ресторану /admin-panel/partners/17001 */}
-        <Route path="/admin-panel/partners/:customId" element={<EditPartnerPage />} />
+        {/* <Route path="/admin-panel/partners/:customId" element={<EditPartnerPage />} /> */}
+        <Route path="/admin-panel/partners/:customId" element={<AdminRoute element={<EditPartnerPage />} />} />
 
         {/* редагування блюда конкретного ресторану /admin-panel/partners/17001/dishes/10001 */}
         <Route path="/admin-panel/partners/:customId/dishes/:itemNo" element={<AddEditDishPage />} />

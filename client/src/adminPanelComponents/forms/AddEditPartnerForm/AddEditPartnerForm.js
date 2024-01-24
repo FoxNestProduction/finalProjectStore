@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Box, Button, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -46,8 +46,6 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
     return [`${DESCRIPTION}${lang}`, value];
   })), [description]);
 
-  console.log(partner);
-
   const initialValues = {
     name: partner?.name ?? '',
     address: partner?.address ?? '',
@@ -82,16 +80,14 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
   };
 
   // ------- open editing by double click on inputs -------
-  const handleInputDoubleClick = (e) => {
-    if (e.detail === 2) {
+  const handleDoubleClick = (e) => {
+    if (e.detail === 2) { // double click
       setIsEditing(true);
       e.target.focus();
     }
   };
 
   const handleSubmit = async (values) => {
-    console.log('values', values);
-
     const descriptionInDiffLangs = {};
     const otherValues = {};
 
@@ -100,9 +96,10 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
         const lang = key.replace(DESCRIPTION, '').toLowerCase();
         descriptionInDiffLangs[lang] = values[key].trim();
       } else {
-        otherValues[key] = values[key];
+        otherValues[key] = values[key]; // name, address, itTrending...
       }
     });
+
     const body = {
       description: {
         ...descriptionInDiffLangs,
@@ -110,14 +107,14 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
       ...otherValues,
       imageUrl: imageUrl || partner.imageUrl,
       enabled: partner?.enabled ?? false,
+      rating: partner?.rating ?? 0,
     };
-    console.log('body', body);
 
     if (!partner) {
       const data = await dispatch(fetchAddNewPartner(body)).unwrap();
       if (data.success) {
         console.log(data);
-        // TODO: alert 'Partner was successfully added'
+        // TODO: alert 'Partner added'
         navigate(`/admin-panel/partners/${data.partner.customId}`);
       }
     } else {
@@ -125,6 +122,23 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
       // TODO: alert 'Changes accepted'
     }
   };
+
+  // useEffect(() => {
+  //   const keyDownHandler = (e) => {
+  //     if (e.key === 'Enter') {
+  //       handleSubmit();
+  //     }
+  //     if (e.key === 'Escape') {
+  //       setIsEditing(false);
+  //     }
+  //   };
+  //   // eslint-disable-next-line no-undef
+  //   document.addEventListener('keydown', keyDownHandler);
+  //   return () => {
+  //     // eslint-disable-next-line no-undef
+  //     document.removeEventListener('keydown', keyDownHandler);
+  //   };
+  // }, []); // eslint-disable-line
 
   return (
     <Box sx={infoWrapper}>
@@ -134,11 +148,13 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
           src={imageUrl || '/img/admin/addImgPlug.png'}
           alt={partner ? partner.name : 'add new image'}
           sx={partnerCardImg}
+          onClick={handleDoubleClick}
         />
         {isEditing && (
         <IconButton
           sx={editIconBtn}
           onClick={() => handleOpenWidget()}
+          title="Upload new image"
         >
           <EditIcon />
         </IconButton>
@@ -169,7 +185,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                     bgColor={isEditing ? 'common.white' : undefined}
                     styles={input}
                     readOnly={!isEditing}
-                    onClick={handleInputDoubleClick}
+                    onClick={handleDoubleClick}
                   />
                   <Input
                     name="address"
@@ -178,7 +194,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                     bgColor={isEditing ? 'common.white' : undefined}
                     styles={input}
                     readOnly={!isEditing}
-                    onClick={handleInputDoubleClick}
+                    onClick={handleDoubleClick}
                   />
                   {Object.keys(description).map((lang) => (
                     <Input
@@ -188,7 +204,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                       label={`Description (${lang.toUpperCase()})`}
                       bgColor={isEditing ? 'common.white' : undefined}
                       styles={input}
-                      onClick={handleInputDoubleClick}
+                      onClick={handleDoubleClick}
                       multiline
                       maxRows={8}
                       readOnly={!isEditing}
@@ -209,6 +225,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                         label="Trending"
                         labelPlacement="start"
                         sx={badge}
+                        onClick={handleDoubleClick}
                       />
                     )}
                   </Field>
@@ -227,6 +244,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                         label="Healthy"
                         labelPlacement="start"
                         sx={badge}
+                        onClick={handleDoubleClick}
                       />
                     )}
                   </Field>
@@ -245,6 +263,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
                         label="Supreme"
                         labelPlacement="start"
                         sx={badge}
+                        onClick={handleDoubleClick}
                       />
                     )}
                   </Field>
