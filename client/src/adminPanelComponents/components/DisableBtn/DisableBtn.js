@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { activateBtn, disableBtn, btn, largeBtn, smallBtn } from './styles';
 import { fetchUpdatePartner } from '../../../redux/slices/partnersSlice';
 import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
-import { updateFilteredPartnerProducts } from '../../../redux/slices/filterSlice';
+import { updateFilteredPartnerProducts, updateOneFilteredProduct } from '../../../redux/slices/filterSlice';
 
 const DisableBtn = ({ item, type, isEditing, isLarge }) => {
   const dispatch = useDispatch();
@@ -21,6 +21,7 @@ const DisableBtn = ({ item, type, isEditing, isLarge }) => {
           // для сторінки продукту
         } else {
           dispatch(updateFilteredPartnerProducts(response.data));
+          dispatch(updateOneFilteredProduct(response.data));
         }
       }
     }

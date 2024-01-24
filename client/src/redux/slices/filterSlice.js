@@ -101,6 +101,12 @@ const filterSlice = createSlice({
       });
       state.filteredPartnerProducts = updatedProducts;
     },
+    updateOneFilteredProduct(state, action) {
+      const filteredProduct = state.filteredProduct[0];
+      if (filteredProduct) {
+        filteredProduct.enabled = action.payload.enabled;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -141,6 +147,7 @@ export const {
   setFilteredProduct,
   deleteFilteredProduct,
   updateFilteredPartnerProducts,
+  updateOneFilteredProduct,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

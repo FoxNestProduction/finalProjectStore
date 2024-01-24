@@ -1,4 +1,4 @@
-export const TitleBtn = {
+export const addProductBtn = {
   backgroundColor: 'primary.main',
   color: 'text.primaryLight',
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease',

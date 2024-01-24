@@ -1,9 +1,0 @@
-.customAlert {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.show {
-  transition: opacity 1s ease-in-out;
-  opacity: 1;
-}/*# sourceMappingURL=Alert.module.css.map */

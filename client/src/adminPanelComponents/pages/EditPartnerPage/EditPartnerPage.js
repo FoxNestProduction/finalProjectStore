@@ -14,7 +14,7 @@ import {
 } from '../commonStyles';
 import ItemsEditor from '../../components/ItemsEditor/ItemsEditor';
 import useGetAPI from '../../../customHooks/useGetAPI';
-import { TitleBtn } from './styles';
+import { addProductBtn } from './styles';
 import { deletePartnerError, fetchGetPartner } from '../../../redux/slices/partnersSlice';
 import { gridStylesContainer } from '../../../components/ListItems/styles';
 import { fetchFilteredPartnerProducts } from '../../../redux/slices/filterSlice';
@@ -89,7 +89,7 @@ const EditPartnerPage = () => {
 
           <AdminSearch items={restourauntProducts} type="food" />
 
-          <Button component={NavLink} to={`${pathname}/dishes/new-dish`} sx={TitleBtn}>
+          <Button component={NavLink} to={`${pathname}/dishes/new-dish`} sx={addProductBtn}>
             {isLgTablet && <Typography mr={1}>Add new porduct</Typography>}
             <AddCircleOutlineIcon />
           </Button>
