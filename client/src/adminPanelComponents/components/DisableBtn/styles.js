@@ -1,5 +1,5 @@
 export const btn = {
-  background: 'common.white',
+  backgroundColor: 'common.white',
   borderRadius: '12px',
   border: '2px solid',
   color: 'text.primary',
@@ -20,15 +20,19 @@ export const largeBtn = {
 };
 
 export const smallBtn = {
-  p: '5px 12px',
+  p: '4px 4px',
+  position: 'absolute',
+  right: '5px',
+  bottom: '5px',
   minWidth: {
-    mobile: '80px',
-    lgTablet: '100px',
+    mobile: '70px',
+    // lgTablet: '70px',
+    // desktop: '80px',
   },
   fontSize: {
     mobile: '12px',
     lgTablet: '14px',
-    desktop: '16px',
+    desktop: '14px',
   },
 };
 

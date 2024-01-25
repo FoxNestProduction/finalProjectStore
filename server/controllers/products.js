@@ -89,7 +89,7 @@ exports.updateProduct = (req, res, next) => {
           { $set: updatedProduct },
           { new: true }
         )
-          .then(product => res.json(product))
+          .then(product => res.json({status: 'ok', data: product}))
           .catch(err =>
             res.status(400).json({
               message: `Error happened on server: "${err}" `
