@@ -84,6 +84,7 @@ const userSlice = createSlice({
       })
       .addCase(loginCustomer.fulfilled, (state, { payload }) => {
         state.loading.loginCustomer = false;
+        console.log(payload.user);
         state.user = payload.user;
       })
       .addCase(loginCustomer.rejected, (state) => {

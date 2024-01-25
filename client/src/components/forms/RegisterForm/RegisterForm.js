@@ -100,6 +100,7 @@ const RegisterForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
+            dispatch(setUser(res.data.user));
             authFunc(res.data);
           } else {
             const { data } = res;

@@ -10,7 +10,7 @@ const AdminRoute = ({ element }) => {
   const isAdmin = user?.isAdmin;
   console.log(isAdmin);
 
-  if (!isAuthorized && !isAdmin) {
+  if (!isAuthorized || !isAdmin) {
     return <NotFound />;
   }
 

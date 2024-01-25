@@ -56,6 +56,8 @@ const Header = () => {
   };
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const { isAdmin } = useSelector((state) => state.user.user);
+  console.log('isAdmin', isAdmin);
   const favourite = useSelector((state) => state.favourites.cardStates, shallowEqual);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();

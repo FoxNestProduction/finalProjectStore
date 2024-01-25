@@ -61,6 +61,7 @@ const LoginForm = () => {
 
   const authFunc = (data) => {
     const { token, user } = data;
+    console.log('user', user);
     if (token) {
       dispatch(setToken(token));
       dispatch(setAuthorization(true));
@@ -93,6 +94,7 @@ const LoginForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
+            dispatch(setUser(res.data.user));
             authFunc(res.data);
           } else {
             const { data } = res;

@@ -47,21 +47,20 @@ const AppRoutes = () => {
 
         {/* Routes for admin panel */}
 
-        {/* сторінка усіх ресторанів */}
-        <Route path="/admin-panel/partners" element={<Box />} />
+        {/* all partners page */}
+        <Route path="/admin-panel/partners" element={<AdminRoute element={<Box />} />} />
 
-        {/* створення нового ресторану */}
-        <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />
+        {/* add new partner */}
+        <Route path="/admin-panel/partners/new-partner" element={<AdminRoute element={<AddPartnerPage />} />} />
 
-        {/* редагування ресторану /admin-panel/partners/17001 */}
-        {/* <Route path="/admin-panel/partners/:customId" element={<EditPartnerPage />} /> */}
+        {/* edit partner /admin-panel/partners/17001 */}
         <Route path="/admin-panel/partners/:customId" element={<AdminRoute element={<EditPartnerPage />} />} />
 
-        {/* редагування блюда конкретного ресторану /admin-panel/partners/17001/dishes/10001 */}
-        <Route path="/admin-panel/partners/:customId/dishes/:itemNo" element={<AddEditDishPage />} />
+        {/* edit dish /admin-panel/partners/17001/dishes/10001 */}
+        <Route path="/admin-panel/partners/:customId/dishes/:itemNo" element={<AdminRoute element={<AddEditDishPage />} />} />
 
-        {/* створення нового блюда конкретного ресторану */}
-        <Route path="/admin-panel/partners/:customId/dishes/new-dish" element={<AddEditDishPage />} />
+        {/* add new dish */}
+        <Route path="/admin-panel/partners/:customId/dishes/new-dish" element={<AdminRoute element={<AddEditDishPage />} />} />
 
         <Route path="*" element={<NotFound />} />
       </Route>
