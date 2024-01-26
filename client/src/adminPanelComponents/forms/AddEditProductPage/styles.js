@@ -4,41 +4,37 @@ export const flexCenter = {
   justifyContent: 'center',
 };
 
-export const container = {
+export const infoWrapper = {
   display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  bgcolor: 'common.white',
-  p: {
-    desktop: 2,
+  flexDirection: {
+    mobile: 'column',
+    desktop: 'row',
   },
-};
-
-export const title = {
-  fontSize: {
-    mobile: '26px',
-    tablet: '28px',
-    desktop: '36px',
-  },
-  mb: {
-    mobile: '38px',
-    tablet: '34px',
-    desktop: '27px',
-  },
-  color: 'text.primary',
-  textAlign: 'center',
-  fontWeight: {
-    mobile: 'fontWeightSemiBold',
-    desktop: 'fontWeightMedium',
+  gap: {
+    mobile: '35px',
+    desktop: '3%',
   },
 };
 
 export const imgContainer = {
   position: 'relative',
-  border: '1px solid #1B1B1B',
+  width: '100%',
   borderRadius: '16px',
-  width: '506px',
-  height: '506px',
+  overflow: 'hidden',
+};
+
+export const productCardImg = {
+  border: '1px solid',
+  borderColor: 'common.dark',
+  minHeight: '250px',
+  minWidth: '250px',
+  maxHeight: {
+    tablet: '300px',
+    lgTablet: '350px',
+    desktop: '400px',
+  },
+  width: '100%',
+  borderRadius: '16px',
 };
 
 export const imgEditBtn = {
@@ -46,6 +42,31 @@ export const imgEditBtn = {
   top: '20px',
   right: 0,
   padding: 0,
+};
+
+export const formWrapper = {
+  p: '0px',
+  width: '100%',
+  minWidth: {
+    lgTablet: '300px',
+  },
+};
+
+export const inputsWrapper = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  gap: {
+    mobile: '20px;',
+    tablet: '30px',
+    desktop: '30px',
+  },
+  mb: {
+    mobile: '10px;',
+    tablet: '9px',
+    desktop: '24px',
+  },
+  width: '100%',
 };
 
 export const submitBtn = {
@@ -88,6 +109,12 @@ export const submitBtn = {
 
 export const input = {
   fontWeight: 'fontWeightMedium',
+};
+
+export const checkbox = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
 };
 
 export const btnsWrapper = {

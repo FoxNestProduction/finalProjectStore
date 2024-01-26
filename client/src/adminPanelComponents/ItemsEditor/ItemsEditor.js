@@ -48,7 +48,7 @@ const ItemsEditor = ({ type, isNewItem }) => {
           disabled={isEditing}
           sx={{ ...toggleDisableBtn, ...(item?.enabled ? disableBtn : activateBtn) }}
         >
-          {item.enabled ? 'Disable' : 'Activate'}
+          {item?.enabled ? 'Disable' : 'Activate'}
         </Button>
         <IconButton
           sx={{
@@ -64,21 +64,24 @@ const ItemsEditor = ({ type, isNewItem }) => {
         </IconButton>
       </CardActions>
       )}
-      {type === 'partner' ? (
+      {type === 'dish' && (
+        <AddEditProductForm
+          isNewItem={isNewItem}
+          dish={isNewItem || item}
+          isEditing={isNewItem || isEditing}
+          setIsEditing={isNewItem || setIsEditing}
+        />
+      )}
+
+      {type === 'partner' && (
         <PartnerEditForm
           isNewItem={isNewItem}
           partner={isNewItem ? null : item}
           isEditing={isNewItem ? true : isEditing}
           setIsEditing={isNewItem ? undefined : setIsEditing}
         />
-      ) : (
-        <AddEditProductForm
-          isNewItem={isNewItem}
-          dish={isNewItem ? null : item}
-          isEditing={isNewItem ? true : isEditing}
-          setIsEditing={isNewItem ? undefined : setIsEditing}
-        />
       )}
+
       {!isEditing && type === 'partner' && !isNewItem && (
         <CardActions sx={{ justifyContent: 'flex-end',
           p: '0',

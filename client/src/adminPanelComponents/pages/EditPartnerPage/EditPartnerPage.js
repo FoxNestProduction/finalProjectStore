@@ -9,6 +9,7 @@ import {
 import ItemsEditor from '../../ItemsEditor/ItemsEditor';
 import useGetAPI from '../../../customHooks/useGetAPI';
 import { fetchGetPartner } from '../../../redux/slices/partnersSlice';
+import Skeleton from '../../Skeleton/Skeleton';
 
 const EditPartnerPage = () => {
   const { customId } = useParams();
@@ -27,7 +28,7 @@ const EditPartnerPage = () => {
         Partner
       </Typography>
       {partnerLoading
-        ? (<Typography>Loading...</Typography>)
+        ? (<Skeleton type="partner" />)
         : (partner && <ItemsEditor type="partner" />)}
       {/* todo: додати search + select(all/active/disabled) + restaurant dishes */}
     </Container>
