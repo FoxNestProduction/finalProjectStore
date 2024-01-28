@@ -13,8 +13,9 @@ import AddEditPartnerForm from '../../forms/AddEditPartnerForm/AddEditPartnerFor
 import AddEditProductForm from '../../forms/AddEditProductForm/AddEditProductForm';
 import DisableBtn from '../DisableBtn/DisableBtn';
 
-const ItemsEditor = ({ type, isNewItem }) => {
+const ItemsEditor = ({ type, isNewItem, showDishes, setShowDishes }) => {
   const [isEditing, setIsEditing] = useState(false);
+  // const [showDishes, setShowDishes] = useState(false);
 
   const item = useSelector((state) => {
     return type === 'partner' ? state.partners.currentEditingPartner : state.products.oneProduct;
@@ -58,7 +59,18 @@ const ItemsEditor = ({ type, isNewItem }) => {
       )}
       {!isEditing && type === 'partner' && !isNewItem && (
         <CardActions sx={showDishesBtnWrapper}>
-          <Button type="button" variant="outlined" size="small" sx={showDishesBtn}>Show dishes</Button>
+          <Button
+            type="button"
+            variant="outlined"
+            size="small"
+            sx={showDishesBtn}
+            onClick={(e) => {
+              e.preventDefault();
+              setShowDishes((prev) => !prev);
+            }}
+          >
+            {showDishes ? 'Hide dishes' : 'Show dishes'}
+          </Button>
         </CardActions>
       )}
     </Card>
@@ -68,10 +80,14 @@ const ItemsEditor = ({ type, isNewItem }) => {
 ItemsEditor.propTypes = {
   type: PropTypes.oneOf(['dish', 'partner']).isRequired,
   isNewItem: PropTypes.bool,
+  showDishes: PropTypes.bool,
+  setShowDishes: PropTypes.func,
 };
 
 ItemsEditor.defaultProps = {
   isNewItem: false,
+  showDishes: false,
+  setShowDishes: {},
 };
 
 export default memo(ItemsEditor);
