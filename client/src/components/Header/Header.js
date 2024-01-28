@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
@@ -47,6 +48,7 @@ import useAlert from '../../customHooks/useAlert';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
   const { i18n, t } = useTranslation();
 
@@ -101,6 +103,9 @@ const Header = () => {
   }, [dispatch]);
 
   const handleLogOut = useCallback(() => {
+    if (isAdmin) {
+      navigate('/');
+    }
     dispatch(setIsCart(false));
     dispatch(resetCart());
     dispatch(setToken(null));
@@ -115,7 +120,7 @@ const Header = () => {
       handleCloseAlert();
       setLogOutAlert(false);
     }, 4000);
-  }, [dispatch, handleCloseAlert, handleShowAlert]);
+  }, [dispatch, handleCloseAlert, handleShowAlert, isAdmin, navigate]);
 
   const setNavigateTo = useCallback((page) => {
     const specialCases = {
@@ -178,6 +183,7 @@ const Header = () => {
               </List>
 
               <Box sx={stylesIconsWrapper}>
+                {!isAdmin && (
                 <Box sx={{ minWidth: '25px' }}>
                   <TextField
                     sx={stylesLangSelect}
@@ -195,7 +201,9 @@ const Header = () => {
                     ))}
                   </TextField>
                 </Box>
-                {isUserAuthorized && isLgTabletOrDesktop && (
+                )}
+
+                {isUserAuthorized && isLgTabletOrDesktop && !isAdmin && (
                   <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
                     <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
                       <FavoriteBorderOutlinedIcon sx={stylesIcon} />
@@ -236,9 +244,9 @@ const Header = () => {
           isMobileMenuOpen={isMobileMenuOpen}
           handleCloseDrawer={handleCloseDrawer}
           handleOpenModalLogin={handleOpenModalLogin}
-          navItems={navItems}
+          navItems={isAdmin ? navItemsAdmin : navItems}
           handleLogOut={handleLogOut}
-          setNavigateTo={setNavigateTo}
+          setNavigateTo={isAdmin ? setNavigateToAdmin : setNavigateTo}
         />
       </nav>
     </>
