@@ -42,9 +42,10 @@ const EditPartnerPage = () => {
     };
   }, [dispatch, customId]);
 
-  const restourauntProducts = useSelector((state) => state.filter.filteredPartnerProducts, shallowEqual); // eslint-disable-line
-  const restourauntOneProduct = useSelector((state) => state.filter.filteredProduct, shallowEqual); // eslint-disable-line
-  const sortBy = useSelector((state) => state.filter.filterParams.sort); // eslint-disable-line
+  // eslint-disable-next-line max-len
+  const restaurantProducts = useSelector((state) => state.filter.filteredPartnerProducts, shallowEqual);
+  const restaurantOneProduct = useSelector((state) => state.filter.filteredProduct, shallowEqual);
+  const sortBy = useSelector((state) => state.filter.filterParams.sort);
 
   useEffect(() => {
     if (showDishes) {
@@ -54,15 +55,15 @@ const EditPartnerPage = () => {
 
   let showProducts;
   if (sortBy === 'all' || sortBy === '') {
-    showProducts = restourauntProducts;
+    showProducts = restaurantProducts;
   }
   if (sortBy === 'active') {
-    showProducts = restourauntProducts.filter((item) => {
+    showProducts = restaurantProducts.filter((item) => {
       return item.enabled === true;
     });
   }
   if (sortBy === 'disabled') {
-    showProducts = restourauntProducts.filter((item) => {
+    showProducts = restaurantProducts.filter((item) => {
       return item.enabled === false;
     });
   }
@@ -85,15 +86,15 @@ const EditPartnerPage = () => {
         {partner?.name}
       </Typography>
       {partnerLoading ? <Typography>Loading...</Typography> : partner && <ItemsEditor setShowDishes={setShowDishes} showDishes={showDishes} type="partner" />}
-      {/* todo: додати search + select(all/active/disabled) + restaurant dishes */}
+
       {showDishes && (
         <Box sx={{ mt: 5 }}>
           <Grid sx={{ display: 'grid', alignItems: 'center', justifyContent: 'center', gridTemplateColumns: 'repeat(2,1fr)', p: '0 90px', mb: '10px' }}>
 
-            <AdminSearch items={restourauntProducts} type="food" />
+            <AdminSearch items={restaurantProducts} type="food" />
 
             <Button component={NavLink} to={`${pathname}/dishes/new-dish`} sx={addProductBtn}>
-              {isLgTablet && <Typography mr={1}>Add new porduct</Typography>}
+              {isLgTablet && <Typography mr={1}>Add new product</Typography>}
               <AddCircleOutlineIcon />
             </Button>
 
@@ -160,10 +161,10 @@ const EditPartnerPage = () => {
                 </>
               ) : null}
             </>
-          ) : restourauntOneProduct.length !== 0 ? (
+          ) : restaurantOneProduct.length !== 0 ? (
             <ListItems
               title="Search Dish"
-              items={restourauntOneProduct}
+              items={restaurantOneProduct}
               itemComponent={AdminProductCardItem}
               actions={null}
               type="food"

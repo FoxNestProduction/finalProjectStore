@@ -21,7 +21,7 @@ import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePass
 import NotFound from './pages/NotFound/NotFound';
 import AddEditDishPage from './adminPanelComponents/pages/AddEditDishPage/AddEditDishPage';
 import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
-import AddPartnerPage from './adminPanelComponents/pages/AddEditPartnerPage/AddPartnerPage';
+import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
 import AdminRoute from './adminPanelComponents/components/AdminRoute';
 
 const AppRoutes = () => {
