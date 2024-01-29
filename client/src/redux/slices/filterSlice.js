@@ -92,20 +92,27 @@ const filterSlice = createSlice({
     deleteFilteredProduct(state, action) {
       state.filteredProduct = [];
     },
-    updateFilteredPartnerProducts(state, action) {
-      const updatedProducts = state.filteredPartnerProducts.map((item) => {
-        if (item.itemNo === action.payload.itemNo) {
-          return { ...item, enabled: action.payload.enabled };
+    updateFilteredPartnerProducts(state, { payload }) {
+      state.filteredPartnerProducts = state.filteredPartnerProducts.map((item) => {
+        if (item.itemNo === payload.itemNo) {
+          return { ...item, enabled: payload.enabled };
         }
         return item;
       });
-      state.filteredPartnerProducts = updatedProducts;
     },
-    updateOneFilteredProduct(state, action) {
+    updateOneFilteredProduct(state, { payload }) {
       const filteredProduct = state.filteredProduct[0];
       if (filteredProduct) {
-        filteredProduct.enabled = action.payload.enabled;
+        filteredProduct.enabled = payload.enabled;
       }
+      // if (state.filteredProduct.length !== 0) {
+      //   state.filteredProduct = state.filteredProduct.map((item) => {
+      //     if (item.itemNo === payload.itemNo) {
+      //       return { ...item, enabled: payload.enabled };
+      //     }
+      //     return item;
+      //   });
+      // }
     },
   },
   extraReducers: (builder) => {

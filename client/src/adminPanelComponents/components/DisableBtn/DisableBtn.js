@@ -11,8 +11,11 @@ const DisableBtn = ({ item, type, isEditing, isLarge }) => {
   const dispatch = useDispatch();
 
   const handleDisable = async () => {
+    // партнер 1.всі картки, 2. картка редагування
     if (type === 'partner') {
       dispatch(fetchUpdatePartner({ customId: item.customId, body: { enabled: !item.enabled } }));
+
+    // блюдо всі картки маленькі і картка редагування велика
     } else {
       const response = await dispatch(fetchUpdateProduct({ itemId: item._id,
         body: { enabled: !item.enabled } })).unwrap();

@@ -55,7 +55,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
     isSupreme: partner?.isSupreme ?? false,
   };
 
-  // ------- upload img to cloudinary functionality -------
+  // ------- upload img to cloudinary -------
   const [imageUrl, setImageUrl] = useState(() => partner?.imageUrl || '');
 
   const cloudName = 'dvtjgmpnr';
@@ -81,7 +81,7 @@ const AddEditPartnerForm = ({ partner, isEditing, setIsEditing }) => {
 
   // ------- open editing by double click on inputs -------
   const handleDoubleClick = (e) => {
-    if (e.detail === 2) { // double click
+    if (e.detail === 2) {
       setIsEditing(true);
       e.target.focus();
     }

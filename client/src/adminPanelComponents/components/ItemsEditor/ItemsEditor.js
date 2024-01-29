@@ -15,7 +15,6 @@ import DisableBtn from '../DisableBtn/DisableBtn';
 
 const ItemsEditor = ({ type, isNewItem, showDishes, setShowDishes }) => {
   const [isEditing, setIsEditing] = useState(false);
-  // const [showDishes, setShowDishes] = useState(false);
 
   const item = useSelector((state) => {
     return type === 'partner' ? state.partners.currentEditingPartner : state.products.oneProduct;
