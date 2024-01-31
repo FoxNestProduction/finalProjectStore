@@ -4,7 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, useNavigate } from 'react-router-dom';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import { fetchAllPartnersNames } from '../../../redux/slices/partnersSlice';
+import { fetchAllPartnersNames, fetchAllPartners } from '../../../redux/slices/partnersSlice';
 import {
   stylesBorder,
   stylesSearch,
@@ -17,7 +17,6 @@ import {
   title,
   cardContainer,
 } from './styles';
-import useGetAPI from '../../../customHooks/useGetAPI';
 import PartnersCard from '../../PartnersCard/PartnersCard';
 import { outlinedBtnStyles, containedBtnStyles } from '../../../muiTheme/buttonsStyles';
 import { setInputSearchValue, setSearch, fetchSearchedProductsOrPartners } from '../../../redux/slices/searchSlice';
@@ -25,10 +24,11 @@ import { setInputSearchValue, setSearch, fetchSearchedProductsOrPartners } from 
 const PartnersPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(fetchAllPartnersNames());
+    dispatch(fetchAllPartners());
   }, [dispatch]);
-  const [partners, loading] = useGetAPI('/partners');
 
   const handleAddNewPartners = () => {
     navigate('/admin-panel/partners/new-partner');
@@ -37,6 +37,9 @@ const PartnersPage = () => {
   const itemsFromSearch = useSelector((state) => state.search.search, shallowEqual);
   const allPartnersNames = useSelector((state) => state.partners.allPartnersNames, shallowEqual);
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
+  const allPartners = useSelector((state) => state.partners.allPartners, shallowEqual);
+
+  // console.log(allPartners);
   /* Варіант коду з пошуком через сервер
  const handleSearchFetch = (value) => {
     if (value === '') {
@@ -75,7 +78,7 @@ const PartnersPage = () => {
   };
 
   const handleSearch = (newInputValue) => {
-    const filteredItem = partners.filter(({ name }) => {
+    const filteredItem = allPartners.filter(({ name }) => {
       return inputSearchValue === name || name.includes(inputSearchValue);
     });
     dispatch(setSearch(filteredItem));
@@ -175,7 +178,7 @@ const PartnersPage = () => {
                   />
                 </Link>
               )))
-              : (partners !== null && partners.length !== 0 && partners.map(
+              : (allPartners !== null && allPartners.length !== 0 && allPartners.map(
                 ({ imageUrl, enabled, _id, name, customId }) => (
                   <Link
                     key={_id}
