@@ -1,14 +1,12 @@
 import React, { createElement, memo, useCallback, useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, useMediaQuery } from '@mui/material';
-import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect, TitleBtn } from './styles';
+import { useMediaQuery } from '@mui/material';
+import { gridStylesItemPartners, gridStylesItemProducts, gridStylesContainer, stylesSortSelect } from './styles';
 import AppPagination from '../Pagination/Pagination';
 import Sorter from '../Sorter/Sorter';
 import { setFilterParams } from '../../redux/slices/filterSlice';
@@ -17,7 +15,7 @@ import { setIsApplyClicked } from '../../redux/slices/scrollAnchorSlice';
 import { openModal, setContent } from '../../redux/slices/modalSlice';
 
 const ListItems = ({ title, items, itemComponent, actions,
-  pagination, type, itemsFrom, sorting, isScrolling }) => {
+  pagination, type, itemsFrom, sorting, admin, isScrolling }) => {
   const dispatch = useDispatch();
 
   const anchor = useSelector((state) => state.scrollAnchor.productsScrollAnchor);
@@ -62,25 +60,20 @@ const ListItems = ({ title, items, itemComponent, actions,
 
   return (
     <Container sx={{ mb: 13 }}>
-      <Grid sx={{ display: 'grid', alignItems: 'center', justifyContent: 'center', gridTemplateColumns: 'repeat(2,1fr)' }}>
-        <Typography
-          variant="h2"
-          component="h2"
-          color="text.primary"
-          sx={{ mb: 3 }}
-        >
-          {title}
-        </Typography>
-        <Button component={NavLink} to="/menu/newProduct" sx={TitleBtn}>
-          {isLgTablet && <Typography mr={1}>Add new porduct</Typography>}
-          <AddCircleOutlineIcon />
-        </Button>
-      </Grid>
+      <Typography
+        variant="h2"
+        component="h2"
+        color="text.primary"
+        sx={{ mb: 3, textAlign: 'center' }}
+      >
+        {title}
+      </Typography>
 
       { sorting && (
-      <Sorter
-        type={type}
-      />
+        <Sorter
+          type={type}
+          admin={admin}
+        />
       )}
 
       <Grid container spacing={0} sx={gridStylesContainer}>
@@ -108,6 +101,7 @@ ListItems.propTypes = {
   actions: PropTypes.object,
   pagination: PropTypes.bool,
   sorting: PropTypes.bool,
+  admin: PropTypes.bool,
   items: PropTypes.array,
   itemComponent: PropTypes.object,
   type: PropTypes.string,
@@ -120,6 +114,7 @@ ListItems.defaultProps = {
   actions: {},
   pagination: false,
   sorting: false,
+  admin: false,
   items: [],
   itemComponent: {},
   type: '',

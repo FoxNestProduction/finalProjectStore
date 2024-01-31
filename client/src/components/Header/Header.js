@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
@@ -38,7 +39,7 @@ import ElevationScroll from '../ElevationScroll/ElevationScroll';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
-import { CHECKOUT_SS_KEY, LANGUAGES } from '../../constants/constants';
+import { ADMIN_PAGES, CHECKOUT_SS_KEY, LANGUAGES, PAGES } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
@@ -47,6 +48,7 @@ import useAlert from '../../customHooks/useAlert';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
   const { i18n, t } = useTranslation();
 
@@ -56,6 +58,7 @@ const Header = () => {
   };
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const { isAdmin } = useSelector((state) => state.user.user);
   const favourite = useSelector((state) => state.favourites.cardStates, shallowEqual);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
@@ -100,6 +103,9 @@ const Header = () => {
   }, [dispatch]);
 
   const handleLogOut = useCallback(() => {
+    if (isAdmin) {
+      navigate('/');
+    }
     dispatch(setIsCart(false));
     dispatch(resetCart());
     dispatch(setToken(null));
@@ -114,19 +120,21 @@ const Header = () => {
       handleCloseAlert();
       setLogOutAlert(false);
     }, 4000);
-  }, [dispatch, handleCloseAlert, handleShowAlert]);
+  }, [dispatch, handleCloseAlert, handleShowAlert, isAdmin, navigate]);
 
   const setNavigateTo = useCallback((page) => {
-    if (page === 'Menu') {
-      if (location.pathname === '/menu' && location.search) {
-        return `/menu${location.search}`;
-      }
-      return '/menu';
-    }
-    return `/${page.toLowerCase()}`;
-  }, [location.pathname, location.search]);
+    const specialCases = {
+      [PAGES.MENU]: `/menu${location.search}`,
+    };
+    return specialCases[page] || `/${page.toLowerCase()}`;
+  }, [location.search]);
 
-  const navItems = useMemo(() => ['menu', 'restaurants', 'reviews', 'contact'], []);
+  const setNavigateToAdmin = useCallback((page) => {
+    return `admin-panel/${page.toLowerCase()}`;
+  }, []);
+
+  const navItems = useMemo(() => [PAGES.MENU, PAGES.RESTAURANTS, PAGES.REVIEWS, PAGES.CONTACT], []);
+  const navItemsAdmin = useMemo(() => [ADMIN_PAGES.PARTNERS, ADMIN_PAGES.BANNER], []);
 
   return (
     <>
@@ -144,12 +152,24 @@ const Header = () => {
         >
           <Container>
             <Toolbar component="nav" disableGutters sx={stylesNav}>
-              <Link component={NavLink} to="/" underline="none">
+              <Link component={NavLink} to={isAdmin ? 'admin-panel/partners' : '/'} underline="none">
                 <Logo />
               </Link>
 
               <List sx={stylesNavMenu}>
-                {navItems.map((page) => (
+                {isUserAuthorized && isAdmin ? (
+                  navItemsAdmin.map((page) => (
+                    <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
+                      <Button
+                        component={NavLink}
+                        to={setNavigateToAdmin(page)}
+                        sx={{ ...stylesNavMenuItem, mr: '30px' }}
+                      >
+                        {page}
+                      </Button>
+                    </ListItem>
+                  ))
+                ) : (navItems.map((page) => (
                   <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                     <Button
                       component={NavLink}
@@ -159,28 +179,31 @@ const Header = () => {
                       {t(`${page}`)}
                     </Button>
                   </ListItem>
-                ))}
+                )))}
               </List>
 
               <Box sx={stylesIconsWrapper}>
-                <Box sx={{ minWidth: '25px' }}>
-                  <TextField
-                    sx={stylesLangSelect}
-                    id="standard-select-currency"
-                    size="small"
-                    select
-                    value={i18n.language}
-                    variant="standard"
-                    onChange={onChangeLang}
-                  >
-                    {LANGUAGES.map(({ code, label }) => (
-                      <MenuItem key={code} value={code}>
-                        {label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Box>
-                {isUserAuthorized && isLgTabletOrDesktop && (
+                {!isAdmin && (
+                  <Box sx={{ minWidth: '25px' }}>
+                    <TextField
+                      sx={stylesLangSelect}
+                      id="standard-select-currency"
+                      size="small"
+                      select
+                      value={i18n.language}
+                      variant="standard"
+                      onChange={onChangeLang}
+                    >
+                      {LANGUAGES.map(({ code, label }) => (
+                        <MenuItem key={code} value={code}>
+                          {label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Box>
+                )}
+
+                {isUserAuthorized && isLgTabletOrDesktop && !isAdmin && (
                   <IconButton aria-label="favourites" edge="end" size="small" component={NavLink} to="/favourites">
                     <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
                       <FavoriteBorderOutlinedIcon sx={stylesIcon} />
@@ -221,9 +244,9 @@ const Header = () => {
           isMobileMenuOpen={isMobileMenuOpen}
           handleCloseDrawer={handleCloseDrawer}
           handleOpenModalLogin={handleOpenModalLogin}
-          navItems={navItems}
+          navItems={isAdmin ? navItemsAdmin : navItems}
           handleLogOut={handleLogOut}
-          setNavigateTo={setNavigateTo}
+          setNavigateTo={isAdmin ? setNavigateToAdmin : setNavigateTo}
         />
       </nav>
     </>

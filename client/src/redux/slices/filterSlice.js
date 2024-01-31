@@ -18,8 +18,27 @@ export const fetchFilteredProducts = createAsyncThunk(
   },
 );
 
+// ----- requests for Admin -----
+
+export const fetchFilteredPartnerProducts = createAsyncThunk(
+  'filter/fetchFilteredPartnerProducts',
+  async (restaurantName, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await instance.get(`/products/filter?restaurant_name=${restaurantName}`);
+      if (response.data.products.length > 0) {
+        dispatch(resetSearch());
+      }
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 const initialState = {
   filteredProducts: [],
+  filteredPartnerProducts: [],
+  filteredProduct: [],
   productsQuantity: null,
   loading: false,
   error: null,
@@ -64,6 +83,39 @@ const filterSlice = createSlice({
         perPage: state.filterParams.perPage,
       };
     },
+    setFilteredProduct(state, action) {
+      const searchName = action.payload;
+      state.filteredProduct = state.filteredPartnerProducts.filter((item) => {
+        return item.name.toLowerCase().includes(searchName.toLowerCase());
+      });
+    },
+    deleteFilteredProduct(state, action) {
+      state.filteredProduct = [];
+    },
+    updateFilteredPartnerProducts(state, { payload }) {
+      const updatedProduct = payload;
+      state.filteredPartnerProducts = state.filteredPartnerProducts.map((item) => {
+        if (item._id === updatedProduct._id) {
+          return { ...item, ...updatedProduct };
+        }
+        return item;
+      });
+    },
+    updateOneFilteredProduct(state, { payload }) {
+      const updatedProduct = payload;
+      const filteredProduct = state.filteredProduct[0];
+      if (filteredProduct) {
+        filteredProduct.enabled = updatedProduct.enabled;
+      }
+      // if (state.filteredProduct.length !== 0) {
+      //   state.filteredProduct = state.filteredProduct.map((item) => {
+      //     if (item._id === updatedProduct._id) {
+      //       return { ...item, ...updatedProduct };
+      //     }
+      //     return item;
+      //   });
+      // }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -79,7 +131,21 @@ const filterSlice = createSlice({
         }
         state.loading = false;
       })
-      .addCase(fetchFilteredProducts.rejected, setError);
+      .addCase(fetchFilteredProducts.rejected, setError)
+
+      .addCase(fetchFilteredPartnerProducts.pending, setLoading)
+      .addCase(fetchFilteredPartnerProducts.fulfilled, (state, action) => {
+        if (action.payload.products.length === 0) {
+          state.filteredPartnerProducts = [];
+          state.nothingFound = true;
+        } else {
+          state.filteredPartnerProducts = action.payload.products;
+          state.productsQuantity = action.payload.productsQuantity;
+          state.nothingFound = false;
+        }
+        state.loading = false;
+      })
+      .addCase(fetchFilteredPartnerProducts.rejected, setError);
   },
 });
 
@@ -87,6 +153,10 @@ export const {
   setFilterParams,
   deleteFilteredData,
   resetFilterParams,
+  setFilteredProduct,
+  deleteFilteredProduct,
+  updateFilteredPartnerProducts,
+  updateOneFilteredProduct,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

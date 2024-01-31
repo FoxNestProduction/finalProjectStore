@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { Formik, Form } from 'formik';
 import { Typography, Box, Button } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
@@ -42,6 +43,7 @@ import { setNewGoogleUser } from '../../../redux/slices/newGoogleUserSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const authError = useSelector((state) => state.error.authorization);
   const { handleShowAlert } = useAlert();
   const { i18n, t } = useTranslation();
@@ -72,6 +74,9 @@ const LoginForm = () => {
       dispatch(fetchFavourites());
       handleShowAlert();
     }
+    if (user.isAdmin) {
+      navigate('/admin-panel/partners');
+    }
   };
 
   const handleSubmit = async (values) => {
@@ -93,6 +98,7 @@ const LoginForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
+            dispatch(setUser(res.data.user));
             authFunc(res.data);
           } else {
             const { data } = res;

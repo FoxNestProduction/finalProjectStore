@@ -37,13 +37,13 @@ const Search = ({ resetFiltersLocalState }) => {
   if (key === 'restaurant') {
     labelKey = {
       en: 'Restaurant',
-      ua: 'Ресторану',
+      uk: 'Ресторану',
       pl: 'Restaurant',
     };
   } else {
     labelKey = {
       en: 'Food',
-      ua: 'Страв',
+      uk: 'Страв',
       pl: 'Food',
     };
   }

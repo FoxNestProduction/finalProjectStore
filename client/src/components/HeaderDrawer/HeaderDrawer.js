@@ -30,6 +30,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
   const dispatch = useDispatch();
   const { i18n, t } = useTranslation();
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const { isAdmin } = useSelector((state) => state.user.user);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
 
   const handleOpenModalRegister = useCallback(() => {
@@ -76,7 +77,7 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
                 to={setNavigateTo(page)}
               >
                 <ListItemText
-                  primary={t(`${page.toLowerCase()}`)}
+                  primary={isAdmin ? page : t(`${page.toLowerCase()}`)}
                   sx={stylesListItem}
                 />
               </ListItemButton>
@@ -84,23 +85,23 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
           ))}
         </List>
 
-        {isUserAuthorized && (
-        <>
-          <Divider />
-          <List>
-            <MenuItemWithIcon
-              navLink
-              page="Favourites"
-              icon={
-                (
-                  <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
-                    <FavoriteBorderOutlinedIcon sx={stylesIcon} />
-                  </Badge>
-                )
-              }
-            />
-          </List>
-        </>
+        {isUserAuthorized && !isAdmin && (
+          <>
+            <Divider />
+            <List>
+              <MenuItemWithIcon
+                navLink
+                page="Favourites"
+                icon={
+                  (
+                    <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                      <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                    </Badge>
+                  )
+                }
+              />
+            </List>
+          </>
         )}
 
         <Divider />
@@ -144,11 +145,11 @@ HeaderDrawer.propTypes = {
 
 HeaderDrawer.defaultProps = {
   isMobileMenuOpen: false,
-  handleCloseDrawer: () => {},
-  handleOpenModalLogin: () => {},
+  handleCloseDrawer: () => { },
+  handleOpenModalLogin: () => { },
   navItems: [],
-  handleLogOut: () => {},
-  setNavigateTo: () => {},
+  handleLogOut: () => { },
+  setNavigateTo: () => { },
 };
 
 export default memo(HeaderDrawer);

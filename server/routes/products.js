@@ -15,7 +15,6 @@ const {
   getProductsFilterParams,
   searchProducts,
   getProductsCategories,
-  getProductsItemNo
 } = require("../controllers/products");
 
 // Configurations for multer
@@ -101,11 +100,6 @@ router.get("/categories", getProductsCategories);
 // @desc    GET appropriate filtered products
 // @access  Public
 router.get("/filter", getProductsFilterParams);
-
-// @route   GET /products/filter
-// @desc    GET appropriate filtered products
-// @access  Public
-router.get("/itemNo", getProductsItemNo);
 
 // @route   POST /products/search
 // @desc    POST appropriate to search query products

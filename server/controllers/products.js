@@ -23,6 +23,11 @@ exports.addImages = (req, res, next) => {
 exports.addProduct = (req, res, next) => {
   const productFields = _.cloneDeep(req.body);
 
+  const products = Product.find();
+  const productsItemNo = products.map(product => product.itemNo);
+  const lastItemNo = Math.max(...productsItemNo);
+  productFields.itemNo = lastItemNo + 1;
+
   try {
     productFields.name = productFields.name
       .toLowerCase()
@@ -84,7 +89,7 @@ exports.updateProduct = (req, res, next) => {
           { $set: updatedProduct },
           { new: true }
         )
-          .then(product => res.json(product))
+          .then(product => res.json({status: 'ok', data: product}))
           .catch(err =>
             res.status(400).json({
               message: `Error happened on server: "${err}" `
@@ -136,19 +141,6 @@ exports.getProductsCategories = async (req, res) => {
     const productsCategories = products.map(product => product.filterCategories);
     const uniqueProductsCategories = Array.from(new Set(productsCategories));
     res.json(uniqueProductsCategories);
-  } catch (err) {
-    res.status(400).json({
-      message: `Error happened on server: "${err}" `
-    });
-  }
-};
-
-exports.getProductsItemNo = async (req, res) => {
-  try {
-    const products = await Product.find();
-    const productsItemNo = products.map(product => product.itemNo);
-    const lastItemNo = Math.max(...productsItemNo);
-    res.json(lastItemNo);
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `

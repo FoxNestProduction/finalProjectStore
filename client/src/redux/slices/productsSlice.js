@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
 import { fetchGetPartner, fetchUpdatePartner } from './partnersSlice';
+import { updateFilteredPartnerProducts, updateOneFilteredProduct } from './filterSlice';
 
 export const fetchTopProducts = createAsyncThunk(
   'products/fetchTopProducts',
@@ -55,10 +56,14 @@ export const fetchGetOneProduct = createAsyncThunk(
 
 export const fetchUpdateProduct = createAsyncThunk(
   'partners/fetchUpdateProduct',
-  async ({ itemNo, body }, { rejectWithValue }) => {
+  async ({ itemId, body }, { rejectWithValue, dispatch }) => {
     try {
-      const { data } = await instance.put(`/partners/${itemNo}`, body);
-      return data;
+      const { data } = await instance.put(`/products/${itemId}`, body);
+      if (data.status === 'ok') {
+        dispatch(updateFilteredPartnerProducts(data.product));
+        dispatch(updateOneFilteredProduct(data.product));
+      }
+      return data.product;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -113,9 +118,13 @@ const productsSlice = createSlice({
       // ---- Admin ---
       .addCase(fetchUpdateProduct.pending, setLoading)
       .addCase(fetchUpdateProduct.fulfilled, (state, action) => {
-        state.oneProduct = { ...state.oneProduct, ...action.payload };
         state.loading = false;
-      });
+        const updatedProduct = action.payload;
+        if (state.oneProduct._id === updatedProduct._id) {
+          state.oneProduct = { ...state.oneProduct, ...action.payload };
+        }
+      })
+      .addCase(fetchUpdateProduct.rejected, setError);
   },
 });
 

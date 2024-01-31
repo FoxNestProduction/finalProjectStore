@@ -82,16 +82,14 @@ const RestaurantPage = () => {
             <Skeleton skeletonType="product" />
           </Box>
         </Container>
-      ) : (
-        topProducts.length > 0 && (
-          <ListItems
-            title={t('restaurantPage.ourTopDishes')}
-            items={topProducts}
-            itemComponent={ProductCardItem}
-            actions={null}
-          />
-        )
-      )}
+      ) : (topProducts.length > 0 && (
+        <ListItems
+          title="Our Top Dishes"
+          items={topProducts}
+          itemComponent={ProductCardItem}
+          actions={null}
+        />
+      ))}
       <QuestionsList />
     </>
   );

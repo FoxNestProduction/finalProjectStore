@@ -76,7 +76,8 @@
     "restaurant": "Restaurant"
   },
   "sorter": {
-    "label": "Sort by"
+    "label": "Sort by",
+    "labelAdmin": "Show"
   },
   "restaurantPage": {
     "title": "All Restaurants",
@@ -237,18 +238,18 @@
     "invalidLastName": "The last name must be capitalized and contain only Latin letters",
     "invalidMail": "Invalid email format",
     "invalidPassword": "Password is too short - should be 8 chars minimum"
-   },
-   "verifyMail": {
+  },
+  "verifyMail": {
     "fogot": "Forgot Password",
     "enterMail": "Enter your e-mail to reset password",
     "placeholder": "Enter your e-mail",
     "required": "Email is required",
     "invalid": "Invalid email format"
-   },
-   "successfulLetter": {
+  },
+  "successfulLetter": {
     "text1": "An email with a link has been sent to your email",
     "text2": "Open this email and click on the link to change your password",
     "text3": "If you did not receive the message, check the spam folder and whether the email address is correct and try to send the request again.",
     "text4": "The link will only be active for 15 minutes ..."
-   }
+  }
 }

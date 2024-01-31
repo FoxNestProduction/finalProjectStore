@@ -18,6 +18,7 @@ const MiniCart = () => {
   const { i18n, t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const cartProducts = useSelector((state) => state.cart.cart.products, shallowEqual);
+  const { isAdmin } = useSelector((state) => state.user.user);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,6 +50,8 @@ const MiniCart = () => {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
   const cartAmount = cartIconCounterFunction(cartProducts);
+
+  if (isAdmin) return null;
 
   return (
     <div>

@@ -63,6 +63,18 @@ export const fetchUpdatePartner = createAsyncThunk(
   },
 );
 
+export const fetchAddNewPartner = createAsyncThunk(
+  'partners/fetchAddNewPartner',
+  async (body, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.post('/partners', body);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 const initialState = {
   topPartners: [],
   allPartnersNames: [],
@@ -75,6 +87,11 @@ const initialState = {
 const partnersSlice = createSlice({
   name: 'partners',
   initialState,
+  reducers: {
+    deletePartnerError(state) {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTopPartners.pending, setLoading)
@@ -93,18 +110,33 @@ const partnersSlice = createSlice({
         state.currentEditingPartner = action.payload;
         state.loading = false;
       })
+      .addCase(fetchGetPartner.rejected, setError)
 
       .addCase(fetchUpdatePartner.pending, setLoading)
-      .addCase(fetchUpdatePartner.fulfilled, (state, action) => {
-        state.currentEditingPartner = { ...state.currentEditingPartner, ...action.payload };
+      .addCase(fetchUpdatePartner.fulfilled, (state, { payload }) => {
+        const updatedPartner = payload;
+        if (state.currentEditingPartner._id === updatedPartner._id) {
+          state.currentEditingPartner = { ...state.currentEditingPartner, ...updatedPartner };
+        }
+        // TODO: find and update partner in all partners state
+        // ....
+        state.loading = false;
+      })
+      .addCase(fetchUpdatePartner.rejected, setError)
+
+      .addCase(fetchAddNewPartner.pending, setLoading)
+      .addCase(fetchAddNewPartner.fulfilled, (state, action) => {
         state.loading = false;
       })
       .addCase(fetchAllPartners.pending, setLoading)
       .addCase(fetchAllPartners.fulfilled, (state, action) => {
         state.allPartners = action.payload;
       })
-      .addCase(fetchAllPartners.rejected, setError);
+      .addCase(fetchAllPartners.rejected, setError)
+      .addCase(fetchAddNewPartner.rejected, setError);
   },
 });
+
+export const { deletePartnerError } = partnersSlice.actions;
 
 export default partnersSlice.reducer;

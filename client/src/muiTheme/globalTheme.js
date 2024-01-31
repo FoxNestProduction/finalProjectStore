@@ -41,6 +41,7 @@ const globalTheme = createTheme({
       trending: '#F7C5BA',
       supreme: '#33AC64',
       quote: '#DADADA',
+      iconHover: '#D9D9D9',
     },
     scrollbar: {
       track: '#f0eefc',

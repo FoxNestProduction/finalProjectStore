@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
 import { Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
@@ -48,6 +49,7 @@ export const initialValues = {
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { i18n, t } = useTranslation();
   const registerError = useSelector((state) => state.error.registration);
   const { handleShowAlert } = useAlert();
@@ -73,6 +75,10 @@ const RegisterForm = () => {
     removeDataFromSessionStorage(CHECKOUT_SS_KEY);
     saveUserInfoToSessionStorage(user);
     dispatch(createCart());
+
+    if (user.isAdmin) {
+      navigate('/admin-panel/partners');
+    }
   };
 
   const handleSubmit = async (values) => {
@@ -100,6 +106,7 @@ const RegisterForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
+            dispatch(setUser(res.data.user));
             authFunc(res.data);
           } else {
             const { data } = res;
