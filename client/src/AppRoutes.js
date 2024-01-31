@@ -41,14 +41,39 @@ const AppRoutes = () => {
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/favourites" element={<Favourites />} />
-        <Route path="/checkout" element={<CheckoutPage titleText="Checkout" formComponent={CheckoutForm} />} />
-        <Route path="/checkout/payment" element={<CheckoutPage titleText="Payment" formComponent={PaymentForm} />} />
+        <Route
+          path="/checkout"
+          element={(
+            <CheckoutPage
+              titleText={t('checkout.checkout')}
+              formComponent={CheckoutForm}
+            />
+          )}
+        />
+        <Route
+          path="/checkout/payment"
+          element={(
+            <CheckoutPage
+              titleText={t('payment.payment')}
+              formComponent={PaymentForm}
+            />
+          )}
+        />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         {/* <Route path="/menu/:productName/:itemNo" element={<ProductPage />} /> */}
-        <Route path="/menu/:productName/:itemNo" element={<AddEditProductPage />} />
+        <Route
+          path="/menu/:productName/:itemNo"
+          element={<AddEditProductPage />}
+        />
         <Route path="/menu/newProduct" element={<AddEditProductPage />} />
-        <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
-        <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
+        <Route
+          path="/restaurants/:partnersName/:customId"
+          element={<PartnersPage />}
+        />
+        <Route
+          path="/recovery-password/:userId/:token"
+          element={<ChangePasswordForm />}
+        />
 
         {/* Routes for admin panel */}
 
@@ -56,17 +81,29 @@ const AppRoutes = () => {
         <Route path="/admin-panel/partners" element={<AllPartnersPage />} />
 
         {/* сторінка редагування ресторану /admin-panel/partners/17001 */}
-        <Route path="/admin-panel/partners/:customId" element={<EditPartnerPage />} />
+        <Route
+          path="/admin-panel/partners/:customId"
+          element={<EditPartnerPage />}
+        />
 
         {/* eslint-disable-next-line max-len */}
         {/* сторінка редагування блюда конкретного ресторану /admin-panel/partners/17001/dishes/10001 */}
-        <Route path="/admin-panel/partners/:customId/dishes/:itemNo" element={<EditDishPage />} />
+        <Route
+          path="/admin-panel/partners/:customId/dishes/:itemNo"
+          element={<EditDishPage />}
+        />
 
         {/* сторінка створення нового блюда конкретного ресторану */}
-        <Route path="/admin-panel/partners/:customId/dishes/new-dish" element={<AddDishPage />} />
+        <Route
+          path="/admin-panel/partners/:customId/dishes/new-dish"
+          element={<AddDishPage />}
+        />
 
         {/* сторінка створення нового ресторану */}
-        <Route path="/admin-panel/partners/new-partner" element={<AddPartnerPage />} />
+        <Route
+          path="/admin-panel/partners/new-partner"
+          element={<AddPartnerPage />}
+        />
 
         <Route path="*" element={<NotFound />} />
       </Route>
