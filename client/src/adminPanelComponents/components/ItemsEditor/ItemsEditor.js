@@ -86,7 +86,7 @@ ItemsEditor.propTypes = {
 ItemsEditor.defaultProps = {
   isNewItem: false,
   showDishes: false,
-  setShowDishes: {},
+  setShowDishes: () => {},
 };
 
 export default memo(ItemsEditor);

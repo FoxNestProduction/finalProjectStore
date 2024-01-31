@@ -93,22 +93,24 @@ const filterSlice = createSlice({
       state.filteredProduct = [];
     },
     updateFilteredPartnerProducts(state, { payload }) {
+      const updatedProduct = payload;
       state.filteredPartnerProducts = state.filteredPartnerProducts.map((item) => {
-        if (item.itemNo === payload.itemNo) {
-          return { ...item, enabled: payload.enabled };
+        if (item._id === updatedProduct._id) {
+          return { ...item, ...updatedProduct };
         }
         return item;
       });
     },
     updateOneFilteredProduct(state, { payload }) {
+      const updatedProduct = payload;
       const filteredProduct = state.filteredProduct[0];
       if (filteredProduct) {
-        filteredProduct.enabled = payload.enabled;
+        filteredProduct.enabled = updatedProduct.enabled;
       }
       // if (state.filteredProduct.length !== 0) {
       //   state.filteredProduct = state.filteredProduct.map((item) => {
-      //     if (item.itemNo === payload.itemNo) {
-      //       return { ...item, enabled: payload.enabled };
+      //     if (item._id === updatedProduct._id) {
+      //       return { ...item, ...updatedProduct };
       //     }
       //     return item;
       //   });

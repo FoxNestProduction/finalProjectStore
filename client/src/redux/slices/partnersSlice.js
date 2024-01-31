@@ -100,8 +100,13 @@ const partnersSlice = createSlice({
       .addCase(fetchGetPartner.rejected, setError)
 
       .addCase(fetchUpdatePartner.pending, setLoading)
-      .addCase(fetchUpdatePartner.fulfilled, (state, action) => {
-        state.currentEditingPartner = { ...state.currentEditingPartner, ...action.payload };
+      .addCase(fetchUpdatePartner.fulfilled, (state, { payload }) => {
+        const updatedPartner = payload;
+        if (state.currentEditingPartner._id === updatedPartner._id) {
+          state.currentEditingPartner = { ...state.currentEditingPartner, ...updatedPartner };
+        }
+        // TODO: find and update partner in all partners state
+        // ....
         state.loading = false;
       })
       .addCase(fetchUpdatePartner.rejected, setError)

@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Container, Typography, Box, useMediaQuery, Grid, Button } from '@mui/material';
-import { useLocation, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -19,10 +19,12 @@ import { deletePartnerError, fetchGetPartner } from '../../../redux/slices/partn
 import { gridStylesContainer } from '../../../components/ListItems/styles';
 import { fetchFilteredPartnerProducts } from '../../../redux/slices/filterSlice';
 import AdminSearch from '../../components/AdminSearch/AdminSearch';
+import { outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 
 const EditPartnerPage = () => {
   const { customId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [showDishes, setShowDishes] = useState(false);
 
@@ -82,6 +84,14 @@ const EditPartnerPage = () => {
   }
   return (
     <Container sx={mainContainer}>
+      {/* <Box sx={{ mt: '10px', mb: '20px' }}> */}
+      {/*  <Button */}
+      {/*    sx={{ ...outlinedBtnStyles, minWidth: '150px' }} */}
+      {/*    onClick={() => navigate('/admin-panel/partners')} */}
+      {/*  > */}
+      {/*    Back */}
+      {/*  </Button> */}
+      {/* </Box> */}
       <Typography variant="h2" component="h1" sx={mainTitle}>
         {partner?.name}
       </Typography>
