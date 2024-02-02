@@ -26,6 +26,7 @@ export const stylesImageWrapper = {
 export const stylesImage = {
   transition: '.3s',
 };
+
 export const stylesMiniTextWrapper = {
   margin: {
     mobile: '2px',
@@ -37,6 +38,7 @@ export const stylesMiniTextWrapper = {
   display: 'flex',
   alignItems: 'end',
 };
+
 export const stylesMiniText = {
   ...chipSizeDishes,
   mb: '0',
@@ -45,12 +47,14 @@ export const stylesMiniText = {
   width: '100%',
   fontSize: '10px',
 };
+
 const padding = {
   px: {
     mobile: '6px',
     tablet: '10px',
   },
 };
+
 export const stylesTitle = {
   ...padding,
   fontSize: {
@@ -70,6 +74,7 @@ export const stylesTitle = {
     desktop: '15px',
   },
 };
+
 export const stylesRatingWrapper = {
   ...padding,
   display: 'flex',
@@ -87,6 +92,7 @@ export const stylesRatingWrapper = {
     desktop: '40px',
   },
 };
+
 export const stylesTime = {
   fontSize: {
     mobile: '10px',
@@ -94,6 +100,7 @@ export const stylesTime = {
   },
   color: 'text.secondary',
 };
+
 export const stylesStarWrapper = {
   display: 'flex',
   gap: '2px',
@@ -107,8 +114,8 @@ export const stylesStarWrapper = {
     top: '-1px',
     left: '-2px',
   },
-
 };
+
 export const stylesPrice = {
   ...padding,
   position: 'relative',
@@ -118,6 +125,23 @@ export const stylesPrice = {
   gap: '100%',
   fontSize: { mobile: '16px', tablet: '16px' },
   fontWeight: 700,
+};
+
+export const stylesDisableBtn = {
+  p: '4px 4px',
+  position: 'absolute',
+  right: '5px',
+  bottom: '5px',
+  minWidth: {
+    mobile: '70px',
+    // lgTablet: '70px',
+    // desktop: '80px',
+  },
+  fontSize: {
+    mobile: '12px',
+    lgTablet: '14px',
+    desktop: '14px',
+  },
 };
 
 export const stylesButton = {

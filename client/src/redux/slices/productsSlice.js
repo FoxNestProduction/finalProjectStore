@@ -120,7 +120,7 @@ const productsSlice = createSlice({
       .addCase(fetchUpdateProduct.fulfilled, (state, action) => {
         state.loading = false;
         const updatedProduct = action.payload;
-        if (state.oneProduct._id === updatedProduct._id) {
+        if (state.oneProduct && state.oneProduct._id === updatedProduct._id) {
           state.oneProduct = { ...state.oneProduct, ...action.payload };
         }
       })

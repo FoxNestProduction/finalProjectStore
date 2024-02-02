@@ -2,12 +2,11 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
-import { activateBtn, disableBtn, btn, largeBtn, smallBtn } from './styles';
+import { activateBtn, disableBtn, btn } from './styles';
 import { fetchUpdatePartner } from '../../../redux/slices/partnersSlice';
 import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
-import { updateFilteredPartnerProducts, updateOneFilteredProduct } from '../../../redux/slices/filterSlice';
 
-const DisableBtn = ({ item, type, isEditing, isLarge }) => {
+const DisableBtn = ({ item, type, isEditing, customStyles }) => {
   const dispatch = useDispatch();
 
   const handleDisable = async () => {
@@ -15,17 +14,6 @@ const DisableBtn = ({ item, type, isEditing, isLarge }) => {
       dispatch(fetchUpdatePartner({ customId: item.customId, body: { enabled: !item.enabled } }));
     } else {
       dispatch(fetchUpdateProduct({ itemId: item._id, body: { enabled: !item.enabled } }));
-
-      // const response = await dispatch(fetchUpdateProduct({ itemId: item._id,
-      //   body: { enabled: !item.enabled } })).unwrap();
-      // if (response.status === 'ok') {
-      //   if (isLarge) {
-      //     // для сторінки продукту
-      //   } else {
-      //     dispatch(updateFilteredPartnerProducts(response.data));
-      //     dispatch(updateOneFilteredProduct(response.data));
-      //   }
-      // }
     }
   };
 
@@ -39,7 +27,7 @@ const DisableBtn = ({ item, type, isEditing, isLarge }) => {
       sx={{
         ...btn,
         ...(item?.enabled ? disableBtn : activateBtn),
-        ...(isLarge ? largeBtn : smallBtn),
+        ...customStyles,
       }}
     >
       {item.enabled ? 'Disable' : 'Activate'}
@@ -49,15 +37,15 @@ const DisableBtn = ({ item, type, isEditing, isLarge }) => {
 
 DisableBtn.propTypes = {
   type: PropTypes.oneOf(['dish', 'partner']).isRequired,
-  isLarge: PropTypes.bool,
   item: PropTypes.object,
   isEditing: PropTypes.bool,
+  customStyles: PropTypes.object,
 };
 
 DisableBtn.defaultProps = {
-  isLarge: false,
   item: null,
   isEditing: false,
+  customStyles: {},
 };
 
 export default memo(DisableBtn);

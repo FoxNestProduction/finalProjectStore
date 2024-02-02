@@ -31,6 +31,19 @@ export const topBtnsWrapper = {
   mb: '23px',
 };
 
+export const disableBtn = {
+  p: '6px 16px',
+  minWidth: {
+    mobile: '100px',
+    lgTablet: '120px',
+  },
+  fontSize: {
+    mobile: '14px',
+    lgTablet: '16px',
+    desktop: '18px',
+  },
+};
+
 export const showDishesBtnWrapper = {
   justifyContent: 'flex-end',
   p: '0',

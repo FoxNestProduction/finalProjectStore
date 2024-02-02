@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
 import {
-  topBtnsWrapper, showDishesBtn, getCardStyles, showDishesBtnWrapper,
+  topBtnsWrapper, showDishesBtn, getCardStyles, showDishesBtnWrapper, disableBtn,
 } from './styles';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 import AddEditPartnerForm from '../../forms/AddEditPartnerForm/AddEditPartnerForm';
@@ -24,7 +24,7 @@ const ItemsEditor = ({ type, isNewItem, showDishes, setShowDishes }) => {
     <Card sx={getCardStyles(item)}>
       {!isNewItem && (
       <CardActions sx={topBtnsWrapper}>
-        <DisableBtn item={item} type={type} isEditing={isEditing} isLarge />
+        <DisableBtn item={item} type={type} isEditing={isEditing} customStyles={disableBtn} />
         <IconButton
           sx={{
             bgcolor: 'background.footer',
