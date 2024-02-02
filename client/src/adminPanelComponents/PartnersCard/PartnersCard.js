@@ -10,8 +10,10 @@ import {
   disabledCardStyles,
   imgStyles,
 } from './styles';
+import DisableBtn from '../components/DisableBtn/DisableBtn';
+import { fetchGetPartner } from '../../redux/slices/partnersSlice';
 
-const PartnersCard = ({ title, url, enabled }) => {
+const PartnersCard = ({ title, url, enabled, partner }) => {
   return (
     <Box>
       <Card
@@ -27,16 +29,42 @@ const PartnersCard = ({ title, url, enabled }) => {
             </Typography>
           )}
           action={(
-            <Button
+            <Box
               onClick={(event) => {
                 event.preventDefault();
               }}
-              aria-label="disable"
-              variant="outlined"
-              sx={disableButton}
+              sx={{
+                position: {
+                  mobile: '',
+                  tablet: 'relative',
+                  lgTablet: 'absolute',
+                  desktop: 'absolute',
+                },
+                top: {
+                  mobile: '',
+                  tablet: '7px',
+                  lgTablet: '3px',
+                  desktop: '8px',
+                },
+                right: {
+                  mobile: '',
+                  tablet: '7px',
+                  lgTablet: '0',
+                },
+                marginLeft: {
+                  mobile: '0',
+                  tablet: '8px',
+                  lgTablet: '0',
+                },
+              }}
             >
-              Disable
-            </Button>
+              <DisableBtn
+                item={partner}
+                type="partner"
+                isLarge
+              />
+            </Box>
+
           )}
         />
         <Box
@@ -63,6 +91,7 @@ PartnersCard.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string,
   enabled: PropTypes.bool.isRequired,
+  partner: PropTypes.object.isRequired,
 };
 
 PartnersCard.defaultProps = {

@@ -6,7 +6,9 @@ export const fetchSearchedProductsOrPartners = createAsyncThunk(
   'search/fetchSearchedProductsOrPartners',
   async ({ url, body }, { rejectWithValue }) => {
     try {
+      console.log(body);
       const response = await instance.post(url, body);
+      console.log(response.data);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);

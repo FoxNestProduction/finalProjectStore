@@ -5,16 +5,22 @@ export const card = {
   padding: '10px 24px 24px 24px',
 };
 export const cardHeader = {
-  p: '0 16px 16px 16px',
+  p: {
+    tablet: '0 0 16px',
+    lgTablet: '0 16px 16px 16px',
+  },
   position: 'relative',
 };
 
 export const cardTitle = {
   fontSize: {
-    mobile: '38px',
-    fontWeight: '500',
-    fontFamily: 'fontPoppins',
+    mobile: '26px',
+    tablet: '28px',
+    lgTablet: '30px',
+    desktop: '38px',
   },
+  fontWeight: '500',
+  fontFamily: 'fontPoppins',
 };
 
 export const disableButton = {
@@ -62,6 +68,7 @@ export const disabledCardStyles = {
   width: '100%',
   height: '100%',
   background: 'rgba(217, 217, 217, 0.60)',
+  borderRadius: '16px',
 };
 
 export const imgStyles = {
