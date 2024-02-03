@@ -1,5 +1,5 @@
 import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment, Button } from '@mui/material';
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, useNavigate } from 'react-router-dom';
@@ -24,7 +24,6 @@ import { setInputSearchValue, setSearch, fetchSearchedProductsOrPartners } from 
 const PartnersPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     dispatch(fetchAllPartnersNames());
@@ -40,57 +39,57 @@ const PartnersPage = () => {
   const allPartners = useSelector((state) => state.partners.allPartners, shallowEqual);
   const editingPartner = useSelector((state) => state.partners.currentEditingPartner);
 
-  console.log(inputSearchValue);
-
   //  Варіант коду з пошуком через сервер
-  const handleSearchFetch = useCallback((value) => {
+  const handleSearchFetch = (value) => {
     if (value === '') {
       dispatch(setSearch([]));
     } else {
       const fetchData = {
         url: '/partners/search',
         body: {
-          query: inputSearchValue,
+          query: value,
         },
       };
       dispatch(fetchSearchedProductsOrPartners(fetchData));
       navigate('');
     }
-  }, [dispatch, inputSearchValue, navigate]);
-
-  const handleInputChange = async (event, newInputValue, reason) => {
-    dispatch(setInputSearchValue(newInputValue));
-    // setInputValue(newInputValue);
-    console.log(inputSearchValue);
-    if (reason === 'clear') {
-      handleSearchFetch(newInputValue);
-    }
   };
 
-  const handleSearch = (newInputValue) => {
-    console.log(inputSearchValue);
-    // dispatch(setInputSearchValue(newInputValue));
-    handleSearchFetch(inputSearchValue);
-  };
-
-  useEffect(() => {
-    dispatch(fetchAllPartners());
-    handleSearchFetch(inputSearchValue);
-  }, [dispatch, editingPartner, handleSearchFetch, inputSearchValue]);
-  // Варіант коду з фільтрацією на стороні клієнта
   // const handleInputChange = async (event, newInputValue, reason) => {
   //   dispatch(setInputSearchValue(newInputValue));
   //   if (reason === 'clear') {
-  //     dispatch(setSearch([]));
+  //     handleSearchFetch(newInputValue);
   //   }
   // };
 
   // const handleSearch = (newInputValue) => {
-  //   const filteredItem = allPartners.filter(({ name }) => {
-  //     return inputSearchValue === name || name.includes(inputSearchValue);
-  //   });
-  //   dispatch(setSearch(filteredItem));
+  //   handleSearchFetch(inputSearchValue);
   // };
+
+  useEffect(() => {
+    dispatch(fetchAllPartners());
+  }, [dispatch, editingPartner]);
+
+  useEffect(() => {
+    handleSearchFetch(inputSearchValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editingPartner]);
+
+  // Варіант коду з фільтрацією на стороні клієнта
+  const handleInputChange = async (event, newInputValue, reason) => {
+    dispatch(setInputSearchValue(newInputValue));
+    if (reason === 'clear') {
+      dispatch(setSearch([]));
+    }
+  };
+
+  const handleSearch = (newInputValue) => {
+    const filteredItem = allPartners.filter(({ name }) => {
+      return inputSearchValue.toLowerCase() === name.toLowerCase()
+      || name.toLowerCase().includes(inputSearchValue.toLowerCase());
+    });
+    dispatch(setSearch(filteredItem));
+  };
 
   return (
     <Container
