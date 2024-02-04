@@ -1,5 +1,5 @@
 import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment, Button, useMediaQuery } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, useNavigate } from 'react-router-dom';

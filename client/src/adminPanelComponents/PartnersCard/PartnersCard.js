@@ -1,4 +1,4 @@
-import { Box, Card, CardHeader, Button, CardMedia, Typography, useMediaQuery } from '@mui/material';
+import { Box, Card, CardHeader, Button, CardMedia, Typography } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -13,7 +13,6 @@ import DisableBtn from '../components/DisableBtn/DisableBtn';
 import { fetchGetPartner } from '../../redux/slices/partnersSlice';
 
 const PartnersCard = ({ title, url, enabled, partner }) => {
-  const isTablet = useMediaQuery('(min-width: 689px)');
   return (
     <Box>
       <Card
