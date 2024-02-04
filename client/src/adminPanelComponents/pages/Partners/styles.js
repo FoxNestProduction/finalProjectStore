@@ -4,6 +4,12 @@ export const stylesBorder = {
       borderColor: 'primary.hover',
     },
   },
+  '& .MuiOutlinedInput-root': {
+    height: {
+      tablet: 'auto',
+      lgTablet: '60px',
+    },
+  },
 };
 
 export const stylesSearch = {
@@ -12,11 +18,6 @@ export const stylesSearch = {
   width: '100%',
   minWidth: '260px',
   maxWidth: '593px',
-  height: {
-    mobile: '51px',
-    tablet: '53px',
-    desktop: '60px',
-  },
 };
 
 export const container = {
@@ -38,19 +39,45 @@ export const searchButtonsTitleWrapper = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  py: '40px',
+  p: {
+    mobile: '36px 0 20px',
+    tablet: '40px 0 28px',
+    lgTablet: '40px 0',
+  },
 };
 
 export const searchAndButtonsWrapper = {
   display: 'flex',
   width: '100%',
-  gap: '24px',
-  mb: '34px',
+  gap: {
+    mobile: '12px',
+    desktop: '24px',
+  },
+  mb: {
+    mobile: '16px',
+    tablet: '22px',
+    lgTablet: '34px',
+  },
+  flexWrap: {
+    mobile: 'wrap',
+    lgTablet: 'nowrap',
+    desktop: 'nowrap',
+  },
+  justifyContent: {
+    mobile: 'space-between',
+  },
 };
 
 export const searchBtn = {
-  width: '188px',
-  height: '60px',
+  width: {
+    mobile: '46%',
+    tablet: '41%',
+    lgTablet: '188px',
+  },
+  height: {
+    mobile: '54px',
+    lgTablet: '60px',
+  },
   borderRadius: '18px',
   padding: '12px 16px',
   marginRight: '5px',
@@ -64,8 +91,15 @@ export const searchBtn = {
 };
 
 export const addPartnersBtn = {
-  height: '60px',
-  width: '248px',
+  height: {
+    mobile: '54px',
+    lgTablet: '60px',
+  },
+  width: {
+    mobile: '46%',
+    tablet: '41%',
+    lgTablet: '248px',
+  },
   padding: '12px 5px',
   fontSize: {
     tablet: '1em',
@@ -78,7 +112,10 @@ export const addPartnersBtn = {
 
 export const title = {
   fontSize: {
-    mobile: '48px',
+    mobile: '36px',
+    tablet: '40px',
+    lgTablet: '46px',
+    desktop: '48px',
   },
 };
 
@@ -89,3 +126,8 @@ export const cardContainer = {
   gap: '40px',
   mb: '100px',
 };
+
+// mobile: '',
+//     tablet: '',
+//     lgTablet: '',
+//     desktop: '',

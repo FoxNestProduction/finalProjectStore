@@ -1,4 +1,4 @@
-import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment, Button } from '@mui/material';
+import { Box, Typography, Container, Stack, Autocomplete, TextField, InputAdornment, Button, useMediaQuery } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
@@ -38,7 +38,9 @@ const PartnersPage = () => {
   const inputSearchValue = useSelector((state) => state.search.inputSearchValue);
   const allPartners = useSelector((state) => state.partners.allPartners, shallowEqual);
   const editingPartner = useSelector((state) => state.partners.currentEditingPartner);
-
+  const isMobile = useMediaQuery('(max-width: 480px)');
+  const isLgTabletLoverBoundary = useMediaQuery('(min-width: 690px)');
+  const isLgTabletUpperBoundary = useMediaQuery('(max-width: 742px)');
   //  Варіант коду з пошуком через сервер
   const handleSearchFetch = (value) => {
     if (value === '') {
@@ -150,7 +152,9 @@ const PartnersPage = () => {
             </Button>
             <Button
               variant="outlined"
-              endIcon={<AddBoxOutlinedIcon />}
+              endIcon={isMobile ? null : <AddBoxOutlinedIcon />
+              && (isLgTabletLoverBoundary && isLgTabletUpperBoundary
+                ? null : <AddBoxOutlinedIcon />)}
               onClick={handleAddNewPartners}
               sx={{
                 ...outlinedBtnStyles,
