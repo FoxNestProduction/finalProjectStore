@@ -123,11 +123,9 @@ export const cardContainer = {
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
-  gap: '40px',
+  gap: {
+    mobile: '25px',
+    lgTablet: '40px',
+  },
   mb: '100px',
 };
-
-// mobile: '',
-//     tablet: '',
-//     lgTablet: '',
-//     desktop: '',

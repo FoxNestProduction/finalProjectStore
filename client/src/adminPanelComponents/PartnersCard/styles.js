@@ -2,10 +2,15 @@ export const card = {
   maxWidth: '1083px',
   maxHeight: '611px',
   width: '100%',
-  padding: '10px 24px 24px 24px',
+  padding: {
+    mobile: '0 12px 12px 12px',
+    tablet: '10px 16px 16px 16px',
+    lgTablet: '10px 24px 24px 24px',
+  },
 };
 export const cardHeader = {
   p: {
+    mobile: '12px 8px',
     tablet: '0 0 16px',
     lgTablet: '0 16px 16px 16px',
   },
@@ -14,46 +19,16 @@ export const cardHeader = {
 
 export const cardTitle = {
   fontSize: {
-    mobile: '26px',
-    tablet: '28px',
+    mobile: '18px',
+    tablet: '24px',
     lgTablet: '30px',
     desktop: '38px',
   },
   fontWeight: '500',
   fontFamily: 'fontPoppins',
-};
-
-export const disableButton = {
-  border: 'none',
-  outline: '2px solid #FB471D',
-  color: '#000000',
-  fontFamily: 'fontFamily',
-  fontSize: {
-    mobile: '18px',
-  },
-  px: {
-    tablet: '',
-    lgTablet: '1em',
-    desktop: '1.5em',
-  },
-  position: {
-    tablet: '',
-    lgTablet: 'absolute',
-    desktop: 'absolute',
-  },
-  top: '14px',
-  right: '0',
-  transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
-  '&:hover': {
-    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.3)',
-    backgroundColor: 'common.white',
-    outline: 'none',
-    border: 'none',
-  },
-  '&:active': {
-    boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.2)',
-    transform: 'translateY(1px)',
-    backgroundColor: '#EAEAEA',
+  textAlign: {
+    mobile: 'start',
+    tablet: 'center',
   },
 };
 
@@ -73,7 +48,13 @@ export const disabledCardStyles = {
 
 export const imgStyles = {
   display: 'block',
-  width: '1035px',
-  height: '495px',
+  width: {
+    mobile: '100%',
+    lgTablet: '1035px',
+  },
+  height: {
+    mobile: '100%',
+    lgTablet: '495px',
+  },
   borderRadius: '16px',
 };

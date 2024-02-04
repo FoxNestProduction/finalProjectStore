@@ -1,11 +1,10 @@
-import { Box, Card, CardHeader, Button, CardMedia, Typography } from '@mui/material';
+import { Box, Card, CardHeader, Button, CardMedia, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
   card,
   cardHeader,
   cardTitle,
-  disableButton,
   imgWrapper,
   disabledCardStyles,
   imgStyles,
@@ -14,6 +13,7 @@ import DisableBtn from '../components/DisableBtn/DisableBtn';
 import { fetchGetPartner } from '../../redux/slices/partnersSlice';
 
 const PartnersCard = ({ title, url, enabled, partner }) => {
+  const isTablet = useMediaQuery('(min-width: 689px)');
   return (
     <Box>
       <Card
@@ -34,26 +34,8 @@ const PartnersCard = ({ title, url, enabled, partner }) => {
                 event.preventDefault();
               }}
               sx={{
-                position: {
-                  mobile: '',
-                  tablet: 'relative',
-                  lgTablet: 'absolute',
-                  desktop: 'absolute',
-                },
-                top: {
-                  mobile: '',
-                  tablet: '7px',
-                  lgTablet: '3px',
-                  desktop: '8px',
-                },
-                right: {
-                  mobile: '',
-                  tablet: '7px',
-                  lgTablet: '0',
-                },
-                marginLeft: {
-                  mobile: '0',
-                  tablet: '8px',
+                m: {
+                  tablet: '4px 8px 4px 0',
                   lgTablet: '0',
                 },
               }}
@@ -61,7 +43,34 @@ const PartnersCard = ({ title, url, enabled, partner }) => {
               <DisableBtn
                 item={partner}
                 type="partner"
-                isLarge
+                isAllPartnersPage
+                customStyles={{
+                  position: {
+                    mobile: 'relative',
+                    lgTablet: 'absolute',
+                    desktop: 'absolute',
+                  },
+                  top: {
+                    mobile: '3px',
+                    tablet: '2px',
+                    lgTablet: '3px',
+                    desktop: '6px',
+                  },
+                  right: {
+                    mobile: '0',
+                  },
+                  fontSize: {
+                    mobile: '12px',
+                    tablet: '14px',
+                    lgTablet: '20px',
+                    desktop: '24px',
+                  },
+                  width: {
+                    mobile: 'auto',
+                    lgTablet: '17%',
+                    desktop: '15%',
+                  },
+                }}
               />
             </Box>
 
