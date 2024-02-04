@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
 import {
-  topBtnsWrapper, showDishesBtn, getCardStyles, showDishesBtnWrapper,
+  topBtnsWrapper, showDishesBtn, getCardStyles, showDishesBtnWrapper, disableBtn,
 } from './styles';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 import AddEditPartnerForm from '../../forms/AddEditPartnerForm/AddEditPartnerForm';
@@ -23,25 +23,25 @@ const ItemsEditor = ({ type, isNewItem, showDishes, setShowDishes }) => {
   return (
     <Card sx={getCardStyles(item)}>
       {!isNewItem && (
-        <CardActions sx={topBtnsWrapper}>
-          <DisableBtn item={item} type={type} isEditing={isEditing} isLarge />
-          <IconButton
-            sx={{
-              bgcolor: 'background.footer',
-              '&.Mui-disabled': {
-                bgcolor: 'scrollbar.track',
-              },
-              '&:hover': {
-                bgcolor: 'background.iconHover',
-              },
-            }}
-            onClick={() => { setIsEditing(true); }}
-            disabled={isEditing}
-            title="Edit partner info"
-          >
-            <EditIcon color={isEditing ? '#c8c5df' : undefined} />
-          </IconButton>
-        </CardActions>
+      <CardActions sx={topBtnsWrapper}>
+        <DisableBtn item={item} type={type} isEditing={isEditing} customStyles={disableBtn} />
+        <IconButton
+          sx={{
+            bgcolor: 'background.footer',
+            '&.Mui-disabled': {
+              bgcolor: 'scrollbar.track',
+            },
+            '&:hover': {
+              bgcolor: 'background.iconHover',
+            },
+          }}
+          onClick={() => { setIsEditing(true); }}
+          disabled={isEditing}
+          title="Edit partner info"
+        >
+          <EditIcon color={isEditing ? '#c8c5df' : undefined} />
+        </IconButton>
+      </CardActions>
       )}
       {type === 'partner' ? (
         <AddEditPartnerForm
@@ -86,7 +86,7 @@ ItemsEditor.propTypes = {
 ItemsEditor.defaultProps = {
   isNewItem: false,
   showDishes: false,
-  setShowDishes: () => { },
+  setShowDishes: () => {},
 };
 
 export default memo(ItemsEditor);

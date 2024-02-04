@@ -10,7 +10,20 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import ColorChips from '../../../components/Chip/Chip';
-import { stylesMiniTextWrapper, stylesMiniText, stylesTime, stylesImageWrapper, stylesImage, stylesFavoriteIcon, stylesTitle, stylesRatingWrapper, stylesPrice, stylesStarWrapper, stylesButton } from './styles.js';
+import {
+  stylesMiniTextWrapper,
+  stylesMiniText,
+  stylesTime,
+  stylesImageWrapper,
+  stylesImage,
+  stylesFavoriteIcon,
+  stylesTitle,
+  stylesRatingWrapper,
+  stylesPrice,
+  stylesStarWrapper,
+  stylesButton,
+  stylesDisableBtn,
+} from './styles.js';
 import { fixedEncodeURIComponent } from '../../../utils/uriEncodeHelpers';
 import FavouriteIcon from '../../../components/FavouriteIcon/FavouriteIcon';
 import useBreakpoint from '../../../customHooks/useBreakpoint';
@@ -139,7 +152,7 @@ const AdminProductCardItem = (item) => {
         <ShoppingCartCheckoutIcon />
       </CardActions> */}
 
-      <DisableBtn item={item} type="dish" />
+      <DisableBtn item={item} type="dish" customStyles={stylesDisableBtn} />
 
       {clickedAdd && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />

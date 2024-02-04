@@ -86,22 +86,22 @@ const HeaderDrawer = ({ isMobileMenuOpen, navItems,
         </List>
 
         {isUserAuthorized && !isAdmin && (
-          <>
-            <Divider />
-            <List>
-              <MenuItemWithIcon
-                navLink
-                page="Favourites"
-                icon={
-                  (
-                    <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
-                      <FavoriteBorderOutlinedIcon sx={stylesIcon} />
-                    </Badge>
-                  )
-                }
-              />
-            </List>
-          </>
+        <>
+          <Divider />
+          <List>
+            <MenuItemWithIcon
+              navLink
+              page="Favourites"
+              icon={
+                (
+                  <Badge badgeContent={favouritesAmount} color="primary" sx={stylesBadge}>
+                    <FavoriteBorderOutlinedIcon sx={stylesIcon} />
+                  </Badge>
+                )
+              }
+            />
+          </List>
+        </>
         )}
 
         <Divider />

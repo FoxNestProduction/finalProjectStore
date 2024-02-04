@@ -184,23 +184,23 @@ const Header = () => {
 
               <Box sx={stylesIconsWrapper}>
                 {!isAdmin && (
-                  <Box sx={{ minWidth: '25px' }}>
-                    <TextField
-                      sx={stylesLangSelect}
-                      id="standard-select-currency"
-                      size="small"
-                      select
-                      value={i18n.language}
-                      variant="standard"
-                      onChange={onChangeLang}
-                    >
-                      {LANGUAGES.map(({ code, label }) => (
-                        <MenuItem key={code} value={code}>
-                          {label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Box>
+                <Box sx={{ minWidth: '25px' }}>
+                  <TextField
+                    sx={stylesLangSelect}
+                    id="standard-select-currency"
+                    size="small"
+                    select
+                    value={i18n.language}
+                    variant="standard"
+                    onChange={onChangeLang}
+                  >
+                    {LANGUAGES.map(({ code, label }) => (
+                      <MenuItem key={code} value={code}>
+                        {label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Box>
                 )}
 
                 {isUserAuthorized && isLgTabletOrDesktop && !isAdmin && (
