@@ -12,7 +12,7 @@ const PartnerSchema = new Schema(
       required: true,
     },
     description: {
-      type: String,
+      type: Schema.Types.Mixed,
     },
     enabled: {
       type: Boolean,
@@ -48,9 +48,9 @@ const PartnerSchema = new Schema(
       type: String,
     },
   },
-  {strict: false}
+  { strict: false }
 );
 
-PartnerSchema.index({"$**": "text"});
+PartnerSchema.index({ "$**": "text" });
 
 module.exports = Partner = mongoose.model("partners", PartnerSchema);
