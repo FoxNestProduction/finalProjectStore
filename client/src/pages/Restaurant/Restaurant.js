@@ -84,7 +84,7 @@ const RestaurantPage = () => {
         </Container>
       ) : (topProducts.length > 0 && (
         <ListItems
-          title="Our Top Dishes"
+          title={t('restaurantPage.ourTopDishes')}
           items={topProducts}
           itemComponent={ProductCardItem}
           actions={null}
