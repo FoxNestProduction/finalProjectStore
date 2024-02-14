@@ -37,7 +37,6 @@ export const containedBtnStyles = {
   },
   '&:active': {
     boxShadow: '0px -1px 4px rgba(0, 0, 0, 0.5)',
-    // transform: 'translateY(1px)',
     backgroundColor: 'common.white',
     color: 'primary.main',
     boxSizing: 'border-box',

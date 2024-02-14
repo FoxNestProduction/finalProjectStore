@@ -5,11 +5,11 @@ const PartnerSchema = new Schema(
   {
     customId: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     description: {
       type: Schema.Types.Mixed,
@@ -17,17 +17,17 @@ const PartnerSchema = new Schema(
     enabled: {
       type: Boolean,
       required: true,
-      default: true
+      default: true,
     },
     imageUrl: {
-      type: String
+      type: String,
     },
     url: {
-      type: String
+      type: String,
     },
     date: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     },
     isBookmark: {
       type: Boolean,
@@ -45,7 +45,7 @@ const PartnerSchema = new Schema(
       type: Number,
     },
     address: {
-      type: String
+      type: String,
     },
   },
   { strict: false }

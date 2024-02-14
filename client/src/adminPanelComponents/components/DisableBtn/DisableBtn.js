@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { activateBtn, disableBtn, btn } from './styles';
-import { fetchUpdatePartner } from '../../../redux/slices/partnersSlice';
+import { fetchUpdatePartner, fetchGetPartner } from '../../../redux/slices/partnersSlice';
 import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
 
-const DisableBtn = ({ item, type, isEditing, customStyles }) => {
+const DisableBtn = ({ item, type, isEditing, customStyles, isAllPartnersPage }) => {
   const dispatch = useDispatch();
 
   const handleDisable = async () => {
     if (type === 'partner') {
+      if (isAllPartnersPage) {
+        await dispatch(fetchGetPartner(item.customId));
+      }
       dispatch(fetchUpdatePartner({ customId: item.customId, body: { enabled: !item.enabled } }));
     } else {
       dispatch(fetchUpdateProduct({ itemId: item._id, body: { enabled: !item.enabled } }));
@@ -40,12 +43,14 @@ DisableBtn.propTypes = {
   item: PropTypes.object,
   isEditing: PropTypes.bool,
   customStyles: PropTypes.object,
+  isAllPartnersPage: PropTypes.bool,
 };
 
 DisableBtn.defaultProps = {
   item: null,
   isEditing: false,
   customStyles: {},
+  isAllPartnersPage: false,
 };
 
 export default memo(DisableBtn);

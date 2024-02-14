@@ -135,7 +135,7 @@ Search.propTypes = {
 };
 
 Search.defaultProps = {
-  resetFiltersLocalState: () => {},
+  resetFiltersLocalState: () => { },
 };
 
 export default memo(Search);

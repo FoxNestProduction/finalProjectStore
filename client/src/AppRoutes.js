@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
-import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import PublicLayout from './components/Layout/PublicLayout';
 import ContactPage from './pages/Contact/Contact';
 import HomePage from './pages/Home/Home';
@@ -23,6 +23,7 @@ import AddEditDishPage from './adminPanelComponents/pages/AddEditDishPage/AddEdi
 import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
 import AddPartnerPage from './adminPanelComponents/pages/AddPartnerPage/AddPartnerPage';
 import AdminRoute from './adminPanelComponents/components/AdminRoute';
+import AllPartnersPage from './adminPanelComponents/pages/Partners/PartnersPage';
 
 const AppRoutes = () => {
   const { i18n, t } = useTranslation();
@@ -48,7 +49,7 @@ const AppRoutes = () => {
         {/* Routes for admin panel */}
 
         {/* all partners page */}
-        <Route path="/admin-panel/partners" element={<AdminRoute element={<Box />} />} />
+        <Route path="/admin-panel/partners" element={<AdminRoute element={<AllPartnersPage />} />} />
 
         {/* add new partner */}
         <Route path="/admin-panel/partners/new-partner" element={<AdminRoute element={<AddPartnerPage />} />} />

@@ -145,11 +145,11 @@ HeaderDrawer.propTypes = {
 
 HeaderDrawer.defaultProps = {
   isMobileMenuOpen: false,
-  handleCloseDrawer: () => {},
-  handleOpenModalLogin: () => {},
+  handleCloseDrawer: () => { },
+  handleOpenModalLogin: () => { },
   navItems: [],
-  handleLogOut: () => {},
-  setNavigateTo: () => {},
+  handleLogOut: () => { },
+  setNavigateTo: () => { },
 };
 
 export default memo(HeaderDrawer);

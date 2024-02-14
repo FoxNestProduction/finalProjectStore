@@ -55,8 +55,12 @@ const RestaurantPage = () => {
             <Skeleton skeletonType="restaurantsPage" />
           </>
         ) : (
-          partners && partners.map(({ rating, name, imageUrl, description, customId }) => (
-            <Link key={name} to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}>
+          partners
+          && partners.map(({ rating, name, imageUrl, description, customId }) => (
+            <Link
+              key={name}
+              to={`/restaurants/${fixedEncodeURIComponent(name)}/${customId}`}
+            >
               <RestaurantCard
                 rating={rating}
                 name={name}
@@ -65,7 +69,8 @@ const RestaurantPage = () => {
                 styleWidth={styleRestaurant}
               />
             </Link>
-          )))}
+          ))
+        )}
       </Container>
       {loadingProducts ? (
         <Container sx={{ mb: 13 }}>
@@ -84,7 +89,7 @@ const RestaurantPage = () => {
           itemComponent={ProductCardItem}
           actions={null}
         />
-      )) }
+      ))}
       <QuestionsList />
     </>
   );
