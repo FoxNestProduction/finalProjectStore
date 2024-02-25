@@ -111,12 +111,6 @@ export const input = {
   fontWeight: 'fontWeightMedium',
 };
 
-export const checkbox = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  width: '100%',
-};
-
 export const btnsWrapper = {
   mt: {
     mobile: '20px',
@@ -132,4 +126,21 @@ export const btn = {
   p: '10px 16px',
   width: '100%',
   maxWidth: '190px',
+};
+
+export const badge = {
+  width: '100%',
+  pr: '10px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  '& .MuiFormControlLabel-label.Mui-disabled': {
+    color: 'rgba(43, 43, 43, 1);',
+  },
+  '& .Mui-disabled': {
+    color: 'rgba(0, 0, 0, 0.4);',
+  },
+  '& .MuiTypography-root': {
+    fontSize: '18px',
+    fontWeight: 'fontWeightMedium',
+  },
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -15,6 +15,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RadioButtonUncheckedOutlinedIcon from '@mui/icons-material/RadioButtonUncheckedOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import { Field, Form, Formik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 import useGetAPI from '../../../customHooks/useGetAPI';
 
 import SelectForFormik from '../../../components/inputs/Select/Select';
@@ -40,30 +41,36 @@ import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttons
 import Skeleton from '../../Skeleton/Skeleton';
 import EditIcon from '../../../assets/svgComponents/EditIcon';
 
-import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
+import { fetchAddNewProduct, fetchUpdateProduct } from '../../../redux/slices/productsSlice';
+import { fetchGetPartner } from '../../../redux/slices/partnersSlice';
 
 const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
   const [restaurant, setRestaurant] = useState('');
   const [foodCategory, setFoodCategory] = useState('');
-  const [checkedList, setCheckedList] = useState({
-    isTrending: false,
-    isHealthy: false,
-    isSupreme: false,
-  });
   const [imageUrl, setImageUrl] = useState('');
 
-  const cloudName = process.env.REACT_APP_CLOUD_NAME;
-  const uploadPreset = process.env.REACT_APP_UPLOAD_PRESSET;
-  const uwConfig = {
-    cloudName,
-    uploadPreset,
+  const isLoadingProduct = useSelector((state) => state.products.loading);
+  const currentPartner = useSelector((state) => state.partners.currentEditingPartner);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { customId } = useParams();
+
+  const [partners] = useGetAPI('/partners/names');
+  const [categories] = useGetAPI('/products/categories');
+
+  const description = useMemo(() => (dish?.description || { uk: '', pl: '', en: '' }), [dish]);
+
+  const cloudConfig = {
+    cloudName: process.env.REACT_APP_CLOUD_NAME,
+    uploadPreset: process.env.REACT_APP_UPLOAD_PRESSET,
     folder: `EatlyProject/products/${restaurant}`,
   };
 
   const handleOpenWidget = () => {
     // eslint-disable-next-line no-undef
     const myWidget = cloudinary.createUploadWidget(
-      uwConfig,
+      cloudConfig,
       (error, result) => {
         if (!error && result && result.event === 'success') {
           setImageUrl(result.info.secure_url);
@@ -73,24 +80,16 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
     myWidget.open();
   };
 
-  const [partners] = useGetAPI('/partners/names');
-  const [categories] = useGetAPI('/products/categories');
-
-  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(fetchGetPartner(customId));
+  }, [dispatch, customId]);
 
   useEffect(() => {
-    if (dish) {
-      setRestaurant(dish?.restaurant_name);
-      setFoodCategory(dish?.filterCategories);
-      setCheckedList({
-        isTrending: dish?.isTrending,
-        isHealthy: dish?.isHealthy,
-        isSupreme: dish?.isSupreme,
-      });
+    if (currentPartner) {
+      setRestaurant(currentPartner.name);
+      setFoodCategory(currentPartner.filterCategories);
     }
-  }, [dish]);
-
-  const description = useMemo(() => (dish?.description || { uk: '', pl: '', en: '' }), [dish]);
+  }, [currentPartner]);
 
   const partnerValidationNames = useMemo(() => {
     return Object.entries(description).map(([lang]) => `${DESCRIPTION}${lang}`);
@@ -101,56 +100,49 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
   })), [description]);
 
   const initialValues = {
-    restaurant: '',
+    // restaurant_name: '',
     name: dish ? dish?.name : '',
-    category: '',
-    price: dish ? dish?.currentPrice : '',
+    // category: '',
+    currentPrice: dish ? dish?.currentPrice : '',
     ...Object.fromEntries(descriptionArr),
-    isTrending: '',
-    isHealthy: '',
-    isSupreme: '',
-  };
-
-  const handleChangeCheckbox = (element) => {
-    setCheckedList((prev) => ({
-      ...prev,
-      [element]: !prev[element],
-    }));
+    isTrending: dish?.isTrending || false,
+    isHealthy: dish?.isHealthy || false,
+    isSupreme: dish?.isSupreme || false,
   };
 
   const handleSubmit = async (values) => {
-    const {
-      descriptionEN,
-      descriptionPL,
-      descriptionUA,
-      name,
-      price,
-    } = values;
-    const { isTrending, isHealthy, isSupreme } = checkedList;
+    const descriptionInDiffLangs = {};
+    const otherValues = {};
 
-    const newProduct = {
-      restaurant_name: restaurant,
-      name,
-      description: {
-        en: descriptionEN,
-        pl: descriptionPL,
-        ua: descriptionUA,
-      },
-      currentPrice: price,
-      isSupreme,
-      isHealthy,
-      filterCategories: foodCategory,
-      imageUrl,
-      enabled: true,
-      isTrending,
-    };
-    try {
-      const data = await instance.post('/products', newProduct);
-      if (data.status === 200) {
-        navigate('/menu');
+    Object.keys(values).forEach((key) => {
+      if (key.startsWith(DESCRIPTION)) {
+        const lang = key.replace(DESCRIPTION, '').toLowerCase();
+        descriptionInDiffLangs[lang] = values[key].trim();
+      } else {
+        otherValues[key] = values[key]; // name, address, itTrending...
       }
-    } catch (error) {
-      console.log(error);
+    });
+
+    const body = {
+      description: {
+        ...descriptionInDiffLangs,
+      },
+      restaurant_name: restaurant,
+      filterCategories: foodCategory,
+      ...otherValues,
+      imageUrl: imageUrl || dish.imageUrl,
+    };
+
+    if (!dish) {
+      const data = await dispatch(fetchAddNewProduct(body)).unwrap();
+      if (data.success) {
+        // TODO: alert 'Product added'
+        navigate(`/admin-panel/partners/${customId}/dishes/${data.product.itemNo}`);
+      }
+    } else {
+      dispatch(fetchUpdateProduct({ itemId: dish._id, body }));
+      setIsEditing(false);
+      // TODO: alert 'Changes accepted'
     }
   };
 
@@ -161,24 +153,15 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
     }
   };
 
-  const cancelEditForm = () => {
-    setIsEditing(false);
-    setCheckedList({
-      isTrending: dish?.isTrending,
-      isHealthy: dish?.isHealthy,
-      isSupreme: dish?.isSupreme,
-    });
-  };
-
   return (
     <Box>
-      {!dish ? <Skeleton type="dish" /> : (
+      {isLoadingProduct ? <Skeleton type="dish" /> : (
         <Box sx={infoWrapper}>
           <Box sx={imgContainer}>
             <CardMedia
               sx={productCardImg}
               component="img"
-              src={dish?.imageUrl || `${process.env.PUBLIC_URL}/img/admin/addImgPlug.png`}
+              src={dish?.imageUrl || imageUrl || `${process.env.PUBLIC_URL}/img/admin/addImgPlug.png`}
               alt={dish?.name || 'add new image'}
             />
             <Button sx={imgEditBtn} onClick={handleOpenWidget}>
@@ -191,20 +174,20 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
               onSubmit={handleSubmit}
               validationSchema={validationSchema(partnerValidationNames)}
             >
-              {({ values, isValid }) => (
+              {({ isValid, resetForm, initialValues: defaultValues }) => (
                 <Form>
                   <Box sx={inputsWrapper}>
                     <FormControl sx={{ width: '100%' }}>
                       <InputLabel id="restaurant">Name restaurant</InputLabel>
                       {partners && (
                         <Field
-                          name="restaurant"
+                          name="restaurant_name"
                           label="Restaurant"
                           component={SelectForFormik}
-                          labelId="restaurant"
-                          id="restaurant"
+                          labelId="restaurant_name"
+                          id="restaurant_name"
                           bgColor="#FFF"
-                          value={dish ? dish?.restaurant_name : restaurant}
+                          value={restaurant}
                           onChange={(event) => {
                             const selectedRestaurant = event.target.value;
                             setRestaurant(selectedRestaurant);
@@ -223,7 +206,6 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
                       bgColor={isEditing ? 'common.white' : undefined}
                       styles={input}
                       readOnly={!isEditing}
-                      value={values.name}
                       onClick={handleDoubleClick}
                     />
                     <FormControl fullWidth>
@@ -236,7 +218,7 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
                           labelId="category"
                           id="category"
                           bgColor="#FFF"
-                          value={dish ? dish?.filterCategories : foodCategory}
+                          value={foodCategory}
                           onChange={(event) => {
                             const selectedCategory = event.target.value;
                             setFoodCategory(selectedCategory);
@@ -249,8 +231,8 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
                       )}
                     </FormControl>
                     <Input
-                      name="price"
-                      id="price"
+                      name="currentPrice"
+                      id="currentPrice"
                       label="Price"
                       bgColor={isEditing ? 'common.white' : undefined}
                       styles={input}
@@ -335,9 +317,13 @@ const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
                           variant="outlined"
                           sx={{ ...btn, ...outlinedBtnStyles }}
                           disableRipple
-                          onClick={cancelEditForm}
+                          onClick={() => {
+                            resetForm({ values: defaultValues });
+                            setImageUrl(dish?.imageUrl || '');
+                            if (dish) setIsEditing(false);
+                          }}
                         >
-                          Cancel
+                          {dish ? 'Cancel' : 'Clear'}
                         </Button>
                         <Button
                           type="submit"

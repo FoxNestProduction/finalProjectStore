@@ -41,7 +41,7 @@ export const skeletonInput = {
   borderRadius: '16px',
   backgroundColor: '#DADADA',
 
-  '&:nth-last-child(-n+3)': {
+  '&:nth-last-of-type(-n+3)': {
     height: '168px',
   },
 };

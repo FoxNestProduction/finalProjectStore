@@ -6,7 +6,7 @@ import {
   mainContainer,
   mainTitle,
 } from '../commonStyles';
-import ItemsEditor from '../../ItemsEditor/ItemsEditor';
+import ItemsEditor from '../../components/ItemsEditor/ItemsEditor';
 import { fetchGetOneProduct } from '../../../redux/slices/productsSlice';
 
 const AddEditDishPage = () => {
@@ -24,7 +24,7 @@ const AddEditDishPage = () => {
   return (
     <Container sx={mainContainer}>
       <Typography variant="h2" component="h1" sx={mainTitle}>
-        {itemNo ? oneProduct && oneProduct.name : 'Add new dish'}
+        {!oneProduct ? 'Add new dish' : oneProduct?.name}
       </Typography>
       <ItemsEditor type="dish" isNewItem={!itemNo && true} />
     </Container>

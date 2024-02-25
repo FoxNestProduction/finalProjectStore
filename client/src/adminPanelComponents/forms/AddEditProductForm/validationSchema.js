@@ -8,14 +8,8 @@ const validationSchema = (validationNames) => {
   return object({
     name: string()
       .required('Enter product name'),
-    price: number()
+    currentPrice: number()
       .required('Enter product price'),
-    descriptionEN: string()
-      .required('Please describe dish'),
-    descriptionUA: string()
-      .required('Please describe dish'),
-    descriptionPL: string()
-      .required('Please describe dish'),
     ...descriptionValidationSchema,
   });
 };

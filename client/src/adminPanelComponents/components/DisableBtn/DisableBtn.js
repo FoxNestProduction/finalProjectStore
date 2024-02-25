@@ -40,7 +40,7 @@ const DisableBtn = ({ item, type, isEditing, isLarge }) => {
         ...(isLarge ? largeBtn : smallBtn),
       }}
     >
-      {item.enabled ? 'Disable' : 'Activate'}
+      {item?.enabled ? 'Disable' : 'Activate'}
     </Button>
   );
 };

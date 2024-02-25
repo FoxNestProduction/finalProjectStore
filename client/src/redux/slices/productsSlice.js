@@ -54,10 +54,26 @@ export const fetchGetOneProduct = createAsyncThunk(
 // ----- requests for Admin -----
 
 export const fetchUpdateProduct = createAsyncThunk(
-  'partners/fetchUpdateProduct',
+  'products/fetchUpdateProduct',
   async ({ itemId, body }, { rejectWithValue }) => {
+    console.log(body);
     try {
       const { data } = await instance.put(`/products/${itemId}`, body);
+      console.log(data);
+      return data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const fetchAddNewProduct = createAsyncThunk(
+  'products/fetchAddNewProduct',
+  async (body, { rejectWithValue }) => {
+    console.log(body);
+    try {
+      const { data } = await instance.post('/products', body);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -115,7 +131,14 @@ const productsSlice = createSlice({
       .addCase(fetchUpdateProduct.fulfilled, (state, action) => {
         state.oneProduct = { ...state.oneProduct, ...action.payload };
         state.loading = false;
-      });
+      })
+      .addCase(fetchUpdateProduct.rejected, setError)
+
+      .addCase(fetchAddNewProduct.pending, setLoading)
+      .addCase(fetchAddNewProduct.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(fetchAddNewProduct.rejected, setError);
   },
 });
 

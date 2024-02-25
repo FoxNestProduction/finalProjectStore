@@ -13,7 +13,6 @@ import {
   errorMessage,
 } from '../commonStyles';
 import ItemsEditor from '../../components/ItemsEditor/ItemsEditor';
-import useGetAPI from '../../../customHooks/useGetAPI';
 import { addProductBtn } from './styles';
 import { deletePartnerError, fetchGetPartner } from '../../../redux/slices/partnersSlice';
 import { gridStylesContainer } from '../../../components/ListItems/styles';
