@@ -6,7 +6,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { stylesSortSelect } from '../ListItems/styles';
 import { setFilterParams } from '../../redux/slices/filterSlice';
 
-const Sorter = ({ type }) => {
+const Sorter = ({ type, admin }) => {
   const dispatch = useDispatch();
   const { i18n, t } = useTranslation();
 
@@ -18,7 +18,10 @@ const Sorter = ({ type }) => {
       case '-currentPrice': return 'Price DOWN';
       case '+rating': return 'Rating UP';
       case '-rating': return 'Rating DOWN';
-      default: return 'Default';
+      case 'all': return 'All';
+      case 'active': return 'Active';
+      case 'disabled': return 'Disabled';
+      default: return admin ? 'All' : 'Default';
     }
   };
 
@@ -30,7 +33,7 @@ const Sorter = ({ type }) => {
         value: 'Rating UP',
         label: {
           en: 'Rating UP',
-          ua: 'Рейтингом, від найменшого',
+          uk: 'Рейтингом, від найменшого',
           pl: 'Rating UP',
         },
       },
@@ -38,7 +41,7 @@ const Sorter = ({ type }) => {
         value: 'Rating DOWN',
         label: {
           en: 'Rating DOWN',
-          ua: 'Рейтингом, від найвищого',
+          uk: 'Рейтингом, від найвищого',
           pl: 'Rating DOWN',
         },
       },
@@ -46,7 +49,7 @@ const Sorter = ({ type }) => {
         value: 'Default',
         label: {
           en: 'Default',
-          ua: 'Замовчуванням',
+          uk: 'Замовчуванням',
           pl: 'Default',
         },
       },
@@ -57,7 +60,7 @@ const Sorter = ({ type }) => {
         value: 'Price UP',
         label: {
           en: 'Price UP',
-          ua: 'Ціною, від найнижчої',
+          uk: 'Ціною, від найнижчої',
           pl: 'Price UP',
         },
       },
@@ -65,7 +68,7 @@ const Sorter = ({ type }) => {
         value: 'Price DOWN',
         label: {
           en: 'Price DOWN',
-          ua: 'Ціною, від найвищої',
+          uk: 'Ціною, від найвищої',
           pl: 'Price DOWN',
         },
       },
@@ -73,7 +76,7 @@ const Sorter = ({ type }) => {
         value: 'Rating UP',
         label: {
           en: 'Rating UP',
-          ua: 'Рейтингом, від найнижчого',
+          uk: 'Рейтингом, від найнижчого',
           pl: 'Rating UP',
         },
       },
@@ -81,7 +84,7 @@ const Sorter = ({ type }) => {
         value: 'Rating DOWN',
         label: {
           en: 'Rating DOWN',
-          ua: 'Рейтингом, від найвищого',
+          uk: 'Рейтингом, від найвищого',
           pl: 'Rating DOWN',
         },
       },
@@ -89,12 +92,42 @@ const Sorter = ({ type }) => {
         value: 'Default',
         label: {
           en: 'Default',
-          ua: 'Замовчуванням',
+          uk: 'Замовчуванням',
           pl: 'Default',
         },
       },
     ];
   }
+
+  if (admin) {
+    currencies = [
+      {
+        value: 'All',
+        label: {
+          en: 'All',
+          uk: 'Всі',
+          pl: 'All',
+        },
+      },
+      {
+        value: 'Active',
+        label: {
+          en: 'Active',
+          uk: 'Активні',
+          pl: 'Active',
+        },
+      },
+      {
+        value: 'Disabled',
+        label: {
+          en: 'Disabled',
+          uk: 'Деактивовані',
+          pl: 'Disabled',
+        },
+      },
+    ];
+  }
+
   const handleSelectChangeSortBy = (event) => {
     switch (event.target.value) {
       case 'Price UP':
@@ -113,13 +146,27 @@ const Sorter = ({ type }) => {
         dispatch(setFilterParams({ sort: '-rating' }));
         break;
 
+      case 'All':
+        dispatch(setFilterParams({ sort: 'all' }));
+        break;
+
+      case 'Active':
+        dispatch(setFilterParams({ sort: 'active' }));
+        break;
+
+      case 'Disabled':
+        dispatch(setFilterParams({ sort: 'disabled' }));
+        break;
+
       default:
         dispatch(setFilterParams({ sort: '' }));
     }
 
-    dispatch(setFilterParams({
-      startPage: 1,
-    }));
+    dispatch(
+      setFilterParams({
+        startPage: 1,
+      }),
+    );
   };
 
   return (
@@ -129,7 +176,8 @@ const Sorter = ({ type }) => {
         id="standard-select-currency"
         size="small"
         select
-        label={t('sorter.label')}
+        label={!admin ? t('sorter.label') : t('sorter.labelAdmin')}
+        // label={t('sorter.label')}
         defaultValue=""
         variant="standard"
         value={setSelectedValue(filterParams.sort)}
@@ -147,10 +195,12 @@ const Sorter = ({ type }) => {
 
 Sorter.propTypes = {
   type: PropTypes.string,
+  admin: PropTypes.bool,
 };
 
 Sorter.defaultProps = {
   type: '',
+  admin: false,
 };
 
 export default memo(Sorter);

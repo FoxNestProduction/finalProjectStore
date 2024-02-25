@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { instance } from '../../API/instance';
 import { setLoading, setError } from '../extraReducersHelpers';
+import { fetchGetPartner, fetchUpdatePartner } from './partnersSlice';
 
 export const fetchTopProducts = createAsyncThunk(
   'products/fetchTopProducts',
@@ -38,11 +39,41 @@ export const fetchAllProductsNames = createAsyncThunk(
   },
 );
 
-export const getOneProduct = createAsyncThunk(
-  'products/getOneProduct',
+export const fetchGetOneProduct = createAsyncThunk(
+  'products/fetchGetOneProduct',
   async (itemNo, { rejectWithValue }) => {
     try {
       const { data } = await instance.get(`/products/${itemNo}`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+// ----- requests for Admin -----
+
+export const fetchUpdateProduct = createAsyncThunk(
+  'products/fetchUpdateProduct',
+  async ({ itemId, body }, { rejectWithValue }) => {
+    console.log(body);
+    try {
+      const { data } = await instance.put(`/products/${itemId}`, body);
+      console.log(data);
+      return data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const fetchAddNewProduct = createAsyncThunk(
+  'products/fetchAddNewProduct',
+  async (body, { rejectWithValue }) => {
+    console.log(body);
+    try {
+      const { data } = await instance.post('/products', body);
       return data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -54,15 +85,21 @@ const initialState = {
   products: [],
   productsQuantity: null,
   topProducts: [],
-  oneProduct: {},
+  oneProduct: null,
   allProductsNames: [],
   loading: false,
   error: null,
+  editProduct: {},
 };
 
 const productsSlice = createSlice({
   name: 'products',
   initialState,
+  redusers: {
+    setEditProduct(state, action) {
+      state.editProduct = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTopProducts.pending, setLoading)
@@ -71,19 +108,40 @@ const productsSlice = createSlice({
         state.topProducts = action.payload;
       })
       .addCase(fetchTopProducts.rejected, setError)
-      .addCase(getOneProduct.fulfilled, (state, action) => {
+
+      .addCase(fetchGetOneProduct.pending, setLoading)
+      .addCase(fetchGetOneProduct.fulfilled, (state, action) => {
         state.oneProduct = action.payload;
+        state.loading = false;
       })
+
       .addCase(fetchSortedProducts.pending, setLoading)
       .addCase(fetchSortedProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload.products;
         state.productsQuantity = action.payload.productsQuantity;
       })
+
       .addCase(fetchAllProductsNames.fulfilled, (state, action) => {
         state.allProductsNames = action.payload;
-      });
+      })
+
+      // ---- Admin ---
+      .addCase(fetchUpdateProduct.pending, setLoading)
+      .addCase(fetchUpdateProduct.fulfilled, (state, action) => {
+        state.oneProduct = { ...state.oneProduct, ...action.payload };
+        state.loading = false;
+      })
+      .addCase(fetchUpdateProduct.rejected, setError)
+
+      .addCase(fetchAddNewProduct.pending, setLoading)
+      .addCase(fetchAddNewProduct.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(fetchAddNewProduct.rejected, setError);
   },
 });
+
+export const { setEditProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

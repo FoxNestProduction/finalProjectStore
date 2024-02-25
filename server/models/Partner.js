@@ -11,9 +11,9 @@ const PartnerSchema = new Schema(
       type: String,
       required: true
     },
-    // description: {
-    //   type: String
-    // },
+    description: {
+      type: Schema.Types.Mixed,
+    },
     enabled: {
       type: Boolean,
       required: true,

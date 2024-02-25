@@ -27,7 +27,6 @@ export const stylesNavMenu = {
 
 export const stylesNavMenuItem = {
   color: 'text.header',
-  minWidth: '0',
   fontSize: {
     lgTablet: '13px',
     desktop: '24px',

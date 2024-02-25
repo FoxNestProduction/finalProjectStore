@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { Box } from '@mui/material';
 import PublicLayout from './components/Layout/PublicLayout';
 import ContactPage from './pages/Contact/Contact';
 import HomePage from './pages/Home/Home';
@@ -18,6 +19,10 @@ import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmation';
 import PaymentForm from './components/forms/PaymentForm/PaymentForm';
 import ChangePasswordForm from './components/forms/ChangePasswordForm/ChangePasswordForm';
 import NotFound from './pages/NotFound/NotFound';
+import AddEditDishPage from './adminPanelComponents/pages/AddEditDishPage/AddEditDishPage';
+import EditPartnerPage from './adminPanelComponents/pages/EditPartnerPage/EditPartnerPage';
+import AddPartnerPage from './adminPanelComponents/pages/AddEditPartnerPage/AddPartnerPage';
+import AdminRoute from './adminPanelComponents/components/AdminRoute';
 
 const AppRoutes = () => {
   const { i18n, t } = useTranslation();
@@ -39,6 +44,24 @@ const AppRoutes = () => {
         <Route path="/menu/:productName/:itemNo" element={<ProductPage />} />
         <Route path="/restaurants/:partnersName/:customId" element={<PartnersPage />} />
         <Route path="/recovery-password/:userId/:token" element={<ChangePasswordForm />} />
+
+        {/* Routes for admin panel */}
+
+        {/* all partners page */}
+        <Route path="/admin-panel/partners" element={<AdminRoute element={<Box />} />} />
+
+        {/* add new partner */}
+        <Route path="/admin-panel/partners/new-partner" element={<AdminRoute element={<AddPartnerPage />} />} />
+
+        {/* edit partner /admin-panel/partners/17001 */}
+        <Route path="/admin-panel/partners/:customId" element={<AdminRoute element={<EditPartnerPage />} />} />
+
+        {/* edit dish /admin-panel/partners/17001/dishes/10001 */}
+        <Route path="/admin-panel/partners/:customId/dishes/:itemNo" element={<AdminRoute element={<AddEditDishPage />} />} />
+
+        {/* add new dish */}
+        <Route path="/admin-panel/partners/:customId/dishes/new-dish" element={<AdminRoute element={<AddEditDishPage />} />} />
+
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

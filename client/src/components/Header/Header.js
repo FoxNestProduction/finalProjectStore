@@ -38,7 +38,7 @@ import ElevationScroll from '../ElevationScroll/ElevationScroll';
 import { setAuthorization, setToken } from '../../redux/slices/authorizationSlice';
 import { setUser } from '../../redux/slices/userSlice';
 import { removeDataFromSessionStorage } from '../../utils/sessionStorageHelpers';
-import { CHECKOUT_SS_KEY, LANGUAGES } from '../../constants/constants';
+import { ADMIN_PAGES, CHECKOUT_SS_KEY, LANGUAGES, PAGES } from '../../constants/constants';
 import { resetCardStates } from '../../redux/slices/favouriteSlice';
 import { resetCart, setIsCart } from '../../redux/slices/cartSlice';
 import MiniCart from '../MiniCart/MiniCart';
@@ -56,6 +56,7 @@ const Header = () => {
   };
 
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
+  const { isAdmin } = useSelector((state) => state.user.user);
   const favourite = useSelector((state) => state.favourites.cardStates, shallowEqual);
   const isRegistered = useSelector((state) => state.user.isRegistrationSuccessful);
   const { alert, handleShowAlert, handleCloseAlert } = useAlert();
@@ -117,16 +118,18 @@ const Header = () => {
   }, [dispatch, handleCloseAlert, handleShowAlert]);
 
   const setNavigateTo = useCallback((page) => {
-    if (page === 'Menu') {
-      if (location.pathname === '/menu' && location.search) {
-        return `/menu${location.search}`;
-      }
-      return '/menu';
-    }
-    return `/${page.toLowerCase()}`;
-  }, [location.pathname, location.search]);
+    const specialCases = {
+      [PAGES.MENU]: `/menu${location.search}`,
+    };
+    return specialCases[page] || `/${page.toLowerCase()}`;
+  }, [location.search]);
 
-  const navItems = useMemo(() => ['menu', 'restaurants', 'reviews', 'contact'], []);
+  const setNavigateToAdmin = useCallback((page) => {
+    return `admin-panel/${page.toLowerCase()}`;
+  }, []);
+
+  const navItems = useMemo(() => [PAGES.MENU, PAGES.RESTAURANTS, PAGES.REVIEWS, PAGES.CONTACT], []);
+  const navItemsAdmin = useMemo(() => [ADMIN_PAGES.PARTNERS, ADMIN_PAGES.BANNER], []);
 
   return (
     <>
@@ -144,12 +147,24 @@ const Header = () => {
         >
           <Container>
             <Toolbar component="nav" disableGutters sx={stylesNav}>
-              <Link component={NavLink} to="/" underline="none">
+              <Link component={NavLink} to={isAdmin ? 'admin-panel/partners' : '/'} underline="none">
                 <Logo />
               </Link>
 
               <List sx={stylesNavMenu}>
-                {navItems.map((page) => (
+                {isUserAuthorized && isAdmin ? (
+                  navItemsAdmin.map((page) => (
+                    <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
+                      <Button
+                        component={NavLink}
+                        to={setNavigateToAdmin(page)}
+                        sx={{ ...stylesNavMenuItem, mr: '30px' }}
+                      >
+                        {page}
+                      </Button>
+                    </ListItem>
+                  ))
+                ) : (navItems.map((page) => (
                   <ListItem key={page} disablePadding sx={{ width: 'fit-content' }}>
                     <Button
                       component={NavLink}
@@ -159,7 +174,7 @@ const Header = () => {
                       {t(`${page}`)}
                     </Button>
                   </ListItem>
-                ))}
+                )))}
               </List>
 
               <Box sx={stylesIconsWrapper}>

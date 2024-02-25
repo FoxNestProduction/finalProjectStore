@@ -26,9 +26,47 @@ export const fetchAllPartnersNames = createAsyncThunk(
   },
 );
 
+// ----- requests for Admin -----
+export const fetchGetPartner = createAsyncThunk(
+  'partners/fetchGetPartner',
+  async (customId, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.get(`/partners/${customId}`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const fetchUpdatePartner = createAsyncThunk(
+  'partners/fetchUpdatePartner',
+  async ({ customId, body }, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.put(`/partners/${customId}`, body);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const fetchAddNewPartner = createAsyncThunk(
+  'partners/fetchAddNewPartner',
+  async (body, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.post('/partners', body);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 const initialState = {
   topPartners: [],
   allPartnersNames: [],
+  currentEditingPartner: null,
   loading: false,
   error: null,
 };
@@ -36,6 +74,11 @@ const initialState = {
 const partnersSlice = createSlice({
   name: 'partners',
   initialState,
+  reducers: {
+    deletePartnerError(state) {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTopPartners.pending, setLoading)
@@ -46,8 +89,31 @@ const partnersSlice = createSlice({
       .addCase(fetchTopPartners.rejected, setError)
       .addCase(fetchAllPartnersNames.fulfilled, (state, action) => {
         state.allPartnersNames = action.payload;
-      });
+      })
+
+      // ---- Admin ---
+      .addCase(fetchGetPartner.pending, setLoading)
+      .addCase(fetchGetPartner.fulfilled, (state, action) => {
+        state.currentEditingPartner = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchGetPartner.rejected, setError)
+
+      .addCase(fetchUpdatePartner.pending, setLoading)
+      .addCase(fetchUpdatePartner.fulfilled, (state, action) => {
+        state.currentEditingPartner = { ...state.currentEditingPartner, ...action.payload };
+        state.loading = false;
+      })
+      .addCase(fetchUpdatePartner.rejected, setError)
+
+      .addCase(fetchAddNewPartner.pending, setLoading)
+      .addCase(fetchAddNewPartner.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(fetchAddNewPartner.rejected, setError);
   },
 });
+
+export const { deletePartnerError } = partnersSlice.actions;
 
 export default partnersSlice.reducer;

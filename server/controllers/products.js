@@ -20,40 +20,31 @@ exports.addImages = (req, res, next) => {
   }
 };
 
-exports.addProduct = (req, res, next) => {
+exports.addProduct = async (req, res, next) => {
   const productFields = _.cloneDeep(req.body);
 
-  productFields.itemNo = rand();
-
   try {
-    productFields.name = productFields.name
-      .toLowerCase()
-      .trim()
-      .replace(/\s\s+/g, " ");
-
-    // const imageUrls = req.body.previewImages.map(img => {
-    //   return `/img/products/${productFields.itemNo}/${img.name}`;
-    // });
-
-    // productFields.imageUrls = _.cloneDeep(imageUrls);
+    // Отримання останнього itemNo
+    const lastProduct = await Product.findOne({}, {}, { sort: { 'itemNo': -1 } });
+  
+    // Отримання нового itemNo
+    const newItemNo = lastProduct ? +lastProduct.itemNo + 1 : 10001
+  
+    // Створення нового продукту
+    const newProduct = new Product(queryCreator({
+      ...productFields,
+      itemNo: newItemNo,
+      enabled: false,
+      rating: 0,
+      isFavourite: false,
+    }));
+    await newProduct.save();
+    res.status(200).json({success: true, product: newProduct})
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `
     });
   }
-
-  const updatedProduct = queryCreator(productFields);
-
-  const newProduct = new Product(updatedProduct);
-
-  newProduct
-    .save()
-    .then(product => res.json(product))
-    .catch(err =>
-      res.status(400).json({
-        message: `Error happened on server: "${err}" `
-      })
-    );
 };
 
 exports.updateProduct = (req, res, next) => {
@@ -66,15 +57,16 @@ exports.updateProduct = (req, res, next) => {
       } else {
         const productFields = _.cloneDeep(req.body);
 
-        try {
-          productFields.name = productFields.name
-            .toLowerCase()
-            .trim()
-            .replace(/\s\s+/g, " ");
-        } catch (err) {
-          res.status(400).json({
-            message: `Error happened on server: "${err}" `
-          });
+        if(productFields.name) {
+          try {
+            productFields.name = productFields.name
+              .trim()
+              .replace(/\s\s+/g, " ");
+          } catch (err) {
+            res.status(400).json({
+              message: `Error happened on server: "${err}" `
+            });
+          }
         }
 
         const updatedProduct = queryCreator(productFields);
@@ -84,7 +76,7 @@ exports.updateProduct = (req, res, next) => {
           { $set: updatedProduct },
           { new: true }
         )
-          .then(product => res.json(product))
+          .then(product => res.json({status: 'ok', data: product}))
           .catch(err =>
             res.status(400).json({
               message: `Error happened on server: "${err}" `
@@ -123,6 +115,19 @@ exports.getProductsNames = async (req, res) => {
     const products = await Product.find();
     const productsNames = products.map(product => product.name);
     res.json(productsNames);
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
+    });
+  }
+};
+
+exports.getProductsCategories = async (req, res) => {
+  try {
+    const products = await Product.find();
+    const productsCategories = products.map(product => product.filterCategories);
+    const uniqueProductsCategories = Array.from(new Set(productsCategories));
+    res.json(uniqueProductsCategories);
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `

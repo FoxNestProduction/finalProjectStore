@@ -10,7 +10,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
 
-const Input = ({ type, label, icon, id, error, bgColor, styles, ...props }) => {
+const Input = ({ type, label, icon, id, error, bgColor, styles, multiline, maxRows, ...props }) => {
   const [field, meta] = useField(props.name);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,12 +29,35 @@ const Input = ({ type, label, icon, id, error, bgColor, styles, ...props }) => {
         {label}
       </InputLabel>
       <OutlinedInput
+        multiline={multiline}
+        maxRows={maxRows}
         sx={{
-          ...styles,
           bgcolor: `${bgColor}`,
+          cursor: `${props.readOnly ? 'default' : 'initial'}`,
           '&:hover:not(.Mui-error):not(.Mui-focused):not(.Mui-disabled) > .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#664FFF',
+            borderColor: `${props.readOnly ? 'primary.main' : 'primary.hover'}`,
           },
+          '&.Mui-focused > .MuiOutlinedInput-notchedOutline': {
+            borderWidth: `${props.readOnly ? '1px' : '2px'}`,
+          },
+          '& textarea::-webkit-scrollbar': {
+            width: '8px',
+          },
+          '& textarea::-webkit-scrollbar-track': {
+            backgroundColor: 'scrollbar.track',
+            borderRadius: '12px',
+          },
+          '& textarea::-webkit-scrollbar-thumb': {
+            backgroundColor: 'scrollbar.thumb',
+            borderRadius: '12px',
+          },
+          '& input': {
+            cursor: `${props.readOnly ? 'default' : 'initial'}`,
+          },
+          '& textarea': {
+            cursor: `${props.readOnly ? 'default' : 'initial'}`,
+          },
+          ...styles,
         }}
         id={id}
         aria-describedby="helper-text"
@@ -85,6 +108,9 @@ Input.propTypes = {
   id: PropTypes.string.isRequired,
   bgColor: PropTypes.string,
   styles: PropTypes.object,
+  multiline: PropTypes.bool,
+  maxRows: PropTypes.number,
+  readOnly: PropTypes.bool,
 };
 
 Input.defaultProps = {
@@ -94,6 +120,9 @@ Input.defaultProps = {
   label: '',
   bgColor: '#F9F9F9',
   styles: {},
+  multiline: false,
+  maxRows: 5,
+  readOnly: false,
 };
 
 export default memo(Input);
