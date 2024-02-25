@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import './App.scss';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import AppRoutes from './AppRoutes';
 import Modal from './components/Modal/Modal';
 import ScrollTop from './components/ScrollTop/ScrollTop';
@@ -19,6 +19,7 @@ const App = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const breakpoint = useBreakpoint();
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.user, shallowEqual);
   const isUserAuthorized = useSelector((state) => state.authorization.isUserAuthorized);
@@ -33,6 +34,12 @@ const App = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  useEffect(() => {
+    if (user.isAdmin && pathname === '/') {
+      navigate('/admin-panel/partners');
+    }
+  }, [user, pathname, navigate]);
 
   useEffect(() => {
     dispatch(fetchTopProducts(getMaxValue(topProductsQtyMap)));

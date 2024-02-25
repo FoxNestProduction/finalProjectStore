@@ -128,10 +128,12 @@ const ProductCardItem = ({
           {`$${currentPrice}`}
         </Typography>
       </Box>
+
       <CardActions onClick={handleAddToCart} sx={stylesButton}>
         {breakPoint !== 'mobile' ? (<b>ADD</b>) : null}
         <ShoppingCartCheckoutIcon />
       </CardActions>
+
       {clickedAdd && alert && (
         <CustomAlert type="success" handleCloseAlert={handleCloseAlert} content="Your dish in Cart!" />
       )}

@@ -32,6 +32,7 @@ export const infoWrapper = {
 };
 
 export const cardImgWrapper = {
+  position: 'relative',
   width: '100%',
   borderRadius: '16px',
   overflow: 'hidden',
@@ -59,6 +60,16 @@ export const dishCardImg = {
   },
   m: '0 auto',
   borderRadius: '16px',
+};
+
+export const editIconBtn = {
+  position: 'absolute',
+  top: '15px',
+  right: '15px',
+  bgcolor: 'background.footer',
+  '&:hover': {
+    bgcolor: 'background.iconHover',
+  },
 };
 
 export const formWrapper = {
@@ -105,4 +116,21 @@ export const btn = {
   p: '10px 16px',
   width: '100%',
   maxWidth: '190px',
+};
+
+export const badge = {
+  width: '100%',
+  pr: '10px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  '& .MuiFormControlLabel-label.Mui-disabled': {
+    color: 'rgba(43, 43, 43, 1);',
+  },
+  '& .Mui-disabled': {
+    color: 'rgba(0, 0, 0, 0.4);',
+  },
+  '& .MuiTypography-root': {
+    fontSize: '18px',
+    fontWeight: 'fontWeightMedium',
+  },
 };

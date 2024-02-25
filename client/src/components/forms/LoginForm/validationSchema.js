@@ -1,12 +1,12 @@
 import { object, string } from 'yup';
 
-const validationSchema = object({
+const validationSchema = (t) => object({
   email: string()
-    .required('Email is required')
-    .email('Invalid email format'),
+    .required(t('loginForm.requiredMail'))
+    .email(t('loginForm.invalidMail')),
   password: string()
-    .required('This field is required')
-    .min(8, 'Password is too short - should be 8 chars minimum'),
+    .required(t('loginForm.requiredPassword'))
+    .min(8, t('loginForm.invalidPassword')),
 });
 
 export default validationSchema;

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -15,10 +15,8 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RadioButtonUncheckedOutlinedIcon from '@mui/icons-material/RadioButtonUncheckedOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import { Field, Form, Formik } from 'formik';
-import { useDispatch } from 'react-redux';
 import useGetAPI from '../../../customHooks/useGetAPI';
 
-import { ReactComponent as Edit } from '../../../assets/svg/edit.svg';
 import SelectForFormik from '../../../components/inputs/Select/Select';
 import Input from '../../../components/inputs/Input/Input';
 import validationSchema from './validationSchema';
@@ -33,15 +31,18 @@ import {
   productCardImg,
   formWrapper,
   inputsWrapper,
-  checkbox,
+  badge,
 } from './styles';
 import { instance } from '../../../API/instance';
 import { DESCRIPTION } from '../../constants';
 
 import { containedBtnStyles, outlinedBtnStyles } from '../../../muiTheme/buttonsStyles';
 import Skeleton from '../../Skeleton/Skeleton';
+import EditIcon from '../../../assets/svgComponents/EditIcon';
 
-const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
+import { fetchUpdateProduct } from '../../../redux/slices/productsSlice';
+
+const AddEditProductForm = ({ dish, isEditing, setIsEditing }) => {
   const [restaurant, setRestaurant] = useState('');
   const [foodCategory, setFoodCategory] = useState('');
   const [checkedList, setCheckedList] = useState({
@@ -89,7 +90,7 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
     }
   }, [dish]);
 
-  const description = useMemo(() => (dish?.description || { ua: '', pl: '', en: '' }), [dish]);
+  const description = useMemo(() => (dish?.description || { uk: '', pl: '', en: '' }), [dish]);
 
   const partnerValidationNames = useMemo(() => {
     return Object.entries(description).map(([lang]) => `${DESCRIPTION}${lang}`);
@@ -153,7 +154,7 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
     }
   };
 
-  const handleInputDoubleClick = (e) => {
+  const handleDoubleClick = (e) => {
     if (e.detail === 2) {
       setIsEditing(true);
       e.target.focus();
@@ -177,11 +178,11 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
             <CardMedia
               sx={productCardImg}
               component="img"
-              src={isNewItem ? `${process.env.PUBLIC_URL}/img/admin/addImgPlug.png` : dish?.imageUrl}
-              alt={isNewItem ? 'add new image' : dish?.name}
+              src={dish?.imageUrl || `${process.env.PUBLIC_URL}/img/admin/addImgPlug.png`}
+              alt={dish?.name || 'add new image'}
             />
             <Button sx={imgEditBtn} onClick={handleOpenWidget}>
-              <Edit />
+              <EditIcon />
             </Button>
           </Box>
           <Box sx={formWrapper}>
@@ -223,7 +224,7 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
                       styles={input}
                       readOnly={!isEditing}
                       value={values.name}
-                      onClick={handleInputDoubleClick}
+                      onClick={handleDoubleClick}
                     />
                     <FormControl fullWidth>
                       <InputLabel id="checkout-city-label">Category</InputLabel>
@@ -254,7 +255,7 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
                       bgColor={isEditing ? 'common.white' : undefined}
                       styles={input}
                       readOnly={!isEditing}
-                      onClick={handleInputDoubleClick}
+                      onClick={handleDoubleClick}
                       icon={<AttachMoneyIcon />}
                     />
                     {Object.keys(description).map((lang) => (
@@ -265,60 +266,68 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
                         label={`Description (${lang.toUpperCase()})`}
                         bgColor={isEditing ? 'common.white' : undefined}
                         styles={input}
-                        onClick={handleInputDoubleClick}
+                        onClick={handleDoubleClick}
                         multiline
                         maxRows={8}
                         readOnly={!isEditing}
                       />
                     ))}
-                    <FormControlLabel
-                      control={(
-                        <Checkbox
-                          disableRipple
-                          disabled={!isEditing}
-                          icon={<RadioButtonUncheckedOutlinedIcon />}
-                          checkedIcon={<CheckCircleOutlineOutlinedIcon />}
-                          onClick={() => handleChangeCheckbox('isTrending')}
-                          defaultChecked={dish && dish?.isTrending}
+                    <Field type="checkbox" name="isTrending">
+                      {({ field }) => (
+                        <FormControlLabel
+                          control={(
+                            <Checkbox
+                              {...field}
+                              icon={<RadioButtonUncheckedOutlinedIcon />}
+                              checkedIcon={<CheckCircleOutlineOutlinedIcon />}
+                              disabled={!isEditing}
+                            />
+                              )}
+                          label="Trending"
+                          labelPlacement="start"
+                          sx={badge}
+                          onClick={handleDoubleClick}
                         />
                       )}
-                      name="isTrending"
-                      label="Trending"
-                      labelPlacement="start"
-                      sx={checkbox}
-                    />
-                    <FormControlLabel
-                      control={(
-                        <Checkbox
-                          disableRipple
-                          disabled={!isEditing}
-                          icon={<RadioButtonUncheckedOutlinedIcon />}
-                          checkedIcon={<CheckCircleOutlineOutlinedIcon />}
-                          onClick={() => handleChangeCheckbox('isHealthy')}
-                          defaultChecked={dish && dish?.isHealthy}
+                    </Field>
+
+                    <Field type="checkbox" name="isHealthy">
+                      {({ field }) => (
+                        <FormControlLabel
+                          control={(
+                            <Checkbox
+                              {...field}
+                              icon={<RadioButtonUncheckedOutlinedIcon />}
+                              checkedIcon={<CheckCircleOutlineOutlinedIcon />}
+                              disabled={!isEditing}
+                            />
+                              )}
+                          label="Healthy"
+                          labelPlacement="start"
+                          sx={badge}
+                          onClick={handleDoubleClick}
                         />
                       )}
-                      name="isHealthy"
-                      label="Healthy"
-                      labelPlacement="start"
-                      sx={checkbox}
-                    />
-                    <FormControlLabel
-                      control={(
-                        <Checkbox
-                          disableRipple
-                          disabled={!isEditing}
-                          icon={<RadioButtonUncheckedOutlinedIcon />}
-                          checkedIcon={<CheckCircleOutlineOutlinedIcon />}
-                          onClick={() => handleChangeCheckbox('isSupreme')}
-                          defaultChecked={dish && dish?.isSupreme}
+                    </Field>
+
+                    <Field type="checkbox" name="isSupreme">
+                      {({ field }) => (
+                        <FormControlLabel
+                          control={(
+                            <Checkbox
+                              {...field}
+                              icon={<RadioButtonUncheckedOutlinedIcon />}
+                              checkedIcon={<CheckCircleOutlineOutlinedIcon />}
+                              disabled={!isEditing}
+                            />
+                              )}
+                          label="Supreme"
+                          labelPlacement="start"
+                          sx={badge}
+                          onClick={handleDoubleClick}
                         />
                       )}
-                      name="isSupreme"
-                      label="Supreme"
-                      labelPlacement="start"
-                      sx={checkbox}
-                    />
+                    </Field>
                     {isEditing && (
                       <Box sx={btnsWrapper}>
                         <Button
@@ -354,14 +363,12 @@ const AddEditProductForm = ({ isNewItem, dish, isEditing, setIsEditing }) => {
 
 AddEditProductForm.propTypes = {
   dish: PropTypes.object,
-  isNewItem: PropTypes.bool,
   isEditing: PropTypes.bool,
   setIsEditing: PropTypes.func,
 };
 
 AddEditProductForm.defaultProps = {
   dish: {},
-  isNewItem: false,
   isEditing: false,
   setIsEditing: () => {},
 };

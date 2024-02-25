@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonSvg from '@mui/icons-material/Person';
+import { useTranslation } from 'react-i18next';
 import GoogleSvgComponent from '../../../assets/svgComponents/GoogleSvgComponent';
 // eslint-disable-next-line import/no-cycle
 import LoginForm from '../LoginForm/LoginForm';
@@ -47,6 +48,7 @@ export const initialValues = {
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
   const registerError = useSelector((state) => state.error.registration);
   const { handleShowAlert } = useAlert();
 
@@ -98,6 +100,7 @@ const RegisterForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
+            dispatch(setUser(res.data.user));
             authFunc(res.data);
           } else {
             const { data } = res;
@@ -129,7 +132,7 @@ const RegisterForm = () => {
         variant="h2"
         sx={mainTitle}
       >
-        Sign Up To eatly
+        {t('registrationForm.title')}
       </Typography>
       <Box
         sx={{
@@ -164,12 +167,12 @@ const RegisterForm = () => {
         variant="body1"
         sx={legend}
       >
-        OR
+        {t('registrationForm.or')}
       </Typography>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        validationSchema={validationSchema}
+        validationSchema={validationSchema(t)}
       >
         {({ isValid }) => (
           <Form>
@@ -184,16 +187,16 @@ const RegisterForm = () => {
                 type="text"
                 name="firstName"
                 id="registerFirstName"
-                label="First name"
-                placeholder="Enter your first name"
+                label={t('registrationForm.labelFirstName')}
+                placeholder={t('registrationForm.placeholderFirstName')}
                 icon={<PersonSvg />}
               />
               <Input
                 type="text"
                 name="lastName"
                 id="registerLastName"
-                label="Last name"
-                placeholder="Enter your last name"
+                label={t('registrationForm.labelLastName')}
+                placeholder={t('registrationForm.placeholderLastName')}
                 icon={<PersonSvg />}
               />
               <Input
@@ -202,7 +205,7 @@ const RegisterForm = () => {
                 name="email"
                 id="registerEmail"
                 label="E-mail"
-                placeholder="Enter your e-mail"
+                placeholder={t('registrationForm.placeholderMail')}
                 icon={<EmailIcon />}
               />
               <Input
@@ -210,8 +213,8 @@ const RegisterForm = () => {
                 type="password"
                 name="password"
                 id="registerPassword"
-                label="Password"
-                placeholder="Сome up with a password"
+                label={t('registrationForm.labelPassword')}
+                placeholder={t('registrationForm.placeholderPassword')}
                 icon={<LockIcon />}
               />
               <Button
@@ -221,14 +224,15 @@ const RegisterForm = () => {
                 type="submit"
                 disabled={!isValid}
               >
-                Sign up
+                {t('registrationForm.signUp')}
               </Button>
             </Box>
             <Typography
               sx={flexcenter}
             >
-              Already Have An Account?
-              <Button onClick={handleOpenLogInForm} sx={signInLink}> Log In</Button>
+              {t('registrationForm.haveAnAccount')}
+              ?
+              <Button onClick={handleOpenLogInForm} sx={signInLink}>{t('registrationForm.logIn')}</Button>
             </Typography>
           </Form>
         )}

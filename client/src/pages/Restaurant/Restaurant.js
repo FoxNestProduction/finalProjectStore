@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Container, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 import { fixedEncodeURIComponent } from '../../utils/uriEncodeHelpers';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import QuestionsList from '../../components/QuestionsList/QuestionsList';
@@ -15,6 +16,7 @@ import useTopProducts from '../../customHooks/useTopProducts';
 
 const RestaurantPage = () => {
   const [partners, loading] = useGetAPI('/partners');
+  const { i18n, t } = useTranslation();
 
   const topProducts = useTopProducts();
   const loadingProducts = useSelector((state) => state.products.loading);
@@ -41,7 +43,7 @@ const RestaurantPage = () => {
           color="text.primary"
           sx={{ textAlign: 'center', mb: 6 }}
         >
-          All Restaurants
+          {t('restaurantPage.title')}
         </Typography>
 
         {loading ? (
@@ -77,7 +79,7 @@ const RestaurantPage = () => {
         </Container>
       ) : (topProducts.length > 0 && (
         <ListItems
-          title="Our Top Dishes"
+          title={t('restaurantPage.ourTopDishes')}
           items={topProducts}
           itemComponent={ProductCardItem}
           actions={null}

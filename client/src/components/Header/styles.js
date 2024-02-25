@@ -27,7 +27,6 @@ export const stylesNavMenu = {
 
 export const stylesNavMenuItem = {
   color: 'text.header',
-  minWidth: '0',
   fontSize: {
     lgTablet: '13px',
     desktop: '24px',
@@ -94,5 +93,39 @@ export const stylesBadge = {
       top: '2px',
       right: '2px',
     },
+  },
+};
+
+export const stylesLangSelect = {
+  color: 'text.primary',
+  fontFamily: 'fontPoppins',
+  whiteSpace: 'nowrap',
+  fontSize: {
+    mobile: '15px',
+    tablet: '16px',
+    desktop: '20px',
+  },
+  '& .MuiInputBase-input': {
+    minWidth: '25px',
+    fontFamily: 'fontPoppins',
+    color: 'primary.main',
+    fontWeight: '600',
+    textAlign: 'left',
+    pt: '5px',
+    pl: '5px',
+    borderRadius: '10px',
+    fontSize: {
+      mobile: '14px',
+      tablet: '13px',
+      desktop: '16px',
+    },
+  },
+  '& .MuiFormHelperText-root': {
+    fontFamily: 'fontPoppins',
+    color: 'text.secondary',
+  },
+  '& .MuiFormLabel-root': {
+    fontFamily: 'fontPoppins',
+    color: 'primary.main',
   },
 };

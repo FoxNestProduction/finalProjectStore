@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import EmailIcon from '@mui/icons-material/Email';
 import { CircularProgress } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import validationSchema from './validationSchema';
 import Input from '../../inputs/Input/Input';
 import { instance } from '../../../API/instance';
@@ -15,6 +16,7 @@ import SuccessfulLetter from '../../SuccessfulLetter/SuccessfulLetter';
 
 const VerifyEmailForm = () => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const initialValues = {
     email: '',
@@ -52,18 +54,18 @@ const VerifyEmailForm = () => {
         component="h1"
         sx={mainTitle}
       >
-        Forgot Password
+        {t('verifyMail.fogot')}
       </Typography>
       <Typography
         variant="body1"
         sx={legend}
       >
-        Enter your e-mail to reset password
+        {t('verifyMail.enterMail')}
       </Typography>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        validationSchema={validationSchema}
+        validationSchema={validationSchema(t)}
       >
         {({ isValid }) => (
           <Form>
@@ -81,7 +83,7 @@ const VerifyEmailForm = () => {
                   type="email"
                   name="email"
                   id="loginEmail"
-                  placeholder="Enter your e-mail"
+                  placeholder={t('verifyMail.placeholder')}
                   label="E-mail"
                   icon={<EmailIcon />}
                 />
@@ -93,7 +95,7 @@ const VerifyEmailForm = () => {
                 disabled={!isValid || loading}
               >
                 {!loading
-                  ? 'Continue'
+                  ? t('buttonContinue')
                   : <CircularProgress color="primary" />}
               </Button>
             </Box>

@@ -20,43 +20,31 @@ exports.addImages = (req, res, next) => {
   }
 };
 
-exports.addProduct = (req, res, next) => {
+exports.addProduct = async (req, res, next) => {
   const productFields = _.cloneDeep(req.body);
 
-  const products = Product.find();
-  const productsItemNo = products.map(product => product.itemNo);
-  const lastItemNo = Math.max(...productsItemNo);
-  productFields.itemNo = lastItemNo + 1;
-
   try {
-    productFields.name = productFields.name
-      .toLowerCase()
-      .trim()
-      .replace(/\s\s+/g, " ");
-
-    // const imageUrls = req.body.previewImages.map(img => {
-    //   return `/img/products/${productFields.itemNo}/${img.name}`;
-    // });
-
-    // productFields.imageUrls = _.cloneDeep(imageUrls);
+    // Отримання останнього itemNo
+    const lastProduct = await Product.findOne({}, {}, { sort: { 'itemNo': -1 } });
+  
+    // Отримання нового itemNo
+    const newItemNo = lastProduct ? +lastProduct.itemNo + 1 : 10001
+  
+    // Створення нового продукту
+    const newProduct = new Product(queryCreator({
+      ...productFields,
+      itemNo: newItemNo,
+      enabled: false,
+      rating: 0,
+      isFavourite: false,
+    }));
+    await newProduct.save();
+    res.status(200).json({success: true, product: newProduct})
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `
     });
   }
-
-  const updatedProduct = queryCreator(productFields);
-
-  const newProduct = new Product(updatedProduct);
-
-  newProduct
-    .save()
-    .then(product => res.json(product))
-    .catch(err =>
-      res.status(400).json({
-        message: `Error happened on server: "${err}" `
-      })
-    );
 };
 
 exports.updateProduct = (req, res, next) => {
@@ -72,7 +60,6 @@ exports.updateProduct = (req, res, next) => {
         if(productFields.name) {
           try {
             productFields.name = productFields.name
-              .toLowerCase()
               .trim()
               .replace(/\s\s+/g, " ");
           } catch (err) {
@@ -89,7 +76,7 @@ exports.updateProduct = (req, res, next) => {
           { $set: updatedProduct },
           { new: true }
         )
-          .then(product => res.json(product))
+          .then(product => res.json({status: 'ok', data: product}))
           .catch(err =>
             res.status(400).json({
               message: `Error happened on server: "${err}" `
